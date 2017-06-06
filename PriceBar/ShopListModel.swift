@@ -28,6 +28,14 @@ class ShopListModel {
         }
     }
     
+    func remove(item: ShopItem) {
+        for (key, value) in shopList {
+            if let index = value.index(of: item) {
+                shopList[key]!.remove(at: index)
+            }
+        }
+    }
+    
    
     
     func getItem(index: IndexPath) -> ShopItem {
@@ -49,6 +57,8 @@ class ShopListModel {
     }
     
     
+    
+    
     func headerString(for section: Int) -> String {
         return sections[section]
     }
@@ -57,7 +67,7 @@ class ShopListModel {
 
 
 
-class ShopItem {
+class ShopItem  {
     var id = ""
     var name = ""
     var quantity = 0.0
@@ -74,6 +84,8 @@ class ShopItem {
     }
     
     
+    
+    
     var uom: String {
         
         return "шт."
@@ -82,10 +94,18 @@ class ShopItem {
     var total: Double {
         return quantity * price
     }
-    
-    
-    
-    
-    
-    
+}
+
+
+extension ShopItem: NSCopying {
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category)
+        return copy
+    }
+}
+
+
+extension ShopItem: Equatable {}
+func ==(left: ShopItem, right: ShopItem) -> Bool {
+    return left.id == right.id
 }

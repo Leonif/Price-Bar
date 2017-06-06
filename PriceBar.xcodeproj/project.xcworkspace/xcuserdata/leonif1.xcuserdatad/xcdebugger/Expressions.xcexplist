@@ -21,5 +21,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "ShopListController.longPressGestureRecognized(gestureRecognizer : UIGestureRecognizer) -&gt; ():ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

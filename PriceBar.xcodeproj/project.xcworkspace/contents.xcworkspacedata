@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Price Bar.xcodeproj">
+      location = "self:/Users/leonif1/CODDING/Price Bar/PriceBar.xcodeproj">
    </FileRef>
 </Workspace>

@@ -84,14 +84,14 @@ class ShopListController: UIViewController {
             center.y = locationInView.y
             My.cellSnapshot!.center = center
             if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
-                
-                
                 //change places
-                //swap(&shopList.getItem(index: indexPath!), &shopList.getItem(index: Path.initialIndexPath!))
-                
-                
+                let a = shopList.getItem(index: indexPath!)
+                let b = shopList.getItem(index: Path.initialIndexPath!)
+                let c = b.copy() as! ShopItem
+                c.category = a.category
+                shopList.remove(item: b)
+                shopList.append(item: c)
                 shopTableView.moveRow(at: Path.initialIndexPath!, to: indexPath!)
-                
                 Path.initialIndexPath = indexPath
             }
             
@@ -179,10 +179,6 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             headeView.categoryLabel.text = shopList.headerString(for: section)
             return headeView
         }
-        
-        
-        
-        
         return UIView()
     }
     

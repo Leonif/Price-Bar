@@ -21,8 +21,103 @@ class ShopListController: UIViewController {
         
         loadData()
         
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+        shopTableView.addGestureRecognizer(longpress)
+        
+        
         
     }
+    
+    func snapshopOfCell(inputView: UIView) -> UIView {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
+        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        let cellSnapshot : UIView = UIImageView(image: image)
+        cellSnapshot.layer.masksToBounds = false
+        cellSnapshot.layer.cornerRadius = 0.0
+        cellSnapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
+        cellSnapshot.layer.shadowRadius = 5.0
+        cellSnapshot.layer.shadowOpacity = 0.4
+        return cellSnapshot
+    }
+    
+    func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+        let longPress = gestureRecognizer as! UILongPressGestureRecognizer
+        let state = longPress.state
+        let locationInView = longPress.location(in: shopTableView)
+        let indexPath = shopTableView.indexPathForRow(at: locationInView)
+        
+        struct My {
+            static var cellSnapshot : UIView? = nil
+        }
+        struct Path {
+            static var initialIndexPath : IndexPath? = nil
+        }
+        
+        switch state {
+        case UIGestureRecognizerState.began:
+            if indexPath != nil {
+                Path.initialIndexPath = indexPath
+                let cell = shopTableView.cellForRow(at: indexPath!) as UITableViewCell!
+                My.cellSnapshot = snapshopOfCell(inputView: cell!)
+                var center = cell?.center
+                My.cellSnapshot!.center = center!
+                My.cellSnapshot!.alpha = 0.0
+                shopTableView.addSubview(My.cellSnapshot!)
+                
+                UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                    center?.y = locationInView.y
+                    My.cellSnapshot!.center = center!
+                    My.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
+                    My.cellSnapshot!.alpha = 0.98
+                    cell?.alpha = 0.0
+                    
+                }, completion: { (finished) -> Void in
+                    if finished {
+                        cell?.isHidden = true
+                    }
+                })
+            }
+        case UIGestureRecognizerState.changed:
+            var center = My.cellSnapshot!.center
+            center.y = locationInView.y
+            My.cellSnapshot!.center = center
+            if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
+                
+                
+                //change places
+                //swap(&shopList.getItem(index: indexPath!), &shopList.getItem(index: Path.initialIndexPath!))
+                
+                
+                shopTableView.moveRow(at: Path.initialIndexPath!, to: indexPath!)
+                
+                Path.initialIndexPath = indexPath
+            }
+            
+        default:
+            print("No case")
+            let cell = shopTableView.cellForRow(at: Path.initialIndexPath!) as UITableViewCell!
+            cell?.isHidden = false
+            cell?.alpha = 0.0
+            UIView.animate(withDuration: 0.25, animations: { () -> Void in
+                My.cellSnapshot!.center = (cell?.center)!
+                My.cellSnapshot!.transform = CGAffineTransform.identity
+                My.cellSnapshot!.alpha = 0.0
+                cell?.alpha = 1.0
+            }, completion: { (finished) -> Void in
+                
+            if finished {
+                Path.initialIndexPath = nil
+                My.cellSnapshot!.removeFromSuperview()
+                My.cellSnapshot = nil
+            }
+        })
+        }
+    }
+    
+    
+
     @IBAction func quantityPlusPressed(_ sender: UIButton) {
         
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {

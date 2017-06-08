@@ -3,14 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "sections">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "ShopListModel.getItem(index : IndexPath) -&gt; ShopItem:ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
@@ -22,10 +14,32 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListModel.remove(item : ShopItem) -&gt; ():ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListController.longPressGestureRecognized(gestureRecognizer : UIGestureRecognizer) -&gt; ():ShopListController.swift">
          <PersistentStrings>
             <PersistentString
                value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

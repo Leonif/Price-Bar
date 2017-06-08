@@ -32,6 +32,12 @@ class ShopListModel {
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]!.remove(at: index)
+                if shopList[key]?.count == 0 {
+                    sections = sections.filter{$0 != key}
+                    shopList.removeValue(forKey: key)
+                    
+                    
+                }
             }
         }
     }
@@ -47,13 +53,9 @@ class ShopListModel {
     }
     
     var sectionCount: Int {
-        shopList.forEach{
-            $0.value.forEach{if !sections.contains($0.category) {
-                    sections.append($0.category)
-                }
-            }
-        }
-        return sections.count
+        
+        return shopList.keys.count
+        
     }
     
     

@@ -6,12 +6,34 @@
          contextName = "ShopListModel.getItem(index : IndexPath) -&gt; ShopItem:ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "index.section">
+            </PersistentString>
+            <PersistentString
                value = "shopList[sections[index.section]]![index.row]">
             </PersistentString>
             <PersistentString
                value = "sections">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.numberOfSections(in : UITableView) -&gt; Int:ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList.sectionCount">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.longPressGestureRecognized(gestureRecognizer : UIGestureRecognizer) -&gt; ():ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ShopListController.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListModel.remove(item : ShopItem) -&gt; ():ShopListModel.swift">
@@ -25,10 +47,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.longPressGestureRecognized(gestureRecognizer : UIGestureRecognizer) -&gt; ():ShopListController.swift">
+         contextName = "ShopListController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ShopListController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "shopList">
+               value = "shopList.rowsIn(section)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

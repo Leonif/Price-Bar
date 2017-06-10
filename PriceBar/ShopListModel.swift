@@ -8,6 +8,13 @@
 
 import Foundation
 
+enum SectionInfo {
+    case sectionEmpty
+    case sectionFull
+    case indexError
+}
+
+
 class ShopListModel {
     
     var shopList = [String: [ShopItem]]()
@@ -36,10 +43,10 @@ class ShopListModel {
                     sections = sections.filter{$0 != key}
                     shopList.removeValue(forKey: key)
                     
-                    
                 }
             }
-        }
+            
+        }        
     }
     
     func change(item: ShopItem) {
@@ -54,8 +61,15 @@ class ShopListModel {
     
    
     
-    func getItem(index: IndexPath) -> ShopItem {
-        return shopList[sections[index.section]]![index.row]
+    func getItem(index: IndexPath) -> ShopItem? {
+        
+        if index.section-1 <= sectionCount {
+            if let items = shopList[sections[index.section]]  {
+            
+                return items[index.row]
+            }
+        }
+        return nil
         
     }
     

@@ -19,6 +19,9 @@ class ItemCardVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        itemTitle.delegate = self
+        itemPrice.delegate = self
 
         if let item = item {
             itemTitle.text = item.name
@@ -50,3 +53,13 @@ class ItemCardVC: UIViewController {
     */
 
 }
+
+
+extension ItemCardVC: UITextFieldDelegate {
+    //hide keyboard by press ENter
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+

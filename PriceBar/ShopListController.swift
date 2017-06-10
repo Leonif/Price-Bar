@@ -43,9 +43,10 @@ class ShopListController: UIViewController {
         
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell) {
-                let shp = shopList.getItem(index: indexPath)
-                shp.quantity += 0.01
-                shopTableView.reloadData()
+                if let shp = shopList.getItem(index: indexPath) {
+                    shp.quantity += 0.01
+                    shopTableView.reloadData()
+                }
             }
         }
         totalLabel.text = "Итого: \(shopList.total.asLocaleCurrency)"
@@ -56,12 +57,13 @@ class ShopListController: UIViewController {
         
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell) {
-                let shp = shopList.getItem(index: indexPath)
-                if (shp.quantity - 0.01) >= 0 {
-                    shp.quantity -= 0.01
-                    
-                } else {
-                    shp.quantity = 0.0
+                if let shp = shopList.getItem(index: indexPath) {
+                    if shp.quantity - 0.01 >= 0 {
+                        shp.quantity -= 0.01
+                        
+                    } else {
+                        shp.quantity = 0.0
+                    }
                 }
                 shopTableView.reloadData()
             }
@@ -79,7 +81,7 @@ class ShopListController: UIViewController {
     
     @IBAction func newItemPressed(_ sender: Any) {
         
-        shopList.append(item: ShopItem(id: "0", name: "Новая единица", quantity: 0.00, price: 0.00, category: "Неопредленно"))
+        shopList.append(item: ShopItem(id: "0", name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно"))
         
         shopTableView.reloadData()
         
@@ -158,27 +160,29 @@ extension ShopListController {
                 })
             }
         case UIGestureRecognizerState.changed:
-            shopTableView.beginUpdates()
+            
             if var center = My.cellSnapshot?.center {
                 center.y = locationInView.y
                 My.cellSnapshot!.center = center
                 if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
                     //change places
-                    let a = shopList.getItem(index: indexPath!)
-                    let b = shopList.getItem(index: Path.initialIndexPath!)
-                    if let c = b.copy() as? ShopItem {
-                        
-                        c.category = a.category
-                        shopList.remove(item: b)
-                        shopList.append(item: c)
-                        
-                        shopTableView.moveRow(at: Path.initialIndexPath!, to: indexPath!)
-                        Path.initialIndexPath = indexPath
-                        
+                    if let a = shopList.getItem(index: indexPath!), let b = shopList.getItem(index: Path.initialIndexPath!) {
+                    
+                        if let c = b.copy() as? ShopItem {
+                            
+                            c.category = a.category
+                            shopList.remove(item: b)
+                            shopList.append(item: c)
+                            
+                            //  shopTableView.moveRow(at: Path.initialIndexPath!, to: indexPath!)
+                            Path.initialIndexPath = indexPath
+                            shopTableView.reloadData()
+                            
+                        }
                     }
                 }
             }
-            shopTableView.endUpdates()
+            
             
         default:
             if let pIndex = Path.initialIndexPath, let cell = shopTableView.cellForRow(at:pIndex) {
@@ -232,6 +236,15 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         return 30
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            if let item = shopList.getItem(index: indexPath) {
+                shopList.remove(item: item)
+                shopTableView.reloadData()
+            }
+        }
+    }
+    
     
     
     
@@ -256,11 +269,10 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         
         if let cell = shopTableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
             
-            let shp = shopList.getItem(index: indexPath)
-            
-            cell.configureCell(shopItem: shp)
-            
-            return cell
+            if let shp = shopList.getItem(index: indexPath) {
+                cell.configureCell(shopItem: shp)
+                return cell
+            }
             
         }
         

@@ -217,6 +217,18 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         return shopList.rowsIn(section)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: AppCons.showProductCard.rawValue, sender: shopList.getItem(index: indexPath))
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == AppCons.showProductCard.rawValue, let itemVC = segue.destination as? ItemCardVC  {
+            if let item = sender as? ShopItem {
+                itemVC.item = item
+            }
+        }
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = shopTableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {

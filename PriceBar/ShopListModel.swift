@@ -50,7 +50,7 @@ class ShopListModel {
     }
     
     func rowsIn(_ section: Int) -> Int {
-        //return shopList[sections[section]]?.count ?? 0
+        return shopList[sections[section]]?.count ?? 0
         
     }
     

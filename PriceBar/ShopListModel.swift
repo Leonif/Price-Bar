@@ -46,10 +46,12 @@ class ShopListModel {
     
     func getItem(index: IndexPath) -> ShopItem {
         return shopList[sections[index.section]]![index.row]
+        
     }
     
     func rowsIn(_ section: Int) -> Int {
-        return shopList[sections[section]]?.count ?? 0
+        //return shopList[sections[section]]?.count ?? 0
+        
     }
     
     var sectionCount: Int {

@@ -87,8 +87,8 @@
 			isa = PBXGroup;
 			children = (
 				79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */,
-				792EE7C21EE7085500470669 /* AppDelegate.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
+				792EE7C21EE7085500470669 /* AppDelegate.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

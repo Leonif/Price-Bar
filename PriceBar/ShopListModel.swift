@@ -42,6 +42,16 @@ class ShopListModel {
         }
     }
     
+    func change(item: ShopItem) {
+        for (key, value) in shopList {
+            if let index = value.index(of: item) {
+                shopList[key]?[index] = item
+                
+            }
+        }
+        
+    }
+    
    
     
     func getItem(index: IndexPath) -> ShopItem {
@@ -100,7 +110,7 @@ class ShopItem  {
     }
 }
 
-
+//copying from one object to other (by value, not reference)
 extension ShopItem: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
         let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category)

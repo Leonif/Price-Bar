@@ -8,6 +8,10 @@
 
 import UIKit
 
+
+
+
+
 class ShopListController: UIViewController {
 
     var shopList = ShopListModel()
@@ -26,9 +30,12 @@ class ShopListController: UIViewController {
         
         
         
+        
     }
     
-    
+    override func viewWillAppear(_ animated: Bool) {
+        shopTableView.reloadData()
+    }
     
     
 
@@ -77,6 +84,21 @@ class ShopListController: UIViewController {
         shopTableView.reloadData()
         
         
+    }
+    
+}
+
+
+protocol Exchange {
+    func itemChanged(item: ShopItem)
+}
+
+
+extension ShopListController: Exchange {
+    
+    func itemChanged(item: ShopItem) {
+        shopList.change(item: item)
+        totalLabel.text = "Итого: \(shopList.total.asLocaleCurrency)"
     }
     
 }
@@ -225,6 +247,7 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         if segue.identifier == AppCons.showProductCard.rawValue, let itemVC = segue.destination as? ItemCardVC  {
             if let item = sender as? ShopItem {
                 itemVC.item = item
+                itemVC.delegate = self
             }
         }
     }

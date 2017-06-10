@@ -13,19 +13,32 @@ class ItemCardVC: UIViewController {
     
     var item: ShopItem?
     
+    @IBOutlet weak var itemTitle: UITextField!
+    @IBOutlet weak var itemPrice: UITextField!
+    var delegate: Exchange!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let item = item {
+            itemTitle.text = item.name
+            itemPrice.text = String(format:"%.2f", item.price)
+        }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+   
     
+    @IBAction func backPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 
+    @IBAction func savePressed(_ sender: Any) {
+        
+        item?.name = itemTitle.text!
+        item?.price = (itemPrice.text?.double)!
+        delegate.itemChanged(item: item!)
+        self.dismiss(animated: true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

@@ -15,6 +15,9 @@ class ItemCardVC: UIViewController {
     
     @IBOutlet weak var itemTitle: UITextField!
     @IBOutlet weak var itemPrice: UITextField!
+    
+    @IBOutlet weak var categoryLabel: UILabel!
+    
     var delegate: Exchange!
 
     override func viewDidLoad() {
@@ -26,6 +29,7 @@ class ItemCardVC: UIViewController {
         if let item = item {
             itemTitle.text = item.name
             itemPrice.text = String(format:"%.2f", item.price)
+            categoryLabel.text = item.category
         }
     }
 

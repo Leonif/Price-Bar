@@ -65,7 +65,6 @@ class ShopListModel {
         
         if index.section-1 <= sectionCount {
             if let items = shopList[sections[index.section]]  {
-            
                 return items[index.row]
             }
         }

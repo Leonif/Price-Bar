@@ -72,16 +72,16 @@ class ShopListController: UIViewController {
     }
     
     func loadData() {
-        shopList.append(item: ShopItem(id: "1", name: "Помидоры", quantity: 0.650, price: 39.6, category: "Овощи, фрукты"))
-        shopList.append(item: ShopItem(id: "2", name: "Огурцы", quantity: 0.650, price: 39.6, category: "Овощи, фрукты"))
-        shopList.append(item: ShopItem(id: "3", name: "Французская булка", quantity: 0.650, price: 39.6, category: "Пекарня"))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Помидоры", quantity: 0.650, price: 39.6, category: "Овощи, фрукты"))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Огурцы", quantity: 0.650, price: 39.6, category: "Овощи, фрукты"))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Французская булка", quantity: 0.650, price: 39.6, category: "Пекарня"))
         
         totalLabel.text = "Итого: \(shopList.total.asLocaleCurrency)"
     }
     
     @IBAction func newItemPressed(_ sender: Any) {
         
-        shopList.append(item: ShopItem(id: "0", name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно"))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно"))
         
         shopTableView.reloadData()
         
@@ -239,8 +239,19 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let item = shopList.getItem(index: indexPath) {
+                shopTableView.beginUpdates()
+                
+                let indexSet = NSMutableIndexSet()
+                indexSet.add(indexPath.section - 1)
+                shopTableView.deleteRows(at: [indexPath], with: .fade)
+                //shopTableView.deleteSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)
+                
+                
+                
                 shopList.remove(item: item)
-                shopTableView.reloadData()
+                
+                shopTableView.endUpdates()
+                
             }
         }
     }

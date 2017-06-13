@@ -25,7 +25,7 @@ class ShopItemCell: UITableViewCell {
         
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
-        quantityItem.text = "\(s.quantity)"
+        quantityItem.text = String(format:"%.2f", s.quantity)
         totalItem.text = s.total.asLocaleCurrency
         
     }

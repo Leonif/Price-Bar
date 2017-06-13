@@ -16,17 +16,19 @@ class ShopItemCell: UITableViewCell {
     @IBOutlet weak var priceItem: UILabel!
     @IBOutlet weak var quantityItem: UILabel!
     @IBOutlet weak var totalItem: UILabel!
+    @IBOutlet weak var uomLabel: UILabel!
     
     @IBOutlet weak var quantitySlider: UISlider!
     
 
-    func configureCell(shopItem: ShopItem) {
+    func configureCell(item: ShopItem) {
         
-        let s = shopItem
+        let s = item
         
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
         quantityItem.text = String(format:"%.2f", s.quantity)
+        uomLabel.text = s.uom.uom
         quantitySlider.value = Float(s.quantity)
         totalItem.text = s.total.asLocaleCurrency
         

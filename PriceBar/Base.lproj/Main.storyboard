@@ -49,7 +49,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="124" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="teD-oh-0KA">
-                                <rect key="frame" x="20" y="96" width="280" height="411"/>
+                                <rect key="frame" x="20" y="96" width="280" height="408"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="110" id="IKe-bD-4P6" customClass="ShopItemCell" customModule="PriceBar" customModuleProvider="target">
@@ -114,7 +114,7 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="0.7852632705479452" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.01" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="njq-hY-qrG">
+                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.01" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="njq-hY-qrG">
                                                             <rect key="frame" x="8" y="70" width="184" height="31"/>
                                                             <color key="minimumTrackTintColor" red="0.63471137150000001" green="0.9075592884" blue="0.81687213729999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="maximumTrackTintColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -122,6 +122,13 @@
                                                                 <action selector="quantitySliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="gAK-v0-gyV"/>
                                                             </connections>
                                                         </slider>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="шт" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9dE-ta-ARZ">
+                                                            <rect key="frame" x="188" y="53" width="19" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
@@ -163,6 +170,7 @@
                                             <outlet property="quantityItem" destination="Q4Y-XT-FHi" id="17k-U9-fEa"/>
                                             <outlet property="quantitySlider" destination="njq-hY-qrG" id="dSQ-q6-Jen"/>
                                             <outlet property="totalItem" destination="DV6-ek-kbz" id="wQC-9a-2t5"/>
+                                            <outlet property="uomLabel" destination="9dE-ta-ARZ" id="40n-q1-Khr"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -172,9 +180,9 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Итого: 5000, 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUL-id-lem">
-                                <rect key="frame" x="26" y="527" width="126" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="26" y="524" width="158.5" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmx-bC-moB">
@@ -244,13 +252,13 @@
                                 <rect key="frame" x="16" y="231" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="65,90 грн" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TNC-Ik-Mx3">
                                 <rect key="frame" x="16" y="269" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kv-tB-vni">
                                 <rect key="frame" x="244" y="438" width="60" height="60"/>
@@ -303,8 +311,20 @@
                                     <action selector="categoryPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="m8c-vF-bYr"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1SJ-lB-xI9">
+                                <rect key="frame" x="24" y="307" width="272" height="30"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="8XK-p4-R1H"/>
+                                </constraints>
+                                <state key="normal" title="Единица измерения"/>
+                                <connections>
+                                    <action selector="categoryPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="juw-fT-6Io"/>
+                                    <action selector="uomPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="LSX-r4-7Ld"/>
+                                </connections>
+                            </button>
                             <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzM-G5-ETZ">
-                                <rect key="frame" x="0.0" y="214" width="320" height="216"/>
+                                <rect key="frame" x="0.0" y="352" width="320" height="216"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </pickerView>
                         </subviews>
@@ -312,31 +332,35 @@
                         <constraints>
                             <constraint firstItem="FLH-G6-BOk" firstAttribute="top" secondItem="Ypb-Do-KWG" secondAttribute="top" id="1jG-VU-Izh"/>
                             <constraint firstItem="TNC-Ik-Mx3" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="2fY-OU-x1e"/>
+                            <constraint firstItem="1SJ-lB-xI9" firstAttribute="top" secondItem="TNC-Ik-Mx3" secondAttribute="bottom" constant="8" id="3le-kn-jBf"/>
                             <constraint firstItem="Qff-2f-mBr" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" constant="17" id="8mX-vh-LYf"/>
                             <constraint firstItem="Qff-2f-mBr" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="9ZK-9V-a15"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1SJ-lB-xI9" secondAttribute="trailing" constant="8" id="ACK-Cy-2bx"/>
                             <constraint firstItem="FLH-G6-BOk" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leading" id="QMw-Cd-dp3"/>
                             <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="OHB-pK-kb0" secondAttribute="bottom" constant="70" id="Uv0-Za-3Ov"/>
                             <constraint firstItem="UzM-G5-ETZ" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leading" id="Vsz-G3-Sg7"/>
-                            <constraint firstItem="UzM-G5-ETZ" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" id="aiX-K1-iAq"/>
+                            <constraint firstItem="UzM-G5-ETZ" firstAttribute="top" secondItem="1SJ-lB-xI9" secondAttribute="bottom" constant="15" id="Zdy-Hv-MR4"/>
                             <constraint firstItem="41z-nM-1tE" firstAttribute="top" secondItem="FLH-G6-BOk" secondAttribute="bottom" constant="8" id="dNs-pI-BaZ"/>
                             <constraint firstItem="OHB-pK-kb0" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="leading" id="eM9-g4-Quk"/>
                             <constraint firstItem="4kv-tB-vni" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="trailing" constant="-60" id="fkd-qD-DzC"/>
                             <constraint firstAttribute="trailing" secondItem="FLH-G6-BOk" secondAttribute="trailing" id="j3j-dF-hIQ"/>
                             <constraint firstItem="Qff-2f-mBr" firstAttribute="trailing" secondItem="Ypb-Do-KWG" secondAttribute="trailingMargin" id="jTH-2v-bP0"/>
                             <constraint firstItem="TNC-Ik-Mx3" firstAttribute="top" secondItem="Qff-2f-mBr" secondAttribute="bottom" constant="8" id="k5D-aY-Yoj"/>
-                            <constraint firstItem="4kv-tB-vni" firstAttribute="top" secondItem="UzM-G5-ETZ" secondAttribute="bottom" constant="8" id="lgg-QD-JXM"/>
                             <constraint firstItem="TNC-Ik-Mx3" firstAttribute="trailing" secondItem="Ypb-Do-KWG" secondAttribute="trailingMargin" id="mGH-XW-HOT"/>
                             <constraint firstItem="41z-nM-1tE" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" constant="8" id="nhI-Wv-by2"/>
                             <constraint firstAttribute="trailingMargin" secondItem="41z-nM-1tE" secondAttribute="trailing" constant="8" id="o5B-vG-uzR"/>
+                            <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="UzM-G5-ETZ" secondAttribute="bottom" id="t0o-qU-1OW"/>
                             <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="4kv-tB-vni" secondAttribute="bottom" constant="70" id="tDB-zr-iYL"/>
                             <constraint firstAttribute="trailing" secondItem="UzM-G5-ETZ" secondAttribute="trailing" id="uF0-sz-bXn"/>
+                            <constraint firstItem="1SJ-lB-xI9" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" constant="8" id="uGV-Zl-tFC"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="categoryButton" destination="41z-nM-1tE" id="XTm-Fd-yYN"/>
-                        <outlet property="categoryPickerView" destination="UzM-G5-ETZ" id="jJ0-i0-IOq"/>
+                        <outlet property="commonPickerView" destination="UzM-G5-ETZ" id="Wm8-ri-7p0"/>
                         <outlet property="itemPrice" destination="TNC-Ik-Mx3" id="g7z-Sf-ZP7"/>
                         <outlet property="itemTitle" destination="Qff-2f-mBr" id="uci-AB-IRl"/>
+                        <outlet property="uomButton" destination="1SJ-lB-xI9" id="EmU-OR-Itk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lIW-7a-WeA" userLabel="First Responder" sceneMemberID="firstResponder"/>

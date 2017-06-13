@@ -3,13 +3,32 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "ShopListController.itemChanged(item : ShopItem) -&gt; ():ShopListController.swift">
+         contextName = "ShopListController.numberOfSections(in : UITableView) -&gt; Int:ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList.sectionCount">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListModel.change(item : ShopItem) -&gt; ():ShopListModel.swift">
+         contextName = "ShopListModel.remove(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
                value = "shopList">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -18,6 +37,14 @@
          <PersistentStrings>
             <PersistentString
                value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "String.double.getter:StringExtensions.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "formatter.number(from: self) as? Double">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -36,10 +63,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.numberOfSections(in : UITableView) -&gt; Int:ShopListController.swift">
+         contextName = "ShopListModel.(updateSections() -&gt; ()).(closure #1).(closure #1):ShopListModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.change(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "shopList.sectionCount">
+               value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.itemChanged(item : ShopItem) -&gt; ():ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemCardVC.viewDidLoad() -&gt; ():ItemCardVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList.rowsIn(section)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -52,40 +99,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ShopListController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListModel.remove(item : ShopItem) -&gt; ():ShopListModel.swift">
+         contextName = "ItemCardVC.savePressed(Any) -&gt; ():ItemCardVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "shopList">
+               value = "itemPrice.text.double">
             </PersistentString>
             <PersistentString
-               value = "sections">
+               value = "Double(itemPrice.text!)!">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.tableView(UITableView, numberOfRowsInSection : Int) -&gt; Int:ShopListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "shopList.rowsIn(section)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ItemCardVC.viewDidLoad() -&gt; ():ItemCardVC.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

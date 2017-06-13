@@ -16,6 +16,7 @@ class ShopListController: UIViewController {
 
     var shopList = ShopListModel()
     
+    @IBOutlet weak var sliderView: UISlider!
     
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
@@ -24,12 +25,12 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadData()
+        //loadData()
         
         //let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
         //shopTableView.addGestureRecognizer(longpress)
         
-        
+        totalLabel.update(value: shopList.total)
         
         
     }
@@ -44,7 +45,13 @@ class ShopListController: UIViewController {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell) {
                 if let shp = shopList.getItem(index: indexPath) {
-                    shp.quantity = Double(sender.value)
+                    
+                    
+                    
+                    shp.quantity = step(baseValue: Double(sender.value), step: shp.uom.incremenet)
+                    
+                    
+                    
                     shopTableView.reloadData()
                     
                 }
@@ -54,17 +61,28 @@ class ShopListController: UIViewController {
     }
     
     
+    func step(baseValue: Double, step: Double) -> Double {
+        
+        
+        
+        let result = baseValue/step * step
+        
+        return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
+        
+    }
+    
+    
     func loadData() {
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Помидоры", quantity: 0.650, price: 39.6, category: "Овощи, фрукты"))
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Огурцы", quantity: 0.650, price: 39.6, category: "Овощи, фрукты"))
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Французская булка", quantity: 0.650, price: 39.6, category: "Пекарня"))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Помидоры", quantity: 0.650, price: 39.6, category: "Овощи, фрукты", uom: UomType(uom: "шт", incremenet: 1)))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Огурцы", quantity: 0.650, price: 39.6, category: "Овощи, фрукты", uom:UomType(uom: "шт", incremenet: 1)))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Французская булка", quantity: 0.650, price: 39.6, category: "Пекарня", uom: UomType(uom: "шт", incremenet: 1)))
         
         totalLabel.text = "Итого: \(shopList.total.asLocaleCurrency)"
     }
     
     @IBAction func newItemPressed(_ sender: Any) {
         
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно"))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType(uom: "шт", incremenet: 1)))
         
         shopTableView.reloadData()
         
@@ -262,7 +280,7 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         if let cell = shopTableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
             
             if let shp = shopList.getItem(index: indexPath) {
-                cell.configureCell(shopItem: shp)
+                cell.configureCell(item: shp)
                 return cell
             }
             

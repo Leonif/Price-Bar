@@ -14,6 +14,42 @@ enum SectionInfo {
     case indexError
 }
 
+struct UomType {
+    var uom = ""
+    var incremenet = 0.0
+}
+
+
+enum uomType: String {
+    case pieces = "шт"
+    case packs = "уп"
+    case kg = "кг"
+    case gramm = "гр"
+    case littr = "л"
+    
+    var increment: (Double) {
+        
+        switch self {
+        case .gramm:
+            return 0.01
+        case .kg:
+            return 0.1
+        case .littr:
+            return 0.1
+        case .packs:
+            return 1
+        case .pieces:
+            return 1
+        }
+        
+    }
+        
+}
+
+
+
+
+
 
 class ShopListModel {
     
@@ -119,23 +155,23 @@ class ShopItem  {
     var quantity = 0.0
     var price = 0.0
     var category = ""
+    var uom: UomType
     
     
-    init(id: String, name: String, quantity: Double, price: Double, category: String) {
+    
+    
+    
+    
+    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: UomType) {
         self.id = id
         self.name = name
         self.quantity = quantity
         self.price = price
         self.category = category
-    }
-    
-    
-    
-    
-    var uom: String {
+        self.uom = uom
         
-        return "шт."
     }
+    
     
     var total: Double {
         return quantity * price
@@ -145,7 +181,7 @@ class ShopItem  {
 //copying from one object to other (by value, not reference)
 extension ShopItem: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category)
+        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category, uom:uom)
         return copy
     }
 }

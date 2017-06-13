@@ -28,6 +28,16 @@ public extension Double {
 		formatter.locale = Locale.current
 		return formatter.string(from: self as NSNumber)!
 	}
+    
+    public var asDecimal: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.locale = Locale.current
+        return formatter.string(from: self as NSNumber)!
+    }
+
+    
+    
 	
 	/// SwifterSwift: Ceil of double value.
 	public var ceil: Double {

@@ -239,18 +239,19 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let item = shopList.getItem(index: indexPath) {
-                shopTableView.beginUpdates()
+                //shopTableView.beginUpdates()
                 
-                let indexSet = NSMutableIndexSet()
-                indexSet.add(indexPath.section - 1)
-                shopTableView.deleteRows(at: [indexPath], with: .fade)
+                //let indexSet = NSMutableIndexSet()
+                //indexSet.add(indexPath.section - 1)
+                //shopTableView.deleteRows(at: [indexPath], with: .fade)
                 //shopTableView.deleteSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)
                 
                 
                 
                 shopList.remove(item: item)
                 
-                shopTableView.endUpdates()
+                //shopTableView.endUpdates()
+                shopTableView.reloadData()
                 
             }
         }

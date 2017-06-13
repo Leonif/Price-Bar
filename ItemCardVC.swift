@@ -11,12 +11,16 @@ import UIKit
 class ItemCardVC: UIViewController {
     
     
+    var category = ["Овощи и фрукты", "Пекарня"]
+    
+    @IBOutlet weak var categoryPickerView: UIPickerView!
     var item: ShopItem?
     
     @IBOutlet weak var itemTitle: UITextField!
     @IBOutlet weak var itemPrice: UITextField!
     
-    @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var categoryButton: UIButton!
+    
     
     var delegate: Exchange!
 
@@ -25,15 +29,23 @@ class ItemCardVC: UIViewController {
         
         itemTitle.delegate = self
         itemPrice.delegate = self
+        categoryPickerView.delegate = self
+        categoryPickerView.dataSource = self
 
         if let item = item {
             itemTitle.text = item.name
             itemPrice.text = String(format:"%.2f", item.price)
-            categoryLabel.text = item.category
+            categoryButton.setTitle(item.category, for: .normal)
         }
     }
 
    
+    @IBAction func categoryPressed(_ sender: Any) {
+        
+        categoryPickerView.isHidden = false
+        
+        
+    }
     
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -46,17 +58,34 @@ class ItemCardVC: UIViewController {
         delegate.itemChanged(item: item!)
         self.dismiss(animated: true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 }
+
+
+extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return category.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return category[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        categoryButton.setTitle(category[row], for: .normal)
+        categoryPickerView.isHidden = true
+        item?.category = category[row]
+    }
+    
+    
+}
+
 
 
 extension ItemCardVC: UITextFieldDelegate {

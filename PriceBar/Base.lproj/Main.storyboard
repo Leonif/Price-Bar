@@ -114,7 +114,7 @@
                                                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="0.7852632705479452" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.01" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="njq-hY-qrG">
+                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.01" minValue="0.0" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="njq-hY-qrG">
                                                             <rect key="frame" x="8" y="70" width="184" height="31"/>
                                                             <color key="minimumTrackTintColor" red="0.63471137150000001" green="0.9075592884" blue="0.81687213729999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="maximumTrackTintColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -161,6 +161,7 @@
                                             <outlet property="nameItem" destination="LDd-r2-V6T" id="2MB-KB-bvH"/>
                                             <outlet property="priceItem" destination="Ufx-5z-nAd" id="4Yu-vA-6II"/>
                                             <outlet property="quantityItem" destination="Q4Y-XT-FHi" id="17k-U9-fEa"/>
+                                            <outlet property="quantitySlider" destination="njq-hY-qrG" id="dSQ-q6-Jen"/>
                                             <outlet property="totalItem" destination="DV6-ek-kbz" id="wQC-9a-2t5"/>
                                         </connections>
                                     </tableViewCell>
@@ -240,13 +241,13 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Помидоры" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-2f-mBr">
-                                <rect key="frame" x="16" y="184" width="288" height="30"/>
+                                <rect key="frame" x="16" y="231" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="65,90 грн" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TNC-Ik-Mx3">
-                                <rect key="frame" x="16" y="222" width="288" height="30"/>
+                                <rect key="frame" x="16" y="269" width="288" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -291,42 +292,56 @@
                                     <action selector="newItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="e5R-LO-r77"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Фрукты и овощи" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XNd-rl-lAi">
-                                <rect key="frame" x="16" y="260" width="288" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="1" alpha="0.7852632705" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41z-nM-1tE">
+                                <rect key="frame" x="24" y="184" width="272" height="30"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="12P-66-nbg"/>
+                                </constraints>
+                                <state key="normal" title="Овощи и фрукты"/>
+                                <connections>
+                                    <action selector="categoryPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="m8c-vF-bYr"/>
+                                </connections>
+                            </button>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzM-G5-ETZ">
+                                <rect key="frame" x="0.0" y="214" width="320" height="216"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="FLH-G6-BOk" firstAttribute="top" secondItem="Ypb-Do-KWG" secondAttribute="top" id="1jG-VU-Izh"/>
                             <constraint firstItem="TNC-Ik-Mx3" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="2fY-OU-x1e"/>
-                            <constraint firstItem="Qff-2f-mBr" firstAttribute="top" secondItem="FLH-G6-BOk" secondAttribute="bottom" constant="8" id="9Kt-RS-riZ"/>
+                            <constraint firstItem="Qff-2f-mBr" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" constant="17" id="8mX-vh-LYf"/>
                             <constraint firstItem="Qff-2f-mBr" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="9ZK-9V-a15"/>
                             <constraint firstItem="FLH-G6-BOk" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leading" id="QMw-Cd-dp3"/>
                             <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="OHB-pK-kb0" secondAttribute="bottom" constant="70" id="Uv0-Za-3Ov"/>
-                            <constraint firstItem="XNd-rl-lAi" firstAttribute="top" secondItem="TNC-Ik-Mx3" secondAttribute="bottom" constant="8" id="dg8-wb-vNn"/>
+                            <constraint firstItem="UzM-G5-ETZ" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leading" id="Vsz-G3-Sg7"/>
+                            <constraint firstItem="UzM-G5-ETZ" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" id="aiX-K1-iAq"/>
+                            <constraint firstItem="41z-nM-1tE" firstAttribute="top" secondItem="FLH-G6-BOk" secondAttribute="bottom" constant="8" id="dNs-pI-BaZ"/>
                             <constraint firstItem="OHB-pK-kb0" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="leading" id="eM9-g4-Quk"/>
                             <constraint firstItem="4kv-tB-vni" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="trailing" constant="-60" id="fkd-qD-DzC"/>
                             <constraint firstAttribute="trailing" secondItem="FLH-G6-BOk" secondAttribute="trailing" id="j3j-dF-hIQ"/>
                             <constraint firstItem="Qff-2f-mBr" firstAttribute="trailing" secondItem="Ypb-Do-KWG" secondAttribute="trailingMargin" id="jTH-2v-bP0"/>
                             <constraint firstItem="TNC-Ik-Mx3" firstAttribute="top" secondItem="Qff-2f-mBr" secondAttribute="bottom" constant="8" id="k5D-aY-Yoj"/>
+                            <constraint firstItem="4kv-tB-vni" firstAttribute="top" secondItem="UzM-G5-ETZ" secondAttribute="bottom" constant="8" id="lgg-QD-JXM"/>
                             <constraint firstItem="TNC-Ik-Mx3" firstAttribute="trailing" secondItem="Ypb-Do-KWG" secondAttribute="trailingMargin" id="mGH-XW-HOT"/>
-                            <constraint firstItem="XNd-rl-lAi" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="rVH-Mj-Ctv"/>
-                            <constraint firstItem="XNd-rl-lAi" firstAttribute="trailing" secondItem="Ypb-Do-KWG" secondAttribute="trailingMargin" id="rpx-Ex-w5V"/>
+                            <constraint firstItem="41z-nM-1tE" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" constant="8" id="nhI-Wv-by2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="41z-nM-1tE" secondAttribute="trailing" constant="8" id="o5B-vG-uzR"/>
                             <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="4kv-tB-vni" secondAttribute="bottom" constant="70" id="tDB-zr-iYL"/>
+                            <constraint firstAttribute="trailing" secondItem="UzM-G5-ETZ" secondAttribute="trailing" id="uF0-sz-bXn"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="categoryLabel" destination="XNd-rl-lAi" id="Afj-5h-s4a"/>
+                        <outlet property="categoryButton" destination="41z-nM-1tE" id="XTm-Fd-yYN"/>
+                        <outlet property="categoryPickerView" destination="UzM-G5-ETZ" id="jJ0-i0-IOq"/>
                         <outlet property="itemPrice" destination="TNC-Ik-Mx3" id="g7z-Sf-ZP7"/>
                         <outlet property="itemTitle" destination="Qff-2f-mBr" id="uci-AB-IRl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lIW-7a-WeA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="691" y="144"/>
+            <point key="canvasLocation" x="903.75" y="134.1549295774648"/>
         </scene>
     </scenes>
     <resources>

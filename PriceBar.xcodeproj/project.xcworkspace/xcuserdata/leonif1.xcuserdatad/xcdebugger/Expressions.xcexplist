@@ -3,16 +3,35 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "ShopListController.itemChanged(item : ShopItem) -&gt; ():ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.change(item : ShopItem) -&gt; ():ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.rowsIn(Int) -&gt; Int:ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListModel.getItem(index : IndexPath) -&gt; ShopItem:ShopListModel.swift">
          <PersistentStrings>
+            <PersistentString
+               value = "sections">
+            </PersistentString>
             <PersistentString
                value = "index.section">
             </PersistentString>
             <PersistentString
                value = "shopList[sections[index.section]]![index.row]">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -64,6 +83,9 @@
                value = "sections">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemCardVC.viewDidLoad() -&gt; ():ItemCardVC.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

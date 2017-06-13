@@ -57,9 +57,30 @@ class ShopListModel {
             }
         }
         
+        updateSections()
+        
     }
     
-   
+    func updateSections() {
+        
+        var tempList = [String: [ShopItem]]()
+        var temSec = [String]()
+        
+        shopList.forEach {
+            
+            $0.value.forEach {
+                if temSec.contains($0.category) {
+                    tempList[$0.category]?.append($0)
+                } else {
+                    temSec.append($0.category)
+                    tempList[$0.category] = [$0]
+                }
+            }
+        }
+        shopList = tempList
+        sections = temSec
+    }
+    
     
     func getItem(index: IndexPath) -> ShopItem? {
         

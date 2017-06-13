@@ -35,30 +35,29 @@ class ShopListModel {
         }
     }
     
-    func remove(item: ShopItem) {
+    func remove(item: ShopItem) -> SectionInfo {
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]!.remove(at: index)
                 if shopList[key]?.count == 0 {
                     sections = sections.filter{$0 != key}
                     shopList.removeValue(forKey: key)
+                    return .sectionEmpty
                     
                 }
             }
             
-        }        
+        }
+        return .sectionFull
     }
     
     func change(item: ShopItem) {
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]?[index] = item
-                
             }
         }
-        
         updateSections()
-        
     }
     
     func updateSections() {
@@ -67,7 +66,6 @@ class ShopListModel {
         var temSec = [String]()
         
         shopList.forEach {
-            
             $0.value.forEach {
                 if temSec.contains($0.category) {
                     tempList[$0.category]?.append($0)

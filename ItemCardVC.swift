@@ -11,7 +11,7 @@ import UIKit
 class ItemCardVC: UIViewController {
     
     
-    var category = ["Овощи и фрукты", "Пекарня"]
+    var category = ["Овощи и фрукты", "Пекарня", ]
     
     @IBOutlet weak var categoryPickerView: UIPickerView!
     var item: ShopItem?

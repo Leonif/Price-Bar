@@ -26,8 +26,8 @@ class ShopListController: UIViewController {
         
         loadData()
         
-        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-        shopTableView.addGestureRecognizer(longpress)
+        //let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+        //shopTableView.addGestureRecognizer(longpress)
         
         
         
@@ -223,19 +223,14 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let item = shopList.getItem(index: indexPath) {
-                //shopTableView.beginUpdates()
-                
-                //let indexSet = NSMutableIndexSet()
-                //indexSet.add(indexPath.section - 1)
-                //shopTableView.deleteRows(at: [indexPath], with: .fade)
-                //shopTableView.deleteSections(indexSet as IndexSet, with: UITableViewRowAnimation.automatic)
-                
-                
-                
-                shopList.remove(item: item)
-                
-                //shopTableView.endUpdates()
-                shopTableView.reloadData()
+                shopTableView.beginUpdates()
+                let sectionStatus = shopList.remove(item: item)
+                shopTableView.deleteRows(at: [indexPath], with: .fade)
+                if sectionStatus == .sectionEmpty  {
+                    let indexSet = IndexSet(integer: indexPath.section)
+                    shopTableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
+                }
+                shopTableView.endUpdates()
                 totalLabel.update(value: shopList.total)
                 
             }

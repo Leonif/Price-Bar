@@ -15,6 +15,7 @@ import UIKit
 class ShopListController: UIViewController {
 
     var shopList = ShopListModel()
+    var outlets: OutetListModel?
     
     @IBOutlet weak var sliderView: UISlider!
     
@@ -70,6 +71,8 @@ class ShopListController: UIViewController {
         return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
         
     }
+    @IBAction func outletPressed(_ sender: Any) {
+    }
     
     
     func loadData() {
@@ -107,6 +110,14 @@ extension ShopListController: Exchange {
     
 }
 
+//MARK: JSON FOURSQARE
+extension ShopListController {
+    
+    
+    
+    
+    
+}
 
 //MARK: Drag cells into other category and between each others
 extension ShopListController {

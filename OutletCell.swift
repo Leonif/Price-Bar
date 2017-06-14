@@ -10,16 +10,16 @@ import UIKit
 
 class OutletCell: UITableViewCell {
 
-    @IBOutlet weak var name: UILabel
+    @IBOutlet weak var name: UILabel!
     @IBOutlet weak var address: UILabel!
-    @IBOutlet weak var distance: UILabel!
+    
 
 
     func configureCell(outlet: Outlet) {
         
-        name = outlet.name
-        address = outlet.address
-        distance = "\(outlet.distance)"
+        name.text = outlet.name
+        address.text = outlet.address + "(\(outlet.distance))"
+        
         
         
         

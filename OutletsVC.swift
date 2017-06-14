@@ -11,16 +11,75 @@ import UIKit
 class OutletsVC: UIViewController {
     
     
-    var outlets = OutetListModel()
+    var outlets = [Outlet]()
+    var delegate: Exchange!
+    @IBOutlet weak var outletTableView: UITableView!
     
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        loadOultets {
+            self.outletTableView.reloadData()
+        }
+        
     }
 
+    
+}
+
+
+extension  OutletsVC {
+    
+    
+    
+    func loadOultets(completed: @escaping ()->()) {
+        
+        let baseUrl = "https://api.foursquare.com/v2/venues/"
+        let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
+        let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
+        let category = "4bf58dd8d48988d1f9941735" //Food & Drink Shop
+        let location = (50.412822, 30.635047)
+        
+        let requestURL = baseUrl + "search?categoryId=\(category)&ll=\(location.0),\(location.1)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=20170614"
+        
+        let url = URL(string: requestURL)
+        URLSession.shared.dataTask(with:url!) { (data, response, error) in
+            if error != nil {
+                print(error ?? "")
+            } else {
+                do {
+                    if let parsedData = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]  {
+                        if let resp = parsedData["response"] as? [String: Any]  {
+                            if let venues = resp["venues"] as? [[String:Any]] {
+                                for v in venues {
+                                    if let id = v["id"] as? String, let name = v["name"] as? String, let loc = v["location"] as? [String:Any]  {
+                                        if let add = loc["address"] as? String, let dist = loc["distance"] as? Double {
+                                            
+                                            print(id, name, add, dist)
+                                            self.outlets.append(Outlet(id, name, add, dist))
+                                        }
+                                    }
+                                }
+                                
+                            }
+                        }
+                    }
+                    completed()
+                    
+                } catch let error as NSError {
+                        print(error)
+                    }
+                
+            }
+            
+        }.resume()
+
+    }
+    
+    
+    
     
 }
 
@@ -41,24 +100,25 @@ extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //performSegue(withIdentifier: AppCons.showProductCard.rawValue, sender: shopList.getItem(index: indexPath))
+        delegate.itemChanged(object: outlets[indexPath.row])
+        self.dismiss(animated: true, completion: nil)
     }
     
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "OutletCell", for: indexPath) as? OutletCell {
+        if let cell = outletTableView.dequeueReusableCell(withIdentifier: "OutletCell", for: indexPath) as? OutletCell {
             
-            if let outlet = outlets.getOutlet(index: indexPath) {
+            let outlet = outlets[indexPath.row]
                 cell.configureCell(outlet: outlet)
                 return cell
-            }
+            
             
         }
         
         
         
         return UITableViewCell()
-}
+    }
 }

@@ -230,6 +230,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="outletAddressLabel" destination="2so-a8-Tea" id="VsB-MC-aBU"/>
+                        <outlet property="outletNameLabel" destination="TrE-p6-aoa" id="Lkt-wU-GiN"/>
                         <outlet property="shopTableView" destination="teD-oh-0KA" id="hPS-xE-dqQ"/>
                         <outlet property="totalLabel" destination="yUL-id-lem" id="N2I-gC-suB"/>
                         <segue destination="eEM-bT-isb" kind="show" identifier="showProductCard" id="w04-7f-6LX"/>
@@ -256,15 +258,56 @@
                                 <rect key="frame" x="0.0" y="69" width="320" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="outletCell" rowHeight="97" id="C1n-Cc-YSc">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutletCell" rowHeight="97" id="C1n-Cc-YSc" customClass="OutletCell" customModule="PriceBar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="320" height="97"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C1n-Cc-YSc" id="VTH-L0-GpY">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="96.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MqT-xg-GdS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="96.5"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сильпо" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="REG-oP-2yq">
+                                                            <rect key="frame" x="8" y="38" width="304" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Здолбуновская 13Г" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpe-nA-Urd">
+                                                            <rect key="frame" x="8" y="67" width="304" height="21"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.93590015479999999" green="0.89439511230000002" blue="0.55457293669999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="REG-oP-2yq" firstAttribute="leading" secondItem="MqT-xg-GdS" secondAttribute="leading" constant="8" id="DUL-6U-9GI"/>
+                                                        <constraint firstAttribute="trailing" secondItem="REG-oP-2yq" secondAttribute="trailing" constant="8" id="Sgi-Mt-j83"/>
+                                                        <constraint firstItem="REG-oP-2yq" firstAttribute="centerY" secondItem="MqT-xg-GdS" secondAttribute="centerY" id="cUq-F6-4V2"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="MqT-xg-GdS" firstAttribute="top" secondItem="VTH-L0-GpY" secondAttribute="top" id="9uu-Bu-L4M"/>
+                                                <constraint firstAttribute="bottom" secondItem="MqT-xg-GdS" secondAttribute="bottom" id="Pot-zC-UCI"/>
+                                                <constraint firstAttribute="trailing" secondItem="MqT-xg-GdS" secondAttribute="trailing" id="ajr-H5-rGR"/>
+                                                <constraint firstItem="MqT-xg-GdS" firstAttribute="leading" secondItem="VTH-L0-GpY" secondAttribute="leading" id="fnF-be-TUW"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="address" destination="Fpe-nA-Urd" id="ClQ-eb-nAe"/>
+                                            <outlet property="name" destination="REG-oP-2yq" id="CZ1-1F-5jB"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="CgW-nK-NrY" id="nzW-3j-pMe"/>
+                                    <outlet property="delegate" destination="CgW-nK-NrY" id="o3x-Gd-jD2"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -275,6 +318,9 @@
                             <constraint firstItem="wnc-Qk-gxs" firstAttribute="top" secondItem="cFc-RZ-F8V" secondAttribute="bottom" constant="49" id="iVV-jN-ZmI"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="outletTableView" destination="wnc-Qk-gxs" id="g9S-5e-gY5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fu7-6x-4Ut" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

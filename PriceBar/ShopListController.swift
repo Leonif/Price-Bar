@@ -17,6 +17,8 @@ class ShopListController: UIViewController {
     var shopList = ShopListModel()
     var outlets: OutetListModel?
     
+    @IBOutlet weak var outletNameLabel: UILabel!
+    @IBOutlet weak var outletAddressLabel: UILabel!
     @IBOutlet weak var sliderView: UISlider!
     
     @IBOutlet weak var shopTableView: UITableView!
@@ -71,8 +73,7 @@ class ShopListController: UIViewController {
         return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
         
     }
-    @IBAction func outletPressed(_ sender: Any) {
-    }
+    
     
     
     func loadData() {
@@ -96,24 +97,34 @@ class ShopListController: UIViewController {
 
 
 protocol Exchange {
-    func itemChanged(item: ShopItem)
+    func itemChanged(object: Any)
 }
 
 
 extension ShopListController: Exchange {
     
-    func itemChanged(item: ShopItem) {
-        shopList.change(item: item)
+    func itemChanged(object: Any) {
+        
+        if let item = object as? ShopItem  {
+            shopList.change(item: item)
+        }
+        
+        if let outlet = object as? Outlet {
+            outletNameLabel.text = outlet.name
+            outletAddressLabel.text = outlet.address
+        }
         
         totalLabel.update(value: shopList.total)
     }
     
 }
 
-//MARK: JSON FOURSQARE
+//MARK: Outlets
 extension ShopListController {
     
-    
+    @IBAction func outletPressed(_ sender: Any) {
+        performSegue(withIdentifier: AppCons.showOutlets.rawValue, sender: nil)
+    }
     
     
     
@@ -284,6 +295,11 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
                 itemVC.delegate = self
             }
         }
+        if segue.identifier == AppCons.showOutlets.rawValue, let outletVC = segue.destination as? OutletsVC  {
+            outletVC.delegate = self
+            
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

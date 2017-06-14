@@ -22,6 +22,8 @@
 		792EE7C71EE7087200470669 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
 		7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */; };
 		7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletModel.swift */; };
+		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
+		7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
 		79C17A4C1EEBD692003A8D6B /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4B1EEBD692003A8D6B /* Enums.swift */; };
 		79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */; };
 /* End PBXBuildFile section */
@@ -43,6 +45,8 @@
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
 		7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectExtensions.swift; sourceTree = SOURCE_ROOT; };
 		7973DD861EF1AC7F0010A64F /* OutletModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletModel.swift; sourceTree = SOURCE_ROOT; };
+		7973DD881EF1AF430010A64F /* OutletsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletsVC.swift; sourceTree = SOURCE_ROOT; };
+		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
 		79C17A4B1EEBD692003A8D6B /* Enums.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = SOURCE_ROOT; };
 		79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCardVC.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -90,6 +94,7 @@
 		792EE7951EE4936700470669 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				7973DD881EF1AF430010A64F /* OutletsVC.swift */,
 				79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
 				792EE7C21EE7085500470669 /* AppDelegate.swift */,
@@ -102,6 +107,7 @@
 			children = (
 				792EE7C61EE7087200470669 /* HeaderView.swift */,
 				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
+				7973DD8A1EF1B16C0010A64F /* OutletCell.swift */,
 				792EE7B01EE707E700470669 /* LaunchScreen.storyboard */,
 				792EE7B61EE707F000470669 /* HeaderView.xib */,
 				792EE7B21EE707E700470669 /* Main.storyboard */,
@@ -215,10 +221,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */,
+				7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */,
 				792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */,
 				792EE7B91EE7080400470669 /* ShopListModel.swift in Sources */,
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,
+				7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
 				7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */,
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,

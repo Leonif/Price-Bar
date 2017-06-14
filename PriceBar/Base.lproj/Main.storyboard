@@ -240,10 +240,10 @@
             </objects>
             <point key="canvasLocation" x="135" y="135.21126760563379"/>
         </scene>
-        <!--View Controller-->
+        <!--OutletsVC-->
         <scene sceneID="kod-XZ-SNJ">
             <objects>
-                <viewController id="CgW-nK-NrY" sceneMemberID="viewController">
+                <viewController id="CgW-nK-NrY" customClass="OutletsVC" customModule="PriceBar" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cFc-RZ-F8V"/>
                         <viewControllerLayoutGuide type="bottom" id="CQA-ar-EU4"/>
@@ -256,7 +256,7 @@
                                 <rect key="frame" x="0.0" y="69" width="320" height="499"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="97" id="C1n-Cc-YSc">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="outletCell" rowHeight="97" id="C1n-Cc-YSc">
                                         <rect key="frame" x="0.0" y="28" width="320" height="97"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C1n-Cc-YSc" id="VTH-L0-GpY">

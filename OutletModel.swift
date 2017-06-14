@@ -47,6 +47,14 @@ class OutetListModel  {
             } }.resume()
     }
     
+    func getOutlet(index: IndexPath) -> Outlet {
+        return outlets[index.row]
+    }
+    
+    var count: Int {
+        return outlets.count
+    }
+    
 }
 
 

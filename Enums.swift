@@ -11,4 +11,5 @@ import Foundation
 
 enum AppCons: String {
     case showProductCard = "showProductCard"
+    case showOutlets = "showOutlets"
 }

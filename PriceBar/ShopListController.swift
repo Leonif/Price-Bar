@@ -20,7 +20,8 @@ class ShopListController: UIViewController {
     let locationManager = CLLocationManager()
     var userCoordinate: CLLocationCoordinate2D?
     
-    @IBOutlet weak var outletNameLabel: UILabel!
+    //@IBOutlet weak var outletNameLabel: UILabel!
+    @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
     @IBOutlet weak var sliderView: UISlider!
     
@@ -103,7 +104,7 @@ class ShopListController: UIViewController {
 }
 
 
-
+//MARK: User location
 extension ShopListController:CLLocationManagerDelegate {
     func startReceivingLocationChanges() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
@@ -144,7 +145,7 @@ extension ShopListController: Exchange {
         }
         
         if let outlet = object as? Outlet {
-            outletNameLabel.text = outlet.name
+            outletNameButton.setTitle(outlet.name, for: .normal)
             outletAddressLabel.text = outlet.address
         }
         

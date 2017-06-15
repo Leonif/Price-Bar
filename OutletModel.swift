@@ -14,6 +14,7 @@ class OutletListModel {
     
     
     var outlets = [Outlet]()
+    var delegate: Exchange?
     
     var count: Int {
         return outlets.count
@@ -22,6 +23,18 @@ class OutletListModel {
     func getOutlet(index: IndexPath) -> Outlet {
         
         return outlets[index.row]
+    }
+    func getNearestOutlet(coordinate:CLLocationCoordinate2D) {
+        
+        
+        
+        loadOultets(userCoordinate: coordinate, completed: {
+        
+            self.delegate?.objectExchange(object: self.outlets.first!)
+        
+        })
+        
+        
     }
     
     func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping ()->()) {

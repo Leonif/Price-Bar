@@ -94,7 +94,7 @@ class ItemCardVC: UIViewController {
         
         item?.name = itemTitle.text!
         item?.price = (itemPrice.text?.double)!
-        delegate.itemChanged(object: item!)
+        delegate.objectExchange(object: item!)
         self.dismiss(animated: true, completion: nil)
     }
    

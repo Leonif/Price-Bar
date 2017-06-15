@@ -20,12 +20,14 @@ class ShopListController: UIViewController {
     var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
     
+    
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
     @IBOutlet weak var sliderView: UISlider!
     
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
+    
     
     
     override func viewDidLoad() {
@@ -43,6 +45,10 @@ class ShopListController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         startReceivingLocationChanges()
+        
+        
+        
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,6 +105,8 @@ class ShopListController: UIViewController {
 
 //MARK: User location
 extension ShopListController:CLLocationManagerDelegate {
+    
+    
     func startReceivingLocationChanges() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
         if authorizationStatus != .authorizedWhenInUse && authorizationStatus != .authorizedAlways {
@@ -121,17 +129,23 @@ extension ShopListController:CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userCoordinate = locations.last?.coordinate
         
+        if let userCoordinate = userCoordinate {
+            let outM = OutletListModel()
+            outM.delegate = self
+            outM.getNearestOutlet(coordinate: userCoordinate)
+        }
+        
     }
 }
 
 protocol Exchange {
-    func itemChanged(object: Any)
+    func objectExchange(object: Any)
 }
 
 
 extension ShopListController: Exchange {
     
-    func itemChanged(object: Any) {
+    func objectExchange(object: Any) {
         
         if let item = object as? ShopItem  {
             shopList.change(item: item)

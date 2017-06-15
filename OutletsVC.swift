@@ -47,7 +47,7 @@ extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate.itemChanged(object: outletListModel.getOutlet(index: indexPath))
+        delegate.objectExchange(object: outletListModel.getOutlet(index: indexPath))
         self.dismiss(animated: true, completion: nil)
     }
     

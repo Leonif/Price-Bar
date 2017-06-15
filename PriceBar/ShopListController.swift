@@ -19,11 +19,14 @@ class ShopListController: UIViewController {
     let locationManager = CLLocationManager()
     var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
+    var selfDefined: Bool = false
     
     
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
     @IBOutlet weak var sliderView: UISlider!
+    
+    
     
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
@@ -87,15 +90,18 @@ class ShopListController: UIViewController {
         
     }
     
-    
-    
-    
-    
     @IBAction func newItemPressed(_ sender: Any) {
         
         shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType(uom: "шт", incremenet: 1), outletId: userOutlet.id))
         
         shopTableView.reloadData()
+        
+        
+    }
+    
+    @IBAction func scanItemPressed(_ sender: Any) {
+        
+        performSegue(withIdentifier: AppCons.showScan.rawValue, sender: nil)
         
         
     }
@@ -129,10 +135,11 @@ extension ShopListController:CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userCoordinate = locations.last?.coordinate
         
-        if let userCoordinate = userCoordinate {
+        if let userCoord = userCoordinate, !selfDefined {
             let outM = OutletListModel()
             outM.delegate = self
-            outM.getNearestOutlet(coordinate: userCoordinate)
+            outM.getNearestOutlet(coordinate: userCoord)
+            selfDefined = true
         }
         
     }
@@ -142,20 +149,32 @@ protocol Exchange {
     func objectExchange(object: Any)
 }
 
-
+//MARK: Handlers based Exchange protocol
 extension ShopListController: Exchange {
     
     func objectExchange(object: Any) {
         
         if let item = object as? ShopItem  {
             shopList.change(item: item)
-        }
-        
-        else if let outlet = object as? Outlet  {
+        } else if let outlet = object as? Outlet  {
             userOutlet = outlet
             outletNameButton.setTitle(userOutlet.name, for: .normal)
             outletAddressLabel.text = userOutlet.address
             //prices changed base on outlet
+        } else if let code = object as? String {
+            
+            var itemName: String
+            
+            if let name = CodesDB.db.barcodes[code] {
+                itemName = name
+            } else {
+                    itemName = code
+            }
+            
+            shopList.append(item: ShopItem(id: code, name: itemName, quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType(uom: "шт", incremenet: 1), outletId: userOutlet.id))
+            
+            shopTableView.reloadData()
+            print(code)
         }
         
         totalLabel.update(value: shopList.total)
@@ -344,6 +363,11 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             if let userCoord = sender as? CLLocationCoordinate2D {
                 outletVC.userCoordinate = userCoord
             }
+            
+        }
+        if segue.identifier == AppCons.showScan.rawValue, let scanVC = segue.destination as? ScannerController  {
+            
+                scanVC.delegate = self
             
         }
         

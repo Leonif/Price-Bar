@@ -12,4 +12,13 @@ import Foundation
 enum AppCons: String {
     case showProductCard = "showProductCard"
     case showOutlets = "showOutlets"
+    case showScan = "showScan"
+}
+
+class CodesDB {
+    static let db = CodesDB()
+    
+    var barcodes:[String:String] = ["0671860013624":"Арбуз","9501101530003":"Сметана"]
+    
+    
 }

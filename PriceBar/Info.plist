@@ -38,5 +38,7 @@
 	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please give us location to find nearest outlet </string>
+	<key>NSCameraUsageDescription</key>
+	<string>In order to scan bar and qr codes need your access</string>
 </dict>
 </plist>

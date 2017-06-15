@@ -23,6 +23,7 @@ class OutletsVC: UIViewController {
         super.viewDidLoad()
 
         loadOultets {
+            self.outlets = self.outlets.sorted(by: { $0.distance < $1.distance })
             self.outletTableView.reloadData()
         }
         

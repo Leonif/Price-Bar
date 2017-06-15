@@ -7,33 +7,73 @@
 //
 
 import Foundation
+import CoreLocation
 
 
-class OutetListModel  {
-    let baseUrl = "https://api.foursquare.com/v2/venues/"
-    let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
-    let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
-    let category = "4bf58dd8d48988d1f9941735" //Food & Drink Shop
-    let location = (50.412822, 30.635047)
-    var delegate: Exchange!
+class OutletListModel {
+    
     
     var outlets = [Outlet]()
-    
-    
-    init() {
-    
-    }
-    
-    func getOutlet(index: IndexPath) -> Outlet {
-        return outlets[index.row]
-    }
     
     var count: Int {
         return outlets.count
     }
     
+    func getOutlet(index: IndexPath) -> Outlet {
+        
+        return outlets[index.row]
+    }
+    
+    func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping ()->()) {
+        let baseUrl = "https://api.foursquare.com/v2/venues/"
+        let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
+        let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
+        let category = "4bf58dd8d48988d1f9941735" //Food & Drink Shop
+        let lat = userCoordinate.latitude
+        let lng = userCoordinate.longitude
+        
+        
+        
+        let requestURL = baseUrl + "search?categoryId=\(category)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=20170614"
+        
+        let url = URL(string: requestURL)
+        URLSession.shared.dataTask(with:url!) { (data, response, error) in
+            if error != nil {
+                print(error ?? "")
+            } else {
+                do {
+                    if let parsedData = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]  {
+                        if let resp = parsedData["response"] as? [String: Any]  {
+                            if let venues = resp["venues"] as? [[String:Any]] {
+                                for v in venues {
+                                    if let id = v["id"] as? String, let name = v["name"] as? String, let loc = v["location"] as? [String:Any]  {
+                                        if let add = loc["address"] as? String, let dist = loc["distance"] as? Double {
+                                            print(id, name, add, dist)
+                                            self.outlets.append(Outlet(id, name, add, dist))
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    self.outlets = self.outlets.sorted(by: { $0.distance < $1.distance })
+                    DispatchQueue.main.async() {//go into UI
+                        completed()
+                    }
+                    
+                } catch let error as NSError {
+                    print(error)
+                }
+                
+            }
+            
+            }.resume()
+        
+    }
+    
+    
+    
 }
-
 
 class Outlet {
     var id = ""

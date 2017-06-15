@@ -16,11 +16,10 @@ import CoreLocation
 class ShopListController: UIViewController {
 
     var shopList = ShopListModel()
-    //var outlets: OutetListModel?
     let locationManager = CLLocationManager()
     var userCoordinate: CLLocationCoordinate2D?
+    var userOutlet: Outlet!
     
-    //@IBOutlet weak var outletNameLabel: UILabel!
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
     @IBOutlet weak var sliderView: UISlider!
@@ -84,17 +83,11 @@ class ShopListController: UIViewController {
     
     
     
-    func loadData() {
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Помидоры", quantity: 0.650, price: 39.6, category: "Овощи, фрукты", uom: UomType(uom: "шт", incremenet: 1)))
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Огурцы", quantity: 0.650, price: 39.6, category: "Овощи, фрукты", uom:UomType(uom: "шт", incremenet: 1)))
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Французская булка", quantity: 0.650, price: 39.6, category: "Пекарня", uom: UomType(uom: "шт", incremenet: 1)))
-        
-        totalLabel.text = "Итого: \(shopList.total.asLocaleCurrency)"
-    }
+    
     
     @IBAction func newItemPressed(_ sender: Any) {
         
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType(uom: "шт", incremenet: 1)))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType(uom: "шт", incremenet: 1), outletId: userOutlet.id))
         
         shopTableView.reloadData()
         
@@ -144,9 +137,11 @@ extension ShopListController: Exchange {
             shopList.change(item: item)
         }
         
-        if let outlet = object as? Outlet {
-            outletNameButton.setTitle(outlet.name, for: .normal)
-            outletAddressLabel.text = outlet.address
+        else if let outlet = object as? Outlet  {
+            userOutlet = outlet
+            outletNameButton.setTitle(userOutlet.name, for: .normal)
+            outletAddressLabel.text = userOutlet.address
+            //prices changed base on outlet
         }
         
         totalLabel.update(value: shopList.total)

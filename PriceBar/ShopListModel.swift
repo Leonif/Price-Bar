@@ -158,19 +158,21 @@ class ShopItem  {
     var price = 0.0
     var category = ""
     var uom: UomType
+    var outletId = ""
     
     
     
     
     
     
-    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: UomType) {
+    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: UomType, outletId: String) {
         self.id = id
         self.name = name
         self.quantity = quantity
         self.price = price
         self.category = category
         self.uom = uom
+        self.outletId = outletId
         
     }
     
@@ -183,7 +185,7 @@ class ShopItem  {
 //copying from one object to other (by value, not reference)
 extension ShopItem: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category, uom:uom)
+        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category, uom:uom, outletId: outletId)
         return copy
     }
 }

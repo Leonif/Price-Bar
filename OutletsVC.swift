@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class OutletsVC: UIViewController {
     
@@ -14,6 +15,7 @@ class OutletsVC: UIViewController {
     var outlets = [Outlet]()
     var delegate: Exchange!
     @IBOutlet weak var outletTableView: UITableView!
+    var userCoordinate: CLLocationCoordinate2D?
     
     
 
@@ -24,21 +26,30 @@ class OutletsVC: UIViewController {
             self.outletTableView.reloadData()
         }
         
+        
+        
     }
-
+    
     
 }
 
-
+//MARK: Foursqare outlets
 extension  OutletsVC {
     func loadOultets(completed: @escaping ()->()) {
         let baseUrl = "https://api.foursquare.com/v2/venues/"
         let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
         let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
         let category = "4bf58dd8d48988d1f9941735" //Food & Drink Shop
-        let location = (50.412822, 30.635047)
+        guard let lat = userCoordinate?.latitude, let lng = userCoordinate?.longitude else {
+            print("User location is not available")
+            return
+        }
+            
         
-        let requestURL = baseUrl + "search?categoryId=\(category)&ll=\(location.0),\(location.1)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=20170614"
+        
+        
+        
+        let requestURL = baseUrl + "search?categoryId=\(category)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=20170614"
         
         let url = URL(string: requestURL)
         URLSession.shared.dataTask(with:url!) { (data, response, error) in
@@ -76,6 +87,9 @@ extension  OutletsVC {
 }
 
 
+
+
+//MARK: Table
 extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
     
     

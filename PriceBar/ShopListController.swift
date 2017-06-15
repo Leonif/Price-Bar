@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 
 
@@ -15,7 +16,9 @@ import UIKit
 class ShopListController: UIViewController {
 
     var shopList = ShopListModel()
-    var outlets: OutetListModel?
+    //var outlets: OutetListModel?
+    let locationManager = CLLocationManager()
+    var userCoordinate: CLLocationCoordinate2D?
     
     @IBOutlet weak var outletNameLabel: UILabel!
     @IBOutlet weak var outletAddressLabel: UILabel!
@@ -36,6 +39,10 @@ class ShopListController: UIViewController {
         totalLabel.update(value: shopList.total)
         
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        startReceivingLocationChanges()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -96,6 +103,33 @@ class ShopListController: UIViewController {
 }
 
 
+
+extension ShopListController:CLLocationManagerDelegate {
+    func startReceivingLocationChanges() {
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        if authorizationStatus != .authorizedWhenInUse && authorizationStatus != .authorizedAlways {
+            // User has not authorized access to location information.
+            locationManager.requestWhenInUseAuthorization()
+            //return
+        }
+        // Do not start services that aren't available.
+        if !CLLocationManager.locationServicesEnabled() {
+            // Location services is not available.
+            return
+        }
+        // Configure and start the service.
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.distanceFilter = 100.0  // In meters.
+        locationManager.delegate = self
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        userCoordinate = locations.last?.coordinate
+        
+    }
+}
+
 protocol Exchange {
     func itemChanged(object: Any)
 }
@@ -123,7 +157,7 @@ extension ShopListController: Exchange {
 extension ShopListController {
     
     @IBAction func outletPressed(_ sender: Any) {
-        performSegue(withIdentifier: AppCons.showOutlets.rawValue, sender: nil)
+        performSegue(withIdentifier: AppCons.showOutlets.rawValue, sender: userCoordinate)
     }
     
     
@@ -297,6 +331,9 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         }
         if segue.identifier == AppCons.showOutlets.rawValue, let outletVC = segue.destination as? OutletsVC  {
             outletVC.delegate = self
+            if let userCoord = sender as? CLLocationCoordinate2D {
+                outletVC.userCoordinate = userCoord
+            }
             
         }
         

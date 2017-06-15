@@ -31,11 +31,7 @@ class OutletsVC: UIViewController {
 
 
 extension  OutletsVC {
-    
-    
-    
     func loadOultets(completed: @escaping ()->()) {
-        
         let baseUrl = "https://api.foursquare.com/v2/venues/"
         let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
         let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
@@ -56,17 +52,17 @@ extension  OutletsVC {
                                 for v in venues {
                                     if let id = v["id"] as? String, let name = v["name"] as? String, let loc = v["location"] as? [String:Any]  {
                                         if let add = loc["address"] as? String, let dist = loc["distance"] as? Double {
-                                            
                                             print(id, name, add, dist)
                                             self.outlets.append(Outlet(id, name, add, dist))
                                         }
                                     }
                                 }
-                                
                             }
                         }
                     }
-                    completed()
+                    DispatchQueue.main.async() {//go into UI
+                        completed()
+                    }
                     
                 } catch let error as NSError {
                         print(error)
@@ -77,10 +73,6 @@ extension  OutletsVC {
         }.resume()
 
     }
-    
-    
-    
-    
 }
 
 

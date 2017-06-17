@@ -20,8 +20,12 @@ enum PickerType {
 class ItemCardVC: UIViewController {
     
     
-    var category = ["Мясо","Овощи и фрукты", "Пекарня", "Молочка, Сыры", "Сладости"]
-    var uom = [UomType]()
+    
+    
+    var categories = [Categories]()
+    var uom = [Uom]()
+    
+    //var uom = [UomType]()
     var increment = [String]()
     
     var pickerType: PickerType = .category
@@ -42,13 +46,11 @@ class ItemCardVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for u in iterateEnum(UomType.self) {
-            print(u.rawValue)
-            uom.append(u)
-            
-            
-            
-        }
+        
+        readInitData()
+        
+        
+
         
         
         itemTitle.delegate = self
@@ -62,10 +64,20 @@ class ItemCardVC: UIViewController {
             itemTitle.text = item.name
             itemPrice.text = item.price.asDecimal
             categoryButton.setTitle(item.category, for: .normal)
-            uomButton.setTitle(item.uom.rawValue, for: .normal)
+            uomButton.setTitle(item.uom.uom, for: .normal)
         }
     }
-
+    
+    func readInitData() {
+        do {
+            uom = try context.fetch(Uom.fetchRequest())
+            categories = try context.fetch(Categories.fetchRequest())
+        } catch  {
+            print("Error getting data from DB")
+        }
+    }
+    
+    
    
     @IBAction func categoryPressed(_ sender: Any) {
         
@@ -110,22 +122,25 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerType == .category ? category.count : uom.count
+        return pickerType == .category ? categories.count : uom.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerType == .category ? category[row] : uom[row].rawValue
+        return pickerType == .category ? categories[row].category : uom[row].uom
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         commonPickerView.isHidden = true
         if pickerType == .category {
-            categoryButton.setTitle(category[row], for: .normal)
-            item?.category = category[row]
+            categoryButton.setTitle(categories[row].category, for: .normal)
+            item?.category = categories[row].category!
         } else {
-            uomButton.setTitle(uom[row].rawValue, for: .normal)
-            item?.uom = uom[row]
+            uomButton.setTitle(uom[row].uom, for: .normal)
+            
+            
+            
+            item?.uom = ShopItemUom(uom: uom[row].uom!,increment: uom[row].iterator)
             
         }
     }
@@ -133,21 +148,7 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
 }
 
-// MARK: enum as Sequence
-extension ItemCardVC {
-    
-    func iterateEnum<T: Hashable>(_: T.Type) -> AnyIterator<T> {
-        var i = 0
-        return AnyIterator {
-            let next = withUnsafeBytes(of: &i) { $0.load(as: T.self) }
-            if next.hashValue != i { return nil }
-            i += 1
-            return next
-        }
-    }
-    
-    
-}
+
 
 
 

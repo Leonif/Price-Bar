@@ -28,7 +28,7 @@ class ShopItemCell: UITableViewCell {
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
         quantityItem.text = String(format:"%.2f", s.quantity)
-        uomLabel.text = s.uom.rawValue
+        uomLabel.text = s.uom.uom
         quantitySlider.value = Float(s.quantity)
         totalItem.text = s.total.asLocaleCurrency
         

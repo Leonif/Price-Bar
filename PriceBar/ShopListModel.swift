@@ -14,10 +14,7 @@ enum SectionInfo {
     case indexError
 }
 
-//struct UomType {
-//    var uom = ""
-//    var incremenet = 0.0
-//}
+
 
 
 enum UomType: String {
@@ -153,17 +150,26 @@ class ShopListModel {
 }
 
 
-
-
+struct ShopItemUom {
+    
+    var uom = "шт"
+    var increment = 1.0
+    
+}
 
 
 class ShopItem  {
+    
+    
+    
+    
+    
     var id = ""
     var name = ""
     var quantity = 0.0
     var price = 0.0
     var category = ""
-    var uom: UomType
+    var uom: ShopItemUom
     var outletId = ""
     
     
@@ -171,7 +177,7 @@ class ShopItem  {
     
     
     
-    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: UomType, outletId: String) {
+    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: ShopItemUom, outletId: String) {
         self.id = id
         self.name = name
         self.quantity = quantity

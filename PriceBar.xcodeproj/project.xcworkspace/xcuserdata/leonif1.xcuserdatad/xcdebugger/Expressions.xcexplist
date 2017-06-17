@@ -52,13 +52,13 @@
          contextName = "ShopListModel.getItem(index : IndexPath) -&gt; ShopItem:ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "shopList[sections[index.section]]![index.row]">
             </PersistentString>
             <PersistentString
                value = "index.section">
             </PersistentString>
             <PersistentString
-               value = "shopList[sections[index.section]]![index.row]">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -73,6 +73,14 @@
          <PersistentStrings>
             <PersistentString
                value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemCardVC.uomGenerate() -&gt; ():ItemCardVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "uom[0].uom">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -106,6 +114,14 @@
             </PersistentString>
             <PersistentString
                value = "Double(itemPrice.text!)!">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemCardVC.categoryGenerate() -&gt; ():ItemCardVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "categories[0].category">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

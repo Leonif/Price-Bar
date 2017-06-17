@@ -14,13 +14,13 @@ enum SectionInfo {
     case indexError
 }
 
-struct UomType {
-    var uom = ""
-    var incremenet = 0.0
-}
+//struct UomType {
+//    var uom = ""
+//    var incremenet = 0.0
+//}
 
 
-enum uomType: String {
+enum UomType: String {
     case pieces = "шт"
     case packs = "уп"
     case kg = "кг"
@@ -69,6 +69,12 @@ class ShopListModel {
             sections.append(item.category)
             shopList[item.category] = [item]
         }
+        
+        //save to core data
+        //price, id sku, id outlet
+        //add if sku doesnt exist to sku list
+        
+        
     }
     
     func remove(item: ShopItem) -> SectionInfo {

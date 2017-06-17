@@ -67,7 +67,7 @@ class ShopListController: UIViewController {
                     
                     
                     
-                    shp.quantity = step(baseValue: Double(sender.value), step: shp.uom.incremenet)
+                    shp.quantity = step(baseValue: Double(sender.value), step: shp.uom.increment)
                     
                     
                     
@@ -92,7 +92,7 @@ class ShopListController: UIViewController {
     
     @IBAction func newItemPressed(_ sender: Any) {
         
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType(uom: "шт", incremenet: 1), outletId: userOutlet.id))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType.pieces, outletId: userOutlet.id))
         
         shopTableView.reloadData()
         
@@ -171,7 +171,7 @@ extension ShopListController: Exchange {
                     itemName = code
             }
             
-            shopList.append(item: ShopItem(id: code, name: itemName, quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType(uom: "шт", incremenet: 1), outletId: userOutlet.id))
+            shopList.append(item: ShopItem(id: code, name: itemName, quantity: 1.00, price: 0.00, category: "Неопредленно", uom: UomType.pieces, outletId: userOutlet.id))
             
             shopTableView.reloadData()
             print(code)

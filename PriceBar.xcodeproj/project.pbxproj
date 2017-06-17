@@ -24,6 +24,7 @@
 		7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletModel.swift */; };
 		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
+		79AA0FC81EF5909500903133 /* PriceBar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FC71EF5909500903133 /* PriceBar.xcdatamodeld */; };
 		79C17A4C1EEBD692003A8D6B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4B1EEBD692003A8D6B /* Constants.swift */; };
 		79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */; };
 		79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C56B031EF2F10300FAA91C /* ScannerController.swift */; };
@@ -123,6 +124,7 @@
 			children = (
 				792EE7B81EE7080400470669 /* ShopListModel.swift */,
 				7973DD861EF1AC7F0010A64F /* OutletModel.swift */,
+				79AA0FC71EF5909500903133 /* PriceBar.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -228,6 +230,7 @@
 				79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */,
 				792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */,
 				792EE7B91EE7080400470669 /* ShopListModel.swift in Sources */,
+				79AA0FC81EF5909500903133 /* PriceBar.xcdatamodeld in Sources */,
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,
 				7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */,
@@ -406,6 +409,18 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		79AA0FC71EF5909500903133 /* PriceBar.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+			);
+			name = PriceBar.xcdatamodeld;
+			path = ../PriceBar.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 792EE7781EE48CD500470669 /* Project object */;
 }

@@ -227,15 +227,9 @@
                                     <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZV-Xv-gRp">
-                                <rect key="frame" x="220" y="690" width="174" height="30"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Синхронизировать"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="zZV-Xv-gRp" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" constant="18" id="1wo-HM-CYC"/>
                             <constraint firstItem="yUL-id-lem" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="2GC-wp-cbe"/>
                             <constraint firstAttribute="trailing" secondItem="teD-oh-0KA" secondAttribute="trailing" constant="20" id="CKZ-ys-EfI"/>
                             <constraint firstItem="S1v-Mz-DlY" firstAttribute="leading" secondItem="hmx-bC-moB" secondAttribute="leading" id="Cn5-5A-vGL"/>
@@ -249,8 +243,6 @@
                             <constraint firstItem="nnc-58-l2C" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lCq-iQ-Ajg"/>
                             <constraint firstItem="hmx-bC-moB" firstAttribute="leading" secondItem="teD-oh-0KA" secondAttribute="trailing" constant="-70" id="ppm-zs-3BV"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="qoc-gM-cxe"/>
-                            <constraint firstItem="zZV-Xv-gRp" firstAttribute="leading" secondItem="yUL-id-lem" secondAttribute="trailing" constant="31.333333333333343" id="uoW-8c-5E2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="zZV-Xv-gRp" secondAttribute="trailing" id="yvq-AJ-E9C"/>
                         </constraints>
                     </view>
                     <connections>

@@ -42,9 +42,9 @@ class ItemCardVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for u in iterateEnum(uomType.self) {
+        for u in iterateEnum(UomType.self) {
             print(u.rawValue)
-            uom.append(UomType(uom: u.rawValue, incremenet: u.increment))
+            uom.append(u)
             
             
             
@@ -62,6 +62,7 @@ class ItemCardVC: UIViewController {
             itemTitle.text = item.name
             itemPrice.text = item.price.asDecimal
             categoryButton.setTitle(item.category, for: .normal)
+            uomButton.setTitle(item.uom.rawValue, for: .normal)
         }
     }
 
@@ -113,7 +114,7 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerType == .category ? category[row] : uom[row].uom
+        return pickerType == .category ? category[row] : uom[row].rawValue
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -123,7 +124,7 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
             categoryButton.setTitle(category[row], for: .normal)
             item?.category = category[row]
         } else {
-            uomButton.setTitle(uom[row].uom, for: .normal)
+            uomButton.setTitle(uom[row].rawValue, for: .normal)
             item?.uom = uom[row]
             
         }

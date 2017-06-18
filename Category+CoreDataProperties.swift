@@ -25,10 +25,10 @@ extension Category {
 extension Category {
 
     @objc(addToProductObject:)
-    @NSManaged public func addToToProduct(_ value: Products)
+    @NSManaged public func addToToProduct(_ value: Product)
 
     @objc(removeToProductObject:)
-    @NSManaged public func removeFromToProduct(_ value: Products)
+    @NSManaged public func removeFromToProduct(_ value: Product)
 
     @objc(addToProduct:)
     @NSManaged public func addToToProduct(_ values: NSSet)

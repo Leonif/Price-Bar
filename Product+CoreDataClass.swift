@@ -1,5 +1,5 @@
 //
-//  Products+CoreDataClass.swift
+//  Product+CoreDataClass.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 6/18/17.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(Products)
-public class Products: NSManagedObject {
+@objc(Product)
+public class Product: NSManagedObject {
 
 }

@@ -2,22 +2,30 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName="Category" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="toProduct" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Products" inverseName="toCategory" inverseEntity="Products" syncable="YES"/>
+        <relationship name="toProduct" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="toCategory" inverseEntity="Product" syncable="YES"/>
     </entity>
-    <entity name="Products" representedClassName="Products" syncable="YES">
+    <entity name="Product" representedClassName="Product" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="toCategory" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="toProduct" inverseEntity="Category" syncable="YES"/>
+        <relationship name="toStatistic" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Statistic" inverseName="toProduct" inverseEntity="Statistic" syncable="YES"/>
         <relationship name="toUom" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Uom" inverseName="toProduct" inverseEntity="Uom" syncable="YES"/>
+    </entity>
+    <entity name="Statistic" representedClassName="Statistic" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="outlet_id" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="price" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="toProduct" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="toStatistic" inverseEntity="Product" syncable="YES"/>
     </entity>
     <entity name="Uom" representedClassName="Uom" syncable="YES">
         <attribute name="iterator" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uom" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="toProduct" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Products" inverseName="toUom" inverseEntity="Products" syncable="YES"/>
+        <relationship name="toProduct" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="toUom" inverseEntity="Product" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Products" positionX="124" positionY="27" width="128" height="103"/>
+        <element name="Product" positionX="124" positionY="27" width="128" height="118"/>
         <element name="Category" positionX="-54" positionY="18" width="128" height="73"/>
         <element name="Uom" positionX="-65" positionY="153" width="128" height="88"/>
+        <element name="Statistic" positionX="54" positionY="144" width="128" height="105"/>
     </elements>
 </model>

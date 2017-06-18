@@ -23,9 +23,9 @@ class ItemCardVC: UIViewController {
     
     
     var categories = [Category]()
-    var catRow = 0
+    //var catRow = 0
     var uom = [Uom]()
-    var uomRow = 0
+    //var uomRow = 0
     var increment = [String]()
     var pickerType: PickerType = .category
     
@@ -99,7 +99,7 @@ class ItemCardVC: UIViewController {
             item.name = itemTitle.text ?? ""
             item.price = itemPrice.text?.double ?? 0.0
             
-            CoreDataService.data.save(item, category: categories[catRow], uom: uom[uomRow])
+            CoreDataService.data.save(item)
             
             
             delegate.objectExchange(object: item)
@@ -133,10 +133,10 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
         if pickerType == .category {
             categoryButton.setTitle(categories[row].category, for: .normal)
             item?.category = categories[row].category!
-            catRow = row
+            //catRow = row
         } else {
             uomButton.setTitle(uom[row].uom, for: .normal)
-            uomRow = row
+            //uomRow = row
             
             
             

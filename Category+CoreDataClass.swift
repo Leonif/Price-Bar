@@ -1,5 +1,5 @@
 //
-//  Categories+CoreDataClass.swift
+//  Category+CoreDataClass.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 6/18/17.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(Categories)
-public class Categories: NSManagedObject {
+@objc(Category)
+public class Category: NSManagedObject {
 
 }

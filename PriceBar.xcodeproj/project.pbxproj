@@ -25,12 +25,13 @@
 		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
 		79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
-		79AA0FEB1EF5D1BD00903133 /* Products+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FE51EF5D1BD00903133 /* Products+CoreDataClass.swift */; };
-		79AA0FEC1EF5D1BD00903133 /* Products+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FE61EF5D1BD00903133 /* Products+CoreDataProperties.swift */; };
-		79AA0FED1EF5D1BD00903133 /* Categories+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FE71EF5D1BD00903133 /* Categories+CoreDataClass.swift */; };
-		79AA0FEE1EF5D1BD00903133 /* Categories+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FE81EF5D1BD00903133 /* Categories+CoreDataProperties.swift */; };
-		79AA0FEF1EF5D1BD00903133 /* Uom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FE91EF5D1BD00903133 /* Uom+CoreDataClass.swift */; };
-		79AA0FF01EF5D1BD00903133 /* Uom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FEA1EF5D1BD00903133 /* Uom+CoreDataProperties.swift */; };
+		79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FF11EF6BF2500903133 /* CoreDataService.swift */; };
+		79AA10111EF6EC1A00903133 /* Products+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA100B1EF6EC1A00903133 /* Products+CoreDataClass.swift */; };
+		79AA10121EF6EC1A00903133 /* Products+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA100C1EF6EC1A00903133 /* Products+CoreDataProperties.swift */; };
+		79AA10131EF6EC1A00903133 /* Uom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA100D1EF6EC1A00903133 /* Uom+CoreDataClass.swift */; };
+		79AA10141EF6EC1A00903133 /* Uom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA100E1EF6EC1A00903133 /* Uom+CoreDataProperties.swift */; };
+		79AA10151EF6EC1A00903133 /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA100F1EF6EC1A00903133 /* Category+CoreDataClass.swift */; };
+		79AA10161EF6EC1A00903133 /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA10101EF6EC1A00903133 /* Category+CoreDataProperties.swift */; };
 		79C17A4C1EEBD692003A8D6B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4B1EEBD692003A8D6B /* Constants.swift */; };
 		79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */; };
 		79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C56B031EF2F10300FAA91C /* ScannerController.swift */; };
@@ -56,12 +57,13 @@
 		7973DD881EF1AF430010A64F /* OutletsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletsVC.swift; sourceTree = SOURCE_ROOT; };
 		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
 		79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = PriceBar.xcdatamodel; path = PriceBar.xcdatamodeld/PriceBar.xcdatamodel; sourceTree = SOURCE_ROOT; };
-		79AA0FE51EF5D1BD00903133 /* Products+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Products+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		79AA0FE61EF5D1BD00903133 /* Products+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Products+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		79AA0FE71EF5D1BD00903133 /* Categories+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		79AA0FE81EF5D1BD00903133 /* Categories+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Categories+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		79AA0FE91EF5D1BD00903133 /* Uom+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Uom+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		79AA0FEA1EF5D1BD00903133 /* Uom+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Uom+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		79AA0FF11EF6BF2500903133 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = SOURCE_ROOT; };
+		79AA100B1EF6EC1A00903133 /* Products+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Products+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		79AA100C1EF6EC1A00903133 /* Products+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Products+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		79AA100D1EF6EC1A00903133 /* Uom+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Uom+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		79AA100E1EF6EC1A00903133 /* Uom+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Uom+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		79AA100F1EF6EC1A00903133 /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
+		79AA10101EF6EC1A00903133 /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		79C17A4B1EEBD692003A8D6B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = SOURCE_ROOT; };
 		79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCardVC.swift; sourceTree = SOURCE_ROOT; };
 		79C56B031EF2F10300FAA91C /* ScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerController.swift; sourceTree = SOURCE_ROOT; };
@@ -136,11 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				79AA0FE41EF5D13300903133 /* gen */,
-				79AA0FE51EF5D1BD00903133 /* Products+CoreDataClass.swift */,
-				79AA0FE71EF5D1BD00903133 /* Categories+CoreDataClass.swift */,
-				79AA0FE91EF5D1BD00903133 /* Uom+CoreDataClass.swift */,
 				79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */,
 				792EE7B81EE7080400470669 /* ShopListModel.swift */,
+				79AA0FF11EF6BF2500903133 /* CoreDataService.swift */,
 				7973DD861EF1AC7F0010A64F /* OutletModel.swift */,
 			);
 			name = Model;
@@ -170,9 +170,12 @@
 		79AA0FE41EF5D13300903133 /* gen */ = {
 			isa = PBXGroup;
 			children = (
-				79AA0FE61EF5D1BD00903133 /* Products+CoreDataProperties.swift */,
-				79AA0FE81EF5D1BD00903133 /* Categories+CoreDataProperties.swift */,
-				79AA0FEA1EF5D1BD00903133 /* Uom+CoreDataProperties.swift */,
+				79AA100B1EF6EC1A00903133 /* Products+CoreDataClass.swift */,
+				79AA100C1EF6EC1A00903133 /* Products+CoreDataProperties.swift */,
+				79AA100D1EF6EC1A00903133 /* Uom+CoreDataClass.swift */,
+				79AA100E1EF6EC1A00903133 /* Uom+CoreDataProperties.swift */,
+				79AA100F1EF6EC1A00903133 /* Category+CoreDataClass.swift */,
+				79AA10101EF6EC1A00903133 /* Category+CoreDataProperties.swift */,
 			);
 			name = gen;
 			sourceTree = "<group>";
@@ -253,27 +256,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */,
-				79AA0FEB1EF5D1BD00903133 /* Products+CoreDataClass.swift in Sources */,
 				79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */,
-				79AA0FF01EF5D1BD00903133 /* Uom+CoreDataProperties.swift in Sources */,
-				79AA0FED1EF5D1BD00903133 /* Categories+CoreDataClass.swift in Sources */,
-				79AA0FEF1EF5D1BD00903133 /* Uom+CoreDataClass.swift in Sources */,
 				7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */,
+				79AA10121EF6EC1A00903133 /* Products+CoreDataProperties.swift in Sources */,
 				79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */,
 				792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */,
 				792EE7B91EE7080400470669 /* ShopListModel.swift in Sources */,
-				79AA0FEC1EF5D1BD00903133 /* Products+CoreDataProperties.swift in Sources */,
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,
+				79AA10141EF6EC1A00903133 /* Uom+CoreDataProperties.swift in Sources */,
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,
-				79AA0FEE1EF5D1BD00903133 /* Categories+CoreDataProperties.swift in Sources */,
 				7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
 				7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */,
+				79AA10151EF6EC1A00903133 /* Category+CoreDataClass.swift in Sources */,
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
 				792EE7BD1EE7081800470669 /* DoubleExtensions.swift in Sources */,
 				792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */,
 				79C17A4C1EEBD692003A8D6B /* Constants.swift in Sources */,
+				79AA10111EF6EC1A00903133 /* Products+CoreDataClass.swift in Sources */,
+				79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */,
 				792EE7C71EE7087200470669 /* HeaderView.swift in Sources */,
+				79AA10131EF6EC1A00903133 /* Uom+CoreDataClass.swift in Sources */,
+				79AA10161EF6EC1A00903133 /* Category+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -21,7 +21,8 @@ class ShopListController: UIViewController {
     var userOutlet: Outlet!
     var selfDefined: Bool = false
     
-    var initCategories = ["Мясо","Овощи и фрукты", "Пекарня", "Молочка, Сыры", "Сладости"]
+    
+    
     
     
     @IBOutlet weak var outletNameButton: UIButton!
@@ -102,7 +103,7 @@ class ShopListController: UIViewController {
         let um = ShopItemUom()
         
         
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: um, outletId: userOutlet.id))
+        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: um, outletId: userOutlet.id, scanned: false))
         
         shopTableView.reloadData()
         
@@ -118,55 +119,6 @@ class ShopListController: UIViewController {
     
 }
 
-//MARK: Generating data
-extension ShopListController {
-    
-    func categoryGenerate()  {
-        
-        
-            
-        for c in initCategories {
-            
-            let cat = Categories(context: context)
-            cat.category = c
-            ad.saveContext()
-            
-        }
-        
-        
-    }
-    
-    func uomGenerate()  {
-        
-        
-            for u in iterateEnum(UomType.self) {
-                print(u.rawValue)
-                
-                let um = Uom(context: context)
-                um.uom = u.rawValue
-                um.iterator = u.increment
-                ad.saveContext()
-                
-                
-            }
-            
-    }
-    // MARK: enum as Sequence
-    func iterateEnum<T: Hashable>(_: T.Type) -> AnyIterator<T> {
-        var i = 0
-        return AnyIterator {
-            let next = withUnsafeBytes(of: &i) { $0.load(as: T.self) }
-            if next.hashValue != i { return nil }
-            i += 1
-            return next
-        }
-    }
-        
-        
-    
-    
-    
-}
 
 
 //MARK: User location
@@ -222,20 +174,21 @@ extension ShopListController: Exchange {
             outletAddressLabel.text = userOutlet.address
             //prices changed base on outlet
         } else if let code = object as? String {
+            print(code)
             
-            var itemName: String
+            let item: ShopItem!
             
-            if let name = CodesDB.db.barcodes[code] {
-                itemName = name
+            if let it = CoreDataService.data.getItem(by: code, and: userOutlet.id) {
+                item = it
             } else {
-                    itemName = code
+                item = ShopItem(id: code, name: "Неизвестно", quantity: 1.0, price: 0.0, category: "Неизвестно", uom: ShopItemUom(), outletId: userOutlet.id, scanned: true)
             }
-            let um = ShopItemUom()
             
-            shopList.append(item: ShopItem(id: code, name: itemName, quantity: 1.00, price: 0.00, category: "Неопредленно", uom: um, outletId: userOutlet.id))
+            shopList.append(item: item)
+            
             
             shopTableView.reloadData()
-            print(code)
+            
         }
         
         totalLabel.update(value: shopList.total)

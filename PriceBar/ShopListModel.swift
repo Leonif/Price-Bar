@@ -17,31 +17,31 @@ enum SectionInfo {
 
 
 
-enum UomType: String {
-    case pieces = "шт"
-    case packs = "уп"
-    case kg = "кг"
-    case gramm = "гр"
-    case littr = "л"
-    
-    var increment: (Double) {
-        
-        switch self {
-        case .gramm:
-            return 0.01
-        case .kg:
-            return 0.1
-        case .littr:
-            return 0.1
-        case .packs:
-            return 1
-        case .pieces:
-            return 1
-        }
-        
-    }
-        
-}
+//enum UomType: String {
+//    case pieces = "шт"
+//    case packs = "уп"
+//    case kg = "кг"
+//    case gramm = "гр"
+//    case littr = "л"
+//    
+//    var increment: (Double) {
+//        
+//        switch self {
+//        case .gramm:
+//            return 0.01
+//        case .kg:
+//            return 0.1
+//        case .littr:
+//            return 0.1
+//        case .packs:
+//            return 1
+//        case .pieces:
+//            return 1
+//        }
+//        
+//    }
+//        
+//}
 
 
 
@@ -65,13 +65,7 @@ class ShopListModel {
         } else {
             sections.append(item.category)
             shopList[item.category] = [item]
-        }
-        
-        //save to core data
-        //price, id sku, id outlet
-        //add if sku doesnt exist to sku list
-        
-        
+        }        
     }
     
     func remove(item: ShopItem) -> SectionInfo {
@@ -155,15 +149,12 @@ struct ShopItemUom {
     var uom = "шт"
     var increment = 1.0
     
+    
+    
 }
 
 
 class ShopItem  {
-    
-    
-    
-    
-    
     var id = ""
     var name = ""
     var quantity = 0.0
@@ -171,13 +162,9 @@ class ShopItem  {
     var category = ""
     var uom: ShopItemUom
     var outletId = ""
+    var scanned = false
     
-    
-    
-    
-    
-    
-    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: ShopItemUom, outletId: String) {
+    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: ShopItemUom, outletId: String, scanned: Bool) {
         self.id = id
         self.name = name
         self.quantity = quantity
@@ -185,6 +172,7 @@ class ShopItem  {
         self.category = category
         self.uom = uom
         self.outletId = outletId
+        self.scanned = scanned
         
     }
     
@@ -197,7 +185,7 @@ class ShopItem  {
 //copying from one object to other (by value, not reference)
 extension ShopItem: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category, uom:uom, outletId: outletId)
+        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category, uom:uom, outletId: outletId, scanned: scanned)
         return copy
     }
 }

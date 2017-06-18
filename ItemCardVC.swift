@@ -22,12 +22,11 @@ class ItemCardVC: UIViewController {
     
     
     
-    var categories = [Categories]()
+    var categories = [Category]()
+    var catRow = 0
     var uom = [Uom]()
-    
-    //var uom = [UomType]()
+    var uomRow = 0
     var increment = [String]()
-    
     var pickerType: PickerType = .category
     
     
@@ -48,11 +47,6 @@ class ItemCardVC: UIViewController {
         
         
         readInitData()
-        
-        
-
-        
-        
         itemTitle.delegate = self
         itemPrice.delegate = self
         commonPickerView.delegate = self
@@ -69,12 +63,8 @@ class ItemCardVC: UIViewController {
     }
     
     func readInitData() {
-        do {
-            uom = try context.fetch(Uom.fetchRequest())
-            categories = try context.fetch(Categories.fetchRequest())
-        } catch  {
-            print("Error getting data from DB")
-        }
+        categories = CoreDataService.data.getCategories()
+        uom = CoreDataService.data.getUom()
     }
     
     
@@ -105,10 +95,18 @@ class ItemCardVC: UIViewController {
 
     @IBAction func savePressed(_ sender: Any) {
         
-        item?.name = itemTitle.text!
-        item?.price = (itemPrice.text?.double)!
-        delegate.objectExchange(object: item!)
-        self.dismiss(animated: true, completion: nil)
+        if let item = item {
+            item.name = itemTitle.text ?? ""
+            item.price = itemPrice.text?.double ?? 0.0
+            
+            CoreDataService.data.save(item, category: categories[catRow], uom: uom[uomRow])
+            
+            
+            delegate.objectExchange(object: item)
+            self.dismiss(animated: true, completion: nil)
+        } else {
+            print("Product is not saved")
+        }
     }
    
 
@@ -135,8 +133,10 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
         if pickerType == .category {
             categoryButton.setTitle(categories[row].category, for: .normal)
             item?.category = categories[row].category!
+            catRow = row
         } else {
             uomButton.setTitle(uom[row].uom, for: .normal)
+            uomRow = row
             
             
             

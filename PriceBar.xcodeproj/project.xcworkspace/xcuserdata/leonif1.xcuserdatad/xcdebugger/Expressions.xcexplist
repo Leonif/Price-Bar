@@ -63,7 +63,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CoreDataService.get(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListModel.(updateSections() -&gt; ()).(closure #1).(closure #1):ShopListModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.save(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ShopListController.swift">
@@ -110,10 +116,16 @@
          contextName = "ItemCardVC.savePressed(Any) -&gt; ():ItemCardVC.swift">
          <PersistentStrings>
             <PersistentString
+               value = "Double(itemPrice.text!)!">
+            </PersistentString>
+            <PersistentString
+               value = "uom[uomRow].uom">
+            </PersistentString>
+            <PersistentString
                value = "itemPrice.text.double">
             </PersistentString>
             <PersistentString
-               value = "Double(itemPrice.text!)!">
+               value = "categories[catRow].category">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -18,8 +18,7 @@ extension Products {
 
     @NSManaged public var id: String?
     @NSManaged public var name: String?
-    @NSManaged public var category: String?
-    @NSManaged public var toCategory: Categories?
+    @NSManaged public var toCategory: Category?
     @NSManaged public var toUom: Uom?
 
 }

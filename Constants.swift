@@ -23,7 +23,7 @@ class CodesDB {
         
         let um = ShopItemUom()
         
-        return ShopItem(id: code, name: code, quantity: 1, price: 0.0, category: code, uom: um, outletId: outletId)
+        return ShopItem(id: code, name: code, quantity: 1, price: 0.0, category: code, uom: um, outletId: outletId, scanned: false)
     }
     
 }

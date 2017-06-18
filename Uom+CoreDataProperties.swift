@@ -18,6 +18,23 @@ extension Uom {
 
     @NSManaged public var uom: String?
     @NSManaged public var iterator: Double
-    @NSManaged public var toProduct: Products?
+    @NSManaged public var toProduct: NSSet?
+
+}
+
+// MARK: Generated accessors for toProduct
+extension Uom {
+
+    @objc(addToProductObject:)
+    @NSManaged public func addToToProduct(_ value: Products)
+
+    @objc(removeToProductObject:)
+    @NSManaged public func removeFromToProduct(_ value: Products)
+
+    @objc(addToProduct:)
+    @NSManaged public func addToToProduct(_ values: NSSet)
+
+    @objc(removeToProduct:)
+    @NSManaged public func removeFromToProduct(_ values: NSSet)
 
 }

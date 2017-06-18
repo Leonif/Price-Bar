@@ -2,7 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Category" representedClassName="Category" syncable="YES">
         <attribute name="category" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="toProduct" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Products" inverseName="toCategory" inverseEntity="Products" syncable="YES"/>
+        <relationship name="toProduct" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Products" inverseName="toCategory" inverseEntity="Products" syncable="YES"/>
     </entity>
     <entity name="Products" representedClassName="Products" syncable="YES">
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
@@ -13,7 +13,7 @@
     <entity name="Uom" representedClassName="Uom" syncable="YES">
         <attribute name="iterator" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uom" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="toProduct" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Products" inverseName="toUom" inverseEntity="Products" syncable="YES"/>
+        <relationship name="toProduct" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Products" inverseName="toUom" inverseEntity="Products" syncable="YES"/>
     </entity>
     <elements>
         <element name="Products" positionX="124" positionY="27" width="128" height="103"/>

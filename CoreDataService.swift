@@ -106,13 +106,16 @@ class CoreDataService {
             let productExist = try context.fetch(fetchRequest)
             if !productExist.isEmpty {
                 if let prd = productExist.first {
-                    //let uom = ShopItemUom(uom: (prd.toUom?.uom)!, increment: (prd.toUom?.iterator)!)
-                    let category = (prd.toCategory?.category)!
+                    if let toUom = prd.toUom, let u = toUom.uom  {
                     
-                    let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, price: 0.00, category: category, uom: ShopItemUom(), outletId: outletId, scanned: true)
-                    return item
+                    
+                        let uom = ShopItemUom(uom: u, increment: toUom.iterator)
+                        let category = (prd.toCategory?.category)!
+                        
+                        let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, price: 0.00, category: category, uom: uom, outletId: outletId, scanned: true)
+                        return item
+                    }
                 }
-                
             
             }
         } catch  {

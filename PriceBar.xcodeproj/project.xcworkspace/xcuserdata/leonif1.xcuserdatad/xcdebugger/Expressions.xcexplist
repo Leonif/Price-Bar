@@ -75,6 +75,14 @@
          contextName = "ShopListController.tableView(UITableView, cellForRowAt : IndexPath) -&gt; UITableViewCell:ShopListController.swift">
       </ContextState>
       <ContextState
+         contextName = "CoreDataService.getPrice(String, outletId : String) -&gt; Double:CoreDataService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "stat.first?.price">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListModel.change(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString

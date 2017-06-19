@@ -115,7 +115,24 @@ class CoreDataService {
 
     }
     
-    
+    func getPrice(_ barcode: String, outletId: String) -> Double  {
+        do {
+            let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
+            statRequest.predicate = NSPredicate(format: "%K == %@ AND %K == %@", argumentArray:["toProduct.id", barcode, "outlet_id", outletId])
+            let stat = try context.fetch(statRequest)
+            
+            if let priceExist = stat.first {
+            
+                return priceExist.price
+            }
+            
+        } catch  {
+            print("price is not got from database")
+        }
+
+        return 0
+        
+    }
     
     func getItem(by barcode: String, and outletId: String) -> ShopItem? {
         do {
@@ -127,7 +144,8 @@ class CoreDataService {
                     if let toUom = prd.toUom, let u = toUom.uom  {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
                         let category = (prd.toCategory?.category)!
-                        let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, price: 0.00, category: category, uom: uom, outletId: outletId, scanned: true)
+                        let price = getPrice(barcode, outletId: outletId)
+                        let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, price: price, category: category, uom: uom, outletId: outletId, scanned: true)
                         return item
                     }
                 }

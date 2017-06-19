@@ -89,26 +89,15 @@ class ShopListController: UIViewController {
     
     
     func step(baseValue: Double, step: Double) -> Double {
-        
-        
-        
         let result = baseValue/step * step
-        
         return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
-        
     }
     
     @IBAction func newItemPressed(_ sender: Any) {
-        
         let um = ShopItemUom()
-        
-        
         shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: um, outletId: userOutlet.id, scanned: false))
-        
         shopTableView.reloadData()
-        
-        
-    }
+     }
     
     @IBAction func scanItemPressed(_ sender: Any) {
         

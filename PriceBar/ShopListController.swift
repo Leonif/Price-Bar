@@ -100,11 +100,8 @@ class ShopListController: UIViewController {
      }
     
     @IBAction func scanItemPressed(_ sender: Any) {
-        
         performSegue(withIdentifier: AppCons.showScan.rawValue, sender: nil)
-        
-        
-    }
+     }
     
 }
 
@@ -155,31 +152,25 @@ extension ShopListController: Exchange {
     
     func objectExchange(object: Any) {
         
-        if let item = object as? ShopItem  {
+        if let item = object as? ShopItem  {//item changed came
             shopList.change(item: item)
-        } else if let outlet = object as? Outlet  {
+        } else if let outlet = object as? Outlet  {//outlet came
             userOutlet = outlet
             outletNameButton.setTitle(userOutlet.name, for: .normal)
             outletAddressLabel.text = userOutlet.address
             //prices changed base on outlet
-        } else if let code = object as? String {
+            shopList.pricesUpdate(by: userOutlet.id)
+        } else if let code = object as? String {//scann came
             print(code)
-            
             let item: ShopItem!
-            
             if let it = CoreDataService.data.getItem(by: code, and: userOutlet.id) {
                 item = it
             } else {
                 item = ShopItem(id: code, name: "Неизвестно", quantity: 1.0, price: 0.0, category: "Неизвестно", uom: ShopItemUom(), outletId: userOutlet.id, scanned: true)
             }
-            
             shopList.append(item: item)
-            
-            
-            shopTableView.reloadData()
-            
         }
-        
+        shopTableView.reloadData()
         totalLabel.update(value: shopList.total)
     }
     

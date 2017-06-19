@@ -68,6 +68,12 @@ class ShopListModel {
         }        
     }
     
+    func pricesUpdate(by outletId: String) {
+        shopList.forEach{
+            $0.value.forEach{
+                $0.price = CoreDataService.data.getPrice($0.id, outletId:outletId)}}
+    }
+    
     func remove(item: ShopItem) -> SectionInfo {
         for (key, value) in shopList {
             if let index = value.index(of: item) {

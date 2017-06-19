@@ -20,6 +20,7 @@ class ShopListController: UIViewController {
     var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
     var selfDefined: Bool = false
+    var selfLoaded: Bool = false
     
     
     
@@ -44,7 +45,6 @@ class ShopListController: UIViewController {
         //categoryGenerate()
         //uomGenerate()
         
-        totalLabel.update(value: shopList.total)
         
         
     }
@@ -137,6 +137,8 @@ extension ShopListController:CLLocationManagerDelegate {
             let outM = OutletListModel()
             outM.delegate = self
             outM.getNearestOutlet(coordinate: userCoord)
+           
+            
             selfDefined = true
         }
         
@@ -153,13 +155,23 @@ extension ShopListController: Exchange {
     func objectExchange(object: Any) {
         
         if let item = object as? ShopItem  {//item changed came
-            shopList.change(item: item)
+            shopList.change(item)
         } else if let outlet = object as? Outlet  {//outlet came
             userOutlet = outlet
             outletNameButton.setTitle(userOutlet.name, for: .normal)
             outletAddressLabel.text = userOutlet.address
-            //prices changed base on outlet
+            
             shopList.pricesUpdate(by: userOutlet.id)
+            
+            
+            if let shpLst = CoreDataService.data.loadShopList(outletId: userOutlet.id), !selfLoaded {
+                shopList = shpLst
+                totalLabel.update(value: shopList.total)
+                selfLoaded = true
+            }
+            
+            
+            
         } else if let code = object as? String {//scann came
             print(code)
             let item: ShopItem!
@@ -169,6 +181,7 @@ extension ShopListController: Exchange {
                 item = ShopItem(id: code, name: "Неизвестно", quantity: 1.0, price: 0.0, category: "Неизвестно", uom: ShopItemUom(), outletId: userOutlet.id, scanned: true)
             }
             shopList.append(item: item)
+            CoreDataService.data.addToShopList(item)
         }
         shopTableView.reloadData()
         totalLabel.update(value: shopList.total)
@@ -178,13 +191,9 @@ extension ShopListController: Exchange {
 
 //MARK: Outlets
 extension ShopListController {
-    
     @IBAction func outletPressed(_ sender: Any) {
         performSegue(withIdentifier: AppCons.showOutlets.rawValue, sender: userCoordinate)
     }
-    
-    
-    
 }
 
 //MARK: Drag cells into other category and between each others
@@ -321,7 +330,9 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         if editingStyle == .delete {
             if let item = shopList.getItem(index: indexPath) {
                 shopTableView.beginUpdates()
+                CoreDataService.data.removeFromShopList(item)
                 let sectionStatus = shopList.remove(item: item)
+                
                 shopTableView.deleteRows(at: [indexPath], with: .fade)
                 if sectionStatus == .sectionEmpty  {
                     let indexSet = IndexSet(integer: indexPath.section)

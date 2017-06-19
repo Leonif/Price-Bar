@@ -90,7 +90,7 @@ class ShopListModel {
         return .sectionFull
     }
     
-    func change(item: ShopItem) {
+    func change(_ item: ShopItem) {
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]?[index] = item

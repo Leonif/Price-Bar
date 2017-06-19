@@ -1,5 +1,5 @@
 //
-//  Uom+CoreDataClass.swift
+//  ShopList+CoreDataClass.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 6/19/17.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(Uom)
-public class Uom: NSManagedObject {
+@objc(ShopList)
+public class ShopList: NSManagedObject {
 
 }

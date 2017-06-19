@@ -82,43 +82,75 @@ class CoreDataService {
         }
     }
     
-    func saveProduct(_ item: ShopItem) {
-        if item.scanned {
-            do {
-                let productRequest = NSFetchRequest<Product>(entityName: "Product")
-                productRequest.predicate = NSPredicate(format: "id == %@", item.id)
-                let productExist = try context.fetch(productRequest)
-                
-                let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
-                categoryRequest.predicate = NSPredicate(format: "category == %@", item.category)
-                let category = try context.fetch(categoryRequest)
-                let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
-                uomRequest.predicate = NSPredicate(format: "uom == %@", item.uom.uom)
-                let uom = try context.fetch(uomRequest)
-                if productExist.isEmpty {
-                    let product = Product(context: context)
-                    product.id = item.id
-                    product.name = item.name
-                    product.toCategory = category.first
-                    product.toUom = uom.first
-                } else  {
-                    let product = productExist.first
-                    product?.name = item.name
-                    product?.toCategory = category.first
-                    product?.toUom = uom.first
-                }
-                ad.saveContext()
-            } catch  {
-                print("Products is not got from database")
-            }
+    func addToShopList(_ item:ShopItem) {
+        do {
+            let productRequest = NSFetchRequest<Product>(entityName: "Product")
+            productRequest.predicate = NSPredicate(format: "id == %@", item.id)
+            let productExist = try context.fetch(productRequest)
+            
+            let shpLst = ShopList(context: context)
+            shpLst.outlet_id = item.outletId
+            shpLst.toProduct = productExist.first
+            ad.saveContext()
+        } catch {
+           print("Products is not got from database")
+        }
+        
+        
+    }
+    
+    func removeFromShopList(_ item: ShopItem) {
+        do {
+            let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+            shpLstRequest.predicate = NSPredicate(format: "toProduct.id == %@", item.id)
+            let productExist = try context.fetch(shpLstRequest)
+            
+            productExist.forEach {context.delete($0) }
+            ad.saveContext()
+        } catch {
+            print("Products is not got from database")
         }
 
+        
     }
+    
+    func loadShopList(outletId: String) -> ShopListModel?{
+        let shopListModel = ShopListModel()
+        
+        do {
+            let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+            
+            let productExist = try context.fetch(shpLstRequest)
+            productExist.forEach {
+                
+                let prd = $0.toProduct
+                
+                let price = getPrice((prd?.id)!, outletId: outletId)
+                
+                let uom = ShopItemUom(uom: (prd?.toUom?.uom)!, increment: (prd?.toUom?.iterator)!)
+                
+                let item = ShopItem(id: (prd?.id)!, name: (prd?.name)!, quantity: $0.quantity, price: price, category: (prd?.toCategory?.category)!, uom: uom, outletId: outletId, scanned: (prd?.scanned)!)
+                shopListModel.append(item: item)
+            
+            }
+            return shopListModel
+            
+            
+        } catch {
+            print("Products is not got from database")
+        }
+        
+        return nil
+        
+    }
+    
+    
     
     func getPrice(_ barcode: String, outletId: String) -> Double  {
         do {
             let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
             statRequest.predicate = NSPredicate(format: "%K == %@ AND %K == %@", argumentArray:["toProduct.id", barcode, "outlet_id", outletId])
+            statRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
             let stat = try context.fetch(statRequest)
             
             if let priceExist = stat.first {
@@ -134,6 +166,12 @@ class CoreDataService {
         
     }
     
+    
+    
+}
+
+//MARK: Product
+extension CoreDataService {
     func getItem(by barcode: String, and outletId: String) -> ShopItem? {
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
@@ -155,6 +193,43 @@ class CoreDataService {
         }
         return nil
     }
-    
+
+    func saveProduct(_ item: ShopItem) {
+        if item.scanned {
+            do {
+                let productRequest = NSFetchRequest<Product>(entityName: "Product")
+                productRequest.predicate = NSPredicate(format: "id == %@", item.id)
+                let productExist = try context.fetch(productRequest)
+                
+                let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
+                categoryRequest.predicate = NSPredicate(format: "category == %@", item.category)
+                let category = try context.fetch(categoryRequest)
+                let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
+                uomRequest.predicate = NSPredicate(format: "uom == %@", item.uom.uom)
+                let uom = try context.fetch(uomRequest)
+                if productExist.isEmpty {
+                    let product = Product(context: context)
+                    product.id = item.id
+                    product.name = item.name
+                    product.toCategory = category.first
+                    product.toUom = uom.first
+                    product.scanned = item.scanned
+                } else  {
+                    if let product = productExist.first {
+                        product.name = item.name
+                        product.toCategory = category.first
+                        product.toUom = uom.first
+                        product.scanned = item.scanned
+                    }
+                }
+                ad.saveContext()
+            } catch  {
+                print("Products is not got from database")
+            }
+        }
+        
+    }
     
 }
+
+

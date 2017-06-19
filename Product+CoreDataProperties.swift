@@ -2,7 +2,7 @@
 //  Product+CoreDataProperties.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 6/18/17.
+//  Created by Leonid Nifantyev on 6/19/17.
 //  Copyright © 2017 LionLife. All rights reserved.
 //
 
@@ -18,8 +18,10 @@ extension Product {
 
     @NSManaged public var id: String?
     @NSManaged public var name: String?
+    @NSManaged public var scanned: Bool
     @NSManaged public var toCategory: Category?
     @NSManaged public var toUom: Uom?
     @NSManaged public var toStatistic: Statistic?
+    @NSManaged public var toShopList: ShopList?
 
 }

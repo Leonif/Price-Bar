@@ -65,6 +65,7 @@ class CoreDataService {
     func save(_ item: ShopItem) {
         saveProduct(item)
         saveStatistic(item)
+        addToShopList(item)
     }
     
     func saveStatistic(_ item: ShopItem)  {
@@ -84,13 +85,24 @@ class CoreDataService {
     
     func addToShopList(_ item:ShopItem) {
         do {
+            //find product in catalog
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
             productRequest.predicate = NSPredicate(format: "id == %@", item.id)
             let productExist = try context.fetch(productRequest)
-            
-            let shpLst = ShopList(context: context)
-            shpLst.outlet_id = item.outletId
-            shpLst.toProduct = productExist.first
+            //check has shoplist it?
+            let shopProdRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+            shopProdRequest.predicate = NSPredicate(format: "toProduct.id == %@", item.id)
+            let shoppedProduct = try context.fetch(shopProdRequest)
+            if shoppedProduct.isEmpty {
+                let shpLst = ShopList(context: context)
+                shpLst.outlet_id = item.outletId
+                shpLst.toProduct = productExist.first
+            } else {
+                //change parametrs
+                let sh = shoppedProduct.first
+                sh?.outlet_id = item.outletId
+                sh?.toProduct = productExist.first
+            }
             ad.saveContext()
         } catch {
            print("Products is not got from database")
@@ -195,7 +207,6 @@ extension CoreDataService {
     }
 
     func saveProduct(_ item: ShopItem) {
-        if item.scanned {
             do {
                 let productRequest = NSFetchRequest<Product>(entityName: "Product")
                 productRequest.predicate = NSPredicate(format: "id == %@", item.id)
@@ -227,8 +238,6 @@ extension CoreDataService {
                 print("Products is not got from database")
             }
         }
-        
-    }
     
 }
 

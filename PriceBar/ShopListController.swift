@@ -22,15 +22,9 @@ class ShopListController: UIViewController {
     var selfDefined: Bool = false
     var selfLoaded: Bool = false
     
-    
-    
-    
-    
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
     @IBOutlet weak var sliderView: UISlider!
-    
-    
     
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
@@ -42,8 +36,7 @@ class ShopListController: UIViewController {
                 
         //let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
         //shopTableView.addGestureRecognizer(longpress)
-        //categoryGenerate()
-        //uomGenerate()
+        _ = shopList.readInitData()
         
         
         
@@ -72,13 +65,7 @@ class ShopListController: UIViewController {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell) {
                 if let shp = shopList.getItem(index: indexPath) {
-                    
-                    
-                    
                     shp.quantity = step(baseValue: Double(sender.value), step: shp.uom.increment)
-                    
-                    
-                    
                     shopTableView.reloadData()
                     
                 }

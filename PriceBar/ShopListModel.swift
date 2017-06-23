@@ -59,13 +59,21 @@ class ShopListModel {
         return sum
     }
     
+    func readInitData() -> ([Category],[Uom]) {
+        let categories = CoreDataService.data.getCategories()
+        let uoms = CoreDataService.data.getUom()
+        
+        return (categories,uoms)
+    }
+    
     func append(item: ShopItem) {
         if sections.contains(item.category) {
             shopList[item.category]?.append(item)
         } else {
             sections.append(item.category)
             shopList[item.category] = [item]
-        }        
+        }
+        CoreDataService.data.save(item)
     }
     
     func pricesUpdate(by outletId: String) {
@@ -94,8 +102,10 @@ class ShopListModel {
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]?[index] = item
+                
             }
         }
+        CoreDataService.data.save(item)
         updateSections()
     }
     

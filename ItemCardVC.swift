@@ -63,8 +63,10 @@ class ItemCardVC: UIViewController {
     }
     
     func readInitData() {
-        categories = CoreDataService.data.getCategories()
-        uom = CoreDataService.data.getUom()
+        
+        let initData = ShopListModel().readInitData()
+        categories = initData.0
+        uom = initData.1
     }
     
     
@@ -99,7 +101,7 @@ class ItemCardVC: UIViewController {
             item.name = itemTitle.text ?? ""
             item.price = itemPrice.text?.double ?? 0.0
             
-            CoreDataService.data.save(item)
+            
             
             
             delegate.objectExchange(object: item)

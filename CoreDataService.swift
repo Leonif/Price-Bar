@@ -14,7 +14,7 @@ class CoreDataService {
     
     static let data = CoreDataService()
     var initCategories = ["Бытовая техника", "Косметика","Мясо","Овощи и фрукты", "Пекарня", "Молочка, Сыры", "Сладости"]
-    var unitsOfMeasure: [ShopItemUom] = [ShopItemUom(uom: "уп",increment: 1.0),ShopItemUom(uom: "мл",increment: 0.01),ShopItemUom(uom: "л",increment: 0.1),ShopItemUom(uom: "г",increment: 0.01),ShopItemUom(uom: "кг",increment: 0.1)]
+    var unitsOfMeasure: [ShopItemUom] = [ShopItemUom(),ShopItemUom(uom: "уп",increment: 1.0),ShopItemUom(uom: "мл",increment: 0.01),ShopItemUom(uom: "л",increment: 0.1),ShopItemUom(uom: "г",increment: 0.01),ShopItemUom(uom: "кг",increment: 0.1)]
     
     func getCategories() -> [Category] {
         var cats = [Category]()
@@ -96,12 +96,14 @@ class CoreDataService {
             if shoppedProduct.isEmpty {
                 let shpLst = ShopList(context: context)
                 shpLst.outlet_id = item.outletId
+                shpLst.quantity = item.quantity
                 shpLst.toProduct = productExist.first
             } else {
                 //change parametrs
-                let sh = shoppedProduct.first
-                sh?.outlet_id = item.outletId
-                sh?.toProduct = productExist.first
+                let shpLst = shoppedProduct.first
+                shpLst?.outlet_id = item.outletId
+                shpLst?.quantity = item.quantity
+                shpLst?.toProduct = productExist.first
             }
             ad.saveContext()
         } catch {

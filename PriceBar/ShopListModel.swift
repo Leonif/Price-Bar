@@ -14,40 +14,6 @@ enum SectionInfo {
     case indexError
 }
 
-
-
-
-//enum UomType: String {
-//    case pieces = "шт"
-//    case packs = "уп"
-//    case kg = "кг"
-//    case gramm = "гр"
-//    case littr = "л"
-//    
-//    var increment: (Double) {
-//        
-//        switch self {
-//        case .gramm:
-//            return 0.01
-//        case .kg:
-//            return 0.1
-//        case .littr:
-//            return 0.1
-//        case .packs:
-//            return 1
-//        case .pieces:
-//            return 1
-//        }
-//        
-//    }
-//        
-//}
-
-
-
-
-
-
 class ShopListModel {
     
     var shopList = [String: [ShopItem]]()
@@ -79,7 +45,10 @@ class ShopListModel {
     func pricesUpdate(by outletId: String) {
         shopList.forEach{
             $0.value.forEach{
-                $0.price = CoreDataService.data.getPrice($0.id, outletId:outletId)}}
+                $0.price = CoreDataService.data.getPrice($0.id, outletId:outletId)
+                $0.outletId = outletId
+            
+            }}
     }
     
     func remove(item: ShopItem) -> SectionInfo {

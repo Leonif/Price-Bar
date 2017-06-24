@@ -12,4 +12,7 @@ import CoreData
 @objc(Statistic)
 public class Statistic: NSManagedObject {
 
+    public override func awakeFromInsert() {
+        self.date = NSDate()
+    }
 }

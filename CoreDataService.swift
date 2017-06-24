@@ -16,6 +16,47 @@ class CoreDataService {
     var initCategories = ["Бытовая техника", "Косметика","Мясо","Овощи и фрукты", "Пекарня", "Молочка, Сыры", "Сладости","Неопредленно"]
     var unitsOfMeasure: [ShopItemUom] = [ShopItemUom(),ShopItemUom(uom: "уп",increment: 1.0),ShopItemUom(uom: "мл",increment: 0.01),ShopItemUom(uom: "л",increment: 0.1),ShopItemUom(uom: "г",increment: 0.01),ShopItemUom(uom: "кг",increment: 0.1)]
     
+    
+    func printPriceStatistics() {
+        do {
+            let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
+            statRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            let stat = try context.fetch(statRequest)
+            
+            for st in stat {
+                print(st.date!, st.toProduct!.name!, st.price, st.outlet_id!)
+            }
+            
+        } catch  {
+            print("price is not got from database")
+        }
+        
+        
+        
+    }
+    
+    
+    
+    func getPrice(_ barcode: String, outletId: String) -> Double  {
+        do {
+            let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
+            statRequest.predicate = NSPredicate(format: "%K == %@ AND %K == %@", argumentArray:["toProduct.id", barcode, "outlet_id", outletId])
+            statRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+            let stat = try context.fetch(statRequest)
+            
+            if let priceExist = stat.first {
+                
+                return priceExist.price
+            }
+            
+        } catch  {
+            print("price is not got from database")
+        }
+        
+        return 0
+        
+    }
+    
     func getCategories() -> [Category] {
         var cats = [Category]()
         do {
@@ -68,7 +109,18 @@ class CoreDataService {
         addToShopList(item)
     }
     
+    
+    
+    
+    
     func saveStatistic(_ item: ShopItem)  {
+        
+        printPriceStatistics()
+        
+        guard item.price != 0 else {
+            return
+        }
+        
         do {
             let stat = Statistic(context: context)
             stat.outlet_id = item.outletId
@@ -76,11 +128,17 @@ class CoreDataService {
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
             productRequest.predicate = NSPredicate(format: "id == %@", item.id)
             let productExist = try context.fetch(productRequest)
-            stat.toProduct = productExist.first
+            
+            let prd = productExist.first
+            
+            stat.toProduct = prd
+            stat.price = item.price
+            stat.outlet_id = item.outletId
             ad.saveContext()
         } catch  {
             print("Products is not got from database")
         }
+        printPriceStatistics()
     }
     
     func addToShopList(_ item:ShopItem) {
@@ -160,25 +218,7 @@ class CoreDataService {
     
     
     
-    func getPrice(_ barcode: String, outletId: String) -> Double  {
-        do {
-            let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
-            statRequest.predicate = NSPredicate(format: "%K == %@ AND %K == %@", argumentArray:["toProduct.id", barcode, "outlet_id", outletId])
-            statRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: true)]
-            let stat = try context.fetch(statRequest)
-            
-            if let priceExist = stat.first {
-            
-                return priceExist.price
-            }
-            
-        } catch  {
-            print("price is not got from database")
-        }
-
-        return 0
-        
-    }
+    
     
     
     

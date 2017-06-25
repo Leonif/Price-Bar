@@ -11,6 +11,7 @@ import Foundation
 
 enum AppCons: String {
     case showProductCard = "showProductCard"
+    case showEditItem = "showEditItem"
     case showOutlets = "showOutlets"
     case showScan = "showScan"
     case showItemList = "showItemList"

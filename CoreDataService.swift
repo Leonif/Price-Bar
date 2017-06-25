@@ -103,7 +103,7 @@ class CoreDataService {
     }
     
     
-    func save(_ item: ShopItem) {
+    func addToShopListAndSaveStatistics(_ item: ShopItem) {
         saveProduct(item)
         saveStatistic(item)
         addToShopList(item)
@@ -115,7 +115,7 @@ class CoreDataService {
     
     func saveStatistic(_ item: ShopItem)  {
         
-        printPriceStatistics()
+        //printPriceStatistics()
         
         guard item.price != 0 else {
             return
@@ -138,7 +138,7 @@ class CoreDataService {
         } catch  {
             print("Products is not got from database")
         }
-        printPriceStatistics()
+        //printPriceStatistics()
     }
     
     func addToShopList(_ item:ShopItem) {
@@ -292,6 +292,8 @@ extension CoreDataService {
                 let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
                 uomRequest.predicate = NSPredicate(format: "uom == %@", item.uom.uom)
                 let uom = try context.fetch(uomRequest)
+                
+                //product doesnt exists - create productc on coredata
                 if productExist.isEmpty {
                     let product = Product(context: context)
                     product.id = item.id
@@ -299,7 +301,7 @@ extension CoreDataService {
                     product.toCategory = category.first
                     product.toUom = uom.first
                     product.scanned = item.scanned
-                } else  {
+                } else  { // - just update it
                     if let product = productExist.first {
                         product.name = item.name
                         product.toCategory = category.first

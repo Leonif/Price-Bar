@@ -48,11 +48,8 @@ class ShopListController: UIViewController {
     
     
     override func viewDidAppear(_ animated: Bool) {
+        
         startReceivingLocationChanges()
-        
-        
-        
-    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -80,11 +77,7 @@ class ShopListController: UIViewController {
         return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
     }
     
-    @IBAction func newItemPressed(_ sender: Any) {
-        let um = ShopItemUom()
-        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: um, outletId: userOutlet.id, scanned: false))
-        shopTableView.reloadData()
-     }
+    
     
     @IBAction func scanItemPressed(_ sender: Any) {
         performSegue(withIdentifier: AppCons.showScan.rawValue, sender: nil)
@@ -144,9 +137,12 @@ extension ShopListController: Exchange {
     
     func objectExchange(object: Any) {
         
-        if let item = object as? ShopItem  {//item changed came
-            shopList.change(item)
-        } else if let outlet = object as? Outlet  {//outlet came
+        if let item = object as? ShopItem {
+            shopList.append(item: item)
+        }
+        
+        
+        if let outlet = object as? Outlet  {//outlet came
             userOutlet = outlet
             outletNameButton.setTitle(userOutlet.name, for: .normal)
             outletAddressLabel.text = userOutlet.address
@@ -343,16 +339,17 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: AppCons.showProductCard.rawValue, sender: shopList.getItem(index: indexPath))
+        performSegue(withIdentifier: AppCons.showEditItem.rawValue, sender: shopList.getItem(index: indexPath))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == AppCons.showProductCard.rawValue, let itemVC = segue.destination as? ItemCardVC  {
+        if segue.identifier == AppCons.showEditItem.rawValue, let itemVC = segue.destination as? ItemCardVC  {
             if let item = sender as? ShopItem {
                 itemVC.item = item
                 itemVC.delegate = self
             }
         }
+        
         if segue.identifier == AppCons.showOutlets.rawValue, let outletVC = segue.destination as? OutletsVC  {
             outletVC.delegate = self
             if let userCoord = sender as? CLLocationCoordinate2D {
@@ -363,6 +360,8 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         if segue.identifier == AppCons.showItemList.rawValue, let itemListVC = segue.destination as? ItemListVC  {
             
             itemListVC.outletId = userOutlet.id
+            
+            itemListVC.delegate = self
             
         }
         if segue.identifier == AppCons.showScan.rawValue, let scanVC = segue.destination as? ScannerController  {

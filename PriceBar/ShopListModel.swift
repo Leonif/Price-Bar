@@ -52,8 +52,11 @@ class ShopListModel {
             sections.append(item.category)
             shopList[item.category] = [item]
         }
-        CoreDataService.data.save(item)
+        CoreDataService.data.addToShopListAndSaveStatistics(item)
+        
     }
+    
+    
     
     func pricesUpdate(by outletId: String) {
         shopList.forEach{
@@ -87,7 +90,7 @@ class ShopListModel {
                 
             }
         }
-        CoreDataService.data.save(item)
+        CoreDataService.data.addToShopListAndSaveStatistics(item)
         updateSections()
     }
     

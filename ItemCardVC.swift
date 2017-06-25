@@ -100,10 +100,6 @@ class ItemCardVC: UIViewController {
         if let item = item {
             item.name = itemTitle.text ?? ""
             item.price = itemPrice.text?.double ?? 0.0
-            
-            
-            
-            
             delegate.objectExchange(object: item)
             self.dismiss(animated: true, completion: nil)
         } else {

@@ -89,6 +89,9 @@ class ShopListController: UIViewController {
     @IBAction func scanItemPressed(_ sender: Any) {
         performSegue(withIdentifier: AppCons.showScan.rawValue, sender: nil)
      }
+    @IBAction func itemListPressed(_ sender: Any) {
+        performSegue(withIdentifier: AppCons.showItemList.rawValue, sender: nil)
+    }
     
 }
 
@@ -355,6 +358,11 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             if let userCoord = sender as? CLLocationCoordinate2D {
                 outletVC.userCoordinate = userCoord
             }
+            
+        }
+        if segue.identifier == AppCons.showItemList.rawValue, let itemListVC = segue.destination as? ItemListVC  {
+            
+            itemListVC.outletId = userOutlet.id
             
         }
         if segue.identifier == AppCons.showScan.rawValue, let scanVC = segue.destination as? ScannerController  {

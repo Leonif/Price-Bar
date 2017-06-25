@@ -226,6 +226,38 @@ class CoreDataService {
 
 //MARK: Product
 extension CoreDataService {
+    
+    
+    func getItemList(outletId: String) -> [ShopItem]? {
+        
+        
+        var shopItems = [ShopItem]()
+        
+        do {
+            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+            let productExist = try context.fetch(fetchRequest)
+            if !productExist.isEmpty {
+                productExist.forEach {
+                    if let toUom = $0.toUom, let u = toUom.uom  {
+                        let uom = ShopItemUom(uom: u, increment: toUom.iterator)
+                        let category = ($0.toCategory?.category)!
+                        let price = getPrice($0.id!, outletId: outletId)
+                        let item = ShopItem(id: $0.id!, name: $0.name!, quantity: 1.0, price: price, category: category, uom: uom, outletId: outletId, scanned: true)
+                        shopItems.append(item)
+                    }
+                }
+                return shopItems
+            }
+        } catch  {
+            print("Products is not got from database")
+        }
+        return nil
+
+        
+    }
+    
+    
+    
     func getItem(by barcode: String, and outletId: String) -> ShopItem? {
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")

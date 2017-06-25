@@ -32,6 +32,19 @@ class ShopListModel {
         return (categories,uoms)
     }
     
+    func getShopItems(outletId: String) -> [ShopItem]?  {
+        
+        if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
+        
+        
+            return itemList
+        
+        }
+        
+        return nil
+        
+    }
+    
     func append(item: ShopItem) {
         if sections.contains(item.category) {
             shopList[item.category]?.append(item)

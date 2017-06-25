@@ -13,6 +13,7 @@ enum AppCons: String {
     case showProductCard = "showProductCard"
     case showOutlets = "showOutlets"
     case showScan = "showScan"
+    case showItemList = "showItemList"
 }
 
 class CodesDB {

@@ -39,6 +39,8 @@
 		79D269FD1EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D269F71EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift */; };
 		79D269FE1EFD8D3A00337DA3 /* ShopList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D269F81EFD8D3A00337DA3 /* ShopList+CoreDataClass.swift */; };
 		79D269FF1EFD8D3A00337DA3 /* ShopList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D269F91EFD8D3A00337DA3 /* ShopList+CoreDataProperties.swift */; };
+		79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A001EFECC4800337DA3 /* ItemListVC.swift */; };
+		79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +77,8 @@
 		79D269F71EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Statistic+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		79D269F81EFD8D3A00337DA3 /* ShopList+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		79D269F91EFD8D3A00337DA3 /* ShopList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
+		79D26A001EFECC4800337DA3 /* ItemListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListVC.swift; sourceTree = SOURCE_ROOT; };
+		79D26A021EFECD5700337DA3 /* ItemListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListCell.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +124,7 @@
 		792EE7951EE4936700470669 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				79D26A001EFECC4800337DA3 /* ItemListVC.swift */,
 				7973DD881EF1AF430010A64F /* OutletsVC.swift */,
 				79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
@@ -133,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				792EE7C61EE7087200470669 /* HeaderView.swift */,
+				79D26A021EFECD5700337DA3 /* ItemListCell.swift */,
 				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
 				7973DD8A1EF1B16C0010A64F /* OutletCell.swift */,
 				792EE7B01EE707E700470669 /* LaunchScreen.storyboard */,
@@ -278,6 +284,7 @@
 				79D269FD1EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift in Sources */,
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,
 				79AA10491EF83FA100903133 /* Category+CoreDataClass.swift in Sources */,
+				79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */,
 				79AA104C1EF83FA100903133 /* Uom+CoreDataProperties.swift in Sources */,
 				79D269FB1EFD8D3A00337DA3 /* Product+CoreDataProperties.swift in Sources */,
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,
@@ -288,6 +295,7 @@
 				792EE7BD1EE7081800470669 /* DoubleExtensions.swift in Sources */,
 				79AA104A1EF83FA100903133 /* Category+CoreDataProperties.swift in Sources */,
 				792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */,
+				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,
 				79C17A4C1EEBD692003A8D6B /* Constants.swift in Sources */,
 				79D269FF1EFD8D3A00337DA3 /* ShopList+CoreDataProperties.swift in Sources */,
 				79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */,

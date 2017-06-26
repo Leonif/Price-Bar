@@ -630,6 +630,9 @@
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="itemSearchFieldChanged:" destination="Aph-JN-BT7" eventType="editingChanged" id="Zyc-zs-SVY"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.93590015479999999" green="0.89439511230000002" blue="0.55457293669999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -759,6 +762,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="itemSearchField" destination="QJ3-4M-n7C" id="ZI7-h3-rvJ"/>
                         <outlet property="itemTableView" destination="74u-MH-F1Q" id="j6K-js-uXB"/>
                         <segue destination="eEM-bT-isb" kind="show" identifier="showProductCard" id="EJ7-82-Mar"/>
                     </connections>

@@ -53,18 +53,21 @@ class ItemCardVC: UIViewController {
         
         addDoneButtonToNumPad()
 
+        if item == nil {
+            
+            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, price: 0.0, category: categories[0].category!, uom: ShopItemUom(), outletId: outletId, scanned: false)
+        }
+        
         if let item = item {
             itemTitle.text = item.name
             itemPrice.text = item.price.asDecimal
             categoryButton.setTitle(item.category, for: .normal)
             uomButton.setTitle(item.uom.uom, for: .normal)
-        } else {
-            
-            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, price: 0.0, category: categories[0].category!, uom: ShopItemUom(), outletId: outletId, scanned: false)
-            
-           
-            
         }
+
+        
+            
+        
     }
     
     func readInitData() {

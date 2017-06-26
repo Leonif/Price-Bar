@@ -25,7 +25,7 @@ class ShopListModel {
         return sum
     }
     
-    func readInitData() -> ([Category],[Uom]) {
+    func readInitData() -> (categories:[Category],uoms: [Uom]) {
         let categories = CoreDataService.data.getCategories()
         let uoms = CoreDataService.data.getUom()
         
@@ -84,12 +84,21 @@ class ShopListModel {
     }
     
     func change(_ item: ShopItem) {
+        
+        var found = false
+        
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]?[index] = item
+                found = true
                 
             }
         }
+        
+        if !found {
+            append(item: item)
+        }
+        
         CoreDataService.data.addToShopListAndSaveStatistics(item)
         updateSections()
     }

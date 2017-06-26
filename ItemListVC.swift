@@ -34,17 +34,15 @@ class ItemListVC: UIViewController {
         
         
         performSegue(withIdentifier: AppCons.showProductCard.rawValue, sender: nil)
-//        let um = ShopItemUom()
-//        shopList.append(item: ShopItem(id: UUID().uuidString, name: "Новая единица", quantity: 1.00, price: 0.00, category: "Неопредленно", uom: um, outletId: userOutlet.id, scanned: false))
-//        shopTableView.reloadData()
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == AppCons.showProductCard.rawValue, let itemVC = segue.destination as? ItemCardVC  {
-            if let item = sender as? ShopItem {
-                itemVC.item = item
+            
                 itemVC.delegate = self
-            }
+                itemVC.outletId = outletId
+            
         }
     }
 

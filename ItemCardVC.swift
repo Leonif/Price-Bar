@@ -23,11 +23,10 @@ class ItemCardVC: UIViewController {
     
     
     var categories = [Category]()
-    //var catRow = 0
     var uom = [Uom]()
-    //var uomRow = 0
     var increment = [String]()
     var pickerType: PickerType = .category
+    var outletId: String!
     
     
     @IBOutlet weak var commonPickerView: UIPickerView!
@@ -59,14 +58,20 @@ class ItemCardVC: UIViewController {
             itemPrice.text = item.price.asDecimal
             categoryButton.setTitle(item.category, for: .normal)
             uomButton.setTitle(item.uom.uom, for: .normal)
+        } else {
+            
+            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, price: 0.0, category: categories[0].category!, uom: ShopItemUom(), outletId: outletId, scanned: false)
+            
+           
+            
         }
     }
     
     func readInitData() {
         
         let initData = ShopListModel().readInitData()
-        categories = initData.0
-        uom = initData.1
+        categories = initData.categories
+        uom = initData.uoms
     }
     
     
@@ -96,15 +101,23 @@ class ItemCardVC: UIViewController {
     }
 
     @IBAction func savePressed(_ sender: Any) {
-        
         if let item = item {
             item.name = itemTitle.text ?? ""
             item.price = itemPrice.text?.double ?? 0.0
             delegate.objectExchange(object: item)
-            self.dismiss(animated: true, completion: nil)
+            
         } else {
+            
+            
+            self.item?.name = itemTitle.text ?? ""
+            self.item?.price = itemPrice.text?.double ?? 0.0
+            delegate.objectExchange(object: item!)
+            
+            
+            
             print("Product is not saved")
         }
+        self.dismiss(animated: true, completion: nil)
     }
    
 
@@ -134,10 +147,6 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
             //catRow = row
         } else {
             uomButton.setTitle(uom[row].uom, for: .normal)
-            //uomRow = row
-            
-            
-            
             item?.uom = ShopItemUom(uom: uom[row].uom!,increment: uom[row].iterator)
             
         }

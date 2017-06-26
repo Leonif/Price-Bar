@@ -138,7 +138,8 @@ extension ShopListController: Exchange {
     func objectExchange(object: Any) {
         
         if let item = object as? ShopItem {
-            shopList.append(item: item)
+            shopList.change(item)
+            //shopTableView.reloadData()
         }
         
         

@@ -19,7 +19,7 @@ class ShopItem  {
     var scanned = false
     var checked = false
     
-    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: ShopItemUom, outletId: String, scanned: Bool) {
+    init(id: String, name: String, quantity: Double, price: Double, category: String, uom: ShopItemUom, outletId: String, scanned: Bool, checked: Bool) {
         self.id = id
         self.name = name
         self.quantity = quantity
@@ -28,6 +28,7 @@ class ShopItem  {
         self.uom = uom
         self.outletId = outletId
         self.scanned = scanned
+        self.checked = checked
         
     }
     
@@ -40,7 +41,7 @@ class ShopItem  {
 //copying from one object to other (by value, not reference)
 extension ShopItem: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category, uom:uom, outletId: outletId, scanned: scanned)
+        let copy = ShopItem(id: id, name: name, quantity: quantity, price: price, category: category, uom:uom, outletId: outletId, scanned: scanned, checked: checked)
         return copy
     }
 }

@@ -55,7 +55,7 @@ class ItemCardVC: UIViewController {
 
         if item == nil {
             
-            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, price: 0.0, category: categories[0].category!, uom: ShopItemUom(), outletId: outletId, scanned: false)
+            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, price: 0.0, category: categories[0].category!, uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
         }
         
         if let item = item {

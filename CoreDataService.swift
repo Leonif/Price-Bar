@@ -113,10 +113,7 @@ class CoreDataService {
     
     
     
-    func saveStatistic(_ item: ShopItem)  {
-        
-        //printPriceStatistics()
-        
+    func saveStatistic(_ item: ShopItem)  {        
         guard item.price != 0 else {
             return
         }
@@ -155,13 +152,17 @@ class CoreDataService {
                 let shpLst = ShopList(context: context)
                 shpLst.outlet_id = item.outletId
                 shpLst.quantity = item.quantity
+                shpLst.checked = item.checked
                 shpLst.toProduct = productExist.first
+                
             } else {
                 //change parametrs
-                let shpLst = shoppedProduct.first
-                shpLst?.outlet_id = item.outletId
-                shpLst?.quantity = item.quantity
-                shpLst?.toProduct = productExist.first
+                if let shpLst = shoppedProduct.first  {
+                    shpLst.outlet_id = item.outletId
+                    shpLst.quantity = item.quantity
+                    shpLst.checked = item.checked
+                    shpLst.toProduct = productExist.first
+                }
             }
             ad.saveContext()
         } catch {
@@ -195,14 +196,15 @@ class CoreDataService {
             let productExist = try context.fetch(shpLstRequest)
             productExist.forEach {
                 
-                let prd = $0.toProduct
+                if let prd = $0.toProduct {
                 
-                let price = getPrice((prd?.id)!, outletId: outletId)
-                
-                let uom = ShopItemUom(uom: (prd?.toUom?.uom)!, increment: (prd?.toUom?.iterator)!)
-                
-                let item = ShopItem(id: (prd?.id)!, name: (prd?.name)!, quantity: $0.quantity, price: price, category: (prd?.toCategory?.category)!, uom: uom, outletId: outletId, scanned: (prd?.scanned)!)
-                shopListModel.append(item: item)
+                    let price = getPrice((prd.id)!, outletId: outletId)
+                    
+                    let uom = ShopItemUom(uom: (prd.toUom?.uom)!, increment: (prd.toUom?.iterator)!)
+                    
+                    let item = ShopItem(id: (prd.id)!, name: (prd.name)!, quantity: $0.quantity, price: price, category: (prd.toCategory?.category)!, uom: uom, outletId: outletId, scanned: (prd.scanned), checked: $0.checked)
+                    shopListModel.append(item: item)
+                }
             
             }
             return shopListModel
@@ -242,7 +244,7 @@ extension CoreDataService {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
                         let category = ($0.toCategory?.category)!
                         let price = getPrice($0.id!, outletId: outletId)
-                        let item = ShopItem(id: $0.id!, name: $0.name!, quantity: 1.0, price: price, category: category, uom: uom, outletId: outletId, scanned: true)
+                        let item = ShopItem(id: $0.id!, name: $0.name!, quantity: 1.0, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
                         shopItems.append(item)
                     }
                 }
@@ -269,7 +271,7 @@ extension CoreDataService {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
                         let category = (prd.toCategory?.category)!
                         let price = getPrice(barcode, outletId: outletId)
-                        let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, price: price, category: category, uom: uom, outletId: outletId, scanned: true)
+                        let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
                         return item
                     }
                 }

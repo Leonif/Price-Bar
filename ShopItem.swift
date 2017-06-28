@@ -17,6 +17,7 @@ class ShopItem  {
     var uom: ShopItemUom
     var outletId = ""
     var scanned = false
+    var checked = false
     
     init(id: String, name: String, quantity: Double, price: Double, category: String, uom: ShopItemUom, outletId: String, scanned: Bool) {
         self.id = id

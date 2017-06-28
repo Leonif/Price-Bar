@@ -74,15 +74,13 @@ class ShopListController: UIViewController {
 extension ShopListController {
     @IBAction func checkMarkPressed(_ sender: UIButton) {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
-        
-            if cell.alpha == 1 {
-                cell.alpha = 0.3
-                sender.setImage(UIImage(named:CheckMark.check.rawValue), for: .normal)
-            } else {
-                cell.alpha = 1
-                sender.setImage(UIImage(named:CheckMark.uncheck.rawValue), for: .normal)
+            if let indexPath = shopTableView.indexPath(for: cell), let item = shopList.getItem(index: indexPath)  {
+                
+                item.checked = !item.checked
+                shopList.change(item)
+                cell.configureCell(item: item)
+                
             }
-        
         }
     }
     

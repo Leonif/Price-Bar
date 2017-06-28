@@ -17,13 +17,21 @@ class ShopItemCell: UITableViewCell {
     @IBOutlet weak var quantityItem: UILabel!
     @IBOutlet weak var totalItem: UILabel!
     @IBOutlet weak var uomLabel: UILabel!
-    
+    @IBOutlet weak var checkMarkBtn: UIButton!
     @IBOutlet weak var quantitySlider: UISlider!
     
-
     func configureCell(item: ShopItem) {
         
         let s = item
+        
+        let checkAlpha = CGFloat(s.checked ? 0.5 : 1)
+        self.contentView.alpha = checkAlpha
+        let imageStr = s.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue
+        
+        checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
+        
+        
+
         
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
@@ -34,6 +42,6 @@ class ShopItemCell: UITableViewCell {
         
     }
 
-    
+       
     
 }

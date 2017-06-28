@@ -134,7 +134,7 @@
                                                             </constraints>
                                                             <state key="normal" title="Button" image="uncheck"/>
                                                             <connections>
-                                                                <action selector="checkMarkPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ee5-EV-chq"/>
+                                                                <action selector="checkMarkPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y0r-F4-llC"/>
                                                             </connections>
                                                         </button>
                                                     </subviews>
@@ -172,6 +172,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="checkMarkBtn" destination="2b7-S4-4fB" id="pEh-ZP-BYU"/>
                                             <outlet property="nameItem" destination="LDd-r2-V6T" id="2MB-KB-bvH"/>
                                             <outlet property="priceItem" destination="Ufx-5z-nAd" id="4Yu-vA-6II"/>
                                             <outlet property="quantityItem" destination="Q4Y-XT-FHi" id="17k-U9-fEa"/>

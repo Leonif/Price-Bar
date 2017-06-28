@@ -57,8 +57,37 @@ class ShopListController: UIViewController {
     }
     
     
+    
+    
+    
+    @IBAction func scanItemPressed(_ sender: Any) {
+        performSegue(withIdentifier: AppCons.showScan.rawValue, sender: nil)
+     }
+    @IBAction func itemListPressed(_ sender: Any) {
+        performSegue(withIdentifier: AppCons.showItemList.rawValue, sender: nil)
+    }
+    
+}
 
-   @IBAction func quantitySliderChanged(_ sender: UISlider) {
+
+//MARK: Cell handlers
+extension ShopListController {
+    @IBAction func checkMarkPressed(_ sender: UIButton) {
+        if let cell = sender.superview?.superview?.superview as? ShopItemCell {
+        
+            if cell.alpha == 1 {
+                cell.alpha = 0.3
+                sender.setImage(UIImage(named:CheckMark.check.rawValue), for: .normal)
+            } else {
+                cell.alpha = 1
+                sender.setImage(UIImage(named:CheckMark.uncheck.rawValue), for: .normal)
+            }
+        
+        }
+    }
+    
+    
+    @IBAction func quantitySliderChanged(_ sender: UISlider) {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell) {
                 if let shp = shopList.getItem(index: indexPath) {
@@ -79,14 +108,9 @@ class ShopListController: UIViewController {
     
     
     
-    @IBAction func scanItemPressed(_ sender: Any) {
-        performSegue(withIdentifier: AppCons.showScan.rawValue, sender: nil)
-     }
-    @IBAction func itemListPressed(_ sender: Any) {
-        performSegue(withIdentifier: AppCons.showItemList.rawValue, sender: nil)
-    }
-    
 }
+
+
 
 
 
@@ -128,53 +152,6 @@ extension ShopListController:CLLocationManagerDelegate {
     }
 }
 
-protocol Exchange {
-    func objectExchange(object: Any)
-}
-
-//MARK: Handlers based Exchange protocol
-extension ShopListController: Exchange {
-    
-    func objectExchange(object: Any) {
-        
-        if let item = object as? ShopItem {
-            shopList.change(item)
-            //shopTableView.reloadData()
-        }
-        
-        
-        if let outlet = object as? Outlet  {//outlet came
-            userOutlet = outlet
-            outletNameButton.setTitle(userOutlet.name, for: .normal)
-            outletAddressLabel.text = userOutlet.address
-            
-            shopList.pricesUpdate(by: userOutlet.id)
-            
-            
-            if let shpLst = CoreDataService.data.loadShopList(outletId: userOutlet.id), !selfLoaded {
-                shopList = shpLst
-                totalLabel.update(value: shopList.total)
-                selfLoaded = true
-            }
-            
-            
-            
-        } else if let code = object as? String {//scann came
-            print(code)
-            let item: ShopItem!
-            if let it = CoreDataService.data.getItem(by: code, and: userOutlet.id) {
-                item = it
-            } else {
-                item = ShopItem(id: code, name: "Неизвестно", quantity: 1.0, price: 0.0, category: "Неизвестно", uom: ShopItemUom(), outletId: userOutlet.id, scanned: true)
-            }
-            shopList.append(item: item)
-            CoreDataService.data.addToShopList(item)
-        }
-        shopTableView.reloadData()
-        totalLabel.update(value: shopList.total)
-    }
-    
-}
 
 //MARK: Outlets
 extension ShopListController {
@@ -183,106 +160,6 @@ extension ShopListController {
     }
 }
 
-//MARK: Drag cells into other category and between each others
-extension ShopListController {
-    func snapshopOfCell(inputView: UIView) -> UIView {
-        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
-        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        let cellSnapshot : UIView = UIImageView(image: image)
-        cellSnapshot.layer.masksToBounds = false
-        cellSnapshot.layer.cornerRadius = 0.0
-        cellSnapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
-        cellSnapshot.layer.shadowRadius = 5.0
-        cellSnapshot.layer.shadowOpacity = 0.4
-        return cellSnapshot
-    }
-    
-    func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
-//        let longPress = gestureRecognizer as! UILongPressGestureRecognizer
-//        let state = longPress.state
-//        let locationInView = longPress.location(in: shopTableView)
-//        let indexPath = shopTableView.indexPathForRow(at: locationInView)
-//        
-//        struct My {
-//            static var cellSnapshot : UIView? = nil
-//        }
-//        struct Path {
-//            static var initialIndexPath : IndexPath? = nil
-//        }
-//        
-//        switch state {
-//        case UIGestureRecognizerState.began:
-//            if indexPath != nil {
-//                Path.initialIndexPath = indexPath
-//                let cell = shopTableView.cellForRow(at: indexPath!) as UITableViewCell!
-//                My.cellSnapshot = snapshopOfCell(inputView: cell!)
-//                var center = cell?.center
-//                My.cellSnapshot!.center = center!
-//                My.cellSnapshot!.alpha = 0.0
-//                shopTableView.addSubview(My.cellSnapshot!)
-//                
-//                UIView.animate(withDuration: 0.25, animations: { () -> Void in
-//                    center?.y = locationInView.y
-//                    My.cellSnapshot!.center = center!
-//                    My.cellSnapshot!.transform = CGAffineTransform(scaleX: 1.05, y: 1.05)
-//                    My.cellSnapshot!.alpha = 0.98
-//                    cell?.alpha = 0.0
-//                    
-//                }, completion: { (finished) -> Void in
-//                    if finished {
-//                        cell?.isHidden = true
-//                    }
-//                })
-//            }
-//        case UIGestureRecognizerState.changed:
-//            
-//            if var center = My.cellSnapshot?.center {
-//                center.y = locationInView.y
-//                My.cellSnapshot!.center = center
-//                if ((indexPath != nil) && (indexPath != Path.initialIndexPath)) {
-//                    //change places
-//                    if let a = shopList.getItem(index: indexPath!), let b = shopList.getItem(index: Path.initialIndexPath!) {
-//                    
-//                        if let c = b.copy() as? ShopItem {
-//                            
-//                            c.category = a.category
-//                            shopList.remove(item: b)
-//                            shopList.append(item: c)
-//                            
-//                            //  shopTableView.moveRow(at: Path.initialIndexPath!, to: indexPath!)
-//                            Path.initialIndexPath = indexPath
-//                            shopTableView.reloadData()
-//                            
-//                        }
-//                    }
-//                }
-//            }
-//            
-//            
-//        default:
-//            if let pIndex = Path.initialIndexPath, let cell = shopTableView.cellForRow(at:pIndex) {
-//                cell.isHidden = false
-//                cell.alpha = 0.0
-//                UIView.animate(withDuration: 0.25, animations: { () -> Void in
-//                    My.cellSnapshot!.center = cell.center
-//                    My.cellSnapshot!.transform = CGAffineTransform.identity
-//                    My.cellSnapshot!.alpha = 0.0
-//                    cell.alpha = 1.0
-//                }, completion: { (finished) -> Void in
-//                    
-//                    if finished {
-//                        Path.initialIndexPath = nil
-//                        My.cellSnapshot!.removeFromSuperview()
-//                        My.cellSnapshot = nil
-//                    }
-//                })
-//            }
-//        }
-//        
-    }
-}
 
 
 
@@ -358,7 +235,8 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-        if segue.identifier == AppCons.showItemList.rawValue, let itemListVC = segue.destination as? ItemListVC  {
+        if segue.identifier == AppCons.showItemList.rawValue,
+            let itemListVC = segue.destination as? ItemListVC, userOutlet != nil  {
             
             itemListVC.outletId = userOutlet.id
             

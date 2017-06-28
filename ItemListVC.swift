@@ -23,6 +23,7 @@ class ItemListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        addDoneButtonToNumPad()
         if let itemList = ShopListModel().getShopItems(outletId: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
@@ -76,10 +77,36 @@ extension ItemListVC: Exchange {
         if let item = object as? ShopItem   {
             CoreDataService.data.addToShopListAndSaveStatistics(item)
             delegate.objectExchange(object: item)
-            //self.dismiss(animated: true, completion: nil)
             hide = true
             
         }
+    }
+}
+
+
+extension ItemListVC: UITextFieldDelegate {
+    //hide keyboard by press ENter
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func numDonePressed() {
+        
+        itemSearchField.resignFirstResponder()
+        
+    }
+    
+    
+    func addDoneButtonToNumPad() {
+        //Add done button to numeric pad keyboard
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
+                                              target: self, action: #selector(numDonePressed))
+        
+        toolbarDone.items = [barBtnDone] // You can even add cancel button too
+        itemSearchField.inputAccessoryView = toolbarDone
     }
 }
 

@@ -90,6 +90,7 @@ extension ShopListController {
             if let indexPath = shopTableView.indexPath(for: cell) {
                 if let shp = shopList.getItem(index: indexPath) {
                     shp.quantity = step(baseValue: Double(sender.value), step: shp.uom.increment)
+                    shopList.change(shp)
                     shopTableView.reloadData()
                     
                 }

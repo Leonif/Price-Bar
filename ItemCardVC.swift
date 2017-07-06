@@ -81,6 +81,7 @@ class ItemCardVC: UIViewController {
    
     @IBAction func categoryPressed(_ sender: Any) {
         
+        self.view.endEditing(true)
         pickerType = .category
         commonPickerView.reloadAllComponents()
         
@@ -91,6 +92,7 @@ class ItemCardVC: UIViewController {
     
     @IBAction func uomPressed(_ sender: Any) {
     
+        self.view.endEditing(true)
         pickerType = .uom
         commonPickerView.reloadAllComponents()
         commonPickerView.isHidden = false
@@ -168,6 +170,14 @@ extension ItemCardVC: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.animateViewMoving(up: true, moveValue: 150, view: self.view)
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        textField.animateViewMoving(up: false, moveValue: 150, view: self.view)
+    }
+
     
     func numDonePressed() {
         

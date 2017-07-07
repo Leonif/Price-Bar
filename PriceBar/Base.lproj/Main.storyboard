@@ -515,6 +515,10 @@
                                     <constraint firstAttribute="height" constant="176" id="pi9-r0-par"/>
                                 </constraints>
                             </imageView>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzM-G5-ETZ">
+                                <rect key="frame" x="0.0" y="429" width="414" height="273"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </pickerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kv-tB-vni">
                                 <rect key="frame" x="334" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -553,12 +557,8 @@
                                     <action selector="backPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="cJN-oT-E2b"/>
                                 </connections>
                             </button>
-                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzM-G5-ETZ">
-                                <rect key="frame" x="0.0" y="342" width="414" height="216"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </pickerView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Помидоры" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-2f-mBr">
-                                <rect key="frame" x="18" y="182" width="374" height="60"/>
+                                <rect key="frame" x="20" y="262" width="374" height="60"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="AEz-Ur-tcp"/>
@@ -568,18 +568,18 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes"/>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="65,90" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TNC-Ik-Mx3">
-                                <rect key="frame" x="18" y="274" width="188" height="60"/>
+                                <rect key="frame" x="20" y="354" width="188" height="60"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="QEd-0y-poA"/>
                                     <constraint firstAttribute="width" constant="188" id="faL-wF-FAJ"/>
                                 </constraints>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="0.0" green="0.66617838539999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41z-nM-1tE">
-                                <rect key="frame" x="18" y="104" width="374" height="60"/>
+                                <rect key="frame" x="20" y="184" width="374" height="60"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="12P-66-nbg"/>
@@ -591,7 +591,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1SJ-lB-xI9">
-                                <rect key="frame" x="244" y="274" width="148" height="60"/>
+                                <rect key="frame" x="246" y="354" width="148" height="60"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="8XK-p4-R1H"/>
@@ -603,35 +603,36 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="за" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOz-fX-oct">
-                                <rect key="frame" x="214" y="274" width="22" height="60"/>
+                                <rect key="frame" x="216" y="354" width="22" height="60"/>
                                 <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="23"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UzM-G5-ETZ" firstAttribute="top" secondItem="TNC-Ik-Mx3" secondAttribute="bottom" constant="8" id="09r-m8-IJg"/>
+                            <constraint firstItem="UzM-G5-ETZ" firstAttribute="top" secondItem="TNC-Ik-Mx3" secondAttribute="bottom" constant="15" id="09r-m8-IJg"/>
                             <constraint firstItem="FLH-G6-BOk" firstAttribute="top" secondItem="Ypb-Do-KWG" secondAttribute="top" id="1jG-VU-Izh"/>
-                            <constraint firstItem="TNC-Ik-Mx3" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" constant="-2" id="2fY-OU-x1e"/>
+                            <constraint firstItem="TNC-Ik-Mx3" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="2fY-OU-x1e"/>
                             <constraint firstItem="1SJ-lB-xI9" firstAttribute="top" secondItem="Qff-2f-mBr" secondAttribute="bottom" constant="32" id="3MV-LV-gVp"/>
-                            <constraint firstItem="Qff-2f-mBr" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" constant="-2" id="9ZK-9V-a15"/>
+                            <constraint firstItem="Qff-2f-mBr" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="9ZK-9V-a15"/>
                             <constraint firstItem="gOz-fX-oct" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="trailing" constant="8" id="DiG-kk-xgV"/>
                             <constraint firstItem="1SJ-lB-xI9" firstAttribute="leading" secondItem="gOz-fX-oct" secondAttribute="trailing" constant="8" id="Fz9-xQ-7LL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="4kv-tB-vni" secondAttribute="trailing" id="K0Q-er-dNr"/>
                             <constraint firstAttribute="trailing" secondItem="UzM-G5-ETZ" secondAttribute="trailing" id="KRS-AP-cG4"/>
                             <constraint firstItem="FLH-G6-BOk" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leading" id="QMw-Cd-dp3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1SJ-lB-xI9" secondAttribute="trailing" constant="2" id="R8O-Q9-QFi"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1SJ-lB-xI9" secondAttribute="trailing" id="R8O-Q9-QFi"/>
                             <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="OHB-pK-kb0" secondAttribute="bottom" constant="70" id="Uv0-Za-3Ov"/>
                             <constraint firstItem="UzM-G5-ETZ" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leading" id="XFM-By-aGL"/>
                             <constraint firstItem="gOz-fX-oct" firstAttribute="top" secondItem="TNC-Ik-Mx3" secondAttribute="top" id="aKY-gb-JNa"/>
-                            <constraint firstItem="OHB-pK-kb0" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="leading" constant="2" id="eM9-g4-Quk"/>
+                            <constraint firstItem="OHB-pK-kb0" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="leading" id="eM9-g4-Quk"/>
                             <constraint firstAttribute="trailing" secondItem="FLH-G6-BOk" secondAttribute="trailing" id="j3j-dF-hIQ"/>
-                            <constraint firstItem="Qff-2f-mBr" firstAttribute="trailing" secondItem="Ypb-Do-KWG" secondAttribute="trailingMargin" constant="-2" id="jTH-2v-bP0"/>
-                            <constraint firstItem="FLH-G6-BOk" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" constant="-164" id="kN4-hG-m8m"/>
+                            <constraint firstItem="Qff-2f-mBr" firstAttribute="trailing" secondItem="Ypb-Do-KWG" secondAttribute="trailingMargin" id="jTH-2v-bP0"/>
+                            <constraint firstItem="FLH-G6-BOk" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" constant="-244" id="kN4-hG-m8m"/>
                             <constraint firstItem="TNC-Ik-Mx3" firstAttribute="top" secondItem="Qff-2f-mBr" secondAttribute="bottom" constant="32" id="kkt-0b-qTd"/>
-                            <constraint firstItem="41z-nM-1tE" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" constant="-2" id="nhI-Wv-by2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="41z-nM-1tE" secondAttribute="trailing" constant="2" id="o5B-vG-uzR"/>
+                            <constraint firstItem="41z-nM-1tE" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="nhI-Wv-by2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="41z-nM-1tE" secondAttribute="trailing" id="o5B-vG-uzR"/>
+                            <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="UzM-G5-ETZ" secondAttribute="bottom" constant="34" id="sMi-fF-y74"/>
                             <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="4kv-tB-vni" secondAttribute="bottom" constant="70" id="tDB-zr-iYL"/>
                             <constraint firstItem="Qff-2f-mBr" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" constant="18" id="tXG-8B-rUZ"/>
                             <constraint firstItem="gOz-fX-oct" firstAttribute="height" secondItem="TNC-Ik-Mx3" secondAttribute="height" id="xLR-19-lAG"/>

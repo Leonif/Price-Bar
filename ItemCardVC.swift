@@ -85,6 +85,13 @@ class ItemCardVC: UIViewController {
         pickerType = .category
         commonPickerView.reloadAllComponents()
         
+        for index in 0 ..< categories.count {
+            if categories[index].category == item?.category {
+                commonPickerView.selectRow(index, inComponent: 0, animated: true)
+                break
+            }
+ 
+        }
         commonPickerView.isHidden = false
         
         
@@ -95,6 +102,13 @@ class ItemCardVC: UIViewController {
         self.view.endEditing(true)
         pickerType = .uom
         commonPickerView.reloadAllComponents()
+        for index in 0 ..< uom.count {
+            if uom[index].uom == item?.uom.uom {
+                commonPickerView.selectRow(index, inComponent: 0, animated: true)
+                break
+            }
+            
+        }
         commonPickerView.isHidden = false
     
     }

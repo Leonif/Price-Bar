@@ -39,12 +39,16 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
         self.dismiss(animated: true, completion: nil)
         
     }
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
         if  authStatus == AVAuthorizationStatus.denied  {
             warningRestrictedCameraView.isHidden = false
+            
         }
         
         

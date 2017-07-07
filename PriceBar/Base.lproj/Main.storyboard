@@ -396,6 +396,34 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="97" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wnc-Qk-gxs">
                                 <rect key="frame" x="0.0" y="84" width="414" height="652"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <view key="tableFooterView" hidden="YES" contentMode="scaleToFill" id="UDW-he-dmS">
+                                    <rect key="frame" x="0.0" y="125" width="414" height="520"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Вы не разрешили использовать камеру. Убедитесь, что камере дан доступ как показано ниже в &quot;Конфиденциальность&quot; 😥" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Hb9-Wt-sqy">
+                                            <rect key="frame" x="26" y="8" width="363" height="115"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="115" id="Ae1-sZ-Ni4"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraInfo" translatesAutoresizingMaskIntoConstraints="NO" id="T4Z-8s-qTc">
+                                            <rect key="frame" x="8" y="83" width="398" height="344"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="T4Z-8s-qTc" firstAttribute="centerX" secondItem="UDW-he-dmS" secondAttribute="centerX" id="Bvj-pt-Ejm"/>
+                                        <constraint firstAttribute="trailing" secondItem="Hb9-Wt-sqy" secondAttribute="trailing" constant="25" id="MDj-Ce-Njc"/>
+                                        <constraint firstAttribute="trailing" secondItem="T4Z-8s-qTc" secondAttribute="trailing" constant="8" id="VGq-uz-c1h"/>
+                                        <constraint firstItem="Hb9-Wt-sqy" firstAttribute="top" secondItem="UDW-he-dmS" secondAttribute="top" constant="8" id="bpk-06-UIJ"/>
+                                        <constraint firstItem="Hb9-Wt-sqy" firstAttribute="leading" secondItem="UDW-he-dmS" secondAttribute="leading" constant="26" id="kxE-Af-07a"/>
+                                        <constraint firstItem="T4Z-8s-qTc" firstAttribute="leading" secondItem="UDW-he-dmS" secondAttribute="leading" constant="8" id="nzz-5H-U9J"/>
+                                        <constraint firstItem="T4Z-8s-qTc" firstAttribute="top" secondItem="Hb9-Wt-sqy" secondAttribute="bottom" constant="-40" id="wLY-7S-Ohy"/>
+                                    </constraints>
+                                </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="OutletCell" rowHeight="97" id="C1n-Cc-YSc" customClass="OutletCell" customModule="PriceBar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="97"/>
@@ -484,6 +512,33 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nhA-7N-FQr">
+                                <rect key="frame" x="0.0" y="108" width="414" height="520"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Вы не разрешили использовать gps-позицию. Убедитесь, что программе дан доступ как показано ниже в &quot;Конфиденциальность&quot; 😥" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JIb-u6-VeV">
+                                        <rect key="frame" x="8" y="8" width="398" height="115"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="115" id="rNh-bo-dCa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="locationInfo" translatesAutoresizingMaskIntoConstraints="NO" id="X8i-H3-UBH">
+                                        <rect key="frame" x="0.0" y="108" width="406" height="404"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="JIb-u6-VeV" firstAttribute="leading" secondItem="nhA-7N-FQr" secondAttribute="leading" constant="8" id="4xa-hz-vem"/>
+                                    <constraint firstItem="X8i-H3-UBH" firstAttribute="leading" secondItem="nhA-7N-FQr" secondAttribute="leading" id="65D-V7-Xmy"/>
+                                    <constraint firstAttribute="trailing" secondItem="X8i-H3-UBH" secondAttribute="trailing" constant="8" id="FgS-wc-W52"/>
+                                    <constraint firstItem="X8i-H3-UBH" firstAttribute="top" secondItem="JIb-u6-VeV" secondAttribute="top" constant="100" id="Hzb-QP-VXe"/>
+                                    <constraint firstAttribute="bottom" secondItem="X8i-H3-UBH" secondAttribute="bottom" constant="8" id="JPz-sP-btW"/>
+                                    <constraint firstAttribute="trailing" secondItem="JIb-u6-VeV" secondAttribute="trailing" constant="8" id="XvF-6f-6bz"/>
+                                    <constraint firstItem="JIb-u6-VeV" firstAttribute="top" secondItem="nhA-7N-FQr" secondAttribute="top" constant="8" id="i3O-Kr-oaM"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1p-Ld-bIX" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -507,15 +562,19 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="wnc-Qk-gxs" firstAttribute="leading" secondItem="wIk-Lx-zca" secondAttribute="leading" id="11z-Ne-R6h"/>
+                            <constraint firstItem="nhA-7N-FQr" firstAttribute="leading" secondItem="wIk-Lx-zca" secondAttribute="leadingMargin" constant="-20" id="CVR-Vu-gEK"/>
                             <constraint firstAttribute="trailing" secondItem="wnc-Qk-gxs" secondAttribute="trailing" id="DEy-Fi-v1h"/>
                             <constraint firstItem="amP-DL-HwC" firstAttribute="top" secondItem="wIk-Lx-zca" secondAttribute="top" id="DlJ-9s-ACE"/>
-                            <constraint firstItem="CQA-ar-EU4" firstAttribute="top" secondItem="wnc-Qk-gxs" secondAttribute="bottom" id="OOT-ba-ADN"/>
+                            <constraint firstItem="nhA-7N-FQr" firstAttribute="top" secondItem="cFc-RZ-F8V" secondAttribute="bottom" constant="88" id="OXr-e6-u0O"/>
                             <constraint firstItem="amP-DL-HwC" firstAttribute="leading" secondItem="wIk-Lx-zca" secondAttribute="leading" id="XMl-AO-Dzc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nhA-7N-FQr" secondAttribute="trailing" constant="-20" id="aZj-L7-TIF"/>
+                            <constraint firstItem="CQA-ar-EU4" firstAttribute="top" secondItem="wnc-Qk-gxs" secondAttribute="bottom" id="dwn-Dn-G4f"/>
                             <constraint firstItem="e1p-Ld-bIX" firstAttribute="leading" secondItem="wIk-Lx-zca" secondAttribute="leading" constant="20" id="e4w-JY-MJf"/>
                             <constraint firstAttribute="trailing" secondItem="amP-DL-HwC" secondAttribute="trailing" id="eI3-eV-lUZ"/>
-                            <constraint firstItem="CQA-ar-EU4" firstAttribute="top" secondItem="e1p-Ld-bIX" secondAttribute="bottom" constant="70" id="i4z-QE-85R"/>
+                            <constraint firstItem="CQA-ar-EU4" firstAttribute="top" secondItem="nhA-7N-FQr" secondAttribute="bottom" constant="108" id="lB3-ee-bu0"/>
                             <constraint firstItem="PDu-wx-Yl8" firstAttribute="centerX" secondItem="wIk-Lx-zca" secondAttribute="centerX" id="oE4-pA-TJx"/>
                             <constraint firstItem="PDu-wx-Yl8" firstAttribute="centerY" secondItem="wIk-Lx-zca" secondAttribute="centerY" id="sqZ-Qw-bRZ"/>
+                            <constraint firstItem="CQA-ar-EU4" firstAttribute="top" secondItem="e1p-Ld-bIX" secondAttribute="bottom" constant="70" id="zRF-pv-9Is"/>
                             <constraint firstItem="wnc-Qk-gxs" firstAttribute="top" secondItem="sR4-xo-foa" secondAttribute="bottom" constant="10" id="zS6-ny-bAa"/>
                         </constraints>
                     </view>
@@ -523,11 +582,12 @@
                         <outlet property="activityContainerView" destination="PDu-wx-Yl8" id="uMW-2c-crR"/>
                         <outlet property="activityIndicator" destination="sCi-aS-cg0" id="6JI-jC-dam"/>
                         <outlet property="outletTableView" destination="wnc-Qk-gxs" id="g9S-5e-gY5"/>
+                        <outlet property="warningLocationView" destination="nhA-7N-FQr" id="GzX-yV-yZK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fu7-6x-4Ut" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-738" y="859"/>
+            <point key="canvasLocation" x="-739.13043478260875" y="858.42391304347836"/>
         </scene>
         <!--Item CardVC-->
         <scene sceneID="9Pz-TX-lGE">
@@ -738,12 +798,12 @@
                                                     <rect key="frame" x="8" y="8" width="398" height="81"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Помидоры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QIn-DA-iTD">
-                                                            <rect key="frame" x="8" y="29" width="274" height="24"/>
+                                                            <rect key="frame" x="8" y="29" width="263" height="24"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="цена: 36.5 грн" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="skq-Mu-38j">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="цена: 36.5 грн" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="skq-Mu-38j">
                                                             <rect key="frame" x="276" y="28" width="114" height="26"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="114" id="XRo-kE-Bde"/>
@@ -770,7 +830,7 @@
                                                         <constraint firstItem="QIn-DA-iTD" firstAttribute="leading" secondItem="gpb-Rp-Hv8" secondAttribute="leading" constant="8" id="PyE-0a-QyF"/>
                                                         <constraint firstAttribute="trailing" secondItem="sKY-0b-wBp" secondAttribute="trailing" constant="8" id="i4E-f6-fF5"/>
                                                         <constraint firstItem="QIn-DA-iTD" firstAttribute="centerY" secondItem="gpb-Rp-Hv8" secondAttribute="centerY" id="sUl-r6-YZa"/>
-                                                        <constraint firstItem="skq-Mu-38j" firstAttribute="leading" secondItem="QIn-DA-iTD" secondAttribute="trailing" constant="-6" id="ygq-jG-Uko"/>
+                                                        <constraint firstItem="skq-Mu-38j" firstAttribute="leading" secondItem="QIn-DA-iTD" secondAttribute="trailing" constant="5" id="ygq-jG-Uko"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -867,6 +927,7 @@
     <resources>
         <image name="cameraInfo" width="622" height="344"/>
         <image name="check-list" width="128" height="128"/>
+        <image name="locationInfo" width="638" height="620"/>
         <image name="plus" width="128" height="128"/>
         <image name="product-back" width="1607" height="1073"/>
         <image name="save" width="128" height="128"/>

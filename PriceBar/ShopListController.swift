@@ -231,6 +231,8 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             outletVC.delegate = self
             if let userCoord = sender as? CLLocationCoordinate2D {
                 outletVC.userCoordinate = userCoord
+            } else {
+                outletVC.userCoordinate = nil
             }
             
         }

@@ -158,14 +158,14 @@ class CoreDataService {
             let productExist = try context.fetch(shpLstRequest)
             productExist.forEach {
                 
-                if let prd = $0.toProduct {
+                if let prd = $0.toProduct, let id = prd.id, let prodUom = prd.toUom, let u = prodUom.uom, let name = prd.name, let prodCat = prd.toCategory, let category = prodCat.category {
                 
-                    let price = getPrice((prd.id)!, outletId: outletId)
-                    let minPrice = getMinPrice((prd.id)!, outletId: outletId)
+                    let price = getPrice(id, outletId: outletId)
+                    let minPrice = getMinPrice(id, outletId: outletId)
                     
-                    let uom = ShopItemUom(uom: (prd.toUom?.uom)!, increment: (prd.toUom?.iterator)!)
+                    let uom = ShopItemUom(uom: u, increment: prodUom.iterator)
                     
-                    let item = ShopItem(id: (prd.id)!, name: (prd.name)!, quantity: $0.quantity, minPrice: minPrice, price: price, category: (prd.toCategory?.category)!, uom: uom, outletId: outletId, scanned: (prd.scanned), checked: $0.checked)
+                    let item = ShopItem(id: id, name: name, quantity: $0.quantity, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: prd.scanned, checked: $0.checked)
                     shopListModel.append(item: item)
                 }
             
@@ -203,12 +203,11 @@ extension CoreDataService {
             let productExist = try context.fetch(fetchRequest)
             if !productExist.isEmpty {
                 productExist.forEach {
-                    if let toUom = $0.toUom, let u = toUom.uom  {
+                    if let id = $0.id, let name = $0.name, let prodCat = $0.toCategory, let category = prodCat.category, let toUom = $0.toUom, let u = toUom.uom  {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
-                        let category = ($0.toCategory?.category)!
-                        let price = getPrice($0.id!, outletId: outletId)
-                        let minPrice = getMinPrice($0.id!, outletId: outletId)
-                        let item = ShopItem(id: $0.id!, name: $0.name!, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
+                        let price = getPrice(id, outletId: outletId)
+                        let minPrice = getMinPrice(id, outletId: outletId)
+                        let item = ShopItem(id: id, name: name, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
                         shopItems.append(item)
                     }
                 }
@@ -231,12 +230,11 @@ extension CoreDataService {
             let productExist = try context.fetch(fetchRequest)
             if !productExist.isEmpty {
                 if let prd = productExist.first {
-                    if let toUom = prd.toUom, let u = toUom.uom  {
+                    if let id = prd.id, let name = prd.name, let toUom = prd.toUom, let prodCat = prd.toCategory, let category = prodCat.category, let u = toUom.uom  {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
-                        let category = (prd.toCategory?.category)!
                         let price = getPrice(barcode, outletId: outletId)
                         let minPrice = getMinPrice(barcode, outletId: outletId)
-                        let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
+                        let item = ShopItem(id: id, name: name, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
                         return item
                     }
                 }
@@ -260,7 +258,7 @@ extension CoreDataService {
                 uomRequest.predicate = NSPredicate(format: "uom == %@", item.uom.uom)
                 let uom = try context.fetch(uomRequest)
                 
-                //product doesnt exists - create productc on coredata
+                //product doesnt exists - create product in coredata
                 if productExist.isEmpty {
                     let product = Product(context: context)
                     product.id = item.id

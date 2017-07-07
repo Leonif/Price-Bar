@@ -18,19 +18,24 @@ class OutletsVC: UIViewController {
     @IBOutlet weak var activityContainerView: UIView!
     var userCoordinate: CLLocationCoordinate2D?
     
+    @IBOutlet weak var warningLocationView: UIView!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        activityContainerView.isHidden = false
-        activityIndicator.startAnimating()
-        outletListModel.loadOultets(userCoordinate: userCoordinate!, completed: {
-            self.outletTableView.reloadData()
-            self.activityIndicator.stopAnimating()
-            self.activityContainerView.isHidden = true
-            
-        })
+        if let userCoordinate = userCoordinate    {
+            activityContainerView.isHidden = false
+            activityIndicator.startAnimating()
+            outletListModel.loadOultets(userCoordinate: userCoordinate, completed: {
+                self.outletTableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.activityContainerView.isHidden = true
+                
+            })
+        } else {
+            warningLocationView.isHidden = false
+        }
     }
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

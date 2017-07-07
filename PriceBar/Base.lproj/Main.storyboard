@@ -276,6 +276,33 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6JO-LS-Vk7">
+                                <rect key="frame" x="8" y="78" width="398" height="520"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Вы не разрешили использовать камеру. Убедитесь, что камере дан доступ как показано ниже в &quot;Конфиденциальность&quot; 😥" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="y8G-3f-Cq5">
+                                        <rect key="frame" x="26" y="8" width="347" height="115"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="115" id="uYQ-JY-gKf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cameraInfo" translatesAutoresizingMaskIntoConstraints="NO" id="Gl1-Xw-zL9">
+                                        <rect key="frame" x="8" y="83" width="382" height="344"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="y8G-3f-Cq5" secondAttribute="trailing" constant="25" id="AL4-G5-QYV"/>
+                                    <constraint firstItem="Gl1-Xw-zL9" firstAttribute="centerX" secondItem="6JO-LS-Vk7" secondAttribute="centerX" id="AYz-ep-CgQ"/>
+                                    <constraint firstItem="Gl1-Xw-zL9" firstAttribute="leading" secondItem="6JO-LS-Vk7" secondAttribute="leading" constant="8" id="GSh-OL-oxe"/>
+                                    <constraint firstAttribute="trailing" secondItem="Gl1-Xw-zL9" secondAttribute="trailing" constant="8" id="KL3-cj-J2G"/>
+                                    <constraint firstItem="Gl1-Xw-zL9" firstAttribute="top" secondItem="y8G-3f-Cq5" secondAttribute="bottom" constant="-40" id="NXe-Hw-5M3"/>
+                                    <constraint firstItem="y8G-3f-Cq5" firstAttribute="top" secondItem="6JO-LS-Vk7" secondAttribute="top" constant="8" id="XCW-l0-Vee"/>
+                                    <constraint firstItem="y8G-3f-Cq5" firstAttribute="leading" secondItem="6JO-LS-Vk7" secondAttribute="leading" constant="26" id="rr1-sV-IWP"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GrV-0r-3A2">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="70"/>
                                 <subviews>
@@ -317,20 +344,25 @@
                         <constraints>
                             <constraint firstItem="GrV-0r-3A2" firstAttribute="leading" secondItem="o3o-TK-wfx" secondAttribute="leading" id="42B-fl-g4C"/>
                             <constraint firstAttribute="trailing" secondItem="GrV-0r-3A2" secondAttribute="trailing" id="7SS-Yh-spu"/>
+                            <constraint firstAttribute="trailing" secondItem="6JO-LS-Vk7" secondAttribute="trailing" constant="8" id="ARw-Z5-bLc"/>
                             <constraint firstItem="pNb-4h-P6u" firstAttribute="top" secondItem="OFn-Xn-Yz3" secondAttribute="bottom" constant="70" id="N2i-y9-m26"/>
+                            <constraint firstItem="6JO-LS-Vk7" firstAttribute="leading" secondItem="o3o-TK-wfx" secondAttribute="leading" constant="8" id="Y7I-cY-eLq"/>
                             <constraint firstItem="GrV-0r-3A2" firstAttribute="top" secondItem="o3o-TK-wfx" secondAttribute="top" id="ajY-7L-DiP"/>
+                            <constraint firstItem="6JO-LS-Vk7" firstAttribute="top" secondItem="GrV-0r-3A2" secondAttribute="bottom" constant="8" id="mEJ-pN-Zn6"/>
                             <constraint firstItem="OFn-Xn-Yz3" firstAttribute="leading" secondItem="o3o-TK-wfx" secondAttribute="leading" constant="20" id="mn5-Th-Ecq"/>
+                            <constraint firstItem="OFn-Xn-Yz3" firstAttribute="top" secondItem="6JO-LS-Vk7" secondAttribute="bottom" constant="8" id="zBk-Uy-HcT"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backButton" destination="OFn-Xn-Yz3" id="Ypm-Sr-7dK"/>
                         <outlet property="messageLabel" destination="L2V-i2-H2F" id="cXq-FX-CPO"/>
                         <outlet property="topbar" destination="GrV-0r-3A2" id="Je0-PX-YQu"/>
+                        <outlet property="warningRestrictedCameraView" destination="6JO-LS-Vk7" id="9VV-d2-Ph5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgs-Ur-Fsj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="178" y="920"/>
+            <point key="canvasLocation" x="176.81159420289856" y="919.56521739130437"/>
         </scene>
         <!--OutletsVC-->
         <scene sceneID="kod-XZ-SNJ">
@@ -833,6 +865,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="cameraInfo" width="622" height="344"/>
         <image name="check-list" width="128" height="128"/>
         <image name="plus" width="128" height="128"/>
         <image name="product-back" width="1607" height="1073"/>

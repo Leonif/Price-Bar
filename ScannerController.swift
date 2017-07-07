@@ -15,6 +15,7 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var backButton: UIButton!
     var delegate: Exchange!
+    @IBOutlet weak var warningRestrictedCameraView: UIView!
     
     var captureSession:AVCaptureSession?
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
@@ -41,6 +42,12 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        if  authStatus == AVAuthorizationStatus.denied  {
+            warningRestrictedCameraView.isHidden = false
+        }
+        
+        
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video as the media type parameter.
         let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
         

@@ -74,15 +74,13 @@ class ShopListController: UIViewController {
 extension ShopListController {
     @IBAction func checkMarkPressed(_ sender: UIButton) {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
-        
-            if cell.alpha == 1 {
-                cell.alpha = 0.3
-                sender.setImage(UIImage(named:CheckMark.check.rawValue), for: .normal)
-            } else {
-                cell.alpha = 1
-                sender.setImage(UIImage(named:CheckMark.uncheck.rawValue), for: .normal)
+            if let indexPath = shopTableView.indexPath(for: cell), let item = shopList.getItem(index: indexPath)  {
+                
+                item.checked = !item.checked
+                shopList.change(item)
+                cell.configureCell(item: item)
+                
             }
-        
         }
     }
     
@@ -92,6 +90,7 @@ extension ShopListController {
             if let indexPath = shopTableView.indexPath(for: cell) {
                 if let shp = shopList.getItem(index: indexPath) {
                     shp.quantity = step(baseValue: Double(sender.value), step: shp.uom.increment)
+                    shopList.change(shp)
                     shopTableView.reloadData()
                     
                 }
@@ -232,6 +231,8 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             outletVC.delegate = self
             if let userCoord = sender as? CLLocationCoordinate2D {
                 outletVC.userCoordinate = userCoord
+            } else {
+                outletVC.userCoordinate = nil
             }
             
         }

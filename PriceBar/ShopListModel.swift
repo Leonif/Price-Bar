@@ -70,7 +70,7 @@ class ShopListModel {
     func remove(item: ShopItem) -> SectionInfo {
         for (key, value) in shopList {
             if let index = value.index(of: item) {
-                shopList[key]!.remove(at: index)
+                shopList[key]?.remove(at: index)
                 if shopList[key]?.count == 0 {
                     sections = sections.filter{$0 != key}
                     shopList.removeValue(forKey: key)
@@ -156,7 +156,7 @@ class ShopListModel {
 
 struct ShopItemUom {
     
-    var uom = "шт"
+    var uom = "1 шт"
     var increment = 1.0
     
     

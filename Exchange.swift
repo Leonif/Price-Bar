@@ -44,7 +44,7 @@ extension ShopListController: Exchange {
             if let it = CoreDataService.data.getItem(by: code, and: userOutlet.id) {
                 item = it
             } else {
-                item = ShopItem(id: code, name: "Неизвестно", quantity: 1.0, price: 0.0, category: "Неизвестно", uom: ShopItemUom(), outletId: userOutlet.id, scanned: true)
+                item = ShopItem(id: code, name: "Неизвестно", quantity: 1.0, minPrice: 0.0, price: 0.0, category: "Неизвестно", uom: ShopItemUom(), outletId: userOutlet.id, scanned: true, checked: false)
             }
             shopList.append(item: item)
             CoreDataService.data.addToShopList(item)

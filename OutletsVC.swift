@@ -14,17 +14,28 @@ class OutletsVC: UIViewController {
     var outletListModel = OutletListModel()
     var delegate: Exchange!
     @IBOutlet weak var outletTableView: UITableView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityContainerView: UIView!
     var userCoordinate: CLLocationCoordinate2D?
     
+    @IBOutlet weak var warningLocationView: UIView!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        outletListModel.loadOultets(userCoordinate: userCoordinate!, completed: {
-            self.outletTableView.reloadData()
-            
-        })
+        if let userCoordinate = userCoordinate    {
+            activityContainerView.isHidden = false
+            activityIndicator.startAnimating()
+            outletListModel.loadOultets(userCoordinate: userCoordinate, completed: {
+                self.outletTableView.reloadData()
+                self.activityIndicator.stopAnimating()
+                self.activityContainerView.isHidden = true
+                
+            })
+        } else {
+            warningLocationView.isHidden = false
+        }
     }
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

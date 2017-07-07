@@ -193,7 +193,7 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-mn-h0O">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-mn-h0O" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="314" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -212,7 +212,7 @@
                                     <action selector="itemListPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Joo-Hz-PrH"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1v-Mz-DlY">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1v-Mz-DlY" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="314" y="516" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -293,7 +293,7 @@
                                     <constraint firstItem="L2V-i2-H2F" firstAttribute="centerY" secondItem="GrV-0r-3A2" secondAttribute="centerY" id="zr2-JE-TfE"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFn-Xn-Yz3">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFn-Xn-Yz3" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -452,7 +452,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1p-Ld-bIX">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1p-Ld-bIX" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -519,7 +519,7 @@
                                 <rect key="frame" x="0.0" y="429" width="414" height="273"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kv-tB-vni">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kv-tB-vni" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="334" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -538,7 +538,7 @@
                                     <action selector="savePressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="kpS-Vd-hpp"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHB-pK-kb0">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHB-pK-kb0" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -557,7 +557,7 @@
                                     <action selector="backPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="cJN-oT-E2b"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Помидоры" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-2f-mBr">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Помидоры" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-2f-mBr" customClass="GoodTextField" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="262" width="374" height="60"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -706,26 +706,39 @@
                                                     <rect key="frame" x="8" y="8" width="398" height="81"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Помидоры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="QIn-DA-iTD">
-                                                            <rect key="frame" x="8" y="29" width="382" height="24"/>
+                                                            <rect key="frame" x="8" y="29" width="274" height="24"/>
                                                             <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
                                                             <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="цена: 36.5 грн" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="skq-Mu-38j">
-                                                            <rect key="frame" x="8" y="57" width="382" height="18"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <rect key="frame" x="276" y="28" width="114" height="26"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="114" id="XRo-kE-Bde"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                                             <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="мин: 29.5 грн" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sKY-0b-wBp">
+                                                            <rect key="frame" x="236" y="55" width="154" height="18"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="154" id="r4k-xp-dus"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <color key="textColor" red="0.0" green="0.66617838539999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.9410455714" green="0.9410455714" blue="0.9410455714" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <constraints>
-                                                        <constraint firstItem="QIn-DA-iTD" firstAttribute="centerY" secondItem="gpb-Rp-Hv8" secondAttribute="centerY" id="XF7-zk-KUJ"/>
-                                                        <constraint firstAttribute="trailing" secondItem="QIn-DA-iTD" secondAttribute="trailing" constant="8" id="aWW-Wt-uzy"/>
-                                                        <constraint firstItem="skq-Mu-38j" firstAttribute="top" secondItem="QIn-DA-iTD" secondAttribute="bottom" constant="4" id="f74-Uf-XSX"/>
-                                                        <constraint firstItem="skq-Mu-38j" firstAttribute="leading" secondItem="gpb-Rp-Hv8" secondAttribute="leading" constant="8" id="hYL-Gl-RG7"/>
-                                                        <constraint firstAttribute="trailing" secondItem="skq-Mu-38j" secondAttribute="trailing" constant="8" id="iL6-MN-YLe"/>
-                                                        <constraint firstItem="QIn-DA-iTD" firstAttribute="leading" secondItem="gpb-Rp-Hv8" secondAttribute="leading" constant="8" id="k4N-yu-yE4"/>
+                                                        <constraint firstAttribute="trailing" secondItem="skq-Mu-38j" secondAttribute="trailing" constant="8" id="7YR-Wp-QpB"/>
+                                                        <constraint firstItem="skq-Mu-38j" firstAttribute="centerY" secondItem="gpb-Rp-Hv8" secondAttribute="centerY" id="BQj-0K-VNz"/>
+                                                        <constraint firstItem="sKY-0b-wBp" firstAttribute="top" secondItem="skq-Mu-38j" secondAttribute="bottom" constant="1" id="Nvn-tp-f4H"/>
+                                                        <constraint firstItem="QIn-DA-iTD" firstAttribute="leading" secondItem="gpb-Rp-Hv8" secondAttribute="leading" constant="8" id="PyE-0a-QyF"/>
+                                                        <constraint firstAttribute="trailing" secondItem="sKY-0b-wBp" secondAttribute="trailing" constant="8" id="i4E-f6-fF5"/>
+                                                        <constraint firstItem="QIn-DA-iTD" firstAttribute="centerY" secondItem="gpb-Rp-Hv8" secondAttribute="centerY" id="sUl-r6-YZa"/>
+                                                        <constraint firstItem="skq-Mu-38j" firstAttribute="leading" secondItem="QIn-DA-iTD" secondAttribute="trailing" constant="-6" id="ygq-jG-Uko"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -743,6 +756,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="itemMinPriceLabel" destination="sKY-0b-wBp" id="PDi-Bv-8Fl"/>
                                             <outlet property="itemNameLabel" destination="QIn-DA-iTD" id="0MU-P2-Jn7"/>
                                             <outlet property="itemPriceLabel" destination="skq-Mu-38j" id="BUx-Dw-3Qq"/>
                                         </connections>
@@ -753,7 +767,7 @@
                                     <outlet property="delegate" destination="Aph-JN-BT7" id="STY-EP-UlI"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvf-3U-9A5">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvf-3U-9A5" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -772,7 +786,7 @@
                                     <action selector="backPressed:" destination="Aph-JN-BT7" eventType="touchUpInside" id="IMg-Lh-lA3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqA-hP-Ewh">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqA-hP-Ewh" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="334" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -815,7 +829,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DdM-ec-f2l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1222" y="729"/>
+            <point key="canvasLocation" x="1221.7391304347827" y="728.804347826087"/>
         </scene>
     </scenes>
     <resources>
@@ -828,6 +842,6 @@
         <image name="uncheck" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QPO-FU-qjJ"/>
+        <segue reference="EJ7-82-Mar"/>
     </inferredMetricsTieBreakers>
 </document>

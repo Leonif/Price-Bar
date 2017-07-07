@@ -17,45 +17,7 @@ class CoreDataService {
     var unitsOfMeasure: [ShopItemUom] = [ShopItemUom(),ShopItemUom(uom: "1 уп",increment: 1.0),ShopItemUom(uom: "100 мл",increment: 0.01),ShopItemUom(uom: "1 л",increment: 0.1),ShopItemUom(uom: "100 г",increment: 0.01),ShopItemUom(uom: "1 кг",increment: 0.1)]
     
     
-    func printPriceStatistics() {
-        do {
-            let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
-            statRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-            let stat = try context.fetch(statRequest)
-            
-            for st in stat {
-                print(st.date!, st.toProduct!.name!, st.price, st.outlet_id!)
-            }
-            
-        } catch  {
-            print("price is not got from database")
-        }
-        
-        
-        
-    }
     
-    
-    
-    func getPrice(_ barcode: String, outletId: String) -> Double  {
-        do {
-            let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
-            statRequest.predicate = NSPredicate(format: "%K == %@ AND %K == %@", argumentArray:["toProduct.id", barcode, "outlet_id", outletId])
-            statRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-            let stat = try context.fetch(statRequest)
-            
-            if let priceExist = stat.first {
-                
-                return priceExist.price
-            }
-            
-        } catch  {
-            print("price is not got from database")
-        }
-        
-        return 0
-        
-    }
     
     func getCategories() -> [Category] {
         var cats = [Category]()
@@ -199,10 +161,11 @@ class CoreDataService {
                 if let prd = $0.toProduct {
                 
                     let price = getPrice((prd.id)!, outletId: outletId)
+                    let minPrice = getMinPrice((prd.id)!, outletId: outletId)
                     
                     let uom = ShopItemUom(uom: (prd.toUom?.uom)!, increment: (prd.toUom?.iterator)!)
                     
-                    let item = ShopItem(id: (prd.id)!, name: (prd.name)!, quantity: $0.quantity, price: price, category: (prd.toCategory?.category)!, uom: uom, outletId: outletId, scanned: (prd.scanned), checked: $0.checked)
+                    let item = ShopItem(id: (prd.id)!, name: (prd.name)!, quantity: $0.quantity, minPrice: minPrice, price: price, category: (prd.toCategory?.category)!, uom: uom, outletId: outletId, scanned: (prd.scanned), checked: $0.checked)
                     shopListModel.append(item: item)
                 }
             
@@ -244,7 +207,8 @@ extension CoreDataService {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
                         let category = ($0.toCategory?.category)!
                         let price = getPrice($0.id!, outletId: outletId)
-                        let item = ShopItem(id: $0.id!, name: $0.name!, quantity: 1.0, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
+                        let minPrice = getMinPrice($0.id!, outletId: outletId)
+                        let item = ShopItem(id: $0.id!, name: $0.name!, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
                         shopItems.append(item)
                     }
                 }
@@ -271,7 +235,8 @@ extension CoreDataService {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
                         let category = (prd.toCategory?.category)!
                         let price = getPrice(barcode, outletId: outletId)
-                        let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
+                        let minPrice = getMinPrice(barcode, outletId: outletId)
+                        let item = ShopItem(id: prd.id!, name: prd.name!, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
                         return item
                     }
                 }

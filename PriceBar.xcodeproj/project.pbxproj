@@ -27,6 +27,9 @@
 		792EE7C71EE7087200470669 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
 		7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */; };
 		795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* Extension.swift */; };
+		795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
+		795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CA1F10004400752A68 /* GoodButton.swift */; };
+		795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CC1F100C1500752A68 /* PriceHandling.swift */; };
 		7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletModel.swift */; };
 		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
@@ -69,6 +72,9 @@
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
 		7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectExtensions.swift; sourceTree = SOURCE_ROOT; };
 		795EA8C51F0EC58F00752A68 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = SOURCE_ROOT; };
+		795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodTextField.swift; sourceTree = SOURCE_ROOT; };
+		795EA8CA1F10004400752A68 /* GoodButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodButton.swift; sourceTree = SOURCE_ROOT; };
+		795EA8CC1F100C1500752A68 /* PriceHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceHandling.swift; sourceTree = SOURCE_ROOT; };
 		7973DD861EF1AC7F0010A64F /* OutletModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletModel.swift; sourceTree = SOURCE_ROOT; };
 		7973DD881EF1AF430010A64F /* OutletsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletsVC.swift; sourceTree = SOURCE_ROOT; };
 		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
@@ -147,6 +153,7 @@
 		792EE7961EE4937700470669 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				795EA8C91F0FFFF200752A68 /* CustomObjects */,
 				792EE7C61EE7087200470669 /* HeaderView.swift */,
 				79D26A021EFECD5700337DA3 /* ItemListCell.swift */,
 				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
@@ -161,11 +168,10 @@
 		792EE7971EE4938800470669 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				79AA0FE41EF5D13300903133 /* gen */,
+				795EA8CE1F100C1C00752A68 /* CoreData */,
 				79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */,
 				792EE7B81EE7080400470669 /* ShopListModel.swift */,
 				7904B4591F03738B002032CD /* ShopItem.swift */,
-				79AA0FF11EF6BF2500903133 /* CoreDataService.swift */,
 				7973DD861EF1AC7F0010A64F /* OutletModel.swift */,
 			);
 			name = Model;
@@ -191,6 +197,25 @@
 				792EE7BF1EE7082700470669 /* StringExtensions.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		795EA8C91F0FFFF200752A68 /* CustomObjects */ = {
+			isa = PBXGroup;
+			children = (
+				795EA8CA1F10004400752A68 /* GoodButton.swift */,
+				795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */,
+			);
+			name = CustomObjects;
+			sourceTree = "<group>";
+		};
+		795EA8CE1F100C1C00752A68 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				79AA0FE41EF5D13300903133 /* gen */,
+				79AA0FF11EF6BF2500903133 /* CoreDataService.swift */,
+				795EA8CC1F100C1500752A68 /* PriceHandling.swift */,
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 		79AA0FE41EF5D13300903133 /* gen */ = {
@@ -303,14 +328,17 @@
 				795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */,
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,
 				7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */,
+				795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
 				7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */,
 				7904B45A1F03738B002032CD /* ShopItem.swift in Sources */,
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
 				792EE7BD1EE7081800470669 /* DoubleExtensions.swift in Sources */,
+				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,
 				7904B4581F03728E002032CD /* Exchange.swift in Sources */,
 				79AA104A1EF83FA100903133 /* Category+CoreDataProperties.swift in Sources */,
 				792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */,
+				795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */,
 				7904B45D1F037E32002032CD /* ShopList+CoreDataClass.swift in Sources */,
 				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,
 				79C17A4C1EEBD692003A8D6B /* Constants.swift in Sources */,
@@ -450,6 +478,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -467,6 +496,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

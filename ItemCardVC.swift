@@ -55,7 +55,7 @@ class ItemCardVC: UIViewController {
 
         if item == nil {
             
-            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, price: 0.0, category: categories[0].category!, uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
+            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, minPrice: 0.0, price: 0.0, category: categories[0].category!, uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
         }
         
         if let item = item {
@@ -84,15 +84,19 @@ class ItemCardVC: UIViewController {
         self.view.endEditing(true)
         pickerType = .category
         commonPickerView.reloadAllComponents()
+        commonPickerView.isHidden = false
         
+        guard let item = item else {
+            return
+        }
         for index in 0 ..< categories.count {
-            if categories[index].category == item?.category {
+            if categories[index].category == item.category {
                 commonPickerView.selectRow(index, inComponent: 0, animated: true)
                 break
             }
  
         }
-        commonPickerView.isHidden = false
+        
         
         
     }
@@ -102,14 +106,20 @@ class ItemCardVC: UIViewController {
         self.view.endEditing(true)
         pickerType = .uom
         commonPickerView.reloadAllComponents()
+        commonPickerView.isHidden = false
+        
+        guard let item = item else {
+            return
+        }
+        
         for index in 0 ..< uom.count {
-            if uom[index].uom == item?.uom.uom {
+            if uom[index].uom == item.uom.uom {
                 commonPickerView.selectRow(index, inComponent: 0, animated: true)
                 break
             }
             
         }
-        commonPickerView.isHidden = false
+        
     
     }
     

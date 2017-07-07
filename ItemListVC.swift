@@ -141,11 +141,8 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = itemTableView.dequeueReusableCell(withIdentifier: "ItemListCell", for: indexPath) as? ItemListCell {
-            
             let item = filtredItemList[indexPath.row]
-            
-            cell.itemNameLabel.text = item.name
-            cell.itemPriceLabel.text = item.price.asLocaleCurrency
+            cell.configureCell(item)
             return cell
         }
         

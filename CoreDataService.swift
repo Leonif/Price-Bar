@@ -233,7 +233,7 @@ extension CoreDataService {
     
     func getItemList(outletId: String) -> [ShopItem]? {
         
-        importGoodsFromFirebase()
+        //importGoodsFromFirebase()
         
         
         var shopItems = [ShopItem]()

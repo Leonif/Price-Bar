@@ -28,6 +28,7 @@ class ShopListModel {
     func readInitData() -> (categories:[Category],uoms: [Uom]) {
         let categories = CoreDataService.data.getCategories()
         let uoms = CoreDataService.data.getUom()
+        CoreDataService.data.importGoodsFromFirebase()
         
         return (categories,uoms)
     }

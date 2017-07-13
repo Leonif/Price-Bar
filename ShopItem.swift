@@ -34,7 +34,32 @@ class ShopItem  {
         
     }
     
-    
+    init(id: String, goodData: Dictionary<String, Any>) {
+        self.id = id
+        if let name = goodData["name"] as? String {
+            
+            self.name = name
+            
+            
+        } else {
+            self.name = ""
+            
+        }
+        self.quantity = 0
+        self.minPrice = 0
+        self.price = 0
+        self.category = "Неопредленно"
+        self.uom = ShopItemUom()
+        self.outletId = ""
+        self.scanned = false
+        self.checked = false
+        
+        
+        
+    }
+
+
+
     var total: Double {
         return quantity * price
     }

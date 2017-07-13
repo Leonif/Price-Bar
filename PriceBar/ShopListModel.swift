@@ -34,6 +34,8 @@ class ShopListModel {
     
     func getShopItems(outletId: String) -> [ShopItem]?  {
         
+        
+        
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
         
         

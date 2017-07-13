@@ -189,11 +189,51 @@ class CoreDataService {
     
 }
 
+
+//MARK: Firebase work
+extension CoreDataService {
+    
+    func importGoodsFromFirebase() {
+        
+        FirebaseService.data.loadGoods(goodList: { (good) in
+            self.saveProduct(good)
+        }) { 
+            print("Complete")
+        }
+        
+        
+    }
+    
+    func exportCoreDataToFireBase() {
+        
+        
+        if let list = getItemList(outletId: "") {
+        
+            FirebaseService.data.exportToCloud(list)
+        }
+        
+    }
+    
+    
+    
+}
+
+
+
+
+
+
+
+
+
+
 //MARK: Product
 extension CoreDataService {
     
     
     func getItemList(outletId: String) -> [ShopItem]? {
+        
+        importGoodsFromFirebase()
         
         
         var shopItems = [ShopItem]()
@@ -208,6 +248,7 @@ extension CoreDataService {
                         let price = getPrice(id, outletId: outletId)
                         let minPrice = getMinPrice(id, outletId: outletId)
                         let item = ShopItem(id: id, name: name, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
+                        print(item.id, item.name)
                         shopItems.append(item)
                     }
                 }
@@ -247,13 +288,18 @@ extension CoreDataService {
 
     func saveProduct(_ item: ShopItem) {
             do {
+                
+                // search item in coredata
                 let productRequest = NSFetchRequest<Product>(entityName: "Product")
                 productRequest.predicate = NSPredicate(format: "id == %@", item.id)
                 let productExist = try context.fetch(productRequest)
                 
+                // search category in coredata
                 let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
                 categoryRequest.predicate = NSPredicate(format: "category == %@", item.category)
                 let category = try context.fetch(categoryRequest)
+                
+                //search uom in coredata
                 let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
                 uomRequest.predicate = NSPredicate(format: "uom == %@", item.uom.uom)
                 let uom = try context.fetch(uomRequest)

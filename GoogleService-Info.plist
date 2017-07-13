@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>584876407082-mdt5gad0evban61kfsqltiji2e3q22fv.apps.googleusercontent.com</string>
+	<string>584876407082-c6hilhcsq22pd5o54mvkearo499eg0i2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.584876407082-mdt5gad0evban61kfsqltiji2e3q22fv</string>
+	<string>com.googleusercontent.apps.584876407082-c6hilhcsq22pd5o54mvkearo499eg0i2</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDwOK8VbhuGrG4Twjedh5yC5nm-QTyEnZs</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>LionLife.PriceBar30</string>
+	<string>com.LionLife.Price-Bar</string>
 	<key>PROJECT_ID</key>
 	<string>pricebar20-e41f9</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:584876407082:ios:0225e94ac5890015</string>
+	<string>1:584876407082:ios:2200a8b67c5ad9e3</string>
 	<key>DATABASE_URL</key>
 	<string>https://pricebar20-e41f9.firebaseio.com</string>
 </dict>

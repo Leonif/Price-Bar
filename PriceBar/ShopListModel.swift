@@ -25,6 +25,7 @@ class ShopListModel {
         return sum
     }
     
+    // check if data in core data doesnt exist add them to start work
     func readInitData() -> (categories:[Category],uoms: [Uom]) {
         let categories = CoreDataService.data.getCategories()
         let uoms = CoreDataService.data.getUom()
@@ -34,18 +35,10 @@ class ShopListModel {
     }
     
     func getShopItems(outletId: String) -> [ShopItem]?  {
-        
-        
-        
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
-        
-        
             return itemList
-        
         }
-        
         return nil
-        
     }
     
     func append(item: ShopItem) {
@@ -87,21 +80,16 @@ class ShopListModel {
     }
     
     func change(_ item: ShopItem) {
-        
         var found = false
-        
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]?[index] = item
                 found = true
-                
             }
         }
-        
         if !found {
             append(item: item)
         }
-        
         CoreDataService.data.addToShopListAndSaveStatistics(item)
         updateSections()
     }

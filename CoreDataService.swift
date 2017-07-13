@@ -67,6 +67,7 @@ class CoreDataService {
     
     func addToShopListAndSaveStatistics(_ item: ShopItem) {
         saveProduct(item)
+        FirebaseService.data.addGoodToCloud(item)
         saveStatistic(item)
         addToShopList(item)
     }
@@ -180,13 +181,6 @@ class CoreDataService {
         return nil
         
     }
-    
-    
-    
-    
-    
-    
-    
 }
 
 
@@ -200,22 +194,7 @@ extension CoreDataService {
         }) { 
             print("Complete")
         }
-        
-        
     }
-    
-    func exportCoreDataToFireBase() {
-        
-        
-        if let list = getItemList(outletId: "") {
-        
-            FirebaseService.data.exportToCloud(list)
-        }
-        
-    }
-    
-    
-    
 }
 
 
@@ -232,12 +211,7 @@ extension CoreDataService {
     
     
     func getItemList(outletId: String) -> [ShopItem]? {
-        
-        //importGoodsFromFirebase()
-        
-        
         var shopItems = [ShopItem]()
-        
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
             let productExist = try context.fetch(fetchRequest)
@@ -287,44 +261,48 @@ extension CoreDataService {
     }
 
     func saveProduct(_ item: ShopItem) {
-            do {
-                
-                // search item in coredata
-                let productRequest = NSFetchRequest<Product>(entityName: "Product")
-                productRequest.predicate = NSPredicate(format: "id == %@", item.id)
-                let productExist = try context.fetch(productRequest)
-                
-                // search category in coredata
-                let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
-                categoryRequest.predicate = NSPredicate(format: "category == %@", item.category)
-                let category = try context.fetch(categoryRequest)
-                
-                //search uom in coredata
-                let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
-                uomRequest.predicate = NSPredicate(format: "uom == %@", item.uom.uom)
-                let uom = try context.fetch(uomRequest)
-                
-                //product doesnt exists - create product in coredata
-                if productExist.isEmpty {
-                    let product = Product(context: context)
-                    product.id = item.id
+        do {
+            
+            // search item in coredata
+            let productRequest = NSFetchRequest<Product>(entityName: "Product")
+            productRequest.predicate = NSPredicate(format: "id == %@", item.id)
+            let productExist = try context.fetch(productRequest)
+            
+            // search category in coredata
+            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
+            categoryRequest.predicate = NSPredicate(format: "category == %@", item.category)
+            let category = try context.fetch(categoryRequest)
+            
+            //search uom in coredata
+            let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
+            uomRequest.predicate = NSPredicate(format: "uom == %@", item.uom.uom)
+            let uom = try context.fetch(uomRequest)
+            
+            //product doesnt exists - create product in coredata
+            if productExist.isEmpty {
+                let product = Product(context: context)
+                product.id = item.id
+                product.name = item.name
+                product.toCategory = category.first
+                product.toUom = uom.first
+                product.scanned = item.scanned
+            } else  { // - just update it
+                if let product = productExist.first {
                     product.name = item.name
                     product.toCategory = category.first
                     product.toUom = uom.first
                     product.scanned = item.scanned
-                } else  { // - just update it
-                    if let product = productExist.first {
-                        product.name = item.name
-                        product.toCategory = category.first
-                        product.toUom = uom.first
-                        product.scanned = item.scanned
-                    }
                 }
-                ad.saveContext()
-            } catch  {
-                print("Products is not got from database")
             }
+            
+            
+            
+            
+            ad.saveContext()
+        } catch  {
+            print("Products is not got from database")
         }
+    }
     
 }
 

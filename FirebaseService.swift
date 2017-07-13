@@ -73,10 +73,14 @@ class FirebaseService {
     }
     
     
-    func exportToCloud(_ itemList: [ShopItem]) {
+    func addGoodToCloud(_ item: ShopItem) {
         
+        let good = [
+            "barcode": item.id,
+            "name": item.name
+        ]
         //before write, check if it exists in FireBase
-        
+        REF_GOODS.child(item.id).setValue(good)
         
     }
     

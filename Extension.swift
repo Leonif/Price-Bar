@@ -21,3 +21,17 @@ extension UITextField{
         UIView.commitAnimations()
     }
 }
+
+extension Date {
+    
+    func getString(format: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        formatter.timeZone = TimeZone(abbreviation: TimeZone.current.abbreviation() ?? "")
+        return formatter.string(from: self)
+        
+    }
+    
+    
+}
+

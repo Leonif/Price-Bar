@@ -37,9 +37,6 @@ class ShopListController: UIViewController {
         //let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
         //shopTableView.addGestureRecognizer(longpress)
         _ = shopList.readInitData()
-        
-        
-        
     }
     
     

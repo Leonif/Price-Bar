@@ -17,6 +17,7 @@ class FirebaseService {
     static let data = FirebaseService()
     var REF_BASE = DB_FIRBASE
     var REF_GOODS = DB_FIRBASE.child("goods")
+    var REF_PRICE_STATISTICS = DB_FIRBASE.child("price_statistics")
     var REF_CATEGORIES = DB_FIRBASE.child("categories")
     
     
@@ -79,8 +80,20 @@ class FirebaseService {
             "barcode": item.id,
             "name": item.name
         ]
+        
+        let priceStat = [
+            "date": Date().getString(format: "dd.MM.yyyy hh:mm:ss"),
+            "product_id": item.id,
+            "outlet_id": item.outletId,
+            "price": item.price
+        ] as [String : Any]
+        
         //before write, check if it exists in FireBase
         REF_GOODS.child(item.id).setValue(good)
+        
+        REF_PRICE_STATISTICS.childByAutoId().setValue(priceStat)
+        
+        
         
     }
     

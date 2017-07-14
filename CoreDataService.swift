@@ -13,33 +13,57 @@ import CoreData
 class CoreDataService {
     
     static let data = CoreDataService()
-    var initCategories = ["Неопредленно","Бытовая техника", "Косметика","Мясо","Овощи и фрукты", "Пекарня", "Молочка, Сыры", "Сладости"]
+    var initCategories = ["Неопредленно","Бытовая техника", "Косметика","Мясо","Овощи и фрукты", "Пекарня", "Молочка, Сыры", "Сладости", "Канцелярия"]
     var unitsOfMeasure: [ShopItemUom] = [ShopItemUom(),ShopItemUom(uom: "1 уп",increment: 1.0),ShopItemUom(uom: "100 мл",increment: 0.01),ShopItemUom(uom: "1 л",increment: 0.1),ShopItemUom(uom: "100 г",increment: 0.01),ShopItemUom(uom: "1 кг",increment: 0.1)]
     
     
-    
-    
-    func getCategories() -> [Category] {
-        var cats = [Category]()
-        do {
-            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
-            cats = try context.fetch(fetchRequest)
-            if cats.count != initCategories.count {
-                cats.removeAll()
-                ad.saveContext()
-                for c in initCategories {
-                    let cat = Category(context: context)
-                    cat.category = c
-                }
-                ad.saveContext()
-                cats = try context.fetch(fetchRequest)
-            }
-            
-        } catch  {
-            print("Categories are not got from database")
+    func loadCategories(_ complete: @escaping ()->()) {
+        initCategories = []
+        FirebaseService.data.loadCategories { (categories) in
+            self.initCategories = categories
+            print("coredata: \(categories)")
+            complete()
         }
         
-        return cats
+    }
+    
+    
+    func getCategories(complete: @escaping ([String])->()) {
+        
+        
+        loadCategories {
+            var cats = [Category]()
+            do {
+                let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+                cats = try context.fetch(fetchRequest)
+                if cats.count != self.initCategories.count {
+                    //cats.removeAll()
+                    cats = []
+                    ad.saveContext()
+                    for c in self.initCategories {
+                        let cat = Category(context: context)
+                        cat.category = c
+                    }
+                    ad.saveContext()
+                    cats = try context.fetch(fetchRequest)
+                }
+                
+            } catch  {
+                print("Categories are not got from database")
+            }
+            
+            var catsString = [String]()
+            
+            cats.forEach {
+                if let categoryName = $0.category {
+                    catsString.append(categoryName)
+                }
+            }
+            
+            complete(catsString)
+        }   
+        
+        
     }
     
     func getUom() ->[Uom] {
@@ -98,7 +122,9 @@ class CoreDataService {
         } catch  {
             print("Products is not got from database")
         }
-        //printPriceStatistics()
+        
+        FirebaseService.data.savePriceSatistics(item)
+        
     }
     
     func addToShopList(_ item:ShopItem) {
@@ -189,10 +215,11 @@ extension CoreDataService {
     
     func importGoodsFromFirebase() {
         
-        FirebaseService.data.loadGoods(goodList: { (good) in
-            self.saveProduct(good)
-        }) { 
-            print("Complete")
+        FirebaseService.data.loadGoods { (goods) in
+            goods.forEach {
+                self.saveProduct($0)
+            }
+            print("coredata: goods recieved\(goods)")
         }
     }
 }
@@ -294,10 +321,6 @@ extension CoreDataService {
                     product.scanned = item.scanned
                 }
             }
-            
-            
-            
-            
             ad.saveContext()
         } catch  {
             print("Products is not got from database")

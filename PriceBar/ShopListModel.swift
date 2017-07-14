@@ -18,6 +18,8 @@ class ShopListModel {
     
     var shopList = [String: [ShopItem]]()
     var sections = [String]()
+    var categories = [String]()
+    var uoms = [Uom]()
     
     var total: Double {
         var sum = 0.0
@@ -25,14 +27,23 @@ class ShopListModel {
         return sum
     }
     
-    // check if data in core data doesnt exist add them to start work
-    func readInitData() -> (categories:[Category],uoms: [Uom]) {
-        let categories = CoreDataService.data.getCategories()
-        let uoms = CoreDataService.data.getUom()
-        CoreDataService.data.importGoodsFromFirebase()
-        
-        return (categories,uoms)
+    deinit {
+        print("shopModel is destoyed")
     }
+    
+    // check if data in core data doesnt exist add them to start work
+    func readInitData(complete:@escaping ()->()) {
+        CoreDataService.data.getCategories { (categories) in
+            self.categories = categories
+            print("shop model: \(self.categories)")
+            self.uoms = CoreDataService.data.getUom()
+            CoreDataService.data.importGoodsFromFirebase()
+            complete()
+            
+        }
+    }
+    
+    
     
     func getShopItems(outletId: String) -> [ShopItem]?  {
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {

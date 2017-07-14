@@ -22,8 +22,8 @@ class ItemCardVC: UIViewController {
     
     
     
-    var categories = [Category]()
-    var uom = [Uom]()
+    var categories = [String]()
+    var uoms = [Uom]()
     var increment = [String]()
     var pickerType: PickerType = .category
     var outletId: String!
@@ -45,17 +45,26 @@ class ItemCardVC: UIViewController {
         super.viewDidLoad()
         
         
-        readInitData()
+        initController()
+        cardOpenHandler()
+
+        
+    }
+    
+    func initController() {
         itemTitle.delegate = self
         itemPrice.delegate = self
         commonPickerView.delegate = self
         commonPickerView.dataSource = self
-        
         addDoneButtonToNumPad()
-
+        
+    }
+    
+    
+    func cardOpenHandler() {
         if item == nil {
             
-            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, minPrice: 0.0, price: 0.0, category: categories[0].category!, uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
+            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, minPrice: 0.0, price: 0.0, category: categories[0], uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
         }
         
         if let item = item {
@@ -64,19 +73,9 @@ class ItemCardVC: UIViewController {
             categoryButton.setTitle(item.category, for: .normal)
             uomButton.setTitle(item.uom.uom, for: .normal)
         }
-
         
-            
         
     }
-    
-    func readInitData() {
-        
-        let initData = ShopListModel().readInitData()
-        categories = initData.categories
-        uom = initData.uoms
-    }
-    
     
    
     @IBAction func categoryPressed(_ sender: Any) {
@@ -90,7 +89,7 @@ class ItemCardVC: UIViewController {
             return
         }
         for index in 0 ..< categories.count {
-            if categories[index].category == item.category {
+            if categories[index] == item.category {
                 commonPickerView.selectRow(index, inComponent: 0, animated: true)
                 break
             }
@@ -112,8 +111,8 @@ class ItemCardVC: UIViewController {
             return
         }
         
-        for index in 0 ..< uom.count {
-            if uom[index].uom == item.uom.uom {
+        for index in 0 ..< uoms.count {
+            if uoms[index].uom == item.uom.uom {
                 commonPickerView.selectRow(index, inComponent: 0, animated: true)
                 break
             }
@@ -160,23 +159,23 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerType == .category ? categories.count : uom.count
+        return pickerType == .category ? categories.count : uoms.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerType == .category ? categories[row].category : uom[row].uom
+        return pickerType == .category ? categories[row] : uoms[row].uom
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         commonPickerView.isHidden = true
         if pickerType == .category {
-            categoryButton.setTitle(categories[row].category, for: .normal)
-            item?.category = categories[row].category!
+            categoryButton.setTitle(categories[row], for: .normal)
+            item?.category = categories[row]
             //catRow = row
         } else {
-            uomButton.setTitle(uom[row].uom, for: .normal)
-            item?.uom = ShopItemUom(uom: uom[row].uom!,increment: uom[row].iterator)
+            uomButton.setTitle(uoms[row].uom, for: .normal)
+            item?.uom = ShopItemUom(uom: uoms[row].uom!,increment: uoms[row].iterator)
             
         }
     }

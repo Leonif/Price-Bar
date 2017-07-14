@@ -21,6 +21,7 @@ class FirebaseService {
     var REF_CATEGORIES = DB_FIRBASE.child("categories")
     
     
+    
     func loginToFirebase(_ success: @escaping ()->(), _ error: ()->()) {
         
         let email = "good_getter@gmail.com"
@@ -51,21 +52,43 @@ class FirebaseService {
 
     }
     
+    func loadCategories(categoryList: @escaping (_ categories: [String])->()) {
+        self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
+                var categories = [String]()
+                for snapCategory in snapCategories {
+                    if let categoryDict = snapCategory.value as? Dictionary<String,String> {
+                        
+                        if let categoryName = categoryDict["name"] {
+                            categories.append(categoryName)
+                            print("firebase: \(categoryName)")
+                        }
+                        
+                    }
+                    
+                }
+                categoryList(categories)
+            }
+        })
+        
+        
+    }
     
-    
-    func loadGoods(goodList: @escaping (_ good: ShopItem)->(), completition: @escaping ()->())  {
+    func loadGoods(goodList: @escaping (_ good: [ShopItem])->())  {
         
         loginToFirebase({ 
             self.REF_GOODS.observe(.value, with: { (snapshot) in
                 if let snapGoods = snapshot.value as? [String: Any] {
+                    
+                    var goods = [ShopItem]()
                     for snapGood in snapGoods {
                         if let goodDict = snapGood.value as? Dictionary<String, Any> {
                             let key = snapGood.key
                             let good = ShopItem(id: key, goodData: goodDict)
-                            goodList(good)
+                            goods.append(good)
                         }
                     }
-                    completition()
+                    goodList(goods)
                 }
             })
         }) { 
@@ -81,20 +104,28 @@ class FirebaseService {
             "name": item.name
         ]
         
+        REF_GOODS.child(item.id).setValue(good)
+        
+    }
+    
+    func getPrices(_ item: ShopItem) -> Double {
+        
+        
+        
+        
+        return 0.0
+    }
+    
+    
+    func savePriceSatistics(_ item: ShopItem) {
         let priceStat = [
             "date": Date().getString(format: "dd.MM.yyyy hh:mm:ss"),
             "product_id": item.id,
             "outlet_id": item.outletId,
             "price": item.price
-        ] as [String : Any]
-        
-        //before write, check if it exists in FireBase
-        REF_GOODS.child(item.id).setValue(good)
-        
+            ] as [String : Any]
         REF_PRICE_STATISTICS.childByAutoId().setValue(priceStat)
-        
-        
-        
     }
+    
     
 }

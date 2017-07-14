@@ -10,12 +10,12 @@ import UIKit
 import CoreLocation
 
 
-
+    
 
 
 class ShopListController: UIViewController {
 
-    var shopList = ShopListModel()
+    var shopList: ShopListModel!
     let locationManager = CLLocationManager()
     var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
@@ -34,9 +34,13 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        //let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
-        //shopTableView.addGestureRecognizer(longpress)
-        _ = shopList.readInitData()
+        //initDragMode()
+        
+        shopList = ShopListModel()
+        shopList.readInitData {
+            //print("\(self.shopList.categories.count) all loading")
+        }
+        
     }
     
     
@@ -221,6 +225,8 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             if let item = sender as? ShopItem {
                 itemVC.item = item
                 itemVC.delegate = self
+                itemVC.categories = shopList.categories
+                itemVC.uoms = shopList.uoms
             }
         }
         

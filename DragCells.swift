@@ -11,6 +11,14 @@ import UIKit
 
 //MARK: Drag cells into other category and between each others
 extension ShopListController {
+    
+    func initDragMode() {
+        let longpress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized))
+        shopTableView.addGestureRecognizer(longpress)
+        
+    }
+    
+    
     func snapshopOfCell(inputView: UIView) -> UIView {
         UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0.0)
         inputView.layer.render(in: UIGraphicsGetCurrentContext()!)

@@ -100,32 +100,53 @@ class CoreDataService {
     
     
     
-    func saveStatistic(_ item: ShopItem)  {        
-        guard item.price != 0 else {
+    func saveStatistic(_ itemPrice: ShopItem)  {
+        savePrice(itemPrice)
+        FirebaseService.data.savePriceSatistics(itemPrice)
+        
+    }
+    
+    
+    func savePrice(_ itemPrice: ShopItem) {
+        guard itemPrice.price != 0 else {
             return
         }
         
         do {
             let stat = Statistic(context: context)
-            stat.outlet_id = item.outletId
-            stat.price = item.price
+            stat.outlet_id = itemPrice.outletId
+            stat.price = itemPrice.price
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
-            productRequest.predicate = NSPredicate(format: "id == %@", item.id)
+            productRequest.predicate = NSPredicate(format: "id == %@", itemPrice.id)
             let productExist = try context.fetch(productRequest)
             
             let prd = productExist.first
             
             stat.toProduct = prd
-            stat.price = item.price
-            stat.outlet_id = item.outletId
+            stat.price = itemPrice.price
+            stat.outlet_id = itemPrice.outletId
             ad.saveContext()
         } catch  {
             print("Products is not got from database")
         }
+
         
-        FirebaseService.data.savePriceSatistics(item)
         
     }
+    
+    
+    
+    func importPricesFromFirebase() {
+        
+        FirebaseService.data.importPricesFromCloud { (itemPrices) in
+            for item in itemPrices {
+                self.savePrice(item)
+            }
+        }
+        
+    }
+    
+    
     
     func addToShopList(_ item:ShopItem) {
         do {
@@ -222,6 +243,14 @@ extension CoreDataService {
             print("coredata: goods recieved\(goods)")
         }
     }
+    
+    
+    func importPrices() {
+        
+        
+        
+    }
+    
 }
 
 

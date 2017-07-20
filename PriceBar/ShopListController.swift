@@ -34,12 +34,7 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        //initDragMode()
-        
         shopList = ShopListModel()
-//        shopList.readInitData {
-//            print("\(self.shopList.categories.count) all loading")
-//        }
         
     }
     

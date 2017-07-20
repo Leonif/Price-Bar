@@ -57,6 +57,33 @@ class ShopItem  {
         
         
     }
+    
+    init(id: String, priceData: Dictionary<String, Any>) {
+        self.id = id
+        if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {
+            
+            self.price = price
+            self.outletId = outletId
+            
+            
+        } else {
+            self.price = 0
+            self.outletId = ""
+            
+        }
+        self.name = ""
+        self.quantity = 0
+        self.minPrice = 0
+        self.category = "Неопредленно"
+        self.uom = ShopItemUom()
+        
+        self.scanned = false
+        self.checked = false
+        
+        
+        
+    }
+
 
 
 

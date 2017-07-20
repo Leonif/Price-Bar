@@ -116,6 +116,33 @@ class FirebaseService {
         return 0.0
     }
     
+    func importPricesFromCloud(comlete: @escaping (_ itemPrices: [ShopItem])->()) {
+        REF_PRICE_STATISTICS.observe(.value, with: { (snapshot) in
+            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+                var itemPrices = [ShopItem]()
+                for snapPrice in snapPrices {
+                    if let priceDict = snapPrice.value as? Dictionary<String,Any> {
+                        
+                        if let product_id = priceDict["product_id"] as? String {
+                            
+                            let item = ShopItem(id: product_id, priceData: priceDict)
+                            itemPrices.append(item)
+                            
+                            print("firebase: \(product_id)")
+                        }
+                        
+                    }
+                    
+                }
+                comlete(itemPrices)
+                
+            }
+        })
+
+        
+        
+    }
+    
     
     func savePriceSatistics(_ item: ShopItem) {
         let priceStat = [

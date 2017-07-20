@@ -41,6 +41,7 @@ class ShopListModel {
             print("shop model: \(self.categories)")
             self.uoms = CoreDataService.data.getUom()
             CoreDataService.data.importGoodsFromFirebase()
+            CoreDataService.data.importPricesFromFirebase()
             
             
         }

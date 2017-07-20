@@ -690,7 +690,6 @@
                                 </constraints>
                                 <state key="normal" title="Ед-ца измерения"/>
                                 <connections>
-                                    <action selector="categoryPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="juw-fT-6Io"/>
                                     <action selector="uomPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="LSX-r4-7Ld"/>
                                 </connections>
                             </button>

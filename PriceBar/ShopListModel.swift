@@ -29,15 +29,33 @@ class ShopListModel {
     
     deinit {
         print("shopModel is destoyed")
+        print("shop model: \(self.categories)")
+    }
+    
+    init() {
+        CoreDataService.data.getCategories { (categories) in
+            
+            for c in categories {
+                self.categories.append(c)
+            }
+            print("shop model: \(self.categories)")
+            self.uoms = CoreDataService.data.getUom()
+            CoreDataService.data.importGoodsFromFirebase()
+            
+            
+        }
     }
     
     // check if data in core data doesnt exist add them to start work
     func readInitData(complete:@escaping ()->()) {
         CoreDataService.data.getCategories { (categories) in
-            self.categories = categories
+            
+            for c in categories {
+                self.categories.append(c)
+            }
             print("shop model: \(self.categories)")
-            self.uoms = CoreDataService.data.getUom()
-            CoreDataService.data.importGoodsFromFirebase()
+            //self.uoms = CoreDataService.data.getUom()
+            //CoreDataService.data.importGoodsFromFirebase()
             complete()
             
         }

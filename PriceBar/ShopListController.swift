@@ -37,9 +37,9 @@ class ShopListController: UIViewController {
         //initDragMode()
         
         shopList = ShopListModel()
-        shopList.readInitData {
-            //print("\(self.shopList.categories.count) all loading")
-        }
+//        shopList.readInitData {
+//            print("\(self.shopList.categories.count) all loading")
+//        }
         
     }
     

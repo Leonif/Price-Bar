@@ -61,7 +61,7 @@ class FirebaseService {
                         
                         if let categoryName = categoryDict["name"] {
                             categories.append(categoryName)
-                            print("firebase: \(categoryName)")
+                            print("firebase loading categories: \(categoryName)")
                         }
                         
                     }
@@ -117,18 +117,20 @@ class FirebaseService {
     }
     
     func importPricesFromCloud(comlete: @escaping (_ itemPrices: [ShopItem])->()) {
-        REF_PRICE_STATISTICS.observe(.value, with: { (snapshot) in
+        
+        REF_PRICE_STATISTICS.observeSingleEvent(of: .value, with: { (snapshot) in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 var itemPrices = [ShopItem]()
                 for snapPrice in snapPrices {
                     if let priceDict = snapPrice.value as? Dictionary<String,Any> {
                         
                         if let product_id = priceDict["product_id"] as? String {
-                            
-                            let item = ShopItem(id: product_id, priceData: priceDict)
-                            itemPrices.append(item)
-                            
-                            print("firebase: \(product_id)")
+                            if let price = priceDict["price"] as? Double, price != 0 {
+                                let item = ShopItem(id: product_id, priceData: priceDict)
+                                itemPrices.append(item)
+                                
+                                print("firebase import pricing: \(priceDict)")
+                            }
                         }
                         
                     }
@@ -138,6 +140,8 @@ class FirebaseService {
                 
             }
         })
+        
+        
 
         
         

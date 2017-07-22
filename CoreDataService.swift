@@ -239,8 +239,9 @@ extension CoreDataService {
         FirebaseService.data.loadGoods { (goods) in
             goods.forEach {
                 self.saveProduct($0)
+                print("coredata: goods recieved: \($0.id),\($0.name)")
             }
-            print("coredata: goods recieved\(goods)")
+            
         }
     }
     
@@ -342,6 +343,7 @@ extension CoreDataService {
                 product.toCategory = category.first
                 product.toUom = uom.first
                 product.scanned = item.scanned
+                print("Core data: new product got \(item.id), \(item.name)")
             } else  { // - just update it
                 if let product = productExist.first {
                     product.name = item.name

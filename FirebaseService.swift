@@ -98,22 +98,12 @@ class FirebaseService {
     
     
     func addGoodToCloud(_ item: ShopItem) {
-        
         let good = [
             "barcode": item.id,
             "name": item.name
         ]
-        
         REF_GOODS.child(item.id).setValue(good)
         
-    }
-    
-    func getPrices(_ item: ShopItem) -> Double {
-        
-        
-        
-        
-        return 0.0
     }
     
     func importPricesFromCloud(comlete: @escaping (_ itemPrices: [ShopItem])->()) {

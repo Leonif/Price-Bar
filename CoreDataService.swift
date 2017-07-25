@@ -32,39 +32,49 @@ class CoreDataService {
         
         
         loadCategories {
-            var cats = [Category]()
-            do {
-                let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
-                cats = try context.fetch(fetchRequest)
-                if cats.count != self.initCategories.count {
-                    //cats.removeAll()
-                    cats = []
-                    ad.saveContext()
-                    for c in self.initCategories {
-                        let cat = Category(context: context)
-                        cat.category = c
-                    }
-                    ad.saveContext()
-                    cats = try context.fetch(fetchRequest)
-                }
-                
-            } catch  {
-                print("Categories are not got from database")
-            }
-            
-            var catsString = [String]()
-            
-            cats.forEach {
-                if let categoryName = $0.category {
-                    catsString.append(categoryName)
-                }
-            }
-            
+            let catsString = self.getCategoriesFromCoreData()
             complete(catsString)
         }   
         
         
     }
+    
+    
+    func getCategoriesFromCoreData() -> [String] {
+        
+        var cats = [Category]()
+        do {
+            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+            cats = try context.fetch(fetchRequest)
+            if cats.count != self.initCategories.count {
+                //cats.removeAll()
+                cats = []
+                ad.saveContext()
+                for c in self.initCategories {
+                    let cat = Category(context: context)
+                    cat.category = c
+                }
+                ad.saveContext()
+                cats = try context.fetch(fetchRequest)
+            }
+            
+        } catch  {
+            print("Categories are not got from database")
+        }
+        
+        var catsString = [String]()
+        
+        cats.forEach {
+            if let categoryName = $0.category {
+                catsString.append(categoryName)
+            }
+        }
+        
+        return catsString
+
+        
+    }
+    
     
     func getUom() ->[Uom] {
         var uoms = [Uom]()

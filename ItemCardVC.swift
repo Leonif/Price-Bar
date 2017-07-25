@@ -56,6 +56,11 @@ class ItemCardVC: UIViewController {
         itemPrice.delegate = self
         commonPickerView.delegate = self
         commonPickerView.dataSource = self
+        
+        //load categories
+        categories = CoreDataService.data.getCategoriesFromCoreData()
+        
+        
         addDoneButtonToNumPad()
         
     }

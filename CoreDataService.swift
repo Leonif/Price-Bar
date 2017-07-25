@@ -146,12 +146,13 @@ class CoreDataService {
     
     
     
-    func importPricesFromFirebase() {
+    func importPricesFromFirebase(completion: @escaping ()->()) {
         
         FirebaseService.data.importPricesFromCloud { (itemPrices) in
             for item in itemPrices {
                 self.savePrice(item)
             }
+            completion()
         }
         
     }
@@ -244,23 +245,21 @@ class CoreDataService {
 //MARK: Firebase work
 extension CoreDataService {
     
-    func importGoodsFromFirebase() {
+    func importGoodsFromFirebase(completion: @escaping ()->()) {
         
         FirebaseService.data.loadGoods { (goods) in
             goods.forEach {
                 self.saveProduct($0)
                 print("coredata: goods recieved: \($0.id),\($0.name)")
+                
             }
+            completion()
             
         }
     }
     
     
-    func importPrices() {
-        
-        
-        
-    }
+   
     
 }
 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum SectionInfo {
     case sectionEmpty
@@ -20,6 +21,7 @@ class ShopListModel {
     var sections = [String]()
     var categories = [String]()
     var uoms = [Uom]()
+    var activityIndicator: UIActivityIndicatorView!
     
     var total: Double {
         var sum = 0.0
@@ -32,6 +34,34 @@ class ShopListModel {
         print("shop model: \(self.categories)")
     }
     
+    init(_ activityIndicator: UIActivityIndicatorView) {
+        
+        
+        
+        self.activityIndicator = activityIndicator
+        
+        
+        
+        self.activityIndicator.isHidden = false
+        self.activityIndicator.startAnimating()
+        CoreDataService.data.getCategories { (categories) in
+            
+            for c in categories {
+                self.categories.append(c)
+            }
+            print("shop model: \(self.categories)")
+            self.uoms = CoreDataService.data.getUom()
+            CoreDataService.data.importGoodsFromFirebase {
+            
+                CoreDataService.data.importPricesFromFirebase {
+                
+                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.isHidden = true
+                }
+            }
+            
+        }
+    }
     init() {
         CoreDataService.data.getCategories { (categories) in
             
@@ -40,10 +70,9 @@ class ShopListModel {
             }
             print("shop model: \(self.categories)")
             self.uoms = CoreDataService.data.getUom()
-            CoreDataService.data.importGoodsFromFirebase()
-            CoreDataService.data.importPricesFromFirebase()
-            
-            
+            CoreDataService.data.importGoodsFromFirebase {
+                CoreDataService.data.importPricesFromFirebase {}
+            }
         }
     }
     

@@ -231,6 +231,10 @@
                                     <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qyP-OG-8SA">
+                                <rect key="frame" x="188" y="349" width="37" height="37"/>
+                                <color key="color" red="0.71764705880000002" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -239,6 +243,8 @@
                             <constraint firstItem="teD-oh-0KA" firstAttribute="top" secondItem="2so-a8-Tea" secondAttribute="bottom" constant="20" id="ExV-cU-Zl7"/>
                             <constraint firstAttribute="trailing" secondItem="nnc-58-l2C" secondAttribute="trailing" id="GjM-Dp-hRq"/>
                             <constraint firstItem="nnc-58-l2C" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Py5-1v-ZGm"/>
+                            <constraint firstItem="qyP-OG-8SA" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Pzj-Ir-WI8"/>
+                            <constraint firstItem="qyP-OG-8SA" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Q9D-uS-2Vu"/>
                             <constraint firstItem="S1v-Mz-DlY" firstAttribute="leading" secondItem="bBr-mn-h0O" secondAttribute="leading" id="SwI-BB-UPo"/>
                             <constraint firstItem="yUL-id-lem" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" constant="20" id="WH0-lM-DUh"/>
                             <constraint firstItem="bBr-mn-h0O" firstAttribute="top" secondItem="S1v-Mz-DlY" secondAttribute="bottom" constant="30" id="X85-26-A0h"/>
@@ -250,6 +256,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="qyP-OG-8SA" id="gm8-uY-g7h"/>
                         <outlet property="outletAddressLabel" destination="2so-a8-Tea" id="VsB-MC-aBU"/>
                         <outlet property="outletNameButton" destination="p6W-vM-LYP" id="dhQ-8x-O5C"/>
                         <outlet property="shopTableView" destination="teD-oh-0KA" id="hPS-xE-dqQ"/>
@@ -942,6 +949,6 @@
         <image name="uncheck" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EJ7-82-Mar"/>
+        <segue reference="QPO-FU-qjJ"/>
     </inferredMetricsTieBreakers>
 </document>

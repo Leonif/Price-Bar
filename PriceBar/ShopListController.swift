@@ -21,6 +21,7 @@ class ShopListController: UIViewController {
     var userOutlet: Outlet!
     var selfDefined: Bool = false
     var selfLoaded: Bool = false
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
@@ -33,8 +34,13 @@ class ShopListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
-        shopList = ShopListModel()
+        
+        
+        
+        shopList = ShopListModel(activityIndicator)
+        
+        
+        
         
     }
     

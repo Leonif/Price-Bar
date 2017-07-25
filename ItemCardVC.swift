@@ -27,6 +27,7 @@ class ItemCardVC: UIViewController {
     var increment = [String]()
     var pickerType: PickerType = .category
     var outletId: String!
+    var searchedItemName: String?
     
     
     @IBOutlet weak var commonPickerView: UIPickerView!
@@ -68,8 +69,11 @@ class ItemCardVC: UIViewController {
     
     func cardOpenHandler() {
         if item == nil {
+            if let newName = searchedItemName {
+                item = ShopItem(id: UUID().uuidString, name: newName.capitalized, quantity: 1.0, minPrice: 0.0, price: 0.0, category: categories[0], uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
+            }
             
-            item = ShopItem(id: UUID().uuidString, name: "Дайте название", quantity: 1.0, minPrice: 0.0, price: 0.0, category: categories[0], uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
+            
         }
         
         if let item = item {

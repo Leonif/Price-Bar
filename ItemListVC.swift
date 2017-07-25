@@ -67,16 +67,18 @@ class ItemListVC: UIViewController {
     @IBAction func newItemPressed(_ sender: Any) {
         
         
-        performSegue(withIdentifier: AppCons.showProductCard.rawValue, sender: nil)
+        performSegue(withIdentifier: AppCons.showProductCard.rawValue, sender: itemSearchField.text)
 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == AppCons.showProductCard.rawValue, let itemVC = segue.destination as? ItemCardVC  {
             
-                itemVC.delegate = self
-                itemVC.outletId = outletId
-            
+            itemVC.delegate = self
+            itemVC.outletId = outletId
+            if let searchedItem = sender as? String  {
+                itemVC.searchedItemName = searchedItem
+            }
         }
     }
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -858,6 +858,10 @@
                                     <outlet property="delegate" destination="Aph-JN-BT7" id="STY-EP-UlI"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="JHZ-LK-8eA">
+                                <rect key="frame" x="189" y="350" width="37" height="37"/>
+                                <color key="color" red="0.71764705880000002" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvf-3U-9A5" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="606" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -900,10 +904,12 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="74u-MH-F1Q" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" id="2cy-vQ-N2z"/>
+                            <constraint firstItem="JHZ-LK-8eA" firstAttribute="centerX" secondItem="Lo6-EM-0Ff" secondAttribute="centerX" id="4FR-H1-Aym"/>
                             <constraint firstAttribute="trailing" secondItem="EnH-hF-scj" secondAttribute="trailing" id="5Ta-ow-6VR"/>
                             <constraint firstItem="EnH-hF-scj" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" id="7oy-6h-Qkw"/>
                             <constraint firstItem="EnH-hF-scj" firstAttribute="top" secondItem="Lo6-EM-0Ff" secondAttribute="top" id="Dkv-u2-rvz"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="74u-MH-F1Q" secondAttribute="bottom" id="H0X-6Z-fYO"/>
+                            <constraint firstItem="JHZ-LK-8eA" firstAttribute="centerY" secondItem="Lo6-EM-0Ff" secondAttribute="centerY" id="SaA-6q-PNr"/>
                             <constraint firstItem="tqA-hP-Ewh" firstAttribute="trailing" secondItem="74u-MH-F1Q" secondAttribute="trailing" constant="-20" id="XFT-35-JEg"/>
                             <constraint firstItem="jvf-3U-9A5" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" constant="20" id="glD-ab-2MN"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="jvf-3U-9A5" secondAttribute="bottom" constant="70" id="hca-Jt-hJ2"/>
@@ -913,6 +919,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="JHZ-LK-8eA" id="45r-40-lqq"/>
                         <outlet property="itemSearchField" destination="QJ3-4M-n7C" id="ZI7-h3-rvJ"/>
                         <outlet property="itemTableView" destination="74u-MH-F1Q" id="j6K-js-uXB"/>
                         <segue destination="eEM-bT-isb" kind="show" identifier="showProductCard" id="EJ7-82-Mar"/>

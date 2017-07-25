@@ -77,7 +77,7 @@ class FirebaseService {
     func loadGoods(goodList: @escaping (_ good: [ShopItem])->())  {
         
         loginToFirebase({ 
-            self.REF_GOODS.observe(.value, with: { (snapshot) in
+            self.REF_GOODS.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let snapGoods = snapshot.value as? [String: Any] {
                     
                     var goods = [ShopItem]()

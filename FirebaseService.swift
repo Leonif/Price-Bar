@@ -100,7 +100,8 @@ class FirebaseService {
     func addGoodToCloud(_ item: ShopItem) {
         let good = [
             "barcode": item.id,
-            "name": item.name
+            "name": item.name,
+            "category_id": item.
         ]
         REF_GOODS.child(item.id).setValue(good)
         

@@ -8,12 +8,26 @@
 
 import Foundation
 
+
+struct ItemCategory {
+    var id = ""
+    var name = ""
+}
+
+
+
+
+
+
 class ShopItem  {
     var id = ""
     var name = ""
     var quantity = 0.0
     var price = 0.0
     var minPrice = 0.0
+    
+    var itemCategory: ItemCategory?
+    
     var category = ""
     var uom: ShopItemUom
     var outletId = ""
@@ -37,10 +51,7 @@ class ShopItem  {
     init(id: String, goodData: Dictionary<String, Any>) {
         self.id = id
         if let name = goodData["name"] as? String {
-            
             self.name = name
-            
-            
         } else {
             self.name = ""
             
@@ -53,19 +64,13 @@ class ShopItem  {
         self.outletId = ""
         self.scanned = false
         self.checked = false
-        
-        
-        
     }
-    
     init(id: String, priceData: Dictionary<String, Any>) {
         self.id = id
         if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {
             
             self.price = price
             self.outletId = outletId
-            
-            
         } else {
             self.price = 0
             self.outletId = ""
@@ -79,14 +84,7 @@ class ShopItem  {
         
         self.scanned = false
         self.checked = false
-        
-        
-        
     }
-
-
-
-
     var total: Double {
         return quantity * price
     }

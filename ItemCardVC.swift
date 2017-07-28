@@ -22,7 +22,7 @@ class ItemCardVC: UIViewController {
     
     
     
-    var categories = [String]()
+    var categories = [ItemCategory]()
     var uoms = [Uom]()
     var increment = [String]()
     var pickerType: PickerType = .category
@@ -70,7 +70,10 @@ class ItemCardVC: UIViewController {
     func cardOpenHandler() {
         if item == nil {
             if let newName = searchedItemName {
-                item = ShopItem(id: UUID().uuidString, name: newName.capitalized, quantity: 1.0, minPrice: 0.0, price: 0.0, category: categories[0], uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
+                
+                let itemCategory = ItemCategory(id: categories[0].id, name: categories[0].name)
+                
+                item = ShopItem(id: UUID().uuidString, name: newName.capitalized, quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, uom: ShopItemUom(), outletId: outletId, scanned: false, checked: false)
             }
             
             
@@ -79,7 +82,7 @@ class ItemCardVC: UIViewController {
         if let item = item {
             itemTitle.text = item.name
             itemPrice.text = item.price.asDecimal
-            categoryButton.setTitle(item.category, for: .normal)
+            categoryButton.setTitle(item.itemCategory.name, for: .normal)
             uomButton.setTitle(item.uom.uom, for: .normal)
         }
         
@@ -98,7 +101,7 @@ class ItemCardVC: UIViewController {
             return
         }
         for index in 0 ..< categories.count {
-            if categories[index] == item.category {
+            if categories[index] == item.itemCategory {
                 commonPickerView.selectRow(index, inComponent: 0, animated: true)
                 break
             }
@@ -172,15 +175,15 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickerType == .category ? categories[row] : uoms[row].uom
+        return pickerType == .category ? categories[row].name : uoms[row].uom
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         commonPickerView.isHidden = true
         if pickerType == .category {
-            categoryButton.setTitle(categories[row], for: .normal)
-            item?.category = categories[row]
+            categoryButton.setTitle(categories[row].name, for: .normal)
+            item?.itemCategory = categories[row]
             //catRow = row
         } else {
             uomButton.setTitle(uoms[row].uom, for: .normal)

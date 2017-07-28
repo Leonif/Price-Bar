@@ -13,7 +13,7 @@ import CoreData
 class CoreDataService {
     
     static let data = CoreDataService()
-    var initCategories = ["Неопредленно","Бытовая техника", "Косметика","Мясо","Овощи и фрукты", "Пекарня", "Молочка, Сыры", "Сладости", "Канцелярия"]
+    var initCategories = [ItemCategory]()
     var unitsOfMeasure: [ShopItemUom] = [ShopItemUom(),ShopItemUom(uom: "1 уп",increment: 1.0),ShopItemUom(uom: "100 мл",increment: 0.01),ShopItemUom(uom: "1 л",increment: 0.1),ShopItemUom(uom: "100 г",increment: 0.01),ShopItemUom(uom: "1 кг",increment: 0.1)]
     
     
@@ -21,38 +21,40 @@ class CoreDataService {
         initCategories = []
         FirebaseService.data.loadCategories { (categories) in
             self.initCategories = categories
-            print("coredata: \(categories)")
+            //print("coredata: \(categories)")
             complete()
         }
         
     }
     
     
-    func getCategories(complete: @escaping ([String])->()) {
+    func getCategories(complete: @escaping ([ItemCategory])->()) {
         
         
         loadCategories {
-            let catsString = self.getCategoriesFromCoreData()
-            complete(catsString)
+            let itemCategories = self.getCategoriesFromCoreData()
+            complete(itemCategories)
         }   
         
         
     }
     
     
-    func getCategoriesFromCoreData() -> [String] {
+    func getCategoriesFromCoreData() -> [ItemCategory] {
         
         var cats = [Category]()
         do {
             let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
             cats = try context.fetch(fetchRequest)
+            print("core data category: \(cats.count) vs dyn array: \(self.initCategories.count)")
             if cats.count != self.initCategories.count {
-                //cats.removeAll()
                 cats = []
                 ad.saveContext()
                 for c in self.initCategories {
                     let cat = Category(context: context)
-                    cat.category = c
+                    cat.id = c.id
+                    cat.category = c.name
+                    print("create category: \(cat.category  ?? "не создано")")
                 }
                 ad.saveContext()
                 cats = try context.fetch(fetchRequest)
@@ -62,15 +64,18 @@ class CoreDataService {
             print("Categories are not got from database")
         }
         
-        var catsString = [String]()
+        var itemCategories = [ItemCategory]()
         
         cats.forEach {
             if let categoryName = $0.category {
-                catsString.append(categoryName)
+                
+                let itemCategory = ItemCategory(id: $0.id, name: categoryName)
+                
+                itemCategories.append(itemCategory)
             }
         }
         
-        return catsString
+        return itemCategories
 
         
     }
@@ -224,7 +229,9 @@ class CoreDataService {
                     
                     let uom = ShopItemUom(uom: u, increment: prodUom.iterator)
                     
-                    let item = ShopItem(id: id, name: name, quantity: $0.quantity, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: prd.scanned, checked: $0.checked)
+                    let itemCategory = ItemCategory(id: prodCat.id, name: category)
+                    
+                    let item = ShopItem(id: id, name: name, quantity: $0.quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, uom: uom, outletId: outletId, scanned: prd.scanned, checked: $0.checked)
                     shopListModel.append(item: item)
                 }
             
@@ -250,7 +257,7 @@ extension CoreDataService {
         FirebaseService.data.loadGoods { (goods) in
             goods.forEach {
                 self.saveProduct($0)
-                print("coredata: goods recieved: \($0.id),\($0.name)")
+                print("coredata: goods recieved: \($0.id),\($0.name), -- \($0.itemCategory.name)")
                 
             }
             completion()
@@ -287,8 +294,11 @@ extension CoreDataService {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
                         let price = getPrice(id, outletId: outletId)
                         let minPrice = getMinPrice(id, outletId: outletId)
-                        let item = ShopItem(id: id, name: name, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
-                        print(item.id, item.name)
+                        
+                        let itemCategory = ItemCategory(id: prodCat.id, name: category)
+                        
+                        let item = ShopItem(id: id, name: name, quantity: 1.0, minPrice: minPrice, price: price, itemCategory: itemCategory, uom: uom, outletId: outletId, scanned: true, checked: false)
+                        print(item.itemCategory.id, item.itemCategory.name, item.id, item.name)
                         shopItems.append(item)
                     }
                 }
@@ -315,7 +325,10 @@ extension CoreDataService {
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
                         let price = getPrice(barcode, outletId: outletId)
                         let minPrice = getMinPrice(barcode, outletId: outletId)
-                        let item = ShopItem(id: id, name: name, quantity: 1.0, minPrice: minPrice, price: price, category: category, uom: uom, outletId: outletId, scanned: true, checked: false)
+                        
+                        let itemCategory = ItemCategory(id: prodCat.id, name: category)
+                        
+                        let item = ShopItem(id: id, name: name, quantity: 1.0, minPrice: minPrice, price: price, itemCategory: itemCategory, uom: uom, outletId: outletId, scanned: true, checked: false)
                         return item
                     }
                 }
@@ -336,7 +349,7 @@ extension CoreDataService {
             
             // search category in coredata
             let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
-            categoryRequest.predicate = NSPredicate(format: "category == %@", item.category)
+            categoryRequest.predicate = NSPredicate(format: "id == %d", item.itemCategory.id)
             let category = try context.fetch(categoryRequest)
             
             //search uom in coredata
@@ -349,14 +362,39 @@ extension CoreDataService {
                 let product = Product(context: context)
                 product.id = item.id
                 product.name = item.name
-                product.toCategory = category.first
+                if category.isEmpty {
+                    let itemCategory = CoreDataService.data.initCategories[0]
+                    let cat = Category(context: context)
+                    cat.id = itemCategory.id
+                    cat.category = itemCategory.name
+                    
+                    product.toCategory = cat
+                    print("create category: \(cat.category ?? "не создано")")
+                    
+                } else {
+                    product.toCategory = category.first
+                }
                 product.toUom = uom.first
                 product.scanned = item.scanned
-                print("Core data: new product got \(item.id), \(item.name)")
+                print("coredata loading from firebase: \(product.toCategory!.id)-\(product.toCategory!.category!):\(product.id!): \(product.name!)")
             } else  { // - just update it
                 if let product = productExist.first {
                     product.name = item.name
-                    product.toCategory = category.first
+                    if category.isEmpty {
+                        let itemCategory = CoreDataService.data.initCategories[0]
+                        
+                        let category = Category(context: context)
+                        category.id = itemCategory.id
+                        category.category = itemCategory.name
+                        
+                        
+                        product.toCategory = category
+                        print("create category: \(category.category  ?? "не создано")")
+                    } else {
+                        
+                        product.toCategory = category.first
+                        
+                    }
                     product.toUom = uom.first
                     product.scanned = item.scanned
                 }

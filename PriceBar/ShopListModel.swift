@@ -19,7 +19,7 @@ class ShopListModel {
     
     var shopList = [String: [ShopItem]]()
     var sections = [String]()
-    var categories = [String]()
+    var categories = [ItemCategory]()
     var uoms = [Uom]()
     var activityIndicator: UIActivityIndicatorView!
     
@@ -102,10 +102,10 @@ class ShopListModel {
     
     func append(item: ShopItem) {
         if sections.contains(item.category) {
-            shopList[item.category]?.append(item)
+            shopList[item.itemCategory.name]?.append(item)
         } else {
-            sections.append(item.category)
-            shopList[item.category] = [item]
+            sections.append(item.itemCategory.name)
+            shopList[item.itemCategory.name] = [item]
         }
         CoreDataService.data.addToShopListAndSaveStatistics(item)
         
@@ -160,11 +160,11 @@ class ShopListModel {
         
         shopList.forEach {
             $0.value.forEach {
-                if temSec.contains($0.category) {
-                    tempList[$0.category]?.append($0)
+                if temSec.contains($0.itemCategory.name) {
+                    tempList[$0.itemCategory.name]?.append($0)
                 } else {
-                    temSec.append($0.category)
-                    tempList[$0.category] = [$0]
+                    temSec.append($0.itemCategory.name)
+                    tempList[$0.itemCategory.name] = [$0]
                 }
             }
         }

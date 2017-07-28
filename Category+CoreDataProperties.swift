@@ -2,7 +2,7 @@
 //  Category+CoreDataProperties.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 6/19/17.
+//  Created by Leonid Nifantyev on 7/28/17.
 //  Copyright © 2017 LionLife. All rights reserved.
 //
 
@@ -17,6 +17,7 @@ extension Category {
     }
 
     @NSManaged public var category: String?
+    @NSManaged public var id: Int32
     @NSManaged public var toProduct: NSSet?
 
 }

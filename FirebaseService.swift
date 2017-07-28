@@ -52,17 +52,19 @@ class FirebaseService {
 
     }
     
-    func loadCategories(categoryList: @escaping (_ categories: [String])->()) {
+    func loadCategories(categoryList: @escaping (_ categories: [ItemCategory])->()) {
         self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { (snapshot) in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
-                var categories = [String]()
+                var categories = [ItemCategory]()
                 for snapCategory in snapCategories {
-                    if let categoryDict = snapCategory.value as? Dictionary<String,String> {
+                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String,Any> {
                         
-                        if let categoryName = categoryDict["name"] {
-                            categories.append(categoryName)
-                            print("firebase loading categories: \(categoryName)")
-                        }
+                        
+                        let itemCategory = ItemCategory(key:id,itemCategoryDict: categoryDict)
+                        print("firebase loading categories: \(itemCategory.id):\(itemCategory.name)")
+                        categories.append(itemCategory)
+                            
+                        
                         
                     }
                     
@@ -97,12 +99,14 @@ class FirebaseService {
     }
     
     
+    
+    
     func addGoodToCloud(_ item: ShopItem) {
         let good = [
             "barcode": item.id,
             "name": item.name,
-            "category_id": item.
-        ]
+            "category_id": item.itemCategory.id
+        ] as [String : Any]
         REF_GOODS.child(item.id).setValue(good)
         
     }

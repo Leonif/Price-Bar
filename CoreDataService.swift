@@ -41,16 +41,14 @@ class CoreDataService {
     
     
     func getCategoriesFromCoreData() -> [ItemCategory] {
-        
         var cats = [Category]()
         do {
             let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
             cats = try context.fetch(fetchRequest)
-            print("core data category: \(cats.count) vs dyn array: \(self.initCategories.count)")
+            print("core data category BEFORE: \(cats.count) vs dyn array: \(self.initCategories.count)")
             if cats.count != self.initCategories.count {
                 cats = []
-                ad.saveContext()
-                for c in self.initCategories {
+                for c in self.initCategories { // пересоздаем категории заново
                     let cat = Category(context: context)
                     cat.id = c.id
                     cat.category = c.name
@@ -58,6 +56,7 @@ class CoreDataService {
                 }
                 ad.saveContext()
                 cats = try context.fetch(fetchRequest)
+                print("core data category AFTER: \(cats.count) vs dyn array: \(self.initCategories.count)")
             }
             
         } catch  {
@@ -68,16 +67,12 @@ class CoreDataService {
         
         cats.forEach {
             if let categoryName = $0.category {
-                
                 let itemCategory = ItemCategory(id: $0.id, name: categoryName)
-                
                 itemCategories.append(itemCategory)
             }
         }
-        
+        print("core data category AFTER2: \(cats.count) vs dyn array: \(self.initCategories.count)")
         return itemCategories
-
-        
     }
     
     
@@ -340,6 +335,10 @@ extension CoreDataService {
     }
 
     func saveProduct(_ item: ShopItem) {
+        
+        //TEST
+        categoryPrint()
+        
         do {
             
             // search item in coredata
@@ -363,14 +362,7 @@ extension CoreDataService {
                 product.id = item.id
                 product.name = item.name
                 if category.isEmpty {
-                    let itemCategory = CoreDataService.data.initCategories[0]
-                    let cat = Category(context: context)
-                    cat.id = itemCategory.id
-                    cat.category = itemCategory.name
-                    
-                    product.toCategory = cat
-                    print("create category: \(cat.category ?? "не создано")")
-                    
+                    product.toCategory = setNotDefineCategory()!
                 } else {
                     product.toCategory = category.first
                 }
@@ -381,19 +373,9 @@ extension CoreDataService {
                 if let product = productExist.first {
                     product.name = item.name
                     if category.isEmpty {
-                        let itemCategory = CoreDataService.data.initCategories[0]
-                        
-                        let category = Category(context: context)
-                        category.id = itemCategory.id
-                        category.category = itemCategory.name
-                        
-                        
-                        product.toCategory = category
-                        print("create category: \(category.category  ?? "не создано")")
+                        product.toCategory = setNotDefineCategory()!
                     } else {
-                        
                         product.toCategory = category.first
-                        
                     }
                     product.toUom = uom.first
                     product.scanned = item.scanned
@@ -403,7 +385,53 @@ extension CoreDataService {
         } catch  {
             print("Products is not got from database")
         }
+        //AFTER
+        categoryPrint()
+        
     }
+    
+    
+    func setNotDefineCategory() -> Category? {
+        let itemCategory = CoreDataService.data.initCategories[0]
+        do {
+            // search category in coredata
+            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
+            categoryRequest.predicate = NSPredicate(format: "id == %d", itemCategory.id)
+            let category = try context.fetch(categoryRequest)
+            return category.first
+        } catch {
+            print("Error of setting not defined category")
+            return nil
+        }
+    }
+}
+
+
+extension CoreDataService {
+    
+    func categoryPrint() {
+        do {
+            // search category in coredata
+            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
+            let categories = try context.fetch(categoryRequest)
+            
+            if categories.count == self.initCategories.count {
+            
+                print("TEST: \(categories.count) vs dyn array: \(self.initCategories.count)")
+                
+            } else {
+                print("TEST ATTENTION!!!: \(categories.count) vs dyn array: \(self.initCategories.count)")
+                for cat in categories {
+                    print("TEST: \(cat.id):\(cat.category ?? "")")
+                }
+            }
+            
+        } catch {
+            print("Error of category data")
+        }
+    }
+    
+    
     
 }
 

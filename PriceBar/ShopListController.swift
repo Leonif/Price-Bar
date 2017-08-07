@@ -10,6 +10,52 @@ import UIKit
 import CoreLocation
 
 
+
+
+class RefreshView: UIView {
+    var progressLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.textColor = .white
+        lbl.textAlignment = .center
+        lbl.text = "Waiting..."
+        lbl.font = lbl.font.withSize(11)
+        lbl.translatesAutoresizingMaskIntoConstraints = false
+        return lbl
+    }()
+    var activityIndicator: UIActivityIndicatorView = {
+        let acInd = UIActivityIndicatorView()
+        acInd.translatesAutoresizingMaskIntoConstraints = false
+        return acInd
+        
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        controlsSetup()
+    }
+    func controlsSetup() {
+        
+        self.layer.cornerRadius = 15
+        self.addSubview(activityIndicator)
+        activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+        self.addSubview(progressLabel)
+        progressLabel.topAnchor.constraint(equalTo: activityIndicator.bottomAnchor, constant: 8).isActive = true
+        progressLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        progressLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        
+    }
+}
     
 
 
@@ -21,11 +67,12 @@ class ShopListController: UIViewController {
     var userOutlet: Outlet!
     var selfDefined: Bool = false
     var selfLoaded: Bool = false
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    @IBOutlet weak var refreshView: RefreshView!
     
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
-    @IBOutlet weak var sliderView: UISlider!
+    
     
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
@@ -34,20 +81,10 @@ class ShopListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
-        shopList = ShopListModel(activityIndicator)
-        
-        
-        
+
+        shopList = ShopListModel(refreshView)
         
     }
-    
-    
-    
-    
-    
     
     override func viewDidAppear(_ animated: Bool) {
         
@@ -57,10 +94,6 @@ class ShopListController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         shopTableView.reloadData()
     }
-    
-    
-    
-    
     
     @IBAction func scanItemPressed(_ sender: Any) {
         performSegue(withIdentifier: AppCons.showScan.rawValue, sender: nil)
@@ -112,12 +145,8 @@ extension ShopListController {
 }
 
 
-
-
-
 //MARK: User location
 extension ShopListController:CLLocationManagerDelegate {
-    
     
     func startReceivingLocationChanges() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
@@ -146,10 +175,8 @@ extension ShopListController:CLLocationManagerDelegate {
             outM.delegate = self
             outM.getNearestOutlet(coordinate: userCoord)
            
-            
             selfDefined = true
         }
-        
     }
 }
 

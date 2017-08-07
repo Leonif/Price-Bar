@@ -21,7 +21,6 @@ class ShopListModel {
     var sections = [String]()
     var categories = [ItemCategory]()
     var uoms = [Uom]()
-    var activityIndicator: UIActivityIndicatorView!
     
     var total: Double {
         var sum = 0.0
@@ -34,37 +33,27 @@ class ShopListModel {
         print("shop model: \(self.categories)")
     }
     
-    init(_ activityIndicator: UIActivityIndicatorView) {
+    init(_ refreshView: RefreshView) {
         
-        
-        
-        self.activityIndicator = activityIndicator
-        
-        
-        
-        self.activityIndicator.isHidden = false
-        self.activityIndicator.startAnimating()
+        refreshView.isHidden = false
+        refreshView.activityIndicator.startAnimating()
         CoreDataService.data.getCategories { (categories) in
-            
             for c in categories {
                 self.categories.append(c)
+                
             }
             print("shop model: \(self.categories)")
-            self.uoms = CoreDataService.data.getUom()
+            self.uoms = CoreDataService.data.getUom()            
             CoreDataService.data.importGoodsFromFirebase {
-            
                 CoreDataService.data.importPricesFromFirebase {
-                
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
+                    refreshView.activityIndicator.stopAnimating()
+                    refreshView.isHidden = true
                 }
             }
-            
         }
     }
     init() {
         CoreDataService.data.getCategories { (categories) in
-            
             for c in categories {
                 self.categories.append(c)
             }
@@ -72,6 +61,7 @@ class ShopListModel {
             self.uoms = CoreDataService.data.getUom()
             CoreDataService.data.importGoodsFromFirebase {
                 CoreDataService.data.importPricesFromFirebase {}
+
             }
         }
     }
@@ -84,8 +74,6 @@ class ShopListModel {
                 self.categories.append(c)
             }
             print("shop model: \(self.categories)")
-            //self.uoms = CoreDataService.data.getUom()
-            //CoreDataService.data.importGoodsFromFirebase()
             complete()
             
         }

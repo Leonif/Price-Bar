@@ -14,9 +14,9 @@ class ItemListVC: UIViewController {
     var filtredItemList = [ShopItem]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
+    @IBOutlet weak var refreshView: RefreshView!
     var delegate: Exchange!
     var hide: Bool = false
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     @IBOutlet weak var itemSearchField: UITextField!
@@ -30,15 +30,15 @@ class ItemListVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
         
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        refreshView.isHidden = false
+        refreshView.activityIndicator.startAnimating()
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
             itemTableView.reloadData()
         }
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
+        refreshView.activityIndicator.stopAnimating()
+        refreshView.isHidden = true
     }
     
     

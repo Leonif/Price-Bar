@@ -23,22 +23,23 @@ class ItemListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-        
         refreshView.isHidden = false
         refreshView.activityIndicator.startAnimating()
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
+            refreshView.activityIndicator.stopAnimating()
+            refreshView.isHidden = true
             itemTableView.reloadData()
+            
+            
         }
-        refreshView.activityIndicator.stopAnimating()
-        refreshView.isHidden = true
+        
     }
     
     
@@ -89,6 +90,7 @@ extension ItemListVC: Exchange {
     func objectExchange(object: Any) {
         if let item = object as? ShopItem   {
             CoreDataService.data.addToShopListAndSaveStatistics(item)
+            print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
             delegate.objectExchange(object: item)
             hide = true
             
@@ -141,7 +143,8 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
        
         let item = filtredItemList[indexPath.row]
         
-        CoreDataService.data.addToShopListAndSaveStatistics(item)
+        //print("From ItemList (didSelect): addToShopListAndSaveStatistics - addToShopList")
+        //CoreDataService.data.addToShopListAndSaveStatistics(item)
         
         delegate.objectExchange(object: item)
         self.dismiss(animated: true, completion: nil)

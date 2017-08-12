@@ -42,7 +42,7 @@ class ShopListModel {
                 self.categories.append(c)
                 
             }
-            print("shop model: \(self.categories)")
+            //print("shop model: \(self.categories)")
             self.uoms = CoreDataService.data.getUom()            
             CoreDataService.data.importGoodsFromFirebase {
                 CoreDataService.data.importPricesFromFirebase {
@@ -57,7 +57,7 @@ class ShopListModel {
             for c in categories {
                 self.categories.append(c)
             }
-            print("shop model: \(self.categories)")
+            //print("shop model: \(self.categories)")
             self.uoms = CoreDataService.data.getUom()
             CoreDataService.data.importGoodsFromFirebase {
                 CoreDataService.data.importPricesFromFirebase {}
@@ -73,7 +73,7 @@ class ShopListModel {
             for c in categories {
                 self.categories.append(c)
             }
-            print("shop model: \(self.categories)")
+            //print("shop model: \(self.categories)")
             complete()
             
         }
@@ -89,13 +89,15 @@ class ShopListModel {
     }
     
     func append(item: ShopItem) {
-        if sections.contains(item.category) {
+        if sections.contains(item.itemCategory.name) {
             shopList[item.itemCategory.name]?.append(item)
         } else {
             sections.append(item.itemCategory.name)
             shopList[item.itemCategory.name] = [item]
         }
-        CoreDataService.data.addToShopListAndSaveStatistics(item)
+        print("From ShopListModel(append): addToShopListAndSaveStatistics - addToShopList")
+        //CoreDataService.data.addToShopListAndSaveStatistics(item)
+        CoreDataService.data.addToShopList(item)
         
     }
     
@@ -137,6 +139,7 @@ class ShopListModel {
         if !found {
             append(item: item)
         }
+        print("From ShopListModel (change): addToShopListAndSaveStatistics - addToShopList")
         CoreDataService.data.addToShopListAndSaveStatistics(item)
         updateSections()
     }

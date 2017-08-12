@@ -61,7 +61,7 @@ class FirebaseService {
                         
                         
                         let itemCategory = ItemCategory(key:id,itemCategoryDict: categoryDict)
-                        print("firebase loading categories: \(itemCategory.id):\(itemCategory.name)")
+                        //print("firebase loading categories: \(itemCategory.id):\(itemCategory.name)")
                         categories.append(itemCategory)
                             
                         
@@ -124,7 +124,7 @@ class FirebaseService {
                                 let item = ShopItem(id: product_id, priceData: priceDict)
                                 itemPrices.append(item)
                                 
-                                print("firebase import pricing: \(priceDict)")
+                                //print("firebase import pricing: \(priceDict)")
                             }
                         }
                         

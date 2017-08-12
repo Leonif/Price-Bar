@@ -45,18 +45,18 @@ class CoreDataService {
         do {
             let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
             cats = try context.fetch(fetchRequest)
-            print("core data category BEFORE: \(cats.count) vs dyn array: \(self.initCategories.count)")
+            //print("core data category BEFORE: \(cats.count) vs dyn array: \(self.initCategories.count)")
             if cats.count != self.initCategories.count {
                 cats = []
                 for c in self.initCategories { // пересоздаем категории заново
                     let cat = Category(context: context)
                     cat.id = c.id
                     cat.category = c.name
-                    print("create category: \(cat.category  ?? "не создано")")
+                    //print("create category: \(cat.category  ?? "не создано")")
                 }
                 ad.saveContext()
                 cats = try context.fetch(fetchRequest)
-                print("core data category AFTER: \(cats.count) vs dyn array: \(self.initCategories.count)")
+                //print("core data category AFTER: \(cats.count) vs dyn array: \(self.initCategories.count)")
             }
             
         } catch  {
@@ -71,7 +71,7 @@ class CoreDataService {
                 itemCategories.append(itemCategory)
             }
         }
-        print("core data category AFTER2: \(cats.count) vs dyn array: \(self.initCategories.count)")
+        //print("core data category AFTER2: \(cats.count) vs dyn array: \(self.initCategories.count)")
         return itemCategories
     }
     
@@ -84,7 +84,7 @@ class CoreDataService {
             if uoms.count != unitsOfMeasure.count {
                 uoms.removeAll()
                 for u in unitsOfMeasure {
-                    print(u)
+                    //print(u)
                     let um = Uom(context: context)
                     um.uom = u.uom
                     um.iterator = u.increment
@@ -103,6 +103,7 @@ class CoreDataService {
         saveProduct(item)
         FirebaseService.data.addGoodToCloud(item)
         saveStatistic(item)
+        print("From CoreData: addToShopListAndSaveStatistics - addToShopList")
         addToShopList(item)
     }
     
@@ -252,7 +253,7 @@ extension CoreDataService {
             
             goods.forEach {
                 self.saveProduct($0)
-                print("coredata: goods recieved: \($0.id),\($0.name), -- \($0.itemCategory.name)")
+                //print("coredata: goods recieved: \($0.id),\($0.name), -- \($0.itemCategory.name)")
                 
                 
             }
@@ -260,25 +261,11 @@ extension CoreDataService {
             
         }
     }
-    
-    
-   
-    
 }
-
-
-
-
-
-
-
-
 
 
 //MARK: Product
 extension CoreDataService {
-    
-    
     func getItemList(outletId: String) -> [ShopItem]? {
         var shopItems = [ShopItem]()
         do {
@@ -286,15 +273,28 @@ extension CoreDataService {
             let productExist = try context.fetch(fetchRequest)
             if !productExist.isEmpty {
                 productExist.forEach {
-                    if let id = $0.id, let name = $0.name, let prodCat = $0.toCategory, let category = prodCat.category, let toUom = $0.toUom, let u = toUom.uom  {
+                    if let id = $0.id,
+                        let name = $0.name,
+                        let prodCat = $0.toCategory,
+                        let category = prodCat.category,
+                        let toUom = $0.toUom,
+                        let u = toUom.uom  {
+                        
                         let uom = ShopItemUom(uom: u, increment: toUom.iterator)
                         let price = getPrice(id, outletId: outletId)
                         let minPrice = getMinPrice(id, outletId: outletId)
                         
                         let itemCategory = ItemCategory(id: prodCat.id, name: category)
                         
-                        let item = ShopItem(id: id, name: name, quantity: 1.0, minPrice: minPrice, price: price, itemCategory: itemCategory, uom: uom, outletId: outletId, scanned: true, checked: false)
-                        print(item.itemCategory.id, item.itemCategory.name, item.id, item.name)
+                        let item = ShopItem(id: id, name: name,
+                                            quantity: 1.0,
+                                            minPrice: minPrice,
+                                            price: price,
+                                            itemCategory: itemCategory,
+                                            uom: uom, outletId: outletId,
+                                            scanned: true,
+                                            checked: false)
+                        //print(item.itemCategory.id, item.itemCategory.name, item.id, item.name)
                         shopItems.append(item)
                     }
                 }
@@ -304,8 +304,6 @@ extension CoreDataService {
             print("Products is not got from database")
         }
         return nil
-
-        
     }
     
     
@@ -338,7 +336,7 @@ extension CoreDataService {
     func saveProduct(_ item: ShopItem) {
         
         //TEST
-        categoryPrint()
+        //categoryPrint()
         
         do {
             
@@ -363,18 +361,18 @@ extension CoreDataService {
                 product.id = item.id
                 product.name = item.name
                 if category.isEmpty {
-                    product.toCategory = setNotDefineCategory()!
+                    product.toCategory = setDefaultCategory()!
                 } else {
                     product.toCategory = category.first
                 }
                 product.toUom = uom.first
                 product.scanned = item.scanned
-                print("coredata loading from firebase: \(product.toCategory!.id)-\(product.toCategory!.category!):\(product.id!): \(product.name!)")
+                //print("coredata loading from firebase: \(product.toCategory!.id)-\(product.toCategory!.category!):\(product.id!): \(product.name!)")
             } else  { // - just update it
                 if let product = productExist.first {
                     product.name = item.name
                     if category.isEmpty {
-                        product.toCategory = setNotDefineCategory()!
+                        product.toCategory = setDefaultCategory()!
                     } else {
                         product.toCategory = category.first
                     }
@@ -387,12 +385,12 @@ extension CoreDataService {
             print("Products is not got from database")
         }
         //AFTER
-        categoryPrint()
+        //categoryPrint()
         
     }
     
     
-    func setNotDefineCategory() -> Category? {
+    func setDefaultCategory() -> Category? {
         let itemCategory = CoreDataService.data.initCategories[0]
         do {
             // search category in coredata

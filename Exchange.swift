@@ -39,7 +39,7 @@ extension ShopListController: Exchange {
             
             
         } else if let code = object as? String {//scann came
-            print(code)
+            //print(code)
             let item: ShopItem!
             if let it = CoreDataService.data.getItem(by: code, and: userOutlet.id) {
                 item = it
@@ -50,7 +50,8 @@ extension ShopListController: Exchange {
                 item = ShopItem(id: code, name: "Неизвестно", quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, uom: ShopItemUom(), outletId: userOutlet.id, scanned: true, checked: false)
             }
             shopList.append(item: item)
-            CoreDataService.data.addToShopList(item)
+            print("From Exchange addToShopList")
+            CoreDataService.data.addToShopListAndSaveStatistics(item)
         }
         shopTableView.reloadData()
         totalLabel.update(value: shopList.total)

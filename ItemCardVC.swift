@@ -147,13 +147,9 @@ class ItemCardVC: UIViewController {
             delegate.objectExchange(object: item)
             
         } else {
-            
-            
             self.item?.name = itemTitle.text ?? ""
             self.item?.price = itemPrice.text?.double ?? 0.0
             delegate.objectExchange(object: item!)
-            
-            
             
             print("Product is not saved")
         }

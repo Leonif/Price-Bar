@@ -353,6 +353,9 @@ extension CoreDataService {
                                             checked: false)
                         shopItems.append(item)
                     }
+                    else {
+                        fatalError("product from CoredData doesnt match to model")
+                    }
                 }
                 return shopItems
             }
@@ -394,9 +397,6 @@ extension CoreDataService {
 
     func saveProduct(_ item: ShopItem) {
         
-        //TEST
-        //categoryPrint()
-        
         do {
             
             // search item in coredata
@@ -419,14 +419,10 @@ extension CoreDataService {
                 let product = Product(context: context)
                 product.id = item.id
                 product.name = item.name
-                if category.isEmpty {
-                    product.toCategory = setDefaultCategory()!
-                } else {
-                    product.toCategory = category.first
-                }
-                product.toUom = uom.first
+                product.toUom = setUom(for: item)
+                product.toCategory = setCategory(for: item)
+                
                 product.scanned = item.scanned
-                //print("coredata loading from firebase: \(product.toCategory!.id)-\(product.toCategory!.category!):\(product.id!): \(product.name!)")
             } else  { // - just update it
                 if let product = productExist.first {
                     product.name = item.name
@@ -443,11 +439,44 @@ extension CoreDataService {
         } catch  {
             print("Products is not got from database")
         }
-        //AFTER
-        //categoryPrint()
-        
     }
     
+    func setCategory(for item: ShopItem) -> Category? {
+        do {
+            // search category in coredata
+            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
+            categoryRequest.predicate = NSPredicate(format: "id == %d", item.itemCategory.id)
+            let category = try context.fetch(categoryRequest)
+            
+            if category.isEmpty {
+                return setDefaultCategory()
+            } else {
+                return category.first
+            }
+        } catch {
+            print("Error of setting not defined category")
+            return nil
+        }
+    }
+
+    func setUom(for item: ShopItem) -> Uom? {
+        do {
+            // search category in coredata
+            let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
+            uomRequest.predicate = NSPredicate(format: "id == %d", item.itemUom.id)
+            let uom = try context.fetch(uomRequest)
+            
+            if uom.isEmpty {
+                return setDefaultUom()
+            } else {
+                return uom.first
+            }
+        } catch {
+            print("Error of setting not defined category")
+            return nil
+        }
+    }
+
     
     func setDefaultCategory() -> Category? {
         let itemCategory = CoreDataService.data.initCategories[0]
@@ -462,6 +491,22 @@ extension CoreDataService {
             return nil
         }
     }
+    
+    func setDefaultUom() -> Uom? {
+        let itemUom = CoreDataService.data.initUoms[0]
+        do {
+            // search category in coredata
+            let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
+            uomRequest.predicate = NSPredicate(format: "id == %d", itemUom.id)
+            let uom = try context.fetch(uomRequest)
+            return uom.first
+        } catch {
+            print("Error of setting not defined category")
+            return nil
+        }
+    }
+    
+    
 }
 
 

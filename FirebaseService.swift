@@ -70,7 +70,7 @@ class FirebaseService {
     
     
     func loadUoms(uomList: @escaping (_ uoms: [ItemUom])->()) {
-        self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { (snapshot) in
+        self.REF_UOMS.observeSingleEvent(of: .value, with: { (snapshot) in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 var uoms = [ItemUom]()
                 for snapUom in snapUoms {

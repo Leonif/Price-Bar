@@ -28,13 +28,13 @@ class ItemListVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-        refreshView.isHidden = false
-        refreshView.activityIndicator.startAnimating()
+        //refreshView.isHidden = false
+        //refreshView.activityIndicator.startAnimating()
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
-            refreshView.activityIndicator.stopAnimating()
-            refreshView.isHidden = true
+//            refreshView.activityIndicator.stopAnimating()
+//            refreshView.isHidden = true
             itemTableView.reloadData()
             
             

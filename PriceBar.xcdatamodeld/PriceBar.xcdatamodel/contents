@@ -27,6 +27,7 @@
         <relationship name="toProduct" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Product" inverseName="toStatistic" inverseEntity="Product" syncable="YES"/>
     </entity>
     <entity name="Uom" representedClassName="Uom" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="iterator" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="uom" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="toProduct" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Product" inverseName="toUom" inverseEntity="Product" syncable="YES"/>
@@ -36,6 +37,6 @@
         <element name="Product" positionX="124" positionY="27" width="128" height="148"/>
         <element name="ShopList" positionX="196" positionY="315" width="128" height="105"/>
         <element name="Statistic" positionX="322" positionY="144" width="128" height="103"/>
-        <element name="Uom" positionX="-117" positionY="164" width="128" height="88"/>
+        <element name="Uom" positionX="-117" positionY="164" width="128" height="105"/>
     </elements>
 </model>

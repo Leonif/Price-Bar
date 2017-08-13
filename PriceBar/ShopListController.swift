@@ -83,6 +83,8 @@ class ShopListController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
+        
+        
         startReceivingLocationChanges()
         
     }
@@ -118,7 +120,7 @@ extension ShopListController {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell) {
                 if let shp = shopList.getItem(index: indexPath) {
-                    shp.quantity = step(baseValue: Double(sender.value), step: shp.uom.increment)
+                    shp.quantity = step(baseValue: Double(sender.value), step: shp.itemUom.iterator)
                     shopList.change(shp)
                     shopTableView.reloadData()
                     

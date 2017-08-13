@@ -39,10 +39,17 @@ extension ShopListController: Exchange {
         
         if needToReload {
             print("Refresh from cloud...")
-            shopList.reloadDBFromCloud {
-                //self.shopList.reloadDataFromCoreData(for: outlet.id)
-                self.loadShopList(for: outlet)
-            }
+            
+            FirebaseService.data.loginToFirebase({ 
+                self.shopList.reloadDBFromCloud {
+                    //self.shopList.reloadDataFromCoreData(for: outlet.id)
+                    self.loadShopList(for: outlet)
+                }
+            }, {
+                fatalError("Error of login to FIrebase")
+                
+            })
+            
         } else {
             print("Refresh from cloud DONT NEED...")
             //shopList.reloadDataFromCoreData(for: userOutlet.id)
@@ -78,8 +85,9 @@ extension ShopListController: Exchange {
         } else {
             
             let itemCategory = CoreDataService.data.initCategories[0]
+            let itemUom = CoreDataService.data.initUoms[0]
             
-            item = ShopItem(id: scannedCode, name: "Неизвестно", quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, uom: ShopItemUom(), outletId: userOutlet.id, scanned: true, checked: false)
+            item = ShopItem(id: scannedCode, name: "Неизвестно", quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, itemUom: itemUom, outletId: userOutlet.id, scanned: true, checked: false)
         }
         shopList.append(item: item)
         print("From Exchange addToShopList")

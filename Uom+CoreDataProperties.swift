@@ -2,7 +2,7 @@
 //  Uom+CoreDataProperties.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 6/19/17.
+//  Created by Leonid Nifantyev on 8/13/17.
 //  Copyright © 2017 LionLife. All rights reserved.
 //
 
@@ -16,8 +16,9 @@ extension Uom {
         return NSFetchRequest<Uom>(entityName: "Uom")
     }
 
-    @NSManaged public var uom: String?
     @NSManaged public var iterator: Double
+    @NSManaged public var uom: String?
+    @NSManaged public var id: Int32
     @NSManaged public var toProduct: NSSet?
 
 }

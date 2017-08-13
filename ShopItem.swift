@@ -30,6 +30,36 @@ class ItemCategory {
     }
 }
 
+
+class ItemUom {
+    var id: Int32 = 0
+    var name = ""
+    var iterator = 0.0
+    
+    init() {
+        
+    }
+    
+    init(key: Int32, itemUomDict: Dictionary<String, Any>) {
+        if let name = itemUomDict["name"] as? String {
+            self.id = key
+            self.name = name
+            if let iterator = itemUomDict["iterator"] as? Double {
+                self.iterator = iterator
+            }
+        }
+    }
+    
+    init(id: Int32, name: String, iterator: Double) {
+        self.id = id
+        self.name = name
+        self.iterator = iterator
+    }
+}
+
+
+
+
 func == (lhs: ItemCategory, rhs: ItemCategory) -> Bool {
     var returnValue = false
     if (lhs.name == rhs.name) && (lhs.id == rhs.id)
@@ -52,23 +82,19 @@ class ShopItem  {
     var minPrice = 0.0
     
     var itemCategory = ItemCategory()
-    
-    var category = ""
-    var uom: ShopItemUom
+    var itemUom =  ItemUom()
     var outletId = ""
     var scanned = false
     var checked = false
     
-    init(id: String, name: String, quantity: Double, minPrice: Double, price: Double, itemCategory: ItemCategory, uom: ShopItemUom, outletId: String, scanned: Bool, checked: Bool) {
+    init(id: String, name: String, quantity: Double, minPrice: Double, price: Double, itemCategory: ItemCategory, itemUom: ItemUom, outletId: String, scanned: Bool, checked: Bool) {
         self.id = id
         self.name = name
         self.quantity = quantity
         self.minPrice = minPrice
         self.price = price
-        
         self.itemCategory = itemCategory
-        //self.category = category
-        self.uom = uom
+        self.itemUom = itemUom
         self.outletId = outletId
         self.scanned = scanned
         self.checked = checked
@@ -97,12 +123,20 @@ class ShopItem  {
         }
         
         
+        if let uomId = goodData["uom_id"] as? Int32 {
+            self.itemUom.id = uomId
+            for uom in CoreDataService.data.initUoms {
+                if uom.id == uomId  {
+                    itemUom.name = uom.name
+                    break
+                }
+            }
+        } else {
+            itemCategory = CoreDataService.data.initCategories[0]
+        }
         self.quantity = 0
         self.minPrice = 0
         self.price = 0
-        
-        
-        self.uom = ShopItemUom()
         self.outletId = ""
         self.scanned = false
         self.checked = false
@@ -122,7 +156,7 @@ class ShopItem  {
         self.quantity = 0
         self.minPrice = 0
         self.itemCategory = ItemCategory()
-        self.uom = ShopItemUom()
+        self.itemUom = ItemUom()
         
         self.scanned = false
         self.checked = false
@@ -135,7 +169,7 @@ class ShopItem  {
 //copying from one object to other (by value, not reference)
 extension ShopItem: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ShopItem(id: id, name: name, quantity: quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, uom:uom, outletId: outletId, scanned: scanned, checked: checked)
+        let copy = ShopItem(id: id, name: name, quantity: quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, itemUom:itemUom, outletId: outletId, scanned: scanned, checked: checked)
         return copy
     }
 }

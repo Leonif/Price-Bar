@@ -231,14 +231,6 @@
                                     <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
                                 </connections>
                             </button>
-                            <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BDz-HL-OU0" customClass="RefreshView" customModule="PriceBar" customModuleProvider="target">
-                                <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="V3B-hj-pm2"/>
-                                    <constraint firstAttribute="width" constant="100" id="k3x-8l-Qhm"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -246,14 +238,12 @@
                             <constraint firstAttribute="trailing" secondItem="teD-oh-0KA" secondAttribute="trailing" constant="20" id="CKZ-ys-EfI"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="top" secondItem="2so-a8-Tea" secondAttribute="bottom" constant="20" id="ExV-cU-Zl7"/>
                             <constraint firstAttribute="trailing" secondItem="nnc-58-l2C" secondAttribute="trailing" id="GjM-Dp-hRq"/>
-                            <constraint firstItem="BDz-HL-OU0" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="J5Z-Pt-dno"/>
                             <constraint firstItem="nnc-58-l2C" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Py5-1v-ZGm"/>
                             <constraint firstItem="S1v-Mz-DlY" firstAttribute="leading" secondItem="bBr-mn-h0O" secondAttribute="leading" id="SwI-BB-UPo"/>
                             <constraint firstItem="yUL-id-lem" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" constant="20" id="WH0-lM-DUh"/>
                             <constraint firstItem="bBr-mn-h0O" firstAttribute="top" secondItem="S1v-Mz-DlY" secondAttribute="bottom" constant="30" id="X85-26-A0h"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yUL-id-lem" secondAttribute="bottom" constant="20" id="kDY-GE-WV7"/>
                             <constraint firstItem="nnc-58-l2C" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lCq-iQ-Ajg"/>
-                            <constraint firstItem="BDz-HL-OU0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="lX3-Pt-QOe"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="bBr-mn-h0O" secondAttribute="bottom" constant="70" id="lhF-F7-nD6"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="qoc-gM-cxe"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bBr-mn-h0O" secondAttribute="trailing" constant="20" id="tZE-kC-dJc"/>
@@ -262,7 +252,6 @@
                     <connections>
                         <outlet property="outletAddressLabel" destination="2so-a8-Tea" id="VsB-MC-aBU"/>
                         <outlet property="outletNameButton" destination="p6W-vM-LYP" id="dhQ-8x-O5C"/>
-                        <outlet property="refreshView" destination="BDz-HL-OU0" id="Pz7-CW-l9S"/>
                         <outlet property="shopTableView" destination="teD-oh-0KA" id="hPS-xE-dqQ"/>
                         <outlet property="totalLabel" destination="yUL-id-lem" id="N2I-gC-suB"/>
                         <segue destination="CgW-nK-NrY" kind="show" identifier="showOutlets" id="zf9-OY-zBU"/>
@@ -869,14 +858,6 @@
                                     <outlet property="delegate" destination="Aph-JN-BT7" id="STY-EP-UlI"/>
                                 </connections>
                             </tableView>
-                            <view alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ujz-B0-dDE" customClass="RefreshView" customModule="PriceBar" customModuleProvider="target">
-                                <rect key="frame" x="137.5" y="283.5" width="100" height="100"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="100" id="8Xk-Xn-SO6"/>
-                                    <constraint firstAttribute="height" constant="100" id="kcm-IY-kLf"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvf-3U-9A5" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="20" y="537" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -923,8 +904,6 @@
                             <constraint firstItem="EnH-hF-scj" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" id="7oy-6h-Qkw"/>
                             <constraint firstItem="EnH-hF-scj" firstAttribute="top" secondItem="Lo6-EM-0Ff" secondAttribute="top" id="Dkv-u2-rvz"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="74u-MH-F1Q" secondAttribute="bottom" id="H0X-6Z-fYO"/>
-                            <constraint firstItem="ujz-B0-dDE" firstAttribute="centerY" secondItem="Lo6-EM-0Ff" secondAttribute="centerY" id="Pzl-5f-jFC"/>
-                            <constraint firstItem="ujz-B0-dDE" firstAttribute="centerX" secondItem="Lo6-EM-0Ff" secondAttribute="centerX" id="SkX-MU-bEU"/>
                             <constraint firstItem="tqA-hP-Ewh" firstAttribute="trailing" secondItem="74u-MH-F1Q" secondAttribute="trailing" constant="-20" id="XFT-35-JEg"/>
                             <constraint firstItem="jvf-3U-9A5" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" constant="20" id="glD-ab-2MN"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="jvf-3U-9A5" secondAttribute="bottom" constant="70" id="hca-Jt-hJ2"/>
@@ -936,7 +915,6 @@
                     <connections>
                         <outlet property="itemSearchField" destination="QJ3-4M-n7C" id="ZI7-h3-rvJ"/>
                         <outlet property="itemTableView" destination="74u-MH-F1Q" id="j6K-js-uXB"/>
-                        <outlet property="refreshView" destination="ujz-B0-dDE" id="44z-dH-Fvh"/>
                         <segue destination="eEM-bT-isb" kind="show" identifier="showProductCard" id="EJ7-82-Mar"/>
                     </connections>
                 </viewController>

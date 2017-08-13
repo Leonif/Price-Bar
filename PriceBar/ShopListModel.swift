@@ -20,7 +20,8 @@ class ShopListModel {
     var shopList = [String: [ShopItem]]()
     var sections = [String]()
     var categories = [ItemCategory]()
-    var uoms = [Uom]()
+    var uoms = [ItemUom]()
+    //var uoms = [Uom]()
     
     var total: Double {
         var sum = 0.0
@@ -38,15 +39,18 @@ class ShopListModel {
             for c in categories {
                 self.categories.append(c)
             }
-            self.uoms = CoreDataService.data.getUom()
-            CoreDataService.data.importGoodsFromFirebase {
-                CoreDataService.data.importPricesFromFirebase {
-                    completion()
+            CoreDataService.data.getUoms { (uoms) in
+                for u in uoms {
+                    self.uoms.append(u)
+                }
+                CoreDataService.data.importGoodsFromFirebase {
+                    CoreDataService.data.importPricesFromFirebase {
+                        completion()
+                    }
                 }
             }
         }
     }
-    
     func reloadDataFromCoreData(for outledId: String) {
         
        let shpLst = CoreDataService.data.getItemList(outletId: outledId)
@@ -197,13 +201,6 @@ class ShopListModel {
 }
 
 
-struct ShopItemUom {
-    
-    var uom = "1 шт"
-    var increment = 1.0
-    
-    
-    
-}
+
 
 

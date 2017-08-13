@@ -19,6 +19,7 @@ class FirebaseService {
     var REF_GOODS = DB_FIRBASE.child("goods")
     var REF_PRICE_STATISTICS = DB_FIRBASE.child("price_statistics")
     var REF_CATEGORIES = DB_FIRBASE.child("categories")
+    var REF_UOMS = DB_FIRBASE.child("uoms")
     
     
     
@@ -58,27 +59,37 @@ class FirebaseService {
                 var categories = [ItemCategory]()
                 for snapCategory in snapCategories {
                     if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String,Any> {
-                        
-                        
                         let itemCategory = ItemCategory(key:id,itemCategoryDict: categoryDict)
-                        //print("firebase loading categories: \(itemCategory.id):\(itemCategory.name)")
                         categories.append(itemCategory)
-                            
-                        
-                        
                     }
-                    
                 }
                 categoryList(categories)
             }
         })
-        
-        
     }
+    
+    
+    func loadUoms(uomList: @escaping (_ uoms: [ItemUom])->()) {
+        self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                var uoms = [ItemUom]()
+                for snapUom in snapUoms {
+                    if let id = Int32(snapUom.key), let uomDict = snapUom.value as? Dictionary<String,Any> {
+                        let itemUom = ItemUom(key:id,itemUomDict: uomDict)
+                        uoms.append(itemUom)
+                    }
+                }
+                uomList(uoms)
+            }
+        })
+    }
+    
+    
+    
+    
     
     func loadGoods(goodList: @escaping (_ good: [ShopItem])->())  {
         
-        loginToFirebase({ 
             self.REF_GOODS.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let snapGoods = snapshot.value as? [String: Any] {
                     
@@ -93,10 +104,10 @@ class FirebaseService {
                     goodList(goods)
                 }
             })
-        }) { 
-            print("Error goods getting")
-        }
+        
     }
+    
+    
     
     
     

@@ -77,21 +77,14 @@ class ShopListController: UIViewController {
         
         
         
-        if launchedTimes >= 10 {
-            
-            shopList.reloadDBFromCloud {
-                self.shopList.reloadDataFromCoreData(for: self.userOutlet.id)
-                self.shopTableView.reloadData()
-            }
-        } else {
-            shopList.reloadDataFromCoreData(for: userOutlet.id)
-        }
+        
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
         startReceivingLocationChanges()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

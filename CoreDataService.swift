@@ -228,6 +228,7 @@ class CoreDataService {
                     let itemCategory = ItemCategory(id: prodCat.id, name: category)
                     
                     let item = ShopItem(id: id, name: name, quantity: $0.quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, uom: uom, outletId: outletId, scanned: prd.scanned, checked: $0.checked)
+                    
                     shopListModel.append(item: item)
                 }
             

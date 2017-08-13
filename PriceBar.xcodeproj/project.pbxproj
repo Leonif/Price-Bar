@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7904B4561F037257002032CD /* DragCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4551F037257002032CD /* DragCells.swift */; };
-		7904B4581F03728E002032CD /* Exchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4571F03728E002032CD /* Exchange.swift */; };
+		7904B4581F03728E002032CD /* ShopListControllerExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4571F03728E002032CD /* ShopListControllerExchange.swift */; };
 		7904B45A1F03738B002032CD /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* ShopItem.swift */; };
 		7904B45D1F037E32002032CD /* ShopList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B45B1F037E32002032CD /* ShopList+CoreDataClass.swift */; };
 		7904B45E1F037E32002032CD /* ShopList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B45C1F037E32002032CD /* ShopList+CoreDataProperties.swift */; };
@@ -56,7 +56,7 @@
 /* Begin PBXFileReference section */
 		4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7904B4551F037257002032CD /* DragCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragCells.swift; sourceTree = SOURCE_ROOT; };
-		7904B4571F03728E002032CD /* Exchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Exchange.swift; sourceTree = SOURCE_ROOT; };
+		7904B4571F03728E002032CD /* ShopListControllerExchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopListControllerExchange.swift; sourceTree = SOURCE_ROOT; };
 		7904B4591F03738B002032CD /* ShopItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopItem.swift; sourceTree = SOURCE_ROOT; };
 		7904B45B1F037E32002032CD /* ShopList+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		7904B45C1F037E32002032CD /* ShopList+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
@@ -162,7 +162,7 @@
 				7973DD881EF1AF430010A64F /* OutletsVC.swift */,
 				79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
-				7904B4571F03728E002032CD /* Exchange.swift */,
+				7904B4571F03728E002032CD /* ShopListControllerExchange.swift */,
 				7904B4551F037257002032CD /* DragCells.swift */,
 				79C56B031EF2F10300FAA91C /* ScannerController.swift */,
 				792EE7C21EE7085500470669 /* AppDelegate.swift */,
@@ -424,7 +424,7 @@
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
 				792EE7BD1EE7081800470669 /* DoubleExtensions.swift in Sources */,
 				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,
-				7904B4581F03728E002032CD /* Exchange.swift in Sources */,
+				7904B4581F03728E002032CD /* ShopListControllerExchange.swift in Sources */,
 				792D2C7C1F2BBFC900AA337F /* Category+CoreDataClass.swift in Sources */,
 				792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */,
 				795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */,

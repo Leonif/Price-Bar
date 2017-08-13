@@ -116,7 +116,8 @@ class FirebaseService {
         let good = [
             "barcode": item.id,
             "name": item.name,
-            "category_id": item.itemCategory.id
+            "category_id": item.itemCategory.id,
+            "uom_id": item.itemUom.id
         ] as [String : Any]
         REF_GOODS.child(item.id).setValue(good)
         

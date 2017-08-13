@@ -100,7 +100,7 @@ extension ItemListVC: Exchange {
 
 
 extension ItemListVC: UITextFieldDelegate {
-    //hide keyboard by press ENter
+    //hide keyboard by press Enter
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

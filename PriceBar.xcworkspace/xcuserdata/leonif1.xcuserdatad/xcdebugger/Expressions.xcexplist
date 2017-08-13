@@ -3,10 +3,16 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "CoreDataService.getCategoriesFromCoreData() -&gt; [ItemCategory]:CoreDataService.swift">
+         contextName = "ShopListController.objectExchange(object : Any) -&gt; ():ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.viewDidLoad() -&gt; ():ShopListController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "initCategories.count">
+               value = "userCoordinate">
+            </PersistentString>
+            <PersistentString
+               value = "userOutlet">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -19,13 +25,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.viewDidLoad() -&gt; ():ShopListController.swift">
+         contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "userCoordinate">
+               value = "sections">
             </PersistentString>
             <PersistentString
-               value = "userOutlet">
+               value = "shopList">
+            </PersistentString>
+            <PersistentString
+               value = "item.itemCategory.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -41,18 +50,43 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
+         contextName = "FirebaseService.addGoodToCloud(ShopItem) -&gt; ():FirebaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.(reloadDBFromCloud(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):ShopListModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.getCategoriesFromCoreData() -&gt; [ItemCategory]:CoreDataService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
-            </PersistentString>
-            <PersistentString
-               value = "item.itemCategory.name">
-            </PersistentString>
-            <PersistentString
-               value = "shopList">
+               value = "initCategories.count">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.setUom(for : ShopItem) -&gt; Uom?:CoreDataService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "uom.first.iterator">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FirebaseService.(loadUoms(uomList : ([ItemUom]) -&gt; ()) -&gt; ()).(closure #1):FirebaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.tableView(UITableView, didSelectRowAt : IndexPath) -&gt; ():ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

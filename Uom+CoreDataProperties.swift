@@ -16,9 +16,9 @@ extension Uom {
         return NSFetchRequest<Uom>(entityName: "Uom")
     }
 
+    @NSManaged public var id: Int32
     @NSManaged public var iterator: Double
     @NSManaged public var uom: String?
-    @NSManaged public var id: Int32
     @NSManaged public var toProduct: NSSet?
 
 }

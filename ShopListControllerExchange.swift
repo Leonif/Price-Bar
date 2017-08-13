@@ -33,26 +33,19 @@ extension ShopListController: Exchange {
     
     
     func handle(for outlet: Outlet) {
-        
-        
-        let needToReload = true //= launchedTimes == 1 || launchedTimes > 10
+        let needToReload = true//launchedTimes == 1 || launchedTimes > 10
         
         if needToReload {
             print("Refresh from cloud...")
-            
-            FirebaseService.data.loginToFirebase({ 
+            FirebaseService.data.loginToFirebase({
                 self.shopList.reloadDBFromCloud {
-                    //self.shopList.reloadDataFromCoreData(for: outlet.id)
                     self.loadShopList(for: outlet)
                 }
             }, {
                 fatalError("Error of login to FIrebase")
-                
             })
-            
         } else {
             print("Refresh from cloud DONT NEED...")
-            //shopList.reloadDataFromCoreData(for: userOutlet.id)
             loadShopList(for: outlet)
         }
 

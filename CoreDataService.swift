@@ -104,6 +104,7 @@ class CoreDataService {
                     let uom = Uom(context: context)
                     uom.id = u.id
                     uom.uom = u.name
+                    uom.iterator = u.iterator
                 }
                 ad.saveContext()
                 uoms = try context.fetch(fetchRequest)
@@ -354,7 +355,7 @@ extension CoreDataService {
                         shopItems.append(item)
                     }
                     else {
-                        fatalError("product from CoredData doesnt match to model")
+                        fatalError("product \($0.id, $0.name) from CoredData doesnt match to model")
                     }
                 }
                 return shopItems
@@ -396,23 +397,11 @@ extension CoreDataService {
     }
 
     func saveProduct(_ item: ShopItem) {
-        
         do {
-            
             // search item in coredata
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
             productRequest.predicate = NSPredicate(format: "id == %@", item.id)
             let productExist = try context.fetch(productRequest)
-            
-            // search category in coredata
-            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
-            categoryRequest.predicate = NSPredicate(format: "id == %d", item.itemCategory.id)
-            let category = try context.fetch(categoryRequest)
-            
-            //search uom in coredata
-            let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
-            uomRequest.predicate = NSPredicate(format: "id == %d", item.itemUom.id)
-            let uom = try context.fetch(uomRequest)
             
             //product doesnt exists - create product in coredata
             if productExist.isEmpty {
@@ -426,12 +415,8 @@ extension CoreDataService {
             } else  { // - just update it
                 if let product = productExist.first {
                     product.name = item.name
-                    if category.isEmpty {
-                        product.toCategory = setDefaultCategory()!
-                    } else {
-                        product.toCategory = category.first
-                    }
-                    product.toUom = uom.first
+                    product.toUom = setUom(for: item)
+                    product.toCategory = setCategory(for: item)
                     product.scanned = item.scanned
                 }
             }
@@ -465,7 +450,6 @@ extension CoreDataService {
             let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
             uomRequest.predicate = NSPredicate(format: "id == %d", item.itemUom.id)
             let uom = try context.fetch(uomRequest)
-            
             if uom.isEmpty {
                 return setDefaultUom()
             } else {

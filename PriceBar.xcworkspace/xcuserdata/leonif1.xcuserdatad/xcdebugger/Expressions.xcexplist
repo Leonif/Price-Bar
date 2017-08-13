@@ -11,16 +11,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
+         contextName = "ItemCardVC.initController() -&gt; ():ItemCardVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "categories">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.viewDidLoad() -&gt; ():ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userCoordinate">
             </PersistentString>
             <PersistentString
-               value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
+               value = "userOutlet">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -36,10 +41,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ItemCardVC.initController() -&gt; ():ItemCardVC.swift">
+         contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "categories">
+               value = "sections">
+            </PersistentString>
+            <PersistentString
+               value = "item.itemCategory.name">
+            </PersistentString>
+            <PersistentString
+               value = "shopList">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

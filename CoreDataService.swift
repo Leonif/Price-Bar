@@ -250,12 +250,9 @@ extension CoreDataService {
     
     func importGoodsFromFirebase(completion: @escaping ()->()) {
         FirebaseService.data.loadGoods { (goods) in
-            
             goods.forEach {
                 self.saveProduct($0)
                 //print("coredata: goods recieved: \($0.id),\($0.name), -- \($0.itemCategory.name)")
-                
-                
             }
             completion()
             
@@ -294,7 +291,6 @@ extension CoreDataService {
                                             uom: uom, outletId: outletId,
                                             scanned: true,
                                             checked: false)
-                        //print(item.itemCategory.id, item.itemCategory.name, item.id, item.name)
                         shopItems.append(item)
                     }
                 }

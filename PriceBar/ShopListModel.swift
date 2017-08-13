@@ -33,51 +33,53 @@ class ShopListModel {
         print("shop model: \(self.categories)")
     }
     
-    init(_ refreshView: RefreshView) {
-        
-        refreshView.isHidden = false
-        refreshView.activityIndicator.startAnimating()
+    func reloadDBFromCloud(completion: @escaping ()->()) {
         CoreDataService.data.getCategories { (categories) in
             for c in categories {
                 self.categories.append(c)
-                
             }
-            //print("shop model: \(self.categories)")
-            self.uoms = CoreDataService.data.getUom()            
+            self.uoms = CoreDataService.data.getUom()
             CoreDataService.data.importGoodsFromFirebase {
                 CoreDataService.data.importPricesFromFirebase {
-                    refreshView.activityIndicator.stopAnimating()
-                    refreshView.isHidden = true
+                    completion()
                 }
             }
         }
     }
-    init() {
-        CoreDataService.data.getCategories { (categories) in
-            for c in categories {
-                self.categories.append(c)
+    
+    func reloadDataFromCoreData(for outledId: String) {
+        
+       let shpLst = CoreDataService.data.getItemList(outletId: outledId)
+        
+        sections = []
+        shopList.removeAll()
+        
+        shpLst?.forEach {
+        
+            if sections.contains($0.itemCategory.name) {
+                shopList[$0.itemCategory.name]?.append($0)
+            } else {
+                sections.append($0.itemCategory.name)
+                shopList[$0.itemCategory.name] = [$0]
             }
-            //print("shop model: \(self.categories)")
-            self.uoms = CoreDataService.data.getUom()
-            CoreDataService.data.importGoodsFromFirebase {
-                CoreDataService.data.importPricesFromFirebase {}
-
-            }
+            
         }
+        
+        
+        
     }
     
     // check if data in core data doesnt exist add them to start work
-    func readInitData(complete:@escaping ()->()) {
-        CoreDataService.data.getCategories { (categories) in
-            
-            for c in categories {
-                self.categories.append(c)
-            }
-            //print("shop model: \(self.categories)")
-            complete()
-            
-        }
-    }
+//    func readInitData(complete:@escaping ()->()) {
+//        CoreDataService.data.getCategories { (categories) in
+//            for c in categories {
+//                self.categories.append(c)
+//            }
+//            //print("shop model: \(self.categories)")
+//            complete()
+//            
+//        }
+//    }
     
     
     

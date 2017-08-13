@@ -144,6 +144,7 @@
 		792EE7821EE48CD500470669 /* PriceBar */ = {
 			isa = PBXGroup;
 			children = (
+				79C17A4B1EEBD692003A8D6B /* Constants.swift */,
 				792EE79D1EE5069300470669 /* Extensions */,
 				792EE7971EE4938800470669 /* Model */,
 				792EE7961EE4937700470669 /* View */,
@@ -211,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				795EA8C51F0EC58F00752A68 /* Extension.swift */,
-				79C17A4B1EEBD692003A8D6B /* Constants.swift */,
 				7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */,
 				792EE7BC1EE7081800470669 /* DoubleExtensions.swift */,
 				792EE7BE1EE7082700470669 /* CharacterExtensions.swift */,

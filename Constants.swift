@@ -20,6 +20,7 @@ enum AppCons: String {
 }
 
 
+var launchedTimes = 0
 
 
 

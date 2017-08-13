@@ -73,7 +73,19 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        shopList = ShopListModel(refreshView)
+        shopList = ShopListModel()
+        
+        
+        
+        if launchedTimes >= 10 {
+            
+            shopList.reloadDBFromCloud {
+                self.shopList.reloadDataFromCoreData(for: self.userOutlet.id)
+                self.shopTableView.reloadData()
+            }
+        } else {
+            shopList.reloadDataFromCoreData(for: userOutlet.id)
+        }
         
     }
     
@@ -101,11 +113,9 @@ extension ShopListController {
     @IBAction func checkMarkPressed(_ sender: UIButton) {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell), let item = shopList.getItem(index: indexPath)  {
-                
                 item.checked = !item.checked
                 shopList.change(item)
                 cell.configureCell(item: item)
-                
             }
         }
     }
@@ -162,9 +172,9 @@ extension ShopListController:CLLocationManagerDelegate {
         userCoordinate = locations.last?.coordinate
         
         if let userCoord = userCoordinate, !selfDefined {
-            let outM = OutletListModel()
-            outM.delegate = self
-            outM.getNearestOutlet(coordinate: userCoord)
+            let outletListModel = OutletListModel()
+            outletListModel.delegate = self
+            outletListModel.getNearestOutlet(coordinate: userCoord)
            
             selfDefined = true
         }

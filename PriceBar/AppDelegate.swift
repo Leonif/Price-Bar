@@ -21,9 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         //need to check
-       
-        
-        
         var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
         if times < 10 && times > 0  {
             print("App launched less than 10 times")
@@ -34,14 +31,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             UserDefaults.standard.set(1, forKey: "LaunchedTime")
             launchedTimes = 1
         }
-
-        
-        
-       
         
         return true
-        
-        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

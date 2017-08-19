@@ -28,13 +28,15 @@ class ShopListModel {
         return sum
     }
     
-    func reloadDBFromCloud(completion: @escaping ()->()) {
-        CoreDataService.data.getCategories { (categories) in
+    func synchronizeCloud(completion: @escaping ()->()) {
+        let deviceStorage = CoreDataService.data
+
+        deviceStorage.getCategories { (categories) in
             categories.forEach { self.categories.append($0) }
-            CoreDataService.data.getUoms { (uoms) in
+            deviceStorage.getUoms { (uoms) in
                 uoms.forEach { self.uoms.append($0)  }
-                CoreDataService.data.importGoodsFromFirebase {
-                    CoreDataService.data.importPricesFromFirebase {
+                deviceStorage.importItemsFromCloud {
+                    deviceStorage.importPricesFromCloud {
                         completion()
                     }
                 }
@@ -64,7 +66,7 @@ class ShopListModel {
         return nil
     }
     
-    func append(item: ShopItem) {
+    func append(_ item: ShopItem) {
         if sections.contains(item.itemCategory.name) {
             shopList[item.itemCategory.name]?.append(item)
         } else {
@@ -73,14 +75,14 @@ class ShopListModel {
         }
         print("From ShopListModel(append): addToShopListAndSaveStatistics - addToShopList")
         //CoreDataService.data.addToShopListAndSaveStatistics(item)
-        CoreDataService.data.addToShopList(item)
+        //CoreDataService.data.saveToShopList(item)
         
     }
     
     func pricesUpdate(by outletId: String) {
         shopList.forEach{
             $0.value.forEach{
-                $0.price = CoreDataService.data.getPrice($0.id, outletId:outletId)
+                $0.price = CoreDataService.data.getPrice(for: $0.id, and:outletId)
                 $0.outletId = outletId
             }}
     }
@@ -108,10 +110,10 @@ class ShopListModel {
             }
         }
         if !found {
-            append(item: item)
+            append(item)
         }
         print("From ShopListModel (change): addToShopListAndSaveStatistics - addToShopList")
-        CoreDataService.data.addToShopListAndSaveStatistics(item)
+        //CoreDataService.data.addToShopListAndSaveStatistics(item)
         updateSections()
     }
     

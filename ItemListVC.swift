@@ -143,9 +143,6 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
        
         let item = filtredItemList[indexPath.row]
         
-        //print("From ItemList (didSelect): addToShopListAndSaveStatistics - addToShopList")
-        //CoreDataService.data.addToShopListAndSaveStatistics(item)
-        
         delegate.objectExchange(object: item)
         self.dismiss(animated: true, completion: nil)
         

@@ -15,24 +15,25 @@ class CoreDataService {
     static let data = CoreDataService()
     var initCategories = [ItemCategory]()
     var initUoms = [ItemUom]()
-    //var unitsOfMeasure: [ShopItemUom] = [ShopItemUom(),ShopItemUom(uom: "1 уп",increment: 1.0),ShopItemUom(uom: "100 мл",increment: 0.01),ShopItemUom(uom: "1 л",increment: 0.1),ShopItemUom(uom: "100 г",increment: 0.01),ShopItemUom(uom: "1 кг",increment: 0.1)]
+    
+    
+    var defaultCategory: ItemCategory {
+        return initCategories[0]
+    }
     
     
     func loadCategories(_ complete: @escaping ()->()) {
         initCategories = []
         FirebaseService.data.loadCategories { (categories) in
             self.initCategories = categories
-            //print("coredata: \(categories)")
             complete()
         }
-        
     }
     
     func loadUoms(_ complete: @escaping ()->()) {
         initUoms = []
         FirebaseService.data.loadUoms { (uoms) in
             self.initUoms = uoms
-            
             complete()
         }
         
@@ -40,25 +41,17 @@ class CoreDataService {
     
     
     func getCategories(complete: @escaping ([ItemCategory])->()) {
-        
-        
         loadCategories {
             let itemCategories = self.getCategoriesFromCoreData()
             complete(itemCategories)
         }   
-        
-        
     }
     
     func getUoms(complete: @escaping ([ItemUom])->()) {
-        
-        
         loadUoms {
             let itemUoms = self.getUomsFromCoreData()
             complete(itemUoms)
         }
-        
-        
     }
     
     
@@ -125,104 +118,53 @@ class CoreDataService {
         return itemUoms
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-//    func getUom() ->[Uom] {
-//        var uoms = [Uom]()
-//        do {
-//            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
-//            uoms = try context.fetch(fetchRequest)
-//            if uoms.count != unitsOfMeasure.count {
-//                uoms.removeAll()
-//                for u in unitsOfMeasure {
-//                    //print(u)
-//                    let um = Uom(context: context)
-//                    um.uom = u.uom
-//                    um.iterator = u.increment
-//                }
-//                ad.saveContext()
-//                uoms = try context.fetch(fetchRequest)
-//            }
-//        } catch  {
-//            print("Uom are not got from database")
-//        }
-//        return uoms
-//    }
-    
-    
     func addToShopListAndSaveStatistics(_ item: ShopItem) {
-        saveProduct(item)
-        FirebaseService.data.addGoodToCloud(item)
+        saveOrUpdate(item)
+        FirebaseService.data.saveOrUpdate(item)
         saveStatistic(item)
         print("From CoreData: addToShopListAndSaveStatistics - addToShopList")
-        addToShopList(item)
+        saveToShopList(item)
     }
     
-    
-    
-    
-    
-    func saveStatistic(_ itemPrice: ShopItem)  {
-        savePrice(itemPrice)
-        FirebaseService.data.savePriceSatistics(itemPrice)
-        
+    func saveStatistic(_ item: ShopItem)  {
+        savePrice(for: item)
+        FirebaseService.data.savePrice(for: item)
     }
     
-    
-    func savePrice(_ itemPrice: ShopItem) {
-        guard itemPrice.price != 0 else {
+    func savePrice(for item: ShopItem) {
+        guard item.price != 0 else {
             return
         }
-        
         do {
             let stat = Statistic(context: context)
-            stat.outlet_id = itemPrice.outletId
-            stat.price = itemPrice.price
+            stat.outlet_id = item.outletId
+            stat.price = item.price
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
-            productRequest.predicate = NSPredicate(format: "id == %@", itemPrice.id)
+            productRequest.predicate = NSPredicate(format: "id == %@", item.id)
             let productExist = try context.fetch(productRequest)
             
             let prd = productExist.first
             
             stat.toProduct = prd
-            stat.price = itemPrice.price
-            stat.outlet_id = itemPrice.outletId
+            stat.price = item.price
+            stat.outlet_id = item.outletId
             ad.saveContext()
         } catch  {
             print("Products is not got from database")
         }
-
-        
-        
     }
     
-    
-    
-    func importPricesFromFirebase(completion: @escaping ()->()) {
+    func importPricesFromCloud(completion: @escaping ()->()) {
         
         FirebaseService.data.importPricesFromCloud { (itemPrices) in
             for item in itemPrices {
-                self.savePrice(item)
+                self.savePrice(for: item)
             }
             completion()
         }
-        
     }
     
-    
-    
-    func addToShopList(_ item:ShopItem) {
+    func saveToShopList(_ item:ShopItem) {
         do {
             //find product in catalog
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
@@ -284,7 +226,7 @@ class CoreDataService {
                     let prodUom = prd.toUom, let uomName = prodUom.uom,
                     let prodCat = prd.toCategory,let category = prodCat.category {
                 
-                    let price = getPrice(id, outletId: outletId)
+                    let price = getPrice(for: id, and: outletId)
                     let minPrice = getMinPrice(id, outletId: outletId)
                     
                     let itemUom = ItemUom(id: prodUom.id, name: uomName, iterator: prodUom.iterator)
@@ -293,7 +235,7 @@ class CoreDataService {
                     
                     let item = ShopItem(id: id, name: name, quantity: $0.quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, itemUom: itemUom, outletId: outletId, scanned: prd.scanned, checked: $0.checked)
                     
-                    shopListModel.append(item: item)
+                    shopListModel.append(item)
                 }
             
             }
@@ -313,10 +255,10 @@ class CoreDataService {
 //MARK: Firebase work
 extension CoreDataService {
     
-    func importGoodsFromFirebase(completion: @escaping ()->()) {
+    func importItemsFromCloud(completion: @escaping ()->()) {
         FirebaseService.data.loadGoods { (goods) in
             goods.forEach {
-                self.saveProduct($0)
+                self.saveOrUpdate($0)
                 //print("coredata: goods recieved: \($0.id),\($0.name), -- \($0.itemCategory.name)")
             }
             completion()
@@ -335,13 +277,13 @@ extension CoreDataService {
             let productExist = try context.fetch(fetchRequest)
             if !productExist.isEmpty {
                 productExist.forEach {
-                    if let id = $0.id,let name = $0.name,
-                        let prodCat = $0.toCategory, let category = prodCat.category,
+                    if let id = $0.id, let name = $0.name,
+                        let category = $0.toCategory?.category, let idCat = $0.toCategory?.id, // optional chaining
                         let prodUom = $0.toUom, let uom = prodUom.uom  {
-                        let price = getPrice(id, outletId: outletId)
+                        let price = getPrice(for: id, and: outletId)
                         let minPrice = getMinPrice(id, outletId: outletId)
                         
-                        let itemCategory = ItemCategory(id: prodCat.id, name: category)
+                        let itemCategory = ItemCategory(id: idCat, name: category)
                         let itemUom = ItemUom(id: prodUom.id, name: uom, iterator: prodUom.iterator)
                         
                         let item = ShopItem(id: id, name: name,
@@ -379,7 +321,7 @@ extension CoreDataService {
                         let prodUom = prd.toUom, let uomName = prodUom.uom,
                         let prodCat = prd.toCategory, let category = prodCat.category  {
                         
-                        let price = getPrice(barcode, outletId: outletId)
+                        let price = getPrice(for: barcode, and: outletId)
                         let minPrice = getMinPrice(barcode, outletId: outletId)
                         
                         let itemCategory = ItemCategory(id: prodCat.id, name: category)
@@ -396,35 +338,50 @@ extension CoreDataService {
         return nil
     }
 
-    func saveProduct(_ item: ShopItem) {
+    func saveOrUpdate(_ item: ShopItem) {
+        if update(item) {
+            return
+        } else {
+            save(item)
+        }
+    }
+    
+    func save(_ item: ShopItem) {
+        let product = Product(context: context)
+        product.id = item.id
+        product.name = item.name
+        product.toUom = setUom(for: item)
+        product.toCategory = setCategory(for: item)
+        
+        product.scanned = item.scanned
+        ad.saveContext()
+    }
+    
+    func update(_ item: ShopItem) -> Bool {
         do {
             // search item in coredata
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
             productRequest.predicate = NSPredicate(format: "id == %@", item.id)
             let productExist = try context.fetch(productRequest)
-            
-            //product doesnt exists - create product in coredata
-            if productExist.isEmpty {
-                let product = Product(context: context)
-                product.id = item.id
-                product.name = item.name
-                product.toUom = setUom(for: item)
-                product.toCategory = setCategory(for: item)
-                
-                product.scanned = item.scanned
-            } else  { // - just update it
+            if !productExist.isEmpty {
                 if let product = productExist.first {
                     product.name = item.name
                     product.toUom = setUom(for: item)
                     product.toCategory = setCategory(for: item)
                     product.scanned = item.scanned
+                    ad.saveContext()
+                    return true
                 }
             }
-            ad.saveContext()
         } catch  {
             print("Products is not got from database")
         }
+        return false
     }
+    
+    
+    
+    
     
     func setCategory(for item: ShopItem) -> Category? {
         do {

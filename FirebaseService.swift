@@ -24,10 +24,8 @@ class FirebaseService {
     
     
     func loginToFirebase(_ success: @escaping ()->(), _ error: ()->()) {
-        
         let email = "good_getter@gmail.com"
         let pwd = "123456"
-        
         
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
             if error != nil {
@@ -38,19 +36,12 @@ class FirebaseService {
                         return
                     }
                     print("User \(email) is created!")
-                    
                     return
-                    
                 })
             }
             success()
             print("Email authorization is successful!")
-            
-            
-            
         })
-        
-
     }
     
     func loadCategories(categoryList: @escaping (_ categories: [ItemCategory])->()) {
@@ -112,7 +103,7 @@ class FirebaseService {
     
     
     
-    func addGoodToCloud(_ item: ShopItem) {
+    func saveOrUpdate(_ item: ShopItem) {
         let good = [
             "barcode": item.id,
             "name": item.name,
@@ -155,7 +146,7 @@ class FirebaseService {
     }
     
     
-    func savePriceSatistics(_ item: ShopItem) {
+    func savePrice(for item: ShopItem) {
         let priceStat = [
             "date": Date().getString(format: "dd.MM.yyyy hh:mm:ss"),
             "product_id": item.id,

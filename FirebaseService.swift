@@ -19,14 +19,13 @@ class FirebaseService {
     var REF_GOODS = DB_FIRBASE.child("goods")
     var REF_PRICE_STATISTICS = DB_FIRBASE.child("price_statistics")
     var REF_CATEGORIES = DB_FIRBASE.child("categories")
+    var REF_UOMS = DB_FIRBASE.child("uoms")
     
     
     
     func loginToFirebase(_ success: @escaping ()->(), _ error: ()->()) {
-        
         let email = "good_getter@gmail.com"
         let pwd = "123456"
-        
         
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
             if error != nil {
@@ -37,46 +36,51 @@ class FirebaseService {
                         return
                     }
                     print("User \(email) is created!")
-                    
                     return
-                    
                 })
             }
             success()
             print("Email authorization is successful!")
-            
-            
-            
         })
-        
-
     }
     
-    func loadCategories(categoryList: @escaping (_ categories: [String])->()) {
+    func loadCategories(categoryList: @escaping (_ categories: [ItemCategory])->()) {
         self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { (snapshot) in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
-                var categories = [String]()
+                var categories = [ItemCategory]()
                 for snapCategory in snapCategories {
-                    if let categoryDict = snapCategory.value as? Dictionary<String,String> {
-                        
-                        if let categoryName = categoryDict["name"] {
-                            categories.append(categoryName)
-                            print("firebase loading categories: \(categoryName)")
-                        }
-                        
+                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String,Any> {
+                        let itemCategory = ItemCategory(key:id,itemCategoryDict: categoryDict)
+                        categories.append(itemCategory)
                     }
-                    
                 }
                 categoryList(categories)
             }
         })
-        
-        
     }
+    
+    
+    func loadUoms(uomList: @escaping (_ uoms: [ItemUom])->()) {
+        self.REF_UOMS.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                var uoms = [ItemUom]()
+                for snapUom in snapUoms {
+                    if let id = Int32(snapUom.key), let uomDict = snapUom.value as? Dictionary<String,Any> {
+                        let itemUom = ItemUom(key:id,itemUomDict: uomDict)
+                        uoms.append(itemUom)
+                    }
+                }
+                uomList(uoms)
+            }
+        })
+    }
+    
+    
+    
+    
     
     func loadGoods(goodList: @escaping (_ good: [ShopItem])->())  {
         
-        loginToFirebase({ 
             self.REF_GOODS.observeSingleEvent(of: .value, with: { (snapshot) in
                 if let snapGoods = snapshot.value as? [String: Any] {
                     
@@ -91,18 +95,21 @@ class FirebaseService {
                     goodList(goods)
                 }
             })
-        }) { 
-            print("Error goods getting")
-        }
+        
     }
     
     
-    func addGoodToCloud(_ item: ShopItem) {
+    
+    
+    
+    
+    func saveOrUpdate(_ item: ShopItem) {
         let good = [
             "barcode": item.id,
             "name": item.name,
-            "category_id": item.itemCategory?.id
-        ]
+            "category_id": item.itemCategory.id,
+            "uom_id": item.itemUom.id
+        ] as [String : Any]
         REF_GOODS.child(item.id).setValue(good)
         
     }
@@ -120,7 +127,7 @@ class FirebaseService {
                                 let item = ShopItem(id: product_id, priceData: priceDict)
                                 itemPrices.append(item)
                                 
-                                print("firebase import pricing: \(priceDict)")
+                                //print("firebase import pricing: \(priceDict)")
                             }
                         }
                         
@@ -139,7 +146,7 @@ class FirebaseService {
     }
     
     
-    func savePriceSatistics(_ item: ShopItem) {
+    func savePrice(for item: ShopItem) {
         let priceStat = [
             "date": Date().getString(format: "dd.MM.yyyy hh:mm:ss"),
             "product_id": item.id,

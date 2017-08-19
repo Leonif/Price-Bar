@@ -18,8 +18,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
         FirebaseApp.configure()
+        
+        //need to check
+        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
+        if times < 10 && times > 0  {
+            print("App launched less than 10 times")
+            times += 1
+            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+            launchedTimes = times
+        } else {
+            UserDefaults.standard.set(1, forKey: "LaunchedTime")
+            launchedTimes = 1
+        }
+        
         return true
     }
 

@@ -25,29 +25,21 @@ class OutletListModel {
         return outlets[index.row]
     }
     func getNearestOutlet(coordinate:CLLocationCoordinate2D) {
-        
-        
-        
         loadOultets(userCoordinate: coordinate, completed: {
-        
             self.delegate?.objectExchange(object: self.outlets.first!)
-        
         })
-        
-        
     }
     
     func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping ()->()) {
         let baseUrl = "https://api.foursquare.com/v2/venues/"
         let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
         let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
-        let category = "4bf58dd8d48988d1f9941735" //Food & Drink Shop
+        let foodAndDrinkShop = "4bf58dd8d48988d1f9941735" //Food & Drink Shop
+        let convenienceStore = "4d954b0ea243a5684a65b473"
         let lat = userCoordinate.latitude
         let lng = userCoordinate.longitude
         
-        
-        
-        let requestURL = baseUrl + "search?categoryId=\(category)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=20170614"
+        let requestURL = baseUrl + "search?categoryId=\(foodAndDrinkShop),\(convenienceStore)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=20170614"
         
         let url = URL(string: requestURL)
         URLSession.shared.dataTask(with:url!) { (data, response, error) in
@@ -57,6 +49,7 @@ class OutletListModel {
                 do {
                     if let parsedData = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]  {
                         if let resp = parsedData["response"] as? [String: Any]  {
+                            print(resp)
                             if let venues = resp["venues"] as? [[String:Any]] {
                                 for v in venues {
                                     if let id = v["id"] as? String, let name = v["name"] as? String, let loc = v["location"] as? [String:Any]  {
@@ -73,19 +66,13 @@ class OutletListModel {
                     DispatchQueue.main.async() {//go into UI
                         completed()
                     }
-                    
                 } catch let error as NSError {
                     print(error)
                 }
-                
             }
             
             }.resume()
-        
     }
-    
-    
-    
 }
 
 class Outlet {

@@ -19,9 +19,8 @@ class ShopListModel {
     
     var shopList = [String: [ShopItem]]()
     var sections = [String]()
-    var categories = [String]()
-    var uoms = [Uom]()
-    var activityIndicator: UIActivityIndicatorView!
+    var categories = [ItemCategory]()
+    var uoms = [ItemUom]()
     
     var total: Double {
         var sum = 0.0
@@ -29,69 +28,36 @@ class ShopListModel {
         return sum
     }
     
-    deinit {
-        print("shopModel is destoyed")
-        print("shop model: \(self.categories)")
-    }
-    
-    init(_ activityIndicator: UIActivityIndicatorView) {
-        
-        
-        
-        self.activityIndicator = activityIndicator
-        
-        
-        
-        self.activityIndicator.isHidden = false
-        self.activityIndicator.startAnimating()
-        CoreDataService.data.getCategories { (categories) in
-            
-            for c in categories {
-                self.categories.append(c)
-            }
-            print("shop model: \(self.categories)")
-            self.uoms = CoreDataService.data.getUom()
-            CoreDataService.data.importGoodsFromFirebase {
-            
-                CoreDataService.data.importPricesFromFirebase {
-                
-                    self.activityIndicator.stopAnimating()
-                    self.activityIndicator.isHidden = true
+    func synchronizeCloud(completion: @escaping ()->()) {
+        let deviceStorage = CoreDataService.data
+
+        deviceStorage.getCategories { (categories) in
+            categories.forEach { self.categories.append($0) }
+            deviceStorage.getUoms { (uoms) in
+                uoms.forEach { self.uoms.append($0)  }
+                deviceStorage.importItemsFromCloud {
+                    deviceStorage.importPricesFromCloud {
+                        completion()
+                    }
                 }
             }
-            
         }
     }
-    init() {
-        CoreDataService.data.getCategories { (categories) in
-            
-            for c in categories {
-                self.categories.append(c)
-            }
-            print("shop model: \(self.categories)")
-            self.uoms = CoreDataService.data.getUom()
-            CoreDataService.data.importGoodsFromFirebase {
-                CoreDataService.data.importPricesFromFirebase {}
+    func reloadDataFromCoreData(for outledId: String) {
+        
+       let shpLst = CoreDataService.data.getItemList(outletId: outledId)
+        
+        sections = []
+        shopList.removeAll()
+        shpLst?.forEach {
+            if sections.contains($0.itemCategory.name) {
+                shopList[$0.itemCategory.name]?.append($0)
+            } else {
+                sections.append($0.itemCategory.name)
+                shopList[$0.itemCategory.name] = [$0]
             }
         }
     }
-    
-    // check if data in core data doesnt exist add them to start work
-    func readInitData(complete:@escaping ()->()) {
-        CoreDataService.data.getCategories { (categories) in
-            
-            for c in categories {
-                self.categories.append(c)
-            }
-            print("shop model: \(self.categories)")
-            //self.uoms = CoreDataService.data.getUom()
-            //CoreDataService.data.importGoodsFromFirebase()
-            complete()
-            
-        }
-    }
-    
-    
     
     func getShopItems(outletId: String) -> [ShopItem]?  {
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
@@ -100,25 +66,24 @@ class ShopListModel {
         return nil
     }
     
-    func append(item: ShopItem) {
-        if sections.contains(item.category) {
-            shopList[item.category]?.append(item)
+    func append(_ item: ShopItem) {
+        if sections.contains(item.itemCategory.name) {
+            shopList[item.itemCategory.name]?.append(item)
         } else {
-            sections.append(item.category)
-            shopList[item.category] = [item]
+            sections.append(item.itemCategory.name)
+            shopList[item.itemCategory.name] = [item]
         }
-        CoreDataService.data.addToShopListAndSaveStatistics(item)
+        print("From ShopListModel(append): addToShopListAndSaveStatistics - addToShopList")
+        //CoreDataService.data.addToShopListAndSaveStatistics(item)
+        //CoreDataService.data.saveToShopList(item)
         
     }
-    
-    
     
     func pricesUpdate(by outletId: String) {
         shopList.forEach{
             $0.value.forEach{
-                $0.price = CoreDataService.data.getPrice($0.id, outletId:outletId)
+                $0.price = CoreDataService.data.getPrice(for: $0.id, and:outletId)
                 $0.outletId = outletId
-            
             }}
     }
     
@@ -130,10 +95,8 @@ class ShopListModel {
                     sections = sections.filter{$0 != key}
                     shopList.removeValue(forKey: key)
                     return .sectionEmpty
-                    
                 }
             }
-            
         }
         return .sectionFull
     }
@@ -147,31 +110,29 @@ class ShopListModel {
             }
         }
         if !found {
-            append(item: item)
+            append(item)
         }
-        CoreDataService.data.addToShopListAndSaveStatistics(item)
+        print("From ShopListModel (change): addToShopListAndSaveStatistics - addToShopList")
+        //CoreDataService.data.addToShopListAndSaveStatistics(item)
         updateSections()
     }
     
     func updateSections() {
-        
         var tempList = [String: [ShopItem]]()
         var temSec = [String]()
-        
         shopList.forEach {
             $0.value.forEach {
-                if temSec.contains($0.category) {
-                    tempList[$0.category]?.append($0)
+                if temSec.contains($0.itemCategory.name) {
+                    tempList[$0.itemCategory.name]?.append($0)
                 } else {
-                    temSec.append($0.category)
-                    tempList[$0.category] = [$0]
+                    temSec.append($0.itemCategory.name)
+                    tempList[$0.itemCategory.name] = [$0]
                 }
             }
         }
         shopList = tempList
         sections = temSec
     }
-    
     
     func getItem(index: IndexPath) -> ShopItem? {
         
@@ -186,17 +147,11 @@ class ShopListModel {
     
     func rowsIn(_ section: Int) -> Int {
         return shopList[sections[section]]?.count ?? 0
-        
     }
     
     var sectionCount: Int {
-        
         return shopList.keys.count
-        
     }
-    
-    
-    
     
     func headerString(for section: Int) -> String {
         return sections[section]
@@ -204,13 +159,6 @@ class ShopListModel {
 }
 
 
-struct ShopItemUom {
-    
-    var uom = "1 шт"
-    var increment = 1.0
-    
-    
-    
-}
+
 
 

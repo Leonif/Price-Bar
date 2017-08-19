@@ -20,6 +20,10 @@ enum AppCons: String {
 }
 
 
+var launchedTimes = 0
+
+
+
 enum CheckMark: String {
     case check = "check"
     case uncheck = "uncheck"

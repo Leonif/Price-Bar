@@ -14,31 +14,32 @@ class ItemListVC: UIViewController {
     var filtredItemList = [ShopItem]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
+    @IBOutlet weak var refreshView: RefreshView!
     var delegate: Exchange!
     var hide: Bool = false
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     
     @IBOutlet weak var itemSearchField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-        
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
+        //refreshView.isHidden = false
+        //refreshView.activityIndicator.startAnimating()
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
+//            refreshView.activityIndicator.stopAnimating()
+//            refreshView.isHidden = true
             itemTableView.reloadData()
+            
+            
         }
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
+        
     }
     
     
@@ -89,6 +90,7 @@ extension ItemListVC: Exchange {
     func objectExchange(object: Any) {
         if let item = object as? ShopItem   {
             CoreDataService.data.addToShopListAndSaveStatistics(item)
+            print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
             delegate.objectExchange(object: item)
             hide = true
             
@@ -98,7 +100,7 @@ extension ItemListVC: Exchange {
 
 
 extension ItemListVC: UITextFieldDelegate {
-    //hide keyboard by press ENter
+    //hide keyboard by press Enter
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -140,8 +142,6 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
         let item = filtredItemList[indexPath.row]
-        
-        CoreDataService.data.addToShopListAndSaveStatistics(item)
         
         delegate.objectExchange(object: item)
         self.dismiss(animated: true, completion: nil)

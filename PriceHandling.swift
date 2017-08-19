@@ -31,7 +31,7 @@ extension CoreDataService {
     
     
     
-    func getPrice(_ barcode: String, outletId: String) -> Double  {
+    func getPrice(for barcode: String, and outletId: String) -> Double  {
         do {
             let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
             statRequest.predicate = NSPredicate(format: "%K == %@ AND %K == %@", argumentArray:["toProduct.id", barcode, "outlet_id", outletId])

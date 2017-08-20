@@ -50,6 +50,8 @@
 		79D269FD1EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D269F71EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift */; };
 		79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A001EFECC4800337DA3 /* ItemListVC.swift */; };
 		79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
+		79D58AAF1F496E50003680EE /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D58AAE1F496E50003680EE /* Helpers.swift */; };
+		79D58AB11F4977B7003680EE /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D58AB01F4977B7003680EE /* CustomViews.swift */; };
 		B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
 /* End PBXBuildFile section */
 
@@ -99,6 +101,8 @@
 		79D269F71EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Statistic+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		79D26A001EFECC4800337DA3 /* ItemListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListVC.swift; sourceTree = SOURCE_ROOT; };
 		79D26A021EFECD5700337DA3 /* ItemListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListCell.swift; sourceTree = SOURCE_ROOT; };
+		79D58AAE1F496E50003680EE /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = SOURCE_ROOT; };
+		79D58AB01F4977B7003680EE /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = SOURCE_ROOT; };
 		9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar.release.xcconfig"; sourceTree = "<group>"; };
 		DB0AE4600538D7BEBF558ECF /* Pods-PriceBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -145,7 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				79C17A4B1EEBD692003A8D6B /* Constants.swift */,
-				792EE79D1EE5069300470669 /* Extensions */,
+				79D58AAD1F496E05003680EE /* Helpers */,
 				792EE7971EE4938800470669 /* Model */,
 				792EE7961EE4937700470669 /* View */,
 				792EE7951EE4936700470669 /* Controller */,
@@ -225,6 +229,7 @@
 			children = (
 				795EA8CA1F10004400752A68 /* GoodButton.swift */,
 				795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */,
+				79D58AB01F4977B7003680EE /* CustomViews.swift */,
 			);
 			name = CustomObjects;
 			sourceTree = "<group>";
@@ -262,6 +267,15 @@
 				79D269F71EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift */,
 			);
 			name = gen;
+			sourceTree = "<group>";
+		};
+		79D58AAD1F496E05003680EE /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				792EE79D1EE5069300470669 /* Extensions */,
+				79D58AAE1F496E50003680EE /* Helpers.swift */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		EFCFC6F2C247C1D3BDF643A8 /* Pods */ = {
@@ -401,6 +415,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */,
+				79D58AAF1F496E50003680EE /* Helpers.swift in Sources */,
 				79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */,
 				7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */,
 				79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */,
@@ -411,6 +426,7 @@
 				79D269FD1EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift in Sources */,
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,
 				79968E841F409C090076C0D9 /* Product+CoreDataProperties.swift in Sources */,
+				79D58AB11F4977B7003680EE /* CustomViews.swift in Sources */,
 				79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */,
 				795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */,
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,

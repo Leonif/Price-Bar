@@ -70,7 +70,6 @@ class OutletListModel {
                     print(error)
                 }
             }
-            
             }.resume()
     }
 }

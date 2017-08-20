@@ -12,41 +12,7 @@ import CoreLocation
 
 
 
-class RefreshView: UIView {
-    var progressLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.textColor = .white
-        lbl.textAlignment = .center
-        lbl.text = "Waiting..."
-        lbl.font = lbl.font.withSize(11)
-        lbl.translatesAutoresizingMaskIntoConstraints = false
-        return lbl
-    }()
-    var activityIndicator: UIActivityIndicatorView = {
-        let acInd = UIActivityIndicatorView()
-        acInd.translatesAutoresizingMaskIntoConstraints = false
-        return acInd
-        
-    }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        controlsSetup()
-    }
-    func controlsSetup() {
-        
-        self.layer.cornerRadius = 15
-        self.addSubview(activityIndicator)
-        activityIndicator.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        activityIndicator.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
-        self.addSubview(progressLabel)
-        progressLabel.topAnchor.constraint(equalTo: activityIndicator.bottomAnchor, constant: 8).isActive = true
-        progressLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        progressLabel.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        
-    }
-}
+
     
 
 
@@ -69,24 +35,22 @@ class ShopListController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     
     
+    var refresh: RefreshView = {
+        let r = RefreshView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        r.progressLabel.text = "Синхронизация..."
+        return r
+    }()
+
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         shopList = ShopListModel()
-        
-        
-        
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        
-        
-        
         startReceivingLocationChanges()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -99,7 +63,6 @@ class ShopListController: UIViewController {
     @IBAction func itemListPressed(_ sender: Any) {
         performSegue(withIdentifier: AppCons.showItemList.rawValue, sender: nil)
     }
-    
 }
 
 

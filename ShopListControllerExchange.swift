@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol Exchange {
     func objectExchange(object: Any)
@@ -44,22 +45,32 @@ extension ShopListController: Exchange {
     
     
     
+    
+    
+    
     func handle(for outlet: Outlet) {
-        let needToReload = launchedTimes == 1 || launchedTimes > 10
+        let needToReload = launchedTimes == 1 || launchedTimes >= 10
+        
         if needToReload {
             print("Refresh from cloud...")
+
+            view.addSubview(refresh)
+            refresh.center = self.view.center
+            refresh.run()
+            
             FirebaseService.data.loginToFirebase({
                 self.shopList.synchronizeCloud {
                     self.loadShopList(for: outlet)
+                    self.refresh.stop()
+                    launchedTimes = 2
                 }
             }, {
                 fatalError("Error of login to FIrebase")
             })
-        }else {
-            print("Refresh from cloud DONT NEED...")
+        } else {
+            print("Refresh from cloud DONT NEED... \(launchedTimes)")
             loadShopList(for: outlet)
         }
-
     }
     
     

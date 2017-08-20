@@ -28,13 +28,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -46,6 +46,14 @@
          <PersistentStrings>
             <PersistentString
                value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.handle(for : Outlet) -&gt; ():ShopListControllerExchange.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "launchedTimes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -72,10 +80,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FirebaseService.(loadUoms(uomList : ([ItemUom]) -&gt; ()) -&gt; ()).(closure #1):FirebaseService.swift">
+         contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
-         contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
+         contextName = "FirebaseService.(loadUoms(uomList : ([ItemUom]) -&gt; ()) -&gt; ()).(closure #1):FirebaseService.swift">
       </ContextState>
       <ContextState
          contextName = "ItemListVC.tableView(UITableView, didSelectRowAt : IndexPath) -&gt; ():ItemListVC.swift">

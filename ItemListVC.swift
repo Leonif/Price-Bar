@@ -14,7 +14,6 @@ class ItemListVC: UIViewController {
     var filtredItemList = [ShopItem]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
-    @IBOutlet weak var refreshView: RefreshView!
     var delegate: Exchange!
     var hide: Bool = false
     
@@ -24,21 +23,33 @@ class ItemListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.view.addSubview(refresh)
+        refresh.center = self.view.center
+        refresh.run()
+        
     }
+    
+    var refresh: RefreshView = {
+        let r = RefreshView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        r.progressLabel.text = "Загрузка..."
+        return r
+    }()
+    
+    
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-        //refreshView.isHidden = false
-        //refreshView.activityIndicator.startAnimating()
+        
+//        self.view.addSubview(refresh)
+//        refresh.center = self.view.center
+//        refresh.run()
+
         if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
-//            refreshView.activityIndicator.stopAnimating()
-//            refreshView.isHidden = true
             itemTableView.reloadData()
-            
-            
         }
+        refresh.stop()
         
     }
     

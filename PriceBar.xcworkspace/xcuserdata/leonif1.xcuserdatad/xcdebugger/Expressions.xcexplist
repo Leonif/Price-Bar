@@ -28,13 +28,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -50,12 +50,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListController.handle(for : String) -&gt; ():ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListController.handle(for : Outlet) -&gt; ():ShopListControllerExchange.swift">
          <PersistentStrings>
             <PersistentString
                value = "launchedTimes">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
       </ContextState>
       <ContextState
          contextName = "FirebaseService.addGoodToCloud(ShopItem) -&gt; ():FirebaseService.swift">
@@ -68,6 +74,17 @@
          <PersistentStrings>
             <PersistentString
                value = "initCategories.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.append(ShopItem) -&gt; ():ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -95,6 +112,9 @@
       </ContextState>
       <ContextState
          contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.saveToShopList(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

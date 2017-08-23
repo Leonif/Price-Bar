@@ -22,7 +22,8 @@ extension ShopListController: Exchange {
         }
         if let outlet = object as? Outlet  {//outlet came
             handle(for: outlet)
-        } else if let scannedCode = object as? String {//scann came
+        }
+        if let scannedCode = object as? String {//scann came
             handle(for: scannedCode)
         }
         shopTableView.reloadData()
@@ -51,7 +52,7 @@ extension ShopListController: Exchange {
     func handle(for outlet: Outlet) {
         let needToReload = launchedTimes == 1 || launchedTimes >= 10
         
-        if needToReload {
+        if needToReload { // from clous
             print("Refresh from cloud...")
 
             view.addSubview(refresh)
@@ -67,7 +68,8 @@ extension ShopListController: Exchange {
             }, {
                 fatalError("Error of login to FIrebase")
             })
-        } else {
+        } else {// load from coredata
+            self.shopList.synchronizeDevice()
             print("Refresh from cloud DONT NEED... \(launchedTimes)")
             loadShopList(for: outlet)
         }
@@ -98,7 +100,7 @@ extension ShopListController: Exchange {
         
         if let foundItem = deviceBase.getItem(by: scannedCode, and: userOutlet.id) {// exists on device
             item = foundItem
-            handle(for: item)
+            //handle(for: item)
         } else { //doesnt exist in coreData
             let itemCategory = deviceBase.defaultCategory // default category
             let itemUom = deviceBase.initUoms[0]

@@ -43,6 +43,19 @@ class ShopListModel {
             }
         }
     }
+    
+    func synchronizeDevice() {
+        let deviceStorage = CoreDataService.data
+        
+        deviceStorage.getCategories { (categories) in
+            categories.forEach { self.categories.append($0) }}
+        deviceStorage.getUoms { (uoms) in
+            uoms.forEach { self.uoms.append($0)  }}
+        
+    }
+    
+    
+    
     func reloadDataFromCoreData(for outledId: String) {
         
        let shpLst = CoreDataService.data.getItemList(outletId: outledId)

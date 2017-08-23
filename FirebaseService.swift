@@ -104,6 +104,11 @@ class FirebaseService {
     
     
     func saveOrUpdate(_ item: ShopItem) {
+        
+        guard item.price != 0 else {
+            return
+        }
+        
         let good = [
             "barcode": item.id,
             "name": item.name,
@@ -147,6 +152,9 @@ class FirebaseService {
     
     
     func savePrice(for item: ShopItem) {
+        
+        
+        
         let priceStat = [
             "date": Date().getString(format: "dd.MM.yyyy hh:mm:ss"),
             "product_id": item.id,

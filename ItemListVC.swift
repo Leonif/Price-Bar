@@ -22,6 +22,8 @@ class ItemListVC: UIViewController {
     var hide: Bool = false
     
     
+    var isLoading = false
+    
     @IBOutlet weak var itemSearchField: UITextField!
     
     override func viewDidLoad() {
@@ -39,13 +41,14 @@ class ItemListVC: UIViewController {
         return r
     }()
     
+    var currentPageStep = 0
     
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
         
         //if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
-        if let itemList = CoreDataService.data.getShortItemList(outletId: outletId) {
+        if let itemList = CoreDataService.data.getShortItemList(outletId: outletId, offset: currentPageStep) {
             self.itemList = itemList
             filtredItemList = self.itemList
             itemTableView.reloadData()
@@ -148,6 +151,40 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y
+        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
+        if (maxOffset - offset) <= 0 {
+            if (!self.isLoading) {
+                self.isLoading = true
+                print("load new data (new \(currentPageStep) items)")
+                currentPageStep += 20
+                if let itemList = CoreDataService.data.getShortItemList(outletId: outletId, offset: currentPageStep) {
+
+                    itemTableView.beginUpdates()
+                    
+                    self.itemList.append(contentsOf: itemList)
+                    filtredItemList = self.itemList
+                    
+                    //let indexPath = IndexPath(item: currentPageStep-1, section: 0)
+                    
+                
+                    
+                    //itemTableView.insertRows(at: [indexPath], with: .fade)
+                    
+                    itemTableView.endUpdates()
+                }
+                
+                
+                self.isLoading = false
+                
+                //loadNewMovies(movies.count)
+                
+            }
+        }
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filtredItemList.count

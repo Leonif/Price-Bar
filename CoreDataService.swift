@@ -269,8 +269,6 @@ extension CoreDataService {
 
 //MARK: Product
 extension CoreDataService {
-    
-    
     func shopItem(parse product: Product, and outletId: String) -> ShopItem? {
         if let id = product.id, let name = product.name,
             let category = product.toCategory?.category, let idCat = product.toCategory?.id, // optional chaining
@@ -296,7 +294,6 @@ extension CoreDataService {
         }
     }
     
-    
     func filterItemList(itemName: String, for outletId: String) -> [ShopItem]? {
         var shopItems = [ShopItem]()
         do {
@@ -317,24 +314,14 @@ extension CoreDataService {
     }
     
     
-    func getShortItemList(outletId: String) -> [ShopItem]? {
+    func getShortItemList(outletId: String, offset: Int) -> [ShopItem]? {
         var shopItems = [ShopItem]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            
-            
-            
-            
+            fetchRequest.fetchLimit = 20
+            fetchRequest.fetchOffset = offset
             let productList = try context.fetch(fetchRequest)
-            
-            var r = 0
-            let maxRecordsCount = 30
-            
             for product in productList {
-                if r >= maxRecordsCount {
-                    break
-                }
-                r += 1
                 if let item = shopItem(parse: product, and: outletId) {
                     shopItems.append(item)
                 }
@@ -354,27 +341,8 @@ extension CoreDataService {
             let productExist = try context.fetch(fetchRequest)
             if !productExist.isEmpty {
                 productExist.forEach {
-                    if let id = $0.id, let name = $0.name,
-                        let category = $0.toCategory?.category, let idCat = $0.toCategory?.id, // optional chaining
-                        let prodUom = $0.toUom, let uom = prodUom.uom  {
-                        let price = getPrice(for: id, and: outletId)
-                        let minPrice = getMinPrice(id, outletId: outletId)
-                        
-                        let itemCategory = ItemCategory(id: idCat, name: category)
-                        let itemUom = ItemUom(id: prodUom.id, name: uom, iterator: prodUom.iterator)
-                        
-                        let item = ShopItem(id: id, name: name,
-                                            quantity: 1.0,
-                                            minPrice: minPrice,
-                                            price: price,
-                                            itemCategory: itemCategory,
-                                            itemUom: itemUom, outletId: outletId,
-                                            scanned: true,
-                                            checked: false)
+                    if let item = shopItem(parse: $0, and: outletId) {
                         shopItems.append(item)
-                    }
-                    else {
-                        fatalError("product \($0.id, $0.name) from CoredData doesnt match to model")
                     }
                 }
                 return shopItems

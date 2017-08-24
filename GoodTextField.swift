@@ -9,13 +9,9 @@
 import UIKit
 
 class GoodTextField: UITextField {
-
-    
-    
     override func textRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: 10.0, dy: 5.0)
     }
-    
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: 10.0, dy: 5.0)
     }

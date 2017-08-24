@@ -10,19 +10,7 @@ import Foundation
 import UIKit
 
 let SHADOW_GRAY: CGFloat = 120.0/255.0
-
-enum AppCons: String {
-    case showProductCard = "showProductCard"
-    case showEditItem = "showEditItem"
-    case showOutlets = "showOutlets"
-    case showScan = "showScan"
-    case showItemList = "showItemList"
-}
-
-
 var launchedTimes = 0
-
-
 
 enum CheckMark: String {
     case check = "check"

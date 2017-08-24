@@ -259,7 +259,6 @@ extension CoreDataService {
         FirebaseService.data.loadGoods { (goods) in
             goods.forEach {
                 self.saveOrUpdate($0)
-                //print("coredata: goods recieved: \($0.id),\($0.name), -- \($0.itemCategory.name)")
             }
             completion()
             
@@ -270,6 +269,84 @@ extension CoreDataService {
 
 //MARK: Product
 extension CoreDataService {
+    
+    
+    func shopItem(parse product: Product, and outletId: String) -> ShopItem? {
+        if let id = product.id, let name = product.name,
+            let category = product.toCategory?.category, let idCat = product.toCategory?.id, // optional chaining
+            let prodUom = product.toUom, let uom = prodUom.uom  {
+            let price = getPrice(for: id, and: outletId)
+            let minPrice = getMinPrice(id, outletId: outletId)
+            
+            let itemCategory = ItemCategory(id: idCat, name: category)
+            let itemUom = ItemUom(id: prodUom.id, name: uom, iterator: prodUom.iterator)
+            
+            let item = ShopItem(id: id, name: name,
+                                quantity: 1.0,
+                                minPrice: minPrice,
+                                price: price,
+                                itemCategory: itemCategory,
+                                itemUom: itemUom, outletId: outletId,
+                                scanned: true,
+                                checked: false)
+            return item
+        }
+        else {
+            return nil
+        }
+    }
+    
+    
+    func filterItemList(itemName: String, for outletId: String) -> [ShopItem]? {
+        var shopItems = [ShopItem]()
+        do {
+            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", itemName)
+            let productList = try context.fetch(fetchRequest)
+            for product in productList {
+                if let item = shopItem(parse: product, and: outletId) {
+                    shopItems.append(item)
+                }
+            }
+            return shopItems
+        } catch  {
+            print("Products is not got from database")
+        }
+        return nil
+
+    }
+    
+    
+    func getShortItemList(outletId: String) -> [ShopItem]? {
+        var shopItems = [ShopItem]()
+        do {
+            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+            
+            
+            
+            
+            let productList = try context.fetch(fetchRequest)
+            
+            var r = 0
+            let maxRecordsCount = 30
+            
+            for product in productList {
+                if r >= maxRecordsCount {
+                    break
+                }
+                r += 1
+                if let item = shopItem(parse: product, and: outletId) {
+                    shopItems.append(item)
+                }
+            }
+            return shopItems
+        } catch  {
+            print("Products is not got from database")
+        }
+        return nil
+    }
+
+
     func getItemList(outletId: String) -> [ShopItem]? {
         var shopItems = [ShopItem]()
         do {

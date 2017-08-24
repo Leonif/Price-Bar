@@ -17,6 +17,13 @@ import CoreLocation
 
 
 class ShopListController: UIViewController {
+    
+    let showScan = "showScan"
+    let showItemList = "showItemList"
+    let showOutlets = "showOutlets"
+    let showEditItem = "showEditItem"
+    
+    
 
     var shopList: ShopListModel!
     let locationManager = CLLocationManager()
@@ -58,10 +65,10 @@ class ShopListController: UIViewController {
     }
     
     @IBAction func scanItemPressed(_ sender: Any) {
-        performSegue(withIdentifier: AppCons.showScan.rawValue, sender: nil)
+        performSegue(withIdentifier: showScan, sender: nil)
      }
     @IBAction func itemListPressed(_ sender: Any) {
-        performSegue(withIdentifier: AppCons.showItemList.rawValue, sender: nil)
+        performSegue(withIdentifier: showItemList, sender: nil)
     }
 }
 
@@ -143,7 +150,7 @@ extension ShopListController:CLLocationManagerDelegate {
 //MARK: Outlets
 extension ShopListController {
     @IBAction func outletPressed(_ sender: Any) {
-        performSegue(withIdentifier: AppCons.showOutlets.rawValue, sender: userCoordinate)
+        performSegue(withIdentifier: showOutlets, sender: userCoordinate)
     }
 }
 
@@ -204,11 +211,11 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: AppCons.showEditItem.rawValue, sender: shopList.getItem(index: indexPath))
+        performSegue(withIdentifier: showEditItem, sender: shopList.getItem(index: indexPath))
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == AppCons.showEditItem.rawValue, let itemVC = segue.destination as? ItemCardVC  {
+        if segue.identifier == showEditItem, let itemVC = segue.destination as? ItemCardVC  {
             if let item = sender as? ShopItem {
                 itemVC.item = item
                 itemVC.delegate = self
@@ -217,7 +224,7 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             }
         }
         
-        if segue.identifier == AppCons.showOutlets.rawValue, let outletVC = segue.destination as? OutletsVC  {
+        if segue.identifier == showOutlets, let outletVC = segue.destination as? OutletsVC  {
             outletVC.delegate = self
             if let userCoord = sender as? CLLocationCoordinate2D {
                 outletVC.userCoordinate = userCoord
@@ -226,7 +233,7 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-        if segue.identifier == AppCons.showItemList.rawValue,
+        if segue.identifier == showItemList,
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil  {
             
             itemListVC.outletId = userOutlet.id
@@ -234,7 +241,7 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             itemListVC.delegate = self
             
         }
-        if segue.identifier == AppCons.showScan.rawValue, let scanVC = segue.destination as? ScannerController  {
+        if segue.identifier == showScan, let scanVC = segue.destination as? ScannerController  {
             
                 scanVC.delegate = self
             

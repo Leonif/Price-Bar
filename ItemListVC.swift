@@ -9,7 +9,11 @@
 import UIKit
 
 class ItemListVC: UIViewController {
-
+    
+    
+    
+    let showProductCard = "showProductCard"
+    
     var itemList = [ShopItem]()
     var filtredItemList = [ShopItem]()
     var outletId: String = ""
@@ -40,11 +44,8 @@ class ItemListVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
         
-//        self.view.addSubview(refresh)
-//        refresh.center = self.view.center
-//        refresh.run()
-
-        if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
+        //if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
+        if let itemList = CoreDataService.data.getShortItemList(outletId: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
             itemTableView.reloadData()
@@ -57,7 +58,13 @@ class ItemListVC: UIViewController {
     @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
         
         if sender.text != "" {
-           filtredItemList = filtredItemList.filter { $0.name.lowercased().contains(sender.text?.lowercased() ?? "")}
+            let searchText = sender.text?.lowercased() ?? ""
+            //filtredItemList = filtredItemList.filter { $0.name.lowercased().contains(searchText)}
+            if let list = CoreDataService.data.filterItemList(itemName: searchText, for: outletId) {
+                filtredItemList = list
+            }
+            
+            
         } else {
             filtredItemList = itemList
         }
@@ -77,14 +84,12 @@ class ItemListVC: UIViewController {
     }
     
     @IBAction func newItemPressed(_ sender: Any) {
-        
-        
-        performSegue(withIdentifier: AppCons.showProductCard.rawValue, sender: itemSearchField.text)
+        performSegue(withIdentifier: showProductCard, sender: itemSearchField.text)
 
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == AppCons.showProductCard.rawValue, let itemVC = segue.destination as? ItemCardVC  {
+        if segue.identifier == showProductCard, let itemVC = segue.destination as? ItemCardVC  {
             
             itemVC.delegate = self
             itemVC.outletId = outletId
@@ -140,8 +145,6 @@ extension ItemListVC: UITextFieldDelegate {
 
 //MARK: Table
 extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
-    
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

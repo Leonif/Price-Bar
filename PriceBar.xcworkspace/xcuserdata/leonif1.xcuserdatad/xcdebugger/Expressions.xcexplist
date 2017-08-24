@@ -22,6 +22,9 @@
             <PersistentString
                value = "self.itemList">
             </PersistentString>
+            <PersistentString
+               value = "filtredItemList">
+            </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
@@ -51,13 +54,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

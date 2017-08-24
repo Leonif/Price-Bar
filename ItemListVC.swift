@@ -161,26 +161,19 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                 print("load new data (new \(currentPageStep) items)")
                 currentPageStep += 20
                 if let itemList = CoreDataService.data.getShortItemList(outletId: outletId, offset: currentPageStep) {
-
+                    var indexPaths = [IndexPath]()
+                    let currentCount: Int = filtredItemList.count
+                    for i in 0..<itemList.count {
+                        indexPaths.append(IndexPath(row: currentCount + i, section: 0))
+                    }
+                    // do the insertion
+                    filtredItemList.append(contentsOf: itemList)
+                    // tell the table view to update (at all of the inserted index paths)
                     itemTableView.beginUpdates()
-                    
-                    self.itemList.append(contentsOf: itemList)
-                    filtredItemList = self.itemList
-                    
-                    //let indexPath = IndexPath(item: currentPageStep-1, section: 0)
-                    
-                
-                    
-                    //itemTableView.insertRows(at: [indexPath], with: .fade)
-                    
+                    itemTableView.insertRows(at: indexPaths, with: .bottom)
                     itemTableView.endUpdates()
                 }
-                
-                
                 self.isLoading = false
-                
-                //loadNewMovies(movies.count)
-                
             }
         }
     }

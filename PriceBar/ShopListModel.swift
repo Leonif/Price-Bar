@@ -86,10 +86,6 @@ class ShopListModel {
             sections.append(item.itemCategory.name)
             shopList[item.itemCategory.name] = [item]
         }
-        print("From ShopListModel(append): addToShopListAndSaveStatistics - addToShopList")
-        //CoreDataService.data.addToShopListAndSaveStatistics(item)
-        //CoreDataService.data.saveToShopList(item)
-        
     }
     
     func pricesUpdate(by outletId: String) {
@@ -114,20 +110,15 @@ class ShopListModel {
         return .sectionFull
     }
     
-    func change(_ item: ShopItem) {
-        var found = false
+    func change(_ item: ShopItem) -> Bool {
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]?[index] = item
-                found = true
+                updateSections()
+                return true
             }
         }
-        if !found {
-            append(item)
-        }
-        print("From ShopListModel (change): addToShopListAndSaveStatistics - addToShopList")
-        //CoreDataService.data.addToShopListAndSaveStatistics(item)
-        updateSections()
+        return false
     }
     
     func updateSections() {

@@ -36,6 +36,17 @@ class ItemUom {
     var name = ""
     var iterator = 0.0
     
+    var isPerPiece: Bool {
+        
+        if iterator.truncatingRemainder(dividingBy: 1) == 0 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
+    
     init() {
         
     }
@@ -86,6 +97,10 @@ class ShopItem  {
     var outletId = ""
     var scanned = false
     var checked = false
+    
+    
+    
+    
     
     init(id: String, name: String, quantity: Double, minPrice: Double, price: Double, itemCategory: ItemCategory, itemUom: ItemUom, outletId: String, scanned: Bool, checked: Bool) {
         self.id = id

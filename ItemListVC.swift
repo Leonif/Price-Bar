@@ -46,8 +46,6 @@ class ItemListVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-        
-        //if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
         if let itemList = CoreDataService.data.getShortItemList(outletId: outletId, offset: currentPageStep) {
             self.itemList = itemList
             filtredItemList = self.itemList
@@ -62,14 +60,15 @@ class ItemListVC: UIViewController {
         
         if sender.text != "" {
             let searchText = sender.text?.lowercased() ?? ""
-            //filtredItemList = filtredItemList.filter { $0.name.lowercased().contains(searchText)}
             if let list = CoreDataService.data.filterItemList(itemName: searchText, for: outletId) {
                 filtredItemList = list
+                self.isLoading = true
             }
             
             
         } else {
             filtredItemList = itemList
+            self.isLoading = false
         }
         itemTableView.reloadData()
         
@@ -168,6 +167,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                     }
                     // do the insertion
                     filtredItemList.append(contentsOf: itemList)
+                    self.itemList.append(contentsOf: itemList)
                     // tell the table view to update (at all of the inserted index paths)
                     itemTableView.beginUpdates()
                     itemTableView.insertRows(at: indexPaths, with: .bottom)

@@ -74,7 +74,9 @@ class ShopListController: UIViewController {
 
 
 //MARK: Cell handlers
-extension ShopListController {
+extension ShopListController: WeightCellDelegate {
+    
+
     @IBAction func checkMarkPressed(_ sender: UIButton) {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell), let item = shopList.getItem(index: indexPath)  {
@@ -84,6 +86,21 @@ extension ShopListController {
             }
         }
     }
+    
+    func selectedWeight(sender: ShopItemCell, weight: Double) {
+        if let indexPath = shopTableView.indexPath(for: sender) {
+            if let shp = shopList.getItem(index: indexPath) {
+                shp.quantity = weight
+                shopList.change(shp)
+                shopTableView.reloadData()
+                
+            }
+        }
+        
+        totalLabel.update(value: shopList.total)
+    }
+    
+    
     
     
     @IBAction func quantitySliderChanged(_ sender: UISlider) {
@@ -255,6 +272,7 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             
             if let shp = shopList.getItem(index: indexPath) {
                 cell.configureCell(item: shp)
+                cell.delegate = self
                 return cell
             }
             

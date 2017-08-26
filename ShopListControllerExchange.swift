@@ -34,7 +34,10 @@ extension ShopListController: Exchange {
         let deviceBase = CoreDataService.data
         let cloudBase = FirebaseService.data
         
-        shopList.change(item)
+        if !shopList.change(item) {
+            shopList.append(item)
+            deviceBase.saveToShopList(item)
+        }
         if !deviceBase.update(item) {
             deviceBase.save(item)
         }

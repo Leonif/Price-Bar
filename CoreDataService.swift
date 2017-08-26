@@ -220,11 +220,15 @@ class CoreDataService {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
             
             let productExist = try context.fetch(shpLstRequest)
+            
             productExist.forEach {
-                
-                if let prd = $0.toProduct, let id = prd.id, let name = prd.name,
-                    let prodUom = prd.toUom, let uomName = prodUom.uom,
-                    let prodCat = prd.toCategory,let category = prodCat.category {
+                if let prd = $0.toProduct,
+                    let id = prd.id,
+                    let name = prd.name,
+                    let prodUom = prd.toUom,
+                    let uomName = prodUom.uom,
+                    let prodCat = prd.toCategory,
+                    let category = prodCat.category {
                 
                     let price = getPrice(for: id, and: outletId)
                     let minPrice = getMinPrice(id, outletId: outletId)

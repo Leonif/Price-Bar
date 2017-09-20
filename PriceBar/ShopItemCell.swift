@@ -13,7 +13,7 @@ protocol WeightCellDelegate {
 }
 
 
-class ShopItemCell: UITableViewCell,CollectionFreeViewCellDelegate {
+class ShopItemCell: UITableViewCell {
     
     
     @IBOutlet weak var imageItem: UIImageView!
@@ -24,49 +24,62 @@ class ShopItemCell: UITableViewCell,CollectionFreeViewCellDelegate {
     @IBOutlet weak var uomLabel: UILabel!
     @IBOutlet weak var checkMarkBtn: UIButton!
     @IBOutlet weak var quantitySlider: UISlider!
-    @IBOutlet weak var weightView: CollectionFreeViewCell!
+    @IBOutlet weak var weightView: CollectionFreeViewCell! {
+        didSet {
+            createWeightLine()
+        }
+    }
     var delegate: WeightCellDelegate?
     var weightList = [Double]()
     
     
     var views = [UIView]()
     
-    
-    func selectedCell(by index: Int) {
-        if let delegate = delegate {
-            delegate.selectedWeight(sender: self, weight: weightList[index])
-        }
-    }
-    
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
+    func createWeightLine() {
+        weightView.horizontall = true
+        weightView.cellBackgroundColor = .clear
+        weightView.squareKoeff = 0.7
+        weightView.isFramed = false
+        weightView.spaceBetweenView = 0
+        weightView.delegate = self
         
-      weightView.delegate = self
-        
-        for i in 0...100 {
-            let weight = UIView()
-            weight.backgroundColor = .lightGray
-            let label = UILabel()
-            
-            let w = Double(i) * 0.1
+        for i in 0...1000 {
+            let w = Double(i) * 0.01
             weightList.append(w)
-            
-            
-            label.text = "\(w)"
-            label.textAlignment = .center
-            label.translatesAutoresizingMaskIntoConstraints = false
-            weight.addSubview(label)
-            label.leftAnchor.constraint(equalTo: weight.leftAnchor).isActive = true
-            label.rightAnchor.constraint(equalTo: weight.rightAnchor).isActive = true
-            label.topAnchor.constraint(equalTo: weight.topAnchor).isActive = true
-            label.bottomAnchor.constraint(equalTo: weight.bottomAnchor).isActive = true
-            views.append(weight)
+            views.append(createWeightCell(for: w))
         }
         weightView.views = views
-        weightView.horizontall = true
-        weightView.squareKoeff = 0.7
+        
+        
     }
+    
+    
+    
+    func createWeightCell(for weight: Double) -> UIView {
+        let label = UILabel()
+        
+        label.text = "\(weight)"
+        label.size(14)
+        label.textColor = .white
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        let weightView = UIView()
+        weightView.layer.cornerRadius = 15
+        
+        weightView.backgroundColor = .blue
+        weightView.addSubview(label)
+        
+        label.leftAnchor.constraint(equalTo: weightView.leftAnchor).isActive = true
+        label.rightAnchor.constraint(equalTo: weightView.rightAnchor).isActive = true
+        label.topAnchor.constraint(equalTo: weightView.topAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: weightView.bottomAnchor).isActive = true
+        
+        
+        return weightView
+        
+    }
+    
     
     
     func configureCell(item: ShopItem) {
@@ -75,14 +88,9 @@ class ShopItemCell: UITableViewCell,CollectionFreeViewCellDelegate {
         if s.itemUom.isPerPiece {
             quantitySlider.isHidden = false
             weightView.isHidden = true
-            
-            
-            
-            
         } else {
             quantitySlider.isHidden = true
             weightView.isHidden = false
-            
         }
 
         
@@ -104,8 +112,23 @@ class ShopItemCell: UITableViewCell,CollectionFreeViewCellDelegate {
         totalItem.text = s.total.asLocaleCurrency
         
     }
+}
+
+
+
+
+
+extension ShopItemCell: CollectionFreeViewCellDelegate {
     
+    func selectedCell(by index: Int) {
+        if let delegate = delegate {
+            delegate.selectedWeight(sender: self, weight: weightList[index])
+        }
+    }
     
-   
+    func moved(to index: Int) {
+        
+    }
+    
     
 }

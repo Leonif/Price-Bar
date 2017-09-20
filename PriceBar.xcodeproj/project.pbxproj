@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FF37986BE78C0C683CB8D7E /* Pods_PriceBarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */; };
 		7904B4561F037257002032CD /* DragCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4551F037257002032CD /* DragCells.swift */; };
 		7904B4581F03728E002032CD /* ShopListControllerExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4571F03728E002032CD /* ShopListControllerExchange.swift */; };
 		7904B45A1F03738B002032CD /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* ShopItem.swift */; };
@@ -27,7 +28,7 @@
 		792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C21EE7085500470669 /* AppDelegate.swift */; };
 		792EE7C51EE7085500470669 /* ShopListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C31EE7085500470669 /* ShopListController.swift */; };
 		792EE7C71EE7087200470669 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
-		79388B0D1F5221B8008FD415 /* CollectionFreeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B0C1F5221B8008FD415 /* CollectionFreeViewCell.swift */; };
+		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
 		7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */; };
 		795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* Extension.swift */; };
 		795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
@@ -35,6 +36,9 @@
 		795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CC1F100C1500752A68 /* PriceHandling.swift */; };
 		795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8D21F102AAB00752A68 /* FirebaseService.swift */; };
 		795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */; };
+		796C73991F72736D00F26C90 /* CollectionFreeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796C73981F72736D00F26C90 /* CollectionFreeViewCell.swift */; };
+		796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
+		796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletModel.swift */; };
 		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
@@ -56,7 +60,18 @@
 		B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		79388B251F532176008FD415 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 792EE7781EE48CD500470669 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 792EE77F1EE48CD500470669;
+			remoteInfo = PriceBar;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.release.xcconfig"; sourceTree = "<group>"; };
 		4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7904B4551F037257002032CD /* DragCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragCells.swift; sourceTree = SOURCE_ROOT; };
 		7904B4571F03728E002032CD /* ShopListControllerExchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopListControllerExchange.swift; sourceTree = SOURCE_ROOT; };
@@ -79,7 +94,9 @@
 		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PriceBar/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C31EE7085500470669 /* ShopListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListController.swift; path = PriceBar/ShopListController.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
-		79388B0C1F5221B8008FD415 /* CollectionFreeViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionFreeViewCell.swift; sourceTree = SOURCE_ROOT; };
+		79388B201F532175008FD415 /* PriceBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriceBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
+		79388B241F532176008FD415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectExtensions.swift; sourceTree = SOURCE_ROOT; };
 		795EA8C51F0EC58F00752A68 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = SOURCE_ROOT; };
 		795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodTextField.swift; sourceTree = SOURCE_ROOT; };
@@ -87,6 +104,9 @@
 		795EA8CC1F100C1500752A68 /* PriceHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceHandling.swift; sourceTree = SOURCE_ROOT; };
 		795EA8D21F102AAB00752A68 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = SOURCE_ROOT; };
 		795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		796C73981F72736D00F26C90 /* CollectionFreeViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionFreeViewCell.swift; sourceTree = SOURCE_ROOT; };
+		796C73A01F727F4A00F26C90 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		796C73A11F727F4A00F26C90 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		7973DD861EF1AC7F0010A64F /* OutletModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletModel.swift; sourceTree = SOURCE_ROOT; };
 		7973DD881EF1AF430010A64F /* OutletsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletsVC.swift; sourceTree = SOURCE_ROOT; };
 		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
@@ -105,6 +125,8 @@
 		79D26A021EFECD5700337DA3 /* ItemListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListCell.swift; sourceTree = SOURCE_ROOT; };
 		79D58AAE1F496E50003680EE /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = SOURCE_ROOT; };
 		79D58AB01F4977B7003680EE /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = SOURCE_ROOT; };
+		7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar.release.xcconfig"; sourceTree = "<group>"; };
 		DB0AE4600538D7BEBF558ECF /* Pods-PriceBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +137,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */,
+				796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */,
+				796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79388B1D1F532175008FD415 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4FF37986BE78C0C683CB8D7E /* Pods_PriceBarTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */,
+				7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -132,7 +165,10 @@
 		792EE7771EE48CD500470669 = {
 			isa = PBXGroup;
 			children = (
+				796C73A01F727F4A00F26C90 /* Fabric.framework */,
+				796C73A11F727F4A00F26C90 /* Crashlytics.framework */,
 				792EE7821EE48CD500470669 /* PriceBar */,
+				79388B211F532176008FD415 /* PriceBarTests */,
 				792EE7811EE48CD500470669 /* Products */,
 				EFCFC6F2C247C1D3BDF643A8 /* Pods */,
 				1E9FDC8744A798E17F4DC63F /* Frameworks */,
@@ -143,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				792EE7801EE48CD500470669 /* PriceBar.app */,
+				79388B201F532175008FD415 /* PriceBarTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -226,10 +263,19 @@
 			name = Extensions;
 			sourceTree = "<group>";
 		};
+		79388B211F532176008FD415 /* PriceBarTests */ = {
+			isa = PBXGroup;
+			children = (
+				79388B221F532176008FD415 /* PriceBarTests.swift */,
+				79388B241F532176008FD415 /* Info.plist */,
+			);
+			path = PriceBarTests;
+			sourceTree = "<group>";
+		};
 		795EA8C91F0FFFF200752A68 /* CustomObjects */ = {
 			isa = PBXGroup;
 			children = (
-				79388B0C1F5221B8008FD415 /* CollectionFreeViewCell.swift */,
+				796C73981F72736D00F26C90 /* CollectionFreeViewCell.swift */,
 				795EA8CA1F10004400752A68 /* GoodButton.swift */,
 				795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */,
 				79D58AB01F4977B7003680EE /* CustomViews.swift */,
@@ -286,6 +332,8 @@
 			children = (
 				DB0AE4600538D7BEBF558ECF /* Pods-PriceBar.debug.xcconfig */,
 				9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */,
+				80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */,
+				3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -303,6 +351,7 @@
 				792EE77E1EE48CD500470669 /* Resources */,
 				3E230506A473382A380A6FA0 /* [CP] Embed Pods Frameworks */,
 				252C575853F5FCB63B7A7473 /* [CP] Copy Pods Resources */,
+				796C739F1F727F1900F26C90 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -312,6 +361,27 @@
 			productName = "Price Bar";
 			productReference = 792EE7801EE48CD500470669 /* PriceBar.app */;
 			productType = "com.apple.product-type.application";
+		};
+		79388B1F1F532175008FD415 /* PriceBarTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79388B271F532176008FD415 /* Build configuration list for PBXNativeTarget "PriceBarTests" */;
+			buildPhases = (
+				0BA485641E82E4E49BEEF217 /* [CP] Check Pods Manifest.lock */,
+				79388B1C1F532175008FD415 /* Sources */,
+				79388B1D1F532175008FD415 /* Frameworks */,
+				79388B1E1F532175008FD415 /* Resources */,
+				26B200D0F58FB63E17A54367 /* [CP] Embed Pods Frameworks */,
+				97B7A1FA75418159EEF3BD95 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				79388B261F532176008FD415 /* PBXTargetDependency */,
+			);
+			name = PriceBarTests;
+			productName = PriceBarTests;
+			productReference = 79388B201F532175008FD415 /* PriceBarTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -327,6 +397,12 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 379294YDPQ;
 						ProvisioningStyle = Automatic;
+					};
+					79388B1F1F532175008FD415 = {
+						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 379294YDPQ;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 792EE77F1EE48CD500470669;
 					};
 				};
 			};
@@ -344,6 +420,7 @@
 			projectRoot = "";
 			targets = (
 				792EE77F1EE48CD500470669 /* PriceBar */,
+				79388B1F1F532175008FD415 /* PriceBarTests */,
 			);
 		};
 /* End PBXProject section */
@@ -362,9 +439,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		79388B1E1F532175008FD415 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BA485641E82E4E49BEEF217 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		252C575853F5FCB63B7A7473 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -380,6 +479,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		26B200D0F58FB63E17A54367 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3E230506A473382A380A6FA0 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -393,6 +507,34 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		796C739F1F727F1900F26C90 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 3287543ca2d6f916e2ec45e6e040f6e55ae30e18 ee74ce186ccf4521acaec8ba8bd26362fae8392848857d1c23e639ff4e6afa6f";
+		};
+		97B7A1FA75418159EEF3BD95 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B6C4C3A94B7785377B5846F0 /* [CP] Check Pods Manifest.lock */ = {
@@ -449,7 +591,7 @@
 				7904B45D1F037E32002032CD /* ShopList+CoreDataClass.swift in Sources */,
 				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,
 				792D2C7D1F2BBFC900AA337F /* Category+CoreDataProperties.swift in Sources */,
-				79388B0D1F5221B8008FD415 /* CollectionFreeViewCell.swift in Sources */,
+				796C73991F72736D00F26C90 /* CollectionFreeViewCell.swift in Sources */,
 				795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */,
 				79968E831F409C090076C0D9 /* Product+CoreDataClass.swift in Sources */,
 				79968E851F409C090076C0D9 /* Uom+CoreDataClass.swift in Sources */,
@@ -460,7 +602,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		79388B1C1F532175008FD415 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79388B231F532176008FD415 /* PriceBarTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		79388B261F532176008FD415 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 792EE77F1EE48CD500470669 /* PriceBar */;
+			targetProxy = 79388B251F532176008FD415 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		792EE7B01EE707E700470669 /* LaunchScreen.storyboard */ = {
@@ -583,6 +741,10 @@
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 379294YDPQ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PriceBar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -602,6 +764,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 379294YDPQ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PriceBar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -610,6 +776,36 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		79388B281F532176008FD415 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 379294YDPQ;
+				INFOPLIST_FILE = PriceBarTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LionLife.PriceBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PriceBar.app/PriceBar";
+			};
+			name = Debug;
+		};
+		79388B291F532176008FD415 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 379294YDPQ;
+				INFOPLIST_FILE = PriceBarTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.LionLife.PriceBarTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PriceBar.app/PriceBar";
 			};
 			name = Release;
 		};
@@ -630,6 +826,15 @@
 			buildConfigurations = (
 				792EE7931EE48CD600470669 /* Debug */,
 				792EE7941EE48CD600470669 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79388B271F532176008FD415 /* Build configuration list for PBXNativeTarget "PriceBarTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79388B281F532176008FD415 /* Debug */,
+				79388B291F532176008FD415 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

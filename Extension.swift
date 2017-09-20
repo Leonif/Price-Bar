@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 extension UITextField{
-    
     func animateViewMoving (up:Bool, moveValue :CGFloat, view: UIView){
         let movementDuration:TimeInterval = 0.3
         let movement:CGFloat = (up ? -moveValue : moveValue)
@@ -33,5 +32,12 @@ extension Date {
     }
     
     
+}
+
+
+extension UILabel {
+    func size(_ size: CGFloat) {
+        self.font = UIFont(name: self.font.fontName, size: size)
+    }
 }
 

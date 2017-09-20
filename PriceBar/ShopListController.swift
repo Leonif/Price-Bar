@@ -11,11 +11,6 @@ import CoreLocation
 
 
 
-
-
-    
-
-
 class ShopListController: UIViewController {
     
     let showScan = "showScan"
@@ -81,7 +76,7 @@ extension ShopListController: WeightCellDelegate {
         if let cell = sender.superview?.superview?.superview as? ShopItemCell {
             if let indexPath = shopTableView.indexPath(for: cell), let item = shopList.getItem(index: indexPath)  {
                 item.checked = !item.checked
-                shopList.change(item)
+                _ = shopList.change(item)
                 cell.configureCell(item: item)
             }
         }
@@ -91,7 +86,7 @@ extension ShopListController: WeightCellDelegate {
         if let indexPath = shopTableView.indexPath(for: sender) {
             if let shp = shopList.getItem(index: indexPath) {
                 shp.quantity = weight
-                shopList.change(shp)
+                _ = shopList.change(shp)
                 shopTableView.reloadData()
                 
             }
@@ -108,7 +103,7 @@ extension ShopListController: WeightCellDelegate {
             if let indexPath = shopTableView.indexPath(for: cell) {
                 if let shp = shopList.getItem(index: indexPath) {
                     shp.quantity = step(baseValue: Double(sender.value), step: shp.itemUom.iterator)
-                    shopList.change(shp)
+                    _ = shopList.change(shp)
                     shopTableView.reloadData()
                     
                 }

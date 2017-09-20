@@ -56,9 +56,6 @@
          contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListModel.(reloadDBFromCloud(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):ShopListModel.swift">
-      </ContextState>
-      <ContextState
          contextName = "CoreDataService.(loadShopList(outletId : String) -&gt; ShopListModel?).(closure #1):CoreDataService.swift">
          <PersistentStrings>
             <PersistentString
@@ -67,16 +64,27 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListModel.(reloadDBFromCloud(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):ShopListModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, minimumInteritemSpacingForSectionAt : Int) -&gt; CGFloat:CollectionFreeViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "spaceBetweenView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
-               value = "shopList">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -121,6 +129,14 @@
          <PersistentStrings>
             <PersistentString
                value = "launchedTimes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, sizeForItemAt : IndexPath) -&gt; CGSize:CollectionFreeViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self._viewCollection.frame.width">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

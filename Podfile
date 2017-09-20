@@ -10,4 +10,10 @@ pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
 
+target 'PriceBarTests' do
+    inherit! :search_paths
+    pod 'Firebase'
+end
+
+
 end

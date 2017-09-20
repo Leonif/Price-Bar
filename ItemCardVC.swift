@@ -139,6 +139,9 @@ class ItemCardVC: UIViewController {
     
     
     
+    
+    
+    
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }

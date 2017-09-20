@@ -9,7 +9,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>GoogleToolboxForMac.xcscheme</key>
+		<key>GoogleToolboxForMac-Defines-NSData+zlib.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoogleToolboxForMac-f0850809.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -19,10 +24,25 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>Pods-PriceBarTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>107A9565F9DF88517DFD3E28C05B2B96</key>
+		<key>433E90BF6136E433A0FEA61CD4159E56</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6D776478348F783F5BE2ADA8295E2E14</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8159F94E49D9B443DE18F0F8B38078B8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -32,7 +52,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D28827929BA5D0016E232994FFD3C17C</key>
+		<key>D500D4A9485B3F175E72B059D09C6EFA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

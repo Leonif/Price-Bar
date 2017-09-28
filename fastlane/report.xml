@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: gym" time="41.671873">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: crashlytics" time="8.594631">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>

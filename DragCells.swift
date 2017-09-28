@@ -33,7 +33,7 @@ extension ShopListController {
         return cellSnapshot
     }
     
-    func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
+    @objc func longPressGestureRecognized(gestureRecognizer: UIGestureRecognizer) {
         //        let longPress = gestureRecognizer as! UILongPressGestureRecognizer
         //        let state = longPress.state
         //        let locationInView = longPress.location(in: shopTableView)

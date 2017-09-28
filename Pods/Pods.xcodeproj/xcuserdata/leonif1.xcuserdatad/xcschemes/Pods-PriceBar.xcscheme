@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "D500D4A9485B3F175E72B059D09C6EFA"
+               BlueprintIdentifier = "45866BBD4B6780C2A0533691A0C42194"
                BuildableName = "Pods_PriceBar.framework"
                BlueprintName = "Pods-PriceBar"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,6 +26,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -36,6 +37,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -45,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "D500D4A9485B3F175E72B059D09C6EFA"
+            BlueprintIdentifier = "45866BBD4B6780C2A0533691A0C42194"
             BuildableName = "Pods_PriceBar.framework"
             BlueprintName = "Pods-PriceBar"
             ReferencedContainer = "container:Pods.xcodeproj">

@@ -24,13 +24,12 @@ class ShopItemCell: UITableViewCell {
     @IBOutlet weak var uomLabel: UILabel!
     @IBOutlet weak var checkMarkBtn: UIButton!
     @IBOutlet weak var quantitySlider: UISlider!
-    @IBOutlet weak var weightView: CollectionFreeViewCell! {
-        didSet {
-            createWeightLine()
-        }
+    @IBOutlet weak var weightView: CollectionFreeView! {
+        didSet { createWeightLine() }
     }
     var delegate: WeightCellDelegate?
     var weightList = [Double]()
+    var currentIndex = 0
     
     
     var views = [UIView]()
@@ -46,16 +45,14 @@ class ShopItemCell: UITableViewCell {
         for i in 0...1000 {
             let w = Double(i) * 0.01
             weightList.append(w)
-            views.append(createWeightCell(for: w))
+            views.append(createCell(for: w))
         }
         weightView.views = views
-        
-        
     }
     
     
     
-    func createWeightCell(for weight: Double) -> UIView {
+    func createCell(for weight: Double) -> UIView {
         let label = UILabel()
         
         label.text = "\(weight)"
@@ -65,7 +62,10 @@ class ShopItemCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         let weightView = UIView()
-        weightView.layer.cornerRadius = 15
+        weightView.layer.cornerRadius = 20
+        //weightView.clipsToBounds = true
+        //label.layer.cornerRadius = 20
+        
         
         weightView.backgroundColor = .blue
         weightView.addSubview(label)
@@ -75,9 +75,7 @@ class ShopItemCell: UITableViewCell {
         label.topAnchor.constraint(equalTo: weightView.topAnchor).isActive = true
         label.bottomAnchor.constraint(equalTo: weightView.bottomAnchor).isActive = true
         
-        
         return weightView
-        
     }
     
     
@@ -92,8 +90,6 @@ class ShopItemCell: UITableViewCell {
             quantitySlider.isHidden = true
             weightView.isHidden = false
         }
-
-        
         
         let checkAlpha = CGFloat(s.checked ? 0.5 : 1)
         self.contentView.alpha = checkAlpha
@@ -106,8 +102,6 @@ class ShopItemCell: UITableViewCell {
         quantityItem.text = String(format:"%.2f", s.quantity)
         uomLabel.text = s.itemUom.name
         
-       
-        
         quantitySlider.value = Float(s.quantity)
         totalItem.text = s.total.asLocaleCurrency
         
@@ -118,9 +112,16 @@ class ShopItemCell: UITableViewCell {
 
 
 
-extension ShopItemCell: CollectionFreeViewCellDelegate {
+extension ShopItemCell: CollectionFreeViewDelegate {
     
     func selectedCell(by index: Int) {
+        
+        views[currentIndex].backgroundColor = .blue
+        
+        views[index].backgroundColor = .red
+        
+        currentIndex = index
+        
         if let delegate = delegate {
             delegate.selectedWeight(sender: self, weight: weightList[index])
         }

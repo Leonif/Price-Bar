@@ -21,16 +21,16 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
     var videoPreviewLayer:AVCaptureVideoPreviewLayer?
     var qrCodeFrameView:UIView?
     
-    let supportedCodeTypes = [AVMetadataObjectTypeUPCECode,
-                              AVMetadataObjectTypeCode39Code,
-                              AVMetadataObjectTypeCode39Mod43Code,
-                              AVMetadataObjectTypeCode93Code,
-                              AVMetadataObjectTypeCode128Code,
-                              AVMetadataObjectTypeEAN8Code,
-                              AVMetadataObjectTypeEAN13Code,
-                              AVMetadataObjectTypeAztecCode,
-                              AVMetadataObjectTypePDF417Code,
-                              AVMetadataObjectTypeQRCode]
+    let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
+                              AVMetadataObject.ObjectType.code39,
+                              AVMetadataObject.ObjectType.code39Mod43,
+                              AVMetadataObject.ObjectType.code93,
+                              AVMetadataObject.ObjectType.code128,
+                              AVMetadataObject.ObjectType.ean8,
+                              AVMetadataObject.ObjectType.ean13,
+                              AVMetadataObject.ObjectType.aztec,
+                              AVMetadataObject.ObjectType.pdf417,
+                              AVMetadataObject.ObjectType.qr]
     
     
     
@@ -45,7 +45,7 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let authStatus = AVCaptureDevice.authorizationStatus(forMediaType: AVMediaTypeVideo)
+        let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if  authStatus == AVAuthorizationStatus.denied  {
             warningRestrictedCameraView.isHidden = false
             
@@ -53,11 +53,11 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
         
         
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video as the media type parameter.
-        let captureDevice = AVCaptureDevice.defaultDevice(withMediaType: AVMediaTypeVideo)
+        let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
         
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
-            let input = try AVCaptureDeviceInput(device: captureDevice)
+            let input = try AVCaptureDeviceInput(device: captureDevice!)
             
             // Initialize the captureSession object.
             captureSession = AVCaptureSession()
@@ -76,8 +76,8 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
             captureMetadataOutput.metadataObjectTypes = supportedCodeTypes
             
             // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
-            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-            videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
+            videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
+            videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
             videoPreviewLayer?.frame = view.layer.bounds
             view.layer.addSublayer(videoPreviewLayer!)
             
@@ -104,7 +104,7 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
             return
         }
     }
-    func captureOutput(_ captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [Any]!, from connection: AVCaptureConnection!) {
+    func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
         // Check if the metadataObjects array is not nil and it contains at least one object.
         if metadataObjects == nil || metadataObjects.count == 0 {

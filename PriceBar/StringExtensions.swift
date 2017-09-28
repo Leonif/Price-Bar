@@ -43,13 +43,16 @@ public extension String {
 	public var camelCased: String {
 		let source = lowercased()
 		if source.characters.contains(" ") {
-			let first = source.substring(to: source.index(after: source.startIndex))
+            
+            let first = source[..<source.index(after: source.startIndex)]
+			//let first = source.substring(to: source.index(after: source.startIndex))
 			let camel = source.capitalized.replacing(" ", with: "").replacing("\n", with: "")
 			let rest = String(camel.characters.dropFirst())
 			return first + rest
 		}
 		
-		let first = source.lowercased().substring(to: source.index(after: source.startIndex))
+        let first = source.lowercased()[..<source.index(after: source.startIndex)]
+		//let first = source.lowercased().substring(to: source.index(after: source.startIndex))
 		let rest = String(source.characters.dropFirst())
 		return first + rest
 	}
@@ -321,7 +324,7 @@ public extension String {
 		guard let upperIndex = index(lowerIndex, offsetBy: range.upperBound - range.lowerBound, limitedBy: endIndex) else {
 			return nil
 		}
-		return self[lowerIndex..<upperIndex]
+		return String(self[lowerIndex..<upperIndex])
 	}
 	
 	/// SwifterSwift: Safely subscript string within a closed range.
@@ -334,7 +337,7 @@ public extension String {
 		guard let upperIndex = index(lowerIndex, offsetBy: range.upperBound - range.lowerBound + 1, limitedBy: endIndex) else {
 			return nil
 		}
-		return self[lowerIndex..<upperIndex]
+		return String(self[lowerIndex..<upperIndex])
 	}
 	
 	#if os(iOS) || os(macOS)
@@ -409,16 +412,18 @@ public extension String {
 	/// SwifterSwift: Random string of given length.
 	///
 	/// - Parameter length: number of characters in string.
-	/// - Returns: random string of given length.
-	public static func random(ofLength length: Int) -> String {
-		guard length > 0 else { return "" }
-		let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-		return (0..<length).reduce("") {
-			let randomIndex = arc4random_uniform(UInt32(base.characters.count))
-			let randomCharacter = "\(base[base.index(base.startIndex, offsetBy: IndexDistance(randomIndex))])"
-			return $0.0 + randomCharacter
-		}
-	}
+	// - Returns: random string of given length.
+    
+    
+//    public static func random(ofLength length: Int) -> String {
+//        guard length > 0 else { return "" }
+//        let base = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+//        return (0..<length).reduce("") {
+//            let randomIndex = arc4random_uniform(UInt32(base.characters.count))
+//            let randomCharacter = "\(base[base.index(base.startIndex, offsetBy: IndexDistance(randomIndex))])"
+//            return $0 + randomCharacter
+//        }
+//    }
 	
 	/// SwifterSwift: String by replacing part of string with another string.
 	///
@@ -645,9 +650,9 @@ public extension String {
 	/// SwifterSwift: Create a new random string of given length.
 	///
 	/// - Parameter length: number of characters in string.
-	public init(randomOfLength length: Int) {
-		self = String.random(ofLength: length)
-	}
+//    public init(randomOfLength length: Int) {
+//        self = String.random(ofLength: length)
+//    }
 	
 }
 
@@ -661,25 +666,25 @@ public extension String {
 		#if os(macOS)
 			return NSMutableAttributedString(string: self, attributes: [NSFontAttributeName: NSFont.boldSystemFont(ofSize: NSFont.systemFontSize())])
 		#else
-			return NSMutableAttributedString(string: self, attributes: [NSFontAttributeName: UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)])
+			return NSMutableAttributedString(string: self, attributes: [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: UIFont.systemFontSize)])
 		#endif
 	}
 	#endif
 	
 	/// SwifterSwift: Underlined string
 	public var underline: NSAttributedString {
-		return NSAttributedString(string: self, attributes: [NSUnderlineStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue])
+		return NSAttributedString(string: self, attributes: [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
 	}
 	
 	/// SwifterSwift: Strikethrough string.
 	public var strikethrough: NSAttributedString {
-		return NSAttributedString(string: self, attributes: [NSStrikethroughStyleAttributeName: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int)])
+		return NSAttributedString(string: self, attributes: [NSAttributedStringKey.strikethroughStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int)])
 	}
 	
 	#if os(iOS)
 	/// SwifterSwift: Italic string.
 	public var italic: NSAttributedString {
-		return NSMutableAttributedString(string: self, attributes: [NSFontAttributeName: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)])
+		return NSMutableAttributedString(string: self, attributes: [NSAttributedStringKey.font: UIFont.italicSystemFont(ofSize: UIFont.systemFontSize)])
 	}
 	#endif
 	
@@ -697,7 +702,7 @@ public extension String {
 	/// - Parameter color: text color.
 	/// - Returns: a NSAttributedString versions of string colored with given color.
 	public func colored(with color: UIColor) -> NSAttributedString {
-		return NSMutableAttributedString(string: self, attributes: [NSForegroundColorAttributeName: color])
+		return NSMutableAttributedString(string: self, attributes: [NSAttributedStringKey.foregroundColor: color])
 	}
 	#endif
 	

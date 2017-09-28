@@ -14,15 +14,15 @@ import UIKit
 
 
 
-protocol CollectionFreeViewCellDelegate {
+protocol CollectionFreeViewDelegate {
     func selectedCell(by index: Int)
     func moved(to index: Int)
     
 }
 
-class CollectionFreeViewCell: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
+class CollectionFreeView: UIView, UICollectionViewDelegate, UICollectionViewDataSource {
     
-    var delegate: CollectionFreeViewCellDelegate?  {
+    var delegate: CollectionFreeViewDelegate?  {
         didSet {
             print("delegate is set")
         }
@@ -135,7 +135,7 @@ class CollectionFreeViewCell: UIView, UICollectionViewDelegate, UICollectionView
 
 
 
-extension CollectionFreeViewCell: UICollectionViewDelegateFlowLayout {
+extension CollectionFreeView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return spaceBetweenView //distance between photos
@@ -175,7 +175,7 @@ extension CollectionFreeViewCell: UICollectionViewDelegateFlowLayout {
 
 
 
-extension CollectionFreeViewCell: ViewCellDelegate {
+extension CollectionFreeView: ViewCellDelegate {
     
     func selectedCell(_ index: Int) {
         

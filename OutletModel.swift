@@ -24,9 +24,14 @@ class OutletListModel {
         
         return outlets[index.row]
     }
-    func getNearestOutlet(coordinate:CLLocationCoordinate2D) {
-        loadOultets(userCoordinate: coordinate, completed: {
-            self.delegate?.objectExchange(object: self.outlets.first!)
+    func getNearestOutlet(coordinate:CLLocationCoordinate2D, completion: @escaping (Bool)->()) {
+        self.loadOultets(userCoordinate: coordinate, completed: {
+            if let outlet = self.outlets.first {
+                self.delegate?.objectExchange(object: outlet)
+                completion(true)
+            } else {
+                completion(false)
+            }
         })
     }
     

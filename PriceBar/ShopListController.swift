@@ -48,6 +48,7 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         shopList = ShopListModel()
     }
     
@@ -151,9 +152,17 @@ extension ShopListController:CLLocationManagerDelegate {
         if let userCoord = userCoordinate, !selfDefined {
             let outletListModel = OutletListModel()
             outletListModel.delegate = self
-            outletListModel.getNearestOutlet(coordinate: userCoord)
+            
+            outletListModel.getNearestOutlet(coordinate: userCoord, completion: { (isOutletFound) in
+                self.selfDefined = true
+                if !isOutletFound {
+                    Alert.alert(title: "Ops", message: "Вокруг нет торговой точки", vc: self)
+                }
+            })
+            
+            
            
-            selfDefined = true
+            
         }
     }
 }

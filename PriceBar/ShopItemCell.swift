@@ -104,13 +104,25 @@ extension ShopItemCell {
         }
         
         let quantity = step(baseValue: Double(sender.value), step: item.itemUom.iterator)
-        self.quantityItem.text = "\(quantity)"
+        self.updateWeighOnCell(quantity, item.price)
         self.delegate?.selectedWeight(for: item, weight: quantity)
     
     }
     func step(baseValue: Double, step: Double) -> Double {
         let result = baseValue/step * step
         return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
+    }
+    
+    func updateWeighOnCell(_ weight: Double, _ price: Double) {
+        self.quantityItem.text = "\(weight)"
+        self.totalItem.text = "\(weight * price)"
+        
+        let total = weight * price
+        
+        self.quantityItem.text = String(format:"%.2f", weight)
+        self.totalItem.text = total.asLocaleCurrency
+        
+        
     }
     
     
@@ -130,13 +142,6 @@ extension ShopItemCell {
     }
     
     
-    
-    
-    func checkedWeight(_ weight: Double) {
-        
-        self.quantityItem.text = "\(weight)"
-    }
-    
     func configureCell(item: ShopItem) {
         
         self.item = item
@@ -154,11 +159,13 @@ extension ShopItemCell {
         
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
-        quantityItem.text = String(format:"%.2f", s.quantity)
         uomLabel.text = s.itemUom.name
+        self.quantitySlider.value = Float(s.quantity)
         
-        quantitySlider.value = Float(s.quantity)
-        totalItem.text = s.total.asLocaleCurrency
+        //quantityItem.text = String(format:"%.2f", s.quantity)
+        //self.totalItem.text = s.total.asLocaleCurrency
+        
+        self.updateWeighOnCell(s.quantity, s.price)
         
     }
     
@@ -185,7 +192,7 @@ extension ShopItemCell: CollectionFreeViewDelegate {
             
             let weight = weightList[index]
             
-            self.checkedWeight(weight)
+            self.updateWeighOnCell(weight, item.price)
             delegate.selectedWeight(for: item, weight: weight)
         }
     }

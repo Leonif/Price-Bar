@@ -555,14 +555,14 @@ public extension String {
 	/// - Parameters:
 	///   - toLength: maximum number of characters before cutting.
 	///   - trailing: string to add at the end of truncated string (default is "...").
-	public mutating func truncate(toLength: Int, trailing: String? = "...") {
-		guard toLength > 0 else {
-			return
-		}
-		if characters.count > toLength {
-			self = substring(to: index(startIndex, offsetBy: toLength)) + (trailing ?? "")
-		}
-	}
+//    public mutating func truncate(toLength: Int, trailing: String? = "...") {
+//        guard toLength > 0 else {
+//            return
+//        }
+//        if characters.count > toLength {
+//            self = substring(to: index(startIndex, offsetBy: toLength)) + (trailing ?? "")
+//        }
+//    }
 	
 	/// SwifterSwift: Truncated string (limited to a given number of characters).
 	///
@@ -570,10 +570,10 @@ public extension String {
 	///   - toLength: maximum number of characters before cutting.
 	///   - trailing: string to add at the end of truncated string.
 	/// - Returns: truncated string (this is an extr...).
-	public func truncated(toLength: Int, trailing: String? = "...") -> String {
-		guard 1..<characters.count ~= toLength else { return self }
-		return substring(to: index(startIndex, offsetBy: toLength)) + (trailing ?? "")
-	}
+//    public func truncated(toLength: Int, trailing: String? = "...") -> String {
+//        guard 1..<characters.count ~= toLength else { return self }
+//        return substring(to: index(startIndex, offsetBy: toLength)) + (trailing ?? "")
+//    }
 	
 	/// SwifterSwift: Convert URL string to readable string.
 	public mutating func urlDecode() {

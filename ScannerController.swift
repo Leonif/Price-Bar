@@ -104,14 +104,15 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
             return
         }
     }
-    func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        
+    
+    
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // Check if the metadataObjects array is not nil and it contains at least one object.
-        if metadataObjects == nil || metadataObjects.count == 0 {
-            qrCodeFrameView?.frame = CGRect.zero
-            messageLabel.text = "No QR code is detected"
-            return
-        }
+//        if metadataObjects == nil || metadataObjects.count == 0 {
+//            qrCodeFrameView?.frame = CGRect.zero
+//            messageLabel.text = "No QR code is detected"
+//            return
+//        }
         
         // Get the metadata object.
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
@@ -136,6 +137,41 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
             }
         }
     }
+    
+    
+    
+//    func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+//
+//        // Check if the metadataObjects array is not nil and it contains at least one object.
+//        if metadataObjects == nil || metadataObjects.count == 0 {
+//            qrCodeFrameView?.frame = CGRect.zero
+//            messageLabel.text = "No QR code is detected"
+//            return
+//        }
+//
+//        // Get the metadata object.
+//        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
+//
+//        if supportedCodeTypes.contains(metadataObj.type) {
+//            // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
+//            let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
+//            qrCodeFrameView?.frame = barCodeObject!.bounds
+//
+//            if metadataObj.stringValue != nil {
+//
+//                let code = metadataObj.stringValue
+//                captureSession?.stopRunning()
+//
+//                messageLabel.text = code
+//
+//                delegate.objectExchange(object: code ?? "")
+//
+//
+//                self.dismiss(animated: true, completion: nil)
+//
+//            }
+//        }
+//    }
 
    
 }

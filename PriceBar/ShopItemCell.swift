@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ShopItemCellDelegate {
-    func selectedWeight(sender: ShopItemCell, weight: Double)
+    func selectedWeight(for item: ShopItem, weight: Double)
     func checkPressed(for item: ShopItem)
 }
 
@@ -96,6 +96,24 @@ extension ShopItemCell {
         self.delegate?.checkPressed(for: item)
     }
     
+    
+    @IBAction func sliderChanged(_ sender: UISlider) {
+    
+        guard let item = self.item else {
+            fatalError("Slider changed for not existed item")
+        }
+        
+        let quantity = step(baseValue: Double(sender.value), step: item.itemUom.iterator)
+        self.quantityItem.text = "\(quantity)"
+        self.delegate?.selectedWeight(for: item, weight: quantity)
+    
+    }
+    func step(baseValue: Double, step: Double) -> Double {
+        let result = baseValue/step * step
+        return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
+    }
+    
+    
     func checkedState() {
         
         guard let item = self.item else {
@@ -109,6 +127,14 @@ extension ShopItemCell {
         self.checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
         
         
+    }
+    
+    
+    
+    
+    func checkedWeight(_ weight: Double) {
+        
+        self.quantityItem.text = "\(weight)"
     }
     
     func configureCell(item: ShopItem) {
@@ -125,11 +151,6 @@ extension ShopItemCell {
         }
 
         self.checkedState()
-//        let checkAlpha = CGFloat(s.checked ? 0.5 : 1)
-//        self.contentView.alpha = checkAlpha
-//        let imageStr = s.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue
-//
-//       self.checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
         
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
@@ -146,18 +167,26 @@ extension ShopItemCell {
 
 
 
+
+
+
 extension ShopItemCell: CollectionFreeViewDelegate {
     
     func selectedCell(by index: Int) {
-        
         views[currentIndex].backgroundColor = .blue
-        
         views[index].backgroundColor = .red
-        
         currentIndex = index
         
         if let delegate = delegate {
-            delegate.selectedWeight(sender: self, weight: weightList[index])
+            
+            guard let item = self.item else {
+                fatalError("Weight choosing for not existed item")
+            }
+            
+            let weight = weightList[index]
+            
+            self.checkedWeight(weight)
+            delegate.selectedWeight(for: item, weight: weight)
         }
     }
     

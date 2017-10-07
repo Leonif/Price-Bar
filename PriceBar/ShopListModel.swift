@@ -149,6 +149,17 @@ class ShopListModel {
         
     }
     
+    func getItem(_ item: ShopItem) -> ShopItem? {
+        
+        for (key, value) in shopList {
+            if let index = value.index(of: item) {
+                return shopList[key]?[index]
+            }
+        }
+        
+        return nil
+    }
+    
     func rowsIn(_ section: Int) -> Int {
         return shopList[sections[section]]?.count ?? 0
     }

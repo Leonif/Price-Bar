@@ -132,7 +132,7 @@
                                                             <color key="minimumTrackTintColor" red="0.63471137150000001" green="0.9075592884" blue="0.81687213729999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <color key="maximumTrackTintColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             <connections>
-                                                                <action selector="quantitySliderChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="gAK-v0-gyV"/>
+                                                                <action selector="sliderChanged:" destination="IKe-bD-4P6" eventType="valueChanged" id="TqI-ZH-mQg"/>
                                                             </connections>
                                                         </slider>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="шт" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9dE-ta-ARZ">

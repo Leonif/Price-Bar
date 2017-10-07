@@ -70,61 +70,15 @@ class ShopListController: UIViewController {
 
 //MARK: Cell handlers
 extension ShopListController: ShopItemCellDelegate {
-    
-
     func checkPressed(for item: ShopItem) {
         _ = shopList.change(item)
-        
     }
-    
-    
- //   @IBAction func checkMarkPressed(_ sender: UIButton) {
-//        if let cell = sender.superview?.superview?.superview as? ShopItemCell {
-//            if let indexPath = shopTableView.indexPath(for: cell), let item = shopList.getItem(index: indexPath)  {
-//                item.checked = !item.checked
-//                _ = shopList.change(item)
-//                cell.configureCell(item: item)
-//            }
-//        }
-//    }
-    
-    func selectedWeight(sender: ShopItemCell, weight: Double) {
-        if let indexPath = shopTableView.indexPath(for: sender) {
-            if let shp = shopList.getItem(index: indexPath) {
-                shp.quantity = weight
-                _ = shopList.change(shp)
-                shopTableView.reloadData()
-                
-            }
-        }
-        
+    func selectedWeight(for item: ShopItem, weight: Double) {
+        let shp = item
+        shp.quantity = weight
+        _ = shopList.change(shp)
         totalLabel.update(value: shopList.total)
     }
-    
-    
-    
-    
-    @IBAction func quantitySliderChanged(_ sender: UISlider) {
-        if let cell = sender.superview?.superview?.superview as? ShopItemCell {
-            if let indexPath = shopTableView.indexPath(for: cell) {
-                if let shp = shopList.getItem(index: indexPath) {
-                    shp.quantity = step(baseValue: Double(sender.value), step: shp.itemUom.iterator)
-                    _ = shopList.change(shp)
-                    shopTableView.reloadData()
-                    
-                }
-            }
-        }
-        totalLabel.update(value: shopList.total)
-    }
-    
-    
-    func step(baseValue: Double, step: Double) -> Double {
-        let result = baseValue/step * step
-        return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
-    }
-    
-    
     
 }
 
@@ -205,6 +159,25 @@ extension ShopListController {
 
 //MARK: Table
 extension ShopListController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if let cell = shopTableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
+            
+            if let shp = shopList.getItem(index: indexPath) {
+                cell.configureCell(item: shp)
+                cell.delegate = self
+                return cell
+            }
+            
+        }
+        
+        
+        
+        return UITableViewCell()
+    }
+    
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if let headeView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
@@ -294,21 +267,6 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
         
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if let cell = shopTableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
-            
-            if let shp = shopList.getItem(index: indexPath) {
-                cell.configureCell(item: shp)
-                cell.delegate = self
-                return cell
-            }
-            
-        }
-        
-        
-        
-        return UITableViewCell()
-    }
+
 }
 

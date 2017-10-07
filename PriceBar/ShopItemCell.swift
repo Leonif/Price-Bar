@@ -8,13 +8,15 @@
 
 import UIKit
 
-protocol WeightCellDelegate {
+protocol ShopItemCellDelegate {
     func selectedWeight(sender: ShopItemCell, weight: Double)
+    func checkPressed(for item: ShopItem)
 }
 
 
 class ShopItemCell: UITableViewCell {
     
+    var item: ShopItem?
     
     @IBOutlet weak var imageItem: UIImageView!
     @IBOutlet weak var nameItem: UILabel!
@@ -27,7 +29,7 @@ class ShopItemCell: UITableViewCell {
     @IBOutlet weak var weightView: CollectionFreeView! {
         didSet { createWeightLine() }
     }
-    var delegate: WeightCellDelegate?
+    var delegate: ShopItemCellDelegate?
     var weightList = [Double]()
     var currentIndex = 0
     
@@ -79,8 +81,39 @@ class ShopItemCell: UITableViewCell {
     }
     
     
+}
+
+// User react
+extension ShopItemCell {
+    @IBAction func checkPressed(_ sender: UIButton) {
+        
+        guard let item = self.item else {
+            fatalError("Check pressed for not existed item")
+        }
+        
+        self.item?.checked = !item.checked
+        self.checkedState()
+        self.delegate?.checkPressed(for: item)
+    }
+    
+    func checkedState() {
+        
+        guard let item = self.item else {
+            fatalError("Check state for not existed item")
+        }
+        
+        let checkAlpha = CGFloat(item.checked ? 0.5 : 1)
+        self.contentView.alpha = checkAlpha
+        let imageStr = item.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue
+        
+        self.checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
+        
+        
+    }
     
     func configureCell(item: ShopItem) {
+        
+        self.item = item
         let s = item
         
         if s.itemUom.isPerPiece {
@@ -90,12 +123,13 @@ class ShopItemCell: UITableViewCell {
             quantitySlider.isHidden = true
             weightView.isHidden = false
         }
-        
-        let checkAlpha = CGFloat(s.checked ? 0.5 : 1)
-        self.contentView.alpha = checkAlpha
-        let imageStr = s.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue
-        
-        checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
+
+        self.checkedState()
+//        let checkAlpha = CGFloat(s.checked ? 0.5 : 1)
+//        self.contentView.alpha = checkAlpha
+//        let imageStr = s.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue
+//
+//       self.checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
         
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
@@ -106,9 +140,9 @@ class ShopItemCell: UITableViewCell {
         totalItem.text = s.total.asLocaleCurrency
         
     }
+    
+    
 }
-
-
 
 
 

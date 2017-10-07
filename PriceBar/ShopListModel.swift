@@ -24,7 +24,7 @@ class ShopListModel {
     
     var total: Double {
         var sum = 0.0
-        shopList.forEach{$0.value.forEach{sum += $0.total}}
+        shopList.forEach { $0.value.forEach { sum += $0.total } }
         return sum
     }
     

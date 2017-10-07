@@ -78,13 +78,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -119,7 +119,12 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
+         contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, sizeForItemAt : IndexPath) -&gt; CGSize:CollectionFreeViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self._viewCollection.frame.width">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "FirebaseService.(loadUoms(uomList : ([ItemUom]) -&gt; ()) -&gt; ()).(closure #1):FirebaseService.swift">
@@ -133,12 +138,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, sizeForItemAt : IndexPath) -&gt; CGSize:CollectionFreeViewCell.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self._viewCollection.frame.width">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
       </ContextState>
       <ContextState
          contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
@@ -169,6 +169,17 @@
       </ContextState>
       <ContextState
          contextName = "CoreDataService.saveToShopList(ShopItem) -&gt; ():CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.tableView(_:didSelectRowAt:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "filtredItemList">
+            </PersistentString>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "CoreDataService.setUom(for : ShopItem) -&gt; Uom?:CoreDataService.swift">

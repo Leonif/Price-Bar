@@ -18,7 +18,7 @@ class ItemListVC: UIViewController {
     var filtredItemList = [ShopItem]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
-    var delegate: Exchange!
+    var delegate: Exchange?
     var hide: Bool = false
     
     
@@ -109,7 +109,7 @@ extension ItemListVC: Exchange {
         if let item = object as? ShopItem   {
             CoreDataService.data.addToShopListAndSaveStatistics(item)
             print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
-            delegate.objectExchange(object: item)
+            self.delegate?.objectExchange(object: item)
             hide = true
             
         }
@@ -187,7 +187,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
        
         let item = filtredItemList[indexPath.row]
         
-        delegate.objectExchange(object: item)
+        self.delegate?.objectExchange(object: item)
         self.dismiss(animated: true, completion: nil)
         
         

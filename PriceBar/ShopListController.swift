@@ -13,13 +13,13 @@ import CoreLocation
 
 class ShopListController: UIViewController {
     
-    let showScan = "showScan"
-    let showItemList = "showItemList"
-    let showOutlets = "showOutlets"
-    let showEditItem = "showEditItem"
-    
-    
+    fileprivate let showScan = "showScan"
+    fileprivate let showItemList = "showItemList"
+    fileprivate let showOutlets = "showOutlets"
+    fileprivate let showEditItem = "showEditItem"
 
+    @IBOutlet weak var scanButton: GoodButton!
+    @IBOutlet weak var itemListButton: GoodButton!
     var shopList: ShopListModel!
     let locationManager = CLLocationManager()
     var userCoordinate: CLLocationCoordinate2D?
@@ -47,7 +47,6 @@ class ShopListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
         shopList = ShopListModel()
     }
@@ -70,18 +69,24 @@ class ShopListController: UIViewController {
 
 
 //MARK: Cell handlers
-extension ShopListController: WeightCellDelegate {
+extension ShopListController: ShopItemCellDelegate {
     
 
-    @IBAction func checkMarkPressed(_ sender: UIButton) {
-        if let cell = sender.superview?.superview?.superview as? ShopItemCell {
-            if let indexPath = shopTableView.indexPath(for: cell), let item = shopList.getItem(index: indexPath)  {
-                item.checked = !item.checked
-                _ = shopList.change(item)
-                cell.configureCell(item: item)
-            }
-        }
+    func checkPressed(for item: ShopItem) {
+        _ = shopList.change(item)
+        
     }
+    
+    
+ //   @IBAction func checkMarkPressed(_ sender: UIButton) {
+//        if let cell = sender.superview?.superview?.superview as? ShopItemCell {
+//            if let indexPath = shopTableView.indexPath(for: cell), let item = shopList.getItem(index: indexPath)  {
+//                item.checked = !item.checked
+//                _ = shopList.change(item)
+//                cell.configureCell(item: item)
+//            }
+//        }
+//    }
     
     func selectedWeight(sender: ShopItemCell, weight: Double) {
         if let indexPath = shopTableView.indexPath(for: sender) {
@@ -154,9 +159,13 @@ extension ShopListController:CLLocationManagerDelegate {
             outletListModel.delegate = self
             
             outletListModel.getNearestOutlet(coordinate: userCoord, completion: { (isOutletFound) in
-                self.selfDefined = true
+                
                 if !isOutletFound {
                     Alert.alert(title: "Ops", message: "Вокруг нет торговой точки", vc: self)
+                    self.buttonEnable(false)
+                } else {
+                    self.selfDefined = true
+                    self.buttonEnable(true)
                 }
             })
             
@@ -165,6 +174,21 @@ extension ShopListController:CLLocationManagerDelegate {
             
         }
     }
+    
+    
+    func buttonEnable(_ enable: Bool) {
+        
+        let alpha: CGFloat = enable ? 1 : 0.5
+        
+        self.scanButton.alpha = alpha
+        self.scanButton.isUserInteractionEnabled = enable
+        self.itemListButton.alpha = alpha
+        self.itemListButton.isUserInteractionEnabled = enable
+        self.outletNameButton.alpha = alpha
+        self.outletNameButton.isUserInteractionEnabled = enable
+        
+    }
+    
 }
 
 

@@ -1,14 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Avenir.ttc">
+            <string>Avenir-Heavy</string>
+        </array>
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue-BoldItalic</string>
+        </array>
+        <array key="Palatino.ttc">
+            <string>Palatino-Roman</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Shop List Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -138,7 +149,7 @@
                                                             </constraints>
                                                             <state key="normal" title="Button" image="uncheck"/>
                                                             <connections>
-                                                                <action selector="checkMarkPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y0r-F4-llC"/>
+                                                                <action selector="checkPressed:" destination="IKe-bD-4P6" eventType="touchUpInside" id="bKL-Ss-A9W"/>
                                                             </connections>
                                                         </button>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wq0-tZ-dIu" customClass="CollectionFreeView" customModule="PriceBar" customModuleProvider="target">
@@ -201,30 +212,11 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Итого: 5000, 25" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUL-id-lem">
-                                <rect key="frame" x="26" y="623" width="159" height="24"/>
+                                <rect key="frame" x="26" y="623" width="156" height="24"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.0" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-mn-h0O" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
-                                <rect key="frame" x="279" y="537" width="60" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="9WM-PL-hau"/>
-                                    <constraint firstAttribute="width" constant="60" id="VEN-HR-Ohx"/>
-                                </constraints>
-                                <state key="normal" image="check-list">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="itemListPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Joo-Hz-PrH"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1v-Mz-DlY" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="279" y="447" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -242,6 +234,25 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-mn-h0O" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
+                                <rect key="frame" x="279" y="537" width="60" height="60"/>
+                                <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="9WM-PL-hau"/>
+                                    <constraint firstAttribute="width" constant="60" id="VEN-HR-Ohx"/>
+                                </constraints>
+                                <state key="normal" image="check-list">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="30"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="itemListPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Joo-Hz-PrH"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -263,8 +274,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="itemListButton" destination="bBr-mn-h0O" id="iDV-wN-Ve3"/>
                         <outlet property="outletAddressLabel" destination="2so-a8-Tea" id="VsB-MC-aBU"/>
                         <outlet property="outletNameButton" destination="p6W-vM-LYP" id="dhQ-8x-O5C"/>
+                        <outlet property="scanButton" destination="S1v-Mz-DlY" id="rup-3O-csY"/>
                         <outlet property="shopTableView" destination="teD-oh-0KA" id="hPS-xE-dqQ"/>
                         <outlet property="totalLabel" destination="yUL-id-lem" id="N2I-gC-suB"/>
                         <segue destination="CgW-nK-NrY" kind="show" identifier="showOutlets" id="zf9-OY-zBU"/>

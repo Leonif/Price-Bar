@@ -114,8 +114,8 @@ extension ShopItemCell {
     }
     
     func updateWeighOnCell(_ weight: Double, _ price: Double) {
-        self.quantityItem.text = "\(weight)"
-        self.totalItem.text = "\(weight * price)"
+        //self.quantityItem.text = "\(weight)"
+        //self.totalItem.text = "\(weight * price)"
         
         let total = weight * price
         

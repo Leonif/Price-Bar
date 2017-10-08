@@ -74,10 +74,13 @@ extension ShopListController: ShopItemCellDelegate {
         _ = shopList.change(item)
     }
     func selectedWeight(for item: ShopItem, weight: Double) {
+        
+        self.shopTableView.beginUpdates()
         let shp = item
         shp.quantity = weight
         _ = shopList.change(shp)
         totalLabel.update(value: shopList.total)
+        self.shopTableView.endUpdates()
     }
     
 }
@@ -122,10 +125,6 @@ extension ShopListController:CLLocationManagerDelegate {
                     self.buttonEnable(true)
                 }
             })
-            
-            
-           
-            
         }
     }
     

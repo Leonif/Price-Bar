@@ -31,6 +31,9 @@
          contextName = "ShopListController.handle(for : String) -&gt; ():ShopListControllerExchange.swift">
       </ContextState>
       <ContextState
+         contextName = "ShopListController.tableView(_:cellForRowAt:):ShopListController.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListController.viewDidLoad() -&gt; ():ShopListController.swift">
          <PersistentStrings>
             <PersistentString
@@ -78,13 +81,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -160,10 +163,29 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListModel.getItem(index:):ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.sections[index.section]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.getCategoriesFromCoreData() -&gt; [ItemCategory]:CoreDataService.swift">
          <PersistentStrings>
             <PersistentString
                value = "initCategories.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.change(_:):ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "item.itemCategory.id">
+            </PersistentString>
+            <PersistentString
+               value = "item.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

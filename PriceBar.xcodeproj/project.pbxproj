@@ -200,7 +200,6 @@
 			children = (
 				7904B4591F03738B002032CD /* ShopItem.swift */,
 				79D26A001EFECC4800337DA3 /* ItemListVC.swift */,
-				79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */,
 				79D26A021EFECD5700337DA3 /* ItemListCell.swift */,
 			);
 			name = ItemListFlow;
@@ -234,8 +233,8 @@
 			isa = PBXGroup;
 			children = (
 				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
-				792EE7B61EE707F000470669 /* HeaderView.xib */,
 				792EE7C61EE7087200470669 /* HeaderView.swift */,
+				792EE7B61EE707F000470669 /* HeaderView.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -273,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				790BC9E71F8831FB00CA9519 /* ShopListFlow */,
+				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
 				790BC9EA1F8832D900CA9519 /* ItemListFlow */,
 				790BC9E91F88326E00CA9519 /* OutletFlow */,
 				790BC9E81F88322400CA9519 /* Services */,
@@ -303,6 +303,14 @@
 				79388B241F532176008FD415 /* Info.plist */,
 			);
 			path = PriceBarTests;
+			sourceTree = "<group>";
+		};
+		794CEAC71F8A6BA8003B517A /* ItemCardFlow */ = {
+			isa = PBXGroup;
+			children = (
+				79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */,
+			);
+			name = ItemCardFlow;
 			sourceTree = "<group>";
 		};
 		795EA8C91F0FFFF200752A68 /* CustomObjects */ = {

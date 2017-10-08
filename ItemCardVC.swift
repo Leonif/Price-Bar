@@ -18,10 +18,6 @@ enum PickerType {
 
 
 class ItemCardVC: UIViewController {
-    
-    
-    
-    
     var categories = [ItemCategory]()
     var uoms = [ItemUom]()
     //var uoms = [Uom]()
@@ -78,10 +74,7 @@ class ItemCardVC: UIViewController {
                 
                 item = ShopItem(id: UUID().uuidString, name: newName.capitalized, quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, itemUom: itemUom, outletId: outletId, scanned: false, checked: false)
             }
-            
-            
         }
-        
         if let item = item {
             itemTitle.text = item.name
             itemPrice.text = item.price.asDecimal

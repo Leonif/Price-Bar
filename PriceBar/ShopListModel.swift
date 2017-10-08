@@ -114,12 +114,14 @@ class ShopListModel {
         for (key, value) in shopList {
             if let index = value.index(of: item) {
                 shopList[key]?[index] = item
-                updateSections()
                 return true
             }
         }
         return false
     }
+    
+    
+    
     
     func updateSections() {
         var tempList = [String: [ShopItem]]()
@@ -140,8 +142,8 @@ class ShopListModel {
     
     func getItem(index: IndexPath) -> ShopItem? {
         
-        if index.section-1 <= sectionCount {
-            if let items = shopList[sections[index.section]]  {
+        if index.section < self.sectionCount {
+            if let items = shopList[self.sections[index.section]]  {
                 return items[index.row]
             }
         }
@@ -149,16 +151,16 @@ class ShopListModel {
         
     }
     
-    func getItem(_ item: ShopItem) -> ShopItem? {
-        
-        for (key, value) in shopList {
-            if let index = value.index(of: item) {
-                return shopList[key]?[index]
-            }
-        }
-        
-        return nil
-    }
+//    func getItem(_ item: ShopItem) -> ShopItem? {
+//
+//        for (key, value) in shopList {
+//            if let index = value.index(of: item) {
+//                return shopList[key]?[index]
+//            }
+//        }
+//
+//        return nil
+//    }
     
     func rowsIn(_ section: Int) -> Int {
         return shopList[sections[section]]?.count ?? 0

@@ -44,12 +44,16 @@ class OutletListModel {
         let lat = userCoordinate.latitude
         let lng = userCoordinate.longitude
         
-        let requestURL = baseUrl + "search?categoryId=\(foodAndDrinkShop),\(convenienceStore)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=20170614"
+        let dateString = Date().getString(format: "yyyyMMdd")
+        
+        
+        let requestURL = baseUrl + "search?categoryId=\(foodAndDrinkShop),\(convenienceStore)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=\(dateString)"
         
         let url = URL(string: requestURL)
         URLSession.shared.dataTask(with:url!) { (data, response, error) in
             if error != nil {
-                print(error ?? "")
+                fatalError("Foursquare Error: Getting outlets \(String(describing: error)) ")
+                //print(error ?? "")
             } else {
                 do {
                     if let parsedData = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]  {
@@ -72,7 +76,8 @@ class OutletListModel {
                         completed()
                     }
                 } catch let error as NSError {
-                    print(error)
+                    //print(error)
+                    fatalError("Foursquare Error: Getting outlets \(String(describing: error)) ")
                 }
             }
             }.resume()

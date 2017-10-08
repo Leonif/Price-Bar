@@ -17,26 +17,29 @@ protocol Exchange {
 extension ShopListController: Exchange {
     
     func objectExchange(object: Any) {
-        if let item = object as? ShopItem {
-            handle(for: item)
+        if let item = object as? ShopItem { // card save
+            self.handle(for: item)
         }
         if let outlet = object as? Outlet  {//outlet came
-            handle(for: outlet)
+            self.handle(for: outlet)
         }
         if let scannedCode = object as? String {//scann came
-            handle(for: scannedCode)
+            self.handle(for: scannedCode)
         }
-        shopTableView.reloadData()
-        totalLabel.update(value: shopList.total)
+        self.shopTableView.reloadData()
+        self.totalLabel.update(value: shopList.total)
     }
     
     func handle(for item: ShopItem) {
         let deviceBase = CoreDataService.data
         let cloudBase = FirebaseService.data
         
-        if !shopList.change(item) {
-            shopList.append(item)
+        if !self.shopList.change(item) {
+            
+            self.shopList.append(item)
             deviceBase.saveToShopList(item)
+        } else {
+            self.shopList.updateSections()
         }
         if !deviceBase.update(item) {
             deviceBase.save(item)
@@ -58,9 +61,9 @@ extension ShopListController: Exchange {
         if needToReload { // from clous
             print("Refresh from cloud...")
 
-            view.addSubview(refresh)
-            refresh.center = self.view.center
-            refresh.run()
+            self.view.addSubview(refresh)
+            self.refresh.center = self.view.center
+            self.refresh.run()
             
             FirebaseService.data.loginToFirebase({
                 self.shopList.synchronizeCloud {
@@ -74,7 +77,7 @@ extension ShopListController: Exchange {
         } else {// load from coredata
             self.shopList.synchronizeDevice()
             print("Refresh from cloud DONT NEED... \(launchedTimes)")
-            loadShopList(for: outlet)
+            self.loadShopList(for: outlet)
         }
     }
     

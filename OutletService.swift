@@ -1,5 +1,5 @@
 //
-//  OutletModel.swift
+//  OutletService.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 6/14/17.
@@ -12,6 +12,7 @@ import CoreLocation
 enum OutletServiceError: Error {
     case outletNotFound(String)
     case foursqareDoesntResponce(String)
+    case wrongURL(String)
     case parseError(String)
 }
 
@@ -20,26 +21,9 @@ enum ResultType<A> {
     case failure(OutletServiceError)
 }
 
-
-
-
-class OutletListModel {
-    
-    
-    //var outlets = [Outlet]()
-    var delegate: Exchange?
-    
-//    var count: Int {
-//        return outlets.count
-//    }
-    
-//    func getOutlet(index: IndexPath) -> Outlet {
-//
-//        return outlets[index.row]
-//    }
+class OutletService {
     func getNearestOutlet(coordinate:CLLocationCoordinate2D, completion: @escaping (ResultType<Outlet>)->()) {
         self.loadOultets(userCoordinate: coordinate, completed: { result in
-            
             switch result {
             case let .success(outlets):
                 guard let outlet = outlets.first else {
@@ -68,8 +52,11 @@ class OutletListModel {
         
         let requestURL = baseUrl + "search?categoryId=\(foodAndDrinkShop),\(convenienceStore)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=\(dateString)"
         
-        let url = URL(string: requestURL)
-        URLSession.shared.dataTask(with:url!) { (data, response, error) in
+        guard let url = URL(string: requestURL) else {
+            completed(ResultType.failure(.wrongURL("Неправильный URL")))
+            return
+        }
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completed(ResultType.failure(.foursqareDoesntResponce(error.localizedDescription)))
             } else {
@@ -102,18 +89,4 @@ class OutletListModel {
     }
 }
 
-class Outlet {
-    var id = ""
-    var name = ""
-    var address = ""
-    var distance = 0.0
-    
-    init(_ id: String, _ name: String, _ address: String, _ distance: Double) {
-        self.id = id
-        self.name = name
-        self.address = address
-        self.distance = distance
-    }
-    
-    
-}
+

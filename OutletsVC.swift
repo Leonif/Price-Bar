@@ -11,7 +11,7 @@ import CoreLocation
 
 class OutletsVC: UIViewController {
     
-    var outletService = OutletListModel()
+    var outletService = OutletService()
     
     var delegate: Exchange!
     @IBOutlet weak var outletTableView: UITableView!

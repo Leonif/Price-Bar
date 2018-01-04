@@ -9,8 +9,6 @@
 import UIKit
 import CoreLocation
 
-
-
 class ShopListController: UIViewController {
     
     fileprivate let showScan = "showScan"
@@ -26,8 +24,6 @@ class ShopListController: UIViewController {
     var userOutlet: Outlet!
     var selfDefined: Bool = false
     var selfLoaded: Bool = false
-    
-    //@IBOutlet weak var refreshView: RefreshView!
     
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
@@ -104,20 +100,16 @@ extension ShopListController:CLLocationManagerDelegate {
         userCoordinate = locations.last?.coordinate
         
         if let userCoord = userCoordinate, !selfDefined {
-            let outletListModel = OutletListModel()
-            outletListModel.delegate = self
-            
-            outletListModel.getNearestOutlet(coordinate: userCoord, completion: { result in
+            let outletService = OutletService()
+            outletService.getNearestOutlet(coordinate: userCoord, completion: { result in
                 
                 var activateControls = false
-                
                 switch result {
                 case let .success(outlet):
                     self.handle(for: outlet)
                     activateControls = true
                 case let .failure(error):
                     self.alert(title: "Ops", message: error.localizedDescription)
-                    
                     activateControls = false
                 }
                 self.selfDefined = activateControls
@@ -168,8 +160,6 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
             }
             
         }
-        
-        
         
         return UITableViewCell()
     }

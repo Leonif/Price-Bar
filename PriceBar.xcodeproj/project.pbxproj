@@ -28,6 +28,7 @@
 		792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C21EE7085500470669 /* AppDelegate.swift */; };
 		792EE7C51EE7085500470669 /* ShopListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C31EE7085500470669 /* ShopListController.swift */; };
 		792EE7C71EE7087200470669 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
+		793368641FFE260F00E8E81A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368631FFE260F00E8E81A /* Extensions.swift */; };
 		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
 		7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */; };
 		795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* Extension.swift */; };
@@ -95,6 +96,7 @@
 		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "Price Bar/AppDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		792EE7C31EE7085500470669 /* ShopListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListController.swift; path = PriceBar/ShopListController.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
+		793368631FFE260F00E8E81A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		79388B201F532175008FD415 /* PriceBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriceBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
 		79388B241F532176008FD415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -271,6 +273,7 @@
 		792EE7821EE48CD500470669 /* PriceBar */ = {
 			isa = PBXGroup;
 			children = (
+				793368631FFE260F00E8E81A /* Extensions.swift */,
 				790BC9E71F8831FB00CA9519 /* ShopListFlow */,
 				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
 				790BC9EA1F8832D900CA9519 /* ItemListFlow */,
@@ -637,6 +640,7 @@
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,
 				79968E841F409C090076C0D9 /* Product+CoreDataProperties.swift in Sources */,
 				79D58AB11F4977B7003680EE /* CustomViews.swift in Sources */,
+				793368641FFE260F00E8E81A /* Extensions.swift in Sources */,
 				79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */,
 				795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */,
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,

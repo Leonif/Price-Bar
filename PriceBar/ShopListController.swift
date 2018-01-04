@@ -27,7 +27,7 @@ class ShopListController: UIViewController {
     var selfDefined: Bool = false
     var selfLoaded: Bool = false
     
-    @IBOutlet weak var refreshView: RefreshView!
+    //@IBOutlet weak var refreshView: RefreshView!
     
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
@@ -37,11 +37,11 @@ class ShopListController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     
     
-    var refresh: RefreshView = {
-        let r = RefreshView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        r.progressLabel.text = "Синхронизация..."
-        return r
-    }()
+//    var refresh: RefreshView = {
+//        let r = RefreshView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+//        r.progressLabel.text = "Синхронизация..."
+//        return r
+//    }()
 
     
     

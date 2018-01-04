@@ -61,14 +61,17 @@ extension ShopListController: Exchange {
         if needToReload { // from clous
             print("Refresh from cloud...")
 
-            self.view.addSubview(refresh)
-            self.refresh.center = self.view.center
-            self.refresh.run()
+//            self.view.addSubview(refresh)
+//            self.refresh.center = self.view.center
+//            self.refresh.run()
+            
+            self.view.pb_startActivityIndicator(with: "Синхронизация с облаком. Пожалуйста подождите...")
             
             FirebaseService.data.loginToFirebase({
                 self.shopList.synchronizeCloud {
                     self.loadShopList(for: outlet)
-                    self.refresh.stop()
+                    //self.refresh.stop()
+                    self.view.pb_stopActivityIndicator()
                     launchedTimes = 2
                 }
             }, {

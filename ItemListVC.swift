@@ -28,18 +28,10 @@ class ItemListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.addSubview(refresh)
-        refresh.center = self.view.center
-        refresh.run()
+
+        self.view.pb_startActivityIndicator(with: "Загрузка...")
         
     }
-    
-    var refresh: RefreshView = {
-        let r = RefreshView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-        r.progressLabel.text = "Загрузка..."
-        return r
-    }()
     
     var currentPageStep = 0
     
@@ -51,7 +43,7 @@ class ItemListVC: UIViewController {
             filtredItemList = self.itemList
             itemTableView.reloadData()
         }
-        refresh.stop()
+        self.view.pb_stopActivityIndicator()
         
     }
     

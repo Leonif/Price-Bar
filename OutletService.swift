@@ -14,6 +14,20 @@ enum OutletServiceError: Error {
     case foursqareDoesntResponce(String)
     case wrongURL(String)
     case parseError(String)
+    case other(String)
+    
+    
+    var errorDescription: String {
+        switch self {
+        case let .outletNotFound(description),
+             let .foursqareDoesntResponce(description),
+             let .wrongURL(description),
+             let .parseError(description),
+             let .other(description):
+            return description
+        }
+        
+    }
 }
 
 enum ResultType<A> {
@@ -27,7 +41,7 @@ class OutletService {
             switch result {
             case let .success(outlets):
                 guard let outlet = outlets.first else {
-                    completion(ResultType.failure(.outletNotFound("Торговая точка не найдена")))
+                    completion(ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
                     return
                 }
                 completion(ResultType.success(outlet))
@@ -53,7 +67,7 @@ class OutletService {
         let requestURL = baseUrl + "search?categoryId=\(foodAndDrinkShop),\(convenienceStore)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=\(dateString)"
         
         guard let url = URL(string: requestURL) else {
-            completed(ResultType.failure(.wrongURL("Неправильный URL")))
+            completed(ResultType.failure(.wrongURL("Неправильный URL 😢")))
             return
         }
         URLSession.shared.dataTask(with: url) { (data, response, error) in
@@ -81,8 +95,7 @@ class OutletService {
                         completed(ResultType.success(outlets))
                     }
                 } catch let error as NSError {
-                    print(error)
-                    completed(ResultType.failure(.parseError(error.localizedDescription)))
+                    completed(ResultType.failure(.other(error.localizedDescription)))
                 }
             }
             }.resume()

@@ -109,8 +109,8 @@ extension ShopListController:CLLocationManagerDelegate {
                     self.handle(for: outlet)
                     activateControls = true
                 case let .failure(error):
-                    self.alert(title: "Ops", message: error.localizedDescription)
                     activateControls = false
+                    self.alert(title: "Ops", message: error.errorDescription)
                 }
                 self.selfDefined = activateControls
                 self.buttonEnable(activateControls)

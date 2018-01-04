@@ -105,6 +105,7 @@ extension UIView {
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 100))
         titleLabel.textColor = .white
         titleLabel.text = title
+        titleLabel.numberOfLines = 2
         titleLabel.textAlignment = .center
         titleLabel.center = location
         let centerY = titleLabel.center.y

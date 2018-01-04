@@ -116,9 +116,8 @@ extension ShopListController:CLLocationManagerDelegate {
                     self.handle(for: outlet)
                     activateControls = true
                 case let .failure(error):
-                    if error == .outletNotFound  {
-                        self.alert(title: "Ops", message: "Торговая точка не найдена")
-                    }
+                    self.alert(title: "Ops", message: error.localizedDescription)
+                    
                     activateControls = false
                 }
                 self.selfDefined = activateControls

@@ -10,11 +10,13 @@ import Foundation
 import CoreLocation
 
 enum OutletServiceError: Error {
-    case outletNotFound
+    case outletNotFound(String)
+    case foursqareDoesntResponce(String)
+    case parseError(String)
 }
 
-enum ResultType {
-    case success(Outlet)
+enum ResultType<A> {
+    case success(A)
     case failure(OutletServiceError)
 }
 
@@ -24,29 +26,35 @@ enum ResultType {
 class OutletListModel {
     
     
-    var outlets = [Outlet]()
+    //var outlets = [Outlet]()
     var delegate: Exchange?
     
-    var count: Int {
-        return outlets.count
-    }
+//    var count: Int {
+//        return outlets.count
+//    }
     
-    func getOutlet(index: IndexPath) -> Outlet {
-        
-        return outlets[index.row]
-    }
-    func getNearestOutlet(coordinate:CLLocationCoordinate2D, completion: @escaping (ResultType)->()) {
-        self.loadOultets(userCoordinate: coordinate, completed: {
-            if let outlet = self.outlets.first {
-                //self.delegate?.objectExchange(object: outlet)
+//    func getOutlet(index: IndexPath) -> Outlet {
+//
+//        return outlets[index.row]
+//    }
+    func getNearestOutlet(coordinate:CLLocationCoordinate2D, completion: @escaping (ResultType<Outlet>)->()) {
+        self.loadOultets(userCoordinate: coordinate, completed: { result in
+            
+            switch result {
+            case let .success(outlets):
+                guard let outlet = outlets.first else {
+                    completion(ResultType.failure(.outletNotFound("Торговая точка не найдена")))
+                    return
+                }
                 completion(ResultType.success(outlet))
-            } else {
-                completion(ResultType.failure(OutletServiceError.outletNotFound))
+                
+            case let .failure(error):
+                completion(ResultType.failure(error))
             }
         })
     }
     
-    func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping ()->()) {
+    func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping (ResultType<[Outlet]>)->()) {
         let baseUrl = "https://api.foursquare.com/v2/venues/"
         let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
         let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
@@ -56,15 +64,14 @@ class OutletListModel {
         let lng = userCoordinate.longitude
         
         let dateString = Date().getString(format: "yyyyMMdd")
-        
+        var outlets = [Outlet]()
         
         let requestURL = baseUrl + "search?categoryId=\(foodAndDrinkShop),\(convenienceStore)&ll=\(lat),\(lng)&radius=1000&intent=browse&client_id=\(clientId)&client_secret=\(clientSecret)&v=\(dateString)"
         
         let url = URL(string: requestURL)
         URLSession.shared.dataTask(with:url!) { (data, response, error) in
-            if error != nil {
-                fatalError("Foursquare Error: Getting outlets \(String(describing: error)) ")
-                //print(error ?? "")
+            if let error = error {
+                completed(ResultType.failure(.foursqareDoesntResponce(error.localizedDescription)))
             } else {
                 do {
                     if let parsedData = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]  {
@@ -75,20 +82,20 @@ class OutletListModel {
                                     if let id = v["id"] as? String, let name = v["name"] as? String, let loc = v["location"] as? [String:Any]  {
                                         if let add = loc["address"] as? String, let dist = loc["distance"] as? Double {
                                             print(id, name, add, dist)
-                                            self.outlets.append(Outlet(id, name, add, dist))
+                                            outlets.append(Outlet(id, name, add, dist))
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                    self.outlets = self.outlets.sorted(by: { $0.distance < $1.distance })
+                    outlets = outlets.sorted(by: { $0.distance < $1.distance })
                     DispatchQueue.main.async() {//go into UI
-                        completed()
+                        completed(ResultType.success(outlets))
                     }
                 } catch let error as NSError {
-                    //print(error)
-                    fatalError("Foursquare Error: Getting outlets \(String(describing: error)) ")
+                    print(error)
+                    completed(ResultType.failure(.parseError(error.localizedDescription)))
                 }
             }
             }.resume()

@@ -11,12 +11,14 @@ import CoreLocation
 
 class OutletsVC: UIViewController {
     
-    var outletListModel = OutletListModel()
+    var outletService = OutletListModel()
+    
     var delegate: Exchange!
     @IBOutlet weak var outletTableView: UITableView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var activityContainerView: UIView!
     var userCoordinate: CLLocationCoordinate2D?
+    var outlets = [Outlet]()
     
     @IBOutlet weak var warningLocationView: UIView!
     
@@ -25,13 +27,16 @@ class OutletsVC: UIViewController {
         super.viewDidLoad()
         
         if let userCoordinate = userCoordinate    {
-            activityContainerView.isHidden = false
-            activityIndicator.startAnimating()
-            outletListModel.loadOultets(userCoordinate: userCoordinate, completed: {
-                self.outletTableView.reloadData()
-                self.activityIndicator.stopAnimating()
-                self.activityContainerView.isHidden = true
-                
+            self.view.pb_startActivityIndicator(with: "Загрузка торговых точек")
+            outletService.loadOultets(userCoordinate: userCoordinate, completed: { result in
+                switch result {
+                case let .success(outlets):
+                    self.view.pb_stopActivityIndicator()
+                    self.outlets = outlets
+                    self.outletTableView.reloadData()
+                case let .failure(error):
+                        self.alert(title: "error", message: error.localizedDescription)
+                }
             })
         } else {
             warningLocationView.isHidden = false
@@ -54,11 +59,14 @@ extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return outletListModel.count
+        return outlets.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate.objectExchange(object: outletListModel.getOutlet(index: indexPath))
+        
+        let outlet = outlets[indexPath.row]
+        
+        delegate.objectExchange(object: outlet)
         self.dismiss(animated: true, completion: nil)
     }
     
@@ -68,9 +76,9 @@ extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
         
         if let cell = outletTableView.dequeueReusableCell(withIdentifier: "OutletCell", for: indexPath) as? OutletCell {
             
-            let outlet = outletListModel.getOutlet(index: indexPath)
-                cell.configureCell(outlet: outlet)
-                return cell
+            let outlet = outlets[indexPath.row]
+            cell.configureCell(outlet: outlet)
+            return cell
         }
         
         return UITableViewCell()

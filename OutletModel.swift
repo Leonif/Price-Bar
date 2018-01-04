@@ -9,6 +9,17 @@
 import Foundation
 import CoreLocation
 
+enum OutletServiceError: Error {
+    case outletNotFound
+}
+
+enum ResultType {
+    case success(Outlet)
+    case failure(OutletServiceError)
+}
+
+
+
 
 class OutletListModel {
     
@@ -24,13 +35,13 @@ class OutletListModel {
         
         return outlets[index.row]
     }
-    func getNearestOutlet(coordinate:CLLocationCoordinate2D, completion: @escaping (Bool)->()) {
+    func getNearestOutlet(coordinate:CLLocationCoordinate2D, completion: @escaping (ResultType)->()) {
         self.loadOultets(userCoordinate: coordinate, completed: {
             if let outlet = self.outlets.first {
-                self.delegate?.objectExchange(object: outlet)
-                completion(true)
+                //self.delegate?.objectExchange(object: outlet)
+                completion(ResultType.success(outlet))
             } else {
-                completion(false)
+                completion(ResultType.failure(OutletServiceError.outletNotFound))
             }
         })
     }

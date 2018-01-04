@@ -12,19 +12,19 @@ import UIKit
 
 
 
-class Alert {
-    
-    enum Completion {
-        case close, dontClose
-    }
-    
-    
-    static func alert(title: String, message: String, vc: UIViewController) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-        vc.present(alert, animated: true, completion: nil)
-    }
-    
-}
+//class Alert {
+//    
+//    enum Completion {
+//        case close, dontClose
+//    }
+//    
+//    
+//    static func alert(title: String, message: String, vc: UIViewController) {
+//        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+//        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+//        vc.present(alert, animated: true, completion: nil)
+//    }
+//    
+//}
 
 

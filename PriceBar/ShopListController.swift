@@ -37,14 +37,6 @@ class ShopListController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     
     
-//    var refresh: RefreshView = {
-//        let r = RefreshView(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
-//        r.progressLabel.text = "Синхронизация..."
-//        return r
-//    }()
-
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -115,15 +107,22 @@ extension ShopListController:CLLocationManagerDelegate {
             let outletListModel = OutletListModel()
             outletListModel.delegate = self
             
-            outletListModel.getNearestOutlet(coordinate: userCoord, completion: { (isOutletFound) in
+            outletListModel.getNearestOutlet(coordinate: userCoord, completion: { result in
                 
-                if !isOutletFound {
-                    Alert.alert(title: "Ops", message: "Вокруг нет торговой точки", vc: self)
-                    self.buttonEnable(false)
-                } else {
-                    self.selfDefined = true
-                    self.buttonEnable(true)
+                var activateControls = false
+                
+                switch result {
+                case let .success(outlet):
+                    self.handle(for: outlet)
+                    activateControls = true
+                case let .failure(error):
+                    if error == .outletNotFound  {
+                        self.alert(title: "Ops", message: "Торговая точка не найдена")
+                    }
+                    activateControls = false
                 }
+                self.selfDefined = activateControls
+                self.buttonEnable(activateControls)
             })
         }
     }

@@ -58,8 +58,8 @@ class ItemListVC: UIViewController {
     
     @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
         
-        if sender.text != "" {
-            let searchText = sender.text?.lowercased() ?? ""
+        if  let searchText = sender.text, searchText != "", searchText.charactersArray.count >= 3 {
+            //let searchText = sender.text?.lowercased() ?? ""
             if let list = CoreDataService.data.filterItemList(itemName: searchText, for: outletId) {
                 filtredItemList = list
                 self.isLoading = true

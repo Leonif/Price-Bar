@@ -25,6 +25,20 @@ class ProductQuantitySection: NSObject, UIPickerViewDataSource, UIPickerViewDele
     
     init(type: QuantityType) {
         self.type = type
+        
+        for i in 0...100 {
+            let w = Double(i)
+            wholeItems.append(w)
+        }
+        
+        if type == .weight {
+            for i in 0...1000 {
+                let w = Double(i) * 0.01
+                decimalItems.append(w)
+            }
+        }
+        
+        
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -43,7 +57,12 @@ class ProductQuantitySection: NSObject, UIPickerViewDataSource, UIPickerViewDele
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return measureItems.count
+        
+        if type == .weight {
+            return component == 0 ? wholeItems.count : decimalItems.count
+        }
+        
+        return wholeItems.count
     }
     
     

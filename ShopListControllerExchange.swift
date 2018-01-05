@@ -26,6 +26,7 @@ extension ShopListController: Exchange {
         if let scannedCode = object as? String {//scann came
             self.handle(for: scannedCode)
         }
+        self.dataSource?.shopList = shopList
         self.shopTableView.reloadData()
         self.totalLabel.update(value: shopList.total)
     }

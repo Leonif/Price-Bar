@@ -114,12 +114,16 @@ class QuantityPickerPopup: UIViewController {
         }
         
         delegate?.choosen(weight: quantity, for: indexPath!)
-        self.dismiss(animated: true, completion: nil)
+        self.view.antiObscure {
+            self.dismiss(animated: true, completion: nil)
+        }
         
     }
     
     @objc func cancelSelection() {
-        self.dismiss(animated: true, completion: nil)
+        self.view.antiObscure {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     
@@ -133,7 +137,7 @@ class QuantityPickerPopup: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.view.obscure()
+        
         self.view.addSubview(weightPicker)
         weightPicker.delegate = self
         weightPicker.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -150,13 +154,11 @@ class QuantityPickerPopup: UIViewController {
         toolbar.trailingAnchor.constraint(equalTo: weightPicker.trailingAnchor).isActive = true
         toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         toolbar.bottomAnchor.constraint(equalTo: weightPicker.topAnchor).isActive = true
-        
-        
-        
-        
-        
-        
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.view.obscure()
     }
     
     

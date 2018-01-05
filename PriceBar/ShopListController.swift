@@ -64,9 +64,13 @@ class ShopListController: UIViewController {
 extension ShopListController: ShopItemCellDelegate {
     func weightDemanded(cell: ShopItemCell) {
         print("Picker opened")
-        let pickerVC = QuantityPickerPopup(type: .weight)
+        
+        let indexPath = self.shopTableView.indexPath(for: cell)
+        let type: QuantityType = (shopList.getItem(index: indexPath!)?.itemUom.isPerPiece)! ? .quantity : .weight
+        
+        let pickerVC = QuantityPickerPopup(type: type)
         pickerVC.delegate = self
-        pickerVC.indexPath = self.shopTableView.indexPath(for: cell)
+        pickerVC.indexPath = indexPath
         pickerVC.modalPresentationStyle = .overCurrentContext
         self.present(pickerVC, animated: true, completion: nil)
         

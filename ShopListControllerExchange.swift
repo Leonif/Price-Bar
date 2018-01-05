@@ -66,7 +66,6 @@ extension ShopListController: Exchange {
             FirebaseService.data.loginToFirebase({
                 self.shopList.synchronizeCloud {
                     self.loadShopList(for: outlet)
-                    //self.refresh.stop()
                     self.view.pb_stopActivityIndicator()
                     launchedTimes = 2
                 }
@@ -89,6 +88,8 @@ extension ShopListController: Exchange {
         
         if let shpLst = CoreDataService.data.loadShopList(outletId: userOutlet.id), !selfLoaded {
             shopList = shpLst
+            dataSource?.shopModel = shopList
+            self.shopTableView.reloadData()
             totalLabel.update(value: shopList.total)
             selfLoaded = true
         }

@@ -36,7 +36,7 @@ enum ResultType<A> {
 }
 
 class OutletService {
-    func getNearestOutlet(coordinate:CLLocationCoordinate2D, completion: @escaping (ResultType<Outlet>)->()) {
+    func getOutlet(near coordinate: CLLocationCoordinate2D, completion: @escaping (ResultType<Outlet>)->()) {
         self.loadOultets(userCoordinate: coordinate, completed: { result in
             switch result {
             case let .success(outlets):

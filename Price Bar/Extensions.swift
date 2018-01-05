@@ -129,7 +129,7 @@ extension UIView {
         
     }
     
-    private func show(_ indicatorView: UIView) {
+    func show(_ indicatorView: UIView) {
         
         guard let window = UIApplication.shared.keyWindow else { return }
         

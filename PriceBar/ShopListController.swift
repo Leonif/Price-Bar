@@ -64,6 +64,9 @@ class ShopListController: UIViewController {
 extension ShopListController: ShopItemCellDelegate {
     func weightDemanded(cell: ShopItemCell) {
         print("Picker opened")
+        let pickerVC = QuantityPickerPopup(type: .weight)
+        self.present(pickerVC, animated: true, completion: nil)
+        
     }
     func checkPressed(for item: ShopItem) {
         _ = shopList.change(item)
@@ -115,7 +118,7 @@ extension ShopListController: CLLocationManagerDelegate {
         
         if let userCoord = userCoordinate, !selfDefined {
             let outletService = OutletService()
-            outletService.getNearestOutlet(coordinate: userCoord, completion: { result in
+            outletService.getOutlet(near: userCoord, completion: { result in
                 
                 var activateControls = false
                 switch result {
@@ -134,7 +137,7 @@ extension ShopListController: CLLocationManagerDelegate {
     
     
     func buttonEnable(_ enable: Bool) {
-        
+
         let alpha: CGFloat = enable ? 1 : 0.5
         
         self.scanButton.alpha = alpha
@@ -143,9 +146,7 @@ extension ShopListController: CLLocationManagerDelegate {
         self.itemListButton.isUserInteractionEnabled = enable
         self.outletNameButton.alpha = alpha
         self.outletNameButton.isUserInteractionEnabled = enable
-        
     }
-    
 }
 
 

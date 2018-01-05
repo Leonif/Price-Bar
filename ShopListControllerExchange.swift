@@ -26,7 +26,7 @@ extension ShopListController: Exchange {
         if let scannedCode = object as? String {//scann came
             self.handle(for: scannedCode)
         }
-        self.dataSource?.shopList = shopList
+        self.dataSource?.shopModel = shopList
         self.shopTableView.reloadData()
         self.totalLabel.update(value: shopList.total)
     }
@@ -59,7 +59,7 @@ extension ShopListController: Exchange {
     func handle(for outlet: Outlet) {
         let needToReload = launchedTimes == 1 || launchedTimes >= 10
         
-        if needToReload { // from clous
+        if needToReload { // from cloud
             print("Refresh from cloud...")
             self.view.pb_startActivityIndicator(with: "Синхронизация с облаком. Пожалуйста подождите...")
             

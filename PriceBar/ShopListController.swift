@@ -39,11 +39,12 @@ class ShopListController: UIViewController {
         
         shopList = ShopListModel()
         
-        dataSource = ShopListDataSource(shopList: shopList)
+        dataSource = ShopListDataSource(shopModel: shopList)
+        dataSource?.delegate = self
         
         shopTableView.dataSource = dataSource
         
-        dataSource?.delegate = self
+        
         
     }
     
@@ -66,6 +67,11 @@ class ShopListController: UIViewController {
 
 //MARK: Cell handlers
 extension ShopListController: ShopListDataSourceDelegate {
+    func shoplist(updated shopModel: ShopListModel) {
+        self.shopList = shopModel
+        totalLabel.update(value: shopList.total)
+    }
+    
     func checkPressed(for item: ShopItem) {
         _ = shopList.change(item)
     }
@@ -78,6 +84,8 @@ extension ShopListController: ShopListDataSourceDelegate {
         totalLabel.update(value: shopList.total)
         self.shopTableView.endUpdates()
     }
+    
+    
     
 }
 
@@ -157,71 +165,9 @@ extension ShopListController {
 //MARK: Table
 extension ShopListController: UITableViewDelegate {
     
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//        if let cell = shopTableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
-//
-//            if let shp = shopList.getItem(index: indexPath) {
-//                cell.configureCell(item: shp)
-//                cell.delegate = self
-//                return cell
-//            }
-//
-//        }
-//
-//        return UITableViewCell()
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//
-//        if let headeView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
-//
-//            headeView.categoryLabel.text = shopList.headerString(for: section)
-//            return headeView
-//        }
-//        return UIView()
-//    }
-//
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return shopList.sectionCount
-//    }
-//
-//
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return shopList.headerString(for: section)
-//    }
-    
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            if let item = shopList.getItem(index: indexPath) {
-                shopTableView.beginUpdates()
-                CoreDataService.data.removeFromShopList(item)
-                let sectionStatus = shopList.remove(item: item)
-                
-                shopTableView.deleteRows(at: [indexPath], with: .fade)
-                if sectionStatus == .sectionEmpty  {
-                    let indexSet = IndexSet(integer: indexPath.section)
-                    shopTableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
-                }
-                shopTableView.endUpdates()
-                totalLabel.update(value: shopList.total)
-                
-            }
-        }
-    }
-    
-    
-    
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return shopList.rowsIn(section)
-//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: showEditItem, sender: shopList.getItem(index: indexPath))

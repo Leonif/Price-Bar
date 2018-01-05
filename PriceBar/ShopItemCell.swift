@@ -13,11 +13,16 @@ protocol ShopItemCellDelegate {
     func checkPressed(for item: ShopItem)
 }
 
+enum QuantityType {
+    case weight, quantity
+}
 
-
-class ProductQuantityService {
+class ProductQuantitySection {
     
-    
+    init(type: QuantityType) {
+        
+        
+    }
     
 }
 

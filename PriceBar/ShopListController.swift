@@ -42,8 +42,6 @@ class ShopListController: UIViewController {
         dataSource?.delegate = self
         shopTableView.dataSource = dataSource
         
-        
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {

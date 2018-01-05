@@ -10,10 +10,6 @@ import Foundation
 import UIKit
 
 
-
-
-
-
 protocol CollectionFreeViewDelegate {
     func selectedCell(by index: Int)
     func moved(to index: Int)

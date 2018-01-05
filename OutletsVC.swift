@@ -29,13 +29,13 @@ class OutletsVC: UIViewController {
         if let userCoordinate = userCoordinate    {
             self.view.pb_startActivityIndicator(with: "Загрузка торговых точек")
             outletService.loadOultets(userCoordinate: userCoordinate, completed: { result in
+                self.view.pb_stopActivityIndicator()
                 switch result {
                 case let .success(outlets):
-                    self.view.pb_stopActivityIndicator()
                     self.outlets = outlets
                     self.outletTableView.reloadData()
                 case let .failure(error):
-                        self.alert(title: "error", message: error.localizedDescription)
+                    self.alert(title: "error", message: error.localizedDescription)
                 }
             })
         } else {

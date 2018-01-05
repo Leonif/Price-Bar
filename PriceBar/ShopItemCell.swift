@@ -14,6 +14,15 @@ protocol ShopItemCellDelegate {
 }
 
 
+
+class ProductQuantityService {
+    
+    
+    
+}
+
+
+
 class ShopItemCell: UITableViewCell {
     
     var item: ShopItem?
@@ -65,9 +74,6 @@ class ShopItemCell: UITableViewCell {
         
         let weightView = UIView()
         weightView.layer.cornerRadius = 20
-        //weightView.clipsToBounds = true
-        //label.layer.cornerRadius = 20
-        
         
         weightView.backgroundColor = .blue
         weightView.addSubview(label)

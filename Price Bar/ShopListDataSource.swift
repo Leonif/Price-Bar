@@ -44,16 +44,6 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
     }
     
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        if let headeView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
-            
-            headeView.categoryLabel.text = shopModel.headerString(for: section)
-            return headeView
-        }
-        return UIView()
-    }
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return shopModel.sectionCount
     }

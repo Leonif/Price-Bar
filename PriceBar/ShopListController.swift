@@ -38,10 +38,8 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         shopList = ShopListModel()
-        
         dataSource = ShopListDataSource(shopModel: shopList)
         dataSource?.delegate = self
-        
         shopTableView.dataSource = dataSource
         
         
@@ -173,6 +171,20 @@ extension ShopListController: UITableViewDelegate {
         performSegue(withIdentifier: showEditItem, sender: shopList.getItem(index: indexPath))
     }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if let headeView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
+            
+            headeView.categoryLabel.text = shopList.headerString(for: section)
+            return headeView
+        }
+        return UIView()
+    }
+    
+}
+
+//MARK: transition
+extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showEditItem, let itemVC = segue.destination as? ItemCardVC  {
             if let item = sender as? ShopItem {
@@ -202,12 +214,12 @@ extension ShopListController: UITableViewDelegate {
         }
         if segue.identifier == showScan, let scanVC = segue.destination as? ScannerController  {
             
-                scanVC.delegate = self
+            scanVC.delegate = self
             
         }
         
     }
     
-
+    
 }
 

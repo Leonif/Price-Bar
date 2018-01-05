@@ -207,7 +207,6 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="VYT-Ee-Hdn"/>
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="z3d-W8-aTH"/>
                                 </connections>
                             </tableView>
@@ -961,6 +960,6 @@
         <image name="uncheck" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EJ7-82-Mar"/>
+        <segue reference="QPO-FU-qjJ"/>
     </inferredMetricsTieBreakers>
 </document>

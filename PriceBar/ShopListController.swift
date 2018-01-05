@@ -24,6 +24,7 @@ class ShopListController: UIViewController {
     var userOutlet: Outlet!
     var selfDefined: Bool = false
     var selfLoaded: Bool = false
+    var dataSource: ShopListDataSource?
     
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
@@ -37,6 +38,13 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         shopList = ShopListModel()
+        
+        dataSource = ShopListDataSource(shopList: shopList)
+        
+        shopTableView.dataSource = dataSource
+        
+        dataSource?.delegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,7 +65,7 @@ class ShopListController: UIViewController {
 
 
 //MARK: Cell handlers
-extension ShopListController: ShopItemCellDelegate {
+extension ShopListController: ShopListDataSourceDelegate {
     func checkPressed(for item: ShopItem) {
         _ = shopList.change(item)
     }
@@ -75,7 +83,7 @@ extension ShopListController: ShopItemCellDelegate {
 
 
 //MARK: User location
-extension ShopListController:CLLocationManagerDelegate {
+extension ShopListController: CLLocationManagerDelegate {
     
     func startReceivingLocationChanges() {
         let authorizationStatus = CLLocationManager.authorizationStatus()
@@ -147,42 +155,42 @@ extension ShopListController {
 
 
 //MARK: Table
-extension ShopListController: UITableViewDelegate, UITableViewDataSource {
+extension ShopListController: UITableViewDelegate {
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if let cell = shopTableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
-            
-            if let shp = shopList.getItem(index: indexPath) {
-                cell.configureCell(item: shp)
-                cell.delegate = self
-                return cell
-            }
-            
-        }
-        
-        return UITableViewCell()
-    }
-    
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        if let headeView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
-            
-            headeView.categoryLabel.text = shopList.headerString(for: section)
-            return headeView
-        }
-        return UIView()
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return shopList.sectionCount
-    }
-    
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return shopList.headerString(for: section)
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//        if let cell = shopTableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
+//
+//            if let shp = shopList.getItem(index: indexPath) {
+//                cell.configureCell(item: shp)
+//                cell.delegate = self
+//                return cell
+//            }
+//
+//        }
+//
+//        return UITableViewCell()
+//    }
+//
+//
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//
+//        if let headeView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
+//
+//            headeView.categoryLabel.text = shopList.headerString(for: section)
+//            return headeView
+//        }
+//        return UIView()
+//    }
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return shopList.sectionCount
+//    }
+//
+//
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return shopList.headerString(for: section)
+//    }
     
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -211,9 +219,9 @@ extension ShopListController: UITableViewDelegate, UITableViewDataSource {
     
     
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return shopList.rowsIn(section)
-    }
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return shopList.rowsIn(section)
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: showEditItem, sender: shopList.getItem(index: indexPath))

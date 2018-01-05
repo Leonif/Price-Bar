@@ -30,6 +30,7 @@
 		792EE7C71EE7087200470669 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
 		793368641FFE260F00E8E81A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368631FFE260F00E8E81A /* Extensions.swift */; };
 		793368671FFEAB3200E8E81A /* Outlet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* Outlet.swift */; };
+		793368691FFF6F5600E8E81A /* ShopListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListDataSource.swift */; };
 		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
 		7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */; };
 		795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* Extension.swift */; };
@@ -99,6 +100,7 @@
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
 		793368631FFE260F00E8E81A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		793368661FFEAB3200E8E81A /* Outlet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outlet.swift; sourceTree = "<group>"; };
+		793368681FFF6F5600E8E81A /* ShopListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListDataSource.swift; sourceTree = "<group>"; };
 		79388B201F532175008FD415 /* PriceBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriceBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
 		79388B241F532176008FD415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 		790BC9ED1F8833D700CA9519 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				793368681FFF6F5600E8E81A /* ShopListDataSource.swift */,
 				7904B4551F037257002032CD /* DragCells.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
 				7904B4571F03728E002032CD /* ShopListControllerExchange.swift */,
@@ -666,6 +669,7 @@
 				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,
 				792D2C7D1F2BBFC900AA337F /* Category+CoreDataProperties.swift in Sources */,
 				796C73991F72736D00F26C90 /* CollectionFreeViewCell.swift in Sources */,
+				793368691FFF6F5600E8E81A /* ShopListDataSource.swift in Sources */,
 				795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */,
 				79968E831F409C090076C0D9 /* Product+CoreDataClass.swift in Sources */,
 				79968E851F409C090076C0D9 /* Uom+CoreDataClass.swift in Sources */,

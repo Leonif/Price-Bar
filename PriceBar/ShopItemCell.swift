@@ -114,8 +114,6 @@ extension ShopItemCell {
     }
     
     func updateWeighOnCell(_ weight: Double, _ price: Double) {
-        //self.quantityItem.text = "\(weight)"
-        //self.totalItem.text = "\(weight * price)"
         
         let total = weight * price
         
@@ -161,9 +159,6 @@ extension ShopItemCell {
         priceItem.text = "\(s.price.asLocaleCurrency)"
         uomLabel.text = s.itemUom.name
         self.quantitySlider.value = Float(s.quantity)
-        
-        //quantityItem.text = String(format:"%.2f", s.quantity)
-        //self.totalItem.text = s.total.asLocaleCurrency
         
         self.updateWeighOnCell(s.quantity, s.price)
         

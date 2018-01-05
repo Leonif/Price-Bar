@@ -140,5 +140,20 @@ extension UIView {
             indicatorView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         })
     }
+    
+    func obscure() {
+        guard let window = UIApplication.shared.keyWindow else { return }
+        
+        self.backgroundColor = .clear
+        
+        window.addSubview(self)
+        UIView.animate(withDuration: 0.8, animations: {
+            self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
+        })
+    }
+    
+    
+    
+    
 }
 

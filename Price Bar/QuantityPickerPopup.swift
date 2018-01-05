@@ -28,6 +28,14 @@ class QuantityPickerPopup: UIViewController {
         return picker
     }()
     
+    let toolbar: UIToolbar = {
+        let tb = UIToolbar(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(choosen))
+        tb.items = [button]
+        return tb
+    }()
+    
    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -45,6 +53,13 @@ class QuantityPickerPopup: UIViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.configurePopup()
+    }
+    
+    @objc func choosen() {
+        
+        print(123)
+        self.dismiss(animated: true, completion: nil)
+        
     }
     
     
@@ -66,7 +81,15 @@ class QuantityPickerPopup: UIViewController {
         super.viewDidLoad()
         
         
-        self.view.backgroundColor = .red
+        self.view.obscure()
+        
+        weightPicker.addSubview(toolbar)
+        toolbar.leadingAnchor.constraint(equalTo: weightPicker.leadingAnchor).isActive = true
+        toolbar.trailingAnchor.constraint(equalTo: weightPicker.trailingAnchor).isActive = true
+        toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        toolbar.topAnchor.constraint(equalTo: weightPicker.topAnchor).isActive = true
+        
+        
         self.view.addSubview(weightPicker)
         weightPicker.delegate = self
         weightPicker.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true

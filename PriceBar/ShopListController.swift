@@ -65,6 +65,7 @@ extension ShopListController: ShopItemCellDelegate {
     func weightDemanded(cell: ShopItemCell) {
         print("Picker opened")
         let pickerVC = QuantityPickerPopup(type: .weight)
+        pickerVC.modalPresentationStyle = .overCurrentContext
         self.present(pickerVC, animated: true, completion: nil)
         
     }

@@ -17,12 +17,45 @@ enum QuantityType {
     case weight, quantity
 }
 
-class ProductQuantitySection {
+class ProductQuantitySection: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
+    
+    var wholeItems = [Double]()
+    var decimalItems = [Double]()
+    let type: QuantityType
     
     init(type: QuantityType) {
+        self.type = type
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        
+        if type == .weight {
+            return component == 0 ? String(wholeItems[row]) : String(decimalItems[row])
+        }
+        
+        return String(wholeItems[row])
         
         
     }
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return type == .weight ? 2 : 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return measureItems.count
+    }
+    
+    
+    
+    
+    
+    
+        
+        
+        
+        
+    
     
 }
 
@@ -46,6 +79,13 @@ class ShopItemCell: UITableViewCell {
     var delegate: ShopItemCellDelegate?
     var weightList = [Double]()
     var currentIndex = 0
+    var quantityPicker: UIPickerView = {
+        let pckr = UIPickerView()
+        pckr.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        
+        
+        return pckr
+    }()
     
     
     var views = [UIView]()

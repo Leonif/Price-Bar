@@ -127,14 +127,6 @@
                                                                 <constraint firstAttribute="width" constant="70" id="CFa-yC-gpH"/>
                                                             </constraints>
                                                         </stackView>
-                                                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.01" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="njq-hY-qrG">
-                                                            <rect key="frame" x="8" y="69.5" width="242" height="31"/>
-                                                            <color key="minimumTrackTintColor" red="0.63471137150000001" green="0.9075592884" blue="0.81687213729999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <color key="maximumTrackTintColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                            <connections>
-                                                                <action selector="sliderChanged:" destination="IKe-bD-4P6" eventType="valueChanged" id="TqI-ZH-mQg"/>
-                                                            </connections>
-                                                        </slider>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="шт" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9dE-ta-ARZ">
                                                             <rect key="frame" x="188" y="52.5" width="18.5" height="17"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -152,8 +144,9 @@
                                                                 <action selector="checkPressed:" destination="IKe-bD-4P6" eventType="touchUpInside" id="bKL-Ss-A9W"/>
                                                             </connections>
                                                         </button>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wq0-tZ-dIu" customClass="CollectionFreeView" customModule="PriceBar" customModuleProvider="target">
-                                                            <rect key="frame" x="10" y="69.5" width="238" height="30"/>
+                                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wq0-tZ-dIu" customClass="CollectionFreeView" customModule="PriceBar" customModuleProvider="target">
+                                                            <rect key="frame" x="12" y="70" width="238" height="30"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         </view>
                                                     </subviews>
@@ -165,23 +158,16 @@
                                                         <constraint firstItem="LDd-r2-V6T" firstAttribute="leading" secondItem="2b7-S4-4fB" secondAttribute="trailing" constant="10" id="7cg-97-ivF"/>
                                                         <constraint firstItem="2b7-S4-4fB" firstAttribute="leading" secondItem="9xC-jp-xV0" secondAttribute="leading" constant="8" id="9HS-xd-q4G"/>
                                                         <constraint firstItem="Ufx-5z-nAd" firstAttribute="top" secondItem="LDd-r2-V6T" secondAttribute="bottom" constant="6.5" id="9tO-l2-6Pt"/>
-                                                        <constraint firstItem="njq-hY-qrG" firstAttribute="leading" secondItem="9xC-jp-xV0" secondAttribute="leading" constant="10" id="Brt-7G-EVz"/>
-                                                        <constraint firstItem="Wq0-tZ-dIu" firstAttribute="top" secondItem="njq-hY-qrG" secondAttribute="top" id="DXj-6m-yYf"/>
                                                         <constraint firstItem="Q4Y-XT-FHi" firstAttribute="top" secondItem="Ufx-5z-nAd" secondAttribute="bottom" constant="-1" id="FZa-hd-oEj"/>
                                                         <constraint firstItem="4wz-xi-KLc" firstAttribute="leading" secondItem="LDd-r2-V6T" secondAttribute="leading" id="Gtt-f1-3aa"/>
                                                         <constraint firstItem="i3Y-sM-oyu" firstAttribute="leading" secondItem="4wz-xi-KLc" secondAttribute="leading" id="IcM-VE-sce"/>
                                                         <constraint firstItem="2b7-S4-4fB" firstAttribute="top" secondItem="9xC-jp-xV0" secondAttribute="top" constant="8" id="PKr-Fe-Q0K"/>
                                                         <constraint firstAttribute="bottom" secondItem="gAU-Gh-A7p" secondAttribute="bottom" constant="8" id="QZq-3h-mgp"/>
                                                         <constraint firstItem="4wz-xi-KLc" firstAttribute="top" secondItem="LDd-r2-V6T" secondAttribute="bottom" constant="6.5" id="Sm2-Se-Vwr"/>
-                                                        <constraint firstItem="Wq0-tZ-dIu" firstAttribute="leading" secondItem="njq-hY-qrG" secondAttribute="leading" id="VFz-kd-gVc"/>
                                                         <constraint firstItem="9dE-ta-ARZ" firstAttribute="bottom" secondItem="Q4Y-XT-FHi" secondAttribute="bottom" id="WWB-qM-Yqh"/>
-                                                        <constraint firstItem="njq-hY-qrG" firstAttribute="top" secondItem="Q4Y-XT-FHi" secondAttribute="bottom" id="avk-Ve-Mip"/>
-                                                        <constraint firstItem="Wq0-tZ-dIu" firstAttribute="trailing" secondItem="njq-hY-qrG" secondAttribute="trailing" id="cjC-3Z-lsX"/>
                                                         <constraint firstAttribute="trailing" secondItem="gAU-Gh-A7p" secondAttribute="trailing" constant="8" id="fwk-1F-eir"/>
-                                                        <constraint firstItem="gAU-Gh-A7p" firstAttribute="leading" secondItem="njq-hY-qrG" secondAttribute="trailing" constant="9" id="iFH-Uz-CiG"/>
                                                         <constraint firstItem="LDd-r2-V6T" firstAttribute="top" secondItem="9xC-jp-xV0" secondAttribute="top" constant="10" id="j3j-GE-5cw"/>
                                                         <constraint firstItem="Q4Y-XT-FHi" firstAttribute="leading" secondItem="Ufx-5z-nAd" secondAttribute="leading" id="nXW-Dn-Gl4"/>
-                                                        <constraint firstItem="Wq0-tZ-dIu" firstAttribute="bottom" secondItem="njq-hY-qrG" secondAttribute="bottom" id="q0u-hY-T2o"/>
                                                         <constraint firstItem="Ufx-5z-nAd" firstAttribute="leading" secondItem="4wz-xi-KLc" secondAttribute="trailing" constant="25" id="wwA-iT-cKn"/>
                                                     </constraints>
                                                 </view>
@@ -199,7 +185,6 @@
                                             <outlet property="nameItem" destination="LDd-r2-V6T" id="2MB-KB-bvH"/>
                                             <outlet property="priceItem" destination="Ufx-5z-nAd" id="4Yu-vA-6II"/>
                                             <outlet property="quantityItem" destination="Q4Y-XT-FHi" id="17k-U9-fEa"/>
-                                            <outlet property="quantitySlider" destination="njq-hY-qrG" id="dSQ-q6-Jen"/>
                                             <outlet property="totalItem" destination="DV6-ek-kbz" id="wQC-9a-2t5"/>
                                             <outlet property="uomLabel" destination="9dE-ta-ARZ" id="40n-q1-Khr"/>
                                             <outlet property="weightView" destination="Wq0-tZ-dIu" id="WwV-il-XQw"/>

@@ -118,7 +118,7 @@
                                                             <rect key="frame" x="46" y="32" width="195" height="60"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Uci-Ph-g44">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="111.5" height="30"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цена:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4wz-xi-KLc">
                                                                             <rect key="frame" x="0.0" y="0.0" width="39" height="30"/>
@@ -132,10 +132,16 @@
                                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="шт" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9dE-ta-ARZ">
+                                                                            <rect key="frame" x="93" y="0.0" width="18.5" height="30"/>
+                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="O1W-Fc-hNQ">
-                                                                    <rect key="frame" x="0.0" y="30" width="120" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="93.5" height="30"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Колво:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="i3Y-sM-oyu">
                                                                             <rect key="frame" x="0.0" y="0.0" width="44.5" height="30"/>
@@ -150,12 +156,6 @@
                                                                                 <action selector="changeQuantity:" destination="IKe-bD-4P6" eventType="touchUpInside" id="4D3-DX-OXg"/>
                                                                             </connections>
                                                                         </button>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="шт" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9dE-ta-ARZ">
-                                                                            <rect key="frame" x="101.5" y="0.0" width="18.5" height="30"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>

@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 
 protocol ShopListDataSourceDelegate {
-    func checkPressed(for item: ShopItem)
-    func selectedWeight(for item: ShopItem, weight: Double)
     func shoplist(updated shopModel: ShopListModel)
     
 }
@@ -19,11 +17,14 @@ protocol ShopListDataSourceDelegate {
 class ShopListDataSource: NSObject, UITableViewDataSource {
    
     var shopModel: ShopListModel!
+    var cellDelegate: ShopItemCellDelegate?
     var delegate: ShopListDataSourceDelegate?
     
     
-    init(shopModel: ShopListModel) {
+    init(delegate: ShopListDataSourceDelegate, cellDelegate: ShopItemCellDelegate, shopModel: ShopListModel) {
         self.shopModel = shopModel
+        self.cellDelegate = cellDelegate
+        self.delegate = delegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -36,7 +37,7 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
             
             if let shp = shopModel.getItem(index: indexPath) {
                 cell.configureCell(item: shp)
-                cell.delegate = self
+                cell.delegate = cellDelegate
                 return cell
             }
         }
@@ -47,6 +48,7 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return shopModel.sectionCount
     }
+    
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -78,14 +80,4 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
 
 
 
-//MARK: Cell handlers
-extension ShopListDataSource: ShopItemCellDelegate {
-    func checkPressed(for item: ShopItem) {
-        delegate?.checkPressed(for: item)
-    }
-    func selectedWeight(for item: ShopItem, weight: Double) {
-        
-        delegate?.selectedWeight(for: item, weight: weight)
-    }
-    
-}
+

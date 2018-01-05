@@ -11,72 +11,10 @@ import UIKit
 protocol ShopItemCellDelegate {
     func selectedWeight(for item: ShopItem, weight: Double)
     func checkPressed(for item: ShopItem)
+    func weightDemanded(cell: ShopItemCell)
 }
 
-enum QuantityType {
-    case weight, quantity
-}
 
-class ProductQuantitySection: NSObject, UIPickerViewDataSource, UIPickerViewDelegate {
-    
-    var wholeItems = [Double]()
-    var decimalItems = [Double]()
-    let type: QuantityType
-    
-    init(type: QuantityType) {
-        self.type = type
-        
-        for i in 0...100 {
-            let w = Double(i)
-            wholeItems.append(w)
-        }
-        
-        if type == .weight {
-            for i in 0...1000 {
-                let w = Double(i) * 0.01
-                decimalItems.append(w)
-            }
-        }
-        
-        
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        if type == .weight {
-            return component == 0 ? String(wholeItems[row]) : String(decimalItems[row])
-        }
-        
-        return String(wholeItems[row])
-        
-        
-    }
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return type == .weight ? 2 : 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        if type == .weight {
-            return component == 0 ? wholeItems.count : decimalItems.count
-        }
-        
-        return wholeItems.count
-    }
-    
-    
-    
-    
-    
-    
-        
-        
-        
-        
-    
-    
-}
 
 
 
@@ -84,71 +22,26 @@ class ShopItemCell: UITableViewCell {
     
     var item: ShopItem?
     
-    @IBOutlet weak var imageItem: UIImageView!
     @IBOutlet weak var nameItem: UILabel!
     @IBOutlet weak var priceItem: UILabel!
-    @IBOutlet weak var quantityItem: UILabel!
     @IBOutlet weak var totalItem: UILabel!
     @IBOutlet weak var uomLabel: UILabel!
     @IBOutlet weak var checkMarkBtn: UIButton!
-    @IBOutlet weak var quantitySlider: UISlider!
-    @IBOutlet weak var weightView: CollectionFreeView! {
-        didSet { createWeightLine() }
-    }
+    @IBOutlet weak var quantityButton: UIButton!
+    
+    
     var delegate: ShopItemCellDelegate?
     var weightList = [Double]()
     var currentIndex = 0
-    var quantityPicker: UIPickerView = {
-        let pckr = UIPickerView()
-        pckr.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
-        
-        
-        return pckr
-    }()
     
     
-    var views = [UIView]()
-    
-    func createWeightLine() {
-        weightView.horizontall = true
-        weightView.cellBackgroundColor = .clear
-        weightView.squareKoeff = 0.7
-        weightView.isFramed = false
-        weightView.spaceBetweenView = 0
-        weightView.delegate = self
+    @IBAction func changeQuantity(_ sender: UIButton) {
         
-        for i in 0...1000 {
-            let w = Double(i) * 0.01
-            weightList.append(w)
-            views.append(createCell(for: w))
-        }
-        weightView.views = views
+        delegate?.weightDemanded(cell: self)
+        
+        
     }
     
-    
-    
-    func createCell(for weight: Double) -> UIView {
-        let label = UILabel()
-        
-        label.text = "\(weight)"
-        label.size(14)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        
-        let weightView = UIView()
-        weightView.layer.cornerRadius = 20
-        
-        weightView.backgroundColor = .blue
-        weightView.addSubview(label)
-        
-        label.leftAnchor.constraint(equalTo: weightView.leftAnchor).isActive = true
-        label.rightAnchor.constraint(equalTo: weightView.rightAnchor).isActive = true
-        label.topAnchor.constraint(equalTo: weightView.topAnchor).isActive = true
-        label.bottomAnchor.constraint(equalTo: weightView.bottomAnchor).isActive = true
-        
-        return weightView
-    }
     
     
 }
@@ -187,7 +80,8 @@ extension ShopItemCell {
         
         let total = weight * price
         
-        self.quantityItem.text = String(format:"%.2f", weight)
+        //self.quantityItem.text = String(format:"%.2f", weight)
+        self.quantityButton.setTitle(String(format:"%.2f", weight), for: .normal)
         self.totalItem.text = total.asLocaleCurrency
         
         
@@ -215,20 +109,20 @@ extension ShopItemCell {
         self.item = item
         let s = item
         
-        if s.itemUom.isPerPiece {
-            quantitySlider.isHidden = false
-            weightView.isHidden = true
-        } else {
-            quantitySlider.isHidden = true
-            weightView.isHidden = false
-        }
+//        if s.itemUom.isPerPiece {
+//            quantitySlider.isHidden = false
+//            weightView.isHidden = true
+//        } else {
+//            quantitySlider.isHidden = true
+//            weightView.isHidden = false
+//        }
 
         self.checkedState()
         
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
         uomLabel.text = s.itemUom.name
-        self.quantitySlider.value = Float(s.quantity)
+        //self.quantitySlider.value = Float(s.quantity)
         
         self.updateWeighOnCell(s.quantity, s.price)
         
@@ -245,21 +139,21 @@ extension ShopItemCell {
 extension ShopItemCell: CollectionFreeViewDelegate {
     
     func selectedCell(by index: Int) {
-        views[currentIndex].backgroundColor = .blue
-        views[index].backgroundColor = .red
-        currentIndex = index
+//        views[currentIndex].backgroundColor = .blue
+//        views[index].backgroundColor = .red
+        //currentIndex = index
         
-        if let delegate = delegate {
-            
-            guard let item = self.item else {
-                fatalError("Weight choosing for not existed item")
-            }
-            
-            let weight = weightList[index]
-            
-            self.updateWeighOnCell(weight, item.price)
-            delegate.selectedWeight(for: item, weight: weight)
-        }
+//        if let delegate = delegate {
+//            
+//            guard let item = self.item else {
+//                fatalError("Weight choosing for not existed item")
+//            }
+//            
+//            let weight = weightList[index]
+//            
+//            self.updateWeighOnCell(weight, item.price)
+//            delegate.selectedWeight(for: item, weight: weight)
+//        }
     }
     
     func moved(to index: Int) {

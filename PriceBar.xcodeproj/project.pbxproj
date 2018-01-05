@@ -30,6 +30,7 @@
 		793368641FFE260F00E8E81A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368631FFE260F00E8E81A /* Extensions.swift */; };
 		793368671FFEAB3200E8E81A /* Outlet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* Outlet.swift */; };
 		793368691FFF6F5600E8E81A /* ShopListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListDataSource.swift */; };
+		7933686B1FFFBBCA00E8E81A /* QuantityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686A1FFFBBCA00E8E81A /* QuantityPicker.swift */; };
 		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
 		7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */; };
 		795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* Extension.swift */; };
@@ -97,6 +98,7 @@
 		793368631FFE260F00E8E81A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		793368661FFEAB3200E8E81A /* Outlet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outlet.swift; sourceTree = "<group>"; };
 		793368681FFF6F5600E8E81A /* ShopListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListDataSource.swift; sourceTree = "<group>"; };
+		7933686A1FFFBBCA00E8E81A /* QuantityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPicker.swift; sourceTree = "<group>"; };
 		79388B201F532175008FD415 /* PriceBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriceBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
 		79388B241F532176008FD415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -223,6 +225,7 @@
 		790BC9ED1F8833D700CA9519 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				7933686A1FFFBBCA00E8E81A /* QuantityPicker.swift */,
 				793368681FFF6F5600E8E81A /* ShopListDataSource.swift */,
 				7904B4551F037257002032CD /* DragCells.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
@@ -634,6 +637,7 @@
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,
 				7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */,
 				795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */,
+				7933686B1FFFBBCA00E8E81A /* QuantityPicker.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
 				7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */,
 				79968E861F409C090076C0D9 /* Uom+CoreDataProperties.swift in Sources */,

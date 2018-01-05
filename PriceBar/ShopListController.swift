@@ -38,8 +38,7 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         shopList = ShopListModel()
-        dataSource = ShopListDataSource(shopModel: shopList)
-        dataSource?.delegate = self
+        dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopModel: shopList)
         shopTableView.dataSource = dataSource
         
     }
@@ -62,12 +61,10 @@ class ShopListController: UIViewController {
 
 
 //MARK: Cell handlers
-extension ShopListController: ShopListDataSourceDelegate {
-    func shoplist(updated shopModel: ShopListModel) {
-        self.shopList = shopModel
-        totalLabel.update(value: shopList.total)
+extension ShopListController: ShopItemCellDelegate {
+    func weightDemanded(cell: ShopItemCell) {
+        print("Picker opened")
     }
-    
     func checkPressed(for item: ShopItem) {
         _ = shopList.change(item)
     }
@@ -80,9 +77,14 @@ extension ShopListController: ShopListDataSourceDelegate {
         totalLabel.update(value: shopList.total)
         self.shopTableView.endUpdates()
     }
-    
-    
-    
+}
+
+
+extension ShopListController: ShopListDataSourceDelegate {
+    func shoplist(updated shopModel: ShopListModel) {
+        self.shopList = shopModel
+        totalLabel.update(value: shopList.total)
+    }
 }
 
 
@@ -164,6 +166,7 @@ extension ShopListController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: showEditItem, sender: shopList.getItem(index: indexPath))

@@ -77,6 +77,12 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9xC-jp-xV0">
                                                     <rect key="frame" x="0.0" y="2" width="335" height="100"/>
                                                     <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Помидоры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="LDd-r2-V6T">
+                                                            <rect key="frame" x="46" y="8" width="281" height="20.5"/>
+                                                            <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="17"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="gAU-Gh-A7p">
                                                             <rect key="frame" x="257" y="57" width="70" height="35"/>
                                                             <subviews>
@@ -109,16 +115,10 @@
                                                             </connections>
                                                         </button>
                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="f3K-ZH-y77">
-                                                            <rect key="frame" x="52" y="8" width="189" height="90"/>
+                                                            <rect key="frame" x="46" y="32" width="195" height="60"/>
                                                             <subviews>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Помидоры" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999999999999996" translatesAutoresizingMaskIntoConstraints="NO" id="LDd-r2-V6T">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="90.5" height="30"/>
-                                                                    <fontDescription key="fontDescription" name="HelveticaNeue-BoldItalic" family="Helvetica Neue" pointSize="17"/>
-                                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Uci-Ph-g44">
-                                                                    <rect key="frame" x="0.0" y="30" width="85" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="85" height="30"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цена:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4wz-xi-KLc">
                                                                             <rect key="frame" x="0.0" y="0.0" width="39" height="30"/>
@@ -135,7 +135,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="O1W-Fc-hNQ">
-                                                                    <rect key="frame" x="0.0" y="60" width="120" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="30" width="120" height="30"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Колво:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="i3Y-sM-oyu">
                                                                             <rect key="frame" x="0.0" y="0.0" width="44.5" height="30"/>
@@ -146,6 +146,9 @@
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l4k-db-rqW">
                                                                             <rect key="frame" x="52.5" y="0.0" width="41" height="30"/>
                                                                             <state key="normal" title="0.450"/>
+                                                                            <connections>
+                                                                                <action selector="changeQuantity:" destination="IKe-bD-4P6" eventType="touchUpInside" id="4D3-DX-OXg"/>
+                                                                            </connections>
                                                                         </button>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="шт" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9dE-ta-ARZ">
                                                                             <rect key="frame" x="101.5" y="0.0" width="18.5" height="30"/>
@@ -161,12 +164,15 @@
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="2b7-S4-4fB" firstAttribute="leading" secondItem="9xC-jp-xV0" secondAttribute="leading" constant="8" id="9HS-xd-q4G"/>
+                                                        <constraint firstItem="LDd-r2-V6T" firstAttribute="leading" secondItem="2b7-S4-4fB" secondAttribute="trailing" constant="8" id="JVT-KJ-tIf"/>
+                                                        <constraint firstItem="f3K-ZH-y77" firstAttribute="top" secondItem="LDd-r2-V6T" secondAttribute="bottom" constant="3.5" id="NvG-IL-eOf"/>
                                                         <constraint firstItem="gAU-Gh-A7p" firstAttribute="leading" secondItem="f3K-ZH-y77" secondAttribute="trailing" constant="16" id="OiR-00-xHu"/>
                                                         <constraint firstItem="2b7-S4-4fB" firstAttribute="top" secondItem="9xC-jp-xV0" secondAttribute="top" constant="8" id="PKr-Fe-Q0K"/>
                                                         <constraint firstAttribute="bottom" secondItem="gAU-Gh-A7p" secondAttribute="bottom" constant="8" id="QZq-3h-mgp"/>
+                                                        <constraint firstItem="LDd-r2-V6T" firstAttribute="top" secondItem="9xC-jp-xV0" secondAttribute="top" constant="8" id="c0g-Fm-8d5"/>
                                                         <constraint firstAttribute="trailing" secondItem="gAU-Gh-A7p" secondAttribute="trailing" constant="8" id="fwk-1F-eir"/>
-                                                        <constraint firstItem="f3K-ZH-y77" firstAttribute="top" secondItem="9xC-jp-xV0" secondAttribute="top" constant="8" id="jY1-Uf-LmS"/>
-                                                        <constraint firstItem="f3K-ZH-y77" firstAttribute="leading" secondItem="2b7-S4-4fB" secondAttribute="trailing" constant="14" id="lWQ-Qb-Emo"/>
+                                                        <constraint firstItem="f3K-ZH-y77" firstAttribute="leading" secondItem="LDd-r2-V6T" secondAttribute="leading" id="lrO-oM-wpW"/>
+                                                        <constraint firstAttribute="trailing" secondItem="LDd-r2-V6T" secondAttribute="trailing" constant="8" id="u8E-qG-JPB"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -182,6 +188,7 @@
                                             <outlet property="checkMarkBtn" destination="2b7-S4-4fB" id="pEh-ZP-BYU"/>
                                             <outlet property="nameItem" destination="LDd-r2-V6T" id="2MB-KB-bvH"/>
                                             <outlet property="priceItem" destination="Ufx-5z-nAd" id="4Yu-vA-6II"/>
+                                            <outlet property="quantityButton" destination="l4k-db-rqW" id="jtf-tb-KqC"/>
                                             <outlet property="totalItem" destination="DV6-ek-kbz" id="wQC-9a-2t5"/>
                                             <outlet property="uomLabel" destination="9dE-ta-ARZ" id="40n-q1-Khr"/>
                                         </connections>

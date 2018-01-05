@@ -38,9 +38,6 @@ class QuantityPickerPopup: UIViewController {
     let toolbar: UIToolbar = {
         let tb = UIToolbar(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         tb.backgroundColor = .yellow
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(choosen))
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSelection))
-        tb.items = [doneButton, cancelButton]
         tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()
@@ -101,6 +98,11 @@ class QuantityPickerPopup: UIViewController {
         
         
         self.view.obscure()
+        
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.choosen))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelSelection))
+        toolbar.items = [doneButton, cancelButton]
+        
         weightPicker.addSubview(toolbar)
         
         toolbar.leadingAnchor.constraint(equalTo: weightPicker.leadingAnchor).isActive = true

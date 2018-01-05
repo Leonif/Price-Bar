@@ -78,26 +78,18 @@ extension ShopListController: ShopItemCellDelegate {
     func checkPressed(for item: ShopItem) {
         _ = shopList.change(item)
     }
-    func selectedWeight(for item: ShopItem, weight: Double) {
-        
-        self.shopTableView.beginUpdates()
-        let shp = item
-        shp.quantity = weight
-        _ = shopList.change(shp)
-        totalLabel.update(value: shopList.total)
-        self.shopTableView.endUpdates()
-    }
 }
 
 extension ShopListController: QuantityPickerPopupDelegate {
     func choosen(weight: Double, for indexPath: IndexPath) {
-        let item = self.shopList.getItem(index: indexPath)
-        item?.quantity = weight
-        _ = self.shopList.change(item!)
+        guard let item = self.shopList.getItem(index: indexPath) else {
+            return
+        }
+        item.quantity = weight
+        _ = self.shopList.change(item)
         self.shopTableView.reloadRows(at: [indexPath], with: .none)
+        totalLabel.update(value: shopList.total)
     }
-    
-    
 }
 
 

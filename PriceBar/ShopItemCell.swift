@@ -9,13 +9,9 @@
 import UIKit
 
 protocol ShopItemCellDelegate {
-    func selectedWeight(for item: ShopItem, weight: Double)
     func checkPressed(for item: ShopItem)
     func weightDemanded(cell: ShopItemCell)
 }
-
-
-
 
 
 class ShopItemCell: UITableViewCell {
@@ -32,17 +28,12 @@ class ShopItemCell: UITableViewCell {
     
     var delegate: ShopItemCellDelegate?
     var weightList = [Double]()
-    var currentIndex = 0
+    //var currentIndex = 0
     
     
     @IBAction func changeQuantity(_ sender: UIButton) {
-        
         delegate?.weightDemanded(cell: self)
-        
-        
     }
-    
-    
     
 }
 
@@ -59,28 +50,10 @@ extension ShopItemCell {
         self.delegate?.checkPressed(for: item)
     }
     
-    
-    @IBAction func sliderChanged(_ sender: UISlider) {
-    
-        guard let item = self.item else {
-            fatalError("Slider changed for not existed item")
-        }
-        
-        let quantity = step(baseValue: Double(sender.value), step: item.itemUom.iterator)
-        self.updateWeighOnCell(quantity, item.price)
-        self.delegate?.selectedWeight(for: item, weight: quantity)
-    
-    }
-    func step(baseValue: Double, step: Double) -> Double {
-        let result = baseValue/step * step
-        return step.truncatingRemainder(dividingBy: 1.0) == 0.0 ? round(result) : result
-    }
-    
     func updateWeighOnCell(_ weight: Double, _ price: Double) {
         
         let total = weight * price
         
-        //self.quantityItem.text = String(format:"%.2f", weight)
         self.quantityButton.setTitle(String(format:"%.2f", weight), for: .normal)
         self.totalItem.text = total.asLocaleCurrency
         
@@ -97,10 +70,7 @@ extension ShopItemCell {
         let checkAlpha = CGFloat(item.checked ? 0.5 : 1)
         self.contentView.alpha = checkAlpha
         let imageStr = item.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue
-        
         self.checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
-        
-        
     }
     
     
@@ -108,27 +78,15 @@ extension ShopItemCell {
         
         self.item = item
         let s = item
-        
-//        if s.itemUom.isPerPiece {
-//            quantitySlider.isHidden = false
-//            weightView.isHidden = true
-//        } else {
-//            quantitySlider.isHidden = true
-//            weightView.isHidden = false
-//        }
-
         self.checkedState()
         
         nameItem.text = s.name
         priceItem.text = "\(s.price.asLocaleCurrency)"
         uomLabel.text = s.itemUom.name
-        //self.quantitySlider.value = Float(s.quantity)
         
         self.updateWeighOnCell(s.quantity, s.price)
         
     }
-    
-    
 }
 
 
@@ -136,29 +94,3 @@ extension ShopItemCell {
 
 
 
-extension ShopItemCell: CollectionFreeViewDelegate {
-    
-    func selectedCell(by index: Int) {
-//        views[currentIndex].backgroundColor = .blue
-//        views[index].backgroundColor = .red
-        //currentIndex = index
-        
-//        if let delegate = delegate {
-//            
-//            guard let item = self.item else {
-//                fatalError("Weight choosing for not existed item")
-//            }
-//            
-//            let weight = weightList[index]
-//            
-//            self.updateWeighOnCell(weight, item.price)
-//            delegate.selectedWeight(for: item, weight: weight)
-//        }
-    }
-    
-    func moved(to index: Int) {
-        
-    }
-    
-    
-}

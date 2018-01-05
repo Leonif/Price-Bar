@@ -13,26 +13,37 @@ enum QuantityType {
     case weight, quantity
 }
 
+protocol QuantityPickerPopupDelegate {
+    
+    func choosen(weight: Double, for indexPath: IndexPath)
+    
+}
+
 
 class QuantityPickerPopup: UIViewController {
     
     var wholeItems = [Int]()
     var decimalItems = [Int]()
+    var indexPath: IndexPath?
     var type: QuantityType?
+    var delegate: QuantityPickerPopupDelegate?
     
     
     let weightPicker : UIPickerView = {
         let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         picker.backgroundColor = .blue
+        picker.isUserInteractionEnabled = true
         picker.translatesAutoresizingMaskIntoConstraints = false
         return picker
     }()
     
     let toolbar: UIToolbar = {
-        let tb = UIToolbar(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        let button = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(choosen))
-        tb.items = [button]
+        let tb = UIToolbar(frame: CGRect(x: 0, y: 0, width: 300, height: 50))
+        tb.backgroundColor = .yellow
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(choosen))
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSelection))
+        tb.items = [doneButton, cancelButton]
+        //tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()
     
@@ -56,6 +67,17 @@ class QuantityPickerPopup: UIViewController {
     }
     
     @objc func choosen() {
+        
+        let kg = Double(wholeItems[weightPicker.selectedRow(inComponent: 0)])
+        let gr = Double(decimalItems[weightPicker.selectedRow(inComponent: 1)])/1000.0
+        
+        let w = kg + gr
+        delegate?.choosen(weight: w, for: indexPath!)
+        self.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    @objc func cancelSelection() {
         
         print(123)
         self.dismiss(animated: true, completion: nil)
@@ -81,13 +103,19 @@ class QuantityPickerPopup: UIViewController {
         super.viewDidLoad()
         
         
-        self.view.obscure()
+        let but = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
+        but.addTarget(self, action: #selector(choosen), for: .touchUpInside)
+        but.backgroundColor = .red
+        self.view.addSubview(but)
         
+        
+        self.view.obscure()
         weightPicker.addSubview(toolbar)
-        toolbar.leadingAnchor.constraint(equalTo: weightPicker.leadingAnchor).isActive = true
-        toolbar.trailingAnchor.constraint(equalTo: weightPicker.trailingAnchor).isActive = true
-        toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        toolbar.topAnchor.constraint(equalTo: weightPicker.topAnchor).isActive = true
+        
+//        toolbar.leadingAnchor.constraint(equalTo: weightPicker.leadingAnchor).isActive = true
+//        toolbar.trailingAnchor.constraint(equalTo: weightPicker.trailingAnchor).isActive = true
+//        toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        toolbar.topAnchor.constraint(equalTo: weightPicker.topAnchor).isActive = true
         
         
         self.view.addSubview(weightPicker)

@@ -65,6 +65,8 @@ extension ShopListController: ShopItemCellDelegate {
     func weightDemanded(cell: ShopItemCell) {
         print("Picker opened")
         let pickerVC = QuantityPickerPopup(type: .weight)
+        pickerVC.delegate = self
+        pickerVC.indexPath = self.shopTableView.indexPath(for: cell)
         pickerVC.modalPresentationStyle = .overCurrentContext
         self.present(pickerVC, animated: true, completion: nil)
         
@@ -81,6 +83,17 @@ extension ShopListController: ShopItemCellDelegate {
         totalLabel.update(value: shopList.total)
         self.shopTableView.endUpdates()
     }
+}
+
+extension ShopListController: QuantityPickerPopupDelegate {
+    func choosen(weight: Double, for indexPath: IndexPath) {
+        let item = self.shopList.getItem(index: indexPath)
+        item?.quantity = weight
+        _ = self.shopList.change(item!)
+        self.shopTableView.reloadRows(at: [indexPath], with: .none)
+    }
+    
+    
 }
 
 

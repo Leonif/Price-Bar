@@ -66,6 +66,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="124" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="teD-oh-0KA">
                                 <rect key="frame" x="20" y="142" width="335" height="461"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="separatorColor" red="0.0" green="0.47934520244598389" blue="0.99908632040023804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" rowHeight="110" id="IKe-bD-4P6" customClass="ShopItemCell" customModule="PriceBar" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="335" height="110"/>
@@ -114,26 +115,26 @@
                                                                 <action selector="checkPressed:" destination="IKe-bD-4P6" eventType="touchUpInside" id="bKL-Ss-A9W"/>
                                                             </connections>
                                                         </button>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="f3K-ZH-y77">
-                                                            <rect key="frame" x="46" y="32" width="195" height="60"/>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="f3K-ZH-y77">
+                                                            <rect key="frame" x="46" y="32" width="195" height="55"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Uci-Ph-g44">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="111.5" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="111.5" height="17"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Цена:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4wz-xi-KLc">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="39" height="30"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="39" height="17"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="65.98" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Ufx-5z-nAd">
-                                                                            <rect key="frame" x="47" y="0.0" width="38" height="30"/>
+                                                                            <rect key="frame" x="47" y="0.0" width="38" height="17"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="шт" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="9dE-ta-ARZ">
-                                                                            <rect key="frame" x="93" y="0.0" width="18.5" height="30"/>
+                                                                            <rect key="frame" x="93" y="0.0" width="18.5" height="17"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                                             <nil key="highlightedColor"/>
@@ -141,7 +142,7 @@
                                                                     </subviews>
                                                                 </stackView>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="O1W-Fc-hNQ">
-                                                                    <rect key="frame" x="0.0" y="30" width="93.5" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="25" width="93.5" height="30"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Колво:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="i3Y-sM-oyu">
                                                                             <rect key="frame" x="0.0" y="0.0" width="44.5" height="30"/>

@@ -18,6 +18,56 @@ protocol QuantityPickerPopupDelegate {
 }
 
 
+class ToolBarView: UIView {
+    
+    let doneButton: UIButton = {
+        let btn = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        btn.setTitle("Done", for: .normal)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.setTitleColor(UIColor.systemBlue, for: .normal)
+        btn.backgroundColor = .clear
+        return btn
+    }()
+    let cancelButton: UIButton = {
+        let btn = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        btn.setTitle("Cancel", for: .normal)
+        btn.setTitleColor(UIColor.systemBlue, for: .normal)
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = .clear
+        return btn
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        self.backgroundColor = UIColor.systemGray
+    }
+    
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.backgroundColor = UIColor.systemGray
+    }
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        self.addSubview(doneButton)
+        self.addSubview(cancelButton)
+        
+        let margin = self.layoutMarginsGuide
+        
+        cancelButton.leadingAnchor.constraint(equalTo: margin.leadingAnchor).isActive = true
+        cancelButton.bottomAnchor.constraint(equalTo: margin.bottomAnchor).isActive = true
+        doneButton.trailingAnchor.constraint(equalTo: margin.trailingAnchor).isActive = true
+        doneButton.bottomAnchor.constraint(equalTo: margin.bottomAnchor).isActive = true
+        
+    }
+    
+}
+
+
 class QuantityPickerPopup: UIViewController {
     
     var wholeItems = [Int]()
@@ -29,18 +79,14 @@ class QuantityPickerPopup: UIViewController {
     
     let weightPicker: UIPickerView = {
         let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        picker.backgroundColor = .blue
-        picker.isUserInteractionEnabled = true
+        picker.backgroundColor = .white
         picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.showsSelectionIndicator = true
         return picker
     }()
     
-    let toolbar: UIToolbar = {
-        let tb = UIToolbar(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
-        tb.backgroundColor = .yellow
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        return tb
-    }()
+    let toolbar = ToolBarView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+    
     
    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -62,7 +108,6 @@ class QuantityPickerPopup: UIViewController {
     }
     
     @objc func choosen() {
-        
         var quantity = Double(wholeItems[weightPicker.selectedRow(inComponent: 0)])
         if type == .weight {
             quantity += Double(decimalItems[weightPicker.selectedRow(inComponent: 1)])/1000.0
@@ -79,44 +124,35 @@ class QuantityPickerPopup: UIViewController {
     
     
     func configurePopup() {
-        
         wholeItems = Array(0...100)
-        
         if type == .weight {
-            decimalItems = Array(0...1000)
+            decimalItems = Array(100...1000)
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        let but = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
-        but.addTarget(self, action: #selector(choosen), for: .touchUpInside)
-        but.backgroundColor = .red
-        self.view.addSubview(but)
-        
-        
         self.view.obscure()
-        
-        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.choosen))
-        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(self.cancelSelection))
-        toolbar.items = [doneButton, cancelButton]
-        
-        weightPicker.addSubview(toolbar)
-        
-        toolbar.leadingAnchor.constraint(equalTo: weightPicker.leadingAnchor).isActive = true
-        toolbar.trailingAnchor.constraint(equalTo: weightPicker.trailingAnchor).isActive = true
-        toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        toolbar.topAnchor.constraint(equalTo: weightPicker.topAnchor).isActive = true
-        
-        
         self.view.addSubview(weightPicker)
         weightPicker.delegate = self
         weightPicker.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         weightPicker.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         weightPicker.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
         weightPicker.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.doneButton.addTarget(self, action: #selector(choosen), for: .touchUpInside)
+        toolbar.cancelButton.addTarget(self, action: #selector(cancelSelection), for: .touchUpInside)
+        self.view.addSubview(toolbar)
+        
+        toolbar.leadingAnchor.constraint(equalTo: weightPicker.leadingAnchor).isActive = true
+        toolbar.trailingAnchor.constraint(equalTo: weightPicker.trailingAnchor).isActive = true
+        toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        toolbar.bottomAnchor.constraint(equalTo: weightPicker.topAnchor).isActive = true
+        
+        
+        
         
         
         

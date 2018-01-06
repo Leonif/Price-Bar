@@ -130,7 +130,9 @@ class QuantityPickerPopup: UIViewController {
     func configurePopup() {
         wholeItems = Array(0...100)
         if type == .weight {
-            decimalItems = Array(100...1000)
+            decimalItems = Array(100...1000).filter{ $0 % 10 == 0 }
+            
+            
         }
     }
     
@@ -171,7 +173,7 @@ extension QuantityPickerPopup: UIPickerViewDataSource, UIPickerViewDelegate {
             return component == 0 ? "\(wholeItems[row]) kg" : "\(decimalItems[row]) gr"
         }
         
-        return String(wholeItems[row])
+        return "\(wholeItems[row]) шт"
         
         
     }

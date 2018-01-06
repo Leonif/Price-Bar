@@ -147,7 +147,7 @@ extension UIView {
         self.backgroundColor = .clear
         
         window.addSubview(self)
-        UIView.animate(withDuration: 0.8, animations: {
+        UIView.animate(withDuration: 0.3, animations: {
             self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         })
     }

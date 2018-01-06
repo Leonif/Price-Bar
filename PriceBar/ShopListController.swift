@@ -9,6 +9,10 @@
 import UIKit
 import CoreLocation
 
+
+
+
+
 class ShopListController: UIViewController {
     
     fileprivate let showScan = "showScan"
@@ -62,13 +66,18 @@ class ShopListController: UIViewController {
 
 //MARK: Cell handlers
 extension ShopListController: ShopItemCellDelegate {
-    func weightDemanded(cell: ShopItemCell) {
+    func weightDemanded(cell: ShopItemCell, currentValue: Double) {
         print("Picker opened")
+        guard
+            let indexPath = self.shopTableView.indexPath(for: cell),
+            let item = shopList.getItem(index: indexPath) else {
+                
+                fatalError("Not possible to find out type of item")
+        }
         
-        let indexPath = self.shopTableView.indexPath(for: cell)
-        let type: QuantityType = (shopList.getItem(index: indexPath!)?.itemUom.isPerPiece)! ? .quantity : .weight
+        let type: QuantityType = item.itemUom.isPerPiece ? .quantity : .weight
         
-        let pickerVC = QuantityPickerPopup(type: type)
+        let pickerVC = QuantityPickerPopup(model: QuantityModel(type: type, currentValue: currentValue))
         pickerVC.delegate = self
         pickerVC.indexPath = indexPath
         pickerVC.modalPresentationStyle = .overCurrentContext

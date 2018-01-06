@@ -13,9 +13,18 @@ import UIKit
 #endif
 
 
+public extension Int {
+    /// SwifterSwift: Int.
+    public var double: Double {
+        return Double(self)
+    }
+}
+
+
+
 // MARK: - Properties
 public extension Double {
-	
+    
 	/// SwifterSwift: Absolute of double value.
 	public var abs: Double {
 		return Swift.abs(self)

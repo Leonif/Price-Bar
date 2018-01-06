@@ -21,7 +21,7 @@
 		792EE7B71EE707F000470669 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B61EE707F000470669 /* HeaderView.xib */; };
 		792EE7B91EE7080400470669 /* ShopListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7B81EE7080400470669 /* ShopListModel.swift */; };
 		792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BA1EE7080F00470669 /* ShopItemCell.swift */; };
-		792EE7BD1EE7081800470669 /* DoubleExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BC1EE7081800470669 /* DoubleExtensions.swift */; };
+		792EE7BD1EE7081800470669 /* NumberExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BC1EE7081800470669 /* NumberExtensions.swift */; };
 		792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BE1EE7082700470669 /* CharacterExtensions.swift */; };
 		792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BF1EE7082700470669 /* StringExtensions.swift */; };
 		792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C21EE7085500470669 /* AppDelegate.swift */; };
@@ -89,7 +89,7 @@
 		792EE7B61EE707F000470669 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderView.xib; path = PriceBar/HeaderView.xib; sourceTree = SOURCE_ROOT; };
 		792EE7B81EE7080400470669 /* ShopListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListModel.swift; path = PriceBar/ShopListModel.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BA1EE7080F00470669 /* ShopItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopItemCell.swift; path = PriceBar/ShopItemCell.swift; sourceTree = SOURCE_ROOT; };
-		792EE7BC1EE7081800470669 /* DoubleExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DoubleExtensions.swift; path = PriceBar/DoubleExtensions.swift; sourceTree = SOURCE_ROOT; };
+		792EE7BC1EE7081800470669 /* NumberExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberExtensions.swift; path = PriceBar/NumberExtensions.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BE1EE7082700470669 /* CharacterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterExtensions.swift; path = PriceBar/CharacterExtensions.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BF1EE7082700470669 /* StringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StringExtensions.swift; path = PriceBar/StringExtensions.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "Price Bar/AppDelegate.swift"; sourceTree = SOURCE_ROOT; };
@@ -296,7 +296,7 @@
 				793368631FFE260F00E8E81A /* Extensions.swift */,
 				795EA8C51F0EC58F00752A68 /* Extension.swift */,
 				7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */,
-				792EE7BC1EE7081800470669 /* DoubleExtensions.swift */,
+				792EE7BC1EE7081800470669 /* NumberExtensions.swift */,
 				792EE7BE1EE7082700470669 /* CharacterExtensions.swift */,
 				792EE7BF1EE7082700470669 /* StringExtensions.swift */,
 			);
@@ -643,7 +643,7 @@
 				79968E861F409C090076C0D9 /* Uom+CoreDataProperties.swift in Sources */,
 				7904B45A1F03738B002032CD /* ShopItem.swift in Sources */,
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
-				792EE7BD1EE7081800470669 /* DoubleExtensions.swift in Sources */,
+				792EE7BD1EE7081800470669 /* NumberExtensions.swift in Sources */,
 				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,
 				7904B4581F03728E002032CD /* ShopListControllerExchange.swift in Sources */,
 				792D2C7C1F2BBFC900AA337F /* Category+CoreDataClass.swift in Sources */,

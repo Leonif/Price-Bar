@@ -18,6 +18,26 @@ protocol QuantityPickerPopupDelegate {
 }
 
 
+struct QuantityModel {
+    
+    var type: QuantityType
+    var wholeItem: Int
+    var decimalItem: Int
+    
+    init(type: QuantityType, currentValue: Double) {
+        self.type = type
+        self.wholeItem = currentValue.int
+
+        let decStr = String(format:"%.3f", currentValue).components(separatedBy: ".")
+        guard let dec = decStr[1].int else {
+            fatalError("String convertion error")
+        }
+        self.decimalItem = dec
+    }
+    
+}
+
+
 class ToolBarView: UIView {
     
     let doneButton: UIButton = {
@@ -75,6 +95,7 @@ class QuantityPickerPopup: UIViewController {
     var indexPath: IndexPath?
     var type: QuantityType?
     var delegate: QuantityPickerPopupDelegate?
+    var currentModel: QuantityModel!
     
     
     let weightPicker: UIPickerView = {
@@ -94,10 +115,10 @@ class QuantityPickerPopup: UIViewController {
     }
     
     
-    convenience init(type: QuantityType) {
+    convenience init(model: QuantityModel) {
         self.init()
 
-        self.type = type
+        self.currentModel = model
         self.configurePopup()
         
     }
@@ -109,7 +130,7 @@ class QuantityPickerPopup: UIViewController {
     
     @objc func choosen() {
         var quantity = Double(wholeItems[weightPicker.selectedRow(inComponent: 0)])
-        if type == .weight {
+        if currentModel.type == .weight {
             quantity += Double(decimalItems[weightPicker.selectedRow(inComponent: 1)])/1000.0
         }
         
@@ -129,10 +150,9 @@ class QuantityPickerPopup: UIViewController {
     
     func configurePopup() {
         wholeItems = Array(0...100)
-        if type == .weight {
-            decimalItems = Array(100...1000).filter{ $0 % 10 == 0 }
-            
-            
+
+        if currentModel.type == .weight {
+            decimalItems = Array(0...1000).filter { $0 % 10 == 0 }
         }
     }
     
@@ -156,6 +176,20 @@ class QuantityPickerPopup: UIViewController {
         toolbar.trailingAnchor.constraint(equalTo: weightPicker.trailingAnchor).isActive = true
         toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         toolbar.bottomAnchor.constraint(equalTo: weightPicker.topAnchor).isActive = true
+        
+        
+        guard let wholePartIndex = wholeItems.index(of: currentModel.wholeItem)  else {
+            return
+        }
+        weightPicker.selectRow(wholePartIndex, inComponent: 0, animated: true)
+        
+        if currentModel.type == .weight  {
+            guard let decimalPartIndex = decimalItems.index(of: currentModel.decimalItem) else {
+                return
+            }
+            weightPicker.selectRow(decimalPartIndex, inComponent: 1, animated: true)
+        }
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -169,7 +203,7 @@ class QuantityPickerPopup: UIViewController {
 extension QuantityPickerPopup: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        if type == .weight {
+        if currentModel.type == .weight {
             return component == 0 ? "\(wholeItems[row]) kg" : "\(decimalItems[row]) gr"
         }
         
@@ -179,12 +213,12 @@ extension QuantityPickerPopup: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return type == .weight ? 2 : 1
+        return currentModel.type == .weight ? 2 : 1
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         
-        if type == .weight {
+        if currentModel.type == .weight {
             return component == 0 ? wholeItems.count : decimalItems.count
         }
         

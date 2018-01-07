@@ -33,14 +33,24 @@ class QuantityPickerPopup: UIViewController {
         return picker
     }()
     
-    let toolbar = ToolBarView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
     
+    let toolbar: UIToolbar = {
+        let toolbar = UIToolbar()
+        
+        let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSelection))
+        let flex = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
+        let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(choosen))
+        
+        toolbar.items = [cancelButton, flex, doneButton]
+        toolbar.isUserInteractionEnabled = true
+        return toolbar
+    }()
     
+    let containerView = UIView()
    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
     
     convenience init(model: QuantityModel) {
         self.init()
@@ -75,6 +85,8 @@ class QuantityPickerPopup: UIViewController {
     }
     
     func configurePopup() {
+        weightPicker.delegate = self
+        
         wholeItems = Array(0...100)
 
         if currentModel.type == .weight {
@@ -85,24 +97,7 @@ class QuantityPickerPopup: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        self.view.addSubview(weightPicker)
-        weightPicker.delegate = self
-        weightPicker.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        weightPicker.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        weightPicker.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 0.5).isActive = true
-        weightPicker.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
-        toolbar.doneButton.addTarget(self, action: #selector(choosen), for: .touchUpInside)
-        toolbar.cancelButton.addTarget(self, action: #selector(cancelSelection), for: .touchUpInside)
-        self.view.addSubview(toolbar)
-        
-        toolbar.leadingAnchor.constraint(equalTo: weightPicker.leadingAnchor).isActive = true
-        toolbar.trailingAnchor.constraint(equalTo: weightPicker.trailingAnchor).isActive = true
-        toolbar.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        toolbar.bottomAnchor.constraint(equalTo: weightPicker.topAnchor).isActive = true
-        
+         setupConstraints()
         
         guard let wholePartIndex = wholeItems.index(of: currentModel.wholeItem)  else {
             return
@@ -116,6 +111,33 @@ class QuantityPickerPopup: UIViewController {
             weightPicker.selectRow(decimalPartIndex, inComponent: 1, animated: true)
         }
     }
+    
+    
+    private func setupConstraints() {
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        weightPicker.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(containerView)
+        containerView.addSubview(toolbar)
+        containerView.addSubview(weightPicker)
+        
+        NSLayoutConstraint.activate([
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            containerView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
+            toolbar.topAnchor.constraint(equalTo: containerView.topAnchor),
+            toolbar.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            toolbar.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            toolbar.heightAnchor.constraint(equalToConstant: 50.0),
+            weightPicker.topAnchor.constraint(equalTo: toolbar.bottomAnchor),
+            weightPicker.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            weightPicker.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            weightPicker.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+            ])
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

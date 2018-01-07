@@ -63,13 +63,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
-               value = "shopList">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -166,15 +166,18 @@
          contextName = "ShopListDataSource.init(shopModel:):ShopListDataSource.swift">
       </ContextState>
       <ContextState
-         contextName = "FirebaseService.(loadUoms(uomList : ([ItemUom]) -&gt; ()) -&gt; ()).(closure #1):FirebaseService.swift">
-      </ContextState>
-      <ContextState
          contextName = "QuantityPickerPopup.viewDidLoad():QuantityPickerPopup.swift">
          <PersistentStrings>
             <PersistentString
                value = "currentModel.decimalItem">
             </PersistentString>
+            <PersistentString
+               value = "weightPicker">
+            </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FirebaseService.(loadUoms(uomList : ([ItemUom]) -&gt; ()) -&gt; ()).(closure #1):FirebaseService.swift">
       </ContextState>
       <ContextState
          contextName = "Double.rounded(toPlaces:):NumberExtensions.swift">
@@ -201,17 +204,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListModel.append(ShopItem) -&gt; ():ShopListModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "QuantityModel.init(type:currentValue:):QuantityPickerPopup.swift">
          <PersistentStrings>
             <PersistentString
@@ -221,10 +213,21 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.append(ShopItem) -&gt; ():ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

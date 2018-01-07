@@ -9,10 +9,6 @@
 import UIKit
 import CoreLocation
 
-
-
-
-
 class ShopListController: UIViewController {
     
     fileprivate let showScan = "showScan"
@@ -71,7 +67,6 @@ extension ShopListController: ShopItemCellDelegate {
         guard
             let indexPath = self.shopTableView.indexPath(for: cell),
             let item = shopList.getItem(index: indexPath) else {
-                
                 fatalError("Not possible to find out type of item")
         }
         
@@ -138,7 +133,6 @@ extension ShopListController: CLLocationManagerDelegate {
         if let userCoord = userCoordinate, !selfDefined {
             let outletService = OutletService()
             outletService.getOutlet(near: userCoord, completion: { result in
-                
                 var activateControls = false
                 switch result {
                 case let .success(outlet):

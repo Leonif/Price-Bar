@@ -8,14 +8,10 @@
 
 import Foundation
 
-
 enum QuantityType {
     case weight, quantity
 }
-
-
 struct QuantityModel {
-    
     var type: QuantityType
     var wholeItem: Int
     var decimalItem: Int
@@ -30,5 +26,4 @@ struct QuantityModel {
         }
         self.decimalItem = dec
     }
-    
 }

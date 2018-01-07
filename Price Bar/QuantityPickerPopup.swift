@@ -52,11 +52,13 @@ class QuantityPickerPopup: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    convenience init(model: QuantityModel) {
+    convenience init(delegate: QuantityPickerPopupDelegate, model: QuantityModel) {
         self.init()
 
+        self.delegate = delegate
         self.currentModel = model
         self.configurePopup()
+        self.modalPresentationStyle = .overCurrentContext
         
     }
     
@@ -71,7 +73,7 @@ class QuantityPickerPopup: UIViewController {
             quantity += Double(decimalItems[weightPicker.selectedRow(inComponent: 1)])/1000.0
         }
         
-        delegate?.choosen(weight: quantity, for: indexPath!)
+        delegate?.choosen(weight: quantity, for: self.currentModel.indexPath)
         self.view.antiObscure {
             self.dismiss(animated: true, completion: nil)
         }

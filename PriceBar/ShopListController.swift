@@ -19,7 +19,6 @@ class ShopListController: UIViewController {
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     var shopList: ShopListModel!
-    //let locationManager = CLLocationManager()
     var locationService: LocationService?
     var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
@@ -46,8 +45,19 @@ class ShopListController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //startReceivingLocationChanges()
-        locationService?.startReceivingLocationChanges()
+        
+        guard let locationService = locationService else {
+            fatalError("Location service is not available")
+        }
+        
+        let result = locationService.startReceivingLocationChanges()
+        
+        switch result {
+        case let .failure(error):
+            alert(title: "OOps", message: error.errorDescription)
+        default:
+            print("Location service works")
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -59,6 +69,10 @@ class ShopListController: UIViewController {
      }
     @IBAction func itemListPressed(_ sender: Any) {
         performSegue(withIdentifier: showItemList, sender: nil)
+    }
+    
+    @IBAction func outletPressed(_ sender: Any) {
+        performSegue(withIdentifier: showOutlets, sender: userCoordinate)
     }
 }
 
@@ -74,11 +88,10 @@ extension ShopListController: ShopItemCellDelegate {
         }
         
         let type: QuantityType = item.itemUom.isPerPiece ? .quantity : .weight
-        
-        let pickerVC = QuantityPickerPopup(model: QuantityModel(type: type, currentValue: currentValue))
-        pickerVC.delegate = self
-        pickerVC.indexPath = indexPath
-        pickerVC.modalPresentationStyle = .overCurrentContext
+        let model = QuantityModel(for: indexPath, type: type, currentValue: currentValue)
+        let pickerVC = QuantityPickerPopup(delegate: self, model: model)
+        //pickerVC.delegate = self
+        //pickerVC.indexPath = indexPath
         self.present(pickerVC, animated: true, completion: nil)
         
     }
@@ -87,6 +100,7 @@ extension ShopListController: ShopItemCellDelegate {
     }
 }
 
+// MARK: Quantity changing of item handler
 extension ShopListController: QuantityPickerPopupDelegate {
     func choosen(weight: Double, for indexPath: IndexPath) {
         guard let item = self.shopList.getItem(index: indexPath) else {
@@ -99,7 +113,7 @@ extension ShopListController: QuantityPickerPopupDelegate {
     }
 }
 
-
+// MARK: datasource handler
 extension ShopListController: ShopListDataSourceDelegate {
     func shoplist(updated shopModel: ShopListModel) {
         self.shopList = shopModel
@@ -108,7 +122,7 @@ extension ShopListController: ShopListDataSourceDelegate {
 }
 
 
-//MARK: User location
+//MARK: Location service handler
 extension ShopListController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -145,18 +159,6 @@ extension ShopListController: CLLocationManagerDelegate {
         self.outletNameButton.isUserInteractionEnabled = enable
     }
 }
-
-
-//MARK: Outlets
-extension ShopListController {
-    @IBAction func outletPressed(_ sender: Any) {
-        performSegue(withIdentifier: showOutlets, sender: userCoordinate)
-    }
-}
-
-
-
-
 
 //MARK: Table
 extension ShopListController: UITableViewDelegate {
@@ -216,9 +218,6 @@ extension ShopListController {
             scanVC.delegate = self
             
         }
-        
     }
-    
-    
 }
 

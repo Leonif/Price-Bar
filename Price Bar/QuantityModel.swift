@@ -15,10 +15,12 @@ struct QuantityModel {
     var type: QuantityType
     var wholeItem: Int
     var decimalItem: Int
+    var indexPath: IndexPath
     
-    init(type: QuantityType, currentValue: Double) {
+    init(for cellWithIndexPath: IndexPath, type: QuantityType, currentValue: Double) {
         self.type = type
         self.wholeItem = currentValue.int
+        self.indexPath = cellWithIndexPath
         
         let decStr = String(format:"%.3f", currentValue).components(separatedBy: ".")
         guard let dec = decStr[1].int else {

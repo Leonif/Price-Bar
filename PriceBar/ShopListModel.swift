@@ -25,15 +25,16 @@ class ShopListModel {
     var total: Double {
         var sum = 0.0
         shopList.forEach { $0.value.forEach { sum += $0.total } }
+        
         return sum
     }
     
     func synchronizeCloud(completion: @escaping ()->()) {
         let deviceStorage = CoreDataService.data
 
-        deviceStorage.getCategories { (categories) in
+        deviceStorage.getCategories { categories in
             categories.forEach { self.categories.append($0) }
-            deviceStorage.getUoms { (uoms) in
+            deviceStorage.getUoms { uoms in
                 uoms.forEach { self.uoms.append($0)  }
                 deviceStorage.importItemsFromCloud {
                     deviceStorage.importPricesFromCloud {
@@ -56,25 +57,23 @@ class ShopListModel {
     }
     
     
-    
     func reloadDataFromCoreData(for outledId: String) {
-        
-       let shpLst = CoreDataService.data.getItemList(outletId: outledId)
+        let shpLst = getShopItems(for: outledId)
         
         sections = []
         shopList.removeAll()
-        shpLst?.forEach {
-            if sections.contains($0.itemCategory.name) {
-                shopList[$0.itemCategory.name]?.append($0)
+        shpLst?.forEach { item in
+            if sections.contains(item.itemCategory.name) {
+                shopList[item.itemCategory.name]?.append(item)
             } else {
-                sections.append($0.itemCategory.name)
-                shopList[$0.itemCategory.name] = [$0]
+                sections.append(item.itemCategory.name)
+                shopList[item.itemCategory.name] = [item]
             }
         }
     }
     
-    func getShopItems(outletId: String) -> [ShopItem]?  {
-        if let itemList = CoreDataService.data.getItemList(outletId: outletId) {
+    func getShopItems(for outletId: String) -> [ShopItem]?  {
+        if let itemList = CoreDataService.data.getItemList(for: outletId) {
             return itemList
         }
         return nil
@@ -90,10 +89,10 @@ class ShopListModel {
     }
     
     func pricesUpdate(by outletId: String) {
-        shopList.forEach{
-            $0.value.forEach{
-                $0.price = CoreDataService.data.getPrice(for: $0.id, and:outletId)
-                $0.outletId = outletId
+        shopList.forEach {
+            $0.value.forEach { item in
+                item.price = CoreDataService.data.getPrice(for: item.id, and:outletId)
+                item.outletId = outletId
             }}
     }
     

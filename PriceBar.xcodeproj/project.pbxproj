@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4FF37986BE78C0C683CB8D7E /* Pods_PriceBarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */; };
-		7904B4561F037257002032CD /* DragCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4551F037257002032CD /* DragCells.swift */; };
 		7904B4581F03728E002032CD /* ShopListControllerExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4571F03728E002032CD /* ShopListControllerExchange.swift */; };
 		7904B45A1F03738B002032CD /* ShopItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* ShopItem.swift */; };
 		7904B45D1F037E32002032CD /* ShopList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B45B1F037E32002032CD /* ShopList+CoreDataClass.swift */; };
@@ -51,6 +50,7 @@
 		79968E851F409C090076C0D9 /* Uom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79968E811F409C090076C0D9 /* Uom+CoreDataClass.swift */; };
 		79968E861F409C090076C0D9 /* Uom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79968E821F409C090076C0D9 /* Uom+CoreDataProperties.swift */; };
 		79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB702002CD46008F7DAA /* LocationService.swift */; };
+		79A2EB732002D471008F7DAA /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB722002D471008F7DAA /* ResultType.swift */; };
 		79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
 		79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FF11EF6BF2500903133 /* CoreDataService.swift */; };
 		79C17A4C1EEBD692003A8D6B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4B1EEBD692003A8D6B /* Constants.swift */; };
@@ -76,7 +76,6 @@
 /* Begin PBXFileReference section */
 		3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.release.xcconfig"; sourceTree = "<group>"; };
 		4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7904B4551F037257002032CD /* DragCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DragCells.swift; sourceTree = SOURCE_ROOT; };
 		7904B4571F03728E002032CD /* ShopListControllerExchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopListControllerExchange.swift; sourceTree = SOURCE_ROOT; };
 		7904B4591F03738B002032CD /* ShopItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopItem.swift; sourceTree = SOURCE_ROOT; };
 		7904B45B1F037E32002032CD /* ShopList+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
@@ -124,6 +123,7 @@
 		79968E821F409C090076C0D9 /* Uom+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Uom+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		799A8A231F7423E20027EB59 /* PriceBarTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBarTests copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBarTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		79A2EB702002CD46008F7DAA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
+		79A2EB722002D471008F7DAA /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
 		79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = PriceBar.xcdatamodel; path = PriceBar.xcdatamodeld/PriceBar.xcdatamodel; sourceTree = SOURCE_ROOT; };
 		79AA0FF11EF6BF2500903133 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = SOURCE_ROOT; };
 		79C17A4B1EEBD692003A8D6B /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = "Price Bar/Constants.swift"; sourceTree = SOURCE_ROOT; };
@@ -185,6 +185,7 @@
 		790BC9E81F88322400CA9519 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				79A2EB722002D471008F7DAA /* ResultType.swift */,
 				7973DD861EF1AC7F0010A64F /* OutletService.swift */,
 				79A2EB702002CD46008F7DAA /* LocationService.swift */,
 				795EA8CE1F100C1C00752A68 /* CoreData */,
@@ -233,7 +234,6 @@
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
 				7933686A1FFFBBCA00E8E81A /* QuantityPickerPopup.swift */,
 				793368681FFF6F5600E8E81A /* ShopListDataSource.swift */,
-				7904B4551F037257002032CD /* DragCells.swift */,
 				7904B4571F03728E002032CD /* ShopListControllerExchange.swift */,
 				79C56B031EF2F10300FAA91C /* ScannerController.swift */,
 			);
@@ -645,6 +645,7 @@
 				7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */,
 				795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */,
 				7933686B1FFFBBCA00E8E81A /* QuantityPickerPopup.swift in Sources */,
+				79A2EB732002D471008F7DAA /* ResultType.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
 				7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */,
 				79968E861F409C090076C0D9 /* Uom+CoreDataProperties.swift in Sources */,
@@ -666,7 +667,6 @@
 				79968E831F409C090076C0D9 /* Product+CoreDataClass.swift in Sources */,
 				79968E851F409C090076C0D9 /* Uom+CoreDataClass.swift in Sources */,
 				79C17A4C1EEBD692003A8D6B /* Constants.swift in Sources */,
-				7904B4561F037257002032CD /* DragCells.swift in Sources */,
 				79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */,
 				792EE7C71EE7087200470669 /* HeaderView.swift in Sources */,
 			);

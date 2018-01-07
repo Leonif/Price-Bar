@@ -30,13 +30,10 @@ enum OutletServiceError: Error {
     }
 }
 
-enum ResultType<A> {
-    case success(A)
-    case failure(OutletServiceError)
-}
+
 
 class OutletService {
-    func getOutlet(near coordinate: CLLocationCoordinate2D, completion: @escaping (ResultType<Outlet>)->()) {
+    func getOutlet(near coordinate: CLLocationCoordinate2D, completion: @escaping (ResultType<Outlet, OutletServiceError>)->()) {
         self.loadOultets(userCoordinate: coordinate, completed: { result in
             switch result {
             case let .success(outlets):
@@ -52,7 +49,7 @@ class OutletService {
         })
     }
     
-    func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping (ResultType<[Outlet]>)->()) {
+    func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping (ResultType<[Outlet], OutletServiceError>)->()) {
         let baseUrl = "https://api.foursquare.com/v2/venues/"
         let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
         let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"

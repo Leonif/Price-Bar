@@ -338,7 +338,7 @@ extension CoreDataService {
     }
 
 
-    func getItemList(outletId: String) -> [ShopItem]? {
+    func getItemList(for outletId: String) -> [ShopItem]? {
         var shopItems = [ShopItem]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")

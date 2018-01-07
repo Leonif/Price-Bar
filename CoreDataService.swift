@@ -213,8 +213,8 @@ class CoreDataService {
         
     }
     
-    func loadShopList(outletId: String) -> ShopListModel?{
-        let shopListModel = ShopListModel()
+    func loadShopList(outletId: String) -> ShopListService?{
+        let shopListService = ShopListService()
         
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
@@ -239,11 +239,11 @@ class CoreDataService {
                     
                     let item = ShopItem(id: id, name: name, quantity: $0.quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, itemUom: itemUom, outletId: outletId, scanned: prd.scanned, checked: $0.checked)
                     
-                    shopListModel.append(item)
+                    shopListService.append(item)
                 }
             
             }
-            return shopListModel
+            return shopListService
             
             
         } catch {

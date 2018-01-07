@@ -26,21 +26,21 @@ extension ShopListController: Exchange {
         if let scannedCode = object as? String {//scann came
             self.handle(for: scannedCode)
         }
-        self.dataSource?.shopModel = shopList
+        self.dataSource?.shopListService = shopListService
         self.shopTableView.reloadData()
-        self.totalLabel.update(value: shopList.total)
+        self.totalLabel.update(value: shopListService.total)
     }
     
     func handle(for item: ShopItem) {
         let deviceBase = CoreDataService.data
         let cloudBase = FirebaseService.data
         
-        if !self.shopList.change(item) {
+        if !self.shopListService.change(item) {
             
-            self.shopList.append(item)
+            self.shopListService.append(item)
             deviceBase.saveToShopList(item)
         } else {
-            self.shopList.updateSections()
+            self.shopListService.updateSections()
         }
         if !deviceBase.update(item) {
             deviceBase.save(item)
@@ -64,7 +64,7 @@ extension ShopListController: Exchange {
             self.view.pb_startActivityIndicator(with: "Синхронизация с облаком. Пожалуйста подождите...")
             
             FirebaseService.data.loginToFirebase({
-                self.shopList.synchronizeCloud {
+                self.shopListService.synchronizeCloud {
                     self.loadShopList(for: outlet)
                     self.view.pb_stopActivityIndicator()
                     launchedTimes = 2
@@ -73,7 +73,7 @@ extension ShopListController: Exchange {
                 fatalError("Error of login to FIrebase")
             })
         } else {// load from coredata
-            self.shopList.synchronizeDevice()
+            self.shopListService.synchronizeDevice()
             print("Refresh from cloud DONT NEED... \(launchedTimes)")
             self.loadShopList(for: outlet)
         }
@@ -84,13 +84,13 @@ extension ShopListController: Exchange {
         userOutlet = outlet
         outletNameButton.setTitle(userOutlet.name, for: .normal)
         outletAddressLabel.text = userOutlet.address
-        shopList.pricesUpdate(by: userOutlet.id)
+        shopListService.pricesUpdate(by: userOutlet.id)
         
-        if let shpLst = CoreDataService.data.loadShopList(outletId: userOutlet.id), !selfLoaded {
-            shopList = shpLst
-            dataSource?.shopModel = shopList
+        if let shopListService = CoreDataService.data.loadShopList(outletId: userOutlet.id), !selfLoaded {
+            self.shopListService = shopListService
+            dataSource?.shopListService = shopListService
             self.shopTableView.reloadData()
-            totalLabel.update(value: shopList.total)
+            totalLabel.update(value: shopListService.total)
             selfLoaded = true
         }
         
@@ -124,7 +124,7 @@ extension ShopListController: Exchange {
         cloudBase.savePrice(for: item)
         
         deviceBase.saveToShopList(item)
-        shopList.append(item)
+        shopListService.append(item)
         
         
     }

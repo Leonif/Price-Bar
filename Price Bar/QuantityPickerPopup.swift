@@ -35,15 +35,13 @@ class QuantityPickerPopup: UIViewController {
     
     
     let toolbar: UIToolbar = {
-        let toolbar = UIToolbar()
-        
+        let tlbr = UIToolbar()
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSelection))
         let flex = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: self, action: nil)
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(choosen))
-        
-        toolbar.items = [cancelButton, flex, doneButton]
-        toolbar.isUserInteractionEnabled = true
-        return toolbar
+        tlbr.items = [cancelButton, flex, doneButton]
+        tlbr.isUserInteractionEnabled = true
+        return tlbr
     }()
     
     let containerView = UIView()
@@ -68,9 +66,13 @@ class QuantityPickerPopup: UIViewController {
     }
     
     @objc func choosen() {
-        var quantity = Double(wholeItems[weightPicker.selectedRow(inComponent: 0)])
+        
+        let wholePart = wholeItems[weightPicker.selectedRow(inComponent: 0)]
+        
+        var quantity = Double(wholePart)
         if currentModel.type == .weight {
-            quantity += Double(decimalItems[weightPicker.selectedRow(inComponent: 1)])/1000.0
+            let decimalPart = decimalItems[weightPicker.selectedRow(inComponent: 1)]
+            quantity += Double(decimalPart)/1000.0
         }
         
         delegate?.choosen(weight: quantity, for: self.currentModel.indexPath)
@@ -153,7 +155,7 @@ extension QuantityPickerPopup: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
         if currentModel.type == .weight {
-            return component == 0 ? "\(wholeItems[row]) kg" : "\(decimalItems[row]) gr"
+            return component == 0 ? "\(wholeItems[row]) кг" : "\(decimalItems[row]) гр"
         }
         
         return "\(wholeItems[row]) шт"

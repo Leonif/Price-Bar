@@ -15,7 +15,7 @@ enum SectionInfo {
     case indexError
 }
 
-class ShopListModel {
+class ShopListService {
     
     var shopList = [String: [ShopItem]]()
     var sections = [String]()
@@ -24,7 +24,11 @@ class ShopListModel {
     
     var total: Double {
         var sum = 0.0
-        shopList.forEach { $0.value.forEach { sum += $0.total } }
+        shopList.forEach { section in
+            section.value.forEach { item in
+                sum += item.total
+            }
+        }
         
         return sum
     }
@@ -58,11 +62,11 @@ class ShopListModel {
     
     
     func reloadDataFromCoreData(for outledId: String) {
-        let shpLst = getShopItems(for: outledId)
+        let itemList = getShopItems(for: outledId)
         
         sections = []
         shopList.removeAll()
-        shpLst?.forEach { item in
+        itemList?.forEach { item in
             if sections.contains(item.itemCategory.name) {
                 shopList[item.itemCategory.name]?.append(item)
             } else {
@@ -89,8 +93,8 @@ class ShopListModel {
     }
     
     func pricesUpdate(by outletId: String) {
-        shopList.forEach {
-            $0.value.forEach { item in
+        shopList.forEach { section in
+            section.value.forEach { item in
                 item.price = CoreDataService.data.getPrice(for: item.id, and:outletId)
                 item.outletId = outletId
             }}
@@ -124,20 +128,20 @@ class ShopListModel {
     
     
     func updateSections() {
-        var tempList = [String: [ShopItem]]()
-        var temSec = [String]()
-        shopList.forEach {
-            $0.value.forEach {
-                if temSec.contains($0.itemCategory.name) {
-                    tempList[$0.itemCategory.name]?.append($0)
+        var updatedShopList = [String: [ShopItem]]()
+        var updatedSections = [String]()
+        shopList.forEach { section in
+            section.value.forEach { item in
+                if updatedSections.contains(item.itemCategory.name) {
+                    updatedShopList[item.itemCategory.name]?.append(item)
                 } else {
-                    temSec.append($0.itemCategory.name)
-                    tempList[$0.itemCategory.name] = [$0]
+                    updatedSections.append(item.itemCategory.name)
+                    updatedShopList[item.itemCategory.name] = [item]
                 }
             }
         }
-        shopList = tempList
-        sections = temSec
+        shopList = updatedShopList
+        sections = updatedSections
     }
     
     func getItem(index: IndexPath) -> ShopItem? {

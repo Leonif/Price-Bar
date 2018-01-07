@@ -17,7 +17,7 @@ struct QuantityModel {
     var decimalItem: Int
     var indexPath: IndexPath
     
-    init(for cellWithIndexPath: IndexPath, type: QuantityType, currentValue: Double) {
+    init(for cellWithIndexPath: IndexPath, with type: QuantityType, and currentValue: Double) {
         self.type = type
         self.wholeItem = currentValue.int
         self.indexPath = cellWithIndexPath

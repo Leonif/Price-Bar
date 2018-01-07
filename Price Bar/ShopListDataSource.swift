@@ -10,32 +10,32 @@ import Foundation
 import UIKit
 
 protocol ShopListDataSourceDelegate {
-    func shoplist(updated shopModel: ShopListModel)
+    func shoplist(updated shopListService: ShopListService)
     
 }
 
 class ShopListDataSource: NSObject, UITableViewDataSource {
    
-    var shopModel: ShopListModel!
+    var shopListService: ShopListService!
     var cellDelegate: ShopItemCellDelegate?
     var delegate: ShopListDataSourceDelegate?
     
     
-    init(delegate: ShopListDataSourceDelegate, cellDelegate: ShopItemCellDelegate, shopModel: ShopListModel) {
-        self.shopModel = shopModel
+    init(delegate: ShopListDataSourceDelegate, cellDelegate: ShopItemCellDelegate, shopListService: ShopListService) {
+        self.shopListService = shopListService
         self.cellDelegate = cellDelegate
         self.delegate = delegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return shopModel.rowsIn(section)
+        return shopListService.rowsIn(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
             
-            if let shp = shopModel.getItem(index: indexPath) {
+            if let shp = shopListService.getItem(index: indexPath) {
                 cell.configureCell(item: shp)
                 cell.delegate = cellDelegate
                 return cell
@@ -46,22 +46,22 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return shopModel.sectionCount
+        return shopListService.sectionCount
     }
     
     
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return shopModel.headerString(for: section)
+        return shopListService.headerString(for: section)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let item = shopModel.getItem(index: indexPath) {
+            if let item = shopListService.getItem(index: indexPath) {
                 tableView.beginUpdates()
                 
                 CoreDataService.data.removeFromShopList(item)
-                let sectionStatus = shopModel.remove(item: item)
+                let sectionStatus = shopListService.remove(item: item)
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 if sectionStatus == .sectionEmpty  {
@@ -69,7 +69,7 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
                     tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
                 }
                 tableView.endUpdates()
-                delegate?.shoplist(updated: shopModel)
+                delegate?.shoplist(updated: shopListService)
                 
             }
         }

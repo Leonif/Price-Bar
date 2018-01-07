@@ -18,7 +18,7 @@ class ShopListController: UIViewController {
 
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
-    var shopList: ShopListModel!
+    var shopListService: ShopListService!
     var locationService: LocationService?
     var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
@@ -37,9 +37,9 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shopList = ShopListModel()
+        shopListService = ShopListService()
         locationService = LocationService(input: self)
-        dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopModel: shopList)
+        dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopListService: shopListService)
         shopTableView.dataSource = dataSource
         
     }
@@ -83,41 +83,38 @@ extension ShopListController: ShopItemCellDelegate {
         print("Picker opened")
         guard
             let indexPath = self.shopTableView.indexPath(for: cell),
-            let item = shopList.getItem(index: indexPath) else {
+            let item = shopListService.getItem(index: indexPath) else {
                 fatalError("Not possible to find out type of item")
         }
-        
         let type: QuantityType = item.itemUom.isPerPiece ? .quantity : .weight
-        let model = QuantityModel(for: indexPath, type: type, currentValue: currentValue)
+        let model = QuantityModel(for: indexPath, with: type, and: currentValue)
         let pickerVC = QuantityPickerPopup(delegate: self, model: model)
-        //pickerVC.delegate = self
-        //pickerVC.indexPath = indexPath
         self.present(pickerVC, animated: true, completion: nil)
         
     }
     func checkPressed(for item: ShopItem) {
-        _ = shopList.change(item)
+        _ = shopListService.change(item)
     }
 }
 
 // MARK: Quantity changing of item handler
 extension ShopListController: QuantityPickerPopupDelegate {
     func choosen(weight: Double, for indexPath: IndexPath) {
-        guard let item = self.shopList.getItem(index: indexPath) else {
+        guard let item = self.shopListService.getItem(index: indexPath) else {
             return
         }
         item.quantity = weight
-        _ = self.shopList.change(item)
+        _ = self.shopListService.change(item)
         self.shopTableView.reloadRows(at: [indexPath], with: .none)
-        totalLabel.update(value: shopList.total)
+        totalLabel.update(value: shopListService.total)
     }
 }
 
 // MARK: datasource handler
 extension ShopListController: ShopListDataSourceDelegate {
-    func shoplist(updated shopModel: ShopListModel) {
-        self.shopList = shopModel
-        totalLabel.update(value: shopList.total)
+    func shoplist(updated shopListService: ShopListService) {
+        self.shopListService = shopListService
+        totalLabel.update(value: shopListService.total)
     }
 }
 
@@ -127,7 +124,6 @@ extension ShopListController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userCoordinate = locations.last?.coordinate
-        
         if let userCoord = userCoordinate, !selfDefined {
             let outletService = OutletService()
             outletService.getOutlet(near: userCoord, completion: { result in
@@ -169,15 +165,15 @@ extension ShopListController: UITableViewDelegate {
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: showEditItem, sender: shopList.getItem(index: indexPath))
+        performSegue(withIdentifier: showEditItem, sender: shopListService.getItem(index: indexPath))
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        if let headeView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
+        if let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
             
-            headeView.categoryLabel.text = shopList.headerString(for: section)
-            return headeView
+            headerView.categoryLabel.text = shopListService.headerString(for: section)
+            return headerView
         }
         return UIView()
     }
@@ -191,8 +187,8 @@ extension ShopListController {
             if let item = sender as? ShopItem {
                 itemVC.item = item
                 itemVC.delegate = self
-                itemVC.categories = shopList.categories
-                itemVC.uoms = shopList.uoms
+                itemVC.categories = shopListService.categories
+                itemVC.uoms = shopListService.uoms
             }
         }
         
@@ -207,16 +203,12 @@ extension ShopListController {
         }
         if segue.identifier == showItemList,
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil  {
-            
             itemListVC.outletId = userOutlet.id
-            
             itemListVC.delegate = self
             
         }
         if segue.identifier == showScan, let scanVC = segue.destination as? ScannerController  {
-            
             scanVC.delegate = self
-            
         }
     }
 }

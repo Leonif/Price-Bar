@@ -18,7 +18,7 @@
 		792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B01EE707E700470669 /* LaunchScreen.storyboard */; };
 		792EE7B51EE707E700470669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B21EE707E700470669 /* Main.storyboard */; };
 		792EE7B71EE707F000470669 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B61EE707F000470669 /* HeaderView.xib */; };
-		792EE7B91EE7080400470669 /* ShopListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7B81EE7080400470669 /* ShopListModel.swift */; };
+		792EE7B91EE7080400470669 /* ShopListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7B81EE7080400470669 /* ShopListService.swift */; };
 		792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BA1EE7080F00470669 /* ShopItemCell.swift */; };
 		792EE7BD1EE7081800470669 /* NumberExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BC1EE7081800470669 /* NumberExtensions.swift */; };
 		792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BE1EE7082700470669 /* CharacterExtensions.swift */; };
@@ -88,7 +88,7 @@
 		792EE7B11EE707E700470669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PriceBar/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		792EE7B31EE707E700470669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PriceBar/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		792EE7B61EE707F000470669 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderView.xib; path = PriceBar/HeaderView.xib; sourceTree = SOURCE_ROOT; };
-		792EE7B81EE7080400470669 /* ShopListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListModel.swift; path = PriceBar/ShopListModel.swift; sourceTree = SOURCE_ROOT; };
+		792EE7B81EE7080400470669 /* ShopListService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListService.swift; path = PriceBar/ShopListService.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BA1EE7080F00470669 /* ShopItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopItemCell.swift; path = PriceBar/ShopItemCell.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BC1EE7081800470669 /* NumberExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberExtensions.swift; path = PriceBar/NumberExtensions.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BE1EE7082700470669 /* CharacterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterExtensions.swift; path = PriceBar/CharacterExtensions.swift; sourceTree = SOURCE_ROOT; };
@@ -187,6 +187,7 @@
 			children = (
 				79A2EB722002D471008F7DAA /* ResultType.swift */,
 				7973DD861EF1AC7F0010A64F /* OutletService.swift */,
+				792EE7B81EE7080400470669 /* ShopListService.swift */,
 				79A2EB702002CD46008F7DAA /* LocationService.swift */,
 				795EA8CE1F100C1C00752A68 /* CoreData */,
 				795EA8D11F102A9200752A68 /* Firebase */,
@@ -254,7 +255,6 @@
 			isa = PBXGroup;
 			children = (
 				7933686C20012F1A00E8E81A /* QuantityModel.swift */,
-				792EE7B81EE7080400470669 /* ShopListModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -634,7 +634,7 @@
 				79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */,
 				792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */,
 				7904B45E1F037E32002032CD /* ShopList+CoreDataProperties.swift in Sources */,
-				792EE7B91EE7080400470669 /* ShopListModel.swift in Sources */,
+				792EE7B91EE7080400470669 /* ShopListService.swift in Sources */,
 				79D269FD1EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift in Sources */,
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,
 				79968E841F409C090076C0D9 /* Product+CoreDataProperties.swift in Sources */,

@@ -19,7 +19,8 @@ class ShopListController: UIViewController {
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     var shopList: ShopListModel!
-    let locationManager = CLLocationManager()
+    //let locationManager = CLLocationManager()
+    var locationService: LocationService?
     var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
     var selfDefined: Bool = false
@@ -38,13 +39,15 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         shopList = ShopListModel()
+        locationService = LocationService(input: self)
         dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopModel: shopList)
         shopTableView.dataSource = dataSource
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        startReceivingLocationChanges()
+        //startReceivingLocationChanges()
+        locationService?.startReceivingLocationChanges()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -107,25 +110,6 @@ extension ShopListController: ShopListDataSourceDelegate {
 
 //MARK: User location
 extension ShopListController: CLLocationManagerDelegate {
-    
-    func startReceivingLocationChanges() {
-        let authorizationStatus = CLLocationManager.authorizationStatus()
-        if authorizationStatus != .authorizedWhenInUse && authorizationStatus != .authorizedAlways {
-            // User has not authorized access to location information.
-            locationManager.requestWhenInUseAuthorization()
-            //return
-        }
-        // Do not start services that aren't available.
-        if !CLLocationManager.locationServicesEnabled() {
-            // Location services is not available.
-            return
-        }
-        // Configure and start the service.
-        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.distanceFilter = 100.0  // In meters.
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
-    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         userCoordinate = locations.last?.coordinate

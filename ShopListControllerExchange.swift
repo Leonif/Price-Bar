@@ -86,12 +86,12 @@ extension ShopListController: Exchange {
         outletAddressLabel.text = userOutlet.address
         shopListService.pricesUpdate(by: userOutlet.id)
         
-        if let shopListService = CoreDataService.data.loadShopList(outletId: userOutlet.id), !selfLoaded {
+        if let shopListService = CoreDataService.data.loadShopList(outletId: userOutlet.id)/*, !selfLoaded*/ {
             self.shopListService = shopListService
             dataSource?.shopListService = shopListService
             self.shopTableView.reloadData()
             totalLabel.update(value: shopListService.total)
-            selfLoaded = true
+//            ..selfLoaded = true
         }
         
     }

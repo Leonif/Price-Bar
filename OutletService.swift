@@ -11,7 +11,7 @@ import CoreLocation
 
 
 protocol OutletListDelegate {
-    func list(outlets: [Outlet])
+    func list(result: ResultType<[Outlet], OutletServiceError>)
 }
 
 protocol NearestOutletDelegate {
@@ -54,9 +54,14 @@ class OutletService: NSObject {
         self.nearestOutletDelegate = nearestOutletDelegate
         locationService = LocationService(input: self)
         _ = locationService?.startReceivingLocationChanges()
-        
-  
     }
+    
+    func startLookingForOutletList(outletListDelegate: OutletListDelegate) {
+        self.outletListDelegate = outletListDelegate
+        locationService = LocationService(input: self)
+        _ = locationService?.startReceivingLocationChanges()
+    }
+    
     
     func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping (ResultType<[Outlet], OutletServiceError>)->()) {
         let baseUrl = "https://api.foursquare.com/v2/venues/"
@@ -124,14 +129,14 @@ extension OutletService: CLLocationManagerDelegate {
                     return
                 }
                 self.nearestOutletDelegate?.nearest(result: ResultType.success(outlet))
+                self.outletListDelegate?.list(result: ResultType.success(outlets))
             case let .failure(error):
                 self.nearestOutletDelegate?.nearest(result: ResultType.failure(error))
+                self.outletListDelegate?.list(result: ResultType.failure(error))
+                
             }
         })
-        
     }
-    
-    
 }
 
 

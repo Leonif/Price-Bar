@@ -15,9 +15,6 @@ class OutletsVC: UIViewController {
     
     var delegate: Exchange!
     @IBOutlet weak var outletTableView: UITableView!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var activityContainerView: UIView!
-    var userCoordinate: CLLocationCoordinate2D?
     var outlets = [Outlet]()
     
     @IBOutlet weak var warningLocationView: UIView!
@@ -26,27 +23,31 @@ class OutletsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let userCoordinate = userCoordinate    {
-//            self.view.pb_startActivityIndicator(with: "Загрузка торговых точек")
-//            outletService.loadOultets(userCoordinate: userCoordinate, completed: { result in
-//                self.view.pb_stopActivityIndicator()
-//                switch result {
-//                case let .success(outlets):
-//                    self.outlets = outlets
-//                    self.outletTableView.reloadData()
-//                case let .failure(error):
-//                    self.alert(title: "error", message: error.localizedDescription)
-//                }
-//            })
-//        } else {
-//            warningLocationView.isHidden = false
-        }
+        self.view.pb_startActivityIndicator(with: "Загрузка торговых точек")
+        outletService = OutletService()
+        outletService?.startLookingForOutletList(outletListDelegate: self)
+        
+
     }
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
     
     
+}
+
+
+extension OutletsVC: OutletListDelegate {
+    func list(result: ResultType<[Outlet], OutletServiceError>) {
+        self.view.pb_stopActivityIndicator()
+        switch result {
+        case let .success(outlets):
+            self.outlets = outlets
+            self.outletTableView.reloadData()
+        case let .failure(error):
+            self.alert(title: "error", message: error.localizedDescription)
+        }
+    }
 }
 
 

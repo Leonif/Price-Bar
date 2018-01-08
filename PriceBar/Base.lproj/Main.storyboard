@@ -507,25 +507,6 @@
                                     <outlet property="delegate" destination="CgW-nK-NrY" id="o3x-Gd-jD2"/>
                                 </connections>
                             </tableView>
-                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PDu-wx-Yl8">
-                                <rect key="frame" x="162.5" y="308.5" width="50" height="50"/>
-                                <subviews>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="sCi-aS-cg0">
-                                        <rect key="frame" x="6" y="6" width="37" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="etx-lS-Kqp"/>
-                                    <constraint firstAttribute="width" constant="50" id="jmI-b5-nKd"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nhA-7N-FQr">
                                 <rect key="frame" x="-4" y="108" width="383" height="451"/>
                                 <subviews>
@@ -586,15 +567,11 @@
                             <constraint firstItem="e1p-Ld-bIX" firstAttribute="leading" secondItem="wIk-Lx-zca" secondAttribute="leading" constant="20" id="e4w-JY-MJf"/>
                             <constraint firstAttribute="trailing" secondItem="amP-DL-HwC" secondAttribute="trailing" id="eI3-eV-lUZ"/>
                             <constraint firstItem="CQA-ar-EU4" firstAttribute="top" secondItem="nhA-7N-FQr" secondAttribute="bottom" constant="108" id="lB3-ee-bu0"/>
-                            <constraint firstItem="PDu-wx-Yl8" firstAttribute="centerX" secondItem="wIk-Lx-zca" secondAttribute="centerX" id="oE4-pA-TJx"/>
-                            <constraint firstItem="PDu-wx-Yl8" firstAttribute="centerY" secondItem="wIk-Lx-zca" secondAttribute="centerY" id="sqZ-Qw-bRZ"/>
                             <constraint firstItem="CQA-ar-EU4" firstAttribute="top" secondItem="e1p-Ld-bIX" secondAttribute="bottom" constant="70" id="zRF-pv-9Is"/>
                             <constraint firstItem="wnc-Qk-gxs" firstAttribute="top" secondItem="sR4-xo-foa" secondAttribute="bottom" constant="10" id="zS6-ny-bAa"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="activityContainerView" destination="PDu-wx-Yl8" id="uMW-2c-crR"/>
-                        <outlet property="activityIndicator" destination="sCi-aS-cg0" id="6JI-jC-dam"/>
                         <outlet property="outletTableView" destination="wnc-Qk-gxs" id="g9S-5e-gY5"/>
                         <outlet property="warningLocationView" destination="nhA-7N-FQr" id="GzX-yV-yZK"/>
                     </connections>

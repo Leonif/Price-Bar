@@ -19,11 +19,11 @@ class ShopListController: UIViewController {
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     var shopListService: ShopListService!
-    var locationService: LocationService?
-    var userCoordinate: CLLocationCoordinate2D?
+    //var locationService: LocationService?
+    //var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
-    var selfDefined: Bool = false
-    var selfLoaded: Bool = false
+    //var selfDefined: Bool = false
+    //var selfLoaded: Bool = false
     var dataSource: ShopListDataSource?
     
     @IBOutlet weak var outletNameButton: UIButton!
@@ -41,12 +41,14 @@ class ShopListController: UIViewController {
         dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopListService: shopListService)
         shopTableView.dataSource = dataSource
         
+        let outletService = OutletService()
+        outletService.startLookingForNearestOutlet(nearestOutletDelegate: self)
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         
-        let outletService = OutletService()
-        outletService.startLookingForNearestOutlet(nearestOutletDelegate: self)
+        
 
     }
     
@@ -62,7 +64,7 @@ class ShopListController: UIViewController {
     }
     
     @IBAction func outletPressed(_ sender: Any) {
-        performSegue(withIdentifier: showOutlets, sender: userCoordinate)
+        performSegue(withIdentifier: showOutlets, sender: nil)
     }
 }
 
@@ -177,12 +179,6 @@ extension ShopListController {
         
         if segue.identifier == showOutlets, let outletVC = segue.destination as? OutletsVC  {
             outletVC.delegate = self
-            if let userCoord = sender as? CLLocationCoordinate2D {
-                outletVC.userCoordinate = userCoord
-            } else {
-                outletVC.userCoordinate = nil
-            }
-            
         }
         if segue.identifier == showItemList,
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil  {

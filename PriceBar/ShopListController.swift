@@ -38,7 +38,6 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         shopListService = ShopListService()
-        locationService = LocationService(input: self)
         dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopListService: shopListService)
         shopTableView.dataSource = dataSource
         
@@ -46,18 +45,9 @@ class ShopListController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        guard let locationService = locationService else {
-            fatalError("Location service is not available")
-        }
-        
-        let result = locationService.startReceivingLocationChanges()
-        
-        switch result {
-        case let .failure(error):
-            alert(title: "OOps", message: error.errorDescription)
-        default:
-            print("Location service works")
-        }
+        let outletService = OutletService(nearestOutletDelegate: self)
+        outletService.startLookingForNearestOutlet()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,27 +110,20 @@ extension ShopListController: ShopListDataSourceDelegate {
 
 
 //MARK: Location service handler
-extension ShopListController: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        userCoordinate = locations.last?.coordinate
-        if let userCoord = userCoordinate, !selfDefined {
-            let outletService = OutletService()
-            outletService.getOutlet(near: userCoord, completion: { result in
-                var activateControls = false
-                switch result {
-                case let .success(outlet):
-                    self.handle(for: outlet)
-                    activateControls = true
-                case let .failure(error):
-                    activateControls = false
-                    self.alert(title: "Ops", message: error.errorDescription)
-                }
-                self.selfDefined = activateControls
-                self.buttonEnable(activateControls)
-            })
+extension ShopListController: NearestOutletDelegate {
+    func nearest(result: ResultType<Outlet, OutletServiceError>) {
+        var activateControls = false
+        switch result {
+        case let .success(outlet):
+            print(outlet)
+            self.handle(for: outlet)
+            activateControls = true
+        case let .failure(error):
+            self.alert(title: "Ops", message: error.errorDescription)
         }
+        self.buttonEnable(activateControls)
     }
+
     
     
     func buttonEnable(_ enable: Bool) {

@@ -9,9 +9,6 @@
 import Foundation
 import MapKit
 
-
-
-
 enum LocationServiceError: Error {
     case notAuthorizedAccess(String)
     case servicesIsNotAvailable(String)
@@ -26,8 +23,6 @@ enum LocationServiceError: Error {
         }
     }
 }
-
-
 
 class LocationService {
     let locationManager = CLLocationManager()
@@ -56,6 +51,10 @@ class LocationService {
         locationManager.startUpdatingLocation()
         
         return ResultType.success(true)
+    }
+    
+    func stopLocationUpdating() {
+        locationManager.stopUpdatingLocation()
     }
     
     

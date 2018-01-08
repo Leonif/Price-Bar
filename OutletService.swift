@@ -9,6 +9,17 @@
 import Foundation
 import CoreLocation
 
+
+protocol OutletListDelegate {
+    func list(outlets: [Outlet])
+}
+
+protocol NearestOutletDelegate {
+    func nearest(result: ResultType<Outlet, OutletServiceError>)
+}
+
+
+
 enum OutletServiceError: Error {
     case outletNotFound(String)
     case foursqareDoesntResponce(String)
@@ -32,21 +43,23 @@ enum OutletServiceError: Error {
 
 
 
-class OutletService {
-    func getOutlet(near coordinate: CLLocationCoordinate2D, completion: @escaping (ResultType<Outlet, OutletServiceError>)->()) {
-        self.loadOultets(userCoordinate: coordinate, completed: { result in
-            switch result {
-            case let .success(outlets):
-                guard let outlet = outlets.first else {
-                    completion(ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
-                    return
-                }
-                completion(ResultType.success(outlet))
-                
-            case let .failure(error):
-                completion(ResultType.failure(error))
-            }
-        })
+class OutletService: NSObject {
+    
+    var locationService: LocationService?
+    var nearestOutletDelegate: NearestOutletDelegate?
+    
+    
+    init(nearestOutletDelegate: NearestOutletDelegate) {
+        super.init()
+        self.nearestOutletDelegate = nearestOutletDelegate
+        locationService = LocationService(input: self)
+    }
+    
+    
+    func startLookingForNearestOutlet() {
+        
+        _ = locationService?.startReceivingLocationChanges()
+  
     }
     
     func loadOultets(userCoordinate:CLLocationCoordinate2D, completed: @escaping (ResultType<[Outlet], OutletServiceError>)->()) {
@@ -97,6 +110,32 @@ class OutletService {
             }
             }.resume()
     }
+}
+
+
+extension OutletService: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let  userCoord = locations.last?.coordinate else {
+            fatalError("Coorddinate is not gotton")
+        }
+        
+        self.loadOultets(userCoordinate: userCoord, completed: { result in
+            self.locationService?.stopLocationUpdating()
+            switch result {
+            case let .success(outlets):
+                guard let outlet = outlets.first else {
+                    self.nearestOutletDelegate?.nearest(result: ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
+                    return
+                }
+                self.nearestOutletDelegate?.nearest(result: ResultType.success(outlet))
+            case let .failure(error):
+                self.nearestOutletDelegate?.nearest(result: ResultType.failure(error))
+            }
+        })
+        
+    }
+    
+    
 }
 
 

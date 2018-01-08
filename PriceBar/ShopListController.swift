@@ -19,11 +19,7 @@ class ShopListController: UIViewController {
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     var shopListService: ShopListService!
-    //var locationService: LocationService?
-    //var userCoordinate: CLLocationCoordinate2D?
     var userOutlet: Outlet!
-    //var selfDefined: Bool = false
-    //var selfLoaded: Bool = false
     var dataSource: ShopListDataSource?
     
     @IBOutlet weak var outletNameButton: UIButton!
@@ -44,12 +40,6 @@ class ShopListController: UIViewController {
         let outletService = OutletService()
         outletService.startLookingForNearestOutlet(nearestOutletDelegate: self)
         
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        
-        
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -168,7 +158,8 @@ extension ShopListController: UITableViewDelegate {
 //MARK: transition
 extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showEditItem, let itemVC = segue.destination as? ItemCardVC  {
+        if segue.identifier == showEditItem,
+            let itemVC = segue.destination as? ItemCardVC  {
             if let item = sender as? ShopItem {
                 itemVC.item = item
                 itemVC.delegate = self
@@ -177,7 +168,8 @@ extension ShopListController {
             }
         }
         
-        if segue.identifier == showOutlets, let outletVC = segue.destination as? OutletsVC  {
+        if segue.identifier == showOutlets,
+            let outletVC = segue.destination as? OutletsVC  {
             outletVC.delegate = self
         }
         if segue.identifier == showItemList,
@@ -186,7 +178,8 @@ extension ShopListController {
             itemListVC.delegate = self
             
         }
-        if segue.identifier == showScan, let scanVC = segue.destination as? ScannerController  {
+        if segue.identifier == showScan,
+            let scanVC = segue.destination as? ScannerController  {
             scanVC.delegate = self
         }
     }

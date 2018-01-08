@@ -58,10 +58,7 @@ class ItemCardVC: UIViewController {
         //load categories
         categories = CoreDataService.data.getCategoriesFromCoreData()
         uoms = CoreDataService.data.getUomsFromCoreData()
-        
-        
         addDoneButtonToNumPad()
-        
     }
     
     
@@ -81,8 +78,6 @@ class ItemCardVC: UIViewController {
             categoryButton.setTitle(item.itemCategory.name, for: .normal)
             uomButton.setTitle(item.itemUom.name, for: .normal)
         }
-        
-        
     }
     
    
@@ -101,11 +96,7 @@ class ItemCardVC: UIViewController {
                 commonPickerView.selectRow(index, inComponent: 0, animated: true)
                 break
             }
- 
         }
-        
-        
-        
     }
     
     @IBAction func uomPressed(_ sender: Any) {
@@ -124,16 +115,8 @@ class ItemCardVC: UIViewController {
                 commonPickerView.selectRow(index, inComponent: 0, animated: true)
                 break
             }
-            
         }
-        
-    
     }
-    
-    
-    
-    
-    
     
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -218,12 +201,14 @@ extension ItemCardVC: UITextFieldDelegate {
     
     func addDoneButtonToNumPad() {
         //Add done button to numeric pad keyboard
-        let toolbarDone = UIToolbar.init()
+        let toolbarDone = UIToolbar()
         toolbarDone.sizeToFit()
-        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
+        let flex = UIBarButtonItem.init(barButtonSystemItem: .flexibleSpace,
+                                              target: self, action: nil)
+        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: .done,
                                               target: self, action: #selector(numDonePressed))
         
-        toolbarDone.items = [barBtnDone] // You can even add cancel button too
+        toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
         itemPrice.inputAccessoryView = toolbarDone
     }
 }

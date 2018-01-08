@@ -37,11 +37,8 @@ enum OutletServiceError: Error {
              let .other(description):
             return description
         }
-        
     }
 }
-
-
 
 class OutletService: NSObject {
     

@@ -45,8 +45,8 @@ class ShopListController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        let outletService = OutletService(nearestOutletDelegate: self)
-        outletService.startLookingForNearestOutlet()
+        let outletService = OutletService()
+        outletService.startLookingForNearestOutlet(nearestOutletDelegate: self)
 
     }
     

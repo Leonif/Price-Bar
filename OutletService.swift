@@ -47,18 +47,14 @@ class OutletService: NSObject {
     
     var locationService: LocationService?
     var nearestOutletDelegate: NearestOutletDelegate?
+    var outletListDelegate: OutletListDelegate?
     
     
-    init(nearestOutletDelegate: NearestOutletDelegate) {
-        super.init()
+    func startLookingForNearestOutlet(nearestOutletDelegate: NearestOutletDelegate) {
         self.nearestOutletDelegate = nearestOutletDelegate
         locationService = LocationService(input: self)
-    }
-    
-    
-    func startLookingForNearestOutlet() {
-        
         _ = locationService?.startReceivingLocationChanges()
+        
   
     }
     

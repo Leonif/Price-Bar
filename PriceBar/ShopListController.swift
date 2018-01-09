@@ -37,9 +37,25 @@ class ShopListController: UIViewController {
         dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopListService: shopListService)
         shopTableView.dataSource = dataSource
         
-        let outletService = OutletService()
-        outletService.startLookingForNearestOutlet(nearestOutletDelegate: self)
+        // load from cloud
         
+        // reload shoplist
+        
+        
+        let outletService = OutletService()
+        outletService.nearestOutlet { result in
+            print(result)
+            var activateControls = false
+            switch result {
+            case let .success(outlet):
+                print(outlet)
+                //self.handle(for: outlet)
+                activateControls = true
+            case let .failure(error):
+                self.alert(title: "Ops", message: error.errorDescription)
+            }
+            self.buttonEnable(activateControls)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,6 +71,25 @@ class ShopListController: UIViewController {
     
     @IBAction func outletPressed(_ sender: Any) {
         performSegue(withIdentifier: showOutlets, sender: nil)
+    }
+    @IBAction func cleanShopList(_ sender: GoodButton) {
+        
+        shopTableView.beginUpdates()
+        shopListService.removeAllItems()
+        shopTableView.endUpdates()
+        
+        
+    }
+    func buttonEnable(_ enable: Bool) {
+        
+        let alpha: CGFloat = enable ? 1 : 0.5
+        
+        self.scanButton.alpha = alpha
+        self.scanButton.isUserInteractionEnabled = enable
+        self.itemListButton.alpha = alpha
+        self.itemListButton.isUserInteractionEnabled = enable
+        self.outletNameButton.alpha = alpha
+        self.outletNameButton.isUserInteractionEnabled = enable
     }
 }
 
@@ -100,36 +135,6 @@ extension ShopListController: ShopListDataSourceDelegate {
     }
 }
 
-
-//MARK: Location service handler
-extension ShopListController: NearestOutletDelegate {
-    func nearest(result: ResultType<Outlet, OutletServiceError>) {
-        var activateControls = false
-        switch result {
-        case let .success(outlet):
-            print(outlet)
-            self.handle(for: outlet)
-            activateControls = true
-        case let .failure(error):
-            self.alert(title: "Ops", message: error.errorDescription)
-        }
-        self.buttonEnable(activateControls)
-    }
-
-    
-    
-    func buttonEnable(_ enable: Bool) {
-
-        let alpha: CGFloat = enable ? 1 : 0.5
-        
-        self.scanButton.alpha = alpha
-        self.scanButton.isUserInteractionEnabled = enable
-        self.itemListButton.alpha = alpha
-        self.itemListButton.isUserInteractionEnabled = enable
-        self.outletNameButton.alpha = alpha
-        self.outletNameButton.isUserInteractionEnabled = enable
-    }
-}
 
 //MARK: Table
 extension ShopListController: UITableViewDelegate {

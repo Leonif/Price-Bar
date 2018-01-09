@@ -33,13 +33,26 @@ class ShopListService {
         return sum
     }
     
+    func s() {
+            FirebaseService.data.loadCategories { categories in
+                print(categories)
+            }
+        
+        
+        
+    
+    }
+    
+    
     func synchronizeCloud(completion: @escaping ()->()) {
         let deviceStorage = CoreDataService.data
 
         deviceStorage.getCategories { categories in
             categories.forEach { self.categories.append($0) }
+            
             deviceStorage.getUoms { uoms in
                 uoms.forEach { self.uoms.append($0)  }
+                
                 deviceStorage.importItemsFromCloud {
                     deviceStorage.importPricesFromCloud {
                         completion()
@@ -113,6 +126,15 @@ class ShopListService {
         }
         return .sectionFull
     }
+    
+    func removeAllItems() {
+        
+        shopList.removeAll()
+        CoreDataService.data.removeAllItems()
+        
+    }
+    
+    
     
     func change(_ item: ShopItem) -> Bool {
         for (key, value) in shopList {

@@ -205,60 +205,89 @@
                                 <color key="textColor" red="1" green="0.0" blue="0.27058823529999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1v-Mz-DlY" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
-                                <rect key="frame" x="279" y="447" width="60" height="60"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzV-P9-rjB" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
+                                <rect key="frame" x="16" y="511" width="60" height="60"/>
                                 <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="FKj-OU-Gok"/>
-                                    <constraint firstAttribute="width" constant="60" id="byO-Gt-ndU"/>
+                                    <constraint firstAttribute="height" constant="60" id="I4H-xp-g6Z"/>
+                                    <constraint firstAttribute="width" constant="60" id="e2O-UL-Fca"/>
                                 </constraints>
-                                <state key="normal" image="scanning">
+                                <state key="normal" image="rubbish">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
+                                    <action selector="cleanShopList:" destination="BYZ-38-t0r" eventType="touchUpInside" id="65E-uz-Pdw"/>
+                                    <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UQK-o0-Tkg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-mn-h0O" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
-                                <rect key="frame" x="279" y="537" width="60" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61o-de-Tit">
+                                <rect key="frame" x="279" y="511" width="80" height="140"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1v-Mz-DlY" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="4" width="60" height="60"/>
+                                        <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="FKj-OU-Gok"/>
+                                            <constraint firstAttribute="width" constant="60" id="byO-Gt-ndU"/>
+                                        </constraints>
+                                        <state key="normal" image="scanning">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-mn-h0O" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
+                                        <rect key="frame" x="12" y="72" width="60" height="60"/>
+                                        <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="9WM-PL-hau"/>
+                                            <constraint firstAttribute="width" constant="60" id="VEN-HR-Ohx"/>
+                                        </constraints>
+                                        <state key="normal" image="check-list">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="30"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="itemListPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Joo-Hz-PrH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="9WM-PL-hau"/>
-                                    <constraint firstAttribute="width" constant="60" id="VEN-HR-Ohx"/>
+                                    <constraint firstItem="bBr-mn-h0O" firstAttribute="top" secondItem="S1v-Mz-DlY" secondAttribute="bottom" constant="8" id="K3r-nN-mOi"/>
+                                    <constraint firstAttribute="bottom" secondItem="bBr-mn-h0O" secondAttribute="bottom" constant="8" id="K5F-Db-zrX"/>
+                                    <constraint firstAttribute="height" constant="140" id="M83-i7-pF8"/>
+                                    <constraint firstAttribute="width" constant="80" id="jP9-Al-6XM"/>
+                                    <constraint firstItem="S1v-Mz-DlY" firstAttribute="trailing" secondItem="bBr-mn-h0O" secondAttribute="trailing" id="tNg-m7-AqA"/>
+                                    <constraint firstAttribute="trailing" secondItem="bBr-mn-h0O" secondAttribute="trailing" constant="8" id="y3L-CE-qUw"/>
                                 </constraints>
-                                <state key="normal" image="check-list">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="itemListPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Joo-Hz-PrH"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="ZzV-P9-rjB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="1lW-uz-9G6"/>
                             <constraint firstItem="yUL-id-lem" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="2GC-wp-cbe"/>
+                            <constraint firstItem="ZzV-P9-rjB" firstAttribute="top" secondItem="61o-de-Tit" secondAttribute="top" id="8uN-Bn-ZLa"/>
                             <constraint firstAttribute="trailing" secondItem="teD-oh-0KA" secondAttribute="trailing" constant="20" id="CKZ-ys-EfI"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="top" secondItem="2so-a8-Tea" secondAttribute="bottom" constant="20" id="ExV-cU-Zl7"/>
                             <constraint firstAttribute="trailing" secondItem="nnc-58-l2C" secondAttribute="trailing" id="GjM-Dp-hRq"/>
                             <constraint firstItem="nnc-58-l2C" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Py5-1v-ZGm"/>
-                            <constraint firstItem="S1v-Mz-DlY" firstAttribute="leading" secondItem="bBr-mn-h0O" secondAttribute="leading" id="SwI-BB-UPo"/>
                             <constraint firstItem="yUL-id-lem" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" constant="20" id="WH0-lM-DUh"/>
-                            <constraint firstItem="bBr-mn-h0O" firstAttribute="top" secondItem="S1v-Mz-DlY" secondAttribute="bottom" constant="30" id="X85-26-A0h"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yUL-id-lem" secondAttribute="bottom" constant="20" id="kDY-GE-WV7"/>
                             <constraint firstItem="nnc-58-l2C" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lCq-iQ-Ajg"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="bBr-mn-h0O" secondAttribute="bottom" constant="70" id="lhF-F7-nD6"/>
+                            <constraint firstAttribute="trailing" secondItem="61o-de-Tit" secondAttribute="trailing" constant="16" id="ltQ-ly-3bW"/>
+                            <constraint firstAttribute="bottom" secondItem="61o-de-Tit" secondAttribute="bottom" constant="16" id="nhi-ev-SRe"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="qoc-gM-cxe"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="bBr-mn-h0O" secondAttribute="trailing" constant="20" id="tZE-kC-dJc"/>
                         </constraints>
                     </view>
                     <connections>
@@ -920,6 +949,7 @@
         <image name="locationInfo" width="638" height="620"/>
         <image name="plus" width="128" height="128"/>
         <image name="product-back" width="1607" height="1073"/>
+        <image name="rubbish" width="128" height="128"/>
         <image name="save" width="128" height="128"/>
         <image name="scanning" width="128" height="128"/>
         <image name="shopping-basket" width="128" height="128"/>

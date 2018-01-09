@@ -21,7 +21,7 @@ extension ShopListController: Exchange {
             self.handle(for: item)
         }
         if let outlet = object as? Outlet  {//outlet came
-            self.handle(for: outlet)
+            //self.handle(for: outlet)
         }
         if let scannedCode = object as? String {//scann came
             self.handle(for: scannedCode)
@@ -56,28 +56,28 @@ extension ShopListController: Exchange {
     
     
     
-    func handle(for outlet: Outlet) {
-        let needToReload = launchedTimes == 1 || launchedTimes >= 10
-        
-        if needToReload { // from cloud
-            print("Refresh from cloud...")
-            self.view.pb_startActivityIndicator(with: "Синхронизация с облаком. Пожалуйста подождите...")
-            
-            FirebaseService.data.loginToFirebase({
-                self.shopListService.synchronizeCloud {
-                    self.loadShopList(for: outlet)
-                    self.view.pb_stopActivityIndicator()
-                    launchedTimes = 2
-                }
-            }, {
-                fatalError("Error of login to FIrebase")
-            })
-        } else {// load from coredata
-            self.shopListService.synchronizeDevice()
-            print("Refresh from cloud DONT NEED... \(launchedTimes)")
-            self.loadShopList(for: outlet)
-        }
-    }
+//    func handle(for outlet: Outlet) {
+//        let needToReload = launchedTimes == 1 || launchedTimes >= 10
+//        
+//        if needToReload { // from cloud
+//            print("Refresh from cloud...")
+//            self.view.pb_startActivityIndicator(with: "Синхронизация с облаком. Пожалуйста подождите...")
+//            
+//            FirebaseService.data.loginToFirebase({
+//                self.shopListService.synchronizeCloud {
+//                    self.loadShopList(for: outlet)
+//                    self.view.pb_stopActivityIndicator()
+//                    launchedTimes = 2
+//                }
+//            }, {
+//                fatalError("Error of login to FIrebase")
+//            })
+//        } else {// load from coredata
+//            self.shopListService.synchronizeDevice()
+//            print("Refresh from cloud DONT NEED... \(launchedTimes)")
+//            self.loadShopList(for: outlet)
+//        }
+//    }
     
     
     func loadShopList(for outlet: Outlet) {

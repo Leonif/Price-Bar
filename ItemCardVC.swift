@@ -169,13 +169,7 @@ extension ItemCardVC: UIPickerViewDelegate, UIPickerViewDataSource {
             
         }
     }
-    
-    
 }
-
-
-
-
 
 extension ItemCardVC: UITextFieldDelegate {
     //hide keyboard by press ENter
@@ -190,14 +184,10 @@ extension ItemCardVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         textField.animateViewMoving(up: false, moveValue: 150, view: self.view)
     }
-
     
     @objc func numDonePressed() {
-        
         itemPrice.resignFirstResponder()
-        
     }
-    
     
     func addDoneButtonToNumPad() {
         //Add done button to numeric pad keyboard

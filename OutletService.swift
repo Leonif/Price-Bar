@@ -45,6 +45,7 @@ class OutletService: NSObject {
     var locationService: LocationService?
     var nearestOutletDelegate: NearestOutletDelegate?
     var outletListDelegate: OutletListDelegate?
+    var resultCompletion: ((ResultType<Outlet, OutletServiceError>) -> Void)?
     
     
     func startLookingForNearestOutlet(nearestOutletDelegate: NearestOutletDelegate) {
@@ -52,6 +53,13 @@ class OutletService: NSObject {
         locationService = LocationService(input: self)
         _ = locationService?.startReceivingLocationChanges()
     }
+    
+    func nearestOutlet(completion: @escaping (ResultType<Outlet, OutletServiceError>)->())  {
+        resultCompletion = completion
+        locationService = LocationService(input: self)
+        _ = locationService?.startReceivingLocationChanges()
+    }
+    
     
     func startLookingForOutletList(outletListDelegate: OutletListDelegate) {
         self.outletListDelegate = outletListDelegate
@@ -125,10 +133,12 @@ extension OutletService: CLLocationManagerDelegate {
                     self.nearestOutletDelegate?.nearest(result: ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
                     return
                 }
-                self.nearestOutletDelegate?.nearest(result: ResultType.success(outlet))
+                //self.nearestOutletDelegate?.nearest(result: ResultType.success(outlet))
+                self.resultCompletion?(ResultType.success(outlet))
                 self.outletListDelegate?.list(result: ResultType.success(outlets))
             case let .failure(error):
-                self.nearestOutletDelegate?.nearest(result: ResultType.failure(error))
+                //self.nearestOutletDelegate?.nearest(result: ResultType.failure(error))
+                self.resultCompletion?(ResultType.failure(error))
                 self.outletListDelegate?.list(result: ResultType.failure(error))
                 
             }

@@ -11,6 +11,13 @@ import Firebase
 
 let DB_FIRBASE = Database.database().reference()
 
+enum FirebaseError: Error {
+    case loginError(String)
+    
+}
+
+
+
 class FirebaseService {
     
    
@@ -23,7 +30,7 @@ class FirebaseService {
     
     
     
-    func loginToFirebase(_ success: @escaping ()->(), _ error: ()->()) {
+    func loginToFirebase(completion: @escaping (ResultType<Bool, FirebaseError>)->()) {
         let email = "good_getter@gmail.com"
         let pwd = "123456"
         
@@ -33,19 +40,19 @@ class FirebaseService {
                 Auth.auth().createUser(withEmail: email, password: pwd, completion: { (user, error) in
                     if error != nil {
                         print("error of user creation!")
-                        return
+                        completion(ResultType.failure(.loginError("error of user creation!")))
                     }
                     print("User \(email) is created!")
                     return
                 })
             }
-            success()
+            completion(ResultType.success(true))
             print("Email authorization is successful!")
         })
     }
     
     func loadCategories(categoryList: @escaping (_ categories: [ItemCategory])->()) {
-        self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { (snapshot) in
+        self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 var categories = [ItemCategory]()
                 for snapCategory in snapCategories {

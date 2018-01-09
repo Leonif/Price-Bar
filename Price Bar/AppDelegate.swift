@@ -39,6 +39,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             launchedTimes = 1
         }
         
+        
+       
+        
+        
         return true
     }
 

@@ -204,12 +204,25 @@ class CoreDataService {
             shpLstRequest.predicate = NSPredicate(format: "toProduct.id == %@", item.id)
             let productExist = try context.fetch(shpLstRequest)
             
-            productExist.forEach {context.delete($0) }
+            productExist.forEach { context.delete($0) }
             ad.saveContext()
         } catch {
             print("Products is not got from database")
         }
-
+    }
+    
+    func removeAllItems() {
+        do {
+            let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+            //shpLstRequest.predicate = NSPredicate(format: "toProduct.id == %@", item.id)
+            let productExist = try context.fetch(shpLstRequest)
+            
+            productExist.forEach { context.delete($0) }
+            ad.saveContext()
+        } catch {
+            print("Products is not got from database")
+        }
+        
         
     }
     

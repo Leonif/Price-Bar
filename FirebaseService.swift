@@ -13,13 +13,13 @@ let DB_FIRBASE = Database.database().reference()
 
 enum FirebaseError: Error {
     case loginError(String)
+    case categoryError(String)
     
 }
 
 
 
 class FirebaseService {
-    
    
     static let data = FirebaseService()
     var REF_BASE = DB_FIRBASE
@@ -51,7 +51,8 @@ class FirebaseService {
         })
     }
     
-    func loadCategories(categoryList: @escaping (_ categories: [ItemCategory])->()) {
+    func loadCategories(completion: @escaping (ResultType<[ItemCategory], FirebaseError>)->()) {
+        
         self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 var categories = [ItemCategory]()
@@ -61,9 +62,14 @@ class FirebaseService {
                         categories.append(itemCategory)
                     }
                 }
-                categoryList(categories)
+                //categoryList(categories)
+                completion(ResultType.success(categories))
             }
-        })
+        }) { error in
+            completion(ResultType.failure(.categoryError(error.localizedDescription)))
+        }
+        
+        
     }
     
     

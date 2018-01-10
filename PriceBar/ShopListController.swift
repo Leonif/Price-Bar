@@ -38,6 +38,9 @@ class ShopListController: UIViewController {
         shopTableView.dataSource = dataSource
         
         // load from cloud
+        shopListService.synchronizeCloud2 {
+             print(123)
+        }
         
         // reload shoplist
         

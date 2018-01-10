@@ -15,6 +15,13 @@ enum SectionInfo {
     case indexError
 }
 
+
+enum ShopListServiceError: Error {
+    case syncError(String)
+}
+
+
+
 class ShopListService {
     
     var shopList = [String: [ShopItem]]()
@@ -33,15 +40,46 @@ class ShopListService {
         return sum
     }
     
-    func s() {
-            FirebaseService.data.loadCategories { categories in
-                print(categories)
+    func synchronizeCloud2(completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+        syncCategories { result in
+            switch result {
+            case .success(_): break
+                // products
+            case let .failure(error):
+                print(error)
+                completion(ResultType.failure(.syncError("Ошибка синхронизации с облаком")))
             }
-        
-        
-        
-    
+        }
     }
+    
+    
+    private func syncCategories(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
+        FirebaseService.data.loadCategories { result in // get from firebase
+            switch result {
+            case let .success(categories):
+                CoreDataService.data.update(by: categories)
+                completion(ResultType.success(true))
+            case let .failure(error):
+                print(error)
+                completion(ResultType.failure(.syncError("Ошибка синхронизации с облаком")))
+            }
+        }
+    }
+
+    private func syncProducts(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
+        FirebaseService.data.loadCategories { result in // get from firebase
+            switch result {
+            case let .success(categories):
+                CoreDataService.data.update(by: categories)
+                completion(ResultType.success(true))
+            case let .failure(error):
+                print(error)
+                completion(ResultType.failure(.syncError("Ошибка синхронизации с облаком")))
+            }
+        }
+    }
+
+    
     
     
     func synchronizeCloud(completion: @escaping ()->()) {

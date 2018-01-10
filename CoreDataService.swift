@@ -24,7 +24,9 @@ class CoreDataService {
     
     func loadCategories(_ complete: @escaping ()->()) {
         initCategories = []
-        FirebaseService.data.loadCategories { (categories) in
+        FirebaseService.data.loadCategories { result in
+            
+            
             self.initCategories = categories
             complete()
         }
@@ -40,12 +42,7 @@ class CoreDataService {
     }
     
     
-    func getCategories(complete: @escaping ([ItemCategory])->()) {
-        loadCategories {
-            let itemCategories = self.getCategoriesFromCoreData()
-            complete(itemCategories)
-        }   
-    }
+    
     
     func getUoms(complete: @escaping ([ItemUom])->()) {
         loadUoms {
@@ -55,36 +52,7 @@ class CoreDataService {
     }
     
     
-    func getCategoriesFromCoreData() -> [ItemCategory] {
-        var cats = [Category]()
-        do {
-            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
-            cats = try context.fetch(fetchRequest)
-            if cats.count != self.initCategories.count {
-                cats = []
-                for c in self.initCategories { // пересоздаем категории заново
-                    let cat = Category(context: context)
-                    cat.id = c.id
-                    cat.category = c.name
-                }
-                ad.saveContext()
-                cats = try context.fetch(fetchRequest)
-            }
-            
-        } catch  {
-            print("Categories are not got from database")
-        }
-        
-        var itemCategories = [ItemCategory]()
-        
-        cats.forEach {
-            if let categoryName = $0.category {
-                let itemCategory = ItemCategory(id: $0.id, name: categoryName)
-                itemCategories.append(itemCategory)
-            }
-        }
-        return itemCategories
-    }
+    
     
     func getUomsFromCoreData() -> [ItemUom] {
         var uoms = [Uom]()
@@ -273,9 +241,9 @@ class CoreDataService {
 extension CoreDataService {
     
     func importItemsFromCloud(completion: @escaping ()->()) {
-        FirebaseService.data.loadGoods { (goods) in
-            goods.forEach {
-                self.saveOrUpdate($0)
+        FirebaseService.data.loadGoods { goods in
+            goods.forEach { good in
+                self.saveOrUpdate(good)
             }
             completion()
             
@@ -445,23 +413,7 @@ extension CoreDataService {
     
     
     
-    func setCategory(for item: ShopItem) -> Category? {
-        do {
-            // search category in coredata
-            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
-            categoryRequest.predicate = NSPredicate(format: "id == %d", item.itemCategory.id)
-            let category = try context.fetch(categoryRequest)
-            
-            if category.isEmpty {
-                return setDefaultCategory()
-            } else {
-                return category.first
-            }
-        } catch {
-            print("Error of setting not defined category")
-            return nil
-        }
-    }
+    
 
     func setUom(for item: ShopItem) -> Uom? {
         do {
@@ -507,6 +459,104 @@ extension CoreDataService {
             print("Error of setting not defined category")
             return nil
         }
+    }
+    
+    
+}
+
+
+//MARK: Categories
+extension CoreDataService {
+    
+    
+    
+    
+    func getCategories(complete: @escaping ([ItemCategory])->()) {
+        loadCategories {
+            let itemCategories = self.getCategoriesFromCoreData()
+            complete(itemCategories)
+        }
+    }
+    
+    func getCategoriesFromCoreData() -> [ItemCategory] {
+        var cats = [Category]()
+        do {
+            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+            cats = try context.fetch(fetchRequest)
+            if cats.count != self.initCategories.count {
+                cats = []
+                for c in self.initCategories { // пересоздаем категории заново
+                    let cat = Category(context: context)
+                    cat.id = c.id
+                    cat.category = c.name
+                }
+                ad.saveContext()
+                cats = try context.fetch(fetchRequest)
+            }
+            
+        } catch  {
+            print("Categories are not got from database")
+        }
+        
+        var itemCategories = [ItemCategory]()
+        
+        cats.forEach {
+            if let categoryName = $0.category {
+                let itemCategory = ItemCategory(id: $0.id, name: categoryName)
+                itemCategories.append(itemCategory)
+            }
+        }
+        return itemCategories
+    }
+    
+    func setCategory(for item: ShopItem) -> Category? {
+        do {
+            // search category in coredata
+            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
+            categoryRequest.predicate = NSPredicate(format: "id == %d", item.itemCategory.id)
+            let category = try context.fetch(categoryRequest)
+            
+            if category.isEmpty {
+                return setDefaultCategory()
+            } else {
+                return category.first
+            }
+        } catch {
+            print("Error of setting not defined category")
+            return nil
+        }
+    }
+    
+    
+    public func update(by categories:[ItemCategory])  {
+        removeCategories()
+        update(new: categories)
+    }
+    
+    private func removeCategories() {
+        let requestCategories = NSFetchRequest<NSFetchRequestResult>(entityName: "Category")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: requestCategories)
+       
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            fatalError("Categories removing error")
+        }
+    }
+    
+    private func update(new categories:[ItemCategory]) {
+        categories.forEach { category in
+            self.save(new: category)
+        }
+        
+    }
+    
+    func save(new category: ItemCategory) {
+        let cat = Category(context: context)
+        cat.id = category.id
+        cat.category = category.name
+        ad.saveContext()
     }
     
     

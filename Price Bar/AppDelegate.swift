@@ -39,7 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             launchedTimes = 1
         }
         
-        
+        FirebaseService.data.loginToFirebase { result in
+            switch result {
+            case .success(_):
+                print("Firebase login success")
+            case let .failure(error):
+                print(error)
+            }
+        }
        
         
         

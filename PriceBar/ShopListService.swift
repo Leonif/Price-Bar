@@ -45,25 +45,30 @@ class ShopListService {
         
         var r = (false, false, false,false)
         
-        syncProducts { result in
-            switch result {
-            case .success:
-                r.0 = true
-                if r == (true,true,true,true) {
-                    completion(ResultType.success(true))
-                }
-            case let .failure(error):
-                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
-            }
-        }
+        
         
         syncCategories { result in
             switch result {
             case .success:
-                r.1 = true
-                if r == (true,true,true,true) {
-                    completion(ResultType.success(true))
+
+                r.0 = true
+                //                if r == (true,true,true,true) {
+                //                    completion(ResultType.success(true))
+                //                }
+                
+                self.syncProducts { result in
+                    switch result {
+                    case .success:
+                        r.1 = true
+                        if r == (true,true,true,true) {
+                            completion(ResultType.success(true))
+                        }
+                    case let .failure(error):
+                        completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+                    }
                 }
+                
+                
                 
                 
             case let .failure(error):
@@ -95,8 +100,6 @@ class ShopListService {
                 completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
             }
         }
-        
-        
     }
     
     

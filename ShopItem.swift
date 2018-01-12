@@ -154,7 +154,10 @@ class ShopItem  {
                 }
             }
         } else {
-            itemCategory = CoreDataService.data.initCategories[0]
+            guard let cat = CoreDataService.data.defaultCategory else {
+                fatalError("default category is not exist")
+            }
+            itemCategory = cat
         }
         
         
@@ -167,7 +170,7 @@ class ShopItem  {
                 }
             }
         } else {
-            itemCategory = CoreDataService.data.initCategories[0]
+            itemCategory = CoreDataService.data.defaultCategory!
         }
         self.quantity = 0
         self.minPrice = 0

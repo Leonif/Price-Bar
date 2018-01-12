@@ -23,8 +23,13 @@ class CoreDataService {
     var initUoms = [ItemUom]()
     
     
-    var defaultCategory: ItemCategory {
-        return initCategories[0]
+    var defaultCategory: ItemCategory? {
+        
+        guard let cat = self.getCategoriesFromCoreData().first else {
+            return nil
+        }
+        
+        return cat
     }
     
     
@@ -453,6 +458,9 @@ extension CoreDataService {
         }
         return itemCategories
     }
+    
+    
+    
     
     func setCategory(for item: ShopItem) -> Category? {
         do {

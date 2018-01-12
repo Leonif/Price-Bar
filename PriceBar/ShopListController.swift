@@ -22,6 +22,7 @@ class ShopListController: UIViewController {
     var userOutlet: Outlet!
     var dataSource: ShopListDataSource?
     
+    
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
     
@@ -38,11 +39,16 @@ class ShopListController: UIViewController {
         shopTableView.dataSource = dataSource
         
         // load from cloud
-//        shopListService.synchronizeCloud2 {
-//             print(123)
-//        }
-        
-        // reload shoplist
+        self.view.pb_startActivityIndicator(with: "Синхронизация")
+        shopListService.syncCloud { result in
+            self.view.pb_stopActivityIndicator()
+            switch result {
+            case let .failure(error):
+                self.alert(title: "Ops", message: error.localizedDescription)
+            case .success:
+                break
+            }
+        }
         
         
         let outletService = OutletService()

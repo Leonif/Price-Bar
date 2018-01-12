@@ -108,7 +108,7 @@ extension ShopListController: Exchange {
             item = foundItem
             //handle(for: item)
         } else { //doesnt exist in coreData
-            let itemCategory = deviceBase.defaultCategory // default category
+            let itemCategory = deviceBase.defaultCategory! // default category
             let itemUom = deviceBase.initUoms[0]
             
             item = ShopItem(id: scannedCode, name: "Неизвестно", quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, itemUom: itemUom, outletId: userOutlet.id, scanned: true, checked: false)

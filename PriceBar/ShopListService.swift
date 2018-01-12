@@ -54,14 +54,12 @@ class ShopListService {
     
     
     private func syncCategories(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
-        FirebaseService.data.loadCategories { result in // get from firebase
+        CoreDataService.data.syncCategories { result in
             switch result {
-            case let .success(categories):
-                CoreDataService.data.update(by: categories)
+            case .success:
                 completion(ResultType.success(true))
             case let .failure(error):
-                print(error)
-                completion(ResultType.failure(.syncError("Ошибка синхронизации с облаком")))
+                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
             }
         }
     }

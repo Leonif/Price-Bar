@@ -13,7 +13,7 @@ let DB_FIRBASE = Database.database().reference()
 
 enum FirebaseError: Error {
     case loginError(String)
-    case categoryError(String)
+    case syncError(String)
     
 }
 
@@ -51,8 +51,7 @@ class FirebaseService {
         })
     }
     
-    func loadCategories(completion: @escaping (ResultType<[ItemCategory], FirebaseError>)->()) {
-        
+    func syncCategories(completion: @escaping (ResultType<[ItemCategory], FirebaseError>)->()) {
         self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 var categories = [ItemCategory]()
@@ -62,19 +61,58 @@ class FirebaseService {
                         categories.append(itemCategory)
                     }
                 }
-                //categoryList(categories)
                 completion(ResultType.success(categories))
             }
         }) { error in
-            completion(ResultType.failure(.categoryError(error.localizedDescription)))
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
-        
-        
     }
     
     
-    func loadUoms(uomList: @escaping (_ uoms: [ItemUom])->()) {
-        self.REF_UOMS.observeSingleEvent(of: .value, with: { (snapshot) in
+    func syncProducts(completion: @escaping (ResultType<[ShopItem], FirebaseError>)->())  {
+        self.REF_GOODS.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapGoods = snapshot.value as? [String: Any] {
+                var goods = [ShopItem]()
+                for snapGood in snapGoods {
+                    if let goodDict = snapGood.value as? Dictionary<String, Any> {
+                        let key = snapGood.key
+                        let good = ShopItem(id: key, goodData: goodDict)
+                        goods.append(good)
+                    }
+                }
+                completion(ResultType.success(goods))
+            }
+        })  { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    func syncPrices(completion: @escaping (ResultType<[ShopItem], FirebaseError>)->()) {
+        REF_PRICE_STATISTICS.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+                var itemPrices = [ShopItem]()
+                for snapPrice in snapPrices {
+                    if let priceDict = snapPrice.value as? Dictionary<String,Any> {
+                        if let product_id = priceDict["product_id"] as? String {
+                            if let price = priceDict["price"] as? Double, price != 0 {
+                                let item = ShopItem(id: product_id, priceData: priceDict)
+                                itemPrices.append(item)
+                            }
+                        }
+                    }
+                }
+                completion(ResultType.success(itemPrices))
+            }
+        })  { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    
+    func syncUoms(completion: @escaping (ResultType<[ItemUom], FirebaseError>)->()) {
+        self.REF_UOMS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 var uoms = [ItemUom]()
                 for snapUom in snapUoms {
@@ -83,38 +121,12 @@ class FirebaseService {
                         uoms.append(itemUom)
                     }
                 }
-                uomList(uoms)
+                completion(ResultType.success(uoms))
             }
-        })
+        })   { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
     }
-    
-    
-    
-    
-    
-    func loadGoods(goodList: @escaping (_ good: [ShopItem])->())  {
-        
-            self.REF_GOODS.observeSingleEvent(of: .value, with: { (snapshot) in
-                if let snapGoods = snapshot.value as? [String: Any] {
-                    
-                    var goods = [ShopItem]()
-                    for snapGood in snapGoods {
-                        if let goodDict = snapGood.value as? Dictionary<String, Any> {
-                            let key = snapGood.key
-                            let good = ShopItem(id: key, goodData: goodDict)
-                            goods.append(good)
-                        }
-                    }
-                    goodList(goods)
-                }
-            })
-        
-    }
-    
-    
-    
-    
-    
     
     func saveOrUpdate(_ item: ShopItem) {
         
@@ -132,42 +144,10 @@ class FirebaseService {
         
     }
     
-    func importPricesFromCloud(comlete: @escaping (_ itemPrices: [ShopItem])->()) {
-        
-        REF_PRICE_STATISTICS.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                var itemPrices = [ShopItem]()
-                for snapPrice in snapPrices {
-                    if let priceDict = snapPrice.value as? Dictionary<String,Any> {
-                        
-                        if let product_id = priceDict["product_id"] as? String {
-                            if let price = priceDict["price"] as? Double, price != 0 {
-                                let item = ShopItem(id: product_id, priceData: priceDict)
-                                itemPrices.append(item)
-                                
-                                //print("firebase import pricing: \(priceDict)")
-                            }
-                        }
-                        
-                    }
-                    
-                }
-                comlete(itemPrices)
-                
-            }
-        })
-        
-        
-
-        
-        
-    }
+    
     
     
     func savePrice(for item: ShopItem) {
-        
-        
-        
         let priceStat = [
             "date": Date().getString(format: "dd.MM.yyyy hh:mm:ss"),
             "product_id": item.id,

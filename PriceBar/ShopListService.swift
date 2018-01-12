@@ -42,64 +42,39 @@ class ShopListService {
 
     
     public func syncCloud(completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
-        
-        var r = (false, false, false,false)
-        
-        
-        
         syncCategories { result in
             switch result {
             case .success:
-
-                r.0 = true
-                //                if r == (true,true,true,true) {
-                //                    completion(ResultType.success(true))
-                //                }
-                
-                self.syncProducts { result in
+                self.syncUom { result in
                     switch result {
                     case .success:
-                        r.1 = true
-                        if r == (true,true,true,true) {
-                            completion(ResultType.success(true))
+                        self.syncProducts { result in
+                            switch result {
+                            case .success:
+                                self.syncStatistics { result in
+                                    switch result {
+                                    case .success:
+                                            completion(ResultType.success(true))
+                                    case let .failure(error):
+                                        completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+                                    }
+                                }
+                            case let .failure(error):
+                                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+                            }
                         }
                     case let .failure(error):
                         completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
                     }
                 }
-                
-                
-                
-                
             case let .failure(error):
                 completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
             }
         }
         
         
-        syncStatistics { result in
-            switch result {
-            case .success:
-                r.2 = true
-                if r == (true,true,true,true) {
-                    completion(ResultType.success(true))
-                }
-            case let .failure(error):
-                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
-            }
-        }
         
-        syncUom { result in
-            switch result {
-            case .success:
-                r.3 = true
-                if r == (true,true,true,true) {
-                    completion(ResultType.success(true))
-                }
-            case let .failure(error):
-                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
-            }
-        }
+        
     }
     
     

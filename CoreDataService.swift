@@ -33,12 +33,7 @@ class CoreDataService {
     }
     
     
-//    func getUoms(complete: @escaping ([ItemUom])->()) {
-//        loadUoms {
-//            let itemUoms = self.getUomsFromCoreData()
-//            complete(itemUoms)
-//        }
-//    }
+
     
     
     func getUomsFromCoreData() -> [ItemUom] {
@@ -507,16 +502,12 @@ extension CoreDataService {
         prod.id = product.id
         prod.name = product.name
         prod.scanned = product.scanned
-        
-        
         if let categ = getCategory(by: product.itemCategory.id) {
             prod.toCategory = categ
         }
-        
-        
-        
-        prod.toUom?.id = product.itemUom.id
-        prod.toUom?.uom = product.itemUom.name
+        if let uom = getUom(by: product.itemUom.id) {
+            prod.toUom = uom
+        }
         ad.saveContext()
     }
     
@@ -532,11 +523,29 @@ extension CoreDataService {
             }
             return category
         } catch  {
-            print("Products is not got from database")
+            fatalError("category is not got from database")
         }
     
         return nil
     }
+    
+    func getUom(by id: Int32) -> Uom? {
+        do {
+            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
+            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+            let uoms = try context.fetch(fetchRequest)
+            
+            guard !uoms.isEmpty, let uom = uoms.first else {
+                return nil
+            }
+            return uom
+        } catch  {
+            fatalError("uom is not got from database")
+        }
+        
+        return nil
+    }
+    
     
     
 }

@@ -64,6 +64,7 @@ extension CoreDataService {
         removeAll(from: "Product")
         products.forEach { product in
             self.save(new: product)
+            print(product.name)
         }
     }
     
@@ -88,16 +89,6 @@ extension CoreDataService {
             self.save(new: statistic)
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     func removeAll(from entity: String) {
         let requestCategories = NSFetchRequest<NSFetchRequestResult>(entityName: entity)

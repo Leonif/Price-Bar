@@ -216,28 +216,32 @@ class CoreDataService {
 //MARK: Product
 extension CoreDataService {
     func shopItem(parse product: Product, and outletId: String) -> ShopItem? {
-        if let id = product.id, let name = product.name,
-            let category = product.toCategory?.category, let idCat = product.toCategory?.id, // optional chaining
-            let prodUom = product.toUom, let uom = prodUom.uom  {
-            let price = getPrice(for: id, and: outletId)
-            let minPrice = getMinPrice(id, outletId: outletId)
-            
-            let itemCategory = ItemCategory(id: idCat, name: category)
-            let itemUom = ItemUom(id: prodUom.id, name: uom, iterator: prodUom.iterator)
-            
-            let item = ShopItem(id: id, name: name,
-                                quantity: 1.0,
-                                minPrice: minPrice,
-                                price: price,
-                                itemCategory: itemCategory,
-                                itemUom: itemUom, outletId: outletId,
-                                scanned: true,
-                                checked: false)
-            return item
+        guard
+            let id = product.id,
+            let name = product.name,
+            let category = product.toCategory?.category,
+            let idCat = product.toCategory?.id, // optional chaining
+            let prodUom = product.toUom,
+            let uom = prodUom.uom  else {
+                return nil
+                
         }
-        else {
-            return nil
-        }
+        let price = getPrice(for: id, and: outletId)
+        let minPrice = getMinPrice(id, outletId: outletId)
+        
+        let itemCategory = ItemCategory(id: idCat, name: category)
+        let itemUom = ItemUom(id: prodUom.id, name: uom, iterator: prodUom.iterator)
+        
+        let item = ShopItem(id: id, name: name,
+                            quantity: 1.0,
+                            minPrice: minPrice,
+                            price: price,
+                            itemCategory: itemCategory,
+                            itemUom: itemUom, outletId: outletId,
+                            scanned: true,
+                            checked: false)
+        return item
+        
     }
     
     func filterItemList(itemName: String, for outletId: String) -> [ShopItem]? {
@@ -503,12 +507,37 @@ extension CoreDataService {
         prod.id = product.id
         prod.name = product.name
         prod.scanned = product.scanned
-        prod.toCategory?.id = product.itemCategory.id
-        prod.toCategory?.category = product.itemCategory.name
+        
+        
+        if let categ = getCategory(by: product.itemCategory.id) {
+            prod.toCategory = categ
+        }
+        
+        
+        
         prod.toUom?.id = product.itemUom.id
         prod.toUom?.uom = product.itemUom.name
         ad.saveContext()
     }
+    
+    
+    func getCategory(by id: Int32) -> Category? {
+        do {
+            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+            let categories = try context.fetch(fetchRequest)
+            
+            guard !categories.isEmpty, let category = categories.first else {
+                return nil
+            }
+            return category
+        } catch  {
+            print("Products is not got from database")
+        }
+    
+        return nil
+    }
+    
     
 }
 

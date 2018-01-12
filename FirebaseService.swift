@@ -88,21 +88,22 @@ class FirebaseService {
     }
     
     
-    func syncPrices(completion: @escaping (ResultType<[ShopItem], FirebaseError>)->()) {
+    func syncPrices(completion: @escaping (ResultType<[ItemStatistic], FirebaseError>)->()) {
         REF_PRICE_STATISTICS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                var itemPrices = [ShopItem]()
+                var itemStatistic = [ItemStatistic]()
                 for snapPrice in snapPrices {
-                    if let priceDict = snapPrice.value as? Dictionary<String,Any> {
-                        if let product_id = priceDict["product_id"] as? String {
-                            if let price = priceDict["price"] as? Double, price != 0 {
-                                let item = ShopItem(id: product_id, priceData: priceDict)
-                                itemPrices.append(item)
-                            }
+                    if let priceDict = snapPrice.value as? Dictionary<String,Any>,
+                        let product_id = priceDict["product_id"] as? String,
+                        let price = priceDict["price"] as? Double, price != 0 {
+                        
+                        if let statistic = ItemStatistic(productId: product_id, priceData: priceDict) {
+                            itemStatistic.append(statistic)
                         }
+                        
                     }
                 }
-                completion(ResultType.success(itemPrices))
+                completion(ResultType.success(itemStatistic))
             }
         })  { error in
             completion(ResultType.failure(.syncError(error.localizedDescription)))

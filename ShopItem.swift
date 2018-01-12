@@ -81,8 +81,28 @@ func == (lhs: ItemCategory, rhs: ItemCategory) -> Bool {
 }
 
 
+struct ItemStatistic {
+    var productId: String
+    var price: Double
+    var outletId: String
+    var date: Date
+    
+    init?(productId: String, priceData: Dictionary<String, Any>) {
+        self.productId = productId
+        
+        guard let price = priceData["price"] as? Double,
+            let outletId = priceData["outlet_id"] as? String,
+            let date = priceData["date"] as? Date  else {
+            return nil
+        }
 
-
+        self.price = price
+        self.outletId = outletId
+        self.date = date
+    }
+    
+    
+}
 
 
 class ShopItem  {
@@ -156,26 +176,26 @@ class ShopItem  {
         self.scanned = false
         self.checked = false
     }
-    init(id: String, priceData: Dictionary<String, Any>) {
-        self.id = id
-        if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {
-            
-            self.price = price
-            self.outletId = outletId
-        } else {
-            self.price = 0
-            self.outletId = ""
-            
-        }
-        self.name = ""
-        self.quantity = 0
-        self.minPrice = 0
-        self.itemCategory = ItemCategory()
-        self.itemUom = ItemUom()
-        
-        self.scanned = false
-        self.checked = false
-    }
+//    init(id: String, priceData: Dictionary<String, Any>) {
+//        self.id = id
+//        if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {
+//
+//            self.price = price
+//            self.outletId = outletId
+//        } else {
+//            self.price = 0
+//            self.outletId = ""
+//
+//        }
+//        self.name = ""
+//        self.quantity = 0
+//        self.minPrice = 0
+//        self.itemCategory = ItemCategory()
+//        self.itemUom = ItemUom()
+//
+//        self.scanned = false
+//        self.checked = false
+//    }
     var total: Double {
         return quantity * price
     }

@@ -40,17 +40,7 @@ class ShopListService {
         return sum
     }
     
-    func synchronizeCloud2(completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
-        syncCategories { result in
-            switch result {
-            case .success(_): break
-                // products
-            case let .failure(error):
-                print(error)
-                completion(ResultType.failure(.syncError("Ошибка синхронизации с облаком")))
-            }
-        }
-    }
+    
     
     
     private func syncCategories(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
@@ -65,14 +55,24 @@ class ShopListService {
     }
 
     private func syncProducts(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
-        FirebaseService.data.loadCategories { result in // get from firebase
+        CoreDataService.data.syncProducts { result in // get from firebase
             switch result {
-            case let .success(categories):
-                CoreDataService.data.update(by: categories)
+            case .success:
                 completion(ResultType.success(true))
             case let .failure(error):
-                print(error)
-                completion(ResultType.failure(.syncError("Ошибка синхронизации с облаком")))
+                completion(ResultType.failure(.syncError(error.localizedDescription)))
+            }
+        }
+    }
+    
+    
+    private func syncUom(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
+        CoreDataService.data.syncUoms { result in // get from firebase
+            switch result {
+            case .success:
+                completion(ResultType.success(true))
+            case let .failure(error):
+                completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
         }
     }
@@ -80,34 +80,9 @@ class ShopListService {
     
     
     
-    func synchronizeCloud(completion: @escaping ()->()) {
-        let deviceStorage = CoreDataService.data
-
-        deviceStorage.getCategories { categories in
-            categories.forEach { self.categories.append($0) }
-            
-            deviceStorage.getUoms { uoms in
-                uoms.forEach { self.uoms.append($0)  }
-                
-                deviceStorage.importItemsFromCloud {
-                    deviceStorage.importPricesFromCloud {
-                        completion()
-                    }
-                }
-            }
-        }
-    }
     
-    func synchronizeDevice() {
-        let deviceStorage = CoreDataService.data
-        
-        deviceStorage.getCategories { categories in
-            categories.forEach { self.categories.append($0) }}
-        
-        deviceStorage.getUoms { uoms in
-            uoms.forEach { self.uoms.append($0)  }}
-        
-    }
+    
+    
     
     
     func reloadDataFromCoreData(for outledId: String) {

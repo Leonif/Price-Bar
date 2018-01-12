@@ -120,15 +120,7 @@ class CoreDataService {
         }
     }
     
-    func importPricesFromCloud(completion: @escaping ()->()) {
-        
-        FirebaseService.data.importPricesFromCloud { (itemPrices) in
-            for item in itemPrices {
-                self.savePrice(for: item)
-            }
-            completion()
-        }
-    }
+    
     
     func saveToShopList(_ item:ShopItem) {
         do {
@@ -231,21 +223,6 @@ class CoreDataService {
         
         return nil
         
-    }
-}
-
-
-//MARK: Firebase work
-extension CoreDataService {
-    
-    func importItemsFromCloud(completion: @escaping ()->()) {
-        FirebaseService.data.loadGoods { goods in
-            goods.forEach { good in
-                self.saveOrUpdate(good)
-            }
-            completion()
-            
-        }
     }
 }
 
@@ -457,68 +434,6 @@ extension CoreDataService {
     
 }
 
-// MARK: Sync function
-extension CoreDataService {
-    func syncCategories(_ complete: @escaping (ResultType<Bool, CoreDataErrors>)->()) {
-        FirebaseService.data.syncCategories { result in
-            switch result {
-            case let .success(categories):
-                self.importNew(categories)
-                complete(ResultType.success(true))
-            case let .failure(error):
-                complete(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
-            }
-        }
-    }
-    public func importNew(_ categories:[ItemCategory])  {
-        remove(from: "Category")
-        categories.forEach { category in
-            self.save(new: category)
-        }
-    }
-    func syncUoms(_ complete: @escaping (ResultType<Bool, CoreDataErrors>)->()) {
-        FirebaseService.data.syncUoms { result in
-            switch result {
-            case let .success(uoms):
-                self.importNew(uoms)
-                complete(ResultType.success(true))
-            case let .failure(error):
-                complete(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
-            }
-        }
-    }
-    
-    public func importNew(_ uoms:[ItemUom])  {
-        remove(from: "Uom")
-        uoms.forEach { uom in
-            self.save(new: uom)
-        }
-    }
-    func syncProducts(_ complete: @escaping (ResultType<Bool, CoreDataErrors>)->()) {
-        FirebaseService.data.syncProducts { result in
-            switch result {
-            case let .success(products):
-                self.importNew(products)
-                complete(ResultType.success(true))
-            case let .failure(error):
-                complete(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
-            }
-        }
-    }
-    
-    public func importNew(_ products:[ShopItem])  {
-        remove(from: "Product")
-        products.forEach { product in
-            self.save(new: product)
-        }
-    }
-    
-    
-}
-
-
-
-
 
 
 //MARK: Categories
@@ -573,19 +488,6 @@ extension CoreDataService {
     }
     
     
-   
-    
-    private func remove(from entity: String) {
-        let requestCategories = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
-        let deleteRequest = NSBatchDeleteRequest(fetchRequest: requestCategories)
-       
-        do {
-            try context.execute(deleteRequest)
-            try context.save()
-        } catch {
-            fatalError("\(entity) removing error")
-        }
-    }
     
     func save(new category: ItemCategory) {
         let cat = Category(context: context)

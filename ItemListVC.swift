@@ -9,9 +9,6 @@
 import UIKit
 
 class ItemListVC: UIViewController {
-    
-    
-    
     let showProductCard = "showProductCard"
     
     var itemList = [ShopItem]()

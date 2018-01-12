@@ -501,6 +501,7 @@ extension CoreDataService {
         let prod = Product(context: context)
         
         prod.id = product.id
+        prod.name = product.name
         prod.scanned = product.scanned
         prod.toCategory?.id = product.itemCategory.id
         prod.toCategory?.category = product.itemCategory.name

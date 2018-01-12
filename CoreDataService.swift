@@ -28,12 +28,12 @@ class CoreDataService {
     }
     
     
-    func getUoms(complete: @escaping ([ItemUom])->()) {
-        loadUoms {
-            let itemUoms = self.getUomsFromCoreData()
-            complete(itemUoms)
-        }
-    }
+//    func getUoms(complete: @escaping ([ItemUom])->()) {
+//        loadUoms {
+//            let itemUoms = self.getUomsFromCoreData()
+//            complete(itemUoms)
+//        }
+//    }
     
     
     func getUomsFromCoreData() -> [ItemUom] {
@@ -76,9 +76,7 @@ class CoreDataService {
         saveToShopList(item)
     }
     
-    
-    
-    func save(_ statistic: ItemStatistic) {
+    func save(new statistic: ItemStatistic) {
         guard statistic.price != 0 else {
             return
         }

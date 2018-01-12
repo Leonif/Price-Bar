@@ -39,8 +39,65 @@ class ShopListService {
         
         return sum
     }
+
     
-    
+    public func syncCloud(completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+        
+        var r = (false, false, false,false)
+        
+        syncProducts { result in
+            switch result {
+            case .success:
+                r.0 = true
+                if r == (true,true,true,true) {
+                    completion(ResultType.success(true))
+                }
+            case let .failure(error):
+                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            }
+        }
+        
+        syncCategories { result in
+            switch result {
+            case .success:
+                r.1 = true
+                if r == (true,true,true,true) {
+                    completion(ResultType.success(true))
+                }
+                
+                
+            case let .failure(error):
+                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            }
+        }
+        
+        
+        syncStatistics { result in
+            switch result {
+            case .success:
+                r.2 = true
+                if r == (true,true,true,true) {
+                    completion(ResultType.success(true))
+                }
+            case let .failure(error):
+                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            }
+        }
+        
+        syncUom { result in
+            switch result {
+            case .success:
+                r.3 = true
+                if r == (true,true,true,true) {
+                    completion(ResultType.success(true))
+                }
+            case let .failure(error):
+                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            }
+        }
+        
+        
+    }
     
     
     private func syncCategories(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
@@ -55,6 +112,18 @@ class ShopListService {
     }
 
     private func syncProducts(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
+        CoreDataService.data.syncProducts { result in // get from firebase
+            switch result {
+            case .success:
+                completion(ResultType.success(true))
+            case let .failure(error):
+                completion(ResultType.failure(.syncError(error.localizedDescription)))
+            }
+        }
+    }
+    
+    
+    private func syncStatistics(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
         CoreDataService.data.syncProducts { result in // get from firebase
             switch result {
             case .success:

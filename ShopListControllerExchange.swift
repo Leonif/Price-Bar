@@ -47,8 +47,8 @@ extension ShopListController: Exchange {
         }
         cloudBase.saveOrUpdate(item)
         
-        deviceBase.savePrice(for: item)
-        cloudBase.savePrice(for: item)
+//        deviceBase.savePrice(for: item)
+//        cloudBase.savePrice(for: item)
     }
     
     
@@ -120,8 +120,8 @@ extension ShopListController: Exchange {
             
         }
         //save price statistics
-        deviceBase.savePrice(for: item)
-        cloudBase.savePrice(for: item)
+//        deviceBase.savePrice(for: item)
+//        cloudBase.savePrice(for: item)
         
         deviceBase.saveToShopList(item)
         shopListService.append(item)

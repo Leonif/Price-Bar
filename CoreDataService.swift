@@ -28,28 +28,12 @@ class CoreDataService {
     }
     
     
-    
-    
-    func loadUoms(_ complete: @escaping ()->()) {
-        initUoms = []
-        FirebaseService.data.loadUoms { (uoms) in
-            self.initUoms = uoms
-            complete()
-        }
-        
-    }
-    
-    
-    
-    
     func getUoms(complete: @escaping ([ItemUom])->()) {
         loadUoms {
             let itemUoms = self.getUomsFromCoreData()
             complete(itemUoms)
         }
     }
-    
-    
     
     
     func getUomsFromCoreData() -> [ItemUom] {
@@ -87,33 +71,32 @@ class CoreDataService {
     func addToShopListAndSaveStatistics(_ item: ShopItem) {
         saveOrUpdate(item)
         FirebaseService.data.saveOrUpdate(item)
-        saveStatistic(item)
+        //saveStatistic(item)
         print("From CoreData: addToShopListAndSaveStatistics - addToShopList")
         saveToShopList(item)
     }
     
-    func saveStatistic(_ item: ShopItem)  {
-        savePrice(for: item)
-        FirebaseService.data.savePrice(for: item)
-    }
     
-    func savePrice(for item: ShopItem) {
-        guard item.price != 0 else {
+    
+    func save(_ statistic: ItemStatistic) {
+        guard statistic.price != 0 else {
             return
         }
         do {
             let stat = Statistic(context: context)
-            stat.outlet_id = item.outletId
-            stat.price = item.price
+            stat.outlet_id = statistic.outletId
+            stat.price = statistic.price
+            stat.date = statistic.date as NSDate
+            
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
-            productRequest.predicate = NSPredicate(format: "id == %@", item.id)
+            productRequest.predicate = NSPredicate(format: "id == %@", statistic.productId)
             let productExist = try context.fetch(productRequest)
             
             let prd = productExist.first
             
             stat.toProduct = prd
-            stat.price = item.price
-            stat.outlet_id = item.outletId
+            stat.price = statistic.price
+            stat.outlet_id = statistic.outletId
             ad.saveContext()
         } catch  {
             print("Products is not got from database")
@@ -361,6 +344,10 @@ extension CoreDataService {
         product.scanned = item.scanned
         ad.saveContext()
     }
+    
+    
+    
+    
     
     func update(_ item: ShopItem) -> Bool {
         do {

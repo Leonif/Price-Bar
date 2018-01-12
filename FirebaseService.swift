@@ -88,7 +88,7 @@ class FirebaseService {
     }
     
     
-    func syncPrices(completion: @escaping (ResultType<[ItemStatistic], FirebaseError>)->()) {
+    func syncStatistics(completion: @escaping (ResultType<[ItemStatistic], FirebaseError>)->()) {
         REF_PRICE_STATISTICS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 var itemStatistic = [ItemStatistic]()

@@ -68,22 +68,24 @@ extension CoreDataService {
     }
     
     
-    func syncStatictics(completion: @escaping ()->()) {
+    func syncStatictics(completion: @escaping (ResultType<Bool, CoreDataErrors>)->()) {
         
-        FirebaseService.data.syncPrices { statictics in
-            self.import
-            prices.forEach { price in
-                self.savePrice(for: item)
+        FirebaseService.data.syncStatistics { result in
+            switch result {
+            case let .success(statistics):
+                self.importNew(statistics)
+                completion(ResultType.success(true))
+            case let .failure(error):
+                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
             }
-            completion()
         }
     }
     
     
-    public func importNew(_ statistic: [ShopItem])  {
-        removeAll(from: "Product")
-        products.forEach { product in
-            self.save(new: product)
+    public func importNew(_ statistics: [ItemStatistic])  {
+        removeAll(from: "Statistics")
+        statistics.forEach { statistic in
+            self.save(new: statistic)
         }
     }
     

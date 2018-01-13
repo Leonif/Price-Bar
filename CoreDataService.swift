@@ -21,6 +21,7 @@ class CoreDataService {
     static let data = CoreDataService()
     var initCategories = [ItemCategory]()
     var initUoms = [ItemUom]()
+    var synced = false
     
     
     var defaultCategory: ItemCategory? {
@@ -478,8 +479,6 @@ extension CoreDataService {
             return nil
         }
     }
-    
-    
     
     func save(new category: ItemCategory) {
         let cat = Category(context: context)

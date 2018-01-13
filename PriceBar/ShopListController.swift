@@ -58,6 +58,7 @@ class ShopListController: UIViewController {
             switch result {
             case let .success(outlet):
                 print(outlet)
+                self.userOutlet = outlet
                 //self.handle(for: outlet)
                 activateControls = true
             case let .failure(error):

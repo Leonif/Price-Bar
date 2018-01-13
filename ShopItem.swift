@@ -87,18 +87,19 @@ struct ItemStatistic {
     var outletId: String
     var date: Date
     
-    init?(productId: String, priceData: Dictionary<String, Any>) {
-        self.productId = productId
-        
-        guard let price = priceData["price"] as? Double,
+    init?(priceData: Dictionary<String, Any>) {
+        guard let productId = priceData["product_id"] as? String,
+            let price = priceData["price"] as? Double,
+            price != 0,
             let outletId = priceData["outlet_id"] as? String,
-            let date = priceData["date"] as? Date  else {
+            let dateStr = priceData["date"] as? String  else {
             return nil
         }
 
+        self.productId = productId
         self.price = price
         self.outletId = outletId
-        self.date = date
+        self.date = dateStr.toDate(with: "dd.MM.yyyy HH:mm:ss")!
     }
     
     

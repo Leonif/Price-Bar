@@ -63,13 +63,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -157,6 +157,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListController.itemListPressed(_:):ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userOutlet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -196,10 +204,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CoreDataService.shopItem(parse:and:):CoreDataService.swift">
+      </ContextState>
+      <ContextState
          contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, sizeForItemAt : IndexPath) -&gt; CGSize:CollectionFreeViewCell.swift">
          <PersistentStrings>
             <PersistentString
                value = "self._viewCollection.frame.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemStatistic.init(productId:priceData:):ShopItem.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "priceData[&quot;date&quot;] as String">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -213,10 +232,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -253,6 +272,14 @@
          <PersistentStrings>
             <PersistentString
                value = "categories">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.viewDidAppear(_:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "outletId">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

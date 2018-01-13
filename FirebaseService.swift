@@ -9,7 +9,7 @@
 import Foundation
 import Firebase
 
-let DB_FIRBASE = Database.database().reference()
+//let DB_FIRBASE = Database.database().reference()
 
 enum FirebaseError: Error {
     case loginError(String)
@@ -22,11 +22,12 @@ enum FirebaseError: Error {
 class FirebaseService {
    
     static let data = FirebaseService()
-    var REF_BASE = DB_FIRBASE
-    var REF_GOODS = DB_FIRBASE.child("goods")
-    var REF_PRICE_STATISTICS = DB_FIRBASE.child("price_statistics")
-    var REF_CATEGORIES = DB_FIRBASE.child("categories")
-    var REF_UOMS = DB_FIRBASE.child("uoms")
+    //var REF_BASE = Database.database().reference()
+    var REF_GOODS = Database.database().reference().child("goods")
+    var REF_PRICE_STATISTICS = Database.database().reference().child("price_statistics")
+    var REF_CATEGORIES = Database.database().reference().child("categories")
+    var REF_UOMS = Database.database().reference().child("uoms")
+    
     
     
     
@@ -93,11 +94,8 @@ class FirebaseService {
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 var itemStatistic = [ItemStatistic]()
                 for snapPrice in snapPrices {
-                    if let priceDict = snapPrice.value as? Dictionary<String,Any>,
-                        let product_id = priceDict["product_id"] as? String,
-                        let price = priceDict["price"] as? Double, price != 0 {
-                        
-                        if let statistic = ItemStatistic(productId: product_id, priceData: priceDict) {
+                    if let priceDict = snapPrice.value as? Dictionary<String,Any> {
+                        if let statistic = ItemStatistic(priceData: priceDict) {
                             itemStatistic.append(statistic)
                         }
                         

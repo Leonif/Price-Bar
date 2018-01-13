@@ -61,15 +61,19 @@ extension CoreDataService {
     }
     
     public func importNew(_ products:[ShopItem])  {
-        removeAll(from: "Product")
-        products.forEach { product in
-            self.save(new: product)
-            print(product.name)
+        if !synced {
+            removeAll(from: "Product")
+            synced = true
+            products.forEach { product in
+                self.save(new: product)
+                print(product.name)
+            }
         }
+        
     }
     
     
-    func syncStatictics(completion: @escaping (ResultType<Bool, CoreDataErrors>)->()) {
+    func syncStatistics(completion: @escaping (ResultType<Bool, CoreDataErrors>)->()) {
         
         FirebaseService.data.syncStatistics { result in
             switch result {
@@ -84,7 +88,7 @@ extension CoreDataService {
     
     
     public func importNew(_ statistics: [ItemStatistic])  {
-        removeAll(from: "Statistics")
+        removeAll(from: "Statistic")
         statistics.forEach { statistic in
             self.save(new: statistic)
         }

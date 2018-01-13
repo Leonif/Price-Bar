@@ -102,7 +102,7 @@ class ShopListService {
     
     
     private func syncStatistics(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
-        CoreDataService.data.syncProducts { result in // get from firebase
+        CoreDataService.data.syncStatistics { result in // get from firebase
             switch result {
             case .success:
                 completion(ResultType.success(true))

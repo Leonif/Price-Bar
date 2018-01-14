@@ -41,33 +41,50 @@ class ShopListService {
     
     public func syncCloud(completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
         syncCategories { result in
-            switch result {
-            case .success:
-                self.syncUom { result in
-                    switch result {
-                    case .success:
-                        self.syncProducts { result in
-                            switch result {
-                            case .success:
-                                self.syncStatistics { result in
-                                    switch result {
-                                    case .success:
-                                            completion(ResultType.success(true))
-                                    case let .failure(error):
-                                        completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
-                                    }
-                                }
-                            case let .failure(error):
-                                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
-                            }
-                        }
-                    case let .failure(error):
-                        completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
-                    }
-                }
-            case let .failure(error):
-                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            self.handleCategories(result: result, completion: completion)
+        }
+    }
+    
+    
+    func handleStatistics(result: ResultType<Bool, ShopListServiceError>, completion: (ResultType<Bool, ShopListServiceError>)->()) {
+        switch result {
+        case .success:
+            completion(ResultType.success(true))
+        case let .failure(error):
+            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+        }
+    }
+    
+    func handleProducts(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+        switch result {
+        case .success:
+            self.syncStatistics { result in
+                self.handleStatistics(result: result, completion: completion)
             }
+        case let .failure(error):
+            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+        }
+    }
+    
+    func handleUom(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+        switch result {
+        case .success:
+            self.syncProducts { result in
+                self.handleProducts(result: result, completion: completion)
+            }
+        case let .failure(error):
+            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+        }
+    }
+    
+    func handleCategories(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+        switch result {
+        case .success:
+            self.syncUom { result in
+                self.handleUom(result: result, completion: completion)
+            }
+        case let .failure(error):
+            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
         }
     }
     

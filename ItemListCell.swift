@@ -14,14 +14,14 @@ class ItemListCell: UITableViewCell {
     @IBOutlet weak var itemMinPriceLabel: UILabel!
     
     
-    func configureCell(_ item: ShopItem) {
+    func configureCell(_ item: ItemListModel) {
         
         
-        let checkAlpha = CGFloat(item.price == 0 ? 0.5 : 1)
+        let checkAlpha = CGFloat(item.currentPrice == 0 ? 0.5 : 1)
         
         self.contentView.alpha = checkAlpha
-        itemNameLabel.text = item.name
-        itemPriceLabel.text = item.price.asLocaleCurrency
+        itemNameLabel.text = item.product
+        itemPriceLabel.text = item.currentPrice.asLocaleCurrency
         itemMinPriceLabel.text = "лучшая: \(item.minPrice.asLocaleCurrency)"
     }
     

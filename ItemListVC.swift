@@ -27,7 +27,7 @@ class ItemListVC: UIViewController {
     @IBOutlet weak var itemTableView: UITableView!
     var delegate: Exchange?
     var hide: Bool = false
-    var dataProvider: DataProvider?
+    var dataProvider: DataProvider!
     
     var isLoading = false
     @IBOutlet weak var itemSearchField: UITextField!
@@ -42,20 +42,15 @@ class ItemListVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
 
-        guard let products = dataProvider?.getShopItems(with: currentPageOffset, for: outletId) else {
-            alert(title: "Ops", message: "Нет товаров в базе")
-            return
+        guard let products = dataProvider?.getShopItems(with: currentPageOffset, for: outletId),
+            let itemList = convertItemList(from: products)
+            else {
+                alert(title: "Ops", message: "Нет товаров в базе")
+                return
         }
         
-        for product in products {
-            guard
-                let price = dataProvider?.getPrice(for: product.id, and: outletId),
-                let minPrice = dataProvider?.getMinPrice(for: product.id, and: outletId) else {
-                    return
-            }
-            let name = product.name
-            itemList.append(ItemListModel(product: name, currentPrice: price, minPrice: minPrice))
-        }
+        self.itemList = itemList
+        
         filtredItemList = self.itemList.sorted { (item1, item2) in
             item1.currentPrice > item2.currentPrice
         }
@@ -65,12 +60,27 @@ class ItemListVC: UIViewController {
     }
     
     
+    func convertItemList(from products: [ShopItem]) -> [ItemListModel]? {
+        var modellist = [ItemListModel]()
+        
+        for product in products {
+            let price = dataProvider.getPrice(for: product.id, and: outletId)
+            let minPrice = dataProvider.getMinPrice(for: product.id, and: outletId)
+            let name = product.name
+            modellist.append(ItemListModel(product: name, currentPrice: price, minPrice: minPrice))
+        }
+        return modellist
+    }
+    
+    
+    
     @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
         if  let searchText = sender.text, searchText.charactersArray.count >= 3 {
-            guard let list = dataProvider?.filterItemList(contains: searchText, for: outletId) else {
+            guard let list = dataProvider.filterItemList(contains: searchText, for: outletId),
+            let modelList = convertItemList(from: list) else {
                 return
             }
-            filtredItemList = list
+            filtredItemList = modelList
             self.isLoading = true
         } else {
             filtredItemList = itemList
@@ -162,15 +172,16 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                 self.isLoading = true
                 print("load new data (new \(currentPageOffset) items)")
                 currentPageOffset += 20
-                if let itemList = dataProvider?.getShopItems(with: currentPageOffset, for: outletId) {
+                if let products = dataProvider.getShopItems(with: currentPageOffset, for: outletId),
+                    let modelList = convertItemList(from: products) {
                     var indexPaths = [IndexPath]()
                     let currentCount: Int = filtredItemList.count
-                    for i in 0..<itemList.count {
+                    for i in 0..<modelList.count {
                         indexPaths.append(IndexPath(row: currentCount + i, section: 0))
                     }
                     // do the insertion
-                    filtredItemList.append(contentsOf: itemList)
-                    self.itemList.append(contentsOf: itemList)
+                    filtredItemList.append(contentsOf: modelList)
+                    self.itemList.append(contentsOf: modelList)
                     // tell the table view to update (at all of the inserted index paths)
                     itemTableView.beginUpdates()
                     itemTableView.insertRows(at: indexPaths, with: .bottom)

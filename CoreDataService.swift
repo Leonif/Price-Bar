@@ -181,7 +181,7 @@ class CoreDataService {
                     let category = prodCat.category {
                 
                     let price = getPrice(for: id, and: outletId)
-                    let minPrice = getMinPrice(id, outletId: outletId)
+                    let minPrice = getMinPrice(for: id, and: outletId)
                     
                     let itemUom = ItemUom(id: prodUom.id, name: uomName, iterator: prodUom.iterator)
                     
@@ -216,7 +216,7 @@ extension CoreDataService {
                 
         }
         let price = getPrice(for: id, and: outletId)
-        let minPrice = getMinPrice(id, outletId: outletId)
+        let minPrice = getMinPrice(for: id, and: outletId)
         
         let itemCategory = ItemCategory(id: idCat, name: category)
         let itemUom = ItemUom(id: prodUom.id, name: uom, iterator: prodUom.iterator)
@@ -307,7 +307,7 @@ extension CoreDataService {
                         let prodCat = prd.toCategory, let category = prodCat.category  {
                         
                         let price = getPrice(for: barcode, and: outletId)
-                        let minPrice = getMinPrice(barcode, outletId: outletId)
+                        let minPrice = getMinPrice(for: barcode, and: outletId)
                         
                         let itemCategory = ItemCategory(id: prodCat.id, name: category)
                         let itemUom = ItemUom(id: prodUom.id, name: uomName, iterator: prodUom.iterator)

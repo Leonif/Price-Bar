@@ -39,11 +39,9 @@ extension CoreDataService {
             if let priceExist = stat.first {
                 return priceExist.price
             }
-            
         } catch  {
             print("price is not got from database")
         }
-        
         return 0
         
     }

@@ -9,11 +9,18 @@
 import UIKit
 import CoreLocation
 
+
+protocol OutletVCDelegate {
+    func choosen(outlet: Outlet)
+}
+
+
+
 class OutletsVC: UIViewController {
     
     var outletService: OutletService?
     
-    var delegate: Exchange!
+    var delegate: OutletVCDelegate!
     @IBOutlet weak var outletTableView: UITableView!
     var outlets = [Outlet]()
     
@@ -53,21 +60,17 @@ extension OutletsVC: OutletListDelegate {
 
 //MARK: Table
 extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
-    
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return outlets.count
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let outlet = outlets[indexPath.row]
-        
-        delegate.objectExchange(object: outlet)
+        //delegate.objectExchange(object: outlet)
+        delegate.choosen(outlet: outlet)
         self.dismiss(animated: true, completion: nil)
     }
     

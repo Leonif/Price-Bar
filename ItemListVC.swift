@@ -9,9 +9,14 @@
 import UIKit
 
 struct ItemListModel {
+    var id: String
     var product: String
     var currentPrice: Double
     var minPrice: Double
+}
+
+protocol ItemListVCDelegate {
+    func itemChoosen(productId: String)
 }
 
 
@@ -19,13 +24,13 @@ struct ItemListModel {
 
 class ItemListVC: UIViewController {
     let showProductCard = "showProductCard"
-    //var itemList = [ShopItem]()
     var itemList = [ItemListModel]()
-    //var filtredItemList = [ShopItem]()
     var filtredItemList = [ItemListModel]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
-    var delegate: Exchange?
+    var itemCardDelegate: Exchange?
+    var delegate: ItemListVCDelegate?
+    
     var hide: Bool = false
     var dataProvider: DataProvider!
     
@@ -67,7 +72,7 @@ class ItemListVC: UIViewController {
             let price = dataProvider.getPrice(for: product.id, and: outletId)
             let minPrice = dataProvider.getMinPrice(for: product.id, and: outletId)
             let name = product.name
-            modellist.append(ItemListModel(product: name, currentPrice: price, minPrice: minPrice))
+            modellist.append(ItemListModel(id: product.id, product: name, currentPrice: price, minPrice: minPrice))
         }
         return modellist
     }
@@ -122,7 +127,7 @@ extension ItemListVC: Exchange {
         if let item = object as? ShopItem   {
             dataProvider?.addToShopListAndSaveStatistics(item)
             print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
-            self.delegate?.objectExchange(object: item)
+            self.itemCardDelegate?.objectExchange(object: item)
             hide = true
             
         }
@@ -199,7 +204,8 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = filtredItemList[indexPath.row]
-        self.delegate?.objectExchange(object: item)
+        //self.itemCardDelegate?.objectExchange(object: item)
+        delegate?.itemChoosen(productId: item.id)
         self.dismiss(animated: true, completion: nil)
     }
     

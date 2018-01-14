@@ -63,13 +63,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -149,6 +149,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListController.itemListPressed(_:):ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userOutlet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListModel.getItem(index:):ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
@@ -157,10 +165,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.itemListPressed(_:):ShopListController.swift">
+         contextName = "CoreDataService.getPrice(for:and:):PriceHandling.swift">
          <PersistentStrings>
             <PersistentString
-               value = "userOutlet">
+               value = "priceExist.price">
+            </PersistentString>
+            <PersistentString
+               value = "priceExist.toProduct.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -232,10 +243,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

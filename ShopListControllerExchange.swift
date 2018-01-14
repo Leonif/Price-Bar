@@ -13,6 +13,29 @@ protocol Exchange {
     func objectExchange(object: Any)
 }
 
+
+
+extension ShopListController: ItemListVCDelegate {
+    func itemChoosen(productId: String) {
+        guard let item = dataProvider.getItem(with: productId, and: userOutlet.id) else {
+            return
+        }
+        self.handle(for: item)
+    }
+}
+
+
+extension ShopListController: OutletVCDelegate {
+    func choosen(outlet: Outlet) {
+        userOutlet = outlet
+        
+    }
+}
+
+
+
+
+
 //MARK: Handlers based Exchange protocol
 extension ShopListController: Exchange {
     
@@ -20,9 +43,7 @@ extension ShopListController: Exchange {
         if let item = object as? ShopItem { // card save
             self.handle(for: item)
         }
-        if let outlet = object as? Outlet  {//outlet came
-            //self.handle(for: outlet)
-        }
+        
         if let scannedCode = object as? String {//scann came
             self.handle(for: scannedCode)
         }
@@ -70,7 +91,6 @@ extension ShopListController: Exchange {
             dataSource?.shopListService = dataProvider
             self.shopTableView.reloadData()
             totalLabel.update(value: dataProvider.total)
-//            ..selfLoaded = true
         }
         
     }
@@ -99,9 +119,6 @@ extension ShopListController: Exchange {
             
         }
         //save price statistics
-//        deviceBase.savePrice(for: item)
-//        cloudBase.savePrice(for: item)
-        
         deviceBase.saveToShopList(item)
         dataProvider.append(item)
         

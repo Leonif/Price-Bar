@@ -19,12 +19,19 @@ class ShopListController: UIViewController {
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     var dataProvider: DataProvider!
-    var userOutlet: Outlet!
+    var userOutlet: Outlet! {
+        didSet {
+            outletAddressLabel.text = userOutlet.address
+            outletNameButton.setTitle(userOutlet.name, for: .normal)
+        }
+    }
     var dataSource: ShopListDataSource?
     
     
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
+    
+    
     
     
     @IBOutlet weak var shopTableView: UITableView!

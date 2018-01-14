@@ -258,8 +258,17 @@ class DataProvider {
             }
         }
         return nil
-        
     }
+    
+    func getItem(with barcode: String, and outletId: String) -> ShopItem? {
+        
+        return CoreDataService.data.getItem(by: barcode, and: outletId)
+        
+        return nil
+    }
+    
+    
+    
     func rowsIn(_ section: Int) -> Int {
         return shopList[sections[section]]?.count ?? 0
     }

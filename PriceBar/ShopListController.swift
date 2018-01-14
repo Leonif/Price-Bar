@@ -18,7 +18,7 @@ class ShopListController: UIViewController {
 
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
-    var shopListService: ShopListService!
+    var dataProvider: DataProvider!
     var userOutlet: Outlet!
     var dataSource: ShopListDataSource?
     
@@ -34,13 +34,13 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        shopListService = ShopListService()
-        dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopListService: shopListService)
+        dataProvider = DataProvider()
+        dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopListService: dataProvider)
         shopTableView.dataSource = dataSource
         
         // sync from cloud
         self.view.pb_startActivityIndicator(with: "Синхронизация")
-        shopListService.syncCloud { result in
+        dataProvider.syncCloud { result in
             self.view.pb_stopActivityIndicator()
             switch result {
             case let .failure(error):
@@ -50,7 +50,6 @@ class ShopListController: UIViewController {
             }
         }
         
-        
         let outletService = OutletService()
         outletService.nearestOutlet { result in
             print(result)
@@ -59,7 +58,6 @@ class ShopListController: UIViewController {
             case let .success(outlet):
                 print(outlet)
                 self.userOutlet = outlet
-                //self.handle(for: outlet)
                 activateControls = true
             case let .failure(error):
                 self.alert(title: "Ops", message: error.errorDescription)
@@ -85,15 +83,13 @@ class ShopListController: UIViewController {
     @IBAction func cleanShopList(_ sender: GoodButton) {
         
         shopTableView.beginUpdates()
-        shopListService.removeAllItems()
+        dataProvider.removeAllItems()
         shopTableView.endUpdates()
         
         
     }
     func buttonEnable(_ enable: Bool) {
-        
         let alpha: CGFloat = enable ? 1 : 0.5
-        
         self.scanButton.alpha = alpha
         self.scanButton.isUserInteractionEnabled = enable
         self.itemListButton.alpha = alpha
@@ -110,7 +106,7 @@ extension ShopListController: ShopItemCellDelegate {
         print("Picker opened")
         guard
             let indexPath = self.shopTableView.indexPath(for: cell),
-            let item = shopListService.getItem(index: indexPath) else {
+            let item = dataProvider.getItem(index: indexPath) else {
                 fatalError("Not possible to find out type of item")
         }
         let type: QuantityType = item.itemUom.isPerPiece ? .quantity : .weight
@@ -120,27 +116,27 @@ extension ShopListController: ShopItemCellDelegate {
         
     }
     func checkPressed(for item: ShopItem) {
-        _ = shopListService.change(item)
+        _ = dataProvider.change(item)
     }
 }
 
 // MARK: Quantity changing of item handler
 extension ShopListController: QuantityPickerPopupDelegate {
     func choosen(weight: Double, for indexPath: IndexPath) {
-        guard let item = self.shopListService.getItem(index: indexPath) else {
+        guard let item = self.dataProvider.getItem(index: indexPath) else {
             return
         }
         item.quantity = weight
-        _ = self.shopListService.change(item)
+        _ = self.dataProvider.change(item)
         self.shopTableView.reloadRows(at: [indexPath], with: .none)
-        totalLabel.update(value: shopListService.total)
+        totalLabel.update(value: dataProvider.total)
     }
 }
 
 // MARK: datasource handler
 extension ShopListController: ShopListDataSourceDelegate {
-    func shoplist(updated shopListService: ShopListService) {
-        self.shopListService = shopListService
+    func shoplist(updated shopListService: DataProvider) {
+        self.dataProvider = shopListService
         totalLabel.update(value: shopListService.total)
     }
 }
@@ -155,14 +151,14 @@ extension ShopListController: UITableViewDelegate {
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: showEditItem, sender: shopListService.getItem(index: indexPath))
+        performSegue(withIdentifier: showEditItem, sender: dataProvider.getItem(index: indexPath))
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
             
-            headerView.categoryLabel.text = shopListService.headerString(for: section)
+            headerView.categoryLabel.text = dataProvider.headerString(for: section)
             return headerView
         }
         return UIView()
@@ -178,8 +174,8 @@ extension ShopListController {
             if let item = sender as? ShopItem {
                 itemVC.item = item
                 itemVC.delegate = self
-                itemVC.categories = shopListService.categories
-                itemVC.uoms = shopListService.uoms
+                itemVC.categories = dataProvider.categories
+                itemVC.uoms = dataProvider.uoms
             }
         }
         
@@ -191,7 +187,7 @@ extension ShopListController {
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil  {
             itemListVC.outletId = userOutlet.id
             itemListVC.delegate = self
-            itemListVC.shoplistService = shopListService
+            itemListVC.dataProvider = dataProvider
             
         }
         if segue.identifier == showScan,

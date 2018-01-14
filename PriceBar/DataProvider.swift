@@ -1,5 +1,5 @@
 //
-//  ShopListModel.swift
+//  DataProvider.swift
 //  Price Bar
 //
 //  Created by Leonid Nifantyev on 6/4/17.
@@ -22,7 +22,7 @@ enum ShopListServiceError: Error {
 
 
 
-class ShopListService {
+class DataProvider {
     
     var shopList = [String: [ShopItem]]()
     var sections = [String]()
@@ -46,27 +46,18 @@ class ShopListService {
     }
     
     
-    func handleStatistics(result: ResultType<Bool, ShopListServiceError>, completion: (ResultType<Bool, ShopListServiceError>)->()) {
+    private func handleCategories(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
         switch result {
         case .success:
-            completion(ResultType.success(true))
-        case let .failure(error):
-            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
-        }
-    }
-    
-    func handleProducts(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
-        switch result {
-        case .success:
-            self.syncStatistics { result in
-                self.handleStatistics(result: result, completion: completion)
+            self.syncUom { result in
+                self.handleUom(result: result, completion: completion)
             }
         case let .failure(error):
             completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
         }
     }
     
-    func handleUom(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+    private func handleUom(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
         switch result {
         case .success:
             self.syncProducts { result in
@@ -77,12 +68,22 @@ class ShopListService {
         }
     }
     
-    func handleCategories(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+    private func handleProducts(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
         switch result {
         case .success:
-            self.syncUom { result in
-                self.handleUom(result: result, completion: completion)
+            self.syncStatistics { result in
+                self.handleStatistics(result: result, completion: completion)
             }
+        case let .failure(error):
+            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    private func handleStatistics(result: ResultType<Bool, ShopListServiceError>, completion: (ResultType<Bool, ShopListServiceError>)->()) {
+        switch result {
+        case .success:
+            completion(ResultType.success(true))
         case let .failure(error):
             completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
         }
@@ -168,8 +169,8 @@ class ShopListService {
         return CoreDataService.data.getShortItemList(outletId: outletId, offset: pageOffset)
     }
     
-    func filterList(itemName: String, for outletId: String) -> [ShopItem]? {
-        return CoreDataService.data.filterItemList(itemName: itemName, for: outletId)
+    func filterItemList(contains text: String, for outletId: String) -> [ShopItem]? {
+        return CoreDataService.data.filterItemList(contains: text, for: outletId)
     }
     
     

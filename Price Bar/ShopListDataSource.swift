@@ -10,18 +10,18 @@ import Foundation
 import UIKit
 
 protocol ShopListDataSourceDelegate {
-    func shoplist(updated shopListService: ShopListService)
+    func shoplist(updated shopListService: DataProvider)
     
 }
 
 class ShopListDataSource: NSObject, UITableViewDataSource {
    
-    var shopListService: ShopListService!
+    var shopListService: DataProvider!
     var cellDelegate: ShopItemCellDelegate?
     var delegate: ShopListDataSourceDelegate?
     
     
-    init(delegate: ShopListDataSourceDelegate, cellDelegate: ShopItemCellDelegate, shopListService: ShopListService) {
+    init(delegate: ShopListDataSourceDelegate, cellDelegate: ShopItemCellDelegate, shopListService: DataProvider) {
         self.shopListService = shopListService
         self.cellDelegate = cellDelegate
         self.delegate = delegate

@@ -165,21 +165,20 @@ class CoreDataService {
         
     }
     
-    func loadShopList(outletId: String) -> ShopListService?{
-        let shopListService = ShopListService()
+    func loadShopList(outletId: String) -> DataProvider?{
+        let shopListService = DataProvider()
         
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+            let shopList = try context.fetch(shpLstRequest)
             
-            let productExist = try context.fetch(shpLstRequest)
-            
-            productExist.forEach {
-                if let prd = $0.toProduct,
-                    let id = prd.id,
-                    let name = prd.name,
-                    let prodUom = prd.toUom,
+            shopList.forEach { shoplistItem in
+                if let shopListItem = shoplistItem.toProduct,
+                    let id = shopListItem.id,
+                    let name = shopListItem.name,
+                    let prodUom = shopListItem.toUom,
                     let uomName = prodUom.uom,
-                    let prodCat = prd.toCategory,
+                    let prodCat = shopListItem.toCategory,
                     let category = prodCat.category {
                 
                     let price = getPrice(for: id, and: outletId)
@@ -189,19 +188,15 @@ class CoreDataService {
                     
                     let itemCategory = ItemCategory(id: prodCat.id, name: category)
                     
-                    let item = ShopItem(id: id, name: name, quantity: $0.quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, itemUom: itemUom, outletId: outletId, scanned: prd.scanned, checked: $0.checked)
+                    let item = ShopItem(id: id, name: name, quantity: shoplistItem.quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, itemUom: itemUom, outletId: outletId, scanned: shopListItem.scanned, checked: shoplistItem.checked)
                     
                     shopListService.append(item)
                 }
-            
             }
             return shopListService
-            
-            
         } catch {
             print("Products is not got from database")
         }
-        
         return nil
         
     }
@@ -236,14 +231,13 @@ extension CoreDataService {
                             scanned: true,
                             checked: false)
         return item
-        
     }
     
-    func filterItemList(itemName: String, for outletId: String) -> [ShopItem]? {
+    func filterItemList(contains text: String, for outletId: String) -> [ShopItem]? {
         var shopItems = [ShopItem]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", itemName)
+            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", text)
             let productList = try context.fetch(fetchRequest)
             for product in productList {
                 if let item = shopItem(parse: product, and: outletId) {

@@ -10,14 +10,13 @@ import UIKit
 
 class ItemListVC: UIViewController {
     let showProductCard = "showProductCard"
-    
     var itemList = [ShopItem]()
     var filtredItemList = [ShopItem]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
     var delegate: Exchange?
     var hide: Bool = false
-    var shoplistService: ShopListService?
+    var dataProvider: DataProvider?
     
     var isLoading = false
     @IBOutlet weak var itemSearchField: UITextField!
@@ -29,10 +28,9 @@ class ItemListVC: UIViewController {
     
     var currentPageOffset = 0
     
-    
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-        if let itemList = shoplistService?.getShopItems(with: currentPageOffset, for: outletId) {
+        if let itemList = dataProvider?.getShopItems(with: currentPageOffset, for: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
             itemTableView.reloadData()
@@ -42,13 +40,12 @@ class ItemListVC: UIViewController {
     
     
     @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
-        if  let searchText = sender.text, searchText != "", searchText.charactersArray.count >= 3 {
-            if let list = shoplistService?.filterList(itemName: searchText, for: outletId) {
-                filtredItemList = list
-                self.isLoading = true
+        if  let searchText = sender.text, searchText.charactersArray.count >= 3 {
+            guard let list = dataProvider?.filterItemList(contains: searchText, for: outletId) else {
+                return
             }
-            
-            
+            filtredItemList = list
+            self.isLoading = true
         } else {
             filtredItemList = itemList
             self.isLoading = false
@@ -83,14 +80,12 @@ class ItemListVC: UIViewController {
             }
         }
     }
-
-    
 }
 
 extension ItemListVC: Exchange {
     func objectExchange(object: Any) {
         if let item = object as? ShopItem   {
-            shoplistService?.addToShopListAndSaveStatistics(item)
+            dataProvider?.addToShopListAndSaveStatistics(item)
             print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
             self.delegate?.objectExchange(object: item)
             hide = true
@@ -142,7 +137,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                 self.isLoading = true
                 print("load new data (new \(currentPageOffset) items)")
                 currentPageOffset += 20
-                if let itemList = shoplistService?.getShopItems(with: currentPageOffset, for: outletId) {
+                if let itemList = dataProvider?.getShopItems(with: currentPageOffset, for: outletId) {
                     var indexPaths = [IndexPath]()
                     let currentCount: Int = filtredItemList.count
                     for i in 0..<itemList.count {
@@ -172,16 +167,12 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
         self.dismiss(animated: true, completion: nil)
     }
     
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if let cell = itemTableView.dequeueReusableCell(withIdentifier: "ItemListCell", for: indexPath) as? ItemListCell {
             let item = filtredItemList[indexPath.row]
             cell.configureCell(item)
             return cell
         }
-        
         return UITableViewCell()
     }
 }

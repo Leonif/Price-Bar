@@ -20,6 +20,8 @@ extension ShopListController: ItemListVCDelegate {
         guard let item = dataProvider.getItem(with: productId, and: userOutlet.id) else {
             return
         }
+        
+        self.totalLabel.update(value: dataProvider.total)
         self.handle(for: item)
     }
 }
@@ -76,6 +78,7 @@ extension ShopListController: Exchange {
             return
         }
         dataProvider.save(new: stat)
+        
     }
     
     

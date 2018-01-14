@@ -29,8 +29,6 @@ extension CoreDataService {
         
     }
     
-    
-    
     func getPrice(for barcode: String, and outletId: String) -> Double  {
         do {
             let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
@@ -39,7 +37,6 @@ extension CoreDataService {
             let stat = try context.fetch(statRequest)
             
             if let priceExist = stat.first {
-                
                 return priceExist.price
             }
             
@@ -51,7 +48,7 @@ extension CoreDataService {
         
     }
     
-    func getMinPrice(_ barcode: String, outletId: String) -> Double  {
+    func getMinPrice(for barcode: String, and outletId: String) -> Double  {
         do {
             let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
             statRequest.predicate = NSPredicate(format: "%K == %@ AND %K == %@", argumentArray:["toProduct.id", barcode, "outlet_id", outletId])

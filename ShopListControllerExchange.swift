@@ -26,71 +26,50 @@ extension ShopListController: Exchange {
         if let scannedCode = object as? String {//scann came
             self.handle(for: scannedCode)
         }
-        self.dataSource?.shopListService = shopListService
+        self.dataSource?.shopListService = dataProvider
         self.shopTableView.reloadData()
-        self.totalLabel.update(value: shopListService.total)
+        self.totalLabel.update(value: dataProvider.total)
     }
     
     func handle(for item: ShopItem) {
         let deviceBase = CoreDataService.data
         let cloudBase = FirebaseService.data
         
-        if !self.shopListService.change(item) {
+        if !self.dataProvider.change(item) {
             
-            self.shopListService.append(item)
+            self.dataProvider.append(item)
             deviceBase.saveToShopList(item)
         } else {
-            self.shopListService.updateSections()
+            self.dataProvider.updateSections()
         }
         if !deviceBase.update(item) {
             deviceBase.save(item)
         }
         cloudBase.saveOrUpdate(item)
         
-//        deviceBase.savePrice(for: item)
-//        cloudBase.savePrice(for: item)
+        guard let stat = ItemStatistic(productId: item.id,
+                                       price: item.price,
+                                       outletId: userOutlet.id,
+                                       date: Date()) else {
+            alert(title: "Opps", message: "Цена на товар не записана :(")
+            return
+        }
+        dataProvider.save(new: stat)
     }
     
-    
-    
-    
-    
-    
-//    func handle(for outlet: Outlet) {
-//        let needToReload = launchedTimes == 1 || launchedTimes >= 10
-//        
-//        if needToReload { // from cloud
-//            print("Refresh from cloud...")
-//            self.view.pb_startActivityIndicator(with: "Синхронизация с облаком. Пожалуйста подождите...")
-//            
-//            FirebaseService.data.loginToFirebase({
-//                self.shopListService.synchronizeCloud {
-//                    self.loadShopList(for: outlet)
-//                    self.view.pb_stopActivityIndicator()
-//                    launchedTimes = 2
-//                }
-//            }, {
-//                fatalError("Error of login to FIrebase")
-//            })
-//        } else {// load from coredata
-//            self.shopListService.synchronizeDevice()
-//            print("Refresh from cloud DONT NEED... \(launchedTimes)")
-//            self.loadShopList(for: outlet)
-//        }
-//    }
     
     
     func loadShopList(for outlet: Outlet) {
         userOutlet = outlet
         outletNameButton.setTitle(userOutlet.name, for: .normal)
         outletAddressLabel.text = userOutlet.address
-        shopListService.pricesUpdate(by: userOutlet.id)
+        dataProvider.pricesUpdate(by: userOutlet.id)
         
-        if let shopListService = CoreDataService.data.loadShopList(outletId: userOutlet.id)/*, !selfLoaded*/ {
-            self.shopListService = shopListService
-            dataSource?.shopListService = shopListService
+        if let dataProvider = CoreDataService.data.loadShopList(outletId: userOutlet.id)/*, !selfLoaded*/ {
+            self.dataProvider = dataProvider
+            dataSource?.shopListService = dataProvider
             self.shopTableView.reloadData()
-            totalLabel.update(value: shopListService.total)
+            totalLabel.update(value: dataProvider.total)
 //            ..selfLoaded = true
         }
         
@@ -124,7 +103,7 @@ extension ShopListController: Exchange {
 //        cloudBase.savePrice(for: item)
         
         deviceBase.saveToShopList(item)
-        shopListService.append(item)
+        dataProvider.append(item)
         
         
     }

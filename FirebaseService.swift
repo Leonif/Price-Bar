@@ -17,10 +17,7 @@ enum FirebaseError: Error {
     
 }
 
-
-
 class FirebaseService {
-   
     static let data = FirebaseService()
     //var REF_BASE = Database.database().reference()
     var REF_GOODS = Database.database().reference().child("goods")
@@ -128,11 +125,9 @@ class FirebaseService {
     }
     
     func saveOrUpdate(_ item: ShopItem) {
-        
         guard item.price != 0 else {
             return
         }
-        
         let good = [
             "barcode": item.id,
             "name": item.name,
@@ -140,21 +135,28 @@ class FirebaseService {
             "uom_id": item.itemUom.id
         ] as [String : Any]
         REF_GOODS.child(item.id).setValue(good)
-        
     }
     
-    
-    
-    
-    func savePrice(for item: ShopItem) {
+    func save(new statistic: ItemStatistic) {
         let priceStat = [
-            "date": Date().getString(format: "dd.MM.yyyy hh:mm:ss"),
-            "product_id": item.id,
-            "outlet_id": item.outletId,
-            "price": item.price
+            "date": statistic.date.getString(format: "dd.MM.yyyy hh:mm:ss"),
+            "product_id": statistic.productId,
+            "outlet_id": statistic.outletId,
+            "price": statistic.price
             ] as [String : Any]
         REF_PRICE_STATISTICS.childByAutoId().setValue(priceStat)
     }
+    
+    
+//    func savePrice(for item: ShopItem) {
+//        let priceStat = [
+//            "date": Date().getString(format: "dd.MM.yyyy hh:mm:ss"),
+//            "product_id": item.id,
+//            "outlet_id": item.outletId,
+//            "price": item.price
+//            ] as [String : Any]
+//        REF_PRICE_STATISTICS.childByAutoId().setValue(priceStat)
+//    }
     
     
 }

@@ -103,6 +103,14 @@ struct ItemStatistic {
     }
     
     
+    init?(productId: String, price: Double, outletId: String, date: Date) {
+        self.productId = productId
+        self.price = price
+        self.outletId = outletId
+        self.date = date
+    }
+    
+    
 }
 
 

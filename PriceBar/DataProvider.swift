@@ -159,14 +159,20 @@ class DataProvider {
         return nil
     }
     
+    func save(new statistic: ItemStatistic) {
+        CoreDataService.data.save(new: statistic)
+        FirebaseService.data.save(new: statistic)
+        
+    }
     
     func addToShopListAndSaveStatistics(_ item: ShopItem) {
         CoreDataService.data.addToShopListAndSaveStatistics(item)
+        FirebaseService.data.saveOrUpdate(item)
     }
     
     
     func getShopItems(with pageOffset: Int, for outletId: String) -> [ShopItem]?  {
-        return CoreDataService.data.getShortItemList(outletId: outletId, offset: pageOffset)
+        return CoreDataService.data.getShortItemList(for: outletId, offset: pageOffset)
     }
     
     func filterItemList(contains text: String, for outletId: String) -> [ShopItem]? {
@@ -265,6 +271,22 @@ class DataProvider {
     func headerString(for section: Int) -> String {
         return sections[section]
     }
+}
+
+
+
+extension DataProvider {
+    
+    func getPrice(for productId: String, and outletId: String) -> Double {
+        return CoreDataService.data.getPrice(for: productId, and: outletId)
+    }
+    
+    func getMinPrice(for productId: String, and outletId: String) -> Double  {
+        return CoreDataService.data.getMinPrice(for: productId, and: outletId)
+        
+    }
+    
+    
 }
 
 

@@ -8,10 +8,21 @@
 
 import UIKit
 
+struct ItemListModel {
+    var product: String
+    var currentPrice: Double
+    var minPrice: Double
+}
+
+
+
+
 class ItemListVC: UIViewController {
     let showProductCard = "showProductCard"
-    var itemList = [ShopItem]()
-    var filtredItemList = [ShopItem]()
+    //var itemList = [ShopItem]()
+    var itemList = [ItemListModel]()
+    //var filtredItemList = [ShopItem]()
+    var filtredItemList = [ItemListModel]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
     var delegate: Exchange?
@@ -30,11 +41,26 @@ class ItemListVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-        if let itemList = dataProvider?.getShopItems(with: currentPageOffset, for: outletId) {
-            self.itemList = itemList
-            filtredItemList = self.itemList
-            itemTableView.reloadData()
+
+        guard let products = dataProvider?.getShopItems(with: currentPageOffset, for: outletId) else {
+            alert(title: "Ops", message: "Нет товаров в базе")
+            return
         }
+        
+        for product in products {
+            guard
+                let price = dataProvider?.getPrice(for: product.id, and: outletId),
+                let minPrice = dataProvider?.getMinPrice(for: product.id, and: outletId) else {
+                    return
+            }
+            let name = product.name
+            itemList.append(ItemListModel(product: name, currentPrice: price, minPrice: minPrice))
+        }
+        filtredItemList = self.itemList.sorted { (item1, item2) in
+            item1.currentPrice > item2.currentPrice
+        }
+        itemTableView.reloadData()
+
         self.view.pb_stopActivityIndicator()
     }
     
@@ -72,7 +98,6 @@ class ItemListVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showProductCard, let itemVC = segue.destination as? ItemCardVC  {
-            
             itemVC.delegate = self
             itemVC.outletId = outletId
             if let searchedItem = sender as? String  {

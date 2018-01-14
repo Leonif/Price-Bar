@@ -71,7 +71,6 @@ class CoreDataService {
     
     func addToShopListAndSaveStatistics(_ item: ShopItem) {
         saveOrUpdate(item)
-        FirebaseService.data.saveOrUpdate(item)
         print("From CoreData: addToShopListAndSaveStatistics - addToShopList")
         saveToShopList(item)
     }
@@ -253,13 +252,15 @@ extension CoreDataService {
     }
     
     
-    func getShortItemList(outletId: String, offset: Int) -> [ShopItem]? {
+    func getShortItemList(for outletId: String, offset: Int) -> [ShopItem]? {
         var shopItems = [ShopItem]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
             fetchRequest.fetchLimit = 20
             fetchRequest.fetchOffset = offset
             let productList = try context.fetch(fetchRequest)
+            
+            
             for product in productList {
                 if let item = shopItem(parse: product, and: outletId) {
                     shopItems.append(item)
@@ -541,6 +542,10 @@ extension CoreDataService {
     
     
 }
+
+
+
+
 
 
 extension CoreDataService {

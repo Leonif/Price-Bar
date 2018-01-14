@@ -15,6 +15,11 @@ class ItemListCell: UITableViewCell {
     
     
     func configureCell(_ item: ShopItem) {
+        
+        
+        let checkAlpha = CGFloat(item.price == 0 ? 0.5 : 1)
+        
+        self.contentView.alpha = checkAlpha
         itemNameLabel.text = item.name
         itemPriceLabel.text = item.price.asLocaleCurrency
         itemMinPriceLabel.text = "лучшая: \(item.minPrice.asLocaleCurrency)"

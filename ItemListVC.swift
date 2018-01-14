@@ -17,39 +17,33 @@ class ItemListVC: UIViewController {
     @IBOutlet weak var itemTableView: UITableView!
     var delegate: Exchange?
     var hide: Bool = false
-    
+    var shoplistService: ShopListService?
     
     var isLoading = false
-    
     @IBOutlet weak var itemSearchField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.view.pb_startActivityIndicator(with: "Загрузка...")
-        
     }
     
-    var currentPageStep = 0
+    var currentPageOffset = 0
     
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-        if let itemList = CoreDataService.data.getShortItemList(outletId: outletId, offset: currentPageStep) {
+        if let itemList = shoplistService?.getShopItems(with: currentPageOffset, for: outletId) {
             self.itemList = itemList
             filtredItemList = self.itemList
             itemTableView.reloadData()
         }
         self.view.pb_stopActivityIndicator()
-        
     }
     
     
     @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
-        
         if  let searchText = sender.text, searchText != "", searchText.charactersArray.count >= 3 {
-            //let searchText = sender.text?.lowercased() ?? ""
-            if let list = CoreDataService.data.filterItemList(itemName: searchText, for: outletId) {
+            if let list = shoplistService?.filterList(itemName: searchText, for: outletId) {
                 filtredItemList = list
                 self.isLoading = true
             }
@@ -96,7 +90,7 @@ class ItemListVC: UIViewController {
 extension ItemListVC: Exchange {
     func objectExchange(object: Any) {
         if let item = object as? ShopItem   {
-            CoreDataService.data.addToShopListAndSaveStatistics(item)
+            shoplistService?.addToShopListAndSaveStatistics(item)
             print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
             self.delegate?.objectExchange(object: item)
             hide = true
@@ -114,9 +108,7 @@ extension ItemListVC: UITextFieldDelegate {
     }
     
     @objc func numDonePressed() {
-        
         itemSearchField.resignFirstResponder()
-        
     }
     
     
@@ -124,10 +116,12 @@ extension ItemListVC: UITextFieldDelegate {
         //Add done button to numeric pad keyboard
         let toolbarDone = UIToolbar.init()
         toolbarDone.sizeToFit()
+        let flex = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,
+                                              target: self, action: nil)
         let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
                                               target: self, action: #selector(numDonePressed))
         
-        toolbarDone.items = [barBtnDone] // You can even add cancel button too
+        toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
         itemSearchField.inputAccessoryView = toolbarDone
     }
 }
@@ -146,9 +140,9 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
         if (maxOffset - offset) <= 0 {
             if (!self.isLoading) {
                 self.isLoading = true
-                print("load new data (new \(currentPageStep) items)")
-                currentPageStep += 20
-                if let itemList = CoreDataService.data.getShortItemList(outletId: outletId, offset: currentPageStep) {
+                print("load new data (new \(currentPageOffset) items)")
+                currentPageOffset += 20
+                if let itemList = shoplistService?.getShopItems(with: currentPageOffset, for: outletId) {
                     var indexPaths = [IndexPath]()
                     let currentCount: Int = filtredItemList.count
                     for i in 0..<itemList.count {
@@ -173,13 +167,9 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       
         let item = filtredItemList[indexPath.row]
-        
         self.delegate?.objectExchange(object: item)
         self.dismiss(animated: true, completion: nil)
-        
-        
     }
     
     

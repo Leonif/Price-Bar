@@ -36,10 +36,8 @@ class ShopListService {
                 sum += item.total
             }
         }
-        
         return sum
     }
-
     
     public func syncCloud(completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
         syncCategories { result in
@@ -71,10 +69,6 @@ class ShopListService {
                 completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
             }
         }
-        
-        
-        
-        
     }
     
     
@@ -123,13 +117,6 @@ class ShopListService {
             }
         }
     }
-
-    
-    
-    
-    
-    
-    
     
     
     func reloadDataFromCoreData(for outledId: String) {
@@ -153,6 +140,21 @@ class ShopListService {
         }
         return nil
     }
+    
+    
+    func addToShopListAndSaveStatistics(_ item: ShopItem) {
+        CoreDataService.data.addToShopListAndSaveStatistics(item)
+    }
+    
+    
+    func getShopItems(with pageOffset: Int, for outletId: String) -> [ShopItem]?  {
+        return CoreDataService.data.getShortItemList(outletId: outletId, offset: pageOffset)
+    }
+    
+    func filterList(itemName: String, for outletId: String) -> [ShopItem]? {
+        return CoreDataService.data.filterItemList(itemName: itemName, for: outletId)
+    }
+    
     
     func append(_ item: ShopItem) {
         if sections.contains(item.itemCategory.name) {
@@ -234,18 +236,6 @@ class ShopListService {
         return nil
         
     }
-    
-//    func getItem(_ item: ShopItem) -> ShopItem? {
-//
-//        for (key, value) in shopList {
-//            if let index = value.index(of: item) {
-//                return shopList[key]?[index]
-//            }
-//        }
-//
-//        return nil
-//    }
-    
     func rowsIn(_ section: Int) -> Int {
         return shopList[sections[section]]?.count ?? 0
     }

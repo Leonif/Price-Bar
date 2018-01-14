@@ -72,7 +72,6 @@ class CoreDataService {
     func addToShopListAndSaveStatistics(_ item: ShopItem) {
         saveOrUpdate(item)
         FirebaseService.data.saveOrUpdate(item)
-        //saveStatistic(item)
         print("From CoreData: addToShopListAndSaveStatistics - addToShopList")
         saveToShopList(item)
     }

@@ -191,6 +191,7 @@ extension ShopListController {
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil  {
             itemListVC.outletId = userOutlet.id
             itemListVC.delegate = self
+            itemListVC.shoplistService = shopListService
             
         }
         if segue.identifier == showScan,

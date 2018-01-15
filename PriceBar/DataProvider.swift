@@ -23,19 +23,17 @@ enum ShopListServiceError: Error {
 
 
 class DataProvider {
-    
-    var shopList = [String: [ShopItem]]()
+
     var sections = [String]()
-    var categories = [ItemCategory]()
-    var uoms = [ItemUom]()
+    var shoplist: [ShoplistItemModel] = []
     
     var total: Double {
         var sum = 0.0
-        shopList.forEach { section in
-            section.value.forEach { item in
-                sum += item.total
-            }
+        
+        shoplist.forEach { item in
+            sum += item.productPrice * item.quantity
         }
+
         return sum
     }
     
@@ -137,20 +135,20 @@ class DataProvider {
     }
     
     
-    func reloadDataFromCoreData(for outledId: String) {
-        let itemList = getShopItems(for: outledId)
-        
-        sections = []
-        shopList.removeAll()
-        itemList?.forEach { item in
-            if sections.contains(item.itemCategory.name) {
-                shopList[item.itemCategory.name]?.append(item)
-            } else {
-                sections.append(item.itemCategory.name)
-                shopList[item.itemCategory.name] = [item]
-            }
-        }
-    }
+//    func reloadDataFromCoreData(for outledId: String) {
+//        let itemList = getShopItems(for: outledId)
+//
+//        sections = []
+//        shopList.removeAll()
+//        itemList?.forEach { item in
+//            if sections.contains(item.itemCategory.name) {
+//                shopList[item.itemCategory.name]?.append(item)
+//            } else {
+//                sections.append(item.itemCategory.name)
+//                shopList[item.itemCategory.name] = [item]
+//            }
+//        }
+//    }
     
     func getShopItems(for outletId: String) -> [ShopItem]?  {
         if let itemList = CoreDataService.data.getItemList(for: outletId) {
@@ -162,13 +160,17 @@ class DataProvider {
     func save(new statistic: ItemStatistic) {
         CoreDataService.data.save(new: statistic)
         FirebaseService.data.save(new: statistic)
-        
     }
     
-    func addToShopListAndSaveStatistics(_ item: ShopItem) {
-        CoreDataService.data.addToShopListAndSaveStatistics(item)
-        FirebaseService.data.saveOrUpdate(item)
+    func saveToShopList(new item: ShoplistItemModel) {
+        CoreDataService.data.saveToShopList(item)
+        shoplist.append(item)
     }
+    
+//    func addToShopListAndSaveStatistics(_ item: ShopItem) {
+//        CoreDataService.data.addToShopListAndSaveStatistics(item)
+//        FirebaseService.data.saveOrUpdate(item)
+//    }
     
     
     func getShopItems(with pageOffset: Int, for outletId: String) -> [ShopItem]?  {
@@ -178,54 +180,34 @@ class DataProvider {
     func filterItemList(contains text: String, for outletId: String) -> [ShopItem]? {
         return CoreDataService.data.filterItemList(contains: text, for: outletId)
     }
-    
-    
-    func append(_ item: ShopItem) {
-        if sections.contains(item.itemCategory.name) {
-            shopList[item.itemCategory.name]?.append(item)
-        } else {
-            sections.append(item.itemCategory.name)
-            shopList[item.itemCategory.name] = [item]
-        }
-    }
+   
     
     func pricesUpdate(by outletId: String) {
-        shopList.forEach { section in
-            section.value.forEach { item in
-                item.price = CoreDataService.data.getPrice(for: item.id, and:outletId)
-                item.outletId = outletId
-            }}
+        for (index, item) in shoplist.enumerated() {
+            let price = CoreDataService.data.getPrice(for: item.productId, and:outletId)
+            shoplist[index].productPrice = price
+        }
     }
     
-    func remove(item: ShopItem) -> SectionInfo {
-        for (key, value) in shopList {
-            if let index = value.index(of: item) {
-                shopList[key]?.remove(at: index)
-                if shopList[key]?.count == 0 {
-                    sections = sections.filter{$0 != key}
-                    shopList.removeValue(forKey: key)
-                    return .sectionEmpty
-                }
-            }
+    func remove(item: ShoplistItemModel) {
+        guard let index = shoplist.index(of: item) else {
+            fatalError("item doesnt exist")
         }
-        return .sectionFull
+        shoplist.remove(at: index)
     }
     
     func removeAllItems() {
-        
-        shopList.removeAll()
-        CoreDataService.data.removeAllItems()
+//        shopList.removeAll()
+//        CoreDataService.data.removeAllItems()
         
     }
     
     
     
-    func change(_ item: ShopItem) -> Bool {
-        for (key, value) in shopList {
-            if let index = value.index(of: item) {
-                shopList[key]?[index] = item
-                return true
-            }
+    func change(_ changedItem: ShoplistItemModel) -> Bool {
+        if let index = shoplist.index(of: changedItem) {
+            shoplist[index] = changedItem
+            return true
         }
         return false
     }
@@ -233,25 +215,24 @@ class DataProvider {
     
     
     
-    func updateSections() {
-        var updatedShopList = [String: [ShopItem]]()
-        var updatedSections = [String]()
-        shopList.forEach { section in
-            section.value.forEach { item in
-                if updatedSections.contains(item.itemCategory.name) {
-                    updatedShopList[item.itemCategory.name]?.append(item)
-                } else {
-                    updatedSections.append(item.itemCategory.name)
-                    updatedShopList[item.itemCategory.name] = [item]
-                }
-            }
-        }
-        shopList = updatedShopList
-        sections = updatedSections
-    }
+//    func updateSections() {
+//        var updatedShopList = [String: [ShopItem]]()
+//        var updatedSections = [String]()
+//        shopList.forEach { section in
+//            section.value.forEach { item in
+//                if updatedSections.contains(item.itemCategory.name) {
+//                    updatedShopList[item.itemCategory.name]?.append(item)
+//                } else {
+//                    updatedSections.append(item.itemCategory.name)
+//                    updatedShopList[item.itemCategory.name] = [item]
+//                }
+//            }
+//        }
+//        shopList = updatedShopList
+//        sections = updatedSections
+//    }
     
     func getItem(index: IndexPath) -> ShopItem? {
-        
         if index.section < self.sectionCount {
             if let items = shopList[self.sections[index.section]]  {
                 return items[index.row]
@@ -260,17 +241,33 @@ class DataProvider {
         return nil
     }
     
-    func getItem(with barcode: String, and outletId: String) -> ShopItem? {
-        
+    func getItem(with barcode: String, and outletId: String) -> ProductModel? {
         return CoreDataService.data.getItem(by: barcode, and: outletId)
-        
-        return nil
+    }
+    
+    func getCategoryName(category id: Int32) -> String? {
+        guard let category = CoreDataService.data.getCategory(by: id),
+            let categoryName = category.category else {
+            return nil
+        }
+        return categoryName
+    }
+    
+    func loadShopList(for outletId: String) {
+        guard let list =  CoreDataService.data.loadShopList(for: outletId) else {
+            return
+        }
+        list.forEach { item in
+            self.shoplist.append(item)
+        }
     }
     
     
-    
     func rowsIn(_ section: Int) -> Int {
-        return shopList[sections[section]]?.count ?? 0
+        
+        
+        
+        return sections[section].count
     }
     
     var sectionCount: Int {

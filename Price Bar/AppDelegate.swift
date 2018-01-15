@@ -23,10 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
         
-        
         Fabric.with([Crashlytics.self])
-
-        
         //need to check
         var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
         if times < 10 && times > 0  {

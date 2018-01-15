@@ -74,7 +74,6 @@ extension CoreDataService {
     
     
     func syncStatistics(completion: @escaping (ResultType<Bool, CoreDataErrors>)->()) {
-        
         FirebaseService.data.syncStatistics { result in
             switch result {
             case let .success(statistics):

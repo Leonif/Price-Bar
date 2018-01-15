@@ -18,7 +18,7 @@ class ShopListController: UIViewController {
 
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
-    var dataProvider: DataProvider!
+    var dataProvider: DataProvider = DataProvider()
     var userOutlet: Outlet! {
         didSet {
             outletAddressLabel.text = userOutlet.address
@@ -27,12 +27,8 @@ class ShopListController: UIViewController {
     }
     var dataSource: ShopListDataSource?
     
-    
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
-    
-    
-    
     
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
@@ -41,22 +37,25 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        dataProvider = DataProvider()
-        dataSource = ShopListDataSource(delegate: self, cellDelegate: self, shopListService: dataProvider)
+        dataSource = ShopListDataSource(delegate: self,
+                                        cellDelegate: self,
+                                        dataProvider: dataProvider)
         shopTableView.dataSource = dataSource
         
-        // sync from cloud
-        self.view.pb_startActivityIndicator(with: "Синхронизация")
-        dataProvider.syncCloud { result in
-            self.view.pb_stopActivityIndicator()
-            switch result {
-            case let .failure(error):
-                self.alert(title: "Ops", message: error.localizedDescription)
-            case .success:
-                break
-            }
-        }
         
+//        // sync from cloud
+//        self.view.pb_startActivityIndicator(with: "Синхронизация")
+//        dataProvider.syncCloud { result in
+//            self.view.pb_stopActivityIndicator()
+//            switch result {
+//            case let .failure(error):
+//                self.alert(title: "Ops", message: error.localizedDescription)
+//            case .success:
+//                break
+//            }
+//        }
+        
+        //get outlet
         let outletService = OutletService()
         outletService.nearestOutlet { result in
             print(result)
@@ -66,12 +65,26 @@ class ShopListController: UIViewController {
                 print(outlet)
                 self.userOutlet = outlet
                 activateControls = true
+                self.loadShopList()
             case let .failure(error):
                 self.alert(title: "Ops", message: error.errorDescription)
             }
             self.buttonEnable(activateControls)
         }
     }
+    
+    
+    func loadShopList() {
+        guard dataProvider.shopList.isEmpty else {
+            return
+        }
+        dataProvider.shopList.removeAll()
+        dataProvider.loadShopList(for: userOutlet.id)
+        self.totalLabel.update(value: dataProvider.total)
+        shopTableView.reloadData()
+        
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         shopTableView.reloadData()

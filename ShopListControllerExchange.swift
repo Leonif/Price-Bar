@@ -17,12 +17,26 @@ protocol Exchange {
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
-        guard let item = dataProvider.getItem(with: productId, and: userOutlet.id) else {
+        guard let product = dataProvider.getItem(with: productId, and: userOutlet.id) else {
             return
         }
+        let categoryName = dataProvider.getCategoryName(category: product.categoryId)
+        let shopListItem = ShoplistItemModel(productId: product.id,
+                                             productName: product.name,
+                                             productCategory: categoryName, quantity: 1.0, checked: false)
         
+        
+        dataProvider.saveToShopList(new: shopListItem)
+        
+//        guard let stat = ItemStatistic(productId: item.id,
+//                                       price: item.price,
+//                                       outletId: userOutlet.id,
+//                                       date: Date()) else {
+//                                        alert(title: "Opps", message: "Цена на товар не записана :(")
+//                                        return
+//        }
+//        dataProvider.save(new: stat)
         self.totalLabel.update(value: dataProvider.total)
-        self.handle(for: item)
     }
 }
 
@@ -42,61 +56,36 @@ extension ShopListController: OutletVCDelegate {
 extension ShopListController: Exchange {
     
     func objectExchange(object: Any) {
-        if let item = object as? ShopItem { // card save
-            self.handle(for: item)
-        }
-        
-        if let scannedCode = object as? String {//scann came
-            self.handle(for: scannedCode)
-        }
-        self.dataSource?.shopListService = dataProvider
-        self.shopTableView.reloadData()
-        self.totalLabel.update(value: dataProvider.total)
-    }
-    
-    func handle(for item: ShopItem) {
-        let deviceBase = CoreDataService.data
-        let cloudBase = FirebaseService.data
-        
-        if !self.dataProvider.change(item) {
-            
-            self.dataProvider.append(item)
-            deviceBase.saveToShopList(item)
-        } else {
-            self.dataProvider.updateSections()
-        }
-        if !deviceBase.update(item) {
-            deviceBase.save(item)
-        }
-        cloudBase.saveOrUpdate(item)
-        
-        guard let stat = ItemStatistic(productId: item.id,
-                                       price: item.price,
-                                       outletId: userOutlet.id,
-                                       date: Date()) else {
-            alert(title: "Opps", message: "Цена на товар не записана :(")
-            return
-        }
-        dataProvider.save(new: stat)
-        
+//        if let item = object as? ShopItem { // card save
+//            self.handle(for: item)
+//        }
+//
+//        if let scannedCode = object as? String {//scann came
+//            self.handle(for: scannedCode)
+//        }
+//        self.dataSource?.dataProvider = dataProvider
+//        self.shopTableView.reloadData()
+//        self.totalLabel.update(value: dataProvider.total)
     }
     
     
     
-    func loadShopList(for outlet: Outlet) {
-        userOutlet = outlet
-        outletNameButton.setTitle(userOutlet.name, for: .normal)
-        outletAddressLabel.text = userOutlet.address
-        dataProvider.pricesUpdate(by: userOutlet.id)
-        
-        if let dataProvider = CoreDataService.data.loadShopList(outletId: userOutlet.id)/*, !selfLoaded*/ {
-            self.dataProvider = dataProvider
-            dataSource?.shopListService = dataProvider
-            self.shopTableView.reloadData()
-            totalLabel.update(value: dataProvider.total)
-        }
-        
-    }
+    
+    
+//    func loadShopList(for outlet: Outlet) {
+//        userOutlet = outlet
+//        outletNameButton.setTitle(userOutlet.name, for: .normal)
+//        outletAddressLabel.text = userOutlet.address
+//        dataProvider.pricesUpdate(by: userOutlet.id)
+//        
+//        if let dataProvider = CoreDataService.data.loadShopList(outletId: userOutlet.id)/*, !selfLoaded*/ {
+//            self.dataProvider = dataProvider
+//            dataSource?.shopListService = dataProvider
+//            self.shopTableView.reloadData()
+//            totalLabel.update(value: dataProvider.total)
+//        }
+//        
+//    }
     
     
     

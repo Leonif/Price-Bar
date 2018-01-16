@@ -129,14 +129,14 @@ extension ShopListController: ShopItemCellDelegate {
             let item = dataProvider.getItem(index: indexPath) else {
                 fatalError("Not possible to find out type of item")
         }
-        //let type: QuantityType = item.itemUom.isPerPiece ? .quantity : .weight
-        let type: QuantityType = item. ? .quantity : .weight
+        
+        let type: QuantityType = item.isPerPiece ? .quantity : .weight
         let model = QuantityModel(for: indexPath, with: type, and: currentValue)
         let pickerVC = QuantityPickerPopup(delegate: self, model: model)
         self.present(pickerVC, animated: true, completion: nil)
         
     }
-    func checkPressed(for item: ShopItem) {
+    func checkPressed(for item: ShoplistItemModel) {
         _ = dataProvider.change(item)
     }
 }
@@ -144,7 +144,7 @@ extension ShopListController: ShopItemCellDelegate {
 // MARK: Quantity changing of item handler
 extension ShopListController: QuantityPickerPopupDelegate {
     func choosen(weight: Double, for indexPath: IndexPath) {
-        guard let item = self.dataProvider.getItem(index: indexPath) else {
+        guard var item = self.dataProvider.getItem(index: indexPath) else {
             return
         }
         item.quantity = weight
@@ -191,12 +191,13 @@ extension ShopListController: UITableViewDelegate {
 extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showEditItem,
-            let itemVC = segue.destination as? ItemCardVC  {
+            let itemCardVC = segue.destination as? ItemCardVC  {
             if let item = sender as? ShopItem {
-                itemVC.item = item
-                itemVC.delegate = self
-                itemVC.categories = dataProvider.categories
-                itemVC.uoms = dataProvider.uoms
+                itemCardVC.item = item
+                itemCardVC.delegate = self
+                itemCardVC.dataProvider = dataProvider
+//                itemCardVC.categories = dataProvider.categories
+//                itemCardVC.uoms = dataProvider.uoms
             }
         }
         

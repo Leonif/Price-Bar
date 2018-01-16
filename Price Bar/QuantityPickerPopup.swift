@@ -62,7 +62,7 @@ class QuantityPickerPopup: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.configurePopup()
+        //self.configurePopup()
     }
     
     @objc func choosen() {

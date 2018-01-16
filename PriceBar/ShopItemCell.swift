@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ShopItemCellDelegate {
-    func checkPressed(for item: ShopItem)
+    func checkPressed(for item: ShoplistItemModel)
     func weightDemanded(cell: ShopItemCell, currentValue: Double)
 }
 

@@ -18,13 +18,14 @@ enum PickerType {
 
 
 class ItemCardVC: UIViewController {
-    var categories = [ItemCategory]()
-    var uoms = [ItemUom]()
+    var categories:[CategoryModel] = []
+    //var uoms = [ItemUom]()
     //var uoms = [Uom]()
     var increment = [String]()
     var pickerType: PickerType = .category
     var outletId: String!
     var searchedItemName: String?
+    var dataProvider: DataProvider!
     
     
     @IBOutlet weak var commonPickerView: UIPickerView!

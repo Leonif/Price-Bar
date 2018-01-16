@@ -177,18 +177,21 @@ class CoreDataService {
                     let id = product.id,
                     let name = product.name,
                     let category = product.toCategory,
-                    let categoryName = category.category
+                    let categoryName = category.category,
+                    let uom = product.toUom
                 {
 
                     let quantity = shoplistItem.quantity
                     let checked = shoplistItem.checked
                     let price = getPrice(for: id, and: outletId)
+                    let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
+                    
                     let item = ShoplistItemModel(productId: id,
                                                  productName: name,
                                                  productCategory: categoryName,
                                                  productPrice: price,
                                                  quantity: quantity,
-                                                 isPerPiece: product.toUom.
+                                                 isPerPiece: isPerPiece,
                                                  checked: checked)
                     
                     shopList.append(item)

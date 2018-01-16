@@ -232,13 +232,23 @@ class DataProvider {
 //        sections = updatedSections
 //    }
     
-    func getItem(index: IndexPath) -> ShopItem? {
-        if index.section < self.sectionCount {
-            if let items = shopList[self.sections[index.section]]  {
-                return items[index.row]
+    func getItem(index: IndexPath) -> ShoplistItemModel? {
+        
+        let sec = index.section
+        let indexInSec = index.row
+        
+        var productListInsection:[ShoplistItemModel] = []
+        
+        for shopiItem in shoplist {
+            if shopiItem.productCategory == sections[sec] {
+                productListInsection.append(shopiItem)
             }
         }
-        return nil
+        guard !productListInsection.isEmpty else {
+            return nil
+        }
+        
+        return productListInsection[indexInSec]
     }
     
     func getItem(with barcode: String, and outletId: String) -> ProductModel? {
@@ -264,14 +274,11 @@ class DataProvider {
     
     
     func rowsIn(_ section: Int) -> Int {
-        
-        
-        
         return sections[section].count
     }
     
     var sectionCount: Int {
-        return shopList.keys.count
+        return sections.count
     }
     
     func headerString(for section: Int) -> String {

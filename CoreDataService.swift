@@ -188,6 +188,7 @@ class CoreDataService {
                                                  productCategory: categoryName,
                                                  productPrice: price,
                                                  quantity: quantity,
+                                                 isPerPiece: product.toUom.
                                                  checked: checked)
                     
                     shopList.append(item)

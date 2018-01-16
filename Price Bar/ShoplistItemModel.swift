@@ -14,6 +14,7 @@ struct ShoplistItemModel: Equatable {
     var productCategory: String
     var productPrice: Double
     var quantity: Double
+    var isPerPiece: Bool
     var checked: Bool
 }
 

@@ -125,7 +125,7 @@ class ItemListVC: UIViewController {
 extension ItemListVC: Exchange {
     func objectExchange(object: Any) {
         if let item = object as? ShopItem   {
-            dataProvider?.addToShopListAndSaveStatistics(item)
+            //dataProvider?.addToShopListAndSaveStatistics(item)
             print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
             self.itemCardDelegate?.objectExchange(object: item)
             hide = true

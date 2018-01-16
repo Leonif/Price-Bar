@@ -75,10 +75,10 @@ class ShopListController: UIViewController {
     
     
     func loadShopList() {
-        guard dataProvider.shopList.isEmpty else {
+        guard dataProvider.shoplist.isEmpty else {
             return
         }
-        dataProvider.shopList.removeAll()
+        dataProvider.shoplist.removeAll()
         dataProvider.loadShopList(for: userOutlet.id)
         self.totalLabel.update(value: dataProvider.total)
         shopTableView.reloadData()
@@ -129,7 +129,8 @@ extension ShopListController: ShopItemCellDelegate {
             let item = dataProvider.getItem(index: indexPath) else {
                 fatalError("Not possible to find out type of item")
         }
-        let type: QuantityType = item.itemUom.isPerPiece ? .quantity : .weight
+        //let type: QuantityType = item.itemUom.isPerPiece ? .quantity : .weight
+        let type: QuantityType = item. ? .quantity : .weight
         let model = QuantityModel(for: indexPath, with: type, and: currentValue)
         let pickerVC = QuantityPickerPopup(delegate: self, model: model)
         self.present(pickerVC, animated: true, completion: nil)

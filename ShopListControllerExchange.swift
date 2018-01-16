@@ -20,10 +20,22 @@ extension ShopListController: ItemListVCDelegate {
         guard let product = dataProvider.getItem(with: productId, and: userOutlet.id) else {
             return
         }
-        let categoryName = dataProvider.getCategoryName(category: product.categoryId)
+        guard
+            let categoryName = dataProvider.getCategoryName(category: product.categoryId),
+            let uom = dataProvider.getUomName(for: product.categoryId)
+        else {
+            fatalError("category or uom name doesnt exist")
+        }
+        let price = dataProvider.getPrice(for: product.id, and: userOutlet.id)
+        
         let shopListItem = ShoplistItemModel(productId: product.id,
                                              productName: product.name,
-                                             productCategory: categoryName, quantity: 1.0, checked: false)
+                                             productCategory: categoryName,
+                                             productPrice: price,
+                                             productUom: uom,
+                                             quantity: 1.0,
+                                             isPerPiece: product.isPerPiece,
+                                             checked: false)
         
         
         dataProvider.saveToShopList(new: shopListItem)
@@ -90,30 +102,30 @@ extension ShopListController: Exchange {
     
     
     func handle(for scannedCode: String) {
-        var item: ShopItem!
+//        var item: ShopItem!
+//
+//        let deviceBase = CoreDataService.data
+//        let cloudBase = FirebaseService.data
+//
+//        if let foundProduct = deviceBase.getItem(by: scannedCode, and: userOutlet.id) {// exists on device
+//            item = foundProduct
+//            //handle(for: item)
+//        } else { //doesnt exist in coreData
+//            let itemCategory = deviceBase.defaultCategory! // default category
+//            let itemUom = deviceBase.initUoms[0]
+//
+//            item = ShopItem(id: scannedCode, name: "Неизвестно", quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, itemUom: itemUom, outletId: userOutlet.id, scanned: true, checked: false)
+//
+//            //add to coredata and firebase
+//            cloudBase.saveOrUpdate(item)
+//            deviceBase.save(item)
         
-        let deviceBase = CoreDataService.data
-        let cloudBase = FirebaseService.data
-        
-        if let foundItem = deviceBase.getItem(by: scannedCode, and: userOutlet.id) {// exists on device
-            item = foundItem
-            //handle(for: item)
-        } else { //doesnt exist in coreData
-            let itemCategory = deviceBase.defaultCategory! // default category
-            let itemUom = deviceBase.initUoms[0]
             
-            item = ShopItem(id: scannedCode, name: "Неизвестно", quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, itemUom: itemUom, outletId: userOutlet.id, scanned: true, checked: false)
-            
-            //add to coredata and firebase
-            cloudBase.saveOrUpdate(item)
-            deviceBase.save(item)
-            
-            
-        }
+//        }
         //save price statistics
-        deviceBase.saveToShopList(item)
-        dataProvider.append(item)
-        
+//        deviceBase.saveToShopList(item)
+//        dataProvider.append(item)
+    
         
     }
     

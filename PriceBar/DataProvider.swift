@@ -255,6 +255,14 @@ class DataProvider {
         return CoreDataService.data.getItem(by: barcode, and: outletId)
     }
     
+    func getCategoryList() -> [CategoryModel]? {
+        return CoreDataService.data.getCategories()
+    }
+    
+    func getUomName(for id: Int32) -> String? {
+        return CoreDataService.data.getUomName(by: id)
+    }
+    
     func getCategoryName(category id: Int32) -> String? {
         guard let category = CoreDataService.data.getCategory(by: id),
             let categoryName = category.category else {

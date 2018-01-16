@@ -11,14 +11,21 @@ import UIKit
 
 
 protocol PickerControlDelegate {
-    func choosen(indexPath: Int)
+    func choosen(id: Int32)
+}
+
+
+
+struct PickerData {
+    var id: Int32
+    var name: String
 }
 
 
 class PickerControl: UIViewController {
     
     
-    var dataSource: [String] = []
+    var dataSource: [PickerData] = []
     var indexPath: IndexPath?
     
     var delegate: PickerControlDelegate?
@@ -50,7 +57,7 @@ class PickerControl: UIViewController {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
     
-    convenience init(delegate: PickerControlDelegate, dataSource: [String], currentIndex: Int) {
+    convenience init(delegate: PickerControlDelegate, dataSource: [PickerData], currentIndex: Int) {
         self.init()
         
         self.delegate = delegate
@@ -67,7 +74,7 @@ class PickerControl: UIViewController {
     }
     
     @objc func choosen() {
-        delegate?.choosen(indexPath: picker.selectedRow(inComponent: 0))
+        delegate?.choosen(id: dataSource[picker.selectedRow(inComponent: 0)].id)
         self.view.antiObscure {
             self.dismiss(animated: true, completion: nil)
         }
@@ -126,7 +133,7 @@ class PickerControl: UIViewController {
 
 extension PickerControl: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-            return dataSource[row]
+            return dataSource[row].name
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

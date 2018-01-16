@@ -60,14 +60,14 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
             if let item = dataProvider.getItem(index: indexPath) {
                 tableView.beginUpdates()
                 
-                CoreDataService.data.removeFromShopList(item)
+                //CoreDataService.data.removeFromShopList(item)
                 let sectionStatus = dataProvider.remove(item: item)
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                if sectionStatus == .sectionEmpty  {
+                //if sectionStatus == .sectionEmpty  {
                     let indexSet = IndexSet(integer: indexPath.section)
                     tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
-                }
+                //}
                 tableView.endUpdates()
                 delegate?.shoplist(updated: dataProvider)
                 

@@ -14,9 +14,11 @@ protocol ShopItemCellDelegate {
 }
 
 
+
+
 class ShopItemCell: UITableViewCell {
     
-    var item: ShopItem?
+    var item: ShoplistItemModel?
     
     @IBOutlet weak var nameItem: UILabel!
     @IBOutlet weak var priceItem: UILabel!
@@ -52,7 +54,7 @@ extension ShopItemCell {
         
         self.item?.checked = !item.checked
         self.checkedState()
-        self.delegate?.checkPressed(for: item)
+        //self.delegate?.checkPressed(for: item)
     }
     
     func updateWeighOnCell(_ weight: Double, _ price: Double) {
@@ -79,17 +81,16 @@ extension ShopItemCell {
     }
     
     
-    func configureCell(item: ShopItem) {
+    func configureCell(item: ShoplistItemModel) {
         
         self.item = item
-        let s = item
         self.checkedState()
         
-        nameItem.text = s.name
-        priceItem.text = "\(s.price.asLocaleCurrency)"
-        uomLabel.text = s.itemUom.name
+        nameItem.text = item.productName
+        priceItem.text = "\(item.productPrice.asLocaleCurrency)"
+        uomLabel.text = item.productUom
         
-        self.updateWeighOnCell(s.quantity, s.price)
+        self.updateWeighOnCell(item.quantity, item.productPrice)
         
     }
 }

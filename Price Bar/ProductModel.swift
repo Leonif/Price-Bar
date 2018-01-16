@@ -11,4 +11,5 @@ struct ProductModel {
     var name: String
     var categoryId: Int32
     var uomId: Int32
+    var isPerPiece: Bool
 }

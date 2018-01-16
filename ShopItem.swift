@@ -120,18 +120,21 @@ class ShopItem  {
     var quantity = 0.0
     var price = 0.0
     var minPrice = 0.0
-    
-    var itemCategory = ItemCategory()
+
+    var itemCategory: CategoryModel?
     var itemUom =  ItemUom()
     var outletId = ""
     var scanned = false
     var checked = false
-    
-    
-    
-    
-    
-    init(id: String, name: String, quantity: Double, minPrice: Double, price: Double, itemCategory: ItemCategory, itemUom: ItemUom, outletId: String, scanned: Bool, checked: Bool) {
+
+
+
+
+
+    init(id: String, name: String,
+         quantity: Double, minPrice: Double,
+         price: Double, itemCategory: CategoryModel,
+         itemUom: ItemUom, outletId: String, scanned: Bool, checked: Bool) {
         self.id = id
         self.name = name
         self.quantity = quantity
@@ -142,23 +145,23 @@ class ShopItem  {
         self.outletId = outletId
         self.scanned = scanned
         self.checked = checked
-        
+
     }
-    
+
     init(id: String, goodData: Dictionary<String, Any>) {
         self.id = id
         if let name = goodData["name"] as? String {
             self.name = name
         } else {
             self.name = ""
-            
+
         }
-        
+
         if let catId = goodData["category_id"] as? Int32 {
-            self.itemCategory.id = catId
+            self.itemCategory?.id = catId
             for cat in CoreDataService.data.initCategories {
                 if cat.id == catId  {
-                    itemCategory.name = cat.name
+                    itemCategory?.name = cat.name
                     break
                 }
             }
@@ -168,8 +171,8 @@ class ShopItem  {
             }
             itemCategory = cat
         }
-        
-        
+
+
         if let uomId = goodData["uom_id"] as? Int32 {
             self.itemUom.id = uomId
             for uom in CoreDataService.data.initUoms {
@@ -188,26 +191,26 @@ class ShopItem  {
         self.scanned = false
         self.checked = false
     }
-//    init(id: String, priceData: Dictionary<String, Any>) {
-//        self.id = id
-//        if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {
-//
-//            self.price = price
-//            self.outletId = outletId
-//        } else {
-//            self.price = 0
-//            self.outletId = ""
-//
-//        }
-//        self.name = ""
-//        self.quantity = 0
-//        self.minPrice = 0
-//        self.itemCategory = ItemCategory()
-//        self.itemUom = ItemUom()
-//
-//        self.scanned = false
-//        self.checked = false
-//    }
+    init(id: String, priceData: Dictionary<String, Any>) {
+        self.id = id
+        if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {
+
+            self.price = price
+            self.outletId = outletId
+        } else {
+            self.price = 0
+            self.outletId = ""
+
+        }
+        self.name = ""
+        self.quantity = 0
+        self.minPrice = 0
+        //self.itemCategory = ItemCategory()
+        self.itemUom = ItemUom()
+
+        self.scanned = false
+        self.checked = false
+    }
     var total: Double {
         return quantity * price
     }
@@ -216,7 +219,7 @@ class ShopItem  {
 //copying from one object to other (by value, not reference)
 extension ShopItem: NSCopying {
     func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ShopItem(id: id, name: name, quantity: quantity, minPrice: minPrice, price: price, itemCategory: itemCategory, itemUom:itemUom, outletId: outletId, scanned: scanned, checked: checked)
+        let copy = ShopItem(id: id, name: name, quantity: quantity, minPrice: minPrice, price: price, itemCategory: itemCategory!, itemUom:itemUom, outletId: outletId, scanned: scanned, checked: checked)
         return copy
     }
 }
@@ -226,3 +229,4 @@ extension ShopItem: Equatable {}
 func ==(left: ShopItem, right: ShopItem) -> Bool {
     return left.id == right.id
 }
+

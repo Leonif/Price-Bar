@@ -24,9 +24,9 @@ class CoreDataService {
     var synced = false
     
     
-    var defaultCategory: ItemCategory? {
+    var defaultCategory: CategoryModel? {
         
-        guard let cat = self.getCategoriesFromCoreData().first else {
+        guard let cat = getCategories()?.first else {
             return nil
         }
         
@@ -178,7 +178,8 @@ class CoreDataService {
                     let name = product.name,
                     let category = product.toCategory,
                     let categoryName = category.category,
-                    let uom = product.toUom
+                    let uom = product.toUom,
+                    let uomName = uom.uom
                 {
 
                     let quantity = shoplistItem.quantity
@@ -190,6 +191,7 @@ class CoreDataService {
                                                  productName: name,
                                                  productCategory: categoryName,
                                                  productPrice: price,
+                                                 productUom: uomName,
                                                  quantity: quantity,
                                                  isPerPiece: isPerPiece,
                                                  checked: checked)
@@ -223,7 +225,7 @@ extension CoreDataService {
         let price = getPrice(for: id, and: outletId)
         let minPrice = getMinPrice(for: id, and: outletId)
         
-        let itemCategory = ItemCategory(id: idCat, name: category)
+        let itemCategory = CategoryModel(id: idCat, name: category)
         let itemUom = ItemUom(id: prodUom.id, name: uom, iterator: prodUom.iterator)
         
         let item = ShopItem(id: id, name: name,
@@ -309,17 +311,10 @@ extension CoreDataService {
                 if let prd = productExist.first {
                     if let id = prd.id, let name = prd.name,
                         let prodUom = prd.toUom,
-                        //let uomName = prodUom.uom,
                         let prodCat = prd.toCategory {
-                        //let category = prodCat.category  {
                         
-                        //let price = getPrice(for: barcode, and: outletId)
-                        //let minPrice = getMinPrice(for: barcode, and: outletId)
-                        
-                        //let itemCategory = ItemCategory(id: prodCat.id, name: category)
-                        //let itemUom = ItemUom(id: prodUom.id, name: uomName, iterator: prodUom.iterator)
-                        
-                        let item = ProductModel(id: id, name: name, categoryId: prodCat.id, uomId: prodUom.id)
+                        let isPerPiece = prodUom.iterator.truncatingRemainder(dividingBy: 1) == 0
+                        let item = ProductModel(id: id, name: name, categoryId: prodCat.id, uomId: prodUom.id, isPerPiece: isPerPiece)
                         return item
                     }
                 }
@@ -430,35 +425,31 @@ extension CoreDataService {
 
 //MARK: Categories
 extension CoreDataService {
-    func getCategoriesFromCoreData() -> [ItemCategory] {
-        var cats = [Category]()
+    func getCategories() -> [CategoryModel]? {
+        var categories: [Category] = []
+        var categoryList: [CategoryModel] = []
         do {
             let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
-            cats = try context.fetch(fetchRequest)
-            if cats.count != self.initCategories.count {
-                cats = []
-                for c in self.initCategories { // пересоздаем категории заново
-                    let cat = Category(context: context)
-                    cat.id = c.id
-                    cat.category = c.name
-                }
-                ad.saveContext()
-                cats = try context.fetch(fetchRequest)
+            categories = try context.fetch(fetchRequest)
+            
+            guard !categories.isEmpty else {
+                return nil
             }
             
+            for category in categories {
+                
+                if let categoryName = category.category {
+                    categoryList.append(CategoryModel(id: category.id, name: categoryName))
+                } else {
+                    fatalError("No name of category !!!!")
+                }
+            }
         } catch  {
             print("Categories are not got from database")
         }
         
-        var itemCategories = [ItemCategory]()
         
-        cats.forEach {
-            if let categoryName = $0.category {
-                let itemCategory = ItemCategory(id: $0.id, name: categoryName)
-                itemCategories.append(itemCategory)
-            }
-        }
-        return itemCategories
+        return categoryList
     }
     
     
@@ -508,7 +499,7 @@ extension CoreDataService {
         if let prod = getProduct(by: product.id) {
             prod.name = product.name
             prod.scanned = product.scanned
-            if let categ = getCategory(by: product.itemCategory.id) {
+            if let categ = getCategory(by: (product.itemCategory?.id)!) {
                 prod.toCategory = categ
             }
             if let uom = getUom(by: product.itemUom.id) {
@@ -519,7 +510,7 @@ extension CoreDataService {
             prod.id = product.id
             prod.name = product.name
             prod.scanned = product.scanned
-            if let categ = getCategory(by: product.itemCategory.id) {
+            if let categ = getCategory(by: (product.itemCategory?.id)!) {
                 prod.toCategory = categ
             }
             if let uom = getUom(by: product.itemUom.id) {
@@ -557,6 +548,21 @@ extension CoreDataService {
                 return nil
             }
             return uom
+        } catch  {
+            fatalError("uom is not got from database")
+        }
+        return nil
+    }
+    func getUomName(by id: Int32) -> String? {
+        do {
+            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
+            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+            let uoms = try context.fetch(fetchRequest)
+            
+            guard !uoms.isEmpty, let uom = uoms.first else {
+                return nil
+            }
+            return uom.uom
         } catch  {
             fatalError("uom is not got from database")
         }

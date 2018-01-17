@@ -144,11 +144,11 @@ extension ShopListController: ShopItemCellDelegate {
 // MARK: Quantity changing of item handler
 extension ShopListController: QuantityPickerPopupDelegate {
     func choosen(weight: Double, for indexPath: IndexPath) {
-        guard var item = self.dataProvider.getItem(index: indexPath) else {
+        guard let item = self.dataProvider.getItem(index: indexPath) else {
             return
         }
-        item.quantity = weight
-        _ = self.dataProvider.change(item)
+        
+        dataProvider.changeShoplistItem(weight, for: item.productId)
         self.shopTableView.reloadRows(at: [indexPath], with: .none)
         totalLabel.update(value: dataProvider.total)
     }

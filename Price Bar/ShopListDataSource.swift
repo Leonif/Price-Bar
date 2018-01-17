@@ -11,7 +11,6 @@ import UIKit
 
 protocol ShopListDataSourceDelegate {
     func shoplist(updated shopListService: DataProvider)
-    
 }
 
 class ShopListDataSource: NSObject, UITableViewDataSource {

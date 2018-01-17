@@ -584,6 +584,34 @@ extension CoreDataService {
         }
         return nil
     }
+    
+    func changeShoplistItem(_ quantity: Double, for product_id: String) {
+        
+        guard let item = getShopItemInShopList(by: product_id) else {
+            fatalError("item is not found in shoplist")
+        }
+        item.quantity = quantity
+        
+        ad.saveContext()
+    }
+    
+    
+    func getShopItemInShopList(by product_id: String) -> ShopList? {
+        
+        do {
+            let shopProdRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+            shopProdRequest.predicate = NSPredicate(format: "toProduct.id == %@", product_id)
+            let shoppedProduct = try context.fetch(shopProdRequest)
+            guard !shoppedProduct.isEmpty, let item = shoppedProduct.first else {
+                return nil
+            }
+            return item
+        } catch {
+            fatalError("shopitem is not found")
+        }
+        return nil
+        
+    }
 
     
     

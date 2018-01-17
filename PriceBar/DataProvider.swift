@@ -134,22 +134,6 @@ class DataProvider {
         }
     }
     
-    
-//    func reloadDataFromCoreData(for outledId: String) {
-//        let itemList = getShopItems(for: outledId)
-//
-//        sections = []
-//        shopList.removeAll()
-//        itemList?.forEach { item in
-//            if sections.contains(item.itemCategory.name) {
-//                shopList[item.itemCategory.name]?.append(item)
-//            } else {
-//                sections.append(item.itemCategory.name)
-//                shopList[item.itemCategory.name] = [item]
-//            }
-//        }
-//    }
-    
     func getShopItems(for outletId: String) -> [ShopItem]?  {
         if let itemList = CoreDataService.data.getItemList(for: outletId) {
             return itemList
@@ -166,12 +150,6 @@ class DataProvider {
         CoreDataService.data.saveToShopList(item)
         shoplist.append(item)
     }
-    
-//    func addToShopListAndSaveStatistics(_ item: ShopItem) {
-//        CoreDataService.data.addToShopListAndSaveStatistics(item)
-//        FirebaseService.data.saveOrUpdate(item)
-//    }
-    
     
     func getShopItems(with pageOffset: Int, for outletId: String) -> [ShopItem]?  {
         return CoreDataService.data.getShortItemList(for: outletId, offset: pageOffset)
@@ -212,25 +190,13 @@ class DataProvider {
         return false
     }
     
+    func changeShoplistItem(_ quantity: Double, for product_id: String) {
+        
+        CoreDataService.data.changeShoplistItem(quantity, for: product_id)
+        
+    }
     
     
-    
-//    func updateSections() {
-//        var updatedShopList = [String: [ShopItem]]()
-//        var updatedSections = [String]()
-//        shopList.forEach { section in
-//            section.value.forEach { item in
-//                if updatedSections.contains(item.itemCategory.name) {
-//                    updatedShopList[item.itemCategory.name]?.append(item)
-//                } else {
-//                    updatedSections.append(item.itemCategory.name)
-//                    updatedShopList[item.itemCategory.name] = [item]
-//                }
-//            }
-//        }
-//        shopList = updatedShopList
-//        sections = updatedSections
-//    }
     
     func getItem(index: IndexPath) -> ShoplistItemModel? {
         

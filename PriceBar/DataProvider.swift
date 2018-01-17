@@ -277,12 +277,30 @@ class DataProvider {
         }
         list.forEach { item in
             self.shoplist.append(item)
+            addSection(for: item)
+        }
+    }
+    
+    private func addSection(for item: ShoplistItemModel) {
+        if !sections.contains(item.productCategory) {
+            sections.append(item.productCategory)
         }
     }
     
     
+    
     func rowsIn(_ section: Int) -> Int {
-        return sections[section].count
+        
+        var count: Int = 0
+        
+        for item in shoplist {
+            if item.productCategory == sections[section] {
+                count += 1
+            }
+        }
+        
+        
+        return count
     }
     
     var sectionCount: Int {

@@ -33,15 +33,17 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell {
-            
-            if let shp = dataProvider.getItem(index: indexPath) {
-                cell.configureCell(item: shp)
-                cell.delegate = cellDelegate
-                return cell
-            }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as? ShopItemCell  else {
+            return UITableViewCell()
         }
-        return UITableViewCell()
+        
+        guard let shp = dataProvider.getItem(index: indexPath) else {
+            return UITableViewCell()
+        }
+        
+        cell.configureCell(item: shp)
+        cell.delegate = cellDelegate
+        return cell
     }
     
     

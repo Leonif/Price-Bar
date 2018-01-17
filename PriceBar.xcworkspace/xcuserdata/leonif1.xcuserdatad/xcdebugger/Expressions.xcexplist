@@ -11,6 +11,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "DataProvider.getItem(index:):DataProvider.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopItemCell.awakeFromNib() -&gt; ():ShopItemCell.swift">
          <PersistentStrings>
             <PersistentString
@@ -38,6 +41,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListController.itemChoosen(productId:):ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListController.viewDidLoad() -&gt; ():ShopListController.swift">
          <PersistentStrings>
             <PersistentString
@@ -63,13 +69,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -182,7 +188,23 @@
          contextName = "ShopListController.loadShopList(for:):ShopListControllerExchange.swift">
       </ContextState>
       <ContextState
+         contextName = "DataProvider.sectionCount.getter:DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sections">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListDataSource.init(shopModel:):ShopListDataSource.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.addSection(for:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sections">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "QuantityPickerPopup.viewDidLoad():QuantityPickerPopup.swift">
@@ -199,10 +221,21 @@
          contextName = "FirebaseService.(loadUoms(uomList : ([ItemUom]) -&gt; ()) -&gt; ()).(closure #1):FirebaseService.swift">
       </ContextState>
       <ContextState
+         contextName = "ShopListDataSource.tableView(_:cellForRowAt:):ShopListDataSource.swift">
+      </ContextState>
+      <ContextState
          contextName = "Double.rounded(toPlaces:):NumberExtensions.swift">
          <PersistentStrings>
             <PersistentString
                value = "(r * divisor).rounded() / divisor">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.rowsIn(_:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sections[section]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -243,10 +276,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

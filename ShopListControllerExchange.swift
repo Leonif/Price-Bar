@@ -18,11 +18,12 @@ protocol Exchange {
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
         guard let product = dataProvider.getItem(with: productId, and: userOutlet.id) else {
+            fatalError("product doesnt exist")
             return
         }
         guard
             let categoryName = dataProvider.getCategoryName(category: product.categoryId),
-            let uom = dataProvider.getUomName(for: product.categoryId)
+            let uom = dataProvider.getUomName(for: product.uomId)
         else {
             fatalError("category or uom name doesnt exist")
         }
@@ -39,15 +40,7 @@ extension ShopListController: ItemListVCDelegate {
         
         
         dataProvider.saveToShopList(new: shopListItem)
-        
-//        guard let stat = ItemStatistic(productId: item.id,
-//                                       price: item.price,
-//                                       outletId: userOutlet.id,
-//                                       date: Date()) else {
-//                                        alert(title: "Opps", message: "Цена на товар не записана :(")
-//                                        return
-//        }
-//        dataProvider.save(new: stat)
+        self.shopTableView.reloadData()
         self.totalLabel.update(value: dataProvider.total)
     }
 }

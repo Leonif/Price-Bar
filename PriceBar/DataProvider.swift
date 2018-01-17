@@ -172,7 +172,27 @@ class DataProvider {
             fatalError("item doesnt exist")
         }
         shoplist.remove(at: index)
+        removeSection(with: item.productCategory)
+        CoreDataService.data.removeFromShopList(with: item.productId)
     }
+    
+    
+    func removeSection(with name: String) {
+        guard let index = sections.index(of: name) else {
+            return
+        }
+        
+        for item in shoplist {
+            if item.productCategory == name {
+                print("section \(name) can't be removed cause contains some items")
+                return
+            }
+        }
+        sections.remove(at: index)
+    }
+    
+    
+    
     
     func removeAllItems() {
 //        shopList.removeAll()
@@ -191,7 +211,11 @@ class DataProvider {
     }
     
     func changeShoplistItem(_ quantity: Double, for product_id: String) {
-        
+        for (index, item) in shoplist.enumerated() {
+            if item.productId == product_id  {
+               shoplist[index].quantity = quantity
+            }
+        }
         CoreDataService.data.changeShoplistItem(quantity, for: product_id)
         
     }

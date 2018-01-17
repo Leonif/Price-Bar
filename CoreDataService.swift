@@ -137,10 +137,10 @@ class CoreDataService {
         
     }
     
-    func removeFromShopList(_ item: ShopItem) {
+    func removeFromShopList(with product_id: String) {
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
-            shpLstRequest.predicate = NSPredicate(format: "toProduct.id == %@", item.id)
+            shpLstRequest.predicate = NSPredicate(format: "toProduct.id == %@", product_id)
             let productExist = try context.fetch(shpLstRequest)
             
             productExist.forEach { context.delete($0) }

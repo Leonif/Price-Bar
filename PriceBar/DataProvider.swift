@@ -149,6 +149,7 @@ class DataProvider {
     func saveToShopList(new item: ShoplistItemModel) {
         CoreDataService.data.saveToShopList(item)
         shoplist.append(item)
+        addSection(for: item)
     }
     
     func getShopItems(with pageOffset: Int, for outletId: String) -> [ShopItem]?  {
@@ -281,7 +282,11 @@ class DataProvider {
     
     func rowsIn(_ section: Int) -> Int {
         
+        
+        
         var count: Int = 0
+        
+        
         
         for item in shoplist {
             if item.productCategory == sections[section] {

@@ -62,11 +62,12 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
                 tableView.beginUpdates()
                 
                 
+                let itemCountWasInSection = dataProvider.rowsIn(indexPath.section)
                 dataProvider.remove(item: item)
-                let itemCountInSection = dataProvider.rowsIn(indexPath.section)
+                
                 
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                if itemCountInSection == 0  {
+                if itemCountWasInSection == 1  {
                     let indexSet = IndexSet(integer: indexPath.section)
                     tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
                 }

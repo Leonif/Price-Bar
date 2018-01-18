@@ -69,12 +69,6 @@ class CoreDataService {
         return itemUoms
     }
     
-//    func addToShopListAndSaveStatistics(_ item: ShoplistItemModel) {
-//        saveOrUpdate(item)
-//        print("From CoreData: addToShopListAndSaveStatistics - addToShopList")
-//        saveToShopList(item)
-//    }
-    
     func save(new statistic: ItemStatistic) {
         guard statistic.price != 0 else {
             return

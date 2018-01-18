@@ -195,14 +195,11 @@
 		790BC9E81F88322400CA9519 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				79833B3C200E812D005C6CC5 /* PickerControl.swift */,
-				79833B38200D503C005C6CC5 /* Models */,
-				79A2EB722002D471008F7DAA /* ResultType.swift */,
-				7973DD861EF1AC7F0010A64F /* OutletService.swift */,
-				792EE7B81EE7080400470669 /* DataProvider.swift */,
-				79A2EB702002CD46008F7DAA /* LocationService.swift */,
-				795EA8CE1F100C1C00752A68 /* CoreData */,
-				795EA8D11F102A9200752A68 /* Firebase */,
+				79833B42201143DE005C6CC5 /* DataProvider */,
+				79833B4420114442005C6CC5 /* OutletProvider */,
+				79833B4520114456005C6CC5 /* LocationProvider */,
+				795EA8CE1F100C1C00752A68 /* CoreDataProvider */,
+				795EA8D11F102A9200752A68 /* FirebaseProvider */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -220,9 +217,9 @@
 		790BC9EA1F8832D900CA9519 /* ItemListFlow */ = {
 			isa = PBXGroup;
 			children = (
-				7904B4591F03738B002032CD /* ShopItem.swift */,
-				79D26A001EFECC4800337DA3 /* ItemListVC.swift */,
-				79D26A021EFECD5700337DA3 /* ItemListCell.swift */,
+				79833B4120114354005C6CC5 /* Entities */,
+				79833B402011434A005C6CC5 /* Controller */,
+				79833B3F2011433B005C6CC5 /* View */,
 			);
 			name = ItemListFlow;
 			sourceTree = "<group>";
@@ -295,9 +292,11 @@
 		792EE7821EE48CD500470669 /* PriceBar */ = {
 			isa = PBXGroup;
 			children = (
+				79833B432011440C005C6CC5 /* Reusable Tools */,
 				790BC9E71F8831FB00CA9519 /* ShopListFlow */,
-				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
 				790BC9EA1F8832D900CA9519 /* ItemListFlow */,
+				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
+				79833B3E201142F5005C6CC5 /* ScannerFlow */,
 				790BC9E91F88326E00CA9519 /* OutletFlow */,
 				790BC9E81F88322400CA9519 /* Services */,
 				790BC9EB1F88334800CA9519 /* Supported Files */,
@@ -333,7 +332,7 @@
 		794CEAC71F8A6BA8003B517A /* ItemCardFlow */ = {
 			isa = PBXGroup;
 			children = (
-				79833B3B200E7E81005C6CC5 /* Model */,
+				79833B3B200E7E81005C6CC5 /* Entities */,
 				79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */,
 			);
 			name = ItemCardFlow;
@@ -349,7 +348,7 @@
 			name = CustomObjects;
 			sourceTree = "<group>";
 		};
-		795EA8CE1F100C1C00752A68 /* CoreData */ = {
+		795EA8CE1F100C1C00752A68 /* CoreDataProvider */ = {
 			isa = PBXGroup;
 			children = (
 				79AA0FE41EF5D13300903133 /* gen */,
@@ -358,32 +357,97 @@
 				795EA8CC1F100C1500752A68 /* PriceHandling.swift */,
 				79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */,
 			);
-			name = CoreData;
+			name = CoreDataProvider;
 			sourceTree = "<group>";
 		};
-		795EA8D11F102A9200752A68 /* Firebase */ = {
+		795EA8D11F102A9200752A68 /* FirebaseProvider */ = {
 			isa = PBXGroup;
 			children = (
 				795EA8D21F102AAB00752A68 /* FirebaseService.swift */,
 			);
-			name = Firebase;
+			name = FirebaseProvider;
 			sourceTree = "<group>";
 		};
-		79833B38200D503C005C6CC5 /* Models */ = {
+		79833B38200D503C005C6CC5 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				79833B36200D501E005C6CC5 /* ProductModel.swift */,
 				79833B34200D5002005C6CC5 /* ShoplistItemModel.swift */,
 			);
-			name = Models;
+			name = Entities;
 			sourceTree = "<group>";
 		};
-		79833B3B200E7E81005C6CC5 /* Model */ = {
+		79833B3B200E7E81005C6CC5 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				79833B39200E7E4B005C6CC5 /* CategoryModel.swift */,
 			);
-			name = Model;
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		79833B3E201142F5005C6CC5 /* ScannerFlow */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = ScannerFlow;
+			sourceTree = "<group>";
+		};
+		79833B3F2011433B005C6CC5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				79D26A021EFECD5700337DA3 /* ItemListCell.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		79833B402011434A005C6CC5 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				79D26A001EFECC4800337DA3 /* ItemListVC.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		79833B4120114354005C6CC5 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				7904B4591F03738B002032CD /* ShopItem.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		79833B42201143DE005C6CC5 /* DataProvider */ = {
+			isa = PBXGroup;
+			children = (
+				79833B38200D503C005C6CC5 /* Entities */,
+				792EE7B81EE7080400470669 /* DataProvider.swift */,
+			);
+			name = DataProvider;
+			sourceTree = "<group>";
+		};
+		79833B432011440C005C6CC5 /* Reusable Tools */ = {
+			isa = PBXGroup;
+			children = (
+				79A2EB722002D471008F7DAA /* ResultType.swift */,
+				79833B3C200E812D005C6CC5 /* PickerControl.swift */,
+			);
+			name = "Reusable Tools";
+			sourceTree = "<group>";
+		};
+		79833B4420114442005C6CC5 /* OutletProvider */ = {
+			isa = PBXGroup;
+			children = (
+				7973DD861EF1AC7F0010A64F /* OutletService.swift */,
+			);
+			name = OutletProvider;
+			sourceTree = "<group>";
+		};
+		79833B4520114456005C6CC5 /* LocationProvider */ = {
+			isa = PBXGroup;
+			children = (
+				79A2EB702002CD46008F7DAA /* LocationService.swift */,
+			);
+			name = LocationProvider;
 			sourceTree = "<group>";
 		};
 		79AA0FE41EF5D13300903133 /* gen */ = {

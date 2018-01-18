@@ -204,9 +204,11 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = filtredItemList[indexPath.row]
-        //self.itemCardDelegate?.objectExchange(object: item)
-        delegate?.itemChoosen(productId: item.id)
         self.dismiss(animated: true, completion: nil)
+        delegate?.itemChoosen(productId: item.id)
+        
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

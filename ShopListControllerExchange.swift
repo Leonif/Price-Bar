@@ -19,7 +19,6 @@ extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
         guard let product = dataProvider.getItem(with: productId, and: userOutlet.id) else {
             fatalError("product doesnt exist")
-            return
         }
         guard
             let categoryName = dataProvider.getCategoryName(category: product.categoryId),
@@ -39,9 +38,17 @@ extension ShopListController: ItemListVCDelegate {
                                              checked: false)
         
         
-        dataProvider.saveToShopList(new: shopListItem)
-        self.shopTableView.reloadData()
-        self.totalLabel.update(value: dataProvider.total)
+        let result = dataProvider.saveToShopList(new: shopListItem)
+        switch result {
+        case .success:
+            self.shopTableView.reloadData()
+            self.totalLabel.update(value: dataProvider.total)
+        case let .failure(error):
+            alert(title: "Хмм", message: error.message)
+        }
+        
+        
+        
     }
 }
 

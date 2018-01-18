@@ -185,7 +185,7 @@
 		790BC9E71F8831FB00CA9519 /* ShopListFlow */ = {
 			isa = PBXGroup;
 			children = (
-				790BC9EF1F88342100CA9519 /* Model */,
+				790BC9EF1F88342100CA9519 /* Entities */,
 				790BC9EE1F88341200CA9519 /* View */,
 				790BC9ED1F8833D700CA9519 /* Controllers */,
 			);
@@ -263,12 +263,12 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		790BC9EF1F88342100CA9519 /* Model */ = {
+		790BC9EF1F88342100CA9519 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
 				7933686C20012F1A00E8E81A /* QuantityModel.swift */,
 			);
-			name = Model;
+			name = Entities;
 			sourceTree = "<group>";
 		};
 		792EE7771EE48CD500470669 = {

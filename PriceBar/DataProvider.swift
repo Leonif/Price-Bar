@@ -16,8 +16,19 @@ enum SectionInfo {
 }
 
 
-enum ShopListServiceError: Error {
+enum DataProviderError: Error {
     case syncError(String)
+    case shoplistAddedNewItem(String)
+    
+    
+    var message: String {
+        switch self {
+        case .syncError:
+            return "Ошибка синхронизации"
+        case .shoplistAddedNewItem:
+            return "Товар уже есть в списке"
+        }
+    }
 }
 
 
@@ -37,69 +48,69 @@ class DataProvider {
         return sum
     }
     
-    public func syncCloud(completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+    public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
         syncCategories { result in
             self.handleCategories(result: result, completion: completion)
         }
     }
     
     
-    private func handleCategories(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+    private func handleCategories(result: ResultType<Bool, DataProviderError>, completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
         switch result {
         case .success:
             self.syncUom { result in
                 self.handleUom(result: result, completion: completion)
             }
         case let .failure(error):
-            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
         }
     }
     
-    private func handleUom(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+    private func handleUom(result: ResultType<Bool, DataProviderError>, completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
         switch result {
         case .success:
             self.syncProducts { result in
                 self.handleProducts(result: result, completion: completion)
             }
         case let .failure(error):
-            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
         }
     }
     
-    private func handleProducts(result: ResultType<Bool, ShopListServiceError>, completion: @escaping (ResultType<Bool, ShopListServiceError>)->()) {
+    private func handleProducts(result: ResultType<Bool, DataProviderError>, completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
         switch result {
         case .success:
             self.syncStatistics { result in
                 self.handleStatistics(result: result, completion: completion)
             }
         case let .failure(error):
-            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
         }
     }
     
     
-    private func handleStatistics(result: ResultType<Bool, ShopListServiceError>, completion: (ResultType<Bool, ShopListServiceError>)->()) {
+    private func handleStatistics(result: ResultType<Bool, DataProviderError>, completion: (ResultType<Bool, DataProviderError>)->()) {
         switch result {
         case .success:
             completion(ResultType.success(true))
         case let .failure(error):
-            completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+            completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
         }
     }
     
     
-    private func syncCategories(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
+    private func syncCategories(completion: @escaping (ResultType<Bool, DataProviderError>)->())  {
         CoreDataService.data.syncCategories { result in
             switch result {
             case .success:
                 completion(ResultType.success(true))
             case let .failure(error):
-                completion(ResultType.failure(ShopListServiceError.syncError(error.localizedDescription)))
+                completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
             }
         }
     }
 
-    private func syncProducts(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
+    private func syncProducts(completion: @escaping (ResultType<Bool, DataProviderError>)->())  {
         CoreDataService.data.syncProducts { result in // get from firebase
             switch result {
             case .success:
@@ -111,7 +122,7 @@ class DataProvider {
     }
     
     
-    private func syncStatistics(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
+    private func syncStatistics(completion: @escaping (ResultType<Bool, DataProviderError>)->())  {
         CoreDataService.data.syncStatistics { result in // get from firebase
             switch result {
             case .success:
@@ -123,7 +134,7 @@ class DataProvider {
     }
     
     
-    private func syncUom(completion: @escaping (ResultType<Bool, ShopListServiceError>)->())  {
+    private func syncUom(completion: @escaping (ResultType<Bool, DataProviderError>)->())  {
         CoreDataService.data.syncUoms { result in // get from firebase
             switch result {
             case .success:
@@ -146,10 +157,18 @@ class DataProvider {
         FirebaseService.data.save(new: statistic)
     }
     
-    func saveToShopList(new item: ShoplistItemModel) {
-        CoreDataService.data.saveToShopList(item)
+    func saveToShopList(new item: ShoplistItemModel) -> ResultType<Bool, DataProviderError> {
+        
+        if let _ = shoplist.index(of:item) {
+            print("\(item.productName) already in shoplist")
+            return ResultType.failure(DataProviderError.shoplistAddedNewItem("Уже в списке"))
+        }
+        
         shoplist.append(item)
         addSection(for: item)
+        CoreDataService.data.saveToShopList(item)
+        
+        return ResultType.success(true)
     }
     
     func getShopItems(with pageOffset: Int, for outletId: String) -> [ShopItem]?  {
@@ -195,9 +214,10 @@ class DataProvider {
     
     
     
-    func removeAllItems() {
-//        shopList.removeAll()
-//        CoreDataService.data.removeAllItems()
+    func clearShoplist() {
+        shoplist.removeAll()
+        sections.removeAll()
+        CoreDataService.data.removeAll(from: "ShopList")
         
     }
     

@@ -102,9 +102,10 @@ class ShopListController: UIViewController {
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
         
-        shopTableView.beginUpdates()
-        dataProvider.removeAllItems()
-        shopTableView.endUpdates()
+        //shopTableView.beginUpdates()
+        dataProvider.clearShoplist()
+        shopTableView.reloadData()
+        //shopTableView.endUpdates()
         
         
     }
@@ -196,8 +197,6 @@ extension ShopListController {
                 itemCardVC.item = item
                 itemCardVC.delegate = self
                 itemCardVC.dataProvider = dataProvider
-//                itemCardVC.categories = dataProvider.categories
-//                itemCardVC.uoms = dataProvider.uoms
             }
         }
         

@@ -22,6 +22,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in DataProvider.syncCloud(completion:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.shoplist">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.saveToShopList(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -101,6 +109,9 @@
       </ContextState>
       <ContextState
          contextName = "ShopListController.objectExchange(object : Any) -&gt; ():ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
+         contextName = "== infix(_:_:):ShoplistItemModel.swift">
       </ContextState>
       <ContextState
          contextName = "FirebaseService.addGoodToCloud(ShopItem) -&gt; ():FirebaseService.swift">

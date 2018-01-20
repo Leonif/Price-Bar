@@ -31,42 +31,38 @@ class ItemCategory {
 }
 
 
-class ItemUom {
-    var id: Int32 = 0
-    var name = ""
-    var iterator = 0.0
-    
-    var isPerPiece: Bool {
-        
-        if iterator.truncatingRemainder(dividingBy: 1) == 0 {
-            return true
-        } else {
-            return false
-        }
-    }
-    
-    
-    
-    init() {
-        
-    }
-    
-    init(key: Int32, itemUomDict: Dictionary<String, Any>) {
-        if let name = itemUomDict["name"] as? String {
-            self.id = key
-            self.name = name
-            if let iterator = itemUomDict["iterator"] as? Double {
-                self.iterator = iterator
-            }
-        }
-    }
-    
-    init(id: Int32, name: String, iterator: Double) {
-        self.id = id
-        self.name = name
-        self.iterator = iterator
-    }
-}
+//class ItemUom {
+//    var id: Int32 = 0
+//    var name = ""
+//    var iterator = 0.0
+//
+//    var isPerPiece: Bool {
+//        if iterator.truncatingRemainder(dividingBy: 1) == 0 {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
+//    init() {
+//
+//    }
+//
+//    init(key: Int32, itemUomDict: Dictionary<String, Any>) {
+//        if let name = itemUomDict["name"] as? String {
+//            self.id = key
+//            self.name = name
+//            if let iterator = itemUomDict["iterator"] as? Double {
+//                self.iterator = iterator
+//            }
+//        }
+//    }
+//
+//    init(id: Int32, name: String, iterator: Double) {
+//        self.id = id
+//        self.name = name
+//        self.iterator = iterator
+//    }
+//}
 
 
 
@@ -122,7 +118,7 @@ class ShopItem  {
     var minPrice = 0.0
 
     var itemCategory: CategoryModel?
-    var itemUom =  ItemUom()
+    var itemUom: UomModel?
     var outletId = ""
     var scanned = false
     var checked = false
@@ -134,7 +130,7 @@ class ShopItem  {
     init(id: String, name: String,
          quantity: Double, minPrice: Double,
          price: Double, itemCategory: CategoryModel,
-         itemUom: ItemUom, outletId: String, scanned: Bool, checked: Bool) {
+         itemUom: UomModel, outletId: String, scanned: Bool, checked: Bool) {
         self.id = id
         self.name = name
         self.quantity = quantity
@@ -158,31 +154,32 @@ class ShopItem  {
         }
 
         if let catId = goodData["category_id"] as? Int32 {
-            self.itemCategory?.id = catId
-            for cat in CoreDataService.data.initCategories {
-                if cat.id == catId  {
-                    itemCategory?.name = cat.name
-                    break
-                }
+            guard let cat = CoreDataService.data.getCategory(by: catId),
+                let categoryName = cat.category else {
+                fatalError("Category is not found")
             }
+            self.itemCategory = CategoryModel(id: catId, name: categoryName)
         } else {
-            guard let cat = CoreDataService.data.defaultCategory else {
-                fatalError("default category is not exist")
+            guard let cat = CoreDataService.data.getCategory(by: 1),
+                let categoryName = cat.category else {
+                    fatalError("Category is not found")
             }
-            itemCategory = cat
+            self.itemCategory = CategoryModel(id: 1, name: categoryName)
         }
 
-
         if let uomId = goodData["uom_id"] as? Int32 {
-            self.itemUom.id = uomId
-            for uom in CoreDataService.data.initUoms {
-                if uom.id == uomId  {
-                    itemUom.name = uom.name
-                    break
-                }
+            guard let uom = CoreDataService.data.getUom(by: uomId),
+                let uomName = uom.uom else {
+                    fatalError("Uom is not found")
             }
+            self.itemUom = UomModel(id: uomId, name: uomName)
+            
         } else {
-            itemCategory = CoreDataService.data.defaultCategory!
+            guard let uom = CoreDataService.data.getUom(by: 1),
+                let uomName = uom.uom else {
+                    fatalError("Category is not found")
+            }
+            self.itemUom = UomModel(id: 1, name: uomName)
         }
         self.quantity = 0
         self.minPrice = 0
@@ -191,38 +188,38 @@ class ShopItem  {
         self.scanned = false
         self.checked = false
     }
-    init(id: String, priceData: Dictionary<String, Any>) {
-        self.id = id
-        if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {
-
-            self.price = price
-            self.outletId = outletId
-        } else {
-            self.price = 0
-            self.outletId = ""
-
-        }
-        self.name = ""
-        self.quantity = 0
-        self.minPrice = 0
-        //self.itemCategory = ItemCategory()
-        self.itemUom = ItemUom()
-
-        self.scanned = false
-        self.checked = false
-    }
+//    init(id: String, priceData: Dictionary<String, Any>) {
+//        self.id = id
+//        if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {
+//
+//            self.price = price
+//            self.outletId = outletId
+//        } else {
+//            self.price = 0
+//            self.outletId = ""
+//
+//        }
+//        self.name = ""
+//        self.quantity = 0
+//        self.minPrice = 0
+//        //self.itemCategory = ItemCategory()
+//        self.itemUom = ItemUom()
+//
+//        self.scanned = false
+//        self.checked = false
+//    }
     var total: Double {
         return quantity * price
     }
 }
 
 //copying from one object to other (by value, not reference)
-extension ShopItem: NSCopying {
-    func copy(with zone: NSZone? = nil) -> Any {
-        let copy = ShopItem(id: id, name: name, quantity: quantity, minPrice: minPrice, price: price, itemCategory: itemCategory!, itemUom:itemUom, outletId: outletId, scanned: scanned, checked: checked)
-        return copy
-    }
-}
+//extension ShopItem: NSCopying {
+//    func copy(with zone: NSZone? = nil) -> Any {
+//        let copy = ShopItem(id: id, name: name, quantity: quantity, minPrice: minPrice, price: price, itemCategory: itemCategory!, itemUom:itemUom, outletId: outletId, scanned: scanned, checked: checked)
+//        return copy
+//    }
+//}
 
 
 extension ShopItem: Equatable {}

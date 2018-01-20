@@ -49,10 +49,20 @@ class DataProvider {
     }
     
     public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
+    
+        shoplist = CoreDataService.data.loadShopList()!
         syncCategories { result in
             self.handleCategories(result: result, completion: completion)
+            
         }
     }
+    
+    private func saveShoplist() {
+        for item in shoplist {
+            CoreDataService.data.saveToShopList(item)
+        }
+    }
+    
     
     
     private func handleCategories(result: ResultType<Bool, DataProviderError>, completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
@@ -92,6 +102,7 @@ class DataProvider {
     private func handleStatistics(result: ResultType<Bool, DataProviderError>, completion: (ResultType<Bool, DataProviderError>)->()) {
         switch result {
         case .success:
+            saveShoplist() // sync finished - recover shoplist
             completion(ResultType.success(true))
         case let .failure(error):
             completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
@@ -145,12 +156,12 @@ class DataProvider {
         }
     }
     
-    func getShopItems(for outletId: String) -> [ShopItem]?  {
-        if let itemList = CoreDataService.data.getItemList(for: outletId) {
-            return itemList
-        }
-        return nil
-    }
+//    func getShopItems(for outletId: String) -> [ShopItem]?  {
+//        if let itemList = CoreDataService.data.getItemList(for: outletId) {
+//            return itemList
+//        }
+//        return nil
+//    }
     
     func save(new statistic: ItemStatistic) {
         CoreDataService.data.save(new: statistic)
@@ -171,11 +182,11 @@ class DataProvider {
         return ResultType.success(true)
     }
     
-    func getShopItems(with pageOffset: Int, for outletId: String) -> [ShopItem]?  {
+    func getShopItems(with pageOffset: Int, for outletId: String) -> [ProductModel]?  {
         return CoreDataService.data.getShortItemList(for: outletId, offset: pageOffset)
     }
     
-    func filterItemList(contains text: String, for outletId: String) -> [ShopItem]? {
+    func filterItemList(contains text: String, for outletId: String) -> [ProductModel]? {
         return CoreDataService.data.filterItemList(contains: text, for: outletId)
     }
    
@@ -283,7 +294,7 @@ class DataProvider {
     }
     
     func loadShopList(for outletId: String) {
-        guard let list =  CoreDataService.data.loadShopList(for: outletId) else {
+        guard let list =  CoreDataService.data.loadShopList() else {
             return
         }
         list.forEach { item in

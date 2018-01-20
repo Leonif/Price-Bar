@@ -107,15 +107,13 @@ class FirebaseService {
     
     
     
-    func syncUoms(completion: @escaping (ResultType<[ItemUom], FirebaseError>)->()) {
+    func syncUoms(completion: @escaping (ResultType<[UomModel], FirebaseError>)->()) {
         self.REF_UOMS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                var uoms = [ItemUom]()
+                var uoms = [UomModel]()
                 for snapUom in snapUoms {
-                    if let id = Int32(snapUom.key), let uomDict = snapUom.value as? Dictionary<String,Any> {
-                        let itemUom = ItemUom(key:id,itemUomDict: uomDict)
-                        uoms.append(itemUom)
-                    }
+                    let itemUom = self.uomMapper(from: snapUom)
+                    uoms.append(itemUom)
                 }
                 completion(ResultType.success(uoms))
             }
@@ -124,18 +122,31 @@ class FirebaseService {
         }
     }
     
-    func saveOrUpdate(_ item: ShopItem) {
-        guard item.price != 0 else {
-            return
+    
+    func uomMapper(from snapUom: DataSnapshot) -> UomModel {
+        guard let id = Int32(snapUom.key),
+            let uomDict = snapUom.value as? Dictionary<String,Any>,
+            let uomName = uomDict["name"] as? String else {
+            fatalError("Category os not parsed")
         }
-        let good = [
-            "barcode": item.id,
-            "name": item.name,
-            "category_id": item.itemCategory?.id,
-            "uom_id": item.itemUom.id
-        ] as [String : Any]
-        REF_GOODS.child(item.id).setValue(good)
+        
+        return UomModel(id: id, name: uomName)
+        
     }
+    
+    
+//    func saveOrUpdate(_ item: ShopItem) {
+//        guard item.price != 0 else {
+//            return
+//        }
+//        let good = [
+//            "barcode": item.id,
+//            "name": item.name,
+//            "category_id": item.itemCategory?.id,
+//            "uom_id": item.itemUom.id
+//        ] as [String : Any]
+//        REF_GOODS.child(item.id).setValue(good)
+//    }
     
     func save(new statistic: ItemStatistic) {
         let priceStat = [

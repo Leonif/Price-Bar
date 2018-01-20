@@ -42,7 +42,7 @@ extension CoreDataService {
         }
     }
     
-    public func importNew(_ uoms:[ItemUom])  {
+    public func importNew(_ uoms:[UomModel])  {
         removeAll(from: "Uom")
         uoms.forEach { uom in
             self.save(new: uom)

@@ -43,33 +43,31 @@ class ShopListController: UIViewController {
         shopTableView.dataSource = dataSource
         
         
-//        // sync from cloud
-//        self.view.pb_startActivityIndicator(with: "Синхронизация")
-//        dataProvider.syncCloud { result in
-//            self.view.pb_stopActivityIndicator()
-//            switch result {
-//            case let .failure(error):
-//                self.alert(title: "Ops", message: error.localizedDescription)
-//            case .success:
-//                break
-//            }
-//        }
-        
-        //get outlet
-        let outletService = OutletService()
-        outletService.nearestOutlet { result in
-            print(result)
-            var activateControls = false
+        // sync from cloud
+        self.view.pb_startActivityIndicator(with: "Синхронизация")
+        dataProvider.syncCloud { result in
+            self.view.pb_stopActivityIndicator()
             switch result {
-            case let .success(outlet):
-                print(outlet)
-                self.userOutlet = outlet
-                activateControls = true
-                self.loadShopList()
             case let .failure(error):
-                self.alert(title: "Ops", message: error.errorDescription)
+                self.alert(title: "Ops", message: error.localizedDescription)
+            case .success:
+                //get outlet
+                let outletService = OutletService()
+                outletService.nearestOutlet { result in
+                    print(result)
+                    var activateControls = false
+                    switch result {
+                    case let .success(outlet):
+                        print(outlet)
+                        self.userOutlet = outlet
+                        activateControls = true
+                        self.loadShopList()
+                    case let .failure(error):
+                        self.alert(title: "Ops", message: error.errorDescription)
+                    }
+                    self.buttonEnable(activateControls)
+                }
             }
-            self.buttonEnable(activateControls)
         }
     }
     

@@ -48,7 +48,7 @@ class ItemListVC: UIViewController {
         addDoneButtonToNumPad()
 
         guard let products = dataProvider?.getShopItems(with: currentPageOffset, for: outletId),
-            let itemList = convertItemList(from: products)
+            let itemList = itemsMapper(from: products)
             else {
                 alert(title: "Ops", message: "Нет товаров в базе")
                 return
@@ -65,7 +65,7 @@ class ItemListVC: UIViewController {
     }
     
     
-    func convertItemList(from products: [ShopItem]) -> [ItemListModel]? {
+    func itemsMapper(from products: [ProductModel]) -> [ItemListModel]? {
         var modellist = [ItemListModel]()
         
         for product in products {
@@ -79,10 +79,13 @@ class ItemListVC: UIViewController {
     
     
     
+    
+    
+    
     @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
         if  let searchText = sender.text, searchText.charactersArray.count >= 3 {
             guard let list = dataProvider.filterItemList(contains: searchText, for: outletId),
-            let modelList = convertItemList(from: list) else {
+            let modelList = itemsMapper(from: list) else {
                 return
             }
             filtredItemList = modelList
@@ -178,7 +181,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                 print("load new data (new \(currentPageOffset) items)")
                 currentPageOffset += 20
                 if let products = dataProvider.getShopItems(with: currentPageOffset, for: outletId),
-                    let modelList = convertItemList(from: products) {
+                    let modelList = itemsMapper(from: products) {
                     var indexPaths = [IndexPath]()
                     let currentCount: Int = filtredItemList.count
                     for i in 0..<modelList.count {

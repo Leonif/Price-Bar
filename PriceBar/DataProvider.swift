@@ -163,15 +163,35 @@ class DataProvider {
 //        return nil
 //    }
     
-    func save(new statistic: ItemStatistic) {
-        CoreDataService.data.save(new: statistic)
-        FirebaseService.data.save(new: statistic)
+    func save(new statistic: PriceStatisticModel) {
+        
+        let cd = CDStatisticModel(productId: statistic.productId,
+                                  price: statistic.price,
+                                  outletId: statistic.outletId)
+        
+        CoreDataService.data.save(new: cd)
+        
+        let fb = ItemStatistic(productId: statistic.productId,
+                               price: statistic.price,
+                               outletId: statistic.outletId)
+        FirebaseService.data.save(new: fb)
     }
     
-    func update(_ product: ProductModel)  {
+    func update(_ product: UpdateProductModel)  {
+        let pr = CDProductModel(id: product.id,
+                              name: product.name,
+                              categoryId: product.categoryId,
+                              uomId: product.uomId)
+        
+        CoreDataService.data.update(pr)
         
         
-        CoreDataService.data.update(product)
+        let fb = FBProductModel(id: product.id,
+                                name: product.name,
+                                categoryId: product.categoryId,
+                                uomId: product.uomId)
+        
+        FirebaseService.data.saveOrUpdate(fb)
         
     }
     

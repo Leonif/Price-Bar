@@ -79,7 +79,8 @@ class ItemCardVC: UIViewController {
     
     func mapper(from item: ShoplistItemModel) -> ProductCardModelView {
         
-        return ProductCardModelView(productName: item.productName,
+        return ProductCardModelView(productId: item.productId,
+                                    productName: item.productName,
                                     categoryId: item.categoryId,
                                     categoryName: item.productCategory,
                                     productPrice: item.productPrice,
@@ -129,24 +130,32 @@ class ItemCardVC: UIViewController {
     }
 
     @IBAction func savePressed(_ sender: Any) {
-//        if let item = shopListitem {
-//            self.shopListitem?.productName = itemTitle.text ?? ""
-//            self.shopListitem?.productPrice = itemPrice.text?.double ?? 0.0
-//            //delegate.objectExchange(object: item)
-//
-//        } else {
-//            self.shopListitem?.name = itemTitle.text ?? ""
-//            self.shopListitem?.price = itemPrice.text?.double ?? 0.0
-//            //delegate.objectExchange(object: item!)
-//
-//            print("Product is not saved")
-//        }
+
+        guard
+            let name = itemTitle.text,
+            let priceStr = itemPrice.text, let price = priceStr.double
+            else {
+                alert(title: "Ops", message: "Нельзя такое сохранять !!!")
+                return
+        }
         
+        
+        productCard.productName = name
+        productCard.productPrice = price
        
+        let model = UpdateProductModel(id: productCard.productId,
+                                       name: productCard.productName,
+                                       categoryId: productCard.categoryId,
+                                       uomId: productCard.uomId)
+        
+        dataProvider.update(model)
         
         
-//        dataProvider.update(ProductModel(id: <#T##String#>, name: <#T##String#>, categoryId: <#T##Int32#>, uomId: <#T##Int32#>, isPerPiece: <#T##Bool#>))
+        let stat = PriceStatisticModel(outletId: outletId,
+                                       productId: productCard.productId,
+                                       price: productCard.productPrice)
         
+        dataProvider.save(new: stat)
         
         self.dismiss(animated: true, completion: nil)
     }

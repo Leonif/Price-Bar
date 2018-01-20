@@ -13,3 +13,17 @@ struct ProductModel {
     var uomId: Int32
     var isPerPiece: Bool
 }
+
+
+struct UpdateProductModel {
+    var id: String
+    var name: String
+    var categoryId: Int32
+    var uomId: Int32
+}
+
+struct PriceStatisticModel {
+    var outletId: String
+    var productId: String
+    var price: Double
+}

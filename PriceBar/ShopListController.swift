@@ -181,6 +181,7 @@ extension ShopListController {
                 itemCardVC.item = item
                 itemCardVC.delegate = self
                 itemCardVC.dataProvider = dataProvider
+                itemCardVC.outletId = userOutlet.id
             }
         }
         

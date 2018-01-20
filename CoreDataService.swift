@@ -69,7 +69,7 @@ class CoreDataService {
 //        return itemUoms
 //    }
     
-    func save(new statistic: ItemStatistic) {
+    func save(new statistic: CDStatisticModel) {
         guard statistic.price != 0 else {
             return
         }
@@ -77,7 +77,7 @@ class CoreDataService {
             let stat = Statistic(context: context)
             stat.outlet_id = statistic.outletId
             stat.price = statistic.price
-            stat.date = statistic.date as NSDate
+            stat.date = Date() as NSDate
             
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
             productRequest.predicate = NSPredicate(format: "id == %@", statistic.productId)
@@ -351,7 +351,7 @@ extension CoreDataService {
         ad.saveContext()
     }
     
-    func update(_ item: ProductModel) {
+    func update(_ item: CDProductModel) {
         
         guard let product = getProduct(by: item.id) else {
             fatalError("Product is not found!!!")
@@ -515,20 +515,19 @@ extension CoreDataService {
         ad.saveContext()
     }
     
-    func save(new product: ShopItem) {
+    func save(new product: CDProductModel) {
         let prod = Product(context: context)
         prod.id = product.id
         prod.name = product.name
-        prod.scanned = product.scanned
+        //prod.scanned = product.scanned
         guard
-            let categoryModel = product.itemCategory,
-            let category = getCategory(by: categoryModel.id) else {
+            let category = getCategory(by: product.categoryId) else {
             fatalError("Category is not found")
         }
         prod.toCategory = category
         
-        guard let uomModel = product.itemUom,
-            let uom = getUom(by: uomModel.id) else {
+        guard 
+            let uom = getUom(by: product.uomId) else {
             fatalError("Uom is not found")
         }
         prod.toUom = uom

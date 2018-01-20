@@ -67,22 +67,49 @@ class FirebaseService {
     }
     
     
-    func syncProducts(completion: @escaping (ResultType<[ShopItem], FirebaseError>)->())  {
+    func syncProducts(completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->())  {
         self.REF_GOODS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
-                var goods = [ShopItem]()
+                var goods = [FBProductModel]()
                 for snapGood in snapGoods {
-                    if let goodDict = snapGood.value as? Dictionary<String, Any> {
-                        let key = snapGood.key
-                        let good = ShopItem(id: key, goodData: goodDict)
-                        goods.append(good)
-                    }
+                    goods.append(self.parser(for: snapGood))
                 }
                 completion(ResultType.success(goods))
             }
         })  { error in
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
+    }
+    
+    
+    func parser(for snapGood: (key: String, value: Any)) -> FBProductModel {
+        
+        guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
+            fatalError("Product is not parsed")
+        }
+        
+        
+        let id = snapGood.key
+        guard let name = goodDict["name"] as? String else {
+            fatalError("Product is not parsed")
+        }
+        
+        
+            
+        guard let catId = goodDict["category_id"] as? Int32 else {
+            fatalError("Product is not parsed")
+        }
+            
+        guard let uomId = goodDict["uom_id"] as? Int32  else {
+            fatalError("Product is not parsed")
+        }
+        
+        return FBProductModel(id: id, name: name, categoryId: catId, uomId: uomId)
+        
+        
+
+        
+        
     }
     
     
@@ -135,18 +162,16 @@ class FirebaseService {
     }
     
     
-//    func saveOrUpdate(_ item: ShopItem) {
-//        guard item.price != 0 else {
-//            return
-//        }
-//        let good = [
-//            "barcode": item.id,
-//            "name": item.name,
-//            "category_id": item.itemCategory?.id,
-//            "uom_id": item.itemUom.id
-//        ] as [String : Any]
-//        REF_GOODS.child(item.id).setValue(good)
-//    }
+    func saveOrUpdate(_ item: FBProductModel) {
+        
+        let good = [
+            "barcode": item.id,
+            "name": item.name,
+            "category_id": item.categoryId,
+            "uom_id": item.uomId
+        ] as [String : Any]
+        REF_GOODS.child(item.id).setValue(good)
+    }
     
     func save(new statistic: ItemStatistic) {
         let priceStat = [

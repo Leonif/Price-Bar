@@ -31,42 +31,6 @@ class ItemCategory {
 }
 
 
-//class ItemUom {
-//    var id: Int32 = 0
-//    var name = ""
-//    var iterator = 0.0
-//
-//    var isPerPiece: Bool {
-//        if iterator.truncatingRemainder(dividingBy: 1) == 0 {
-//            return true
-//        } else {
-//            return false
-//        }
-//    }
-//    init() {
-//
-//    }
-//
-//    init(key: Int32, itemUomDict: Dictionary<String, Any>) {
-//        if let name = itemUomDict["name"] as? String {
-//            self.id = key
-//            self.name = name
-//            if let iterator = itemUomDict["iterator"] as? Double {
-//                self.iterator = iterator
-//            }
-//        }
-//    }
-//
-//    init(id: Int32, name: String, iterator: Double) {
-//        self.id = id
-//        self.name = name
-//        self.iterator = iterator
-//    }
-//}
-
-
-
-
 func == (lhs: ItemCategory, rhs: ItemCategory) -> Bool {
     var returnValue = false
     if (lhs.name == rhs.name) && (lhs.id == rhs.id)
@@ -99,11 +63,11 @@ struct ItemStatistic {
     }
     
     
-    init?(productId: String, price: Double, outletId: String, date: Date) {
+    init(productId: String, price: Double, outletId: String) {
         self.productId = productId
         self.price = price
         self.outletId = outletId
-        self.date = date
+        self.date = Date()
     }
     
     
@@ -123,10 +87,6 @@ class ShopItem  {
     var scanned = false
     var checked = false
 
-
-
-
-
     init(id: String, name: String,
          quantity: Double, minPrice: Double,
          price: Double, itemCategory: CategoryModel,
@@ -144,50 +104,50 @@ class ShopItem  {
 
     }
 
-    init(id: String, goodData: Dictionary<String, Any>) {
-        self.id = id
-        if let name = goodData["name"] as? String {
-            self.name = name
-        } else {
-            self.name = ""
-
-        }
-
-        if let catId = goodData["category_id"] as? Int32 {
-            guard let cat = CoreDataService.data.getCategory(by: catId),
-                let categoryName = cat.category else {
-                fatalError("Category is not found")
-            }
-            self.itemCategory = CategoryModel(id: catId, name: categoryName)
-        } else {
-            guard let cat = CoreDataService.data.getCategory(by: 1),
-                let categoryName = cat.category else {
-                    fatalError("Category is not found")
-            }
-            self.itemCategory = CategoryModel(id: 1, name: categoryName)
-        }
-
-        if let uomId = goodData["uom_id"] as? Int32 {
-            guard let uom = CoreDataService.data.getUom(by: uomId),
-                let uomName = uom.uom else {
-                    fatalError("Uom is not found")
-            }
-            self.itemUom = UomModel(id: uomId, name: uomName)
-            
-        } else {
-            guard let uom = CoreDataService.data.getUom(by: 1),
-                let uomName = uom.uom else {
-                    fatalError("Category is not found")
-            }
-            self.itemUom = UomModel(id: 1, name: uomName)
-        }
-        self.quantity = 0
-        self.minPrice = 0
-        self.price = 0
-        self.outletId = ""
-        self.scanned = false
-        self.checked = false
-    }
+//    init(id: String, goodData: Dictionary<String, Any>) {
+//        self.id = id
+//        if let name = goodData["name"] as? String {
+//            self.name = name
+//        } else {
+//            self.name = ""
+//
+//        }
+//
+//        if let catId = goodData["category_id"] as? Int32 {
+//            guard let cat = CoreDataService.data.getCategory(by: catId),
+//                let categoryName = cat.category else {
+//                fatalError("Category is not found")
+//            }
+//            self.itemCategory = CategoryModel(id: catId, name: categoryName)
+//        } else {
+//            guard let cat = CoreDataService.data.getCategory(by: 1),
+//                let categoryName = cat.category else {
+//                    fatalError("Category is not found")
+//            }
+//            self.itemCategory = CategoryModel(id: 1, name: categoryName)
+//        }
+//
+//        if let uomId = goodData["uom_id"] as? Int32 {
+//            guard let uom = CoreDataService.data.getUom(by: uomId),
+//                let uomName = uom.uom else {
+//                    fatalError("Uom is not found")
+//            }
+//            self.itemUom = UomModel(id: uomId, name: uomName)
+//
+//        } else {
+//            guard let uom = CoreDataService.data.getUom(by: 1),
+//                let uomName = uom.uom else {
+//                    fatalError("Category is not found")
+//            }
+//            self.itemUom = UomModel(id: 1, name: uomName)
+//        }
+//        self.quantity = 0
+//        self.minPrice = 0
+//        self.price = 0
+//        self.outletId = ""
+//        self.scanned = false
+//        self.checked = false
+//    }
 //    init(id: String, priceData: Dictionary<String, Any>) {
 //        self.id = id
 //        if let price = priceData["price"] as? Double, let outletId = priceData["outlet_id"] as? String {

@@ -52,7 +52,8 @@ extension CoreDataService {
         FirebaseService.data.syncProducts { result in
             switch result {
             case let .success(products):
-                self.importNew(products)
+                let cdProducts = self.transform(from: products)
+                self.importNew(cdProducts)
                 completion(ResultType.success(true))
             case let .failure(error):
                 completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
@@ -60,7 +61,32 @@ extension CoreDataService {
         }
     }
     
-    public func importNew(_ products:[ShopItem])  {
+    
+    func transform(from fbProducts: [FBProductModel]) -> [CDProductModel] {
+        
+        var cdProducts: [CDProductModel] = []
+        
+        for product in fbProducts {
+            cdProducts.append(mapper(from: product))
+        }
+        return cdProducts
+    }
+    
+    func mapper(from product: FBProductModel) -> CDProductModel {
+        
+        return CDProductModel(id: product.id,
+                              name: product.name,
+                              categoryId: product.categoryId,
+                              uomId: product.uomId)
+    }
+    
+    
+    
+    
+    
+    
+    
+    public func importNew(_ products:[CDProductModel])  {
         if !synced {
             removeAll(from: "Product")
             synced = true
@@ -77,7 +103,8 @@ extension CoreDataService {
         FirebaseService.data.syncStatistics { result in
             switch result {
             case let .success(statistics):
-                self.importNew(statistics)
+                let cdStats = self.transform(from: statistics)
+                self.importNew(cdStats)
                 completion(ResultType.success(true))
             case let .failure(error):
                 completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
@@ -85,8 +112,24 @@ extension CoreDataService {
         }
     }
     
+    func transform(from stats: [ItemStatistic]) -> [CDStatisticModel] {
+        
+        var cdStats: [CDStatisticModel] = []
+        
+        for stat in stats {
+            cdStats.append(mapper(from: stat))
+        }
+        return cdStats
+    }
+
+    func mapper(from stat: ItemStatistic) -> CDStatisticModel {
+        
+        return CDStatisticModel(productId: stat.productId,
+                                price: stat.price,
+                                outletId: stat.outletId)
+    }
     
-    public func importNew(_ statistics: [ItemStatistic])  {
+    public func importNew(_ statistics: [CDStatisticModel])  {
         removeAll(from: "Statistic")
         statistics.forEach { statistic in
             self.save(new: statistic)

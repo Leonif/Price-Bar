@@ -28,7 +28,8 @@ class ItemCardVC: UIViewController {
     
     
     @IBOutlet weak var commonPickerView: UIPickerView!
-    var item: ShopItem?
+    var item: ShoplistItemModel!
+    var productCard: ProductCardModelView!
     
     @IBOutlet weak var itemTitle: UITextField!
     @IBOutlet weak var itemPrice: UITextField!
@@ -50,33 +51,32 @@ class ItemCardVC: UIViewController {
     }
     
     func initController() {
-//        itemTitle.delegate = self
-//        itemPrice.delegate = self
-//        commonPickerView.delegate = self
-//        commonPickerView.dataSource = self
-        
-        
-        //uoms = CoreDataService.data.getUomsFromCoreData()
-        //addDoneButtonToNumPad()
+        itemTitle.delegate = self
+        itemPrice.delegate = self
     }
     
     
     func cardOpenHandler() {
-//        if item == nil {
-//            if let newName = searchedItemName {
-//
-//                let itemCategory = ItemCategory(id: categories[0].id, name: categories[0].name)
-//                let itemUom = ItemUom(id: uoms[0].id, name: uoms[0].name, iterator: uoms[0].iterator)
-//
-//                item = ShopItem(id: UUID().uuidString, name: newName.capitalized, quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, itemUom: itemUom, outletId: outletId, scanned: false, checked: false)
-//            }
-//        }
-//        if let item = item {
-//            itemTitle.text = item.name
-//            itemPrice.text = item.price.asDecimal
-//            categoryButton.setTitle(item.itemCategory.name, for: .normal)
-//            uomButton.setTitle(item.itemUom.name, for: .normal)
-//        }
+        self.productCard = mapper(from: item)
+        
+        itemTitle.text = productCard.productName
+        itemPrice.text = "\(productCard.productPrice)"
+        
+        categoryButton.setTitle(productCard.categoryName, for: .normal)
+        uomButton.setTitle(productCard.uomName, for: .normal)
+        
+        
+    }
+    
+    
+    func mapper(from item: ShoplistItemModel) -> ProductCardModelView {
+        
+        return ProductCardModelView(productName: item.productName,
+                                           categoryName: item.productCategory,
+                                           productPrice: item.productPrice,
+                                           uomName: item.productUom)
+        
+        
     }
     
    
@@ -121,18 +121,25 @@ class ItemCardVC: UIViewController {
     }
 
     @IBAction func savePressed(_ sender: Any) {
-        if let item = item {
-            item.name = itemTitle.text ?? ""
-            item.price = itemPrice.text?.double ?? 0.0
-            delegate.objectExchange(object: item)
-            
-        } else {
-            self.item?.name = itemTitle.text ?? ""
-            self.item?.price = itemPrice.text?.double ?? 0.0
-            delegate.objectExchange(object: item!)
-            
-            print("Product is not saved")
-        }
+//        if let item = shopListitem {
+//            self.shopListitem?.productName = itemTitle.text ?? ""
+//            self.shopListitem?.productPrice = itemPrice.text?.double ?? 0.0
+//            //delegate.objectExchange(object: item)
+//
+//        } else {
+//            self.shopListitem?.name = itemTitle.text ?? ""
+//            self.shopListitem?.price = itemPrice.text?.double ?? 0.0
+//            //delegate.objectExchange(object: item!)
+//
+//            print("Product is not saved")
+//        }
+        
+       
+        
+        
+//        dataProvider.update(ProductModel(id: <#T##String#>, name: <#T##String#>, categoryId: <#T##Int32#>, uomId: <#T##Int32#>, isPerPiece: <#T##Bool#>))
+        
+        
         self.dismiss(animated: true, completion: nil)
     }
    

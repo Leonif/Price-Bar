@@ -349,6 +349,22 @@ extension CoreDataService {
         ad.saveContext()
     }
     
+    func update(_ item: ProductModel) {
+        
+        guard let product = getProduct(by: item.id) else {
+            fatalError("Product is not found!!!")
+        }
+        product.name = item.name
+        
+        let category = getCategory(by: item.categoryId)
+        product.toCategory = category
+        
+        let uom = getUom(by: item.uomId)
+        product.toUom = uom
+        
+        ad.saveContext()
+    }
+    
     
     
     

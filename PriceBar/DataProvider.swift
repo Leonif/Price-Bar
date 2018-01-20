@@ -168,6 +168,13 @@ class DataProvider {
         FirebaseService.data.save(new: statistic)
     }
     
+    func update(_ product: ProductModel)  {
+        
+        
+        CoreDataService.data.update(product)
+        
+    }
+    
     func saveToShopList(new item: ShoplistItemModel) -> ResultType<Bool, DataProviderError> {
         
         if let _ = shoplist.index(of:item) {
@@ -181,6 +188,8 @@ class DataProvider {
         
         return ResultType.success(true)
     }
+    
+    
     
     func getShopItems(with pageOffset: Int, for outletId: String) -> [ProductModel]?  {
         return CoreDataService.data.getShortItemList(for: outletId, offset: pageOffset)

@@ -46,14 +46,14 @@ class ShopListController: UIViewController {
         
         
         // sync from cloud
-        self.view.pb_startActivityIndicator(with: "Синхронизация")
-        dataProvider.syncCloud { result in
-            self.view.pb_stopActivityIndicator()
-            switch result {
-            case let .failure(error):
-                self.alert(title: "Ops", message: error.localizedDescription)
-            case .success:
-                //get outlet
+//        self.view.pb_startActivityIndicator(with: "Синхронизация")
+//        dataProvider.syncCloud { result in
+//            self.view.pb_stopActivityIndicator()
+//            switch result {
+//            case let .failure(error):
+//                self.alert(title: "Ops", message: error.localizedDescription)
+//            case .success:
+//                //get outlet
                 let outletService = OutletService()
                 outletService.nearestOutlet { result in
                     print(result)
@@ -69,8 +69,8 @@ class ShopListController: UIViewController {
                     }
                     self.buttonEnable(activateControls)
                 }
-            }
-        }
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,13 +88,8 @@ class ShopListController: UIViewController {
         performSegue(withIdentifier: showOutlets, sender: nil)
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        
-        //shopTableView.beginUpdates()
         dataProvider.clearShoplist()
         shopTableView.reloadData()
-        //shopTableView.endUpdates()
-        
-        
     }
     func buttonEnable(_ enable: Bool) {
         let alpha: CGFloat = enable ? 1 : 0.5
@@ -180,7 +175,9 @@ extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showEditItem,
             let itemCardVC = segue.destination as? ItemCardVC  {
-            if let item = sender as? ShopItem {
+            if let item = sender as? ShoplistItemModel {
+                
+                
                 itemCardVC.item = item
                 itemCardVC.delegate = self
                 itemCardVC.dataProvider = dataProvider

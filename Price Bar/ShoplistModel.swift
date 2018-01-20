@@ -1,12 +1,13 @@
 //
-//  ShoplistItemModel.swift
+//  ShoplistModel.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 1/15/18.
+//  Created by Leonid Nifantyev on 1/20/18.
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 
 import Foundation
+
 
 struct ShoplistItemModel: Equatable {
     var productId: String

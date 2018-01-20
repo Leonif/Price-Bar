@@ -10,8 +10,10 @@ import Foundation
 
 struct ProductCardModelView {
     var productName: String
+    var categoryId: Int32
     var categoryName: String
     var productPrice: Double
+    var uomId: Int32
     var uomName: String
 }
 

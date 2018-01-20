@@ -20,12 +20,10 @@ enum PickerType {
 class ItemCardVC: UIViewController {
     var categories:[CategoryModel] = []
     var uoms: [UomModel] = []
-    //var increment = [String]()
     var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
     var dataProvider: DataProvider!
-    
     
     @IBOutlet weak var commonPickerView: UIPickerView!
     var item: ShoplistItemModel!
@@ -36,7 +34,6 @@ class ItemCardVC: UIViewController {
     
     @IBOutlet weak var categoryButton: UIButton!
     @IBOutlet weak var uomButton: UIButton!
-    
     
     var delegate: Exchange!
 
@@ -53,6 +50,17 @@ class ItemCardVC: UIViewController {
     func initController() {
         itemTitle.delegate = self
         itemPrice.delegate = self
+        
+        //load categories
+        guard let categories = dataProvider.getCategoryList() else {
+            fatalError("Category list is empty")
+        }
+        self.categories = categories
+        
+        guard let uoms = dataProvider.getUomList() else {
+            fatalError("Catgory list is empty")
+        }
+        self.uoms = uoms
     }
     
     
@@ -72,46 +80,46 @@ class ItemCardVC: UIViewController {
     func mapper(from item: ShoplistItemModel) -> ProductCardModelView {
         
         return ProductCardModelView(productName: item.productName,
-                                           categoryName: item.productCategory,
-                                           productPrice: item.productPrice,
-                                           uomName: item.productUom)
+                                    categoryId: item.categoryId,
+                                    categoryName: item.productCategory,
+                                    productPrice: item.productPrice,
+                                    uomId: item.uomId,
+                                    uomName: item.productUom)
         
         
     }
     
    
     @IBAction func categoryPressed(_ sender: Any) {
-        
         self.view.endEditing(true)
-        
-        //load categories
-        guard let categories = dataProvider.getCategoryList() else {
-            fatalError("Catgory list is empty")
-        }
-        self.categories = categories
+       
+        self.pickerType = PickerType.category
         var pickerData: [PickerData] = []
-        for category in categories {
+        var curentIndex = 0
+        for (index, category) in categories.enumerated() {
+            if productCard.categoryId == category.id {
+                curentIndex = index
+            }
             pickerData.append(PickerData(id: category.id, name: category.name))
         }
         
-        let picker = PickerControl(delegate: self, dataSource: pickerData, currentIndex: 0)
+        let picker = PickerControl(delegate: self, dataSource: pickerData, currentIndex: curentIndex)
         self.present(picker, animated: true, completion: nil)
     }
     
     @IBAction func uomPressed(_ sender: Any) {
-    
         self.view.endEditing(true)
-        
-        guard let uoms = dataProvider.getUomList() else {
-            fatalError("Catgory list is empty")
-        }
-        self.uoms = uoms
+        self.pickerType = PickerType.uom
         var pickerData: [PickerData] = []
-        for uom in uoms {
+        var curentIndex = 0
+        for (index, uom) in uoms.enumerated() {
+            if productCard.uomId == uom.id {
+                curentIndex = index
+            }
             pickerData.append(PickerData(id: uom.id, name: uom.name))
         }
         
-        let picker = PickerControl(delegate: self, dataSource: pickerData, currentIndex: 0)
+        let picker = PickerControl(delegate: self, dataSource: pickerData, currentIndex: curentIndex)
         self.present(picker, animated: true, completion: nil)
         
     }
@@ -150,6 +158,25 @@ class ItemCardVC: UIViewController {
 extension ItemCardVC: PickerControlDelegate {
     func choosen(id: Int32) {
         print(id)
+        if pickerType == PickerType.category {
+            productCard.categoryId = id
+            for category in categories {
+                if category.id == id {
+                    categoryButton.setTitle(category.name, for: .normal)
+                    break
+                }
+            }
+        } else {
+            productCard.uomId = id
+            for uom in uoms {
+                if uom.id == id {
+                    uomButton.setTitle(uom.name, for: .normal)
+                    break
+                }
+            }
+        }
+        
+        
     }
 }
 

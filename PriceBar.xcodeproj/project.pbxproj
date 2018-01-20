@@ -387,6 +387,7 @@
 			children = (
 				79833B34200D5002005C6CC5 /* ProductCardModelView.swift */,
 				79833B39200E7E4B005C6CC5 /* CategoryModel.swift */,
+				79833B4A20130F71005C6CC5 /* UomModel.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -459,7 +460,6 @@
 			isa = PBXGroup;
 			children = (
 				7904B4591F03738B002032CD /* ShopItem.swift */,
-				79833B4A20130F71005C6CC5 /* UomModel.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";

@@ -56,6 +56,8 @@ class ShopListController: UIViewController {
 //                //get outlet
                 let outletService = OutletService()
                 outletService.nearestOutlet { result in
+                    
+                    
                     print(result)
                     var activateControls = false
                     switch result {
@@ -176,8 +178,6 @@ extension ShopListController {
         if segue.identifier == showEditItem,
             let itemCardVC = segue.destination as? ItemCardVC  {
             if let item = sender as? ShoplistItemModel {
-                
-                
                 itemCardVC.item = item
                 itemCardVC.delegate = self
                 itemCardVC.dataProvider = dataProvider

@@ -173,8 +173,10 @@ class CoreDataService {
                     
                     let item = ShoplistItemModel(productId: id,
                                                  productName: name,
+                                                 categoryId: category.id,
                                                  productCategory: categoryName,
                                                  productPrice: price,
+                                                 uomId: uom.id,
                                                  productUom: uomName,
                                                  quantity: quantity,
                                                  isPerPiece: isPerPiece,

@@ -30,8 +30,10 @@ extension ShopListController: ItemListVCDelegate {
         
         let shopListItem = ShoplistItemModel(productId: product.id,
                                              productName: product.name,
+                                             categoryId: product.categoryId,
                                              productCategory: categoryName,
                                              productPrice: price,
+                                             uomId: product.uomId,
                                              productUom: uom,
                                              quantity: 1.0,
                                              isPerPiece: product.isPerPiece,

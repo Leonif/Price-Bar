@@ -29,6 +29,7 @@ class PickerControl: UIViewController {
     var indexPath: IndexPath?
     
     var delegate: PickerControlDelegate?
+    var currentIndex: Int!
     
     
     
@@ -62,9 +63,10 @@ class PickerControl: UIViewController {
         
         self.delegate = delegate
         self.dataSource = dataSource
-        self.picker.selectRow(currentIndex, inComponent: 0, animated: true)
+        
         self.configurePopup()
         self.modalPresentationStyle = .overCurrentContext
+        self.currentIndex = currentIndex
         
     }
     
@@ -94,6 +96,7 @@ class PickerControl: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
+        self.picker.selectRow(currentIndex, inComponent: 0, animated: true)
     }
     
     

@@ -451,10 +451,10 @@ extension CoreDataService {
         } catch  {
             print("Categories are not got from database")
         }
-        
-        
         return categoryList
     }
+    
+    
     
     
     
@@ -551,6 +551,24 @@ extension CoreDataService {
         }
         return nil
     }
+    
+    
+    func getUomList() -> [Uom]? {
+        do {
+            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
+            let uoms = try context.fetch(fetchRequest)
+            
+            guard !uoms.isEmpty else {
+                return nil
+            }
+            return uoms
+        } catch  {
+            fatalError("uom is not got from database")
+        }
+        return nil
+    }
+    
+    
     func getUomName(by id: Int32) -> String? {
         do {
             let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")

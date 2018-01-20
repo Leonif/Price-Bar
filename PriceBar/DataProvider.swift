@@ -281,6 +281,24 @@ class DataProvider {
         return CoreDataService.data.getCategories()
     }
     
+    func getUomList() -> [UomModel]? {
+        
+        var uomList: [UomModel] = []
+        
+        guard let uoms = CoreDataService.data.getUomList() else {
+            return nil
+        }
+        for uom in uoms {
+            
+            guard let uomName = uom.uom else {
+                fatalError("uomName error")
+            }
+            
+            uomList.append(UomModel(id: uom.id, name:  uomName))
+        }
+        return uomList
+    }
+    
     func getUomName(for id: Int32) -> String? {
         return CoreDataService.data.getUomName(by: id)
     }

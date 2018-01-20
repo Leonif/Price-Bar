@@ -19,10 +19,9 @@ enum PickerType {
 
 class ItemCardVC: UIViewController {
     var categories:[CategoryModel] = []
-    //var uoms = [ItemUom]()
-    //var uoms = [Uom]()
-    var increment = [String]()
-    var pickerType: PickerType = .category
+    var uoms: [UomModel] = []
+    //var increment = [String]()
+    var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
     var dataProvider: DataProvider!
@@ -97,39 +96,24 @@ class ItemCardVC: UIViewController {
         
         let picker = PickerControl(delegate: self, dataSource: pickerData, currentIndex: 0)
         self.present(picker, animated: true, completion: nil)
-        
-//        pickerType = .category
-//        commonPickerView.reloadAllComponents()
-//        commonPickerView.isHidden = false
-//
-//        guard let item = item else {
-//            return
-//        }
-//        for index in 0 ..< categories.count {
-//            if categories[index] == item.itemCategory {
-//                commonPickerView.selectRow(index, inComponent: 0, animated: true)
-//                break
-//            }
-//        }
     }
     
     @IBAction func uomPressed(_ sender: Any) {
     
         self.view.endEditing(true)
-//        pickerType = .uom
-//        commonPickerView.reloadAllComponents()
-//        commonPickerView.isHidden = false
         
-//        guard let item = item else {
-//            return
-//        }
-//        
-//        for index in 0 ..< uoms.count {
-//            if uoms[index].name == item.itemUom.name {
-//                commonPickerView.selectRow(index, inComponent: 0, animated: true)
-//                break
-//            }
-//        }
+        guard let uoms = dataProvider.getUomList() else {
+            fatalError("Catgory list is empty")
+        }
+        self.uoms = uoms
+        var pickerData: [PickerData] = []
+        for uom in uoms {
+            pickerData.append(PickerData(id: uom.id, name: uom.name))
+        }
+        
+        let picker = PickerControl(delegate: self, dataSource: pickerData, currentIndex: 0)
+        self.present(picker, animated: true, completion: nil)
+        
     }
     
     @IBAction func backPressed(_ sender: Any) {

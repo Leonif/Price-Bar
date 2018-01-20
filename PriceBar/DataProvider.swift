@@ -61,6 +61,7 @@ class DataProvider {
         for item in shoplist {
             CoreDataService.data.saveToShopList(item)
         }
+        shoplist.removeAll()
     }
     
     

@@ -62,6 +62,7 @@ class ShopListController: UIViewController {
                         self.userOutlet = outlet
                         activateControls = true
                         self.loadShopList()
+                        self.shopTableView.reloadData()
                     case let .failure(error):
                         self.alert(title: "Ops", message: error.errorDescription)
                     }
@@ -79,7 +80,7 @@ class ShopListController: UIViewController {
         dataProvider.shoplist.removeAll()
         dataProvider.loadShopList(for: userOutlet.id)
         self.totalLabel.update(value: dataProvider.total)
-        shopTableView.reloadData()
+        
         
     }
     

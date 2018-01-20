@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 extension UITextField{
-    func animateViewMoving (up:Bool, moveValue :CGFloat, view: UIView){
+    func animateViewMoving (up: Bool, moveValue: CGFloat, view: UIView){
         let movementDuration:TimeInterval = 0.3
-        let movement:CGFloat = (up ? -moveValue : moveValue)
+        let movement: CGFloat = (up ? -moveValue : moveValue)
         UIView.beginAnimations("animateView", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(movementDuration )
-        view.frame = view.frame.offsetBy(dx: 0,  dy: movement)
+        UIView.setAnimationDuration(movementDuration)
+        view.frame = view.frame.offsetBy(dx: 0, dy: movement)
         UIView.commitAnimations()
     }
 }

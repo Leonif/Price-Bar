@@ -41,16 +41,13 @@ class DataProvider {
     
     var total: Double {
         var sum = 0.0
-        
         shoplist.forEach { item in
             sum += item.productPrice * item.quantity
         }
-
         return sum
     }
     
     public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
-    
         shoplist = CoreDataService.data.loadShopList(fro: nil)
         syncCategories { result in
             self.handleCategories(result: result, completion: completion)
@@ -278,7 +275,6 @@ class DataProvider {
             }
         }
         CoreDataService.data.changeShoplistItem(quantity, for: product_id)
-        
     }
     
     
@@ -341,11 +337,9 @@ class DataProvider {
     }
     
     func loadShopList(for outletId: String) {
-        
         shoplist.removeAll()
-        
+        sections.removeAll()
         let list =  CoreDataService.data.loadShopList(fro: outletId)
-        
         list.forEach { item in
             self.shoplist.append(item)
             addSection(for: item)
@@ -358,23 +352,13 @@ class DataProvider {
         }
     }
     
-    
-    
     func rowsIn(_ section: Int) -> Int {
-        
-        
-        
         var count: Int = 0
-        
-        
-        
         for item in shoplist {
             if item.productCategory == sections[section] {
                 count += 1
             }
         }
-        
-        
         return count
     }
     

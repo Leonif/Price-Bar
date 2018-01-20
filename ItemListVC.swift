@@ -28,7 +28,7 @@ class ItemListVC: UIViewController {
     var filtredItemList = [ItemListModel]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
-    var itemCardDelegate: Exchange?
+    //var itemCardDelegate: Exchange?
     var delegate: ItemListVCDelegate?
     
     var hide: Bool = false
@@ -116,7 +116,7 @@ class ItemListVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showProductCard, let itemVC = segue.destination as? ItemCardVC  {
-            itemVC.delegate = self
+            //itemVC.delegate = self
             itemVC.outletId = outletId
             if let searchedItem = sender as? String  {
                 itemVC.searchedItemName = searchedItem
@@ -125,17 +125,17 @@ class ItemListVC: UIViewController {
     }
 }
 
-extension ItemListVC: Exchange {
-    func objectExchange(object: Any) {
-        if let item = object as? ShopItem   {
-            //dataProvider?.addToShopListAndSaveStatistics(item)
-            print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
-            self.itemCardDelegate?.objectExchange(object: item)
-            hide = true
-            
-        }
-    }
-}
+//extension ItemListVC: Exchange {
+//    func objectExchange(object: Any) {
+//        if let item = object as? ShopItem   {
+//            //dataProvider?.addToShopListAndSaveStatistics(item)
+//            print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
+//            self.itemCardDelegate?.objectExchange(object: item)
+//            hide = true
+//            
+//        }
+//    }
+//}
 
 
 extension ItemListVC: UITextFieldDelegate {

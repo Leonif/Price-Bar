@@ -8,22 +8,24 @@
 
 import UIKit
 
-enum PickerType {
-    case category
-    case uom
+protocol ItemCardVCDelegate {
+    func updated(status: Bool)
 }
 
 
-
-
-
 class ItemCardVC: UIViewController {
+    enum PickerType {
+        case category
+        case uom
+    }
+    
     var categories:[CategoryModel] = []
     var uoms: [UomModel] = []
     var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
     var dataProvider: DataProvider!
+    
     
     @IBOutlet weak var commonPickerView: UIPickerView!
     var item: ShoplistItemModel!
@@ -35,16 +37,12 @@ class ItemCardVC: UIViewController {
     @IBOutlet weak var categoryButton: UIButton!
     @IBOutlet weak var uomButton: UIButton!
     
-    var delegate: Exchange!
+    var delegate: ItemCardVCDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         initController()
         cardOpenHandler()
-
-        
     }
     
     func initController() {
@@ -72,8 +70,6 @@ class ItemCardVC: UIViewController {
         
         categoryButton.setTitle(productCard.categoryName, for: .normal)
         uomButton.setTitle(productCard.uomName, for: .normal)
-        
-        
     }
     
     
@@ -86,8 +82,6 @@ class ItemCardVC: UIViewController {
                                     productPrice: item.productPrice,
                                     uomId: item.uomId,
                                     uomName: item.productUom)
-        
-        
     }
     
    
@@ -104,7 +98,9 @@ class ItemCardVC: UIViewController {
             pickerData.append(PickerData(id: category.id, name: category.name))
         }
         
-        let picker = PickerControl(delegate: self, dataSource: pickerData, currentIndex: curentIndex)
+        let picker = PickerControl(delegate: self,
+                                   dataSource: pickerData,
+                                   currentIndex: curentIndex)
         self.present(picker, animated: true, completion: nil)
     }
     
@@ -119,10 +115,10 @@ class ItemCardVC: UIViewController {
             }
             pickerData.append(PickerData(id: uom.id, name: uom.name))
         }
-        
-        let picker = PickerControl(delegate: self, dataSource: pickerData, currentIndex: curentIndex)
+        let picker = PickerControl(delegate: self,
+                                   dataSource: pickerData,
+                                   currentIndex: curentIndex)
         self.present(picker, animated: true, completion: nil)
-        
     }
     
     @IBAction func backPressed(_ sender: Any) {
@@ -132,7 +128,7 @@ class ItemCardVC: UIViewController {
     @IBAction func savePressed(_ sender: Any) {
 
         guard
-            let name = itemTitle.text,
+            let name = itemTitle.text, !name.isEmpty,
             let priceStr = itemPrice.text, let price = priceStr.double
             else {
                 alert(title: "Ops", message: "Нельзя такое сохранять !!!")
@@ -147,16 +143,15 @@ class ItemCardVC: UIViewController {
                                        name: productCard.productName,
                                        categoryId: productCard.categoryId,
                                        uomId: productCard.uomId)
-        
         dataProvider.update(model)
         
         
         let stat = PriceStatisticModel(outletId: outletId,
                                        productId: productCard.productId,
                                        price: productCard.productPrice)
-        
         dataProvider.save(new: stat)
         
+        delegate.updated(status: true)
         self.dismiss(animated: true, completion: nil)
     }
    
@@ -184,8 +179,6 @@ extension ItemCardVC: PickerControlDelegate {
                 }
             }
         }
-        
-        
     }
 }
 
@@ -203,21 +196,5 @@ extension ItemCardVC: UITextFieldDelegate {
         textField.animateViewMoving(up: false, moveValue: 150, view: self.view)
     }
     
-    @objc func numDonePressed() {
-        itemPrice.resignFirstResponder()
-    }
-    
-    func addDoneButtonToNumPad() {
-        //Add done button to numeric pad keyboard
-        let toolbarDone = UIToolbar()
-        toolbarDone.sizeToFit()
-        let flex = UIBarButtonItem.init(barButtonSystemItem: .flexibleSpace,
-                                              target: self, action: nil)
-        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: .done,
-                                              target: self, action: #selector(numDonePressed))
-        
-        toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
-        itemPrice.inputAccessoryView = toolbarDone
-    }
 }
 

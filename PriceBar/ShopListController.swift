@@ -38,13 +38,10 @@ class ShopListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         dataSource = ShopListDataSource(delegate: self,
                                         cellDelegate: self,
                                         dataProvider: dataProvider)
         shopTableView.dataSource = dataSource
-        
-        
         // sync from cloud
 //        self.view.pb_startActivityIndicator(with: "Синхронизация")
 //        dataProvider.syncCloud { result in
@@ -56,8 +53,6 @@ class ShopListController: UIViewController {
 //                //get outlet
                 let outletService = OutletService()
                 outletService.nearestOutlet { result in
-                    
-                    
                     print(result)
                     var activateControls = false
                     switch result {
@@ -154,7 +149,6 @@ extension ShopListController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
-
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: showEditItem, sender: dataProvider.getItem(index: indexPath))

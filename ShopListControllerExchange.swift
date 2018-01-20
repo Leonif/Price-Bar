@@ -48,9 +48,6 @@ extension ShopListController: ItemListVCDelegate {
         case let .failure(error):
             alert(title: "Хмм", message: error.message)
         }
-        
-        
-        
     }
 }
 
@@ -59,6 +56,16 @@ extension ShopListController: OutletVCDelegate {
     func choosen(outlet: Outlet) {
         userOutlet = outlet
         
+    }
+}
+
+extension ShopListController: ItemCardVCDelegate {
+    func updated(status: Bool) {
+        guard status == true else {
+            return
+        }
+        dataProvider.loadShopList(for: userOutlet.id)
+        totalLabel.update(value: dataProvider.total)
     }
 }
 
@@ -81,7 +88,7 @@ extension ShopListController: Exchange {
 //        self.shopTableView.reloadData()
 //        self.totalLabel.update(value: dataProvider.total)
     }
-    
+}
     
     
     
@@ -103,7 +110,7 @@ extension ShopListController: Exchange {
     
     
     
-    func handle(for scannedCode: String) {
+//    func handle(for scannedCode: String) {
 //        var item: ShopItem!
 //
 //        let deviceBase = CoreDataService.data
@@ -129,6 +136,7 @@ extension ShopListController: Exchange {
 //        dataProvider.append(item)
     
         
-    }
-    
-}
+//    }
+
+//}
+

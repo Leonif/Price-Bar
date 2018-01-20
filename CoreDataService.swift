@@ -146,8 +146,8 @@ class CoreDataService {
     
     
     
-    func loadShopList() -> [ShoplistItemModel]?{
-        var shopList = [ShoplistItemModel]()
+    func loadShopList(fro outletId: String?) -> [ShoplistItemModel] {
+        var shopList: [ShoplistItemModel] = []
         
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
@@ -165,13 +165,16 @@ class CoreDataService {
 
                     let quantity = shoplistItem.quantity
                     let checked = shoplistItem.checked
-                    //let price = getPrice(for: id, and: outletId)
+                    
+                    
+                    
+                    let price = outletId != nil ? getPrice(for: id, and: outletId!) : 0.0
                     let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
                     
                     let item = ShoplistItemModel(productId: id,
                                                  productName: name,
                                                  productCategory: categoryName,
-                                                 productPrice: 0.0,
+                                                 productPrice: price,
                                                  productUom: uomName,
                                                  quantity: quantity,
                                                  isPerPiece: isPerPiece,
@@ -180,11 +183,11 @@ class CoreDataService {
                     shopList.append(item)
                 }
             }
-            return shopList
+            //return shopList
         } catch {
             print("Products is not got from database")
         }
-        return nil
+        return shopList
         
     }
 }

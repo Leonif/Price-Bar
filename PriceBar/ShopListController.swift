@@ -23,6 +23,8 @@ class ShopListController: UIViewController {
         didSet {
             outletAddressLabel.text = userOutlet.address
             outletNameButton.setTitle(userOutlet.name, for: .normal)
+            dataProvider.loadShopList(for: userOutlet.id)
+            self.totalLabel.update(value: dataProvider.total)
         }
     }
     var dataSource: ShopListDataSource?
@@ -61,7 +63,6 @@ class ShopListController: UIViewController {
                         print(outlet)
                         self.userOutlet = outlet
                         activateControls = true
-                        self.loadShopList()
                         self.shopTableView.reloadData()
                     case let .failure(error):
                         self.alert(title: "Ops", message: error.errorDescription)
@@ -71,19 +72,6 @@ class ShopListController: UIViewController {
             }
         }
     }
-    
-    
-    func loadShopList() {
-        guard dataProvider.shoplist.isEmpty else {
-            return
-        }
-        dataProvider.shoplist.removeAll()
-        dataProvider.loadShopList(for: userOutlet.id)
-        self.totalLabel.update(value: dataProvider.total)
-        
-        
-    }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         shopTableView.reloadData()

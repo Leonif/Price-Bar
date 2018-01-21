@@ -130,7 +130,9 @@ class OutletService: NSObject {
 extension OutletService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print(status)
-        _ = locationService?.startReceivingLocationChanges()
+        if status == .authorizedWhenInUse {
+            _ = locationService?.startReceivingLocationChanges()
+        }
     }
     
     

@@ -37,11 +37,12 @@ extension UIView {
     
     func pb_stopActivityIndicator() {
         
-        guard let window = UIApplication.shared.keyWindow else { return }
         
-        let views = window.subviews
         
         DispatchQueue.main.async {
+            guard let window = UIApplication.shared.keyWindow else { return }
+            let views = window.subviews
+            
             UIView.animate(withDuration: 0.8, animations: {
                 
                 for v in views {

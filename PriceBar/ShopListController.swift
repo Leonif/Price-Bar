@@ -23,8 +23,11 @@ class ShopListController: UIViewController {
     var dataProvider: DataProvider = DataProvider()
     var userOutlet: Outlet! {
         didSet {
-            outletAddressLabel.text = userOutlet.address
-            outletNameButton.setTitle(userOutlet.name, for: .normal)
+            DispatchQueue.main.async {
+                self.outletAddressLabel.text = self.userOutlet.address
+                self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
+            }
+            
             dataProvider.loadShopList(for: userOutlet.id)
             self.totalLabel.update(value: dataProvider.total)
         }
@@ -71,7 +74,11 @@ class ShopListController: UIViewController {
                 print(outlet)
                 self.userOutlet = outlet
                 activateControls = true
-                self.shopTableView.reloadData()
+                
+                DispatchQueue.main.async {
+                    self.shopTableView.reloadData()
+                }
+                
                 
             case let .failure(error):
                 self.alert(title: "Ops", message: error.errorDescription)

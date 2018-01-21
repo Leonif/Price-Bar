@@ -9,22 +9,34 @@
 import Foundation
 import UIKit
 
-protocol Exchange {
-    func objectExchange(object: Any)
+extension ShopListController: ScannerDelegate {
+    func scanned(barcode: String) {
+        print(barcode)
+        if let product: DPProductModel = dataProvider.getItem(with: barcode, and: userOutlet.id) {
+            
+            addItemToShopList(product)
+            
+        } else {
+            performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
+        }
+        
+    }
 }
-
 
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
-        guard let product = dataProvider.getItem(with: productId, and: userOutlet.id) else {
-            fatalError("product doesnt exist")
+        guard let product: DPProductModel = dataProvider.getItem(with: productId, and: userOutlet.id) else {
+            fatalError("product is not found")
         }
+        addItemToShopList(product)
+    }
+    func addItemToShopList(_ product: DPProductModel) {
         guard
             let categoryName = dataProvider.getCategoryName(category: product.categoryId),
             let uom = dataProvider.getUomName(for: product.uomId)
-        else {
-            fatalError("category or uom name doesnt exist")
+            else {
+                fatalError("category or uom name doesnt exist")
         }
         let price = dataProvider.getPrice(for: product.id, and: userOutlet.id)
         
@@ -68,75 +80,3 @@ extension ShopListController: ItemCardVCDelegate {
         totalLabel.update(value: dataProvider.total)
     }
 }
-
-
-
-
-
-//MARK: Handlers based Exchange protocol
-extension ShopListController: Exchange {
-    
-    func objectExchange(object: Any) {
-//        if let item = object as? ShopItem { // card save
-//            self.handle(for: item)
-//        }
-//
-//        if let scannedCode = object as? String {//scann came
-//            self.handle(for: scannedCode)
-//        }
-//        self.dataSource?.dataProvider = dataProvider
-//        self.shopTableView.reloadData()
-//        self.totalLabel.update(value: dataProvider.total)
-    }
-}
-    
-    
-    
-    
-//    func loadShopList(for outlet: Outlet) {
-//        userOutlet = outlet
-//        outletNameButton.setTitle(userOutlet.name, for: .normal)
-//        outletAddressLabel.text = userOutlet.address
-//        dataProvider.pricesUpdate(by: userOutlet.id)
-//        
-//        if let dataProvider = CoreDataService.data.loadShopList(outletId: userOutlet.id)/*, !selfLoaded*/ {
-//            self.dataProvider = dataProvider
-//            dataSource?.shopListService = dataProvider
-//            self.shopTableView.reloadData()
-//            totalLabel.update(value: dataProvider.total)
-//        }
-//        
-//    }
-    
-    
-    
-//    func handle(for scannedCode: String) {
-//        var item: ShopItem!
-//
-//        let deviceBase = CoreDataService.data
-//        let cloudBase = FirebaseService.data
-//
-//        if let foundProduct = deviceBase.getItem(by: scannedCode, and: userOutlet.id) {// exists on device
-//            item = foundProduct
-//            //handle(for: item)
-//        } else { //doesnt exist in coreData
-//            let itemCategory = deviceBase.defaultCategory! // default category
-//            let itemUom = deviceBase.initUoms[0]
-//
-//            item = ShopItem(id: scannedCode, name: "Неизвестно", quantity: 1.0, minPrice: 0.0, price: 0.0, itemCategory: itemCategory, itemUom: itemUom, outletId: userOutlet.id, scanned: true, checked: false)
-//
-//            //add to coredata and firebase
-//            cloudBase.saveOrUpdate(item)
-//            deviceBase.save(item)
-        
-            
-//        }
-        //save price statistics
-//        deviceBase.saveToShopList(item)
-//        dataProvider.append(item)
-    
-        
-//    }
-
-//}
-

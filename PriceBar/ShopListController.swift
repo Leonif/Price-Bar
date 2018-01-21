@@ -179,6 +179,17 @@ extension ShopListController {
             }
         }
         
+        if segue.identifier == "scannedNewProduct",
+            let itemCardVC = segue.destination as? ItemCardVC  {
+            if let barcode = sender as? String {
+                itemCardVC.barcode = barcode
+                itemCardVC.delegate = self
+                itemCardVC.dataProvider = dataProvider
+                itemCardVC.outletId = userOutlet.id
+            }
+        }
+        
+        
         if segue.identifier == showOutlets,
             let outletVC = segue.destination as? OutletsVC  {
             outletVC.delegate = self

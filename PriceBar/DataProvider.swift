@@ -47,6 +47,24 @@ class DataProvider {
         return sum
     }
     
+    var defaultCategory: DPCategoryModel? {
+        
+        guard let cd = CoreDataService.data.defaultCategory else {
+            return nil
+        }        
+        return DPCategoryModel(id: cd.id, name: cd.name)
+    }
+    
+    var defaultUom: DPUomModel? {
+        
+        guard let cd = CoreDataService.data.defaultCategory else {
+            return nil
+        }
+
+        return DPUomModel(id: cd.id, name: cd.name)
+    }
+    
+    
     public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
         shoplist = CoreDataService.data.loadShopList(fro: nil)
         syncCategories { result in
@@ -299,7 +317,7 @@ class DataProvider {
     func getItem(with barcode: String, and outletId: String) -> DPProductModel? {
         
         guard let cdModel = CoreDataService.data.getItem(by: barcode, and: outletId) else {
-            fatalError("Product is not found in CoreData")
+            return nil
         }
         
         guard let uom = CoreDataService.data.getUom(by: cdModel.uomId) else {

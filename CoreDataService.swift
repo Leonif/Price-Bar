@@ -23,10 +23,24 @@ class CoreDataService {
     
     
     var defaultCategory: CDCategoryModel? {
-        guard let category = getCategories()?.first else {
-            return nil
+        let defaultCategoryId: Int32 = 1
+        guard
+            let category = getCategory(by: defaultCategoryId),
+            let categoryName = category.category
+            else {
+                return nil
         }
-        return category
+        return CDCategoryModel(id: category.id, name: categoryName)
+    }
+    
+    var defaultUom: CDUomModel? {
+        let defaultUomId: Int32 = 1
+        guard
+            let uom = getUom(by: defaultUomId),
+            let uomName = uom.uom else {
+                return nil
+        }
+        return CDUomModel(id: uom.id, name: uomName)
     }
     
     

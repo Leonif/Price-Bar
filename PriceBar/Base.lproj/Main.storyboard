@@ -300,6 +300,7 @@
                         <segue destination="rA1-Ob-kOe" kind="show" identifier="showScan" id="Mxi-jI-C5Z"/>
                         <segue destination="Aph-JN-BT7" kind="show" identifier="showItemList" id="wEm-Es-ZSc"/>
                         <segue destination="eEM-bT-isb" kind="show" identifier="showEditItem" id="QPO-FU-qjJ"/>
+                        <segue destination="eEM-bT-isb" kind="show" identifier="scannedNewProduct" id="Aag-Wk-edx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -668,7 +669,7 @@
                                     <action selector="backPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="cJN-oT-E2b"/>
                                 </connections>
                             </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Помидоры" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-2f-mBr" customClass="GoodTextField" customModule="PriceBar" customModuleProvider="target">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Заполните название" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-2f-mBr" customClass="GoodTextField" customModule="PriceBar" customModuleProvider="target">
                                 <rect key="frame" x="16" y="262" width="343" height="60"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -758,7 +759,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lIW-7a-WeA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2186.9565217391305" y="134.5108695652174"/>
+            <point key="canvasLocation" x="1222" y="-108"/>
         </scene>
         <!--Item ListVC-->
         <scene sceneID="Kb3-Qt-3ax">
@@ -955,6 +956,6 @@
         <image name="uncheck" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="QPO-FU-qjJ"/>
+        <segue reference="EJ7-82-Mar"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -9,12 +9,18 @@
 import UIKit
 import AVFoundation
 
+protocol ScannerDelegate {
+    func scanned(barcode: String)
+}
+
+
+
 class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     @IBOutlet var topbar: UIView!
     @IBOutlet var messageLabel: UILabel!
     @IBOutlet var backButton: UIButton!
-    var delegate: Exchange!
+    var delegate: ScannerDelegate!
     @IBOutlet weak var warningRestrictedCameraView: UIView!
     
     var captureSession:AVCaptureSession?
@@ -35,9 +41,7 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
     
     
     @IBAction func backPressed(_ sender: Any) {
-        
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     
@@ -126,13 +130,11 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
                 
                 let code = metadataObj.stringValue
                 captureSession?.stopRunning()
-                
                 messageLabel.text = code
-                
-                delegate.objectExchange(object: code ?? "")
-                
-                
+                //delegate.objectExchange(object: code ?? "")
                 self.dismiss(animated: true, completion: nil)
+                delegate.scanned(barcode: code ?? "")
+                
                 
             }
         }

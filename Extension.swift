@@ -29,6 +29,14 @@ extension Date {
         formatter.timeZone = TimeZone(abbreviation: TimeZone.current.abbreviation() ?? "")
         return formatter.string(from: self)
     }
+    
+    
+    var dayOfWeek: Int {
+        let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
+        let myComponents = myCalendar.components(.weekday, from: self)
+        let weekDay = myComponents.weekday
+        return weekDay!
+    }
 }
 
 

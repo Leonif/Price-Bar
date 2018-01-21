@@ -66,6 +66,11 @@ class DataProvider {
     
     
     public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
+        
+        if Date().dayOfWeek != 1 {
+            completion(ResultType.success(true))
+        }
+        
         shoplist = CoreDataService.data.loadShopList(fro: nil)
         syncCategories { result in
             self.handleCategories(result: result, completion: completion)

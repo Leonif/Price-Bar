@@ -16,7 +16,7 @@ class ShopListController: UIViewController {
     fileprivate let showOutlets = "showOutlets"
     fileprivate let showEditItem = "showEditItem"
     
-    var barcode: String?
+    //var barcode: String?
 
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
@@ -47,35 +47,31 @@ class ShopListController: UIViewController {
         // sync from cloud ==============
         self.view.pb_startActivityIndicator(with: "Синхронизация")
         dataProvider.syncCloud { result in
-            self.view.pb_stopActivityIndicator()
             switch result {
             case let .failure(error):
                 self.alert(title: "Ops", message: error.localizedDescription)
             case .success:
-//        ============================
-        
-                //get outlet
-
-        
+                self.updateUI()
+            }
+        }
+    }
+    
+    func updateUI() {
         let outletService = OutletService()
-                outletService.nearestOutlet { result in
-                    print(result)
-                    var activateControls = false
-                    switch result {
-                    case let .success(outlet):
-                        print(outlet)
-                        self.userOutlet = outlet
-                        activateControls = true
-                        self.shopTableView.reloadData()
-                    case let .failure(error):
-                        self.alert(title: "Ops", message: error.errorDescription)
-                    }
-                    self.buttonEnable(activateControls)
-                }
-
-        
-        //======================
-                    }
+        outletService.nearestOutlet { result in
+            print(result)
+            var activateControls = false
+            switch result {
+            case let .success(outlet):
+                print(outlet)
+                self.userOutlet = outlet
+                activateControls = true
+                self.shopTableView.reloadData()
+                self.view.pb_stopActivityIndicator()
+            case let .failure(error):
+                self.alert(title: "Ops", message: error.errorDescription)
+            }
+            self.buttonEnable(activateControls)
         }
     }
     

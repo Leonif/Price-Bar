@@ -17,7 +17,7 @@ extension ShopListController: ScannerDelegate {
             addItemToShopList(product)
             
         } else {
-            performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
+            self.performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
         }
         
     }

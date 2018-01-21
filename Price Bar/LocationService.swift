@@ -30,6 +30,7 @@ class LocationService {
     
     init(input: CLLocationManagerDelegate) {
         self.input = input
+        locationManager.delegate = self.input
     }
     
     func startReceivingLocationChanges() -> ResultType<Bool, LocationServiceError> {
@@ -47,7 +48,7 @@ class LocationService {
         // Configure and start the service.
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 100.0  // In meters.
-        locationManager.delegate = input
+        //locationManager.delegate = input
         locationManager.startUpdatingLocation()
         
         return ResultType.success(true)

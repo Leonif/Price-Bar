@@ -67,15 +67,35 @@ class DataProvider {
     
     public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
         
-        if Date().dayOfWeek != 1 {
+        if !needToSync() {
             completion(ResultType.success(true))
+        } else {
+            shoplist = CoreDataService.data.loadShopList(fro: nil)
+            syncCategories { result in
+                self.handleCategories(result: result, completion: completion)
+            }
         }
+    }
+    
+    
+    func needToSync() -> Bool {
+        //need to check
+        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
+        switch times {
+        case 0:
+            times += 1
+            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+            return true
+        case 10:
+            times = 0
+            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+            return true
+        default:
+            times += 1
+            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+        }
+        return false
         
-        shoplist = CoreDataService.data.loadShopList(fro: nil)
-        syncCategories { result in
-            self.handleCategories(result: result, completion: completion)
-            
-        }
     }
     
     private func saveShoplist() {
@@ -246,7 +266,7 @@ class DataProvider {
     
     
     func getShopItems(with pageOffset: Int, for outletId: String) -> [DPProductModel]?  {
-        return CoreDataService.data.getShortItemList(for: outletId, offset: pageOffset)
+        return CoreDataService.data.getProductList(for: outletId, offset: pageOffset)
     }
     
     func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {

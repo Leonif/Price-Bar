@@ -42,7 +42,7 @@ enum OutletServiceError: Error {
 
 class OutletService: NSObject {
     
-    var locationService: LocationService?
+    var locationService: LocationService!
     var nearestOutletDelegate: NearestOutletDelegate?
     var outletListDelegate: OutletListDelegate?
     var resultCompletion: ((ResultType<Outlet, OutletServiceError>) -> Void)?
@@ -51,13 +51,21 @@ class OutletService: NSObject {
     func startLookingForNearestOutlet(nearestOutletDelegate: NearestOutletDelegate) {
         self.nearestOutletDelegate = nearestOutletDelegate
         locationService = LocationService(input: self)
-        _ = locationService?.startReceivingLocationChanges()
+        let result = locationService?.startReceivingLocationChanges()
+        print(result)
     }
     
     func nearestOutlet(completion: @escaping (ResultType<Outlet, OutletServiceError>)->())  {
         resultCompletion = completion
         locationService = LocationService(input: self)
-        _ = locationService?.startReceivingLocationChanges()
+        let result = locationService.startReceivingLocationChanges()
+        switch result {
+        case let .failure(error):
+            print(error)
+            // User has not authorized access to location information.
+        default:
+            print("ok")
+        }
     }
     
     
@@ -107,9 +115,9 @@ class OutletService: NSObject {
                         }
                     }
                     outlets = outlets.sorted(by: { $0.distance < $1.distance })
-                    DispatchQueue.main.async() {//go into UI
-                        completed(ResultType.success(outlets))
-                    }
+                    //DispatchQueue.main.async() {//go into UI
+                    completed(ResultType.success(outlets))
+                    //}
                 } catch let error as NSError {
                     completed(ResultType.failure(.other(error.localizedDescription)))
                 }
@@ -120,6 +128,13 @@ class OutletService: NSObject {
 
 
 extension OutletService: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print(status)
+        _ = locationService?.startReceivingLocationChanges()
+    }
+    
+    
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let  userCoord = locations.last?.coordinate else {
             fatalError("Coorddinate is not gotton")
@@ -129,13 +144,16 @@ extension OutletService: CLLocationManagerDelegate {
             self.locationService?.stopLocationUpdating()
             switch result {
             case let .success(outlets):
-                guard let outlet = outlets.first else {
-                    self.nearestOutletDelegate?.nearest(result: ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
-                    return
+                if let outlet = outlets.first {
+                    //self.nearestOutletDelegate?.nearest(result: ResultType.success(outlet))
+                    self.resultCompletion?(ResultType.success(outlet))
+                    self.outletListDelegate?.list(result: ResultType.success(outlets))
+                } else {
+                    self.nearestOutletDelegate?
+                        .nearest(result: ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
+                    self.resultCompletion?(ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
                 }
-                //self.nearestOutletDelegate?.nearest(result: ResultType.success(outlet))
-                self.resultCompletion?(ResultType.success(outlet))
-                self.outletListDelegate?.list(result: ResultType.success(outlets))
+                
             case let .failure(error):
                 //self.nearestOutletDelegate?.nearest(result: ResultType.failure(error))
                 self.resultCompletion?(ResultType.failure(error))

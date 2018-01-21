@@ -210,7 +210,7 @@ extension CoreDataService {
     }
     
     
-    func getShortItemList(for outletId: String, offset: Int) -> [DPProductModel]? {
+    func getProductList(for outletId: String, offset: Int) -> [DPProductModel]? {
         var shopItems = [DPProductModel]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")

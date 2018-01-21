@@ -47,10 +47,15 @@ class ItemListVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
 
-        guard let products = dataProvider?.getShopItems(with: currentPageOffset, for: outletId),
+        guard let dataProvider = self.dataProvider else {
+            fatalError("data provider is nil")
+        }
+        guard
+            let products = dataProvider.getShopItems(with: currentPageOffset, for: outletId),
             let itemList = itemsMapper(from: products)
             else {
                 alert(title: "Ops", message: "Нет товаров в базе")
+                self.view.pb_stopActivityIndicator()
                 return
         }
         

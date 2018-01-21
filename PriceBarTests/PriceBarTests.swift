@@ -33,30 +33,31 @@ class PriceBarTests: XCTestCase {
 }
 
 
-//MARK: Categories
-extension PriceBarTests {
-    
-    func testCategories() {
-        
-        let deviceBase = CoreDataService.data
-        
-        let item = ShopItem(id: "111", name: "Test product", quantity: 1, minPrice: 0, price: 0, itemCategory: ItemCategory(id: 111, name: "TestCategory"), itemUom: ItemUom(id: 111,name: "TestUom",iterator: 0.1), outletId: "Test", scanned: true, checked: false)
-        
-        deviceBase.saveToShopList(item)
-        
-        
-        
-        let itemCategories = deviceBase.getCategoriesFromCoreData()
-        
-        
-         XCTAssertEqual(itemCategories.count, 13, "Category list is \(itemCategories.count) items")
-    }
-    
-    func testPickerCategoriesCount() {
-        
-        
-        
-        
-    }
-    
-}
+////MARK: Categories
+//extension PriceBarTests {
+//    
+//    func testCategories() {
+//        
+//        let deviceBase = CoreDataService.data
+//        
+//        let item = ShopItem(id: "111", name: "Test product", quantity: 1, minPrice: 0, price: 0, itemCategory: ItemCategory(id: 111, name: "TestCategory"), itemUom: ItemUom(id: 111,name: "TestUom",iterator: 0.1), outletId: "Test", scanned: true, checked: false)
+//        
+//        deviceBase.saveToShopList(item)
+//        
+//        
+//        
+//        let itemCategories = deviceBase.getCategoriesFromCoreData()
+//        
+//        
+//         XCTAssertEqual(itemCategories.count, 13, "Category list is \(itemCategories.count) items")
+//    }
+//    
+//    func testPickerCategoriesCount() {
+//        
+//        
+//        
+//        
+//    }
+//    
+//}
+

@@ -65,7 +65,7 @@ class ItemListVC: UIViewController {
     }
     
     
-    func itemsMapper(from products: [ProductModel]) -> [ItemListModel]? {
+    func itemsMapper(from products: [DPProductModel]) -> [ItemListModel]? {
         var modellist = [ItemListModel]()
         
         for product in products {

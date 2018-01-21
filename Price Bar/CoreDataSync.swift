@@ -16,15 +16,32 @@ extension CoreDataService {
     func syncCategories(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->()) {
         FirebaseService.data.syncCategories { result in
             switch result {
-            case let .success(categories):
-                self.importNew(categories)
+            case let .success(fbCategoryList):
+                let cdCategoryList = self.transform(from: fbCategoryList)
+                self.importNew(cdCategoryList)
                 completion(ResultType.success(true))
             case let .failure(error):
                 completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
             }
         }
     }
-    public func importNew(_ categories:[ItemCategory])  {
+    
+    private func transform(from fbCategoryList: [FBItemCategory]) -> [CDCategoryModel] {
+        
+        var cdCategoryList: [CDCategoryModel] = []
+        
+        for category in fbCategoryList {
+            cdCategoryList.append(mapper(from: category))
+        }
+        
+        return cdCategoryList
+    }
+    
+    private func mapper(from fbCategory: FBItemCategory) -> CDCategoryModel {
+        return CDCategoryModel(id: fbCategory.id, name: fbCategory.name)
+    }
+    
+    public func importNew(_ categories:[CDCategoryModel])  {
         removeAll(from: "Category")
         categories.forEach { category in
             self.save(new: category)
@@ -42,7 +59,7 @@ extension CoreDataService {
         }
     }
     
-    public func importNew(_ uoms:[UomModel])  {
+    public func importNew(_ uoms:[UomModelView])  {
         removeAll(from: "Uom")
         uoms.forEach { uom in
             self.save(new: uom)
@@ -112,7 +129,7 @@ extension CoreDataService {
         }
     }
     
-    func transform(from stats: [ItemStatistic]) -> [CDStatisticModel] {
+    func transform(from stats: [FBItemStatistic]) -> [CDStatisticModel] {
         
         var cdStats: [CDStatisticModel] = []
         
@@ -122,7 +139,7 @@ extension CoreDataService {
         return cdStats
     }
 
-    func mapper(from stat: ItemStatistic) -> CDStatisticModel {
+    func mapper(from stat: FBItemStatistic) -> CDStatisticModel {
         
         return CDStatisticModel(productId: stat.productId,
                                 price: stat.price,

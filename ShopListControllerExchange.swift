@@ -28,16 +28,16 @@ extension ShopListController: ItemListVCDelegate {
         }
         let price = dataProvider.getPrice(for: product.id, and: userOutlet.id)
         
-        let shopListItem = ShoplistItemModel(productId: product.id,
-                                             productName: product.name,
-                                             categoryId: product.categoryId,
-                                             productCategory: categoryName,
-                                             productPrice: price,
-                                             uomId: product.uomId,
-                                             productUom: uom,
-                                             quantity: 1.0,
-                                             isPerPiece: product.isPerPiece,
-                                             checked: false)
+        let shopListItem = DPShoplistItemModel(productId: product.id,
+                                               productName: product.name,
+                                               categoryId: product.categoryId,
+                                               productCategory: categoryName,
+                                               productPrice: price,
+                                               uomId: product.uomId,
+                                               productUom: uom,
+                                               quantity: 1.0,
+                                               isPerPiece: product.isPerPiece,
+                                               checked: false)
         
         
         let result = dataProvider.saveToShopList(new: shopListItem)

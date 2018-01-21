@@ -19,55 +19,16 @@ enum CoreDataErrors: Error {
 class CoreDataService {
     
     static let data = CoreDataService()
-    //var initCategories = [ItemCategory]()
-    //var initUoms = [ItemUom]()
     var synced = false
     
     
-    var defaultCategory: CategoryModel? {
-        
-        guard let cat = getCategories()?.first else {
+    var defaultCategory: CDCategoryModel? {
+        guard let category = getCategories()?.first else {
             return nil
         }
-        
-        return cat
+        return category
     }
     
-    
-
-    
-    
-//    func getUomsFromCoreData() -> [ItemUom] {
-//        var uoms = [Uom]()
-//        do {
-//            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
-//            uoms = try context.fetch(fetchRequest)
-//            if uoms.count != self.initUoms.count {
-//                uoms = []
-//                for u in self.initUoms { // пересоздаем категории заново
-//                    let uom = Uom(context: context)
-//                    uom.id = u.id
-//                    uom.uom = u.name
-//                    uom.iterator = u.iterator
-//                }
-//                ad.saveContext()
-//                uoms = try context.fetch(fetchRequest)
-//            }
-//            
-//        } catch  {
-//            print("Uoms are not got from database")
-//        }
-//        
-//        var itemUoms = [ItemUom]()
-//        
-//        uoms.forEach {
-//            if let uomName = $0.uom {
-//                let itemUom = ItemUom(id: $0.id, name: uomName, iterator: $0.iterator)
-//                itemUoms.append(itemUom)
-//            }
-//        }
-//        return itemUoms
-//    }
     
     func save(new statistic: CDStatisticModel) {
         guard statistic.price != 0 else {
@@ -96,7 +57,7 @@ class CoreDataService {
     
     
     
-    func saveToShopList(_ shopItem: ShoplistItemModel) {
+    func saveToShopList(_ shopItem: DPShoplistItemModel) {
         do {
             //find product in catalog
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
@@ -146,8 +107,8 @@ class CoreDataService {
     
     
     
-    func loadShopList(fro outletId: String?) -> [ShoplistItemModel] {
-        var shopList: [ShoplistItemModel] = []
+    func loadShopList(fro outletId: String?) -> [DPShoplistItemModel] {
+        var shopList: [DPShoplistItemModel] = []
         
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
@@ -171,7 +132,7 @@ class CoreDataService {
                     let price = outletId != nil ? getPrice(for: id, and: outletId!) : 0.0
                     let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
                     
-                    let item = ShoplistItemModel(productId: id,
+                    let item = DPShoplistItemModel(productId: id,
                                                  productName: name,
                                                  categoryId: category.id,
                                                  productCategory: categoryName,
@@ -185,7 +146,6 @@ class CoreDataService {
                     shopList.append(item)
                 }
             }
-            //return shopList
         } catch {
             print("Products is not got from database")
         }
@@ -197,36 +157,8 @@ class CoreDataService {
 
 //MARK: Product
 extension CoreDataService {
-//    func shopItem(parse product: Product, and outletId: String) -> ShopItem? {
-//        guard
-//            let id = product.id,
-//            let name = product.name,
-//            let category = product.toCategory?.category,
-//            let idCat = product.toCategory?.id, // optional chaining
-//            let prodUom = product.toUom,
-//            let uom = prodUom.uom  else {
-//                return nil
-//
-//        }
-//        let price = getPrice(for: id, and: outletId)
-//        let minPrice = getMinPrice(for: id, and: outletId)
-//
-//        let itemCategory = CategoryModel(id: idCat, name: category)
-//        let itemUom = ItemUom(id: prodUom.id, name: uom, iterator: prodUom.iterator)
-//
-//        let item = ShopItem(id: id, name: name,
-//                            quantity: 1.0,
-//                            minPrice: minPrice,
-//                            price: price,
-//                            itemCategory: itemCategory,
-//                            itemUom: itemUom, outletId: outletId,
-//                            scanned: true,
-//                            checked: false)
-//        return item
-//    }
-    
-    func filterItemList(contains text: String, for outletId: String) -> [ProductModel]? {
-        var shopItems = [ProductModel]()
+    func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {
+        var shopItems = [DPProductModel]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
             fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", text)
@@ -244,8 +176,7 @@ extension CoreDataService {
     }
     
     
-    func productMapper(from product: Product) -> ProductModel {
-        
+    func productMapper(from product: Product) -> DPProductModel {
         guard let id = product.id,
             let name = product.name,
             let category = product.toCategory,
@@ -255,7 +186,7 @@ extension CoreDataService {
         
         let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
         
-        return ProductModel(id: id,
+        return DPProductModel(id: id,
                             name: name,
                             categoryId: category.id,
                             uomId: uom.id,
@@ -265,8 +196,8 @@ extension CoreDataService {
     }
     
     
-    func getShortItemList(for outletId: String, offset: Int) -> [ProductModel]? {
-        var shopItems = [ProductModel]()
+    func getShortItemList(for outletId: String, offset: Int) -> [DPProductModel]? {
+        var shopItems = [DPProductModel]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
             fetchRequest.fetchLimit = 20
@@ -287,8 +218,8 @@ extension CoreDataService {
     }
 
 
-    func getItemList(for outletId: String) -> [ProductModel]? {
-        var shopItems = [ProductModel]()
+    func getItemList(for outletId: String) -> [DPProductModel]? {
+        var shopItems = [DPProductModel]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
             let productExist = try context.fetch(fetchRequest)
@@ -308,19 +239,21 @@ extension CoreDataService {
     
     
     
-    func getItem(by barcode: String, and outletId: String) -> ProductModel? {
+    func getItem(by barcode: String, and outletId: String) -> CDProductModel? {
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
             fetchRequest.predicate = NSPredicate(format: "id == %@", barcode)
-            let productExist = try context.fetch(fetchRequest)
-            if !productExist.isEmpty {
-                if let prd = productExist.first {
+            let productList = try context.fetch(fetchRequest)
+            if !productList.isEmpty {
+                if let prd = productList.first {
                     if let id = prd.id, let name = prd.name,
                         let prodUom = prd.toUom,
                         let prodCat = prd.toCategory {
                         
-                        let isPerPiece = prodUom.iterator.truncatingRemainder(dividingBy: 1) == 0
-                        let item = ProductModel(id: id, name: name, categoryId: prodCat.id, uomId: prodUom.id, isPerPiece: isPerPiece)
+                        let item = CDProductModel(id: id,
+                                                  name: name,
+                                                  categoryId: prodCat.id,
+                                                  uomId: prodUom.id)
                         return item
                     }
                 }
@@ -331,23 +264,16 @@ extension CoreDataService {
         }
         return nil
     }
-
-//    func saveOrUpdate(_ item: ProductModel) {
-//        if update(item) {
-//            return
-//        } else {
-//            save(item)
-//        }
-//    }
     
-    func save(_ item: ProductModel) {
+    func save(_ item: CDProductModel) {
         let product = Product(context: context)
         product.id = item.id
         product.name = item.name
-        product.toUom = setUom(for: item)
-        product.toCategory = setCategory(for: item)
+        let uom = getUom(by: item.uomId)
+        product.toUom = uom
+        let category = getCategory(by: item.categoryId)
+        product.toCategory = category
         
-        //product.scanned = item.scanned
         ad.saveContext()
     }
     
@@ -367,101 +293,26 @@ extension CoreDataService {
         ad.saveContext()
     }
     
-    
-    
-    
-    
-//    func update(_ item: ProductModel) -> Bool {
-//        do {
-//            // search item in coredata
-//            let productRequest = NSFetchRequest<Product>(entityName: "Product")
-//            productRequest.predicate = NSPredicate(format: "id == %@", item.id)
-//            let productExist = try context.fetch(productRequest)
-//            if !productExist.isEmpty {
-//                if let product = productExist.first {
-//                    product.name = item.name
-//                    product.toUom = setUom(for: item)
-//                    product.toCategory = setCategory(for: item)
-//
-//                    ad.saveContext()
-//                    return true
-//                }
-//            }
-//        } catch  {
-//            print("Products is not got from database")
-//        }
-//        return false
-//    }
-    
-
-    func setUom(for item: ProductModel) -> Uom? {
-        do {
-            // search category in coredata
-            let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
-            uomRequest.predicate = NSPredicate(format: "id == %d", item.uomId)
-            let uom = try context.fetch(uomRequest)
-            if uom.isEmpty {
-                fatalError("Error of setting not defined category")
-            } else {
-                return uom.first
-            }
-        } catch {
-            print("Error of setting not defined category")
-            return nil
-        }
-    }
-
-    
-//    func setDefaultCategory() -> Category? {
-//        let itemCategory = CoreDataService.data.initCategories[0]
-//        do {
-//            // search category in coredata
-//            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
-//            categoryRequest.predicate = NSPredicate(format: "id == %d", itemCategory.id)
-//            let category = try context.fetch(categoryRequest)
-//            return category.first
-//        } catch {
-//            print("Error of setting not defined category")
-//            return nil
-//        }
-//    }
-    
-//    func setDefaultUom() -> Uom? {
-//        let itemUom = CoreDataService.data.initUoms[0]
-//        do {
-//            // search category in coredata
-//            let uomRequest = NSFetchRequest<Uom>(entityName: "Uom")
-//            uomRequest.predicate = NSPredicate(format: "id == %d", itemUom.id)
-//            let uom = try context.fetch(uomRequest)
-//            return uom.first
-//        } catch {
-//            print("Error of setting not defined category")
-//            return nil
-//        }
-//    }
-    
-    
 }
 
 
 
 //MARK: Categories
 extension CoreDataService {
-    func getCategories() -> [CategoryModel]? {
-        var categories: [Category] = []
-        var categoryList: [CategoryModel] = []
+    func getCategories() -> [CDCategoryModel]? {
+        //var categories: [Category] = []
+        var categoryList: [CDCategoryModel] = []
         do {
             let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
-            categories = try context.fetch(fetchRequest)
+            let categories = try context.fetch(fetchRequest)
             
             guard !categories.isEmpty else {
                 return nil
             }
-            
             for category in categories {
-                
                 if let categoryName = category.category {
-                    categoryList.append(CategoryModel(id: category.id, name: categoryName))
+                    categoryList.append(CDCategoryModel(id: category.id,
+                                                      name: categoryName))
                 } else {
                     fatalError("No name of category !!!!")
                 }
@@ -473,29 +324,7 @@ extension CoreDataService {
     }
     
     
-    
-    
-    
-    
-    func setCategory(for item: ProductModel) -> Category? {
-        do {
-            // search category in coredata
-            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
-            categoryRequest.predicate = NSPredicate(format: "id == %d", item.categoryId)
-            let category = try context.fetch(categoryRequest)
-
-            if category.isEmpty {
-                fatalError("Category is not found")
-            } else {
-                return category.first
-            }
-        } catch {
-            print("Error of setting not defined category")
-            return nil
-        }
-    }
-    
-    func save(new category: ItemCategory) {
+    func save(new category: CDCategoryModel) {
         if let cat = getCategory(by: category.id)  {
             cat.category = category.name
         } else {
@@ -506,7 +335,7 @@ extension CoreDataService {
         ad.saveContext()
     }
     
-    func save(new uom: UomModel) {
+    func save(new uom: UomModelView) {
         
             let u = Uom(context: context)
             u.id = uom.id

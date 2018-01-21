@@ -49,13 +49,13 @@ class FirebaseService {
         })
     }
     
-    func syncCategories(completion: @escaping (ResultType<[ItemCategory], FirebaseError>)->()) {
+    func syncCategories(completion: @escaping (ResultType<[FBItemCategory], FirebaseError>)->()) {
         self.REF_CATEGORIES.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
-                var categories = [ItemCategory]()
+                var categories = [FBItemCategory]()
                 for snapCategory in snapCategories {
                     if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String,Any> {
-                        let itemCategory = ItemCategory(key:id,itemCategoryDict: categoryDict)
+                        let itemCategory = FBItemCategory(key:id,itemCategoryDict: categoryDict)
                         categories.append(itemCategory)
                     }
                 }
@@ -113,13 +113,13 @@ class FirebaseService {
     }
     
     
-    func syncStatistics(completion: @escaping (ResultType<[ItemStatistic], FirebaseError>)->()) {
+    func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->()) {
         REF_PRICE_STATISTICS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                var itemStatistic = [ItemStatistic]()
+                var itemStatistic = [FBItemStatistic]()
                 for snapPrice in snapPrices {
                     if let priceDict = snapPrice.value as? Dictionary<String,Any> {
-                        if let statistic = ItemStatistic(priceData: priceDict) {
+                        if let statistic = FBItemStatistic(priceData: priceDict) {
                             itemStatistic.append(statistic)
                         }
                         
@@ -134,10 +134,10 @@ class FirebaseService {
     
     
     
-    func syncUoms(completion: @escaping (ResultType<[UomModel], FirebaseError>)->()) {
+    func syncUoms(completion: @escaping (ResultType<[UomModelView], FirebaseError>)->()) {
         self.REF_UOMS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                var uoms = [UomModel]()
+                var uoms = [UomModelView]()
                 for snapUom in snapUoms {
                     let itemUom = self.uomMapper(from: snapUom)
                     uoms.append(itemUom)
@@ -150,14 +150,14 @@ class FirebaseService {
     }
     
     
-    func uomMapper(from snapUom: DataSnapshot) -> UomModel {
+    func uomMapper(from snapUom: DataSnapshot) -> UomModelView {
         guard let id = Int32(snapUom.key),
             let uomDict = snapUom.value as? Dictionary<String,Any>,
             let uomName = uomDict["name"] as? String else {
             fatalError("Category os not parsed")
         }
         
-        return UomModel(id: id, name: uomName)
+        return UomModelView(id: id, name: uomName)
         
     }
     
@@ -173,7 +173,7 @@ class FirebaseService {
         REF_GOODS.child(item.id).setValue(good)
     }
     
-    func save(new statistic: ItemStatistic) {
+    func save(new statistic: FBItemStatistic) {
         let priceStat = [
             "date": statistic.date.getString(format: "dd.MM.yyyy hh:mm:ss"),
             "product_id": statistic.productId,

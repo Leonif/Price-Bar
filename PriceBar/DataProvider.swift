@@ -36,8 +36,8 @@ enum DataProviderError: Error {
 class DataProvider {
 
     var sections = [String]()
-    var shoplist: [ShoplistItemModel] = []
-    var products: [ProductModel] = []
+    var shoplist: [DPShoplistItemModel] = []
+    var products: [DPProductModel] = []
     
     var total: Double {
         var sum = 0.0
@@ -160,7 +160,7 @@ class DataProvider {
 //        return nil
 //    }
     
-    func save(new statistic: PriceStatisticModel) {
+    func save(new statistic: DPPriceStatisticModel) {
         
         let cd = CDStatisticModel(productId: statistic.productId,
                                   price: statistic.price,
@@ -168,13 +168,13 @@ class DataProvider {
         
         CoreDataService.data.save(new: cd)
         
-        let fb = ItemStatistic(productId: statistic.productId,
+        let fb = FBItemStatistic(productId: statistic.productId,
                                price: statistic.price,
                                outletId: statistic.outletId)
         FirebaseService.data.save(new: fb)
     }
     
-    func update(_ product: UpdateProductModel)  {
+    func update(_ product: DPUpdateProductModel)  {
         let pr = CDProductModel(id: product.id,
                               name: product.name,
                               categoryId: product.categoryId,
@@ -192,7 +192,7 @@ class DataProvider {
         
     }
     
-    func saveToShopList(new item: ShoplistItemModel) -> ResultType<Bool, DataProviderError> {
+    func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, DataProviderError> {
         
         if let _ = shoplist.index(of:item) {
             print("\(item.productName) already in shoplist")
@@ -208,11 +208,11 @@ class DataProvider {
     
     
     
-    func getShopItems(with pageOffset: Int, for outletId: String) -> [ProductModel]?  {
+    func getShopItems(with pageOffset: Int, for outletId: String) -> [DPProductModel]?  {
         return CoreDataService.data.getShortItemList(for: outletId, offset: pageOffset)
     }
     
-    func filterItemList(contains text: String, for outletId: String) -> [ProductModel]? {
+    func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {
         return CoreDataService.data.filterItemList(contains: text, for: outletId)
     }
    
@@ -224,7 +224,7 @@ class DataProvider {
         }
     }
     
-    func remove(item: ShoplistItemModel) {
+    func remove(item: DPShoplistItemModel) {
         guard let index = shoplist.index(of: item) else {
             fatalError("item doesnt exist")
         }
@@ -260,7 +260,7 @@ class DataProvider {
     
     
     
-    func change(_ changedItem: ShoplistItemModel) -> Bool {
+    func change(_ changedItem: DPShoplistItemModel) -> Bool {
         if let index = shoplist.index(of: changedItem) {
             shoplist[index] = changedItem
             return true
@@ -279,13 +279,11 @@ class DataProvider {
     
     
     
-    func getItem(index: IndexPath) -> ShoplistItemModel? {
-        
+    func getItem(index: IndexPath) -> DPShoplistItemModel? {
         let sec = index.section
         let indexInSec = index.row
         
-        var productListInsection:[ShoplistItemModel] = []
-        
+        var productListInsection:[DPShoplistItemModel] = []
         for shopiItem in shoplist {
             if shopiItem.productCategory == sections[sec] {
                 productListInsection.append(shopiItem)
@@ -298,17 +296,52 @@ class DataProvider {
         return productListInsection[indexInSec]
     }
     
-    func getItem(with barcode: String, and outletId: String) -> ProductModel? {
-        return CoreDataService.data.getItem(by: barcode, and: outletId)
-    }
-    
-    func getCategoryList() -> [CategoryModel]? {
-        return CoreDataService.data.getCategories()
-    }
-    
-    func getUomList() -> [UomModel]? {
+    func getItem(with barcode: String, and outletId: String) -> DPProductModel? {
         
-        var uomList: [UomModel] = []
+        guard let cdModel = CoreDataService.data.getItem(by: barcode, and: outletId) else {
+            fatalError("Product is not found in CoreData")
+        }
+        
+        guard let uom = CoreDataService.data.getUom(by: cdModel.uomId) else {
+            fatalError("Uom is not found in CoreData")
+        }
+        
+        let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
+        
+        return DPProductModel(id: cdModel.id,
+                              name: cdModel.name,
+                              categoryId: cdModel.categoryId,
+                              uomId: cdModel.uomId,
+                              isPerPiece: isPerPiece)
+        
+        
+    }
+    
+    func getCategoryList() -> [DPCategoryModel]? {
+        
+        guard let cdModelList = CoreDataService.data.getCategories() else {
+            fatalError("category list is empty")
+        }
+        var dpModelList: [DPCategoryModel] = []
+        
+        for category in cdModelList {
+            dpModelList.append(mapper(from: category))
+        }
+        
+        return dpModelList
+    }
+    
+    
+    func mapper(from cdModel: CDCategoryModel) -> DPCategoryModel {
+        
+        return DPCategoryModel(id: cdModel.id, name: cdModel.name)
+        
+    }
+    
+    
+    func getUomList() -> [UomModelView]? {
+        
+        var uomList: [UomModelView] = []
         
         guard let uoms = CoreDataService.data.getUomList() else {
             return nil
@@ -319,7 +352,7 @@ class DataProvider {
                 fatalError("uomName error")
             }
             
-            uomList.append(UomModel(id: uom.id, name:  uomName))
+            uomList.append(UomModelView(id: uom.id, name:  uomName))
         }
         return uomList
     }
@@ -346,7 +379,7 @@ class DataProvider {
         }
     }
     
-    private func addSection(for item: ShoplistItemModel) {
+    private func addSection(for item: DPShoplistItemModel) {
         if !sections.contains(item.productCategory) {
             sections.append(item.productCategory)
         }

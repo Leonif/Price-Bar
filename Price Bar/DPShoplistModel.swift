@@ -1,5 +1,5 @@
 //
-//  ShoplistModel.swift
+//  DPShoplistItemModel.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 1/20/18.
@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct ShoplistItemModel: Equatable {
+struct DPShoplistItemModel: Equatable {
     var productId: String
     var productName: String
     var categoryId: Int32
@@ -23,6 +23,6 @@ struct ShoplistItemModel: Equatable {
 }
 
 
-func ==(lhs: ShoplistItemModel, rhs: ShoplistItemModel) -> Bool {
-    return lhs.productId == rhs.productId && lhs.productCategory == rhs.productCategory
+func ==(lhs: DPShoplistItemModel, rhs: DPShoplistItemModel) -> Bool {
+    return lhs.productId == rhs.productId// && lhs.productCategory == rhs.productCategory
 }

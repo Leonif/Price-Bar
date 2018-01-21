@@ -116,7 +116,7 @@ extension ShopListController: ShopItemCellDelegate {
         self.present(pickerVC, animated: true, completion: nil)
         
     }
-    func checkPressed(for item: ShoplistItemModel) {
+    func checkPressed(for item: DPShoplistItemModel) {
         _ = dataProvider.change(item)
     }
 }
@@ -171,7 +171,7 @@ extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showEditItem,
             let itemCardVC = segue.destination as? ItemCardVC  {
-            if let item = sender as? ShoplistItemModel {
+            if let item = sender as? DPShoplistItemModel {
                 itemCardVC.item = item
                 itemCardVC.delegate = self
                 itemCardVC.dataProvider = dataProvider

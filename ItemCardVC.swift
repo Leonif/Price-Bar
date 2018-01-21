@@ -19,8 +19,8 @@ class ItemCardVC: UIViewController {
         case uom
     }
     
-    var categories:[CategoryModel] = []
-    var uoms: [UomModel] = []
+    var categories:[CategoryModelView] = []
+    var uoms: [UomModelView] = []
     var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
@@ -28,7 +28,7 @@ class ItemCardVC: UIViewController {
     
     
     @IBOutlet weak var commonPickerView: UIPickerView!
-    var item: ShoplistItemModel!
+    var item: DPShoplistItemModel!
     var productCard: ProductCardModelView!
     
     @IBOutlet weak var itemTitle: UITextField!
@@ -50,10 +50,13 @@ class ItemCardVC: UIViewController {
         itemPrice.delegate = self
         
         //load categories
-        guard let categories = dataProvider.getCategoryList() else {
+        guard let dpCategoryList = dataProvider.getCategoryList() else {
             fatalError("Category list is empty")
         }
-        self.categories = categories
+        
+        for category in dpCategoryList {
+            self.categories.append(mapper(from: category))
+        }
         
         guard let uoms = dataProvider.getUomList() else {
             fatalError("Catgory list is empty")
@@ -61,20 +64,21 @@ class ItemCardVC: UIViewController {
         self.uoms = uoms
     }
     
+    func mapper(from dpCategory: DPCategoryModel) -> CategoryModelView {
+        return CategoryModelView(id: dpCategory.id, name: dpCategory.name)
+    }
+    
     
     func cardOpenHandler() {
         self.productCard = mapper(from: item)
-        
         itemTitle.text = productCard.productName
         itemPrice.text = "\(productCard.productPrice)"
-        
         categoryButton.setTitle(productCard.categoryName, for: .normal)
         uomButton.setTitle(productCard.uomName, for: .normal)
     }
     
     
-    func mapper(from item: ShoplistItemModel) -> ProductCardModelView {
-        
+    func mapper(from item: DPShoplistItemModel) -> ProductCardModelView {
         return ProductCardModelView(productId: item.productId,
                                     productName: item.productName,
                                     categoryId: item.categoryId,
@@ -139,17 +143,17 @@ class ItemCardVC: UIViewController {
         productCard.productName = name
         productCard.productPrice = price
        
-        let model = UpdateProductModel(id: productCard.productId,
+        let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
                                        name: productCard.productName,
                                        categoryId: productCard.categoryId,
                                        uomId: productCard.uomId)
-        dataProvider.update(model)
+        dataProvider.update(dpProductCardModel)
         
         
-        let stat = PriceStatisticModel(outletId: outletId,
+        let dpStatModel = DPPriceStatisticModel(outletId: outletId,
                                        productId: productCard.productId,
                                        price: productCard.productPrice)
-        dataProvider.save(new: stat)
+        dataProvider.save(new: dpStatModel)
         
         delegate.updated(status: true)
         self.dismiss(animated: true, completion: nil)

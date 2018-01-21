@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ShopItemCellDelegate {
-    func checkPressed(for item: ShoplistItemModel)
+    func checkPressed(for item: DPShoplistItemModel)
     func weightDemanded(cell: ShopItemCell, currentValue: Double)
 }
 
@@ -18,7 +18,7 @@ protocol ShopItemCellDelegate {
 
 class ShopItemCell: UITableViewCell {
     
-    var item: ShoplistItemModel?
+    var item: DPShoplistItemModel?
     
     @IBOutlet weak var nameItem: UILabel!
     @IBOutlet weak var priceItem: UILabel!
@@ -81,7 +81,7 @@ extension ShopItemCell {
     }
     
     
-    func configureCell(item: ShoplistItemModel) {
+    func configureCell(item: DPShoplistItemModel) {
         
         self.item = item
         self.checkedState()

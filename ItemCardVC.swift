@@ -10,6 +10,7 @@ import UIKit
 
 protocol ItemCardVCDelegate {
     func updated(status: Bool)
+    func add(new productId: String)
 }
 
 
@@ -18,6 +19,13 @@ class ItemCardVC: UIViewController {
         case category
         case uom
     }
+    
+    enum CardState {
+        case createMode
+        case editMode
+    }
+    
+    var state: CardState!
     
     var categories:[CategoryModelView] = []
     var uoms: [UomModelView] = []
@@ -72,12 +80,14 @@ class ItemCardVC: UIViewController {
     
     private func cardOpenHandler() {
         if let item = item {
+            state = CardState.editMode
             self.productCard = mapper(from: item)
             updateUI(for: productCard)
             
         }
         
         if let barcode = self.barcode {
+            state = CardState.createMode
             print("New product")
             self.productCard = mapper(from: barcode)
             updateUI(for: productCard)
@@ -171,8 +181,11 @@ class ItemCardVC: UIViewController {
     @IBAction func savePressed(_ sender: Any) {
 
         guard
-            let name = itemTitle.text, !name.isEmpty,
-            let priceStr = itemPrice.text, let price = priceStr.double
+            let name = itemTitle.text,
+            !name.isEmpty,
+            let priceStr = itemPrice.text,
+            let price = priceStr.double,
+            price != 0.0
             else {
                 alert(title: "Ops", message: "Нельзя такое сохранять !!!")
                 return
@@ -186,15 +199,20 @@ class ItemCardVC: UIViewController {
                                        name: productCard.productName,
                                        categoryId: productCard.categoryId,
                                        uomId: productCard.uomId)
-        dataProvider.update(dpProductCardModel)
-        
         
         let dpStatModel = DPPriceStatisticModel(outletId: outletId,
-                                       productId: productCard.productId,
-                                       price: productCard.productPrice)
+                                                productId: productCard.productId,
+                                                price: productCard.productPrice)
+        
+        if state == CardState.editMode {
+            dataProvider.update(dpProductCardModel)
+            delegate.updated(status: true)
+        } else {
+            dataProvider.save(new: dpProductCardModel)
+        }
+        
         dataProvider.save(new: dpStatModel)
         
-        delegate.updated(status: true)
         self.dismiss(animated: true, completion: nil)
     }
    

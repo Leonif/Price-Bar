@@ -15,6 +15,8 @@ class ShopListController: UIViewController {
     fileprivate let showItemList = "showItemList"
     fileprivate let showOutlets = "showOutlets"
     fileprivate let showEditItem = "showEditItem"
+    
+    var barcode: String?
 
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
@@ -70,7 +72,20 @@ class ShopListController: UIViewController {
 //        }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if barcode != nil {
+            self.performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
+            barcode = nil
+            
+        }
+        
+        
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         shopTableView.reloadData()
     }
     

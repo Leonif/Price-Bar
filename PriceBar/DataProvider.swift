@@ -57,7 +57,7 @@ class DataProvider {
     
     var defaultUom: DPUomModel? {
         
-        guard let cd = CoreDataService.data.defaultCategory else {
+        guard let cd = CoreDataService.data.defaultUom else {
             return nil
         }
 
@@ -192,6 +192,22 @@ class DataProvider {
         FirebaseService.data.save(new: fb)
     }
     
+    func save(new product: DPUpdateProductModel) {
+        let pr = CDProductModel(id: product.id,
+                                name: product.name,
+                                categoryId: product.categoryId,
+                                uomId: product.uomId)
+        
+        CoreDataService.data.save(pr)
+        
+        let fb = FBProductModel(id: product.id,
+                                name: product.name,
+                                categoryId: product.categoryId,
+                                uomId: product.uomId)
+        FirebaseService.data.saveOrUpdate(fb)
+    }
+    
+    
     func update(_ product: DPUpdateProductModel)  {
         let pr = CDProductModel(id: product.id,
                               name: product.name,
@@ -205,9 +221,7 @@ class DataProvider {
                                 name: product.name,
                                 categoryId: product.categoryId,
                                 uomId: product.uomId)
-        
         FirebaseService.data.saveOrUpdate(fb)
-        
     }
     
     func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, DataProviderError> {

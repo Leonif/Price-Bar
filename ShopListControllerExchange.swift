@@ -13,11 +13,9 @@ extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
         print(barcode)
         if let product: DPProductModel = dataProvider.getItem(with: barcode, and: userOutlet.id) {
-            
             addItemToShopList(product)
-            
         } else {
-            self.performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
+            self.barcode = barcode
         }
         
     }
@@ -72,6 +70,11 @@ extension ShopListController: OutletVCDelegate {
 }
 
 extension ShopListController: ItemCardVCDelegate {
+    func add(new productId: String) {
+        
+        print(productId)
+    }
+    
     func updated(status: Bool) {
         guard status == true else {
             return

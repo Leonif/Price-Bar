@@ -206,14 +206,17 @@ class ItemCardVC: UIViewController {
         
         if state == CardState.editMode {
             dataProvider.update(dpProductCardModel)
+            dataProvider.save(new: dpStatModel)
             delegate.updated(status: true)
         } else {
             dataProvider.save(new: dpProductCardModel)
+            dataProvider.save(new: dpStatModel)
+            delegate.add(new: productCard.productId)
         }
         
-        dataProvider.save(new: dpStatModel)
-        
         self.dismiss(animated: true, completion: nil)
+        
+        
     }
    
 

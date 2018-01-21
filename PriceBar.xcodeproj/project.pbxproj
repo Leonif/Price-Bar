@@ -261,9 +261,9 @@
 			isa = PBXGroup;
 			children = (
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
+				7904B4571F03728E002032CD /* ShopListControllerExchange.swift */,
 				7933686A1FFFBBCA00E8E81A /* QuantityPickerPopup.swift */,
 				793368681FFF6F5600E8E81A /* ShopListDataSource.swift */,
-				7904B4571F03728E002032CD /* ShopListControllerExchange.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";

@@ -71,8 +71,12 @@ extension ShopListController: OutletVCDelegate {
 
 extension ShopListController: ItemCardVCDelegate {
     func add(new productId: String) {
-        
         print(productId)
+        
+        guard let product: DPProductModel = dataProvider.getItem(with: productId, and: userOutlet.id) else {
+            fatalError("product is not found")
+        }
+        addItemToShopList(product)
     }
     
     func updated(status: Bool) {
@@ -81,5 +85,6 @@ extension ShopListController: ItemCardVCDelegate {
         }
         dataProvider.loadShopList(for: userOutlet.id)
         totalLabel.update(value: dataProvider.total)
+        shopTableView.reloadData()
     }
 }

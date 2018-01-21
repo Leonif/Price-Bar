@@ -22,6 +22,7 @@ protocol NearestOutletDelegate {
 
 enum OutletServiceError: Error {
     case outletNotFound(String)
+    case userDeniedLocation(String)
     case foursqareDoesntResponce(String)
     case wrongURL(String)
     case parseError(String)
@@ -31,6 +32,7 @@ enum OutletServiceError: Error {
     var errorDescription: String {
         switch self {
         case let .outletNotFound(description),
+             let .userDeniedLocation(description),
              let .foursqareDoesntResponce(description),
              let .wrongURL(description),
              let .parseError(description),
@@ -48,12 +50,12 @@ class OutletService: NSObject {
     var resultCompletion: ((ResultType<Outlet, OutletServiceError>) -> Void)?
     
     
-    func startLookingForNearestOutlet(nearestOutletDelegate: NearestOutletDelegate) {
-        self.nearestOutletDelegate = nearestOutletDelegate
-        locationService = LocationService(input: self)
-        let result = locationService?.startReceivingLocationChanges()
-        print(result)
-    }
+//    func startLookingForNearestOutlet(nearestOutletDelegate: NearestOutletDelegate) {
+//        self.nearestOutletDelegate = nearestOutletDelegate
+//        locationService = LocationService(input: self)
+//        let result = locationService?.startReceivingLocationChanges()
+//        print(result)
+//    }
     
     func nearestOutlet(completion: @escaping (ResultType<Outlet, OutletServiceError>)->())  {
         resultCompletion = completion
@@ -130,8 +132,13 @@ class OutletService: NSObject {
 extension OutletService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         print(status)
-        if status == .authorizedWhenInUse {
+        switch status {
+        case .authorizedWhenInUse:
             _ = locationService?.startReceivingLocationChanges()
+        case .denied:
+            self.resultCompletion?(ResultType.failure(.outletNotFound("Мы не можем найти магазины возле вас. Вы запретили следить за вашей позицией. Включите в настройках, чтобы использовать программу 😢")))
+        default:
+            print(status)
         }
     }
     
@@ -151,8 +158,8 @@ extension OutletService: CLLocationManagerDelegate {
                     self.resultCompletion?(ResultType.success(outlet))
                     self.outletListDelegate?.list(result: ResultType.success(outlets))
                 } else {
-                    self.nearestOutletDelegate?
-                        .nearest(result: ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
+//                    self.nearestOutletDelegate?
+//                        .nearest(result: ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
                     self.resultCompletion?(ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
                 }
                 

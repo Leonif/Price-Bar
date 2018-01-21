@@ -94,17 +94,16 @@ class FirebaseService {
             fatalError("Product is not parsed")
         }
         
+        var catId = goodDict["category_id"] as? Int32
+        catId = catId == nil ? 1 : catId
         
-            
-        guard let catId = goodDict["category_id"] as? Int32 else {
-            fatalError("Product is not parsed")
-        }
-            
-        guard let uomId = goodDict["uom_id"] as? Int32  else {
-            fatalError("Product is not parsed")
-        }
+        var uomId = goodDict["uom_id"] as? Int32
+        uomId = uomId == nil ? 1 : uomId
         
-        return FBProductModel(id: id, name: name, categoryId: catId, uomId: uomId)
+        return FBProductModel(id: id,
+                              name: name,
+                              categoryId: catId!,
+                              uomId: uomId!)
         
         
 

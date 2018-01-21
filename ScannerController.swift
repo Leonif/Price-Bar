@@ -132,8 +132,12 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
                 captureSession?.stopRunning()
                 messageLabel.text = code
                 //delegate.objectExchange(object: code ?? "")
-                self.dismiss(animated: true, completion: nil)
-                delegate.scanned(barcode: code ?? "")
+                self.dismiss(animated: true, completion: {
+                    
+                    self.delegate.scanned(barcode: code ?? "")
+                    
+                })
+                
                 
                 
             }

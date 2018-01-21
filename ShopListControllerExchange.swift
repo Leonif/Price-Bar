@@ -15,7 +15,8 @@ extension ShopListController: ScannerDelegate {
         if let product: DPProductModel = dataProvider.getItem(with: barcode, and: userOutlet.id) {
             addItemToShopList(product)
         } else {
-            self.barcode = barcode
+            //self.barcode = barcode
+            self.performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
         }
         
     }

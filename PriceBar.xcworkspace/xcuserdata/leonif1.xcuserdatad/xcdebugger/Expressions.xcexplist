@@ -28,6 +28,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CoreDataService.save(new:):CoreDataService.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in DataProvider.syncCloud(completion:):DataProvider.swift">
          <PersistentStrings>
             <PersistentString
@@ -36,7 +39,12 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CoreDataService.save(new:):CoreDataService.swift">
+         contextName = "FirebaseService.parser(for:):FirebaseService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "goodDict[&quot;category_id&quot;]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
@@ -60,6 +68,9 @@
       </ContextState>
       <ContextState
          contextName = "ShopListController.itemChoosen(productId:):ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListDataSource.tableView(_:cellForRowAt:):ShopListDataSource.swift">
       </ContextState>
       <ContextState
          contextName = "CoreDataService.getCategoriesFromCoreData() -&gt; [ItemCategory]:CoreDataService.swift">
@@ -155,13 +166,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
-               value = "shopList">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -227,10 +238,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -302,10 +313,18 @@
          contextName = "closure #1 in FirebaseService.syncProducts(completion:):FirebaseService.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListController.tableView(_:cellForRowAt:):ShopListController.swift">
+         contextName = "CoreDataService.(loadShopList(outletId : String) -&gt; ShopListModel?).(closure #1):CoreDataService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "$0.toProduct">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ShopListController.handle(for : String) -&gt; ():ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.tableView(_:cellForRowAt:):ShopListController.swift">
       </ContextState>
       <ContextState
          contextName = "ItemListVC.itemSearchFieldChanged(UITextField) -&gt; ():ItemListVC.swift">
@@ -320,14 +339,6 @@
          <PersistentStrings>
             <PersistentString
                value = "sections.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.(loadShopList(outletId : String) -&gt; ShopListModel?).(closure #1):CoreDataService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "$0.toProduct">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -44,16 +44,20 @@ class ShopListController: UIViewController {
                                         cellDelegate: self,
                                         dataProvider: dataProvider)
         shopTableView.dataSource = dataSource
-        // sync from cloud
-//        self.view.pb_startActivityIndicator(with: "Синхронизация")
-//        dataProvider.syncCloud { result in
-//            self.view.pb_stopActivityIndicator()
-//            switch result {
-//            case let .failure(error):
-//                self.alert(title: "Ops", message: error.localizedDescription)
-//            case .success:
-//                //get outlet
-                let outletService = OutletService()
+        // sync from cloud ==============
+        self.view.pb_startActivityIndicator(with: "Синхронизация")
+        dataProvider.syncCloud { result in
+            self.view.pb_stopActivityIndicator()
+            switch result {
+            case let .failure(error):
+                self.alert(title: "Ops", message: error.localizedDescription)
+            case .success:
+//        ============================
+        
+                //get outlet
+
+        
+        let outletService = OutletService()
                 outletService.nearestOutlet { result in
                     print(result)
                     var activateControls = false
@@ -68,20 +72,11 @@ class ShopListController: UIViewController {
                     }
                     self.buttonEnable(activateControls)
                 }
-//            }
-//        }
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+
         
-        if barcode != nil {
-            self.performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
-            barcode = nil
-            
+        //======================
+                    }
         }
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

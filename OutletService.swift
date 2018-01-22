@@ -123,9 +123,7 @@ class OutletService: NSObject {
                         }
                     }
                     outlets = outlets.sorted(by: { $0.distance < $1.distance })
-                    //DispatchQueue.main.async() {//go into UI
                     completed(ResultType.success(outlets))
-                    //}
                 } catch let error as NSError {
                     completed(ResultType.failure(.other(error.localizedDescription)))
                 }

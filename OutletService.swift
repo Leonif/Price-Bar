@@ -47,18 +47,11 @@ class OutletService: NSObject {
     var locationService: LocationService!
     var nearestOutletDelegate: NearestOutletDelegate?
     var outletListDelegate: OutletListDelegate?
-    var resultCompletion: ((ResultType<Outlet, OutletServiceError>) -> Void)?
-    
-    
-//    func startLookingForNearestOutlet(nearestOutletDelegate: NearestOutletDelegate) {
-//        self.nearestOutletDelegate = nearestOutletDelegate
-//        locationService = LocationService(input: self)
-//        let result = locationService?.startReceivingLocationChanges()
-//        print(result)
-//    }
+    var singleOutletCompletion: ((ResultType<Outlet, OutletServiceError>) -> Void)?
+    var outletListCompletion: ((ResultType<[Outlet], OutletServiceError>) -> Void)?
     
     func nearestOutlet(completion: @escaping (ResultType<Outlet, OutletServiceError>)->())  {
-        resultCompletion = completion
+        singleOutletCompletion = completion
         locationService = LocationService(input: self)
         let result = locationService.startReceivingLocationChanges()
         switch result {
@@ -69,6 +62,21 @@ class OutletService: NSObject {
             print("ok")
         }
     }
+    
+    
+    func outletList(completion: @escaping (ResultType<[Outlet], OutletServiceError>)->())  {
+        outletListCompletion = completion
+        locationService = LocationService(input: self)
+        let result = locationService.startReceivingLocationChanges()
+        switch result {
+        case let .failure(error):
+            print(error)
+        default:
+            print("ok")
+        }
+    }
+    
+    
     
     
     func startLookingForOutletList(outletListDelegate: OutletListDelegate) {
@@ -136,7 +144,7 @@ extension OutletService: CLLocationManagerDelegate {
         case .authorizedWhenInUse:
             _ = locationService?.startReceivingLocationChanges()
         case .denied:
-            self.resultCompletion?(ResultType.failure(.outletNotFound("Мы не можем найти магазины возле вас. Вы запретили следить за вашей позицией. Включите в настройках, чтобы использовать программу 😢")))
+            self.singleOutletCompletion?(ResultType.failure(.outletNotFound("Мы не можем найти магазины возле вас. Вы запретили следить за вашей позицией. Включите в настройках, чтобы использовать программу 😢")))
         default:
             print(status)
         }
@@ -153,20 +161,19 @@ extension OutletService: CLLocationManagerDelegate {
             self.locationService?.stopLocationUpdating()
             switch result {
             case let .success(outlets):
-                if let outlet = outlets.first {
-                    //self.nearestOutletDelegate?.nearest(result: ResultType.success(outlet))
-                    self.resultCompletion?(ResultType.success(outlet))
-                    self.outletListDelegate?.list(result: ResultType.success(outlets))
+                if let comletion = self.singleOutletCompletion {
+                    guard let outlet = outlets.first else {
+                        fatalError("Outlet is not found")
+                    }
+                    comletion(ResultType.success(outlet))
+                    
+                } else if let comletion = self.outletListCompletion {
+                    comletion(ResultType.success(outlets))
                 } else {
-//                    self.nearestOutletDelegate?
-//                        .nearest(result: ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
-                    self.resultCompletion?(ResultType.failure(.outletNotFound("Вокруг вас не найдены магазины 😢")))
+                    fatalError("Completion is not passed")
                 }
-                
             case let .failure(error):
-                //self.nearestOutletDelegate?.nearest(result: ResultType.failure(error))
-                self.resultCompletion?(ResultType.failure(error))
-                self.outletListDelegate?.list(result: ResultType.failure(error))
+                fatalError(error.errorDescription)
                 
             }
         })

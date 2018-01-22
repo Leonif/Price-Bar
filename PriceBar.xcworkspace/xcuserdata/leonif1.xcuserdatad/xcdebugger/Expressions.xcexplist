@@ -28,6 +28,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "FirebaseService.parser(for:):FirebaseService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "goodDict[&quot;category_id&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.save(new:):CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -35,14 +43,6 @@
          <PersistentStrings>
             <PersistentString
                value = "self.shoplist">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "FirebaseService.parser(for:):FirebaseService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "goodDict[&quot;category_id&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -166,13 +166,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -238,10 +238,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -364,6 +364,14 @@
             </PersistentString>
             <PersistentString
                value = "delegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "OutletService.locationManager(_:didUpdateLocations:):OutletService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "locations.last?.coordinate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

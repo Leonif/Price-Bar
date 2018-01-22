@@ -156,7 +156,6 @@ extension OutletService: CLLocationManagerDelegate {
         guard let  userCoord = locations.last?.coordinate else {
             fatalError("Coorddinate is not gotton")
         }
-        
         self.loadOultets(userCoordinate: userCoord, completed: { result in
             self.locationService?.stopLocationUpdating()
             switch result {

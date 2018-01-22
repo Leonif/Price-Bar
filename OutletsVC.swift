@@ -14,8 +14,6 @@ protocol OutletVCDelegate {
     func choosen(outlet: Outlet)
 }
 
-
-
 class OutletsVC: UIViewController {
     
     var outletService: OutletService?
@@ -32,31 +30,24 @@ class OutletsVC: UIViewController {
         
         self.view.pb_startActivityIndicator(with: "Загрузка торговых точек")
         outletService = OutletService()
-        outletService?.startLookingForOutletList(outletListDelegate: self)
-        
-
+        outletService?.outletList(completion: { result in
+            self.view.pb_stopActivityIndicator()
+            switch result {
+            case let .success(outlets):
+                self.outlets = outlets
+                DispatchQueue.main.async {
+                    self.outletTableView.reloadData()
+                }
+                
+            case let .failure(error):
+                self.alert(title: "Ops", message: error.errorDescription)
+            }
+        })
     }
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
 }
-
-
-extension OutletsVC: OutletListDelegate {
-    func list(result: ResultType<[Outlet], OutletServiceError>) {
-        self.view.pb_stopActivityIndicator()
-        switch result {
-        case let .success(outlets):
-            self.outlets = outlets
-            self.outletTableView.reloadData()
-        case let .failure(error):
-            self.alert(title: "error", message: error.localizedDescription)
-        }
-    }
-}
-
 
 //MARK: Table
 extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
@@ -67,14 +58,10 @@ extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
         return outlets.count
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let outlet = outlets[indexPath.row]
-        //delegate.objectExchange(object: outlet)
         delegate.choosen(outlet: outlet)
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

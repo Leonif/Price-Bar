@@ -34,9 +34,11 @@ class LocationService {
     }
     
     func startReceivingLocationChanges() -> ResultType<Bool, LocationServiceError> {
+        
         let authorizationStatus = CLLocationManager.authorizationStatus()
-        if authorizationStatus != .authorizedWhenInUse && authorizationStatus != .authorizedAlways {
-            // User has not authorized access to location information.
+        
+        if authorizationStatus != .authorizedWhenInUse
+            && authorizationStatus != .authorizedAlways {
             locationManager.requestWhenInUseAuthorization()
             return ResultType.failure(.notAuthorizedAccess("User has not authorized access to location information."))
         }

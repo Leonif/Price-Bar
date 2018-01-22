@@ -77,8 +77,6 @@ class OutletService: NSObject {
     }
     
     
-    
-    
     func startLookingForOutletList(outletListDelegate: OutletListDelegate) {
         self.outletListDelegate = outletListDelegate
         locationService = LocationService(input: self)

@@ -37,7 +37,7 @@ class DataProvider {
 
     var sections = [String]()
     var shoplist: [DPShoplistItemModel] = []
-    var products: [DPProductModel] = []
+    //var products: [DPProductModel] = []
     
     var total: Double {
         var sum = 0.0

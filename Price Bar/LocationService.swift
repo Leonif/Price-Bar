@@ -24,36 +24,27 @@ enum LocationServiceError: Error {
     }
 }
 
-class LocationService {
+class LocationService: NSObject {
     let locationManager = CLLocationManager()
-    var input: CLLocationManagerDelegate?
+    var coordinatesResult: ((ResultType<CLLocationCoordinate2D, LocationServiceError>) -> Void)?
     
-    init(input: CLLocationManagerDelegate) {
-        self.input = input
-        locationManager.delegate = self.input
+    var coordsObtained = false
+    
+    override init() {
+        super.init()
+        locationManager.delegate = self
     }
     
-    func startReceivingLocationChanges() -> ResultType<Bool, LocationServiceError> {
-        
-        let authorizationStatus = CLLocationManager.authorizationStatus()
-        
-        if authorizationStatus != .authorizedWhenInUse
-            && authorizationStatus != .authorizedAlways {
-            locationManager.requestWhenInUseAuthorization()
-            return ResultType.failure(.notAuthorizedAccess("User has not authorized access to location information."))
-        }
-        // Do not start services that aren't available.
+    func startReceivingLocationChanges(){
         if !CLLocationManager.locationServicesEnabled() {
-            // Location services is not available.
-            return ResultType.failure(.servicesIsNotAvailable("Location services is not available."))
+            self.coordinatesResult?(ResultType.failure(.servicesIsNotAvailable("Location services is not available.")))
         }
+
         // Configure and start the service.
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 100.0  // In meters.
-        //locationManager.delegate = input
         locationManager.startUpdatingLocation()
-        
-        return ResultType.success(true)
+
     }
     
     func stopLocationUpdating() {
@@ -61,4 +52,50 @@ class LocationService {
     }
     
     
+    public func getCoords(completion: @escaping (ResultType<CLLocationCoordinate2D, LocationServiceError>)->()) {
+        self.coordinatesResult = completion
+        let status: CLAuthorizationStatus = getAuthStatus()
+        handle(status)
+    }
+    
+    private func getAuthStatus() -> CLAuthorizationStatus {
+        return CLLocationManager.authorizationStatus()
+    }
+    
+    private func handle(_ status: CLAuthorizationStatus) {
+        switch status {
+        case .authorizedWhenInUse:
+            startReceivingLocationChanges()
+        case .denied:
+            self.coordinatesResult?(ResultType.failure(.notAuthorizedAccess("Мы не можем найти магазины возле вас. Вы запретили следить за вашей позицией. Включите в настройках, чтобы использовать программу 😢")))
+        default:
+            print(status)
+            locationManager.requestWhenInUseAuthorization()
+        }
+    }
+    
 }
+
+
+extension LocationService: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        handle(status)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        guard !coordsObtained else {
+            return
+        }
+        guard let  userCoord = locations.last?.coordinate else {
+            fatalError("Coorddinate is not gotton")
+        }
+        
+        coordsObtained = true
+        stopLocationUpdating()
+        coordinatesResult?(ResultType.success(userCoord))
+        
+        
+    }
+}
+

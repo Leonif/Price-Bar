@@ -1,16 +1,19 @@
 //
-//  Outlet.swift
+//  FQOutletModel.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 1/4/18.
+//  Created by Leonid Nifantyev on 1/22/18.
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 
 import Foundation
 
-struct Outlet {
+struct FQOutletModel {
+    
     var id: String
     var name: String
     var address: String
     var distance: Double
+    
+    
 }

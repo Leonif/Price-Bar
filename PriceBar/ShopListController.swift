@@ -72,7 +72,7 @@ class ShopListController: UIViewController {
             switch result {
             case let .success(outlet):
                 print(outlet)
-                self.userOutlet = outlet
+                self.userOutlet = OutletFactory.mapper(from: outlet)
                 activateControls = true
                 
                 DispatchQueue.main.async {

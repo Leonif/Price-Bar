@@ -44,8 +44,6 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         dataSource = ShopListDataSource(delegate: self,
                                         cellDelegate: self,
                                         dataProvider: dataProvider)
@@ -74,12 +72,9 @@ class ShopListController: UIViewController {
                 print(outlet)
                 self.userOutlet = OutletFactory.mapper(from: outlet)
                 activateControls = true
-                
                 DispatchQueue.main.async {
                     self.shopTableView.reloadData()
                 }
-                
-                
             case let .failure(error):
                 self.alert(title: "Ops", message: error.errorDescription)
             }

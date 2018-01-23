@@ -89,9 +89,6 @@ class OutletService: NSObject {
                     case let .success(fqoutlets):
                         self.outletListCompletion?(ResultType.success(OutletFactory.transform(from: fqoutlets)))
                     case let .failure(error):
-                        
-                        // need to hadle different cases of error from provider
-                        
                         self.outletListCompletion?(ResultType.failure(.other(error.errorDescription)))
                     }
                 })
@@ -99,13 +96,10 @@ class OutletService: NSObject {
         }
     }
     
-    
-    
     private func outletListFromProvider(for coords: CLLocationCoordinate2D,
                                         completion: @escaping (ResultType<[FQOutletModel], FoursqareProviderError>)->Void) {
         let foursquareProvider = FoursqareProvider()
         foursquareProvider.loadOultets(userCoordinate: coords, completed: { result in
-            self.locationService?.stopLocationUpdating()
             switch result {
             case let .success(outlets):
                 completion(ResultType.success(outlets))

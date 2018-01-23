@@ -28,29 +28,24 @@ class LocationService: NSObject {
     let locationManager = CLLocationManager()
     var coordinatesResult: ((ResultType<CLLocationCoordinate2D, LocationServiceError>) -> Void)?
     
-    var coordsObtained = false
-    
     override init() {
         super.init()
         locationManager.delegate = self
     }
     
-    func startReceivingLocationChanges(){
+    private func startReceivingLocationChanges(){
         if !CLLocationManager.locationServicesEnabled() {
             self.coordinatesResult?(ResultType.failure(.servicesIsNotAvailable("Location services is not available.")))
         }
-
         // Configure and start the service.
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 100.0  // In meters.
         locationManager.startUpdatingLocation()
-
     }
     
-    func stopLocationUpdating() {
+    private func stopLocationUpdating() {
         locationManager.stopUpdatingLocation()
     }
-    
     
     public func getCoords(completion: @escaping (ResultType<CLLocationCoordinate2D, LocationServiceError>)->()) {
         self.coordinatesResult = completion
@@ -73,7 +68,6 @@ class LocationService: NSObject {
             locationManager.requestWhenInUseAuthorization()
         }
     }
-    
 }
 
 
@@ -83,19 +77,12 @@ extension LocationService: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
-        guard !coordsObtained else {
-            return
-        }
-        guard let  userCoord = locations.last?.coordinate else {
-            fatalError("Coorddinate is not gotton")
-        }
-        
-        coordsObtained = true
         stopLocationUpdating()
-        coordinatesResult?(ResultType.success(userCoord))
-        
-        
+        if let  userCoord = locations.last?.coordinate {
+            coordinatesResult?(ResultType.success(userCoord))
+        } else {
+            self.coordinatesResult?(ResultType.failure(.servicesIsNotAvailable("Coorddinate is not gotton")))
+        }
     }
 }
 

@@ -34,7 +34,7 @@ class OutletsVC: UIViewController {
             self.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlets):
-                self.outlets = self.transform(from: outlets)
+                self.outlets = OutletFactory.transform(from: outlets)
                 DispatchQueue.main.async {
                     self.outletTableView.reloadData()
                 }
@@ -44,25 +44,6 @@ class OutletsVC: UIViewController {
             }
         })
     }
-    
-    func transform(from fqOutlets: [OPOutletModel]) -> [Outlet] {
-        var opModel: [Outlet] = []
-        
-        for out in fqOutlets {
-            opModel.append(mapper(from: out))
-        }
-        
-        return opModel
-    }
-    
-    func mapper(from outlet: OPOutletModel) -> Outlet {
-        
-        return Outlet(id: outlet.id,
-                             name: outlet.name,
-                             address: outlet.address, distance: outlet.distance)
-        
-    }
-    
     
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)

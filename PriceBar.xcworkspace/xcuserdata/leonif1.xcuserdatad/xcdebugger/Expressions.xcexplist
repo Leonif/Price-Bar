@@ -166,13 +166,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -218,6 +218,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "LocationService.locationManager(_:didUpdateLocations:):LocationService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "coordsObtained">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "QuantityPickerPopup.viewDidLoad():QuantityPickerPopup.swift">
          <PersistentStrings>
             <PersistentString
@@ -238,10 +246,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -46,4 +46,14 @@ class OutletFactory {
                              address: outlet.address, distance: outlet.distance)
         
     }
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
 }

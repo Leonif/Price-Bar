@@ -58,6 +58,7 @@ class OutletService: NSObject {
             switch result {
             case let .failure(error):
                 print(error)
+                self.singleOutletCompletion?(ResultType.failure(.other(error.errorDescription)))
             case let .success(coords):
                 self.outletListFromProvider(for: coords, completion: { result in
                     switch result {

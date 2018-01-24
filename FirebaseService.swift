@@ -104,11 +104,6 @@ class FirebaseService {
                               name: name,
                               categoryId: catId!,
                               uomId: uomId!)
-        
-        
-
-        
-        
     }
     
     
@@ -133,10 +128,10 @@ class FirebaseService {
     
     
     
-    func syncUoms(completion: @escaping (ResultType<[UomModelView], FirebaseError>)->()) {
+    func syncUoms(completion: @escaping (ResultType<[FBUomModel], FirebaseError>)->()) {
         self.REF_UOMS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                var uoms = [UomModelView]()
+                var uoms = [FBUomModel]()
                 for snapUom in snapUoms {
                     let itemUom = self.uomMapper(from: snapUom)
                     uoms.append(itemUom)
@@ -149,14 +144,15 @@ class FirebaseService {
     }
     
     
-    func uomMapper(from snapUom: DataSnapshot) -> UomModelView {
+    func uomMapper(from snapUom: DataSnapshot) -> FBUomModel {
         guard let id = Int32(snapUom.key),
             let uomDict = snapUom.value as? Dictionary<String,Any>,
-            let uomName = uomDict["name"] as? String else {
+            let uomName = uomDict["name"] as? String,
+            let uomIterator = uomDict["iterator"] as? Double else {
             fatalError("Category os not parsed")
         }
         
-        return UomModelView(id: id, name: uomName)
+        return FBUomModel(id: id, name: uomName, iterator: uomIterator)
         
     }
     

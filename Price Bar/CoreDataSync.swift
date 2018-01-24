@@ -51,7 +51,8 @@ extension CoreDataService {
         FirebaseService.data.syncUoms { result in
             switch result {
             case let .success(uoms):
-                self.importNew(uoms)
+                let cdUoms = UomFactory.transform(from: uoms)
+                self.importNew(cdUoms)
                 completion(ResultType.success(true))
             case let .failure(error):
                 completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
@@ -59,7 +60,7 @@ extension CoreDataService {
         }
     }
     
-    public func importNew(_ uoms:[UomModelView])  {
+    public func importNew(_ uoms:[CDUomModel])  {
         removeAll(from: "Uom")
         uoms.forEach { uom in
             self.save(new: uom)

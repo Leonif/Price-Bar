@@ -55,12 +55,12 @@ class ShopListController: UIViewController {
             case let .failure(error):
                 self.alert(title: "Ops", message: error.localizedDescription)
             case .success:
-                self.updateUI()
+                self.updateCurentOutlet()
             }
         }
     }
     
-    func updateUI() {
+    func updateCurentOutlet() {
         let outletService = OutletService()
         outletService.nearestOutlet { result in
             print(result)

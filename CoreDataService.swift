@@ -40,7 +40,10 @@ class CoreDataService {
             let uomName = uom.uom else {
                 return nil
         }
-        return CDUomModel(id: uom.id, name: uomName)
+        
+        let uomUterator = uom.iterator
+        
+        return CDUomModel(id: uom.id, name: uomName, iterator: uomUterator)
     }
     
     
@@ -349,11 +352,12 @@ extension CoreDataService {
         ad.saveContext()
     }
     
-    func save(new uom: UomModelView) {
+    func save(new uom: CDUomModel) {
         
-            let u = Uom(context: context)
-            u.id = uom.id
-            u.uom = uom.name
+        let u = Uom(context: context)
+        u.id = uom.id
+        u.uom = uom.name
+        u.iterator = uom.iterator
         
         ad.saveContext()
     }

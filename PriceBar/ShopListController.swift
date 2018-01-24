@@ -48,7 +48,6 @@ class ShopListController: UIViewController {
                                         cellDelegate: self,
                                         dataProvider: dataProvider)
         shopTableView.dataSource = dataSource
-        // sync from cloud ==============
         self.view.pb_startActivityIndicator(with: "Синхронизация")
         dataProvider.syncCloud { result in
             self.view.pb_stopActivityIndicator()

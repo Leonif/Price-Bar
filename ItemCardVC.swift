@@ -46,7 +46,7 @@ class ItemCardVC: UIViewController {
     @IBOutlet weak var categoryButton: UIButton!
     @IBOutlet weak var uomButton: UIButton!
     
-    var delegate: ItemCardVCDelegate!
+    weak var delegate: ItemCardVCDelegate!
 
     override func viewDidLoad() {
         super.viewDidLoad()

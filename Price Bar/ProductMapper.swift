@@ -42,5 +42,50 @@ class ProductMapper {
     
     }
     
+    class func mapper(from newBarcode: String) -> ProductCardModelView {
+        
+        let dataProvider = DataProvider()
+        
+        guard let category = dataProvider.defaultCategory else {
+            fatalError("default category is not found")
+        }
+        guard let uom = dataProvider.defaultUom else {
+            fatalError("default uom is not found")
+        }
+        
+        
+        return ProductCardModelView(productId: newBarcode,
+                                    productName: "",
+                                    categoryId: category.id,
+                                    categoryName: category.name,
+                                    productPrice: 0.0,
+                                    uomId: uom.id,
+                                    uomName: uom.name)
+    }
+    
+    class func mapper(for newItemName: String) -> ProductCardModelView {
+        
+        let dataProvider = DataProvider()
+        
+        guard let category = dataProvider.defaultCategory else {
+            fatalError("default category is not found")
+        }
+        guard let uom = dataProvider.defaultUom else {
+            fatalError("default uom is not found")
+        }
+        
+        
+        let newid = NSUUID().uuidString
+        
+        return ProductCardModelView(productId: newid,
+                                    productName: newItemName.capitalized,
+                                    categoryId: category.id,
+                                    categoryName: category.name,
+                                    productPrice: 0.0,
+                                    uomId: uom.id,
+                                    uomName: uom.name)
+    }
+    
+    
     
 }

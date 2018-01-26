@@ -71,11 +71,6 @@ class ItemCardVC: UIViewController {
         self.uoms = uoms
     }
     
-//    private func mapper(from dpCategory: DPCategoryModel) -> CategoryModelView {
-//        return CategoryModelView(id: dpCategory.id, name: dpCategory.name)
-//    }
-    
-    
     private func cardOpenHandler() {
         if let item = item {
             state = CardState.editMode
@@ -87,12 +82,19 @@ class ItemCardVC: UIViewController {
         if let barcode = self.barcode {
             state = CardState.createMode
             print("New product")
-            self.productCard = mapper(from: barcode)
+            self.productCard = ProductMapper.mapper(from: barcode)
             updateUI(for: productCard)
         }
         
+        if let searchText = self.searchedItemName {
+            state = CardState.createMode
+            print("New product")
+            self.productCard = ProductMapper.mapper(for: searchText)
+            updateUI(for: productCard)
+            
+            
+        }
     }
-    
     
     func updateUI(for productCard: ProductCardModelView) {
         itemTitle.text = productCard.productName
@@ -100,29 +102,6 @@ class ItemCardVC: UIViewController {
         categoryButton.setTitle(productCard.categoryName, for: .normal)
         uomButton.setTitle(productCard.uomName, for: .normal)
         
-    }
-    
-    
-    private func mapper(from newBarcode: String) -> ProductCardModelView {
-        
-        
-        
-        guard let category = dataProvider.defaultCategory else {
-            fatalError("default category is not found")
-        }
-        
-        guard let uom = dataProvider.defaultUom else {
-            fatalError("default uom is not found")
-        }
-        
-        
-        return ProductCardModelView(productId: newBarcode,
-                                              productName: "",
-                                              categoryId: category.id,
-                                              categoryName: category.name,
-                                              productPrice: 0.0,
-                                              uomId: uom.id,
-                                              uomName: uom.name)
     }
     
     private func mapper(from item: DPShoplistItemModel) -> ProductCardModelView {

@@ -28,7 +28,6 @@ class ItemListVC: UIViewController {
     var filtredItemList = [ItemListModel]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
-    //var itemCardDelegate: Exchange?
     var delegate: ItemListVCDelegate?
     
     var hide: Bool = false
@@ -107,6 +106,7 @@ class ItemListVC: UIViewController {
             itemCardVC.outletId = outletId
             if let searchedItem = sender as? String  {
                 itemCardVC.searchedItemName = searchedItem
+                itemCardVC.dataProvider = dataProvider
             }
         }
     }

@@ -50,6 +50,14 @@
          contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
       </ContextState>
       <ContextState
+         contextName = "ItemCardVC.savePressed(_:):ItemCardVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "productCard">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListDataSource.init(shopList:):ShopListDataSource.swift">
       </ContextState>
       <ContextState
@@ -166,13 +174,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -246,10 +254,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

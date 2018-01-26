@@ -101,23 +101,17 @@ class ShopListController: UIViewController {
         shopTableView.reloadData()
     }
     func buttonEnable(_ enable: Bool) {
+        let alpha: CGFloat = enable ? 1 : 0.5
         DispatchQueue.main.async {
-            let alpha: CGFloat = enable ? 1 : 0.5
-            [self.scanButton, self.itemListButton, self.outletNameButton]
-                .forEach {
+            [
+                self.scanButton,
+                self.itemListButton,
+                self.outletNameButton
+                ].forEach {
                     $0?.isUserInteractionEnabled = enable
                     $0?.alpha = alpha
             }
         }
-        
-        
-        
-//        self.scanButton.alpha = alpha
-//        self.scanButton.isUserInteractionEnabled = enable
-//        self.itemListButton.alpha = alpha
-//        self.itemListButton.isUserInteractionEnabled = enable
-//        self.outletNameButton.alpha = alpha
-//        self.outletNameButton.isUserInteractionEnabled = enable
     }
 }
 
@@ -220,6 +214,7 @@ extension ShopListController {
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil  {
             itemListVC.outletId = userOutlet.id
             itemListVC.delegate = self
+            itemListVC.itemCardDelegate = self
             itemListVC.dataProvider = dataProvider
             
         }

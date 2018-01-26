@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ItemCardVCDelegate {
+protocol ItemCardVCDelegate: class {
     func updated(status: Bool)
     func add(new productId: String)
 }

@@ -15,7 +15,7 @@ struct ItemListModel {
     var minPrice: Double
 }
 
-protocol ItemListVCDelegate {
+protocol ItemListVCDelegate: class {
     func itemChoosen(productId: String)
 }
 
@@ -28,9 +28,11 @@ class ItemListVC: UIViewController {
     var filtredItemList = [ItemListModel]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
-    var delegate: ItemListVCDelegate?
+    weak var delegate: ItemListVCDelegate?
+    weak var itemCardDelegate: ItemCardVCDelegate?
     
-    var hide: Bool = false
+    
+    var shouldClose: Bool = false
     var dataProvider: DataProvider!
     
     var isLoading = false
@@ -85,9 +87,9 @@ class ItemListVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if hide {
+        if shouldClose {
             self.dismiss(animated: true, completion: nil)
-            hide = false
+            shouldClose = false
         }
     }
     
@@ -96,19 +98,23 @@ class ItemListVC: UIViewController {
     }
     
     @IBAction func newItemPressed(_ sender: Any) {
-        performSegue(withIdentifier: showProductCard, sender: itemSearchField.text)
-
+        self.performSegue(withIdentifier: self.showProductCard, sender: self.itemSearchField.text)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showProductCard, let itemCardVC = segue.destination as? ItemCardVC  {
-            //itemVC.delegate = self
-            itemCardVC.outletId = outletId
-            if let searchedItem = sender as? String  {
-                itemCardVC.searchedItemName = searchedItem
-                itemCardVC.dataProvider = dataProvider
-            }
+
+        guard
+            segue.identifier == showProductCard,
+            let itemCardVC = segue.destination as? ItemCardVC,
+            let searchedItem = sender as? String else {
+                return
         }
+        itemCardVC.delegate = itemCardDelegate
+        itemCardVC.outletId = outletId
+        itemCardVC.searchedItemName = searchedItem
+        itemCardVC.dataProvider = dataProvider
+        self.shouldClose = true
+        
     }
 }
 
@@ -137,7 +143,6 @@ extension ItemListVC: UITextFieldDelegate {
         itemSearchField.inputAccessoryView = toolbarDone
     }
 }
-
 
 
 //MARK: Table

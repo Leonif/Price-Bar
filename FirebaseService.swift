@@ -66,46 +66,16 @@ class FirebaseService {
         }
     }
     
-    
     func syncProducts(completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->())  {
         self.REF_GOODS.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
-                var goods = [FBProductModel]()
-                for snapGood in snapGoods {
-                    goods.append(self.parser(for: snapGood))
-                }
+                let goods = ProductMapper.transform(from: snapGoods)
                 completion(ResultType.success(goods))
             }
         })  { error in
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-    
-    
-    func parser(for snapGood: (key: String, value: Any)) -> FBProductModel {
-        
-        guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
-            fatalError("Product is not parsed")
-        }
-        
-        
-        let id = snapGood.key
-        guard let name = goodDict["name"] as? String else {
-            fatalError("Product is not parsed")
-        }
-        
-        var catId = goodDict["category_id"] as? Int32
-        catId = catId == nil ? 1 : catId
-        
-        var uomId = goodDict["uom_id"] as? Int32
-        uomId = uomId == nil ? 1 : uomId
-        
-        return FBProductModel(id: id,
-                              name: name,
-                              categoryId: catId!,
-                              uomId: uomId!)
-    }
-    
     
     func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->()) {
         REF_PRICE_STATISTICS.observeSingleEvent(of: .value, with: { snapshot in

@@ -80,7 +80,7 @@ class DataProvider {
     
     func needToSync() -> Bool {
         //need to check
-        //return true
+//        return true
         var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
         switch times {
         case 0:
@@ -380,13 +380,7 @@ class DataProvider {
         guard let cdModelList = CoreDataService.data.getCategories() else {
             fatalError("category list is empty")
         }
-        var dpModelList: [DPCategoryModel] = []
-        
-        for category in cdModelList {
-            dpModelList.append(mapper(from: category))
-        }
-        
-        return dpModelList
+        return CategoryMapper.transform(from: cdModelList)
     }
     
     

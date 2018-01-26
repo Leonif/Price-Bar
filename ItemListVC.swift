@@ -52,7 +52,7 @@ class ItemListVC: UIViewController {
         }
         guard
             let products = dataProvider.getShopItems(with: currentPageOffset, for: outletId),
-            let itemList = itemsMapper(from: products)
+            let itemList = ProductMapper.transform(from: products, for: outletId)
             else {
                 alert(title: "Ops", message: "Нет товаров в базе")
                 self.view.pb_stopActivityIndicator()
@@ -69,28 +69,10 @@ class ItemListVC: UIViewController {
         self.view.pb_stopActivityIndicator()
     }
     
-    
-    func itemsMapper(from products: [DPProductModel]) -> [ItemListModel]? {
-        var modellist = [ItemListModel]()
-        
-        for product in products {
-            let price = dataProvider.getPrice(for: product.id, and: outletId)
-            let minPrice = dataProvider.getMinPrice(for: product.id, and: outletId)
-            let name = product.name
-            modellist.append(ItemListModel(id: product.id, product: name, currentPrice: price, minPrice: minPrice))
-        }
-        return modellist
-    }
-    
-    
-    
-    
-    
-    
     @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
         if  let searchText = sender.text, searchText.charactersArray.count >= 3 {
             guard let list = dataProvider.filterItemList(contains: searchText, for: outletId),
-            let modelList = itemsMapper(from: list) else {
+            let modelList = ProductMapper.transform(from: list, for: outletId) else {
                 return
             }
             filtredItemList = modelList
@@ -120,28 +102,15 @@ class ItemListVC: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showProductCard, let itemVC = segue.destination as? ItemCardVC  {
+        if segue.identifier == showProductCard, let itemCardVC = segue.destination as? ItemCardVC  {
             //itemVC.delegate = self
-            itemVC.outletId = outletId
+            itemCardVC.outletId = outletId
             if let searchedItem = sender as? String  {
-                itemVC.searchedItemName = searchedItem
+                itemCardVC.searchedItemName = searchedItem
             }
         }
     }
 }
-
-//extension ItemListVC: Exchange {
-//    func objectExchange(object: Any) {
-//        if let item = object as? ShopItem   {
-//            //dataProvider?.addToShopListAndSaveStatistics(item)
-//            print("From ItemList (objectExchange): addToShopListAndSaveStatistics - addToShopList")
-//            self.itemCardDelegate?.objectExchange(object: item)
-//            hide = true
-//            
-//        }
-//    }
-//}
-
 
 extension ItemListVC: UITextFieldDelegate {
     //hide keyboard by press Enter
@@ -186,7 +155,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                 print("load new data (new \(currentPageOffset) items)")
                 currentPageOffset += 20
                 if let products = dataProvider.getShopItems(with: currentPageOffset, for: outletId),
-                    let modelList = itemsMapper(from: products) {
+                    let modelList = ProductMapper.transform(from: products, for: outletId) {
                     var indexPaths = [IndexPath]()
                     let currentCount: Int = filtredItemList.count
                     for i in 0..<modelList.count {

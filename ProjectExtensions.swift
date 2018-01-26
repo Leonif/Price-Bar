@@ -13,7 +13,10 @@ import UIKit
 extension UILabel {
     
     func update(value: Double) {
-        self.text = "Итого: \(value.asLocaleCurrency)"
+        DispatchQueue.main.async {
+            self.text = "Итого: \(value.asLocaleCurrency)"
+        }
+        
     }
     
     

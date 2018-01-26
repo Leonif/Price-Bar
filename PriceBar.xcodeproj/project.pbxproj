@@ -44,6 +44,8 @@
 		796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		796D7B1B201905800098D324 /* FBUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1A201905800098D324 /* FBUomModel.swift */; };
 		796D7B1D201906B40098D324 /* UomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1C201906B40098D324 /* UomFactory.swift */; };
+		796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1F201A492E0098D324 /* ProductMapper.swift */; };
+		796D7B22201A51690098D324 /* CategoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B21201A51690098D324 /* CategoryMapper.swift */; };
 		7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletService.swift */; };
 		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
@@ -137,6 +139,8 @@
 		796C73A11F727F4A00F26C90 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		796D7B1A201905800098D324 /* FBUomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUomModel.swift; sourceTree = "<group>"; };
 		796D7B1C201906B40098D324 /* UomFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UomFactory.swift; sourceTree = "<group>"; };
+		796D7B1F201A492E0098D324 /* ProductMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductMapper.swift; sourceTree = "<group>"; };
+		796D7B21201A51690098D324 /* CategoryMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryMapper.swift; sourceTree = "<group>"; };
 		7973DD861EF1AC7F0010A64F /* OutletService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletService.swift; sourceTree = SOURCE_ROOT; };
 		7973DD881EF1AF430010A64F /* OutletsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletsVC.swift; sourceTree = SOURCE_ROOT; };
 		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
@@ -389,7 +393,6 @@
 				79AA0FF11EF6BF2500903133 /* CoreDataService.swift */,
 				795EA8CC1F100C1500752A68 /* PriceHandling.swift */,
 				79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */,
-				796D7B1C201906B40098D324 /* UomFactory.swift */,
 			);
 			name = CoreDataProvider;
 			sourceTree = "<group>";
@@ -401,6 +404,17 @@
 				795EA8D21F102AAB00752A68 /* FirebaseService.swift */,
 			);
 			name = FirebaseProvider;
+			sourceTree = "<group>";
+		};
+		796D7B1E201A485E0098D324 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				79D12F322016ED2A00302AF9 /* OutletFactory.swift */,
+				796D7B1C201906B40098D324 /* UomFactory.swift */,
+				796D7B1F201A492E0098D324 /* ProductMapper.swift */,
+				796D7B21201A51690098D324 /* CategoryMapper.swift */,
+			);
+			name = Mappers;
 			sourceTree = "<group>";
 		};
 		79833B38200D503C005C6CC5 /* Entities */ = {
@@ -458,6 +472,7 @@
 		79833B42201143DE005C6CC5 /* DataProvider */ = {
 			isa = PBXGroup;
 			children = (
+				796D7B1E201A485E0098D324 /* Mappers */,
 				79833B38200D503C005C6CC5 /* Entities */,
 				792EE7B81EE7080400470669 /* DataProvider.swift */,
 			);
@@ -477,7 +492,6 @@
 			isa = PBXGroup;
 			children = (
 				79D12F342016EF7F00302AF9 /* Entities */,
-				79D12F352016EF8800302AF9 /* Factories */,
 				7973DD861EF1AC7F0010A64F /* OutletService.swift */,
 			);
 			name = OutletProvider;
@@ -553,14 +567,6 @@
 				79D12F302016858300302AF9 /* OPOutletModel.swift */,
 			);
 			name = Entities;
-			sourceTree = "<group>";
-		};
-		79D12F352016EF8800302AF9 /* Factories */ = {
-			isa = PBXGroup;
-			children = (
-				79D12F322016ED2A00302AF9 /* OutletFactory.swift */,
-			);
-			name = Factories;
 			sourceTree = "<group>";
 		};
 		EFCFC6F2C247C1D3BDF643A8 /* Pods */ = {
@@ -848,6 +854,7 @@
 				795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */,
 				7933686B1FFFBBCA00E8E81A /* QuantityPickerPopup.swift in Sources */,
 				79A2EB732002D471008F7DAA /* ResultType.swift in Sources */,
+				796D7B22201A51690098D324 /* CategoryMapper.swift in Sources */,
 				79833B5B20146795005C6CC5 /* DPCategoryModel.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
 				79D12F332016ED2A00302AF9 /* OutletFactory.swift in Sources */,
@@ -860,6 +867,7 @@
 				7904B45A1F03738B002032CD /* FBItemCategory.swift in Sources */,
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
 				792EE7BD1EE7081800470669 /* NumberExtensions.swift in Sources */,
+				796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */,
 				79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */,
 				79833B552013ECA6005C6CC5 /* CDStatisticModel.swift in Sources */,
 				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,

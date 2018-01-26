@@ -109,7 +109,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
 }
 
-
 let ad = UIApplication.shared.delegate as! AppDelegate
 // ссылка для всего приложения для доступа к context
 let context = ad.persistentContainer.viewContext

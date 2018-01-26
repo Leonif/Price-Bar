@@ -63,9 +63,7 @@ class ItemCardVC: UIViewController {
             fatalError("Category list is empty")
         }
         
-        for category in dpCategoryList {
-            self.categories.append(mapper(from: category))
-        }
+        self.categories = CategoryMapper.transform(from: dpCategoryList)
         
         guard let uoms = dataProvider.getUomList() else {
             fatalError("Catgory list is empty")
@@ -73,9 +71,9 @@ class ItemCardVC: UIViewController {
         self.uoms = uoms
     }
     
-    private func mapper(from dpCategory: DPCategoryModel) -> CategoryModelView {
-        return CategoryModelView(id: dpCategory.id, name: dpCategory.name)
-    }
+//    private func mapper(from dpCategory: DPCategoryModel) -> CategoryModelView {
+//        return CategoryModelView(id: dpCategory.id, name: dpCategory.name)
+//    }
     
     
     private func cardOpenHandler() {

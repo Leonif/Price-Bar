@@ -232,11 +232,6 @@
                                         <state key="normal" image="scanning">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="30"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
                                         </connections>
@@ -251,11 +246,6 @@
                                         <state key="normal" image="check-list">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="30"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="itemListPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Joo-Hz-PrH"/>
                                         </connections>
@@ -293,6 +283,7 @@
                         <outlet property="itemListButton" destination="bBr-mn-h0O" id="iDV-wN-Ve3"/>
                         <outlet property="outletAddressLabel" destination="2so-a8-Tea" id="VsB-MC-aBU"/>
                         <outlet property="outletNameButton" destination="p6W-vM-LYP" id="dhQ-8x-O5C"/>
+                        <outlet property="removeShoplistBtn" destination="ZzV-P9-rjB" id="XU1-9z-s4B"/>
                         <outlet property="scanButton" destination="S1v-Mz-DlY" id="rup-3O-csY"/>
                         <outlet property="shopTableView" destination="teD-oh-0KA" id="hPS-xE-dqQ"/>
                         <outlet property="totalLabel" destination="yUL-id-lem" id="N2I-gC-suB"/>
@@ -934,6 +925,6 @@
         <image name="uncheck" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EJ7-82-Mar"/>
+        <segue reference="QPO-FU-qjJ"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -10,17 +10,22 @@ import UIKit
 
 class GoodButton: UIButton {
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-//        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-//        layer.shadowOpacity = 0.8
-//        layer.shadowRadius = 5.0
-//        layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         
         self.castShadow()
+        self.roundingEdges()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         
+        self.castShadow()
+        self.roundingEdges()
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
         UIView.animate(withDuration: 0.6,
                        animations: {
                         self.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)

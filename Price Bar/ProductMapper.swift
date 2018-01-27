@@ -11,6 +11,35 @@ import Foundation
 
 
 class ProductMapper {
+    class func mapper(from product: DPProductModel, and outletId: String) -> DPShoplistItemModel {
+        
+        let dataProvider = DataProvider()
+        
+        guard
+            let categoryName = dataProvider.getCategoryName(category: product.categoryId),
+            let uom = dataProvider.getUomName(for: product.uomId)
+            else {
+                fatalError("category or uom name doesnt exist")
+        }
+        let price = dataProvider.getPrice(for: product.id, and: outletId)
+        
+        return DPShoplistItemModel(productId: product.id,
+                                               productName: product.name,
+                                               categoryId: product.categoryId,
+                                               productCategory: categoryName,
+                                               productPrice: price,
+                                               uomId: product.uomId,
+                                               productUom: uom,
+                                               quantity: 1.0,
+                                               isPerPiece: product.isPerPiece,
+                                               checked: false)
+        
+        
+        
+    }
+    
+    
+    
     class func mapper(from dpModel: DPProductModel, for outletId: String) -> ItemListModelView {
         let dataProvider = DataProvider()
         let price = dataProvider.getPrice(for: dpModel.id, and: outletId)

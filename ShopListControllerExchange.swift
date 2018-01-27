@@ -31,25 +31,7 @@ extension ShopListController: ItemListVCDelegate {
         addItemToShopList(product)
     }
     func addItemToShopList(_ product: DPProductModel) {
-        guard
-            let categoryName = dataProvider.getCategoryName(category: product.categoryId),
-            let uom = dataProvider.getUomName(for: product.uomId)
-            else {
-                fatalError("category or uom name doesnt exist")
-        }
-        let price = dataProvider.getPrice(for: product.id, and: userOutlet.id)
-        
-        let shopListItem = DPShoplistItemModel(productId: product.id,
-                                               productName: product.name,
-                                               categoryId: product.categoryId,
-                                               productCategory: categoryName,
-                                               productPrice: price,
-                                               uomId: product.uomId,
-                                               productUom: uom,
-                                               quantity: 1.0,
-                                               isPerPiece: product.isPerPiece,
-                                               checked: false)
-        
+        let shopListItem: DPShoplistItemModel = ProductMapper.mapper(from: product, and: userOutlet.id)
         
         let result = dataProvider.saveToShopList(new: shopListItem)
         switch result {

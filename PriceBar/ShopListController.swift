@@ -20,6 +20,8 @@ class ShopListController: UIViewController {
 
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
+    @IBOutlet weak var removeShoplistBtn: GoodButton!
+    
     var dataProvider: DataProvider = DataProvider()
     var userOutlet: Outlet! {
         didSet {
@@ -43,12 +45,12 @@ class ShopListController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         dataSource = ShopListDataSource(delegate: self,
                                         cellDelegate: self,
                                         dataProvider: dataProvider)
         shopTableView.dataSource = dataSource
         self.view.pb_startActivityIndicator(with: "Синхронизация")
+
         dataProvider.syncCloud { result in
             self.view.pb_stopActivityIndicator()
             switch result {
@@ -60,7 +62,7 @@ class ShopListController: UIViewController {
         }
     }
     
-    func updateCurentOutlet() {
+    private func updateCurentOutlet() {
         let outletService = OutletService()
         outletService.nearestOutlet { result in
             print(result)
@@ -83,6 +85,7 @@ class ShopListController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         shopTableView.reloadData()
     }
     
@@ -98,7 +101,7 @@ class ShopListController: UIViewController {
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
         
-        alert(title: "Ого", message: "Чистим шоп лист?", okAction: {
+        alert(title: "Ого", message: "Чистим шоп лист?🧐", okAction: {
             self.dataProvider.clearShoplist()
             self.shopTableView.reloadData()
         }, cancelAction: {})

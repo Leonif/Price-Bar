@@ -12,14 +12,16 @@ class GoodButton: UIButton {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        self.castShadow()
-        self.roundingEdges()
+        configure()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
+        configure()
+    }
+    
+    
+    func configure() {
         self.castShadow()
         self.roundingEdges()
     }

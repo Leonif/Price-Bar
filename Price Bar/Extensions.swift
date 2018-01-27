@@ -16,6 +16,7 @@ extension UIViewController {
     func alert(title: String,
                message: String,
                okAction: ActionClousure? = nil,
+               cancelAction: ActionClousure? = nil,
                completion: ActionClousure? = nil) {
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
@@ -23,11 +24,13 @@ extension UIViewController {
             okAction?()
         }))
         
+        if let cancelAction = cancelAction {
+            alert.addAction(UIAlertAction(title: "Не надо", style: UIAlertActionStyle.cancel, handler: { (action: UIAlertAction!) in
+                cancelAction()
+            }))
+        }
         self.present(alert, animated: true, completion: completion)
     }
-    
-    
-    
 }
 
 

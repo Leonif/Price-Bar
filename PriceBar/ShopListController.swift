@@ -97,8 +97,13 @@ class ShopListController: UIViewController {
         performSegue(withIdentifier: showOutlets, sender: nil)
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        dataProvider.clearShoplist()
-        shopTableView.reloadData()
+        
+        alert(title: "Ого", message: "Чистим шоп лист?", okAction: {
+            self.dataProvider.clearShoplist()
+            self.shopTableView.reloadData()
+        }, cancelAction: {})
+        
+        
     }
     func buttonEnable(_ enable: Bool) {
         let alpha: CGFloat = enable ? 1 : 0.5

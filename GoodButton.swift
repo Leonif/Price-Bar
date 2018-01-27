@@ -20,7 +20,6 @@ class GoodButton: UIButton {
         configure()
     }
     
-    
     func configure() {
         self.castShadow()
         self.roundingEdges()
@@ -38,7 +37,4 @@ class GoodButton: UIButton {
                         }
         })
     }
-    
-    
-
 }

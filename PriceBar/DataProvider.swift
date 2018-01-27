@@ -35,9 +35,19 @@ enum DataProviderError: Error {
 
 class DataProvider {
 
+    
+    var updateClousure: ActionClousure?
+    
     var sections = [String]()
-    var shoplist: [DPShoplistItemModel] = []
-    //var products: [DPProductModel] = []
+    var shoplist: [DPShoplistItemModel] = [] {
+        didSet {
+            DispatchQueue.main.async {
+                self.updateClousure?()
+            }
+            
+        }
+    }
+    
     
     var total: Double {
         var sum = 0.0
@@ -63,7 +73,6 @@ class DataProvider {
 
         return DPUomModel(id: cd.id, name: cd.name)
     }
-    
     
     public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->()) {
         

@@ -23,6 +23,9 @@ class ShopListController: UIViewController {
     @IBOutlet weak var removeShoplistBtn: GoodButton!
     
     var dataProvider: DataProvider = DataProvider()
+    
+    
+    
     var userOutlet: Outlet! {
         didSet {
             DispatchQueue.main.async {
@@ -43,8 +46,19 @@ class ShopListController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     
     
+    func update() {
+        
+        self.removeShoplistBtn.alpha = self.dataProvider.shoplist.count > 0 ? 1 : 0.5
+        self.removeShoplistBtn.isUserInteractionEnabled = self.dataProvider.shoplist.count > 0
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        dataProvider.updateClousure = update
+        
         dataSource = ShopListDataSource(delegate: self,
                                         cellDelegate: self,
                                         dataProvider: dataProvider)
@@ -119,6 +133,8 @@ class ShopListController: UIViewController {
                     $0?.isUserInteractionEnabled = enable
                     $0?.alpha = alpha
             }
+            
+            
         }
     }
 }
@@ -161,6 +177,8 @@ extension ShopListController: QuantityPickerPopupDelegate {
 // MARK: datasource handler
 extension ShopListController: ShopListDataSourceDelegate {
     func shoplist(updated shopListService: DataProvider) {
+        
+        
         self.dataProvider = shopListService
         totalLabel.update(value: shopListService.total)
     }
@@ -232,4 +250,6 @@ extension ShopListController {
         }
     }
 }
+
+
 

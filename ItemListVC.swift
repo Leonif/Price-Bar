@@ -8,28 +8,19 @@
 
 import UIKit
 
-struct ItemListModel {
-    var id: String
-    var product: String
-    var currentPrice: Double
-    var minPrice: Double
-}
-
 protocol ItemListVCDelegate: class {
     func itemChoosen(productId: String)
 }
 
-
-
-
 class ItemListVC: UIViewController {
     let showProductCard = "showProductCard"
-    var itemList = [ItemListModel]()
-    var filtredItemList = [ItemListModel]()
+    var itemList = [ItemListModelView]()
+    var filtredItemList = [ItemListModelView]()
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
     weak var delegate: ItemListVCDelegate?
     weak var itemCardDelegate: ItemCardVCDelegate?
+    var emptyList: Bool = false
     
     
     var shouldClose: Bool = false
@@ -40,17 +31,15 @@ class ItemListVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        itemTableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
+        
+        
         self.view.pb_startActivityIndicator(with: "Загрузка...")
     }
     
     var currentPageOffset = 0
-    
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
-
-        guard let dataProvider = self.dataProvider else {
-            fatalError("data provider is nil")
-        }
         guard
             let products = dataProvider.getShopItems(with: currentPageOffset, for: outletId),
             let itemList = ProductMapper.transform(from: products, for: outletId)
@@ -60,7 +49,9 @@ class ItemListVC: UIViewController {
                 return
         }
         
-        self.itemList = itemList
+        self.itemList = itemList.sorted { (item1, item2) in
+            item1.currentPrice > item2.currentPrice
+        }
         
         filtredItemList = self.itemList.sorted { (item1, item2) in
             item1.currentPrice > item2.currentPrice
@@ -102,7 +93,6 @@ class ItemListVC: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
         guard
             segue.identifier == showProductCard,
             let itemCardVC = segue.destination as? ItemCardVC,
@@ -181,10 +171,20 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        if filtredItemList.isEmpty {
+            emptyList = true
+            return 1
+        }
         return filtredItemList.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if filtredItemList.isEmpty {
+            self.performSegue(withIdentifier: self.showProductCard, sender: self.itemSearchField.text)
+            return
+        }
+        
         let item = filtredItemList[indexPath.row]
         self.dismiss(animated: true, completion: nil)
         delegate?.itemChoosen(productId: item.id)
@@ -194,11 +194,15 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = itemTableView.dequeueReusableCell(withIdentifier: "ItemListCell", for: indexPath) as? ItemListCell {
+        if filtredItemList.isEmpty,
+            let cellAdd = itemTableView.dequeueReusableCell(withIdentifier: "CustomCellOne", for: indexPath) as? AddCell {
+            return cellAdd
+        } else if let cell = itemTableView.dequeueReusableCell(withIdentifier: "ItemListCell", for: indexPath) as? ItemListCell {
             let item = filtredItemList[indexPath.row]
             cell.configureCell(item)
             return cell
         }
         return UITableViewCell()
+        
     }
 }

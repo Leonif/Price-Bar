@@ -95,13 +95,29 @@ class ItemListVC: UIViewController {
             let searchedItem = sender as? String else {
                 return
         }
-        itemCardVC.delegate = itemCardDelegate
+        //itemCardVC.delegate = itemCardDelegate
+        itemCardVC.delegate = self
         itemCardVC.outletId = outletId
         itemCardVC.searchedItemName = searchedItem
         itemCardVC.dataProvider = dataProvider
-        self.shouldClose = true
+        //self.shouldClose = true
         
     }
+}
+
+
+extension ItemListVC: ItemCardVCDelegate {
+    func updated(status: Bool) {
+        itemCardDelegate?.updated(status: status)
+    }
+    
+    func add(new productId: String) {
+        shouldClose = true
+        itemCardDelegate?.add(new: productId)
+    }
+    
+    
+    
 }
 
 extension ItemListVC: UITextFieldDelegate {
@@ -167,12 +183,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if filtredItemList.isEmpty {
-            emptyList = true
-            return 1
-        }
-        return filtredItemList.count
+        return filtredItemList.isEmpty ? 1 : filtredItemList.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -88,10 +88,6 @@ class ItemListVC: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func newItemPressed(_ sender: Any) {
-        self.performSegue(withIdentifier: self.showProductCard, sender: self.itemSearchField.text)
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
             segue.identifier == showProductCard,

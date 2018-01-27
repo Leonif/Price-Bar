@@ -897,25 +897,6 @@
                                     <action selector="backPressed:" destination="Aph-JN-BT7" eventType="touchUpInside" id="IMg-Lh-lA3"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqA-hP-Ewh" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
-                                <rect key="frame" x="295" y="537" width="60" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="I1f-nf-1gk"/>
-                                    <constraint firstAttribute="width" constant="60" id="ezh-Ja-FZz"/>
-                                </constraints>
-                                <state key="normal" image="plus">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="newItemPressed:" destination="Aph-JN-BT7" eventType="touchUpInside" id="9Ik-3B-48w"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -924,12 +905,10 @@
                             <constraint firstItem="EnH-hF-scj" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" id="7oy-6h-Qkw"/>
                             <constraint firstItem="EnH-hF-scj" firstAttribute="top" secondItem="Lo6-EM-0Ff" secondAttribute="top" id="Dkv-u2-rvz"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="74u-MH-F1Q" secondAttribute="bottom" id="H0X-6Z-fYO"/>
-                            <constraint firstItem="tqA-hP-Ewh" firstAttribute="trailing" secondItem="74u-MH-F1Q" secondAttribute="trailing" constant="-20" id="XFT-35-JEg"/>
                             <constraint firstItem="jvf-3U-9A5" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" constant="20" id="glD-ab-2MN"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="jvf-3U-9A5" secondAttribute="bottom" constant="70" id="hca-Jt-hJ2"/>
                             <constraint firstItem="74u-MH-F1Q" firstAttribute="top" secondItem="QJ3-4M-n7C" secondAttribute="bottom" constant="10" id="iCp-iI-JcH"/>
                             <constraint firstAttribute="trailing" secondItem="74u-MH-F1Q" secondAttribute="trailing" id="it4-dn-ll7"/>
-                            <constraint firstItem="tqA-hP-Ewh" firstAttribute="top" secondItem="jvf-3U-9A5" secondAttribute="top" id="stq-M8-Jpe"/>
                         </constraints>
                     </view>
                     <connections>
@@ -947,7 +926,6 @@
         <image name="cameraInfo" width="622" height="344"/>
         <image name="check-list" width="128" height="128"/>
         <image name="locationInfo" width="638" height="620"/>
-        <image name="plus" width="128" height="128"/>
         <image name="product-back" width="1607" height="1073"/>
         <image name="rubbish" width="128" height="128"/>
         <image name="save" width="128" height="128"/>

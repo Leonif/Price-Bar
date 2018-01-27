@@ -39,7 +39,6 @@
 		795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CC1F100C1500752A68 /* PriceHandling.swift */; };
 		795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8D21F102AAB00752A68 /* FirebaseService.swift */; };
 		795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */; };
-		796C73991F72736D00F26C90 /* CollectionFreeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796C73981F72736D00F26C90 /* CollectionFreeViewCell.swift */; };
 		796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
 		796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		796D7B1B201905800098D324 /* FBUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1A201905800098D324 /* FBUomModel.swift */; };
@@ -136,7 +135,6 @@
 		795EA8CC1F100C1500752A68 /* PriceHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceHandling.swift; sourceTree = SOURCE_ROOT; };
 		795EA8D21F102AAB00752A68 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = SOURCE_ROOT; };
 		795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
-		796C73981F72736D00F26C90 /* CollectionFreeViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionFreeViewCell.swift; sourceTree = SOURCE_ROOT; };
 		796C73A01F727F4A00F26C90 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		796C73A11F727F4A00F26C90 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		796D7B1A201905800098D324 /* FBUomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUomModel.swift; sourceTree = "<group>"; };
@@ -379,7 +377,6 @@
 		795EA8C91F0FFFF200752A68 /* CustomObjects */ = {
 			isa = PBXGroup;
 			children = (
-				796C73981F72736D00F26C90 /* CollectionFreeViewCell.swift */,
 				795EA8CA1F10004400752A68 /* GoodButton.swift */,
 				795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */,
 			);
@@ -889,7 +886,6 @@
 				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,
 				79833B502013AC49005C6CC5 /* DPShoplistModel.swift in Sources */,
 				792D2C7D1F2BBFC900AA337F /* Category+CoreDataProperties.swift in Sources */,
-				796C73991F72736D00F26C90 /* CollectionFreeViewCell.swift in Sources */,
 				793368691FFF6F5600E8E81A /* ShopListDataSource.swift in Sources */,
 				795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */,
 				79968E831F409C090076C0D9 /* Product+CoreDataClass.swift in Sources */,

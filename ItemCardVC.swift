@@ -159,44 +159,49 @@ class ItemCardVC: UIViewController {
 
         guard
             let name = itemTitle.text,
-            !name.isEmpty,
-            let priceStr = itemPrice.text,
-            let price = priceStr.double,
-            price != 0.0
+            !name.isEmpty
             else {
-                alert(title: "Ops", message: "Нельзя такое сохранять !!!")
+                alert(title: "Ops", message: "Заполните название товара 👿 !!!")
                 return
         }
-        
-        
         productCard.productName = name
-        productCard.productPrice = price
-       
         let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
                                        name: productCard.productName,
                                        categoryId: productCard.categoryId,
                                        uomId: productCard.uomId)
         
-        let dpStatModel = DPPriceStatisticModel(outletId: outletId,
-                                                productId: productCard.productId,
-                                                price: productCard.productPrice)
-        
         if state == CardState.editMode {
             dataProvider.update(dpProductCardModel)
-            dataProvider.save(new: dpStatModel)
             delegate.updated(status: true)
         } else {
             dataProvider.save(new: dpProductCardModel)
-            dataProvider.save(new: dpStatModel)
             delegate.add(new: productCard.productId)
         }
         
+        if let priceStr = itemPrice.text,
+            let price = priceStr.double, price != 0.0 {
+            let oldPrice = productCard.productPrice
+            productCard.productPrice = price
+            if price != oldPrice {
+                let dpStatModel = DPPriceStatisticModel(outletId: outletId,
+                                                        productId: productCard.productId,
+                                                        price: productCard.productPrice)
+                dataProvider.save(new: dpStatModel)
+            }
+        } else {
+            alert(title: "Спасибо", message: "Цена не сохранена!!! Но товар в базе и шоплисте😉")
+        }
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func saveProduct() {
+        
         
         
     }
-   
-
+    
+    
+    
 }
 
 //MARK: Picker

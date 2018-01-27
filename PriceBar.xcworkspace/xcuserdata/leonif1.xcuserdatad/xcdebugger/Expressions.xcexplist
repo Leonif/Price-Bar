@@ -50,12 +50,7 @@
          contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
       </ContextState>
       <ContextState
-         contextName = "ItemCardVC.savePressed(_:):ItemCardVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "productCard">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "ItemListVC.tableView(_:cellForRowAt:):ItemListVC.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListDataSource.init(shopList:):ShopListDataSource.swift">
@@ -132,6 +127,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ItemListVC.tableView(_:numberOfRowsInSection:):ItemListVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListModel.(reloadDBFromCloud(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):ShopListModel.swift">
       </ContextState>
       <ContextState
@@ -181,6 +179,14 @@
             </PersistentString>
             <PersistentString
                value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.viewWillAppear(_:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shouldClose">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

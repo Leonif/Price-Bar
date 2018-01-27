@@ -32,7 +32,7 @@ class ItemCardVC: UIViewController {
     var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
-    var dataProvider: DataProvider!
+    weak var dataProvider: DataProvider!
     
     
     @IBOutlet weak var commonPickerView: UIPickerView!
@@ -222,6 +222,10 @@ extension ItemCardVC: PickerControlDelegate {
         }
     }
 }
+
+
+
+
 
 extension ItemCardVC: UITextFieldDelegate {
     //hide keyboard by press ENter

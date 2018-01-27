@@ -161,15 +161,19 @@ class ItemCardVC: UIViewController {
             let name = itemTitle.text,
             !name.isEmpty
             else {
-                alert(title: "Ops", message: "Заполните название товара 👿 !!!")
+                alert(title: "Агинь", message: "Заполните название товара 👿 !!!")
                 return
         }
+        saveProduct(with: name)
+        saveStatistic()
+    }
+    
+    private func saveProduct(with name: String) {
         productCard.productName = name
         let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
-                                       name: productCard.productName,
-                                       categoryId: productCard.categoryId,
-                                       uomId: productCard.uomId)
-        
+                                                      name: productCard.productName,
+                                                      categoryId: productCard.categoryId,
+                                                      uomId: productCard.uomId)
         if state == CardState.editMode {
             dataProvider.update(dpProductCardModel)
             delegate.updated(status: true)
@@ -177,7 +181,9 @@ class ItemCardVC: UIViewController {
             dataProvider.save(new: dpProductCardModel)
             delegate.add(new: productCard.productId)
         }
-        
+    }
+    
+    private func saveStatistic() {
         if let priceStr = itemPrice.text,
             let price = priceStr.double, price != 0.0 {
             let oldPrice = productCard.productPrice
@@ -189,19 +195,11 @@ class ItemCardVC: UIViewController {
                 dataProvider.save(new: dpStatModel)
             }
         } else {
-            alert(title: "Спасибо", message: "Цена не сохранена!!! Но товар в базе и шоплисте😉")
+            alert(title: "Спасибо", message: "Такую цену мы не можем сохранить😭. Но товар в базе и шоплисте😉", okAction: {
+                self.dismiss(animated: true, completion: nil)
+            })
         }
-        self.dismiss(animated: true, completion: nil)
     }
-    
-    func saveProduct() {
-        
-        
-        
-    }
-    
-    
-    
 }
 
 //MARK: Picker

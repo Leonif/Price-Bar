@@ -10,13 +10,24 @@ import Foundation
 import UIKit
 
 
+typealias ActionClousure = ()->()
 
 extension UIViewController {
-    func alert(title: String, message: String) {
+    func alert(title: String,
+               message: String,
+               okAction: ActionClousure? = nil,
+               completion: ActionClousure? = nil) {
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
+            okAction?()
+        }))
+        
+        self.present(alert, animated: true, completion: completion)
     }
+    
+    
+    
 }
 
 

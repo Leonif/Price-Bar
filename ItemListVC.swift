@@ -33,7 +33,7 @@ class ItemListVC: UIViewController {
     
     
     var shouldClose: Bool = false
-    var dataProvider: DataProvider!
+    weak var dataProvider: DataProvider!
     
     var isLoading = false
     @IBOutlet weak var itemSearchField: UITextField!

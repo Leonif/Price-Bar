@@ -268,8 +268,6 @@
 		790BC9EB1F88334800CA9519 /* Supported Files */ = {
 			isa = PBXGroup;
 			children = (
-				792EE79D1EE5069300470669 /* Extensions */,
-				795EA8C91F0FFFF200752A68 /* CustomObjects */,
 				795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */,
 				792EE7AE1EE7076600470669 /* Info.plist */,
 				792EE7AC1EE7075200470669 /* Assets.xcassets */,
@@ -488,6 +486,8 @@
 		79833B432011440C005C6CC5 /* Reusable Tools */ = {
 			isa = PBXGroup;
 			children = (
+				795EA8C91F0FFFF200752A68 /* CustomObjects */,
+				792EE79D1EE5069300470669 /* Extensions */,
 				79A2EB722002D471008F7DAA /* ResultType.swift */,
 				79833B3C200E812D005C6CC5 /* PickerControl.swift */,
 			);

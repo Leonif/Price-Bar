@@ -10,14 +10,15 @@ import Foundation
 import UIKit
 
 
-extension UILabel {
+//extension UILabel {
+//    
+//    func update(value: Double) {
+//        DispatchQueue.main.async {
+//            self.text = "Итого: \(value.asLocaleCurrency)"
+//        }
+//        
+//    }
     
-    func update(value: Double) {
-        DispatchQueue.main.async {
-            self.text = "Итого: \(value.asLocaleCurrency)"
-        }
-        
-    }
     
-    
-}
+//}
+

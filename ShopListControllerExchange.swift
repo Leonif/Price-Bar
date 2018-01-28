@@ -37,7 +37,7 @@ extension ShopListController: ItemListVCDelegate {
         switch result {
         case .success:
             self.shopTableView.reloadData()
-            self.totalLabel.update(value: dataProvider.total)
+//            self.totalLabel.update(value: dataProvider.total)
         case let .failure(error):
             alert(title: "Хмм", message: error.message)
         }
@@ -67,7 +67,7 @@ extension ShopListController: ItemCardVCDelegate {
             return
         }
         dataProvider.loadShopList(for: userOutlet.id)
-        totalLabel.update(value: dataProvider.total)
-        shopTableView.reloadData()
+//        totalLabel.update(value: dataProvider.total)
+//        shopTableView.reloadData()
     }
 }

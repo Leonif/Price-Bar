@@ -15,8 +15,6 @@ class ShopListController: UIViewController {
     fileprivate let showItemList = "showItemList"
     fileprivate let showOutlets = "showOutlets"
     fileprivate let showEditItem = "showEditItem"
-    
-    //var barcode: String?
 
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
@@ -24,17 +22,14 @@ class ShopListController: UIViewController {
     
     var dataProvider: DataProvider = DataProvider()
     
-    
-    
     var userOutlet: Outlet! {
         didSet {
             DispatchQueue.main.async {
                 self.outletAddressLabel.text = self.userOutlet.address
                 self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
+                self.dataProvider.loadShopList(for: self.userOutlet.id)
+                self.update()
             }
-            
-            dataProvider.loadShopList(for: userOutlet.id)
-            self.totalLabel.update(value: dataProvider.total)
         }
     }
     var dataSource: ShopListDataSource?
@@ -49,6 +44,7 @@ class ShopListController: UIViewController {
     func update() {
         self.removeShoplistBtn.alpha = self.dataProvider.shoplist.count > 0 ? 1 : 0.5
         self.removeShoplistBtn.isUserInteractionEnabled = self.dataProvider.shoplist.count > 0
+        totalLabel.text = "Итого: \(dataProvider.total.asLocaleCurrency)"
     }
     
     
@@ -56,7 +52,6 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         dataProvider.updateClousure = update
-        
         dataSource = ShopListDataSource(delegate: self,
                                         cellDelegate: self,
                                         dataProvider: dataProvider)
@@ -97,7 +92,6 @@ class ShopListController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         shopTableView.reloadData()
     }
     
@@ -165,20 +159,16 @@ extension ShopListController: QuantityPickerPopupDelegate {
         guard let item = self.dataProvider.getItem(index: indexPath) else {
             return
         }
-        
         dataProvider.changeShoplistItem(weight, for: item.productId)
         self.shopTableView.reloadRows(at: [indexPath], with: .none)
-        totalLabel.update(value: dataProvider.total)
     }
 }
 
 // MARK: datasource handler
 extension ShopListController: ShopListDataSourceDelegate {
     func shoplist(updated shopListService: DataProvider) {
-        
-        
-        self.dataProvider = shopListService
-        totalLabel.update(value: shopListService.total)
+//        self.dataProvider = shopListService
+//        totalLabel.update(value: shopListService.total)
     }
 }
 

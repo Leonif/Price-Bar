@@ -185,13 +185,21 @@ class ItemCardVC: UIViewController {
     
     private func saveStatistic() {
         if let priceStr = itemPrice.text,
-            let price = priceStr.double, price != 0.0,
-            productCard.productPrice != price {
+            let price = priceStr.double, price != 0.0 {
+            
+            guard productCard.productPrice != price  else {
+                alert(title: "Спасибо", message: "Цена не поменялась😉. Круто!👍", okAction: {
+                    self.dismiss(animated: true, completion: nil)
+                })
+                return
+            }
+            
             
             let dpStatModel = DPPriceStatisticModel(outletId: outletId,
                                                     productId: productCard.productId,
-                                                    price: productCard.productPrice)
+                                                    price: price)
             dataProvider.save(new: dpStatModel)
+            delegate.updated(status: true)
             self.dismiss(animated: true, completion: nil)
             
         } else {

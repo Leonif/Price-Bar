@@ -47,10 +47,8 @@ class ShopListController: UIViewController {
     
     
     func update() {
-        
         self.removeShoplistBtn.alpha = self.dataProvider.shoplist.count > 0 ? 1 : 0.5
         self.removeShoplistBtn.isUserInteractionEnabled = self.dataProvider.shoplist.count > 0
-        
     }
     
     

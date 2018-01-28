@@ -97,7 +97,7 @@ class DataProvider {
             UserDefaults.standard.set(times, forKey: "LaunchedTime")
             return true
         case 10:
-            times = 0
+            times = 1
             UserDefaults.standard.set(times, forKey: "LaunchedTime")
             return true
         default:

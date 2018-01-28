@@ -40,24 +40,20 @@ class ShopListController: UIViewController {
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
     
-    
     func update() {
         self.removeShoplistBtn.alpha = self.dataProvider.shoplist.count > 0 ? 1 : 0.5
         self.removeShoplistBtn.isUserInteractionEnabled = self.dataProvider.shoplist.count > 0
         totalLabel.text = "Итого: \(dataProvider.total.asLocaleCurrency)"
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         dataProvider.updateClousure = update
         dataSource = ShopListDataSource(delegate: self,
                                         cellDelegate: self,
                                         dataProvider: dataProvider)
         shopTableView.dataSource = dataSource
         self.view.pb_startActivityIndicator(with: "Синхронизация")
-
         dataProvider.syncCloud { result in
             self.view.pb_stopActivityIndicator()
             switch result {
@@ -106,7 +102,6 @@ class ShopListController: UIViewController {
         performSegue(withIdentifier: showOutlets, sender: nil)
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        
         alert(title: "Ого", message: "Чистим шоп лист?🧐", okAction: {
             self.dataProvider.clearShoplist()
             self.shopTableView.reloadData()
@@ -141,12 +136,10 @@ extension ShopListController: ShopItemCellDelegate {
             let item = dataProvider.getItem(index: indexPath) else {
                 fatalError("Not possible to find out type of item")
         }
-        
         let type: QuantityType = item.isPerPiece ? .quantity : .weight
         let model = QuantityModel(for: indexPath, with: type, and: currentValue)
         let pickerVC = QuantityPickerPopup(delegate: self, model: model)
         self.present(pickerVC, animated: true, completion: nil)
-        
     }
     func checkPressed(for item: DPShoplistItemModel) {
         _ = dataProvider.change(item)
@@ -175,17 +168,13 @@ extension ShopListController: ShopListDataSourceDelegate {
 
 //MARK: Table
 extension ShopListController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
     }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: showEditItem, sender: dataProvider.getItem(index: indexPath))
     }
-    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         if let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
             
             headerView.categoryLabel.text = dataProvider.headerString(for: section)
@@ -193,7 +182,6 @@ extension ShopListController: UITableViewDelegate {
         }
         return UIView()
     }
-    
 }
 
 //MARK: transition
@@ -208,7 +196,6 @@ extension ShopListController {
                 itemCardVC.outletId = userOutlet.id
             }
         }
-        
         if segue.identifier == "scannedNewProduct",
             let itemCardVC = segue.destination as? ItemCardVC  {
             if let barcode = sender as? String {
@@ -218,7 +205,6 @@ extension ShopListController {
                 itemCardVC.outletId = userOutlet.id
             }
         }
-        
         
         if segue.identifier == showOutlets,
             let outletVC = segue.destination as? OutletsVC  {

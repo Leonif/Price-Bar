@@ -24,7 +24,6 @@ class QuantityPickerPopup: UIViewController {
     var delegate: QuantityPickerPopupDelegate?
     var currentModel: QuantityModel!
     
-    
     let weightPicker: UIPickerView = {
         let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         picker.backgroundColor = .white
@@ -32,7 +31,6 @@ class QuantityPickerPopup: UIViewController {
         picker.showsSelectionIndicator = true
         return picker
     }()
-    
     
     let toolbar: UIToolbar = {
         let tlbr = UIToolbar()
@@ -52,12 +50,10 @@ class QuantityPickerPopup: UIViewController {
     
     convenience init(delegate: QuantityPickerPopupDelegate, model: QuantityModel) {
         self.init()
-
         self.delegate = delegate
         self.currentModel = model
         self.configurePopup()
         self.modalPresentationStyle = .overCurrentContext
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -9,21 +9,21 @@
 import Foundation
 import UIKit
 
-protocol ShopListDataSourceDelegate {
-    func shoplist(updated shopListService: DataProvider)
-}
+//protocol ShopListDataSourceDelegate {
+//    func shoplist(updated shopListService: DataProvider)
+//}
 
 class ShopListDataSource: NSObject, UITableViewDataSource {
    
     var dataProvider: DataProvider!
     var cellDelegate: ShopItemCellDelegate?
-    var delegate: ShopListDataSourceDelegate?
+    //var delegate: ShopListDataSourceDelegate?
     
     
-    init(delegate: ShopListDataSourceDelegate, cellDelegate: ShopItemCellDelegate, dataProvider: DataProvider) {
+    init(cellDelegate: ShopItemCellDelegate, dataProvider: DataProvider) {
         self.dataProvider = dataProvider
         self.cellDelegate = cellDelegate
-        self.delegate = delegate
+        //self.delegate = delegate
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,7 +73,7 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
                 }
                 
                 tableView.endUpdates()
-                delegate?.shoplist(updated: dataProvider)
+                //delegate?.shoplist(updated: dataProvider)
                 
             }
         }

@@ -32,7 +32,7 @@ class ShopListController: UIViewController {
             }
         }
     }
-    var dataSource: ShopListDataSource?
+    //var dataSource: ShopListDataSource?
     
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
@@ -49,10 +49,10 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         dataProvider.updateClousure = update
-        dataSource = ShopListDataSource(delegate: self,
-                                        cellDelegate: self,
-                                        dataProvider: dataProvider)
-        shopTableView.dataSource = dataSource
+        
+        shopTableView.dataSource = ShopListDataSource(cellDelegate: self,
+                                                      dataProvider: dataProvider)
+        
         self.view.pb_startActivityIndicator(with: "Синхронизация")
         dataProvider.syncCloud { result in
             self.view.pb_stopActivityIndicator()
@@ -73,12 +73,11 @@ class ShopListController: UIViewController {
             self.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlet):
-                print(outlet)
                 self.userOutlet = OutletFactory.mapper(from: outlet)
                 activateControls = true
-                DispatchQueue.main.async {
-                    self.shopTableView.reloadData()
-                }
+//                DispatchQueue.main.async {
+//                    self.shopTableView.reloadData()
+//                }
             case let .failure(error):
                 self.alert(title: "Ops", message: error.errorDescription)
             }
@@ -120,8 +119,6 @@ class ShopListController: UIViewController {
                     $0?.isUserInteractionEnabled = enable
                     $0?.alpha = alpha
             }
-            
-            
         }
     }
 }
@@ -156,15 +153,6 @@ extension ShopListController: QuantityPickerPopupDelegate {
         self.shopTableView.reloadRows(at: [indexPath], with: .none)
     }
 }
-
-// MARK: datasource handler
-extension ShopListController: ShopListDataSourceDelegate {
-    func shoplist(updated shopListService: DataProvider) {
-//        self.dataProvider = shopListService
-//        totalLabel.update(value: shopListService.total)
-    }
-}
-
 
 //MARK: Table
 extension ShopListController: UITableViewDelegate {

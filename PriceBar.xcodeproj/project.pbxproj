@@ -26,7 +26,7 @@
 		792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C21EE7085500470669 /* AppDelegate.swift */; };
 		792EE7C51EE7085500470669 /* ShopListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C31EE7085500470669 /* ShopListController.swift */; };
 		792EE7C71EE7087200470669 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
-		793368641FFE260F00E8E81A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368631FFE260F00E8E81A /* Extensions.swift */; };
+		793368641FFE260F00E8E81A /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368631FFE260F00E8E81A /* UIViewExtensions.swift */; };
 		793368671FFEAB3200E8E81A /* Outlet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* Outlet.swift */; };
 		793368691FFF6F5600E8E81A /* ShopListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListDataSource.swift */; };
 		7933686B1FFFBBCA00E8E81A /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686A1FFFBBCA00E8E81A /* QuantityPickerPopup.swift */; };
@@ -121,7 +121,7 @@
 		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "Price Bar/AppDelegate.swift"; sourceTree = SOURCE_ROOT; };
 		792EE7C31EE7085500470669 /* ShopListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListController.swift; path = PriceBar/ShopListController.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
-		793368631FFE260F00E8E81A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		793368631FFE260F00E8E81A /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		793368661FFEAB3200E8E81A /* Outlet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outlet.swift; sourceTree = "<group>"; };
 		793368681FFF6F5600E8E81A /* ShopListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListDataSource.swift; sourceTree = "<group>"; };
 		7933686A1FFFBBCA00E8E81A /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
@@ -348,7 +348,7 @@
 		792EE79D1EE5069300470669 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				793368631FFE260F00E8E81A /* Extensions.swift */,
+				793368631FFE260F00E8E81A /* UIViewExtensions.swift */,
 				795EA8C51F0EC58F00752A68 /* Extension.swift */,
 				7942EE431EEFD58600D2B999 /* ProjectExtensions.swift */,
 				792EE7BC1EE7081800470669 /* NumberExtensions.swift */,
@@ -855,7 +855,7 @@
 				79833B3A200E7E4B005C6CC5 /* CategoryModelView.swift in Sources */,
 				796D7B1B201905800098D324 /* FBUomModel.swift in Sources */,
 				79968E841F409C090076C0D9 /* Product+CoreDataProperties.swift in Sources */,
-				793368641FFE260F00E8E81A /* Extensions.swift in Sources */,
+				793368641FFE260F00E8E81A /* UIViewExtensions.swift in Sources */,
 				79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */,
 				795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */,
 				7942EE441EEFD58600D2B999 /* ProjectExtensions.swift in Sources */,

@@ -17,12 +17,10 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
 
     var dataProvider: DataProvider!
     var cellDelegate: ShopItemCellDelegate?
-    //var delegate: ShopListDataSourceDelegate?
 
     init(cellDelegate: ShopItemCellDelegate, dataProvider: DataProvider) {
         self.dataProvider = dataProvider
         self.cellDelegate = cellDelegate
-        //self.delegate = delegate
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,27 +46,19 @@ class ShopListDataSource: NSObject, UITableViewDataSource {
         return dataProvider.sectionCount
     }
 
-//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-//        return dataProvider.headerString(for: section)
-//    }
-
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             if let item = dataProvider.getItem(index: indexPath) {
-                tableView.beginUpdates()
+                tableView.update {
+                    let itemCountWasInSection = dataProvider.rowsIn(indexPath.section)
+                    dataProvider.remove(item: item)
+                    tableView.deleteRows(at: [indexPath], with: .fade)
+                    if itemCountWasInSection == 1 {
+                        let indexSet = IndexSet(integer: indexPath.section)
+                        tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
+                    }
 
-                let itemCountWasInSection = dataProvider.rowsIn(indexPath.section)
-                dataProvider.remove(item: item)
-
-                tableView.deleteRows(at: [indexPath], with: .fade)
-                if itemCountWasInSection == 1 {
-                    let indexSet = IndexSet(integer: indexPath.section)
-                    tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
                 }
-
-                tableView.endUpdates()
-                //delegate?.shoplist(updated: dataProvider)
-
             }
         }
     }

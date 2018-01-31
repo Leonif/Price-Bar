@@ -28,6 +28,7 @@ class ShopListController: UIViewController {
                 self.outletAddressLabel.text = self.userOutlet.address
                 self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
                 self.dataProvider.loadShopList(for: self.userOutlet.id)
+                self.shopTableView.reloadData()
                 self.update()
             }
         }

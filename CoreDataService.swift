@@ -114,7 +114,7 @@ class CoreDataService {
         }
     }
 
-    func loadShopList(fro outletId: String?) -> [DPShoplistItemModel] {
+    func loadShopList(for outletId: String?) -> [DPShoplistItemModel] {
         var shopList: [DPShoplistItemModel] = []
 
         do {

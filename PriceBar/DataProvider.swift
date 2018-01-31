@@ -70,7 +70,7 @@ class DataProvider {
         if !needToSync() {
             completion(ResultType.success(true))
         } else {
-            shoplist = CoreDataService.data.loadShopList(fro: nil)
+            shoplist = CoreDataService.data.loadShopList(for: nil)
             syncCategories { result in
                 self.handleCategories(result: result, completion: completion)
             }
@@ -396,7 +396,7 @@ class DataProvider {
     func loadShopList(for outletId: String) {
         shoplist.removeAll()
         sections.removeAll()
-        let list =  CoreDataService.data.loadShopList(fro: outletId)
+        let list =  CoreDataService.data.loadShopList(for: outletId)
         list.forEach { item in
             self.shoplist.append(item)
             addSection(for: item)

@@ -11,6 +11,15 @@ import UIKit
 
 typealias ActionClousure = ()->Void
 
+extension UITableView {
+    func update(completion: ActionClousure) {
+        self.beginUpdates()
+        completion()
+        self.endUpdates()
+    }
+}
+
+
 extension UIViewController {
     func alert(title: String,
                message: String,

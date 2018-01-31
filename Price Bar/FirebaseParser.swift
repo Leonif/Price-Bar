@@ -36,22 +36,11 @@ class FirebaseParser {
             }
         }
         return fbUom
-        
     }
     
     class func parseUoms(from fbModelList: [DataSnapshot]) -> [FBUomModel] {
-        
-        
-        
-        
         return fbModelList.map { snapUom in
             FirebaseParser.parseUom(from: snapUom)
         }
     }
-    
-    //    class func parseUomParameters(from snapshot: DataSnapshot) -> FBUomParameters {
-    //
-    //        guard let
-    //
-    //    }
 }

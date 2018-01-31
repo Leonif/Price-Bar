@@ -342,7 +342,6 @@ extension CoreDataService {
         let prod = Product(context: context)
         prod.id = product.id
         prod.name = product.name
-        //prod.scanned = product.scanned
         guard
             let category = getCategory(by: product.categoryId) else {
             fatalError("Category is not found")

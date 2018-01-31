@@ -30,12 +30,12 @@ class CategoryMapper {
 
     class func transform(from dpModels: [CDCategoryModel]) -> [DPCategoryModel] {
 
-        var modelViews: [DPCategoryModel] = []
+        //var modelViews: [DPCategoryModel] = []
 
-        for dpModel in dpModels {
-            modelViews.append(mapper(from: dpModel))
+        return dpModels.map { dpModel in
+            mapper(from: dpModel)
         }
-        return modelViews
+//        return modelViews
     }
 
     class func mapper(from category: Category) -> DPCategoryModel {

@@ -364,21 +364,10 @@ class DataProvider {
     }
 
     func getUomList() -> [UomModelView]? {
-
-        var uomList: [UomModelView] = []
-
         guard let uoms = CoreDataService.data.getUomList() else {
             return nil
         }
-        for uom in uoms {
-
-            guard let uomName = uom.uom else {
-                fatalError("uomName error")
-            }
-
-            uomList.append(UomModelView(id: uom.id, name:  uomName))
-        }
-        return uomList
+        return CoreDataParsers.parse(from: uoms)
     }
 
     func getUomName(for id: Int32) -> String? {

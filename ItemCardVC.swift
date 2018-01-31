@@ -72,7 +72,7 @@ class ItemCardVC: UIViewController {
     private func cardOpenHandler() {
         if let item = item {
             state = CardState.editMode
-            self.productCard = mapper(from: item)
+            self.productCard = ProductMapper.mapper(from: item)
             updateUI(for: productCard)
 
         }
@@ -99,16 +99,6 @@ class ItemCardVC: UIViewController {
         categoryButton.setTitle(productCard.categoryName, for: .normal)
         uomButton.setTitle(productCard.uomName, for: .normal)
 
-    }
-
-    private func mapper(from item: DPShoplistItemModel) -> ProductCardModelView {
-        return ProductCardModelView(productId: item.productId,
-                                    productName: item.productName,
-                                    categoryId: item.categoryId,
-                                    categoryName: item.productCategory,
-                                    productPrice: item.productPrice,
-                                    uomId: item.uomId,
-                                    uomName: item.productUom)
     }
 
     @IBAction func categoryPressed(_ sender: Any) {

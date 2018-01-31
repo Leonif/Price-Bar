@@ -94,38 +94,19 @@ class ProductMapper {
                                     uomName: uom.name)
     }
 
-    class func parse(_ snapGood: (key: String, value: Any)) -> FBProductModel {
-        guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
-            fatalError("Product is not parsed")
-        }
-        let id = snapGood.key
-        guard let name = goodDict["name"] as? String else {
-            fatalError("Product is not parsed")
-        }
-
-        let defaultCategoryid: Int32 = 1
-
-        var catId = goodDict["category_id"] as? Int32
-        catId = catId == nil ? defaultCategoryid : catId
-
-        let defaultUomid: Int32 = 1
-
-        var uomId = goodDict["uom_id"] as? Int32
-        uomId = uomId == nil ? defaultUomid : uomId
-
-        return FBProductModel(id: id,
-                              name: name,
-                              categoryId: catId!,
-                              uomId: uomId!)
+    class func mapper(from item: DPShoplistItemModel) -> ProductCardModelView {
+        return ProductCardModelView(productId: item.productId,
+                                    productName: item.productName,
+                                    categoryId: item.categoryId,
+                                    categoryName: item.productCategory,
+                                    productPrice: item.productPrice,
+                                    uomId: item.uomId,
+                                    uomName: item.productUom)
     }
-
-    class func transform(from snapGoods: [String: Any]) -> [FBProductModel] {
-        var fbModels: [FBProductModel] = []
-
-        for snap in snapGoods {
-            fbModels.append(parse(snap))
-        }
-
-        return fbModels
-    }
+    
+    
+    
+    
+    
+    
 }

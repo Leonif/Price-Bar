@@ -31,15 +31,12 @@ class CoreDataService {
 
     var defaultUom: CDUomModel? {
         let defaultUomId: Int32 = 1
-        guard
-            let uom = getUom(by: defaultUomId),
-            let uomName = uom.uom else {
-                return nil
+        guard let uom = getUom(by: defaultUomId) else {
+            return nil
         }
-
-        let uomUterator = uom.iterator
-
-        return CDUomModel(id: uom.id, name: uomName, iterator: uomUterator)
+        
+        return CoreDataParsers.parse(from: uom)
+        
     }
 
     func save(new statistic: CDStatisticModel) {
@@ -48,7 +45,7 @@ class CoreDataService {
         }
         do {
             let stat = Statistic(context: context)
-            stat.outlet_id = statistic.outletId
+            stat.outletId = statistic.outletId
             stat.price = statistic.price
             stat.date = Date() as NSDate
 
@@ -60,7 +57,7 @@ class CoreDataService {
 
             stat.toProduct = prd
             stat.price = statistic.price
-            stat.outlet_id = statistic.outletId
+            stat.outletId = statistic.outletId
             ad.saveContext()
         } catch {
             print("Products is not got from database")
@@ -333,6 +330,8 @@ extension CoreDataService {
         let u = Uom(context: context)
         u.id = uom.id
         u.uom = uom.name
+        u.suffixes = uom.suffixes
+        u.koefficients = uom.koefficients
         u.iterator = uom.iterator
 
         ad.saveContext()

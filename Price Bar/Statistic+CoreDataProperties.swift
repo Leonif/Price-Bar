@@ -2,12 +2,14 @@
 //  Statistic+CoreDataProperties.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 6/23/17.
-//  Copyright © 2017 LionLife. All rights reserved.
+//  Created by Leonid Nifantyev on 1/31/18.
+//  Copyright © 2018 LionLife. All rights reserved.
+//
 //
 
 import Foundation
 import CoreData
+
 
 extension Statistic {
 
@@ -16,7 +18,7 @@ extension Statistic {
     }
 
     @NSManaged public var date: NSDate?
-    @NSManaged public var outlet_id: String?
+    @NSManaged public var outletId: String?
     @NSManaged public var price: Double
     @NSManaged public var toProduct: Product?
 

@@ -21,22 +21,20 @@ class ItemListVC: UIViewController {
     weak var delegate: ItemListVCDelegate?
     weak var itemCardDelegate: ItemCardVCDelegate?
     var emptyList: Bool = false
-    
-    
+
     var shouldClose: Bool = false
     weak var dataProvider: DataProvider!
-    
+
     var isLoading = false
     @IBOutlet weak var itemSearchField: UITextField!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         itemTableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
-        
-        
+
         self.view.pb_startActivityIndicator(with: "Загрузка...")
     }
-    
+
     var currentPageOffset = 0
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
@@ -48,11 +46,11 @@ class ItemListVC: UIViewController {
                 self.view.pb_stopActivityIndicator()
                 return
         }
-        
+
         self.itemList = itemList.sorted { (item1, item2) in
             item1.currentPrice > item2.currentPrice
         }
-        
+
         filtredItemList = self.itemList.sorted { (item1, item2) in
             item1.currentPrice > item2.currentPrice
         }
@@ -60,7 +58,7 @@ class ItemListVC: UIViewController {
 
         self.view.pb_stopActivityIndicator()
     }
-    
+
     @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
         if  let searchText = sender.text, searchText.charactersArray.count >= 3 {
             guard let list = dataProvider.filterItemList(contains: searchText, for: outletId),
@@ -74,20 +72,20 @@ class ItemListVC: UIViewController {
             self.isLoading = false
         }
         itemTableView.reloadData()
-        
+
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         if shouldClose {
             self.dismiss(animated: true, completion: nil)
             shouldClose = false
         }
     }
-    
+
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
             segue.identifier == showProductCard,
@@ -101,23 +99,20 @@ class ItemListVC: UIViewController {
         itemCardVC.searchedItemName = searchedItem
         itemCardVC.dataProvider = dataProvider
         //self.shouldClose = true
-        
+
     }
 }
-
 
 extension ItemListVC: ItemCardVCDelegate {
     func updated(status: Bool) {
         itemCardDelegate?.updated(status: status)
     }
-    
+
     func add(new productId: String) {
         shouldClose = true
         itemCardDelegate?.add(new: productId)
     }
-    
-    
-    
+
 }
 
 extension ItemListVC: UITextFieldDelegate {
@@ -126,12 +121,11 @@ extension ItemListVC: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
-    
+
     @objc func numDonePressed() {
         itemSearchField.resignFirstResponder()
     }
-    
-    
+
     func addDoneButtonToNumPad() {
         //Add done button to numeric pad keyboard
         let toolbarDone = UIToolbar.init()
@@ -140,19 +134,18 @@ extension ItemListVC: UITextFieldDelegate {
                                               target: self, action: nil)
         let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
                                               target: self, action: #selector(numDonePressed))
-        
+
         toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
         itemSearchField.inputAccessoryView = toolbarDone
     }
 }
 
-
-//MARK: Table
+// MARK: Table
 extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
@@ -180,26 +173,23 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-    
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filtredItemList.isEmpty ? 1 : filtredItemList.count
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if filtredItemList.isEmpty {
             self.performSegue(withIdentifier: self.showProductCard, sender: self.itemSearchField.text)
             return
         }
-        
+
         let item = filtredItemList[indexPath.row]
         self.dismiss(animated: true, completion: nil)
         delegate?.itemChoosen(productId: item.id)
-        
-        
-        
+
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if filtredItemList.isEmpty,
             let cellAdd = itemTableView.dequeueReusableCell(withIdentifier: "CustomCellOne", for: indexPath) as? AddCell {
@@ -210,6 +200,6 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         return UITableViewCell()
-        
+
     }
 }

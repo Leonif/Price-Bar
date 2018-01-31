@@ -12,4 +12,13 @@ struct FBUomModel {
     var id: Int32
     var name: String
     var iterator: Double
+    
+    var koefficients: [Double]
+    var suffixes: [String]
+    
+//    public struct parameters {
+//        
+//    }
 }
+
+

@@ -9,11 +9,10 @@
 import Foundation
 
 struct OPOutletModel {
-    
+
     var id: String
     var name: String
     var address: String
     var distance: Double
-    
-    
+
 }

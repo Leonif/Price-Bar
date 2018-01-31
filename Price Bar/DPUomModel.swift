@@ -11,5 +11,5 @@ import Foundation
 struct DPUomModel {
     var id: Int32
     var name: String
-    
+
 }

@@ -9,7 +9,6 @@
 import Foundation
 import CoreLocation
 
-
 protocol OutletListDelegate {
     func list(result: ResultType<[OPOutletModel], OutletServiceError>)
 }
@@ -25,8 +24,7 @@ enum OutletServiceError: Error {
     case wrongURL(String)
     case parseError(String)
     case other(String)
-    
-    
+
     var errorDescription: String {
         switch self {
         case let .outletNotFound(description),
@@ -45,14 +43,13 @@ class OutletService: NSObject {
     var outletListDelegate: OutletListDelegate?
     var singleOutletCompletion: ((ResultType<OPOutletModel, OutletServiceError>) -> Void)?
     var outletListCompletion: ((ResultType<[OPOutletModel], OutletServiceError>) -> Void)?
-    
+
     override init() {
         super.init()
         locationService = LocationService()
     }
-    
-    
-    func nearestOutlet(completion: @escaping (ResultType<OPOutletModel, OutletServiceError>)->())  {
+
+    func nearestOutlet(completion: @escaping (ResultType<OPOutletModel, OutletServiceError>)->Void) {
         singleOutletCompletion = completion
         locationService.getCoords { result in
             switch result {
@@ -74,11 +71,10 @@ class OutletService: NSObject {
             }
         }
     }
-    
-    
-    func outletList(completion: @escaping (ResultType<[OPOutletModel], OutletServiceError>)->())  {
+
+    func outletList(completion: @escaping (ResultType<[OPOutletModel], OutletServiceError>)->Void) {
         outletListCompletion = completion
-        
+
         locationService.getCoords { result in
             switch result {
             case let .failure(error):
@@ -95,9 +91,9 @@ class OutletService: NSObject {
             }
         }
     }
-    
+
     private func outletListFromProvider(for coords: CLLocationCoordinate2D,
-                                        completion: @escaping (ResultType<[FQOutletModel], FoursqareProviderError>)->Void) {
+                                        completion: @escaping (ResultType<[FQOutletModel], FoursqareProviderError>) -> Void) {
         let foursquareProvider = FoursqareProvider()
         foursquareProvider.loadOultets(userCoordinate: coords, completed: { result in
             switch result {
@@ -109,7 +105,3 @@ class OutletService: NSObject {
         })
     }
 }
-
-
-
-

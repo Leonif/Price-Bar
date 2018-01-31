@@ -56,6 +56,17 @@
          contextName = "ShopListDataSource.init(shopList:):ShopListDataSource.swift">
       </ContextState>
       <ContextState
+         contextName = "DataProvider.headerString(for:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.shopItem(parse:and:):CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -130,6 +141,14 @@
          contextName = "ItemListVC.tableView(_:numberOfRowsInSection:):ItemListVC.swift">
       </ContextState>
       <ContextState
+         contextName = "static FirebaseParser.parseUom(from:):FirebaseParser.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "snapshot.childSnapshot(forPath: &quot;parameters&quot;) as! Dictionary&lt;String, Any&gt;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListModel.(reloadDBFromCloud(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):ShopListModel.swift">
       </ContextState>
       <ContextState
@@ -175,10 +194,10 @@
                value = "sections">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "shopList">
+               value = "item.itemCategory.name">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

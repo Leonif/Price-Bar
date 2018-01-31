@@ -9,9 +9,9 @@
 import Foundation
 import UIKit
 
-extension UITextField{
-    func animateViewMoving (up: Bool, moveValue: CGFloat, view: UIView){
-        let movementDuration:TimeInterval = 0.3
+extension UITextField {
+    func animateViewMoving (up: Bool, moveValue: CGFloat, view: UIView) {
+        let movementDuration: TimeInterval = 0.3
         let movement: CGFloat = (up ? -moveValue : moveValue)
         UIView.beginAnimations("animateView", context: nil)
         UIView.setAnimationBeginsFromCurrentState(true)
@@ -22,15 +22,14 @@ extension UITextField{
 }
 
 extension Date {
-    
+
     func getString(format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format
         formatter.timeZone = TimeZone(abbreviation: TimeZone.current.abbreviation() ?? "")
         return formatter.string(from: self)
     }
-    
-    
+
     var dayOfWeek: Int {
         let myCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.gregorian)!
         let myComponents = myCalendar.components(.weekday, from: self)
@@ -39,23 +38,21 @@ extension Date {
     }
 }
 
-
 extension String {
     // types of format sting
     //http://userguide.icu-project.org/formatparse/datetime
     private var currentTimeZone: TimeZone {
         return TimeZone.current
     }
-    
+
     func toDate(with format: String) -> Date? {
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = currentTimeZone
         return dateFormatter.date(from: self)
     }
 }
-
 
 extension UIColor {
     static var systemGray: UIColor {
@@ -66,10 +63,8 @@ extension UIColor {
     }
 }
 
-
 extension UILabel {
     func size(_ size: CGFloat) {
         self.font = UIFont(name: self.font.fontName, size: size)
     }
 }
-

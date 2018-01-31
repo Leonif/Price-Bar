@@ -9,8 +9,7 @@
 import Foundation
 import UIKit
 
-
-typealias ActionClousure = ()->()
+typealias ActionClousure = ()->Void
 
 extension UIViewController {
     func alert(title: String,
@@ -18,12 +17,12 @@ extension UIViewController {
                okAction: ActionClousure? = nil,
                cancelAction: ActionClousure? = nil,
                completion: ActionClousure? = nil) {
-        
+
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: { (action: UIAlertAction!) in
             okAction?()
         }))
-        
+
         if let cancelAction = cancelAction {
             alert.addAction(UIAlertAction(title: "Не надо", style: UIAlertActionStyle.cancel, handler: { (action: UIAlertAction!) in
                 cancelAction()
@@ -33,14 +32,12 @@ extension UIViewController {
     }
 }
 
-
-
 // Activity Indicator
 extension UIView {
     private var activityIndicatorTag: Int { return 999998 }
     private var activityBackgroundTag: Int { return 999997 }
-    
-    public func pb_startActivityIndicator(with title: String){
+
+    public func pb_startActivityIndicator(with title: String) {
         startCustomActivityIndicator(with: title, location: self.center)
     }
     func pb_stopActivityIndicator() {
@@ -62,7 +59,7 @@ extension UIView {
             })
         }
     }
-    
+
     func startCustomActivityIndicator(with title: String, style: UIActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.white, location: CGPoint?) {
         let locationOnView = location ?? self.center
         DispatchQueue.main.async {
@@ -70,30 +67,29 @@ extension UIView {
             self.setupLabel(on: backgroundView, title: title, and: locationOnView)
             self.setupIndicator(on: backgroundView, with: style, and: location)
             self.show(backgroundView)
-            
+
         }
     }
     func startCustomActivityIndicator(style: UIActivityIndicatorViewStyle = UIActivityIndicatorViewStyle.white, location: CGPoint?) {
-        
+
         //let locationOnView = location ?? self.center
-        
+
         let width = UIScreen.main.bounds.width
         let height = UIScreen.main.bounds.width
-        
+
         DispatchQueue.main.async {
             let backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: width, height: height))
             self.setupIndicator(on: backgroundView, with: style, and: location)
             self.show(backgroundView)
         }
     }
-    
+
     private func setupIndicator(on backgroundView: UIView, with style: UIActivityIndicatorViewStyle, and location: CGPoint?) {
-        
+
         let locationOnView = location ?? self.center
-        
-        
+
         backgroundView.tag = self.activityBackgroundTag
-        
+
         let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: style)
         activityIndicator.tag = self.activityIndicatorTag
         activityIndicator.center = locationOnView
@@ -101,11 +97,11 @@ extension UIView {
         activityIndicator.startAnimating()
         backgroundView.addSubview(activityIndicator)
     }
-    
+
     private func setupLabel(on view: UIView, title: String, and location: CGPoint) {
-        
+
         let width = UIScreen.main.bounds.width
-        
+
         let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 100))
         titleLabel.textColor = .white
         titleLabel.text = title
@@ -115,37 +111,37 @@ extension UIView {
         let centerY = titleLabel.center.y
         titleLabel.center.y = centerY + 32
         view.addSubview(titleLabel)
-        
+
     }
-    
+
     func show(_ indicatorView: UIView) {
-        
+
         guard let window = UIApplication.shared.keyWindow else { return }
-        
+
         indicatorView.backgroundColor = .clear
-        
+
         window.addSubview(indicatorView)
         UIView.animate(withDuration: 0.8, animations: {
             indicatorView.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         })
     }
-    
+
     func obscure() {
         guard let window = UIApplication.shared.keyWindow else { return }
-        
+
         self.backgroundColor = .clear
-        
+
         window.addSubview(self)
         UIView.animate(withDuration: 0.3, animations: {
             self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         })
     }
-    
-    func antiObscure(completion: @escaping ()->()) {
+
+    func antiObscure(completion: @escaping ()->Void) {
         guard let window = UIApplication.shared.keyWindow else { return }
-        
+
         self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-        
+
         window.addSubview(self)
         UIView.animate(withDuration: 0.3, animations: {
             self.backgroundColor = .clear
@@ -156,23 +152,16 @@ extension UIView {
 }
 
 extension UIView {
-    
+
     func castShadow() {
         self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         self.layer.shadowOpacity = 0.8
         self.layer.shadowRadius = 5.0
         self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
     }
-    
-    
+
     func roundingEdges() {
         self.layer.cornerRadius = self.frame.height / 2
     }
 
-    
-    
 }
-
-
-
-

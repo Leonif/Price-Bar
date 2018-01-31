@@ -13,8 +13,6 @@ protocol ScannerDelegate {
     func scanned(barcode: String)
 }
 
-
-
 class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
     @IBOutlet var topbar: UIView!
@@ -22,11 +20,11 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
     @IBOutlet var backButton: UIButton!
     var delegate: ScannerDelegate!
     @IBOutlet weak var warningRestrictedCameraView: UIView!
-    
-    var captureSession:AVCaptureSession?
-    var videoPreviewLayer:AVCaptureVideoPreviewLayer?
-    var qrCodeFrameView:UIView?
-    
+
+    var captureSession: AVCaptureSession?
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?
+    var qrCodeFrameView: UIView?
+
     let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                               AVMetadataObject.ObjectType.code39,
                               AVMetadataObject.ObjectType.code39Mod43,
@@ -37,79 +35,71 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
                               AVMetadataObject.ObjectType.aztec,
                               AVMetadataObject.ObjectType.pdf417,
                               AVMetadataObject.ObjectType.qr]
-    
-    
-    
+
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
-        if  authStatus == AVAuthorizationStatus.denied  {
+        if  authStatus == AVAuthorizationStatus.denied {
             warningRestrictedCameraView.isHidden = false
-            
+
         }
-        
-        
+
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video as the media type parameter.
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
-        
+
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
             let input = try AVCaptureDeviceInput(device: captureDevice!)
-            
+
             // Initialize the captureSession object.
             captureSession = AVCaptureSession()
-            
+
             // Set the input device on the capture session.
             captureSession?.addInput(input)
-            
-            
+
             // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
             let captureMetadataOutput = AVCaptureMetadataOutput()
             captureSession?.addOutput(captureMetadataOutput)
-            
-            
+
             // Set delegate and use the default dispatch queue to execute the call back
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             captureMetadataOutput.metadataObjectTypes = supportedCodeTypes
-            
+
             // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
             videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
             videoPreviewLayer?.frame = view.layer.bounds
             view.layer.addSublayer(videoPreviewLayer!)
-            
+
             // Start video capture.
             captureSession?.startRunning()
-            
+
             // Move the message label and top bar to the front
             view.bringSubview(toFront: topbar)
             view.bringSubview(toFront: backButton)
-            
+
             // Initialize QR Code Frame to highlight the QR code
             qrCodeFrameView = UIView()
-            
+
             if let qrCodeFrameView = qrCodeFrameView {
                 qrCodeFrameView.layer.borderColor = UIColor.green.cgColor
                 qrCodeFrameView.layer.borderWidth = 2
                 view.addSubview(qrCodeFrameView)
                 view.bringSubview(toFront: qrCodeFrameView)
             }
-            
+
         } catch {
             // If any error occurs, simply print it out and don't continue any more.
             print(error)
             return
         }
     }
-    
-    
+
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // Check if the metadataObjects array is not nil and it contains at least one object.
 //        if metadataObjects == nil || metadataObjects.count == 0 {
@@ -117,35 +107,33 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
 //            messageLabel.text = "No QR code is detected"
 //            return
 //        }
-        
+
         // Get the metadata object.
-        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-        
+        guard let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else {
+            fatalError("metadataObjects is not available")
+        }
+
         if supportedCodeTypes.contains(metadataObj.type) {
             // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
             let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
             qrCodeFrameView?.frame = barCodeObject!.bounds
-            
+
             if metadataObj.stringValue != nil {
-                
+
                 let code = metadataObj.stringValue
                 captureSession?.stopRunning()
                 messageLabel.text = code
                 //delegate.objectExchange(object: code ?? "")
                 self.dismiss(animated: true, completion: {
-                    
+
                     self.delegate.scanned(barcode: code ?? "")
-                    
+
                 })
-                
-                
-                
+
             }
         }
     }
-    
-    
-    
+
 //    func metadataOutput(captureOutput: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
 //
 //        // Check if the metadataObjects array is not nil and it contains at least one object.
@@ -179,5 +167,4 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
 //        }
 //    }
 
-   
 }

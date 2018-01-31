@@ -16,12 +16,12 @@ struct QuantityModel {
     var wholeItem: Int
     var decimalItem: Int
     var indexPath: IndexPath
-    
+
     init(for cellWithIndexPath: IndexPath, with type: QuantityType, and currentValue: Double) {
         self.type = type
         self.wholeItem = currentValue.int
         self.indexPath = cellWithIndexPath
-        
+
         let decStr = String(format:"%.3f", currentValue).components(separatedBy: ".")
         guard let dec = decStr[1].int else {
             fatalError("String convertion error")

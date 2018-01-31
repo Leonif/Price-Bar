@@ -15,6 +15,5 @@ class GoodTextField: UITextField {
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: 10.0, dy: 5.0)
     }
-    
 
 }

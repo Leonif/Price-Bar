@@ -9,11 +9,10 @@
 import Foundation
 
 struct FQOutletModel {
-    
+
     var id: String
     var name: String
     var address: String
     var distance: Double
-    
-    
+
 }

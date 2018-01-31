@@ -14,17 +14,17 @@ class GoodButton: UIButton {
         super.init(frame: frame)
         configure()
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         configure()
     }
-    
+
     func configure() {
         self.castShadow()
         self.roundingEdges()
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         UIView.animate(withDuration: 0.6,

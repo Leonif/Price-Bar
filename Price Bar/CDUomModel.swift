@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct CDUomModel {
     var id: Int32
     var name: String

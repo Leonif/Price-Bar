@@ -12,7 +12,7 @@ class ItemListCell: UITableViewCell {
     @IBOutlet weak var itemNameLabel: UILabel!
     @IBOutlet weak var itemPriceLabel: UILabel!
     @IBOutlet weak var itemMinPriceLabel: UILabel!
-    
+
     func configureCell(_ item: ItemListModelView) {
         let checkAlpha = CGFloat(item.currentPrice == 0 ? 0.5 : 1)
         self.contentView.alpha = checkAlpha
@@ -20,7 +20,7 @@ class ItemListCell: UITableViewCell {
         itemPriceLabel.text = item.currentPrice.asLocaleCurrency
         itemMinPriceLabel.text = "лучшая: \(item.minPrice.asLocaleCurrency)"
     }
-    
+
 }
 
 class AddCell: UITableViewCell {
@@ -29,13 +29,12 @@ class AddCell: UITableViewCell {
         super.awakeFromNib()
         self.backgroundColor = .clear
     }
-    
+
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         cellView.layer.cornerRadius = cellView.frame.height/2
         cellView.castShadow()
-        
-    }
-    
-}
 
+    }
+
+}

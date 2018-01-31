@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct FBProductModel {
     var id: String
     var name: String

@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 
-
 //extension UILabel {
 //    
 //    func update(value: Double) {
@@ -18,7 +17,5 @@ import UIKit
 //        }
 //        
 //    }
-    
-    
-//}
 
+//}

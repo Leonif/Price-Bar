@@ -17,6 +17,3 @@ struct ProductCardModelView {
     var uomId: Int32
     var uomName: String
 }
-
-
-

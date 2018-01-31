@@ -9,30 +9,23 @@
 import Foundation
 import UIKit
 
-
 protocol PickerControlDelegate {
     func choosen(id: Int32)
 }
-
-
 
 struct PickerData {
     var id: Int32
     var name: String
 }
 
-
 class PickerControl: UIViewController {
-    
-    
+
     var dataSource: [PickerData] = []
     var indexPath: IndexPath?
-    
+
     var delegate: PickerControlDelegate?
     var currentIndex: Int!
-    
-    
-    
+
     let picker: UIPickerView = {
         let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         picker.backgroundColor = .white
@@ -40,8 +33,7 @@ class PickerControl: UIViewController {
         picker.showsSelectionIndicator = true
         return picker
     }()
-    
-    
+
     let toolbar: UIToolbar = {
         let tlbr = UIToolbar()
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSelection))
@@ -51,64 +43,63 @@ class PickerControl: UIViewController {
         tlbr.isUserInteractionEnabled = true
         return tlbr
     }()
-    
+
     let containerView = UIView()
-    
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
+
     convenience init(delegate: PickerControlDelegate, dataSource: [PickerData], currentIndex: Int) {
         self.init()
-        
+
         self.delegate = delegate
         self.dataSource = dataSource
-        
+
         self.configurePopup()
         self.modalPresentationStyle = .overCurrentContext
         self.currentIndex = currentIndex
-        
+
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //self.configurePopup()
     }
-    
+
     @objc func choosen() {
         delegate?.choosen(id: dataSource[picker.selectedRow(inComponent: 0)].id)
         self.view.antiObscure {
             self.dismiss(animated: true, completion: nil)
         }
-        
+
     }
-    
+
     @objc func cancelSelection() {
         self.view.antiObscure {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
+
     func configurePopup() {
         picker.delegate = self
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
         self.picker.selectRow(currentIndex, inComponent: 0, animated: true)
     }
-    
-    
+
     private func setupConstraints() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         picker.translatesAutoresizingMaskIntoConstraints = false
-        
+
         view.addSubview(containerView)
         containerView.addSubview(toolbar)
         containerView.addSubview(picker)
-        
+
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -124,27 +115,24 @@ class PickerControl: UIViewController {
             picker.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             ])
     }
-    
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.obscure()
     }
-    
-    
+
 }
 
 extension PickerControl: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return dataSource[row].name
     }
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return dataSource.count
     }
 }
-

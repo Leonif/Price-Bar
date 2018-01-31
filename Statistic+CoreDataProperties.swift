@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Statistic {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Statistic> {

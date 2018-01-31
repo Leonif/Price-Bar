@@ -13,7 +13,7 @@ enum LocationServiceError: Error {
     case notAuthorizedAccess(String)
     case servicesIsNotAvailable(String)
     case other(String)
-    
+
     var errorDescription: String {
         switch self {
         case let .notAuthorizedAccess(description),
@@ -27,13 +27,13 @@ enum LocationServiceError: Error {
 class LocationService: NSObject {
     let locationManager = CLLocationManager()
     var coordinatesResult: ((ResultType<CLLocationCoordinate2D, LocationServiceError>) -> Void)?
-    
+
     override init() {
         super.init()
         locationManager.delegate = self
     }
-    
-    private func startReceivingLocationChanges(){
+
+    private func startReceivingLocationChanges() {
         if !CLLocationManager.locationServicesEnabled() {
             self.coordinatesResult?(ResultType.failure(.servicesIsNotAvailable("Location services is not available.")))
         }
@@ -42,27 +42,29 @@ class LocationService: NSObject {
         locationManager.distanceFilter = 100.0  // In meters.
         locationManager.startUpdatingLocation()
     }
-    
+
     private func stopLocationUpdating() {
         locationManager.stopUpdatingLocation()
     }
-    
-    public func getCoords(completion: @escaping (ResultType<CLLocationCoordinate2D, LocationServiceError>)->()) {
+
+    public func getCoords(completion: @escaping (ResultType<CLLocationCoordinate2D, LocationServiceError>)->Void) {
         self.coordinatesResult = completion
         let status: CLAuthorizationStatus = getAuthStatus()
         handle(status)
     }
-    
+
     private func getAuthStatus() -> CLAuthorizationStatus {
         return CLLocationManager.authorizationStatus()
     }
-    
+
     private func handle(_ status: CLAuthorizationStatus) {
         switch status {
         case .authorizedWhenInUse:
             startReceivingLocationChanges()
         case .denied:
-            self.coordinatesResult?(ResultType.failure(.notAuthorizedAccess("Мы не можем найти магазины возле вас. Вы запретили следить за вашей позицией. Включите в настройках, чтобы использовать программу 😢")))
+            self.coordinatesResult?(ResultType
+                .failure(
+                    .notAuthorizedAccess("Мы не можем найти магазины возле вас. Вы запретили следить за вашей позицией. Включите в настройках, чтобы использовать программу 😢")))
         default:
             print(status)
             locationManager.requestWhenInUseAuthorization()
@@ -70,12 +72,11 @@ class LocationService: NSObject {
     }
 }
 
-
 extension LocationService: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         handle(status)
     }
-    
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         stopLocationUpdating()
         if let  userCoord = locations.last?.coordinate {
@@ -85,4 +86,3 @@ extension LocationService: CLLocationManagerDelegate {
         }
     }
 }
-

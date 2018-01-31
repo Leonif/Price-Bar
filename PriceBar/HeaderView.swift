@@ -12,8 +12,5 @@ class HeaderView: UIView {
 
     @IBOutlet weak var imageHeader: UIImageView!
     @IBOutlet weak var categoryLabel: UILabel!
-    
-    
-    
-    
+
 }

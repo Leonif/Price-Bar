@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct DPShoplistItemModel: Equatable {
     var productId: String
     var productName: String
@@ -21,7 +20,6 @@ struct DPShoplistItemModel: Equatable {
     var isPerPiece: Bool
     var checked: Bool
 }
-
 
 func ==(lhs: DPShoplistItemModel, rhs: DPShoplistItemModel) -> Bool {
     return lhs.productId == rhs.productId// && lhs.productCategory == rhs.productCategory

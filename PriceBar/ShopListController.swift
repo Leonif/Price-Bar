@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 class ShopListController: UIViewController {
-    
+
     fileprivate let showScan = "showScan"
     fileprivate let showItemList = "showItemList"
     fileprivate let showOutlets = "showOutlets"
@@ -19,9 +19,9 @@ class ShopListController: UIViewController {
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     @IBOutlet weak var removeShoplistBtn: GoodButton!
-    
+
     var dataProvider: DataProvider = DataProvider()
-    
+
     var userOutlet: Outlet! {
         didSet {
             DispatchQueue.main.async {
@@ -32,27 +32,29 @@ class ShopListController: UIViewController {
             }
         }
     }
-    //var dataSource: ShopListDataSource?
-    
+    var dataSource: ShopListDataSource?
+
     @IBOutlet weak var outletNameButton: UIButton!
     @IBOutlet weak var outletAddressLabel: UILabel!
-    
+
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
-    
+
     func update() {
         self.removeShoplistBtn.alpha = self.dataProvider.shoplist.count > 0 ? 1 : 0.5
         self.removeShoplistBtn.isUserInteractionEnabled = self.dataProvider.shoplist.count > 0
         totalLabel.text = "Итого: \(dataProvider.total.asLocaleCurrency)"
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         dataProvider.updateClousure = update
+
+        dataSource = ShopListDataSource(cellDelegate: self,
+                                        dataProvider: dataProvider)
         
-        shopTableView.dataSource = ShopListDataSource(cellDelegate: self,
-                                                      dataProvider: dataProvider)
-        
+        shopTableView.dataSource = dataSource
+
         self.view.pb_startActivityIndicator(with: "Синхронизация")
         dataProvider.syncCloud { result in
             self.view.pb_stopActivityIndicator()
@@ -64,7 +66,7 @@ class ShopListController: UIViewController {
             }
         }
     }
-    
+
     private func updateCurentOutlet() {
         let outletService = OutletService()
         outletService.nearestOutlet { result in
@@ -84,19 +86,19 @@ class ShopListController: UIViewController {
             self.buttonEnable(activateControls)
         }
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         shopTableView.reloadData()
     }
-    
+
     @IBAction func scanItemPressed(_ sender: Any) {
         performSegue(withIdentifier: showScan, sender: nil)
      }
     @IBAction func itemListPressed(_ sender: Any) {
         performSegue(withIdentifier: showItemList, sender: nil)
     }
-    
+
     @IBAction func outletPressed(_ sender: Any) {
         performSegue(withIdentifier: showOutlets, sender: nil)
     }
@@ -105,8 +107,7 @@ class ShopListController: UIViewController {
             self.dataProvider.clearShoplist()
             self.shopTableView.reloadData()
         }, cancelAction: {})
-        
-        
+
     }
     func buttonEnable(_ enable: Bool) {
         let alpha: CGFloat = enable ? 1 : 0.5
@@ -123,8 +124,7 @@ class ShopListController: UIViewController {
     }
 }
 
-
-//MARK: Cell handlers
+// MARK: Cell handlers
 extension ShopListController: ShopItemCellDelegate {
     func weightDemanded(cell: ShopItemCell, currentValue: Double) {
         print("Picker opened")
@@ -154,7 +154,7 @@ extension ShopListController: QuantityPickerPopupDelegate {
     }
 }
 
-//MARK: Table
+// MARK: Table
 extension ShopListController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
@@ -164,7 +164,7 @@ extension ShopListController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
-            
+
             headerView.categoryLabel.text = dataProvider.headerString(for: section)
             return headerView
         }
@@ -172,11 +172,11 @@ extension ShopListController: UITableViewDelegate {
     }
 }
 
-//MARK: transition
+// MARK: transition
 extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showEditItem,
-            let itemCardVC = segue.destination as? ItemCardVC  {
+            let itemCardVC = segue.destination as? ItemCardVC {
             if let item = sender as? DPShoplistItemModel {
                 itemCardVC.item = item
                 itemCardVC.delegate = self
@@ -185,7 +185,7 @@ extension ShopListController {
             }
         }
         if segue.identifier == "scannedNewProduct",
-            let itemCardVC = segue.destination as? ItemCardVC  {
+            let itemCardVC = segue.destination as? ItemCardVC {
             if let barcode = sender as? String {
                 itemCardVC.barcode = barcode
                 itemCardVC.delegate = self
@@ -193,25 +193,22 @@ extension ShopListController {
                 itemCardVC.outletId = userOutlet.id
             }
         }
-        
+
         if segue.identifier == showOutlets,
-            let outletVC = segue.destination as? OutletsVC  {
+            let outletVC = segue.destination as? OutletsVC {
             outletVC.delegate = self
         }
         if segue.identifier == showItemList,
-            let itemListVC = segue.destination as? ItemListVC, userOutlet != nil  {
+            let itemListVC = segue.destination as? ItemListVC, userOutlet != nil {
             itemListVC.outletId = userOutlet.id
             itemListVC.delegate = self
             itemListVC.itemCardDelegate = self
             itemListVC.dataProvider = dataProvider
-            
+
         }
         if segue.identifier == showScan,
-            let scanVC = segue.destination as? ScannerController  {
+            let scanVC = segue.destination as? ScannerController {
             scanVC.delegate = self
         }
     }
 }
-
-
-

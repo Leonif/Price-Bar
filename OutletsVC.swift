@@ -9,25 +9,23 @@
 import UIKit
 import CoreLocation
 
-
 protocol OutletVCDelegate {
     func choosen(outlet: Outlet)
 }
 
 class OutletsVC: UIViewController {
-    
+
     var outletService: OutletService?
-    
+
     var delegate: OutletVCDelegate!
     @IBOutlet weak var outletTableView: UITableView!
     var outlets = [Outlet]()
-    
+
     @IBOutlet weak var warningLocationView: UIView!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.pb_startActivityIndicator(with: "Загрузка торговых точек")
         outletService = OutletService()
         outletService?.outletList(completion: { result in
@@ -38,19 +36,19 @@ class OutletsVC: UIViewController {
                 DispatchQueue.main.async {
                     self.outletTableView.reloadData()
                 }
-                
+
             case let .failure(error):
                 self.alert(title: "Ops", message: error.errorDescription)
             }
         })
     }
-    
+
     @IBAction func backPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
 }
 
-//MARK: Table
+// MARK: Table
 extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -63,16 +61,16 @@ extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
         delegate.choosen(outlet: outlet)
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         if let cell = outletTableView.dequeueReusableCell(withIdentifier: "OutletCell", for: indexPath) as? OutletCell {
-            
+
             let outlet = outlets[indexPath.row]
             cell.configureCell(outlet: outlet)
             return cell
         }
-        
+
         return UITableViewCell()
     }
 }

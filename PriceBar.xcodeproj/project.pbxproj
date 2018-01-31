@@ -50,6 +50,7 @@
 		7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletService.swift */; };
 		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
+		7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976A6F920219AD20031CC79 /* FirebaseParser.swift */; };
 		79833B35200D5002005C6CC5 /* ProductCardModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardModelView.swift */; };
 		79833B37200D501E005C6CC5 /* DPProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B36200D501E005C6CC5 /* DPProductModel.swift */; };
 		79833B3A200E7E4B005C6CC5 /* CategoryModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */; };
@@ -146,6 +147,7 @@
 		7973DD861EF1AC7F0010A64F /* OutletService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletService.swift; sourceTree = SOURCE_ROOT; };
 		7973DD881EF1AF430010A64F /* OutletsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletsVC.swift; sourceTree = SOURCE_ROOT; };
 		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
+		7976A6F920219AD20031CC79 /* FirebaseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseParser.swift; sourceTree = "<group>"; };
 		79833B34200D5002005C6CC5 /* ProductCardModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardModelView.swift; sourceTree = "<group>"; };
 		79833B36200D501E005C6CC5 /* DPProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPProductModel.swift; sourceTree = "<group>"; };
 		79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelView.swift; sourceTree = "<group>"; };
@@ -401,6 +403,7 @@
 			children = (
 				79833B4920130F32005C6CC5 /* Entities */,
 				795EA8D21F102AAB00752A68 /* FirebaseService.swift */,
+				7976A6F920219AD20031CC79 /* FirebaseParser.swift */,
 			);
 			name = FirebaseProvider;
 			sourceTree = "<group>";
@@ -839,6 +842,7 @@
 				79833B572013F445005C6CC5 /* FBProductModel.swift in Sources */,
 				7904B45E1F037E32002032CD /* ShopList+CoreDataProperties.swift in Sources */,
 				79833B4720130186005C6CC5 /* Application.swift in Sources */,
+				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
 				792EE7B91EE7080400470669 /* DataProvider.swift in Sources */,
 				79833B5920146675005C6CC5 /* CDCategoryModel.swift in Sources */,
 				79D269FD1EFD8D3A00337DA3 /* Statistic+CoreDataProperties.swift in Sources */,

@@ -18,10 +18,9 @@ extension ShopListController: ScannerDelegate {
             //self.barcode = barcode
             self.performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
         }
-        
+
     }
 }
-
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
@@ -32,7 +31,7 @@ extension ShopListController: ItemListVCDelegate {
     }
     func addItemToShopList(_ product: DPProductModel) {
         let shopListItem: DPShoplistItemModel = ProductMapper.mapper(from: product, and: userOutlet.id)
-        
+
         let result = dataProvider.saveToShopList(new: shopListItem)
         switch result {
         case .success:
@@ -44,24 +43,23 @@ extension ShopListController: ItemListVCDelegate {
     }
 }
 
-
 extension ShopListController: OutletVCDelegate {
     func choosen(outlet: Outlet) {
         userOutlet = outlet
-        
+
     }
 }
 
 extension ShopListController: ItemCardVCDelegate {
     func add(new productId: String) {
         print(productId)
-        
+
         guard let product: DPProductModel = dataProvider.getItem(with: productId, and: userOutlet.id) else {
             fatalError("product is not found")
         }
         addItemToShopList(product)
     }
-    
+
     func updated(status: Bool) {
         guard status == true else {
             return

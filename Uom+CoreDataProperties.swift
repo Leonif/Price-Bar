@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Uom {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Uom> {

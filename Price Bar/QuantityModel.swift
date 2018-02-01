@@ -29,3 +29,8 @@ struct QuantityModel {
         self.decimalItem = dec
     }
 }
+
+struct QuantityModel2 {
+    var suffixes: [String]
+    var koefficients: [Double]
+}

@@ -142,7 +142,7 @@ extension QuantityPickerPopup2: UIPickerViewDataSource, UIPickerViewDelegate {
         let w = weightItems[component].weight[row]
         let suff = weightItems[component].suff
         
-        return "\(w)\(suff)"
+        return "\(w)" "\(suff)"
         
         
     }

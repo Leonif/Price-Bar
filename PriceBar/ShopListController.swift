@@ -134,9 +134,10 @@ extension ShopListController: ShopItemCellDelegate {
             let item = dataProvider.getItem(index: indexPath) else {
                 fatalError("Not possible to find out type of item")
         }
-        let type: QuantityType = item.isPerPiece ? .quantity : .weight
-        let model = QuantityModel(for: indexPath, with: type, and: currentValue)
-        let pickerVC = QuantityPickerPopup(delegate: self, model: model)
+        //let type: QuantityType = item.isPerPiece ? .quantity : .weight
+        //let model = QuantityModel(for: indexPath, with: type, and: currentValue)
+        let model = QuantityModel2(suffixes: item.suffixes, koefficients: item.koefficients)
+        let pickerVC = QuantityPickerPopup2(delegate: self, model: model)
         self.present(pickerVC, animated: true, completion: nil)
     }
     func checkPressed(for item: DPShoplistItemModel) {
@@ -145,7 +146,7 @@ extension ShopListController: ShopItemCellDelegate {
 }
 
 // MARK: Quantity changing of item handler
-extension ShopListController: QuantityPickerPopupDelegate {
+extension ShopListController: QuantityPickerPopupDelegate2 {
     func choosen(weight: Double, for indexPath: IndexPath) {
         guard let item = self.dataProvider.getItem(index: indexPath) else {
             return

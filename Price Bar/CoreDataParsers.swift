@@ -28,10 +28,16 @@ class CoreDataParsers {
     }
     
     class func parse(from uom: Uom) -> UomModelView {
-        guard let uomName = uom.uom else {
-            fatalError("uomName error")
+        guard
+            let uomName = uom.uom,
+            let uomKoefficients = uom.koefficients,
+            let uomSuffixes = uom.suffixes else {
+                fatalError("Uom is not available")
+                
         }
-        return UomModelView(id: uom.id, name:  uomName)
+        return UomModelView(id: uom.id, name: uomName,
+                            koefficients: uomKoefficients,
+                            suffixes: uomSuffixes)
     }
     
     class func parse(from uoms: [Uom]) -> [UomModelView] {

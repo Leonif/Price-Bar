@@ -15,7 +15,7 @@ class ProductMapper {
 
         guard
             let categoryName = dataProvider.getCategoryName(category: product.categoryId),
-            let uom = dataProvider.getUomName(for: product.uomId)
+            let uom = dataProvider.getUom(for: product.uomId)
             else {
                 fatalError("category or uom name doesnt exist")
         }
@@ -27,10 +27,12 @@ class ProductMapper {
                                                productCategory: categoryName,
                                                productPrice: price,
                                                uomId: product.uomId,
-                                               productUom: uom,
+                                               productUom: uom.name,
                                                quantity: 1.0,
                                                isPerPiece: product.isPerPiece,
-                                               checked: false)
+                                               checked: false,
+                                               koefficients: uom.koefficients,
+                                               suffixes: uom.suffixes)
 
     }
 

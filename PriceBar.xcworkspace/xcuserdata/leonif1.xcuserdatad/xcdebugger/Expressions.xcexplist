@@ -141,6 +141,12 @@
          contextName = "ItemListVC.tableView(_:numberOfRowsInSection:):ItemListVC.swift">
       </ContextState>
       <ContextState
+         contextName = "static CoreDataParsers.parse(from:):CoreDataParsers.swift">
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup2.numberOfComponents(in:):QuantityPickerPopup2.swift">
+      </ContextState>
+      <ContextState
          contextName = "static FirebaseParser.parseUom(from:):FirebaseParser.swift">
          <PersistentStrings>
             <PersistentString
@@ -191,13 +197,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -279,10 +285,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -307,6 +313,9 @@
                value = "weightPicker.frame">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.weightDemanded(cell:currentValue:):ShopListController.swift">
       </ContextState>
       <ContextState
          contextName = "DataProvider.getItem(index:):DataProvider.swift">
@@ -349,6 +358,14 @@
       </ContextState>
       <ContextState
          contextName = "ShopListModel.change(ShopItem) -&gt; ():ShopListModel.swift">
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup2.pickerView(_:numberOfRowsInComponent:):QuantityPickerPopup2.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "weightItems[component].weight">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in FirebaseService.syncProducts(completion:):FirebaseService.swift">
@@ -396,6 +413,14 @@
       </ContextState>
       <ContextState
          contextName = "DataProvider.handleStatistics(result:completion:):DataProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup2.configurePopup():QuantityPickerPopup2.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "weightItems">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ItemListVC.tableView(_:didSelectRowAt:):ItemListVC.swift">

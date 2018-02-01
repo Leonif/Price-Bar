@@ -371,7 +371,24 @@ class DataProvider {
     }
 
     func getUomName(for id: Int32) -> String? {
-        return CoreDataService.data.getUomName(by: id)
+        guard
+        let uom = CoreDataService.data.getUom(by: id),
+        let uomName = uom.uom
+        else {
+            fatalError("Uom is not available")
+        }
+        
+        return uomName
+    }
+    
+    func getUom(for id: Int32) -> UomModelView? {
+        
+        guard
+            let uom = CoreDataService.data.getUom(by: id) else {
+             fatalError("Uom is not available")
+                
+        }
+        return CoreDataParsers.parse(from: uom)
     }
 
     func getCategoryName(category id: Int32) -> String? {

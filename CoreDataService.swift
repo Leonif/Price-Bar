@@ -125,7 +125,9 @@ class CoreDataService {
                     let category = product.toCategory,
                     let categoryName = category.category,
                     let uom = product.toUom,
-                    let uomName = uom.uom {
+                    let uomName = uom.uom,
+                    let uomKoefficients = uom.koefficients,
+                    let uomSuffixes = uom.suffixes {
 
                     let quantity = shoplistItem.quantity
                     let checked = shoplistItem.checked
@@ -142,7 +144,9 @@ class CoreDataService {
                                                  productUom: uomName,
                                                  quantity: quantity,
                                                  isPerPiece: isPerPiece,
-                                                 checked: checked)
+                                                 checked: checked,
+                                                 koefficients: uomKoefficients,
+                                                 suffixes: uomSuffixes)
 
                     shopList.append(item)
                 }
@@ -404,21 +408,21 @@ extension CoreDataService {
         return nil
     }
 
-    func getUomName(by id: Int32) -> String? {
-        do {
-            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
-            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
-            let uoms = try context.fetch(fetchRequest)
-
-            guard !uoms.isEmpty, let uom = uoms.first else {
-                return nil
-            }
-            return uom.uom
-        } catch {
-            fatalError("uom is not got from database")
-        }
-        return nil
-    }
+//    func getUomName(by id: Int32) -> String? {
+//        do {
+//            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
+//            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+//            let uoms = try context.fetch(fetchRequest)
+//
+//            guard !uoms.isEmpty, let uom = uoms.first else {
+//                return nil
+//            }
+//            return uom.uom
+//        } catch {
+//            fatalError("uom is not got from database")
+//        }
+//        return nil
+//    }
 
     func getProduct(by id: String) -> Product? {
         do {

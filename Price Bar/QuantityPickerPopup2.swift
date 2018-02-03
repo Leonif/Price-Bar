@@ -67,22 +67,10 @@ class QuantityPickerPopup2: UIViewController {
     
     @objc func choosen() {
         var value: Double = 0.0
-//        var r = 1.0
-//        for component in 0..<weightPicker.numberOfComponents {
-//            let weightIndex = weightPicker.selectedRow(inComponent:component)
-//            value += weightItems[component].weight[weightIndex]/r
-//            r *= 1000
-//            print(value)
-//        }
-        
-        
         for component in 0..<weightPicker.numberOfComponents {
             let weightIndex = weightPicker.selectedRow(inComponent:component)
             value += weightItems[component].weight[weightIndex]
         }
-        
-        
-        
         delegate?.choosen(weight: value, for: self.currentModel.indexPath)
         self.view.antiObscure {
             self.dismiss(animated: true, completion: nil)
@@ -113,6 +101,25 @@ class QuantityPickerPopup2: UIViewController {
        return WeightItem(weight: ww, viewWeight: vv, suff: parameter.suffix)
     }
     
+    func foundCurrentIndex(for currentValue: Double) -> [Int] {
+        
+        var indexes: [Int] = []
+        var value: Double = currentValue
+        
+        for w in weightItems {
+            for (index, v1) in w.weight.enumerated() {
+                if v1 > value {
+                    let foundIndex = index - 1
+                    indexes.append(foundIndex)
+                    value -= w.weight[foundIndex]
+                    break
+                }
+            }
+        }
+        
+        return indexes
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,6 +129,13 @@ class QuantityPickerPopup2: UIViewController {
     }
     
     func selectCurrentValue() {
+        
+        
+        let indexes = foundCurrentIndex(for: currentModel.currentValue)
+        for comp in 0..<weightPicker.numberOfComponents {
+            weightPicker.selectRow(indexes[comp], inComponent: comp, animated: true)
+        }
+        
         
     }
     

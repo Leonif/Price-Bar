@@ -79,8 +79,8 @@ class DataProvider {
 
     func needToSync() -> Bool {
         //need to check
-        return true
-//        return false
+//        return true
+        return false
 //        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
 //        switch times {
 //        case 0:

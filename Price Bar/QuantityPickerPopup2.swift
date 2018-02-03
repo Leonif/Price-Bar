@@ -16,6 +16,7 @@ protocol QuantityPickerPopupDelegate2 {
 
 struct WeightItem {
     var weight: [Double]
+    var viewWeight: [Int]
     var suff: String
 }
 
@@ -87,23 +88,25 @@ class QuantityPickerPopup2: UIViewController {
     }
     
     func configurePopup() {
-        
-        
-        
         weightPicker.delegate = self
         for par in currentModel.parameters {
-            
-            let w = Array(0...par.maxValue).map { Double($0) * par.viewMultiplicator }
+            let w = makeW(parameter: par)
             print(w)
-            weightItems.append(WeightItem(weight: w, suff: par.suffix))
+            weightItems.append(w)
         }
-        
-        
-//        for (index, k) in self.currentModel.koefficients.enumerated()  {
-//            let w = Array(0...1000).map { Double($0) * k }
-//            weightItems.append(WeightItem(weight: w, suff: self.currentModel.suffixes[index]))
-//        }
     }
+    
+    
+    func makeW(parameter: Parameter) -> WeightItem  {
+        let w = stride(from: 0, to: Double(parameter.maxValue), by: parameter.step)
+        let ww: [Double] = w.map {$0}
+        let vv: [Int] = w.map {Int($0 * parameter.viewMultiplicator)}
+        
+       return WeightItem(weight: ww, viewWeight: vv, suff: parameter.suffix)
+        
+        
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,10 +154,10 @@ class QuantityPickerPopup2: UIViewController {
 extension QuantityPickerPopup2: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        let w = weightItems[component].weight[row]
+        let w = weightItems[component].viewWeight[row]
         let suff = weightItems[component].suff
         
-        return "\(Int(w)) \(suff)"
+        return "\(w) \(suff)"
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

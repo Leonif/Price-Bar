@@ -335,17 +335,16 @@ class DataProvider {
             return nil
         }
 
-        guard let uom = CoreDataService.data.getUom(by: cdModel.uomId) else {
+        guard let uom: Uom = CoreDataService.data.getUom(by: cdModel.uomId) else {
             fatalError("Uom is not found in CoreData")
         }
 
-        let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
+        //let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
 
         return DPProductModel(id: cdModel.id,
                               name: cdModel.name,
                               categoryId: cdModel.categoryId,
-                              uomId: cdModel.uomId,
-                              isPerPiece: isPerPiece)
+                              uomId: cdModel.uomId)
 
     }
 

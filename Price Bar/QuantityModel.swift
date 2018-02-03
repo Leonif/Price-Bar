@@ -31,6 +31,7 @@ struct QuantityModel {
 }
 
 struct QuantityModel2 {
-    var suffixes: [String]
-    var koefficients: [Double]
+    var parameters: [Parameter]
+    var indexPath: IndexPath
+    var currentValue: Double
 }

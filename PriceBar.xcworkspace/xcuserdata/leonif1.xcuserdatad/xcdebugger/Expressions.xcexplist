@@ -150,6 +150,9 @@
          contextName = "static FirebaseParser.parseUom(from:):FirebaseParser.swift">
          <PersistentStrings>
             <PersistentString
+               value = "max">
+            </PersistentString>
+            <PersistentString
                value = "snapshot.childSnapshot(forPath: &quot;parameters&quot;) as! Dictionary&lt;String, Any&gt;">
             </PersistentString>
          </PersistentStrings>
@@ -419,6 +422,14 @@
          <PersistentStrings>
             <PersistentString
                value = "weightItems">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup2.choosen():QuantityPickerPopup2.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.currentModel.indexPath">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

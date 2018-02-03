@@ -11,9 +11,7 @@ import Foundation
 struct CDUomModel {
     var id: Int32
     var name: String
-    var iterator: Double
     
-    var koefficients: [Double]
-    var suffixes: [String]
+    var parameters: [Parameter]
 
 }

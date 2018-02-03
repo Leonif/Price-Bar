@@ -14,30 +14,30 @@ class CoreDataParsers {
             return nil
         }
         guard
-            let uomKoeffs = uom.koefficients,
-            let uomSuffs = uom.suffixes else {
+            let uomParams = uom.parameters else {
                 return nil
         }
         
-        let uomUterator = uom.iterator
+        
+        let params: [Parameter] = UomMapper.transform(from: uomParams)
+        
         return CDUomModel(id: uom.id,
                           name: uomName,
-                          iterator: uomUterator,
-                          koefficients: uomKoeffs,
-                          suffixes: uomSuffs)
+                          parameters: params)
     }
     
     class func parse(from uom: Uom) -> UomModelView {
         guard
             let uomName = uom.uom,
-            let uomKoefficients = uom.koefficients,
-            let uomSuffixes = uom.suffixes else {
+            let uomParameters = uom.parameters else {
                 fatalError("Uom is not available")
                 
         }
+        
+        let params: [Parameter] = UomMapper.transform(from: uomParameters)
+        
         return UomModelView(id: uom.id, name: uomName,
-                            koefficients: uomKoefficients,
-                            suffixes: uomSuffixes)
+                            parameters: params)
     }
     
     class func parse(from uoms: [Uom]) -> [UomModelView] {

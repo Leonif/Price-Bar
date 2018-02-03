@@ -15,17 +15,13 @@ protocol QuantityPickerPopupDelegate2 {
 
 
 struct WeightItem {
-    
     var weight: [Double]
     var suff: String
-    
 }
 
 class QuantityPickerPopup2: UIViewController {
     
     var weightItems = [WeightItem]()
-//    var wholeItems = [Int]()
-//    var decimalItems = [Int]()
     var indexPath: IndexPath?
     var type: QuantityType?
     var delegate: QuantityPickerPopupDelegate2?
@@ -69,20 +65,19 @@ class QuantityPickerPopup2: UIViewController {
     }
     
     @objc func choosen() {
+        var value: Double = 0.0
+        var r = 1.0
+        for component in 0..<weightPicker.numberOfComponents {
+            let weightIndex = weightPicker.selectedRow(inComponent:component)
+            value += weightItems[component].weight[weightIndex]/r
+            r *= 1000
+            print(value)
+        }
         
-//        let wholePart = wholeItems[weightPicker.selectedRow(inComponent: 0)]
-//
-//        var quantity = Double(wholePart)
-//        if currentModel.type == .weight {
-//            let decimalPart = decimalItems[weightPicker.selectedRow(inComponent: 1)]
-//            quantity += Double(decimalPart)/1000.0
-//        }
-//
-//        delegate?.choosen(weight: quantity, for: self.currentModel.indexPath)
-//        self.view.antiObscure {
-//            self.dismiss(animated: true, completion: nil)
-//        }
-        
+        delegate?.choosen(weight: value, for: self.currentModel.indexPath)
+        self.view.antiObscure {
+            self.dismiss(animated: true, completion: nil)
+        }
     }
     
     @objc func cancelSelection() {
@@ -92,16 +87,41 @@ class QuantityPickerPopup2: UIViewController {
     }
     
     func configurePopup() {
-        weightPicker.delegate = self
-        for (index, k) in self.currentModel.koefficients.enumerated()  {
-            let w = Array(0...1000).map { Double($0) * k }
-            weightItems.append(WeightItem(weight: w, suff: self.currentModel.suffixes[index]))
-        }
+//        weightPicker.delegate = self
+//        for (index, k) in self.currentModel.koefficients.enumerated()  {
+//            let w = Array(0...1000).map { Double($0) * k }
+//            weightItems.append(WeightItem(weight: w, suff: self.currentModel.suffixes[index]))
+//        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
+        selectCurrentValue()
+        
+    }
+    
+    func selectCurrentValue() {
+        
+        var value = 0.0
+        var r = 1.0
+        
+        for component in weightItems.indices {
+            
+            
+            for w in weightItems[component].weight {
+                
+                if w == currentModel.currentValue {
+                    print(w)
+                }
+                
+                print(w)
+                
+                
+                
+            }
+        }
+        
     }
     
     private func setupConstraints() {
@@ -142,9 +162,7 @@ extension QuantityPickerPopup2: UIPickerViewDataSource, UIPickerViewDelegate {
         let w = weightItems[component].weight[row]
         let suff = weightItems[component].suff
         
-        return "\(w)" "\(suff)"
-        
-        
+        return "\(Int(w)) \(suff)"
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -152,8 +170,6 @@ extension QuantityPickerPopup2: UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        
-        
         return weightItems[component].weight.count
         
     }

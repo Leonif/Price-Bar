@@ -11,7 +11,6 @@ struct DPProductModel {
     var name: String
     var categoryId: Int32
     var uomId: Int32
-    var isPerPiece: Bool
 }
 
 struct DPUpdateProductModel {

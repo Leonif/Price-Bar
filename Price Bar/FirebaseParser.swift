@@ -12,29 +12,44 @@ class FirebaseParser {
     class func parseUom(from snapshot: DataSnapshot) -> FBUomModel {
         guard let id = Int32(snapshot.key),
             let uomDict = snapshot.value as? Dictionary<String, Any>,
-            let uomName = uomDict["name"] as? String,
-            let uomIterator = uomDict["iterator"] as? Double else {
+            let uomName = uomDict["name"] as? String else {
                 fatalError("Category os not parsed")
         }
-        var fbUom = FBUomModel(id: id, name: uomName,
-                               iterator: uomIterator, koefficients: [], suffixes: [])
-        if let koeffs = snapshot.childSnapshot(forPath: "parameters").childSnapshot(forPath: "koefficients").children.allObjects as? [DataSnapshot] {
-            for k in koeffs {
-                guard let koeefValue = k.value as? Double else {
+        var fbUom = FBUomModel(id: id,
+                               name: uomName, iterator: 0.0,
+                               koefficients: [],
+                               suffixes: [],
+                               parameters: [])
+        
+        if let parameters = snapshot.childSnapshot(forPath: "parameters2").children.allObjects as? [DataSnapshot] {
+            for par in parameters {
+                guard
+                let paramDict = par.value as? [String: Any],
+                let maxValue = paramDict["max"] as? Int,
+                let step = paramDict["step"] as? Double,
+                let suffix = paramDict["suffix"] as? String,
+                let viewMultiplicator = paramDict["view_multiplicator"] as? Double
+                else {
                     fatalError("Uom koefficinets parse error")
                 }
-                fbUom.koefficients.append(koeefValue)
+                
+                fbUom.parameters.append(
+                    Parameter(maxValue: maxValue,
+                              step: step,
+                              suffix: suffix,
+                              viewMultiplicator: viewMultiplicator)
+                )
             }
         }
-        if let suffixess = snapshot.childSnapshot(forPath: "parameters").childSnapshot(forPath: "suffixes").children.allObjects as? [DataSnapshot] {
-            
-            for s in suffixess {
-                guard let suffValue = s.value as? String else {
-                    fatalError("Uom suffixes parse error")
-                }
-                fbUom.suffixes.append(suffValue)
-            }
-        }
+//        if let suffixess = snapshot.childSnapshot(forPath: "parameters").childSnapshot(forPath: "suffixes").children.allObjects as? [DataSnapshot] {
+//            
+//            for s in suffixess {
+//                guard let suffValue = s.value as? String else {
+//                    fatalError("Uom suffixes parse error")
+//                }
+//                fbUom.suffixes.append(suffValue)
+//            }
+//        }
         return fbUom
     }
     

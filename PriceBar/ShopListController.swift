@@ -136,7 +136,9 @@ extension ShopListController: ShopItemCellDelegate {
         }
         //let type: QuantityType = item.isPerPiece ? .quantity : .weight
         //let model = QuantityModel(for: indexPath, with: type, and: currentValue)
-        let model = QuantityModel2(suffixes: item.suffixes, koefficients: item.koefficients)
+        let model = QuantityModel2(parameters: item.parameters,
+                                   indexPath: indexPath,
+                                   currentValue: currentValue)
         let pickerVC = QuantityPickerPopup2(delegate: self, model: model)
         self.present(pickerVC, animated: true, completion: nil)
     }

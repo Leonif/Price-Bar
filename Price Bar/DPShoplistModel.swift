@@ -17,11 +17,9 @@ struct DPShoplistItemModel: Equatable {
     var uomId: Int32
     var productUom: String
     var quantity: Double
-    var isPerPiece: Bool
     var checked: Bool
     
-    var koefficients: [Double]
-    var suffixes: [String]
+    var parameters: [Parameter]
 }
 
 func ==(lhs: DPShoplistItemModel, rhs: DPShoplistItemModel) -> Bool {

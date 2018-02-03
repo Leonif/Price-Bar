@@ -11,6 +11,5 @@ import Foundation
 struct UomModelView {
     var id: Int32
     var name: String
-    var koefficients: [Double]
-    var suffixes: [String]
+    var parameters: [Parameter]
 }

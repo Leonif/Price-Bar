@@ -2,7 +2,7 @@
 //  ShopList+CoreDataClass.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 1/31/18.
+//  Created by Leonid Nifantyev on 2/3/18.
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 //

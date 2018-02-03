@@ -29,10 +29,8 @@ class ProductMapper {
                                                uomId: product.uomId,
                                                productUom: uom.name,
                                                quantity: 1.0,
-                                               isPerPiece: product.isPerPiece,
                                                checked: false,
-                                               koefficients: uom.koefficients,
-                                               suffixes: uom.suffixes)
+                                               parameters: uom.parameters)
 
     }
 

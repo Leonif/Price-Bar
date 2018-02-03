@@ -2,7 +2,7 @@
 //  Uom+CoreDataProperties.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 1/31/18.
+//  Created by Leonid Nifantyev on 2/3/18.
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 //
@@ -18,10 +18,8 @@ extension Uom {
     }
 
     @NSManaged public var id: Int32
-    @NSManaged public var iterator: Double
     @NSManaged public var uom: String?
-    @NSManaged public var suffixes: [String]?
-    @NSManaged public var koefficients: [Double]?
+    @NSManaged public var parameters: [CDParameter]?
     @NSManaged public var toProduct: NSSet?
 
 }

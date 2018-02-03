@@ -126,15 +126,14 @@ class CoreDataService {
                     let categoryName = category.category,
                     let uom = product.toUom,
                     let uomName = uom.uom,
-                    let uomKoefficients = uom.koefficients,
-                    let uomSuffixes = uom.suffixes {
+                    let uomParameters = uom.parameters  {
 
                     let quantity = shoplistItem.quantity
                     let checked = shoplistItem.checked
 
                     let price = outletId != nil ? getPrice(for: id, and: outletId!) : 0.0
-                    let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
 
+                    let params = UomMapper.transform(from: uomParameters)
                     let item = DPShoplistItemModel(productId: id,
                                                  productName: name,
                                                  categoryId: category.id,
@@ -143,10 +142,8 @@ class CoreDataService {
                                                  uomId: uom.id,
                                                  productUom: uomName,
                                                  quantity: quantity,
-                                                 isPerPiece: isPerPiece,
                                                  checked: checked,
-                                                 koefficients: uomKoefficients,
-                                                 suffixes: uomSuffixes)
+                                                 parameters: params)
 
                     shopList.append(item)
                 }
@@ -187,13 +184,12 @@ extension CoreDataService {
                 fatalError("Product is not parsed")
         }
 
-        let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
+        //let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
 
         return DPProductModel(id: id,
                             name: name,
                             categoryId: category.id,
-                            uomId: uom.id,
-                            isPerPiece: isPerPiece)
+                            uomId: uom.id)
 
     }
 
@@ -334,9 +330,7 @@ extension CoreDataService {
         let u = Uom(context: context)
         u.id = uom.id
         u.uom = uom.name
-        u.suffixes = uom.suffixes
-        u.koefficients = uom.koefficients
-        u.iterator = uom.iterator
+        u.parameters = UomMapper.transform(from: uom.parameters)
 
         ad.saveContext()
     }

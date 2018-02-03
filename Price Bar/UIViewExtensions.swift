@@ -148,11 +148,9 @@ extension UIView {
 
     func antiObscure(completion: @escaping ()->Void) {
         guard let window = UIApplication.shared.keyWindow else { return }
-
         self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
-
         window.addSubview(self)
-        UIView.animate(withDuration: 0.3, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.backgroundColor = .clear
         }) { _ in
             completion()

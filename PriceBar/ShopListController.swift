@@ -136,14 +136,10 @@ extension ShopListController: ShopItemCellDelegate {
         }
         
         let currentValue = dataProvider.getQuantity(for: item.productId)!
-        
-        
-        //let type: QuantityType = item.isPerPiece ? .quantity : .weight
-        //let model = QuantityModel(for: indexPath, with: type, and: currentValue)
-        let model = QuantityModel2(parameters: item.parameters,
+        let model = QuantityModel(parameters: item.parameters,
                                    indexPath: indexPath,
                                    currentValue: currentValue)
-        let pickerVC = QuantityPickerPopup2(delegate: self, model: model)
+        let pickerVC = QuantityPickerPopup(delegate: self, model: model)
         self.present(pickerVC, animated: true, completion: nil)
     }
     func checkPressed(for item: DPShoplistItemModel) {
@@ -152,7 +148,7 @@ extension ShopListController: ShopItemCellDelegate {
 }
 
 // MARK: Quantity changing of item handler
-extension ShopListController: QuantityPickerPopupDelegate2 {
+extension ShopListController: QuantityPickerPopupDelegate {
     func choosen(weight: Double, for indexPath: IndexPath) {
         guard let item = self.dataProvider.getItem(index: indexPath) else {
             return

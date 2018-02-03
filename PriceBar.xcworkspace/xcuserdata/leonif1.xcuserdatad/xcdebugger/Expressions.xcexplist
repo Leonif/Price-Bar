@@ -194,6 +194,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "QuantityPickerPopup2.makeW(parameter:):QuantityPickerPopup2.swift">
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -429,9 +432,15 @@
          contextName = "QuantityPickerPopup2.choosen():QuantityPickerPopup2.swift">
          <PersistentStrings>
             <PersistentString
+               value = "weightItems[component]">
+            </PersistentString>
+            <PersistentString
                value = "self.currentModel.indexPath">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.getUom(for:):DataProvider.swift">
       </ContextState>
       <ContextState
          contextName = "ItemListVC.tableView(_:didSelectRowAt:):ItemListVC.swift">

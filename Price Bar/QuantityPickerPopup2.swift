@@ -67,13 +67,21 @@ class QuantityPickerPopup2: UIViewController {
     
     @objc func choosen() {
         var value: Double = 0.0
-        var r = 1.0
+//        var r = 1.0
+//        for component in 0..<weightPicker.numberOfComponents {
+//            let weightIndex = weightPicker.selectedRow(inComponent:component)
+//            value += weightItems[component].weight[weightIndex]/r
+//            r *= 1000
+//            print(value)
+//        }
+        
+        
         for component in 0..<weightPicker.numberOfComponents {
             let weightIndex = weightPicker.selectedRow(inComponent:component)
-            value += weightItems[component].weight[weightIndex]/r
-            r *= 1000
-            print(value)
+            value += weightItems[component].weight[weightIndex]
         }
+        
+        
         
         delegate?.choosen(weight: value, for: self.currentModel.indexPath)
         self.view.antiObscure {
@@ -103,8 +111,6 @@ class QuantityPickerPopup2: UIViewController {
         let vv: [Int] = w.map {Int($0 * parameter.viewMultiplicator)}
         
        return WeightItem(weight: ww, viewWeight: vv, suff: parameter.suffix)
-        
-        
     }
     
     

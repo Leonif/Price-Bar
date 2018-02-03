@@ -87,7 +87,18 @@ class QuantityPickerPopup2: UIViewController {
     }
     
     func configurePopup() {
-//        weightPicker.delegate = self
+        
+        
+        
+        weightPicker.delegate = self
+        for par in currentModel.parameters {
+            
+            let w = Array(0...par.maxValue).map { Double($0) * par.viewMultiplicator }
+            print(w)
+            weightItems.append(WeightItem(weight: w, suff: par.suffix))
+        }
+        
+        
 //        for (index, k) in self.currentModel.koefficients.enumerated()  {
 //            let w = Array(0...1000).map { Double($0) * k }
 //            weightItems.append(WeightItem(weight: w, suff: self.currentModel.suffixes[index]))
@@ -102,25 +113,6 @@ class QuantityPickerPopup2: UIViewController {
     }
     
     func selectCurrentValue() {
-        
-        var value = 0.0
-        var r = 1.0
-        
-        for component in weightItems.indices {
-            
-            
-            for w in weightItems[component].weight {
-                
-                if w == currentModel.currentValue {
-                    print(w)
-                }
-                
-                print(w)
-                
-                
-                
-            }
-        }
         
     }
     

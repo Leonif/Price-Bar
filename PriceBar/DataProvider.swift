@@ -329,6 +329,16 @@ class DataProvider {
 
         return productListInsection[indexInSec]
     }
+    
+    
+    func getQuantity(for productId: String) -> Double? {
+        
+       let p = shoplist.filter { item in
+            item.productId == productId
+        }
+        
+        return p.first?.quantity
+    }
 
     func getItem(with barcode: String, and outletId: String) -> DPProductModel? {
 

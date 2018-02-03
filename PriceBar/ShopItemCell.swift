@@ -10,7 +10,7 @@ import UIKit
 
 protocol ShopItemCellDelegate {
     func checkPressed(for item: DPShoplistItemModel)
-    func weightDemanded(cell: ShopItemCell, currentValue: Double)
+    func weightDemanded(cell: ShopItemCell)
 }
 
 class ShopItemCell: UITableViewCell {
@@ -29,11 +29,11 @@ class ShopItemCell: UITableViewCell {
     //var currentIndex = 0
 
     @IBAction func changeQuantity(_ sender: UIButton) {
-        guard let currentValue = quantityButton.titleLabel?.text?.double else {
-            fatalError("Not possible convert current value")
-        }
+//        guard let currentValue = quantityButton.titleLabel?.text?.double else {
+//            fatalError("Not possible convert current value")
+//        }
 
-        delegate?.weightDemanded(cell: self, currentValue: currentValue)
+        delegate?.weightDemanded(cell: self)
     }
 
 }

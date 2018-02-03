@@ -127,13 +127,17 @@ class ShopListController: UIViewController {
 
 // MARK: Cell handlers
 extension ShopListController: ShopItemCellDelegate {
-    func weightDemanded(cell: ShopItemCell, currentValue: Double) {
+    func weightDemanded(cell: ShopItemCell) {
         print("Picker opened")
         guard
             let indexPath = self.shopTableView.indexPath(for: cell),
             let item = dataProvider.getItem(index: indexPath) else {
                 fatalError("Not possible to find out type of item")
         }
+        
+        let currentValue = dataProvider.getQuantity(for: item.productId)!
+        
+        
         //let type: QuantityType = item.isPerPiece ? .quantity : .weight
         //let model = QuantityModel(for: indexPath, with: type, and: currentValue)
         let model = QuantityModel2(parameters: item.parameters,

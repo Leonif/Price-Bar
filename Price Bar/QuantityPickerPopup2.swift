@@ -102,7 +102,6 @@ class QuantityPickerPopup2: UIViewController {
     }
     
     func foundCurrentIndex(for currentValue: Double) -> [Int] {
-        
         var indexes: [Int] = []
         var value: Double = currentValue
         
@@ -118,7 +117,6 @@ class QuantityPickerPopup2: UIViewController {
         }
         
         return indexes
-        
     }
     
     override func viewDidLoad() {

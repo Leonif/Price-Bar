@@ -23,13 +23,11 @@ class UomMapper {
     
     class func mapper(from cdModel: CDParameter) -> Parameter {
         
-        guard
-        let maxValue = cdModel.maxValue,
-        let step = cdModel.step,
-        let suffix = cdModel.suffix,
-            let viewMultiplicator = cdModel.viewMultiplicator else {
-                fatalError("Cant parse CDParameter")
-        }
+        
+        let maxValue = cdModel.maxValue
+        let step = cdModel.step
+        let suffix = cdModel.suffix
+        let viewMultiplicator = cdModel.viewMultiplicator
         
         
         return Parameter(maxValue: maxValue,

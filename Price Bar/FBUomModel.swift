@@ -23,10 +23,10 @@ struct FBUomModel {
 
 
 public class CDParameter: NSObject, NSCoding {
-    var maxValue: Int?
-    var step: Double?
-    var suffix: String?
-    var viewMultiplicator: Double?
+    var maxValue: Int
+    var step: Double
+    var suffix: String
+    var viewMultiplicator: Double
     
     required convenience public init?(coder aDecoder: NSCoder) {
         guard
@@ -43,7 +43,7 @@ public class CDParameter: NSObject, NSCoding {
     }
     
     public func encode(with aCoder: NSCoder) {
-        aCoder.encode(self.maxValue, forKey: "maxValue")
+        aCoder.encodeCInt(Int32(self.maxValue), forKey: "maxValue")
         aCoder.encode(self.step, forKey: "step")
         aCoder.encode(self.suffix, forKey: "suffix")
         aCoder.encode(self.viewMultiplicator, forKey: "viewMultiplicator")

@@ -19,18 +19,17 @@ class ShopListController: UIViewController {
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     @IBOutlet weak var removeShoplistBtn: GoodButton!
+    @IBOutlet weak var rightButtonViewArea: UIView!
+    @IBOutlet var wholeViewArea: UIView!
 
+    @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
+    @IBOutlet weak var removeButtonConstrait: NSLayoutConstraint!
+    
     var dataProvider: DataProvider = DataProvider()
 
     var userOutlet: Outlet! {
         didSet {
-            DispatchQueue.main.async {
-                self.outletAddressLabel.text = self.userOutlet.address
-                self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
-                self.dataProvider.loadShopList(for: self.userOutlet.id)
-                self.shopTableView.reloadData()
-                self.update()
-            }
+            updateUI()
         }
     }
     var dataSource: ShopListDataSource?
@@ -40,8 +39,20 @@ class ShopListController: UIViewController {
 
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
+    var buttonsHided: Bool = false
 
-    func update() {
+    
+    func updateUI() {
+        DispatchQueue.main.async {
+            self.outletAddressLabel.text = self.userOutlet.address
+            self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
+            self.dataProvider.loadShopList(for: self.userOutlet.id)
+            self.shopTableView.reloadData()
+            self.updateRemoveButtonState()
+        }
+    }
+    
+    func updateRemoveButtonState() {
         self.removeShoplistBtn.alpha = self.dataProvider.shoplist.count > 0 ? 1 : 0.5
         self.removeShoplistBtn.isUserInteractionEnabled = self.dataProvider.shoplist.count > 0
         totalLabel.text = "Итого: \(dataProvider.total.asLocaleCurrency)"
@@ -49,42 +60,94 @@ class ShopListController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        dataProvider.updateClousure = update
+        
+        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
+        rightSwipe.direction = .right
+        wholeViewArea.addGestureRecognizer(rightSwipe)
+        
+        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
+        leftSwipe.direction = .left
+        wholeViewArea.addGestureRecognizer(leftSwipe)
 
+        
+        
+        dataProvider.updateClousure = updateRemoveButtonState
         dataSource = ShopListDataSource(cellDelegate: self,
                                         dataProvider: dataProvider)
-        
         shopTableView.dataSource = dataSource
+        synchronizeData()
+    }
+    
+    @objc func hideButtons(gesture: UIGestureRecognizer) {
+        
+        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {
+            return
+        }
+        
+        switch swipeGesture.direction {
+        case .right:
+            guard !buttonsHided else {
+                return
+            }
+            shiftButton(hide: false)
+        case .left:
+            guard buttonsHided else {
+                return
+            }
+            shiftButton(hide: true)
+        default:
+            print("other swipes")
+        }
+    }
+    
+    func shiftButton(hide: Bool) {
+        
+        let shiftOfDirection: CGFloat = hide ? -1 : 1
+        
+        buttonsHided = !buttonsHided
+        
+        buttonEnable(hide)
 
+        let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 20
+        let newRemoveConst: CGFloat = removeButtonConstrait.constant - shiftOfDirection * 20
+        
+        self.rightButtonConstrait.constant = newConst
+        self.removeButtonConstrait.constant = newRemoveConst
+        UIView.animate(withDuration: 0.3, animations: {
+            self.view.layoutIfNeeded()
+        })
+        
+    }
+    
+    
+    func synchronizeData() {
         self.view.pb_startActivityIndicator(with: "Синхронизация")
-        dataProvider.syncCloud { result in
-            self.view.pb_stopActivityIndicator()
+        dataProvider.syncCloud { [weak self] result in
+            self?.view.pb_stopActivityIndicator()
             switch result {
             case let .failure(error):
-                self.alert(title: "Ops", message: error.localizedDescription)
+                self?.alert(title: "Ops", message: error.localizedDescription)
             case .success:
-                self.updateCurentOutlet()
+                self?.updateCurentOutlet()
             }
         }
+        
     }
 
     private func updateCurentOutlet() {
         let outletService = OutletService()
-        outletService.nearestOutlet { result in
+        outletService.nearestOutlet { [weak self] result in
             print(result)
             var activateControls = false
-            self.view.pb_stopActivityIndicator()
+            self?.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlet):
-                self.userOutlet = OutletFactory.mapper(from: outlet)
+                self?.userOutlet = OutletFactory.mapper(from: outlet)
                 activateControls = true
-//                DispatchQueue.main.async {
-//                    self.shopTableView.reloadData()
-//                }
             case let .failure(error):
-                self.alert(title: "Ops", message: error.errorDescription)
+                self?.alert(title: "Ops", message: error.errorDescription)
             }
-            self.buttonEnable(activateControls)
+            self?.buttonEnable(activateControls)
         }
     }
 
@@ -116,7 +179,8 @@ class ShopListController: UIViewController {
             [
                 self.scanButton,
                 self.itemListButton,
-                self.outletNameButton
+                self.outletNameButton,
+                self.removeShoplistBtn
                 ].forEach {
                     $0?.isUserInteractionEnabled = enable
                     $0?.alpha = alpha

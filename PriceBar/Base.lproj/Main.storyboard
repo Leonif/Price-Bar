@@ -220,7 +220,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61o-de-Tit">
-                                <rect key="frame" x="279" y="511" width="80" height="140"/>
+                                <rect key="frame" x="275" y="511" width="80" height="140"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1v-Mz-DlY" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
                                         <rect key="frame" x="12" y="4" width="60" height="60"/>
@@ -251,7 +251,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="bBr-mn-h0O" firstAttribute="top" secondItem="S1v-Mz-DlY" secondAttribute="bottom" constant="8" id="K3r-nN-mOi"/>
                                     <constraint firstAttribute="bottom" secondItem="bBr-mn-h0O" secondAttribute="bottom" constant="8" id="K5F-Db-zrX"/>
@@ -274,7 +274,7 @@
                             <constraint firstItem="yUL-id-lem" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" constant="20" id="WH0-lM-DUh"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="yUL-id-lem" secondAttribute="bottom" constant="20" id="kDY-GE-WV7"/>
                             <constraint firstItem="nnc-58-l2C" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lCq-iQ-Ajg"/>
-                            <constraint firstAttribute="trailing" secondItem="61o-de-Tit" secondAttribute="trailing" constant="16" id="ltQ-ly-3bW"/>
+                            <constraint firstAttribute="trailing" secondItem="61o-de-Tit" secondAttribute="trailing" constant="20" id="ltQ-ly-3bW"/>
                             <constraint firstAttribute="bottom" secondItem="61o-de-Tit" secondAttribute="bottom" constant="16" id="nhi-ev-SRe"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="qoc-gM-cxe"/>
                         </constraints>
@@ -283,10 +283,14 @@
                         <outlet property="itemListButton" destination="bBr-mn-h0O" id="iDV-wN-Ve3"/>
                         <outlet property="outletAddressLabel" destination="2so-a8-Tea" id="VsB-MC-aBU"/>
                         <outlet property="outletNameButton" destination="p6W-vM-LYP" id="dhQ-8x-O5C"/>
+                        <outlet property="removeButtonConstrait" destination="1lW-uz-9G6" id="1lN-7g-nye"/>
                         <outlet property="removeShoplistBtn" destination="ZzV-P9-rjB" id="XU1-9z-s4B"/>
+                        <outlet property="rightButtonConstrait" destination="ltQ-ly-3bW" id="caQ-st-w3f"/>
+                        <outlet property="rightButtonViewArea" destination="61o-de-Tit" id="a7Y-8K-Prg"/>
                         <outlet property="scanButton" destination="S1v-Mz-DlY" id="rup-3O-csY"/>
                         <outlet property="shopTableView" destination="teD-oh-0KA" id="hPS-xE-dqQ"/>
                         <outlet property="totalLabel" destination="yUL-id-lem" id="N2I-gC-suB"/>
+                        <outlet property="wholeViewArea" destination="8bC-Xf-vdC" id="wnU-fg-XMb"/>
                         <segue destination="CgW-nK-NrY" kind="show" identifier="showOutlets" id="zf9-OY-zBU"/>
                         <segue destination="rA1-Ob-kOe" kind="show" identifier="showScan" id="Mxi-jI-C5Z"/>
                         <segue destination="Aph-JN-BT7" kind="show" identifier="showItemList" id="wEm-Es-ZSc"/>

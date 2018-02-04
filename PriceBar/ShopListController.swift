@@ -114,8 +114,10 @@ class ShopListController: UIViewController {
         
         self.rightButtonConstrait.constant = newConst
         self.removeButtonConstrait.constant = newRemoveConst
-        UIView.animate(withDuration: 0.3, animations: {
+
+        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseIn, animations: {
             self.view.layoutIfNeeded()
+            
         })
         
     }

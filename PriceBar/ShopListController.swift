@@ -103,8 +103,11 @@ class ShopListController: UIViewController {
     func shiftButton(hide: Bool) {
         let shiftOfDirection: CGFloat = hide ? -1 : 1
         buttonsHided = !buttonsHided
-        buttonEnable(hide)
+        
         updateRemoveButtonState()
+        [scanButton, itemListButton].forEach {
+            $0.setEnable(hide)
+        }
 
         let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 50
         let newRemoveConst: CGFloat = removeButtonConstrait.constant - shiftOfDirection * 50

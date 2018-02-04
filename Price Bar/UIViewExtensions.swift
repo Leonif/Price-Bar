@@ -158,6 +158,15 @@ extension UIView {
     }
 }
 
+
+extension UIButton {
+    
+    func setEnable(_ enable: Bool) {
+        self.isUserInteractionEnabled = enable
+        self.alpha = enable ? 1 : 0.5
+    }
+}
+
 extension UIView {
 
     func castShadow() {

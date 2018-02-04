@@ -24,6 +24,8 @@ class GoodButton: UIButton {
         self.castShadow()
         self.roundingEdges()
     }
+    
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()

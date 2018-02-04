@@ -53,9 +53,9 @@ class ShopListController: UIViewController {
     }
     
     func updateRemoveButtonState() {
-        self.removeShoplistBtn.alpha = self.dataProvider.shoplist.count > 0 ? 1 : 0.5
-        self.removeShoplistBtn.isUserInteractionEnabled = self.dataProvider.shoplist.count > 0
         totalLabel.text = "Итого: \(dataProvider.total.asLocaleCurrency)"
+        let enable = !buttonsHided && !dataProvider.shoplist.isEmpty
+        removeShoplistBtn.setEnable(enable)
     }
 
     override func viewDidLoad() {
@@ -101,15 +101,13 @@ class ShopListController: UIViewController {
     }
     
     func shiftButton(hide: Bool) {
-        
         let shiftOfDirection: CGFloat = hide ? -1 : 1
-        
         buttonsHided = !buttonsHided
-        
         buttonEnable(hide)
+        updateRemoveButtonState()
 
-        let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 20
-        let newRemoveConst: CGFloat = removeButtonConstrait.constant - shiftOfDirection * 20
+        let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 50
+        let newRemoveConst: CGFloat = removeButtonConstrait.constant - shiftOfDirection * 50
         
         self.rightButtonConstrait.constant = newConst
         self.removeButtonConstrait.constant = newRemoveConst
@@ -174,20 +172,21 @@ class ShopListController: UIViewController {
 
     }
     func buttonEnable(_ enable: Bool) {
-        let alpha: CGFloat = enable ? 1 : 0.5
         DispatchQueue.main.async {
             [
                 self.scanButton,
                 self.itemListButton,
-                self.outletNameButton,
-                self.removeShoplistBtn
+                self.outletNameButton
                 ].forEach {
-                    $0?.isUserInteractionEnabled = enable
-                    $0?.alpha = alpha
+                    $0?.setEnable(enable)
             }
+           
         }
     }
 }
+
+
+
 
 // MARK: Cell handlers
 extension ShopListController: ShopItemCellDelegate {

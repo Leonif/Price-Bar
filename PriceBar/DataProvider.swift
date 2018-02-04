@@ -80,22 +80,22 @@ class DataProvider {
     func needToSync() -> Bool {
         //need to check
 //        return true
-        return false
-//        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
-//        switch times {
-//        case 0:
-//            times += 1
-//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-//            return true
-//        case 10:
-//            times = 1
-//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-//            return true
-//        default:
-//            times += 1
-//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-//        }
 //        return false
+        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
+        switch times {
+        case 0:
+            times += 1
+            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+            return true
+        case 10:
+            times = 1
+            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+            return true
+        default:
+            times += 1
+            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+        }
+        return false
 
     }
 

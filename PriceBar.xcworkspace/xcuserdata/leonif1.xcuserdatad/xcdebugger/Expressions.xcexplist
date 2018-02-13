@@ -203,13 +203,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -291,10 +291,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -302,7 +302,7 @@
          contextName = "DataProvider.saveShoplist():DataProvider.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListDataSource.init(shopModel:):ShopListDataSource.swift">
+         contextName = "ShopListController.weightDemanded(cell:currentValue:):ShopListController.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.loadShopList():ShopListController.swift">
@@ -321,7 +321,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.weightDemanded(cell:currentValue:):ShopListController.swift">
+         contextName = "ShopListDataSource.init(shopModel:):ShopListDataSource.swift">
       </ContextState>
       <ContextState
          contextName = "DataProvider.getItem(index:):DataProvider.swift">
@@ -463,6 +463,14 @@
       </ContextState>
       <ContextState
          contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.hideButtons(gesture:):ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userOutlet">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
    </ContextStates>
 </VariablesViewState>

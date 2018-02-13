@@ -21,7 +21,7 @@ extension UITableView {
 
 
 extension UIViewController {
-    func alert(title: String,
+    func alert(title: String = "Ой",
                message: String,
                okAction: ActionClousure? = nil,
                cancelAction: ActionClousure? = nil,

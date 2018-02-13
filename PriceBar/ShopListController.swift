@@ -40,7 +40,6 @@ class ShopListController: UIViewController {
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
     var buttonsHided: Bool = false
-
     
     func updateUI() {
         DispatchQueue.main.async {
@@ -68,8 +67,8 @@ class ShopListController: UIViewController {
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         leftSwipe.direction = .left
         wholeViewArea.addGestureRecognizer(leftSwipe)
-
         
+        updateRemoveButtonState()
         
         dataProvider.updateClousure = updateRemoveButtonState
         dataSource = ShopListDataSource(cellDelegate: self,
@@ -79,22 +78,17 @@ class ShopListController: UIViewController {
     }
     
     @objc func hideButtons(gesture: UIGestureRecognizer) {
-        
+        guard userOutlet != nil else {
+            return
+        }
         guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {
             return
         }
-        
         switch swipeGesture.direction {
         case .right:
-            guard !buttonsHided else {
-                return
-            }
-            shiftButton(hide: false)
+            shiftButton(hide: buttonsHided)
         case .left:
-            guard buttonsHided else {
-                return
-            }
-            shiftButton(hide: true)
+            shiftButton(hide: buttonsHided)
         default:
             print("other swipes")
         }
@@ -103,38 +97,36 @@ class ShopListController: UIViewController {
     func shiftButton(hide: Bool) {
         let shiftOfDirection: CGFloat = hide ? -1 : 1
         buttonsHided = !buttonsHided
-        
         updateRemoveButtonState()
         [scanButton, itemListButton].forEach {
             $0.setEnable(hide)
         }
-
         let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 50
         let newRemoveConst: CGFloat = removeButtonConstrait.constant - shiftOfDirection * 50
         
         self.rightButtonConstrait.constant = newConst
         self.removeButtonConstrait.constant = newRemoveConst
 
-        UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseIn, animations: {
-            self.view.layoutIfNeeded()
-            
+        UIView.animate(withDuration: 0.3, delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseIn,
+                       animations: {
+                        self.view.layoutIfNeeded()
         })
-        
     }
     
-    
     func synchronizeData() {
-        self.view.pb_startActivityIndicator(with: "Синхронизация")
+        self.view.pb_startActivityIndicator(with: "Загружаем товары и цены из облака, подождите ...")
         dataProvider.syncCloud { [weak self] result in
             self?.view.pb_stopActivityIndicator()
             switch result {
             case let .failure(error):
-                self?.alert(title: "Ops", message: error.localizedDescription)
+                self?.alert(message: error.localizedDescription)
             case .success:
                 self?.updateCurentOutlet()
             }
         }
-        
     }
 
     private func updateCurentOutlet() {
@@ -148,7 +140,8 @@ class ShopListController: UIViewController {
                 self?.userOutlet = OutletFactory.mapper(from: outlet)
                 activateControls = true
             case let .failure(error):
-                self?.alert(title: "Ops", message: error.errorDescription)
+                let prevousSuccess = "Хорошие новости: Товары загружены!!!🤘, но: "
+                self?.alert(message: "\(prevousSuccess)\n\(error.errorDescription)\nПопробуйте позже")
             }
             self?.buttonEnable(activateControls)
         }

@@ -72,11 +72,9 @@ class FoursqareProvider {
                         return
                 }
                 for v in venues {
-                    guard let fqModel = self.mapper(from: v) else {
-                        self.handleParseError(completed: completed)
-                        return
+                    if let fqModel = self.mapper(from: v) {
+                        outlets.append(fqModel)
                     }
-                    outlets.append(fqModel)
                 }
                 guard !outlets.isEmpty else {
                     completed(ResultType.failure(.noOutlets("Не найдены магазины 😢")))

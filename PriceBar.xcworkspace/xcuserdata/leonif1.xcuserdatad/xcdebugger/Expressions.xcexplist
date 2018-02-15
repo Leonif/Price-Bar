@@ -78,6 +78,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "FirebaseService.syncCategories(completion:):FirebaseService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "stateError">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.saveToShopList(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -441,6 +449,17 @@
       </ContextState>
       <ContextState
          contextName = "DataProvider.getUom(for:):DataProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FoursqareProvider.mapper(from:):FoursqareProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "loc[&quot;address&quot;]">
+            </PersistentString>
+            <PersistentString
+               value = "venue[&quot;name&quot;] as String">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ItemListVC.tableView(_:didSelectRowAt:):ItemListVC.swift">

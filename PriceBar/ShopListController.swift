@@ -134,7 +134,7 @@ class ShopListController: UIViewController {
         outletService.nearestOutlet { [weak self] result in
             print(result)
             var activateControls = false
-            self?.view.pb_stopActivityIndicator()
+//            self?.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlet):
                 self?.userOutlet = OutletFactory.mapper(from: outlet)

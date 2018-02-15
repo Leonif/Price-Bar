@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("Firebase login success")
             case let .failure(error):
                 print(error)
+                
             }
         }
 

@@ -111,7 +111,7 @@ class CoreDataService {
         }
     }
 
-    func loadShopList(for outletId: String?) -> [DPShoplistItemModel] {
+    func loadShopList(for outletId: String?) -> [DPShoplistItemModel]? {
         var shopList: [DPShoplistItemModel] = []
 
         do {
@@ -150,6 +150,7 @@ class CoreDataService {
             }
         } catch {
             print("Products is not got from database")
+            return nil
         }
         return shopList
 
@@ -184,8 +185,6 @@ extension CoreDataService {
                 fatalError("Product is not parsed")
         }
 
-        //let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
-
         return DPProductModel(id: id,
                             name: name,
                             categoryId: category.id,
@@ -212,7 +211,6 @@ extension CoreDataService {
         }
         return nil
     }
-
     func getItemList(for outletId: String) -> [DPProductModel]? {
         var shopItems = [DPProductModel]()
         do {

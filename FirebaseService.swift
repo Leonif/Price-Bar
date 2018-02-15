@@ -24,29 +24,43 @@ class FirebaseService {
     var refCategories = Database.database().reference().child("categories")
     var refUoms = Database.database().reference().child("uoms")
     var refUomsParams = Database.database().reference().child("uoms").child("parameters")
+    
+    let email = "good_getter@gmail.com"
+    let pwd = "123456"
+    
+    var stateError: FirebaseError? = nil
+    
+    
 
     func loginToFirebase(completion: @escaping (ResultType<Bool, FirebaseError>)->Void) {
-        let email = "good_getter@gmail.com"
-        let pwd = "123456"
-
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
             if error != nil {
                 print("error of Email authorization!")
-                Auth.auth().createUser(withEmail: email, password: pwd, completion: { (user, error) in
-                    if error != nil {
-                        print("error of user creation!")
-                        completion(ResultType.failure(.loginError("error of user creation!")))
-                    }
-                    print("User \(email) is created!")
-                    return
+                Auth.auth().createUser(withEmail: self.email,
+                                       password: self.pwd,
+                                       completion: { (user, error) in
+                                        if error != nil {
+                                            print("error of user creation!")
+                                            self.stateError = .loginError("error of user creation!")
+                                            completion(ResultType.failure(.loginError("error of user creation!")))
+                                        }
+                                        print("User \(self.email) is created!")
+                                        return
                 })
             }
+            self.stateError = nil
             completion(ResultType.success(true))
             print("Email authorization is successful!")
         })
     }
 
     func syncCategories(completion: @escaping (ResultType<[FBItemCategory], FirebaseError>)->Void) {
+        
+        guard stateError == nil else {
+            completion(ResultType.failure(.syncError("Попробуйте позже")))
+            return
+        }
+        
         self.refCategories.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 var categories = [FBItemCategory]()

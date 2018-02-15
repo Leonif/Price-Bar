@@ -206,7 +206,7 @@ extension CoreDataService {
                 shopItems.append(item)
 
             }
-            return shopItems
+            return shopItems.isEmpty ? nil : shopItems
         } catch {
             print("Products is not got from database")
         }

@@ -12,14 +12,23 @@ import CoreData
 // MARK: Sync function
 extension CoreDataService {
     func syncCategories(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
-        FirebaseService.data.syncCategories { result in
+        FirebaseService.data.loginToFirebase { result in
             switch result {
-            case let .success(fbCategoryList):
-                let cdCategoryList = self.transform(from: fbCategoryList)
-                self.importNew(cdCategoryList)
-                completion(ResultType.success(true))
+            case .success:
+                print("Firebase login success")
+                FirebaseService.data.syncCategories { result in
+                    switch result {
+                    case let .success(fbCategoryList):
+                        let cdCategoryList = self.transform(from: fbCategoryList)
+                        self.importNew(cdCategoryList)
+                        completion(ResultType.success(true))
+                    case let .failure(error):
+                        completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
+                    }
+                }
             case let .failure(error):
-                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
+                print(error)
+                completion(ResultType.failure(CoreDataErrors.error("Не смогли подключиться к облаку")))
             }
         }
     }

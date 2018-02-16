@@ -31,6 +31,9 @@ class FirebaseService {
     var stateError: FirebaseError? = nil
     
     
+    
+    
+    
 
     func loginToFirebase(completion: @escaping (ResultType<Bool, FirebaseError>)->Void) {
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in

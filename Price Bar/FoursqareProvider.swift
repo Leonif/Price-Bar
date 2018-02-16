@@ -77,7 +77,7 @@ class FoursqareProvider {
                     }
                 }
                 guard !outlets.isEmpty else {
-                    completed(ResultType.failure(.noOutlets("Не найдены магазины 😢")))
+                    completed(ResultType.failure(.noOutlets("Не найдены вокруг вас магазины 😢")))
                     return
                 }
                 outlets = outlets.sorted(by: { $0.distance < $1.distance })

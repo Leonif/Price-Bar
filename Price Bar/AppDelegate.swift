@@ -21,17 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FirebaseApp.configure()
 
+
         Fabric.with([Crashlytics.self])
 
-        FirebaseService.data.loginToFirebase { result in
-            switch result {
-            case .success:
-                print("Firebase login success")
-            case let .failure(error):
-                print(error)
-                
-            }
-        }
+        
 
         return true
     }

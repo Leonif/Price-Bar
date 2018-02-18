@@ -123,7 +123,7 @@ class ShopListController: UIViewController {
             self?.view.pb_stopActivityIndicator()
             switch result {
             case let .failure(error):
-                self?.alert(message: error.localizedDescription)
+                self?.alert(message: "\(error.message): \(error.localizedDescription)")
             case .success:
                 self?.updateCurentOutlet()
             }

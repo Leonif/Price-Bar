@@ -80,42 +80,51 @@ class DataProvider {
                         return
                     }
                     self.shoplist = shp
-                    self.syncCategories { result in
-                        switch result {
-                        case .success:
-                            print("Categories are loaded success")
-                            self.syncUom { result in
-                                switch result {
-                                case .success:
-                                    print("Uoms are loaded success")
-                                    self.syncProducts { result in
-                                        switch result {
-                                        case .success:
-                                            print("Products are loaded success")
-                                            self.syncStatistics { result in
-                                                switch result {
-                                                case .success:
-                                                    print("Statistics are loaded success")
-                                                    self.saveShoplist() // sync finished - recover shoplist
-                                                    completion(ResultType.success(true))
-                                                case let .failure(error):
-                                                    completion(self.syncHandle(error: error))
-                                                    return
-                                                }
-                                            }
-                                        case let .failure(error):
-                                            completion(self.syncHandle(error: error))
-                                            return
-                                        }
-                                    }
-                                case let .failure(error):
-                                    completion(self.syncHandle(error: error))
-                                    return
-                                }
+                    let syncQueue = DispatchQueue.global()
+                    syncQueue.sync {
+                        self.syncCategories { result in
+                            switch result {
+                            case .success:
+                                print("Categories are loaded success")
+                            case let .failure(error):
+                                completion(self.syncHandle(error: error))
+                                return
                             }
-                        case let .failure(error):
-                            completion(self.syncHandle(error: error))
-                            return
+                        }
+                    }
+                    syncQueue.sync {
+                        self.syncUom { result in
+                            switch result {
+                            case .success:
+                                print("Categories are loaded success")
+                            case let .failure(error):
+                                completion(self.syncHandle(error: error))
+                                return
+                            }
+                        }
+                    }
+                    syncQueue.sync {
+                        self.syncProducts { result in
+                            switch result {
+                            case .success:
+                                print("Categories are loaded success")
+                            case let .failure(error):
+                                completion(self.syncHandle(error: error))
+                                return
+                            }
+                        }
+                    }
+                    
+                    syncQueue.sync {
+                        self.syncStatistics { result in
+                            switch result {
+                            case .success:
+                                print("Categories are loaded success")
+                                completion(ResultType.success(true))
+                            case let .failure(error):
+                                completion(self.syncHandle(error: error))
+                                return
+                            }
                         }
                     }
                 }
@@ -123,6 +132,7 @@ class DataProvider {
                 completion(self.syncHandle(error: error))
                 return
             }
+            
         })
     }
     

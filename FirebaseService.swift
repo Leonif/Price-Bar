@@ -27,13 +27,6 @@ class FirebaseService {
     
     let email = "good_getter@gmail.com"
     let pwd = "123456"
-    
-    var stateError: FirebaseError? = nil
-    
-    
-    
-    
-    
 
     func loginToFirebase(completion: @escaping (ResultType<Bool, FirebaseError>)->Void) {
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
@@ -44,7 +37,6 @@ class FirebaseService {
                                        completion: { (user, error) in
                                         if error != nil {
                                             print("error of user creation!")
-                                            self.stateError = .loginError("error of user creation!")
                                             completion(ResultType.failure(.loginError("error of user creation!")))
                                             return
                                         }
@@ -52,7 +44,6 @@ class FirebaseService {
                                         return
                 })
             }
-            self.stateError = nil
             completion(ResultType.success(true))
             print("Email authorization is successful!")
         })

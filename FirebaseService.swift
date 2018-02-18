@@ -46,6 +46,7 @@ class FirebaseService {
                                             print("error of user creation!")
                                             self.stateError = .loginError("error of user creation!")
                                             completion(ResultType.failure(.loginError("error of user creation!")))
+                                            return
                                         }
                                         print("User \(self.email) is created!")
                                         return
@@ -58,12 +59,6 @@ class FirebaseService {
     }
 
     func syncCategories(completion: @escaping (ResultType<[FBItemCategory], FirebaseError>)->Void) {
-        
-        guard stateError == nil else {
-            completion(ResultType.failure(.syncError("Попробуйте позже")))
-            return
-        }
-        
         self.refCategories.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 var categories = [FBItemCategory]()

@@ -117,6 +117,7 @@ class ShopListController: UIViewController {
     }
     
     func synchronizeData() {
+        self.buttonEnable(false)
         self.view.pb_startActivityIndicator(with: "Загружаем товары и цены из облака, подождите ...")
         dataProvider.syncCloud { [weak self] result in
             self?.view.pb_stopActivityIndicator()
@@ -130,11 +131,12 @@ class ShopListController: UIViewController {
     }
 
     private func updateCurentOutlet() {
+        self.view.pb_startActivityIndicator(with: "Ищем ближайшие магазины..")
         let outletService = OutletService()
         outletService.nearestOutlet { [weak self] result in
+            self?.view.pb_stopActivityIndicator()
             print(result)
             var activateControls = false
-//            self?.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlet):
                 self?.userOutlet = OutletFactory.mapper(from: outlet)

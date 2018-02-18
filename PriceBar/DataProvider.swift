@@ -30,7 +30,6 @@ enum DataProviderError: Error {
 }
 
 class DataProvider {
-
     var updateClousure: ActionClousure?
 
     var sections = [String]()
@@ -39,7 +38,6 @@ class DataProvider {
             DispatchQueue.main.async {
                 self.updateClousure?()
             }
-
         }
     }
 
@@ -52,7 +50,6 @@ class DataProvider {
     }
 
     var defaultCategory: DPCategoryModel? {
-
         guard let cd = CoreDataService.data.defaultCategory else {
             return nil
         }
@@ -67,73 +64,34 @@ class DataProvider {
     }
 
     public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
-        FirebaseService.data.loginToFirebase(completion: { result in
-            switch result {
-            case .success:
-                print("Firebase login success")
-                if !self.needToSync() {
-                    completion(ResultType.success(true))
+        let syncQueue = DispatchQueue.global()
+        syncQueue.sync {
+            FirebaseService.data.loginToFirebase(completion: { result in
+                switch result {
+                case .success:
+                    print("Firebase login success")
+                case let .failure(error):
+                    completion(self.syncHandle(error: error))
                     return
-                } else {
-                    guard let shp = CoreDataService.data.loadShopList(for: nil) else {
-                        completion(ResultType.failure(DataProviderError.syncError("Что-то пошло не так")))
-                        return
-                    }
-                    self.shoplist = shp
-                    let syncQueue = DispatchQueue.global()
-                    syncQueue.sync {
-                        self.syncCategories { result in
-                            switch result {
-                            case .success:
-                                print("Categories are loaded success")
-                            case let .failure(error):
-                                completion(self.syncHandle(error: error))
-                                return
-                            }
-                        }
-                    }
-                    syncQueue.sync {
-                        self.syncUom { result in
-                            switch result {
-                            case .success:
-                                print("Categories are loaded success")
-                            case let .failure(error):
-                                completion(self.syncHandle(error: error))
-                                return
-                            }
-                        }
-                    }
-                    syncQueue.sync {
-                        self.syncProducts { result in
-                            switch result {
-                            case .success:
-                                print("Categories are loaded success")
-                            case let .failure(error):
-                                completion(self.syncHandle(error: error))
-                                return
-                            }
-                        }
-                    }
-                    
-                    syncQueue.sync {
-                        self.syncStatistics { result in
-                            switch result {
-                            case .success:
-                                print("Categories are loaded success")
-                                completion(ResultType.success(true))
-                            case let .failure(error):
-                                completion(self.syncHandle(error: error))
-                                return
-                            }
-                        }
-                    }
                 }
-            case let .failure(error):
-                completion(self.syncHandle(error: error))
+            })
+        }
+        if !self.needToSync() {
+            completion(ResultType.success(true))
+            return
+        } else {
+            guard let shp = CoreDataService.data.loadShopList(for: nil) else {
+                completion(ResultType.failure(DataProviderError.syncError("Что-то пошло не так")))
                 return
             }
-            
-        })
+            self.shoplist = shp
+            syncQueue.sync {
+                self.syncCategories(completion: completion)
+                self.syncUom(completion: completion)
+                self.syncProducts(completion: completion)
+                self.syncStatistics(completion: completion)
+            }
+        }
     }
     
     
@@ -173,56 +131,12 @@ class DataProvider {
     
     
     
-    
-
-//    private func handleCategories(result: ResultType<Bool, DataProviderError>, completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
-//        switch result {
-//        case .success:
-//            self.syncUom { result in
-//                self.handleUom(result: result, completion: completion)
-//            }
-//        case let .failure(error):
-//            completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
-//        }
-//    }
-
-//    private func handleUom(result: ResultType<Bool, DataProviderError>, completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
-//        switch result {
-//        case .success:
-//            self.syncProducts { result in
-//                self.handleProducts(result: result, completion: completion)
-//            }
-//        case let .failure(error):
-//            completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
-//        }
-//    }
-//
-//    private func handleProducts(result: ResultType<Bool, DataProviderError>, completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
-//        switch result {
-//        case .success:
-//            self.syncStatistics { result in
-//                self.handleStatistics(result: result, completion: completion)
-//            }
-//        case let .failure(error):
-//            completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
-//        }
-//    }
-//
-//    private func handleStatistics(result: ResultType<Bool, DataProviderError>, completion: (ResultType<Bool, DataProviderError>)->Void) {
-//        switch result {
-//        case .success:
-//            saveShoplist() // sync finished - recover shoplist
-//            completion(ResultType.success(true))
-//        case let .failure(error):
-//            completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
-//        }
-//    }
 
     private func syncCategories(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
         CoreDataService.data.syncCategories { result in
             switch result {
             case .success:
-                completion(ResultType.success(true))
+                print("Function: \(#function), line: \(#line)")
             case let .failure(error):
                 completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
             }
@@ -233,7 +147,7 @@ class DataProvider {
         CoreDataService.data.syncProducts { result in // get from firebase
             switch result {
             case .success:
-                completion(ResultType.success(true))
+                 print("Function: \(#function), line: \(#line)")
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
@@ -244,6 +158,7 @@ class DataProvider {
         CoreDataService.data.syncStatistics { result in // get from firebase
             switch result {
             case .success:
+                print("Function: \(#function), line: \(#line)")
                 completion(ResultType.success(true))
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
@@ -255,7 +170,7 @@ class DataProvider {
         CoreDataService.data.syncUoms { result in // get from firebase
             switch result {
             case .success:
-                completion(ResultType.success(true))
+                 print("Function: \(#function), line: \(#line)")
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
             }

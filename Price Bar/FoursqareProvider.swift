@@ -84,8 +84,7 @@ class FoursqareProvider {
                 completed(ResultType.success(outlets))
             } catch let error as NSError {
                 completed(ResultType.failure(.other(error.localizedDescription)))
-            }
-            }.resume()
+            }}.resume()
     }
     
     private func mapper(from venue: [String: Any]) -> FQOutletModel? {

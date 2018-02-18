@@ -76,9 +76,77 @@ class DataProvider {
                 return
             }
             shoplist = shp
-            syncCategories { result in
-                self.handleCategories(result: result, completion: completion)
-            }
+            
+            let loginGroup = DispatchGroup()
+            loginGroup.enter()
+            FirebaseService.data.loginToFirebase(completion: { result in
+                switch result {
+                case .success:
+                    print("Firebase login success")
+                    loginGroup.leave()
+                case let .failure(error):
+                    print(error)
+                    completion(ResultType.failure(DataProviderError.syncError("Не смогли подключиться к облаку")))
+                    return
+                }
+            })
+            
+            let categoryGroup = DispatchGroup()
+            loginGroup.notify(queue: .global(), execute: {
+                categoryGroup.enter()
+                self.syncCategories { result in
+                    switch result {
+                    case .success:
+                        categoryGroup.leave()
+                    case let .failure(error):
+                        completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
+                        return
+                    }
+                }
+            })
+            
+            let uomGroup = DispatchGroup()
+            categoryGroup.notify(queue: .global(), execute: {
+                uomGroup.enter()
+                self.syncUom { result in
+                    switch result {
+                    case .success:
+                        uomGroup.leave()
+                    case let .failure(error):
+                        completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
+                        return
+                    }
+                }
+            })
+            
+            let productGroup = DispatchGroup()
+            uomGroup.notify(queue: .global(), execute: {
+                productGroup.enter()
+                self.syncProducts { result in
+                    switch result {
+                    case .success:
+                        self.syncStatistics { result in
+                            productGroup.leave()
+                            //self.handleStatistics(result: result, completion: completion)
+                        }
+                    case let .failure(error):
+                        completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
+                    }
+                    //self.handleProducts(result: result, completion: completion)
+                }
+            })
+            
+            productGroup.notify(queue: .global(), execute: {
+                switch result {
+                case .success:
+                    saveShoplist() // sync finished - recover shoplist
+                    completion(ResultType.success(true))
+                case let .failure(error):
+                    completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
+                }
+            })
+            
+            
         }
     }
 

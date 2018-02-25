@@ -47,7 +47,7 @@ class ShopListController: UIViewController {
     }
     
     func updateRemoveButtonState() {
-        totalLabel.text = "Итого: \(dataProvider.total.asLocaleCurrency)"
+        totalLabel.text = "\(Strings.Common.total.localized)\(dataProvider.total.asLocaleCurrency)"
         let enable = !buttonsHided && !dataProvider.shoplist.isEmpty
         removeShoplistBtn.setEnable(enable)
     }
@@ -113,7 +113,7 @@ class ShopListController: UIViewController {
     
     func synchronizeData() {
         self.buttonEnable(false)
-        self.view.pb_startActivityIndicator(with: "Загружаем товары и цены из облака, подождите ...")
+        self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.sync_process.localized)
         dataProvider.syncCloud { [weak self] result in
             self?.view.pb_stopActivityIndicator()
             switch result {
@@ -126,7 +126,7 @@ class ShopListController: UIViewController {
     }
 
     private func updateCurentOutlet() {
-        self.view.pb_startActivityIndicator(with: "Ищем ближайшие магазины..")
+        self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.outlet_looking.localized)
         let outletService = OutletService()
         outletService.nearestOutlet { [weak self] result in
             self?.view.pb_stopActivityIndicator()
@@ -137,8 +137,8 @@ class ShopListController: UIViewController {
                 self?.userOutlet = OutletFactory.mapper(from: outlet)
                 activateControls = true
             case let .failure(error):
-                let prevousSuccess = "Хорошие новости: Товары загружены!!!🤘, но: "
-                self?.alert(message: "\(prevousSuccess)\n\(error.errorDescription)\nПопробуйте позже")
+                let prevousSuccess = Strings.Alerts.good_news.localized
+                self?.alert(message: "\(prevousSuccess)\n\(error.errorDescription)\n\(Strings.Alerts.try_later.localized))")
             }
             self?.buttonEnable(activateControls)
         }
@@ -150,14 +150,14 @@ class ShopListController: UIViewController {
     }
 
     @IBAction func scanItemPressed(_ sender: Any) {
-        performSegue(withIdentifier: Segues.showScan.name, sender: nil)
+        performSegue(withIdentifier: Strings.Segues.showScan.name, sender: nil)
      }
     @IBAction func itemListPressed(_ sender: Any) {
-        performSegue(withIdentifier: Segues.showItemList.name, sender: nil)
+        performSegue(withIdentifier: Strings.Segues.showItemList.name, sender: nil)
     }
 
     @IBAction func outletPressed(_ sender: Any) {
-        performSegue(withIdentifier: Segues.showOutlets.name, sender: nil)
+        performSegue(withIdentifier: Strings.Segues.showOutlets.name, sender: nil)
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
         alert(title: "Ого", message: "Чистим шоп лист?🧐", okAction: {
@@ -222,7 +222,7 @@ extension ShopListController: UITableViewDelegate {
         return 30
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Segues.showEditItem.name, sender: dataProvider.getItem(index: indexPath))
+        performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: dataProvider.getItem(index: indexPath))
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
@@ -237,7 +237,7 @@ extension ShopListController: UITableViewDelegate {
 // MARK: transition
 extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Segues.showEditItem.name,
+        if segue.identifier == Strings.Segues.showEditItem.name,
             let itemCardVC = segue.destination as? ItemCardVC {
             if let item = sender as? DPShoplistItemModel {
                 itemCardVC.item = item
@@ -246,7 +246,7 @@ extension ShopListController {
                 itemCardVC.outletId = userOutlet.id
             }
         }
-        if segue.identifier == "scannedNewProduct",
+        if segue.identifier == Strings.Segues.scannedNewProduct.name,
             let itemCardVC = segue.destination as? ItemCardVC {
             if let barcode = sender as? String {
                 itemCardVC.barcode = barcode
@@ -256,11 +256,11 @@ extension ShopListController {
             }
         }
 
-        if segue.identifier == Segues.showOutlets.name,
+        if segue.identifier == Strings.Segues.showOutlets.name,
             let outletVC = segue.destination as? OutletsVC {
             outletVC.delegate = self
         }
-        if segue.identifier == Segues.showItemList.name,
+        if segue.identifier == Strings.Segues.showItemList.name,
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil {
             itemListVC.outletId = userOutlet.id
             itemListVC.delegate = self
@@ -268,7 +268,7 @@ extension ShopListController {
             itemListVC.dataProvider = dataProvider
 
         }
-        if segue.identifier == Segues.showScan.name,
+        if segue.identifier == Strings.Segues.showScan.name,
             let scanVC = segue.destination as? ScannerController {
             scanVC.delegate = self
         }

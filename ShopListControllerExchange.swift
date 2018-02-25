@@ -12,11 +12,12 @@ import UIKit
 extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
         print(barcode)
-        if let product: DPProductModel = dataProvider.getItem(with: barcode, and: userOutlet.id) {
+        if let product: DPProductModel = dataProvider.getItem(with: barcode,
+                                                              and: userOutlet.id) {
             addItemToShopList(product)
         } else {
-            //self.barcode = barcode
-            self.performSegue(withIdentifier: "scannedNewProduct", sender: barcode)
+            self.performSegue(withIdentifier: Strings.Segues.scannedNewProduct.name,
+                              sender: barcode)
         }
 
     }
@@ -36,7 +37,6 @@ extension ShopListController: ItemListVCDelegate {
         switch result {
         case .success:
             self.shopTableView.reloadData()
-//            self.totalLabel.update(value: dataProvider.total)
         case let .failure(error):
             alert(title: "Хмм", message: error.message)
         }
@@ -65,7 +65,5 @@ extension ShopListController: ItemCardVCDelegate {
             return
         }
         dataProvider.loadShopList(for: userOutlet.id)
-//        totalLabel.update(value: dataProvider.total)
-//        shopTableView.reloadData()
     }
 }

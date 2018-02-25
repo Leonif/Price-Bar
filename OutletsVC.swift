@@ -26,7 +26,7 @@ class OutletsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.view.pb_startActivityIndicator(with: "Загрузка торговых точек")
+        self.view.pb_startActivityIndicator(with: Strings.Common.outlet_loading.localized)
         outletService = OutletService()
         outletService?.outletList(completion: { result in
             self.view.pb_stopActivityIndicator()

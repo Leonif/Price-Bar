@@ -26,13 +26,8 @@ class ShopItemCell: UITableViewCell {
 
     var delegate: ShopItemCellDelegate?
     var weightList = [Double]()
-    //var currentIndex = 0
 
     @IBAction func changeQuantity(_ sender: UIButton) {
-//        guard let currentValue = quantityButton.titleLabel?.text?.double else {
-//            fatalError("Not possible convert current value")
-//        }
-
         delegate?.weightDemanded(cell: self)
     }
 
@@ -48,7 +43,6 @@ extension ShopItemCell {
 
         self.item?.checked = !item.checked
         self.checkedState()
-        //self.delegate?.checkPressed(for: item)
     }
 
     func updateWeighOnCell(_ weight: Double, _ price: Double) {

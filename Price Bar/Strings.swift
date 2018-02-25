@@ -8,27 +8,56 @@
 
 import Foundation
 
-
-
-enum Segues: String {
-    case showScan
-    case showItemList
-    case showOutlets
-    case showEditItem
+enum Strings {
     
-    
-    var name: String {
-        return self.rawValue
-    }
-}
-
-
-enum Alerts: String {
-    case goodNews
-    
-    var localized: String {
-        return NSLocalizedString(self.rawValue, comment: "")
+    enum Segues: String {
+        case showScan
+        case showItemList
+        case showOutlets
+        case showEditItem
+        case scannedNewProduct
+        
+        var name: String {
+            return self.rawValue
+        }
     }
     
     
+    enum Alerts: String {
+        case good_news
+        case try_later
+        
+        
+        var localized: String {
+            return NSLocalizedString(self.rawValue, comment: "")
+        }
+    }
+    
+    enum ActivityIndicator: String {
+        case outlet_looking
+        case sync_process
+        
+        var localized: String {
+            return NSLocalizedString(self.rawValue, comment: "")
+        }
+        
+    }
+    
+    enum Common: String {
+        case total
+        case loading
+        case outlet_loading
+        
+        var localized: String {
+            return NSLocalizedString(self.rawValue, comment: "")
+        }
+        
+    }
+    
+    
 }
+
+
+
+
+

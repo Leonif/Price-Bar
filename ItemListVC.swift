@@ -32,7 +32,7 @@ class ItemListVC: UIViewController {
         super.viewDidLoad()
         itemTableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
 
-        self.view.pb_startActivityIndicator(with: "Загрузка...")
+        self.view.pb_startActivityIndicator(with: Strings.Common.loading.localized)
     }
 
     var currentPageOffset = 0

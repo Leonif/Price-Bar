@@ -11,11 +11,6 @@ import CoreLocation
 
 class ShopListController: UIViewController {
 
-    fileprivate let showScan = "showScan"
-    fileprivate let showItemList = "showItemList"
-    fileprivate let showOutlets = "showOutlets"
-    fileprivate let showEditItem = "showEditItem"
-
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     @IBOutlet weak var removeShoplistBtn: GoodButton!
@@ -155,14 +150,14 @@ class ShopListController: UIViewController {
     }
 
     @IBAction func scanItemPressed(_ sender: Any) {
-        performSegue(withIdentifier: showScan, sender: nil)
+        performSegue(withIdentifier: Segues.showScan.name, sender: nil)
      }
     @IBAction func itemListPressed(_ sender: Any) {
-        performSegue(withIdentifier: showItemList, sender: nil)
+        performSegue(withIdentifier: Segues.showItemList.name, sender: nil)
     }
 
     @IBAction func outletPressed(_ sender: Any) {
-        performSegue(withIdentifier: showOutlets, sender: nil)
+        performSegue(withIdentifier: Segues.showOutlets.name, sender: nil)
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
         alert(title: "Ого", message: "Чистим шоп лист?🧐", okAction: {
@@ -227,7 +222,7 @@ extension ShopListController: UITableViewDelegate {
         return 30
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: showEditItem, sender: dataProvider.getItem(index: indexPath))
+        performSegue(withIdentifier: Segues.showEditItem.name, sender: dataProvider.getItem(index: indexPath))
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
@@ -242,7 +237,7 @@ extension ShopListController: UITableViewDelegate {
 // MARK: transition
 extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == showEditItem,
+        if segue.identifier == Segues.showEditItem.name,
             let itemCardVC = segue.destination as? ItemCardVC {
             if let item = sender as? DPShoplistItemModel {
                 itemCardVC.item = item
@@ -261,11 +256,11 @@ extension ShopListController {
             }
         }
 
-        if segue.identifier == showOutlets,
+        if segue.identifier == Segues.showOutlets.name,
             let outletVC = segue.destination as? OutletsVC {
             outletVC.delegate = self
         }
-        if segue.identifier == showItemList,
+        if segue.identifier == Segues.showItemList.name,
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil {
             itemListVC.outletId = userOutlet.id
             itemListVC.delegate = self
@@ -273,7 +268,7 @@ extension ShopListController {
             itemListVC.dataProvider = dataProvider
 
         }
-        if segue.identifier == showScan,
+        if segue.identifier == Segues.showScan.name,
             let scanVC = segue.destination as? ScannerController {
             scanVC.delegate = self
         }

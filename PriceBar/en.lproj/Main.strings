@@ -1,0 +1,90 @@
+
+/* Class = "UIButton"; normalTitle = "Ед-ца измерения"; ObjectID = "1SJ-lB-xI9"; */
+"1SJ-lB-xI9.normalTitle" = "Ед-ца измерения";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "2b7-S4-4fB"; */
+"2b7-S4-4fB.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Киев, Здолбуновская, 13Д"; ObjectID = "2so-a8-Tea"; */
+"2so-a8-Tea.text" = "Киев, Здолбуновская, 13Д";
+
+/* Class = "UIButton"; normalTitle = "Овощи и фрукты"; ObjectID = "41z-nM-1tE"; */
+"41z-nM-1tE.normalTitle" = "Овощи и фрукты";
+
+/* Class = "UILabel"; text = "Цена:"; ObjectID = "4wz-xi-KLc"; */
+"4wz-xi-KLc.text" = "Цена:";
+
+/* Class = "UILabel"; text = "шт"; ObjectID = "9dE-ta-ARZ"; */
+"9dE-ta-ARZ.text" = "шт";
+
+/* Class = "UILabel"; text = "29,98 грн."; ObjectID = "DV6-ek-kbz"; */
+"DV6-ek-kbz.text" = "29,98 грн.";
+
+/* Class = "UILabel"; text = "900 м"; ObjectID = "EJ2-WG-7qG"; */
+"EJ2-WG-7qG.text" = "900 м";
+
+/* Class = "UILabel"; text = "Здолбуновская 13Г"; ObjectID = "Fpe-nA-Urd"; */
+"Fpe-nA-Urd.text" = "Здолбуновская 13Г";
+
+/* Class = "UILabel"; text = "  Вы не разрешили использовать камеру. Убедитесь, что камере дан доступ как показано ниже в \"Конфиденциальность\" 😥"; ObjectID = "Hb9-Wt-sqy"; */
+"Hb9-Wt-sqy.text" = "  Вы не разрешили использовать камеру. Убедитесь, что камере дан доступ как показано ниже в \"Конфиденциальность\" 😥";
+
+/* Class = "UILabel"; text = "  Вы не разрешили использовать gps-позицию. Убедитесь, что программе дан доступ как показано ниже в \"Конфиденциальность\" 😥"; ObjectID = "JIb-u6-VeV"; */
+"JIb-u6-VeV.text" = "  Вы не разрешили использовать gps-позицию. Убедитесь, что программе дан доступ как показано ниже в \"Конфиденциальность\" 😥";
+
+/* Class = "UILabel"; text = "Наведите камеру на штрихкод"; ObjectID = "L2V-i2-H2F"; */
+"L2V-i2-H2F.text" = "Наведите камеру на штрихкод";
+
+/* Class = "UILabel"; text = "Помидоры"; ObjectID = "LDd-r2-V6T"; */
+"LDd-r2-V6T.text" = "Помидоры";
+
+/* Class = "UILabel"; text = "Помидоры"; ObjectID = "QIn-DA-iTD"; */
+"QIn-DA-iTD.text" = "Помидоры";
+
+/* Class = "UITextField"; placeholder = "Введите название товара"; ObjectID = "QJ3-4M-n7C"; */
+"QJ3-4M-n7C.placeholder" = "Введите название товара";
+
+/* Class = "UITextField"; placeholder = "Заполните название"; ObjectID = "Qff-2f-mBr"; */
+"Qff-2f-mBr.placeholder" = "Заполните название";
+
+/* Class = "UILabel"; text = "Сильпо"; ObjectID = "REG-oP-2yq"; */
+"REG-oP-2yq.text" = "Сильпо";
+
+/* Class = "UITextField"; text = "65,90"; ObjectID = "TNC-Ik-Mx3"; */
+"TNC-Ik-Mx3.text" = "65,90";
+
+/* Class = "UILabel"; text = "65.98"; ObjectID = "Ufx-5z-nAd"; */
+"Ufx-5z-nAd.text" = "65.98";
+
+/* Class = "UILabel"; text = "Итого"; ObjectID = "eUf-GN-OzE"; */
+"eUf-GN-OzE.text" = "Итого";
+
+/* Class = "UILabel"; text = "за"; ObjectID = "gOz-fX-oct"; */
+"gOz-fX-oct.text" = "за";
+
+/* Class = "UILabel"; text = "Товары"; ObjectID = "hUc-ri-rgT"; */
+"hUc-ri-rgT.text" = "Товары";
+
+/* Class = "UILabel"; text = "Колво:"; ObjectID = "i3Y-sM-oyu"; */
+"i3Y-sM-oyu.text" = "Колво:";
+
+/* Class = "UIButton"; normalTitle = "0.450"; ObjectID = "l4k-db-rqW"; */
+"l4k-db-rqW.normalTitle" = "0.450";
+
+/* Class = "UIButton"; normalTitle = "Сильпо"; ObjectID = "p6W-vM-LYP"; */
+"p6W-vM-LYP.normalTitle" = "Сильпо";
+
+/* Class = "UILabel"; text = "мин: 29.5 грн"; ObjectID = "sKY-0b-wBp"; */
+"sKY-0b-wBp.text" = "мин: 29.5 грн";
+
+/* Class = "UILabel"; text = "Торговые точки"; ObjectID = "sR4-xo-foa"; */
+"sR4-xo-foa.text" = "Торговые точки";
+
+/* Class = "UILabel"; text = "цена: 36.5 грн"; ObjectID = "skq-Mu-38j"; */
+"skq-Mu-38j.text" = "цена: 36.5 грн";
+
+/* Class = "UILabel"; text = "  Вы не разрешили использовать камеру. Убедитесь, что камере дан доступ как показано ниже в \"Конфиденциальность\" 😥"; ObjectID = "y8G-3f-Cq5"; */
+"y8G-3f-Cq5.text" = "  Вы не разрешили использовать камеру. Убедитесь, что камере дан доступ как показано ниже в \"Конфиденциальность\" 😥";
+
+/* Class = "UILabel"; text = "Итого: 0, 00"; ObjectID = "yUL-id-lem"; */
+"yUL-id-lem.text" = "Итого: 0, 00";

@@ -21,7 +21,7 @@ extension UITableView {
 
 
 extension UIViewController {
-    func alert(title: String = "Ой",
+    func alert(title: String = Strings.Alerts.ups.localized,
                message: String,
                okAction: ActionClousure? = nil,
                cancelAction: ActionClousure? = nil,
@@ -33,7 +33,8 @@ extension UIViewController {
         }))
 
         if let cancelAction = cancelAction {
-            alert.addAction(UIAlertAction(title: "Не надо", style: UIAlertActionStyle.cancel, handler: { (action: UIAlertAction!) in
+            alert.addAction(UIAlertAction(title: Strings.Alerts.not_necessary.localized,
+                                          style: UIAlertActionStyle.cancel, handler: { (action: UIAlertAction!) in
                 cancelAction()
             }))
         }

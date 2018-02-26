@@ -47,6 +47,8 @@ enum Strings {
         case total
         case loading
         case outlet_loading
+        case wow
+        case clean_shoplist
         
         var localized: String {
             return NSLocalizedString(self.rawValue, comment: "")

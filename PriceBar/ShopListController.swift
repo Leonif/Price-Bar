@@ -36,21 +36,7 @@ class ShopListController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     var buttonsHided: Bool = false
     
-    func updateUI() {
-        DispatchQueue.main.async {
-            self.outletAddressLabel.text = self.userOutlet.address
-            self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
-            self.dataProvider.loadShopList(for: self.userOutlet.id)
-            self.shopTableView.reloadData()
-            self.updateRemoveButtonState()
-        }
-    }
     
-    func updateRemoveButtonState() {
-        totalLabel.text = "\(Strings.Common.total.localized)\(dataProvider.total.asLocaleCurrency)"
-        let enable = !buttonsHided && !dataProvider.shoplist.isEmpty
-        removeShoplistBtn.setEnable(enable)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +58,32 @@ class ShopListController: UIViewController {
         synchronizeData()
     }
     
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        shopTableView.reloadData()
+    }
+    
+    // MARK: - UI
+    func updateUI() {
+        DispatchQueue.main.async {
+            self.outletAddressLabel.text = self.userOutlet.address
+            self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
+            self.dataProvider.loadShopList(for: self.userOutlet.id)
+            self.shopTableView.reloadData()
+            self.updateRemoveButtonState()
+        }
+    }
+    
+    func updateRemoveButtonState() {
+        totalLabel.text = "\(Strings.Common.total.localized)\(dataProvider.total.asLocaleCurrency)"
+        let enable = !buttonsHided && !dataProvider.shoplist.isEmpty
+        removeShoplistBtn.setEnable(enable)
+    }
+    
+    
+    
+    // TODO: - Animator
     @objc func hideButtons(gesture: UIGestureRecognizer) {
         guard userOutlet != nil else {
             return
@@ -88,6 +100,7 @@ class ShopListController: UIViewController {
             print("other swipes")
         }
     }
+    
     
     func shiftButton(hide: Bool) {
         let shiftOfDirection: CGFloat = hide ? -1 : 1
@@ -111,6 +124,7 @@ class ShopListController: UIViewController {
         })
     }
     
+    // MARK: - Syncing ...
     func synchronizeData() {
         self.buttonEnable(false)
         self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.sync_process.localized)
@@ -144,10 +158,7 @@ class ShopListController: UIViewController {
         }
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        shopTableView.reloadData()
-    }
+    
 
     @IBAction func scanItemPressed(_ sender: Any) {
         performSegue(withIdentifier: Strings.Segues.showScan.name, sender: nil)
@@ -160,7 +171,8 @@ class ShopListController: UIViewController {
         performSegue(withIdentifier: Strings.Segues.showOutlets.name, sender: nil)
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        alert(title: "Ого", message: "Чистим шоп лист?🧐", okAction: {
+        alert(title: Strings.Common.wow.localized,
+              message: Strings.Common.clean_shoplist.localized, okAction: {
             self.dataProvider.clearShoplist()
             self.shopTableView.reloadData()
         }, cancelAction: {})

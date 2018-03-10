@@ -43,7 +43,16 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         viewModel = ShoplistViewModel(dataProvider: dataProvider)
-        
+        addGestures()
+        updateRemoveButtonState()
+        dataProvider.updateClousure = updateRemoveButtonState
+        dataSource = ShopListDataSource(cellDelegate: self,
+                                        dataProvider: dataProvider)
+        shopTableView.dataSource = dataSource
+        synchronizeData()
+    }
+    
+    func addGestures() {
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         rightSwipe.direction = .right
         wholeViewArea.addGestureRecognizer(rightSwipe)
@@ -52,13 +61,6 @@ class ShopListController: UIViewController {
         leftSwipe.direction = .left
         wholeViewArea.addGestureRecognizer(leftSwipe)
         
-        updateRemoveButtonState()
-        
-        dataProvider.updateClousure = updateRemoveButtonState
-        dataSource = ShopListDataSource(cellDelegate: self,
-                                        dataProvider: dataProvider)
-        shopTableView.dataSource = dataSource
-        synchronizeData()
     }
     
     
@@ -202,6 +204,7 @@ extension ShopListController: ScannerDelegate {
             switch result {
             case .success:
                 print("Product add to shoplist")
+                self?.shopTableView.reloadData()
             case let .failure(error):
                 switch error {
                 case .productIsNotFound:
@@ -212,16 +215,6 @@ extension ShopListController: ScannerDelegate {
                 }
             }
         }
-        
-        
-//        if let product: DPProductModel = dataProvider.getItem(with: barcode,
-//                                                              and: userOutlet.id) {
-//            addItemToShopList(product)
-//        } else {
-//            self.performSegue(withIdentifier: Strings.Segues.scannedNewProduct.name,
-//                              sender: barcode)
-//        }
-        
     }
 }
 
@@ -258,11 +251,8 @@ extension ShopListController: ItemCardVCDelegate {
         }
     }
     
-    func updated(status: Bool) {
-        guard status == true else {
-            return
-        }
-        dataProvider.loadShopList(for: userOutlet.id)
+    func productUpdated() { // товар был отредактирован (цена/категория/ед измерения)
+        viewModel?.reloadProducts(outletId: userOutlet.id)
     }
 }
 

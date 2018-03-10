@@ -31,7 +31,6 @@ class ItemListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         itemTableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
-
         self.view.pb_startActivityIndicator(with: Strings.Common.loading.localized)
     }
 
@@ -42,7 +41,7 @@ class ItemListVC: UIViewController {
             let products = dataProvider.getShopItems(with: currentPageOffset, for: outletId),
             let itemList = ProductMapper.transform(from: products, for: outletId)
             else {
-                alert(title: "Ops", message: "Нет товаров в базе")
+                alert(message: "Нет товаров в базе")
                 self.view.pb_stopActivityIndicator()
                 return
         }
@@ -104,8 +103,8 @@ class ItemListVC: UIViewController {
 }
 
 extension ItemListVC: ItemCardVCDelegate {
-    func updated(status: Bool) {
-        itemCardDelegate?.updated(status: status)
+    func productUpdated() {
+        itemCardDelegate?.productUpdated()
     }
 
     func add(new productId: String) {

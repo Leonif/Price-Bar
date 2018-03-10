@@ -73,6 +73,12 @@ public final class ShoplistViewModel {
         }
     }
     
+    func reloadProducts(outletId: String) {
+        
+        dataProvider.loadShopList(for: outletId)
+        
+    }
+    
     
     
 }

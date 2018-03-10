@@ -9,7 +9,7 @@
 import UIKit
 
 protocol ItemCardVCDelegate: class {
-    func updated(status: Bool)
+    func productUpdated()
     func add(new productId: String)
 }
 
@@ -162,7 +162,7 @@ class ItemCardVC: UIViewController {
                                                       uomId: productCard.uomId)
         if state == CardState.editMode {
             dataProvider.update(dpProductCardModel)
-            delegate.updated(status: true)
+            delegate.productUpdated()
         } else {
             dataProvider.save(new: dpProductCardModel)
             delegate.add(new: productCard.productId)
@@ -201,7 +201,7 @@ class ItemCardVC: UIViewController {
                                                     productId: productCard.productId,
                                                     price: price)
             dataProvider.save(new: dpStatModel)
-            delegate.updated(status: true)
+            delegate.productUpdated()
             self.dismiss(animated: true, completion: nil)
 
         } else {

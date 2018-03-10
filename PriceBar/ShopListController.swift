@@ -21,6 +21,7 @@ class ShopListController: UIViewController {
     @IBOutlet weak var removeButtonConstrait: NSLayoutConstraint!
     
     var dataProvider: DataProvider = DataProvider()
+    var viewModel: ShoplistViewModel?
 
     var userOutlet: Outlet! {
         didSet {
@@ -40,6 +41,8 @@ class ShopListController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        viewModel = ShoplistViewModel(dataProvider: dataProvider)
         
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         rightSwipe.direction = .right
@@ -115,7 +118,8 @@ class ShopListController: UIViewController {
         self.rightButtonConstrait.constant = newConst
         self.removeButtonConstrait.constant = newRemoveConst
 
-        UIView.animate(withDuration: 0.3, delay: 0,
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 0.5,
                        options: .curveEaseIn,
@@ -128,31 +132,29 @@ class ShopListController: UIViewController {
     func synchronizeData() {
         self.buttonEnable(false)
         self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.sync_process.localized)
-        dataProvider.syncCloud { [weak self] result in
+        viewModel?.synchronizeData { [weak self] result in
             self?.view.pb_stopActivityIndicator()
             switch result {
-            case let .failure(error):
-                self?.alert(message: "\(error.message): \(error.localizedDescription)")
             case .success:
                 self?.updateCurentOutlet()
+            case let .failure(error):
+               self?.alert(message: "\(error.message): \(error.localizedDescription)")
             }
         }
     }
 
     private func updateCurentOutlet() {
+        var activateControls = false
         self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.outlet_looking.localized)
-        let outletService = OutletService()
-        outletService.nearestOutlet { [weak self] result in
+        viewModel?.updateCurrentOutlet { [weak self] (result) in
             self?.view.pb_stopActivityIndicator()
-            print(result)
-            var activateControls = false
             switch result {
             case let .success(outlet):
-                self?.userOutlet = OutletFactory.mapper(from: outlet)
+                self?.userOutlet = outlet
                 activateControls = true
             case let .failure(error):
-                let prevousSuccess = Strings.Alerts.good_news.localized
-                self?.alert(message: "\(prevousSuccess)\n\(error.errorDescription)\n\(Strings.Alerts.try_later.localized))")
+                let previousSuccess = Strings.Alerts.good_news.localized
+                self?.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(Strings.Alerts.try_later.localized))")
             }
             self?.buttonEnable(activateControls)
         }
@@ -171,8 +173,8 @@ class ShopListController: UIViewController {
         performSegue(withIdentifier: Strings.Segues.showOutlets.name, sender: nil)
     }
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        alert(title: Strings.Common.wow.localized,
-              message: Strings.Common.clean_shoplist.localized, okAction: {
+        alert(title: Strings.Alerts.wow.localized,
+              message: Strings.Alerts.clean_shoplist.localized, okAction: {
             self.dataProvider.clearShoplist()
             self.shopTableView.reloadData()
         }, cancelAction: {})
@@ -187,10 +189,83 @@ class ShopListController: UIViewController {
                 ].forEach {
                     $0?.setEnable(enable)
             }
-           
         }
     }
 }
+
+
+
+extension ShopListController: ScannerDelegate {
+    func scanned(barcode: String) {
+        print(barcode)
+        viewModel?.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] result in
+            switch result {
+            case .success:
+                print("Product add to shoplist")
+            case let .failure(error):
+                switch error {
+                case .productIsNotFound:
+                    self?.performSegue(withIdentifier: Strings.Segues.scannedNewProduct.name,
+                                      sender: barcode)
+                default:
+                    self?.alert(message: error.message)
+                }
+            }
+        }
+        
+        
+//        if let product: DPProductModel = dataProvider.getItem(with: barcode,
+//                                                              and: userOutlet.id) {
+//            addItemToShopList(product)
+//        } else {
+//            self.performSegue(withIdentifier: Strings.Segues.scannedNewProduct.name,
+//                              sender: barcode)
+//        }
+        
+    }
+}
+
+extension ShopListController: ItemListVCDelegate {
+    func itemChoosen(productId: String) {
+        viewModel?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+            switch result {
+            case .success:
+                self?.shopTableView.reloadData()
+            case let .failure(error):
+                self?.alert(message: error.message)
+            }
+        }
+    }
+}
+
+extension ShopListController: OutletVCDelegate {
+    func choosen(outlet: Outlet) {
+        userOutlet = outlet
+        
+    }
+}
+
+extension ShopListController: ItemCardVCDelegate {
+    func add(new productId: String) {
+        print(productId)
+        viewModel?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+            switch result {
+            case .success:
+                print("Product is added to base and shoplist")
+            case let .failure(error):
+                self?.alert(message: error.message)
+            }
+        }
+    }
+    
+    func updated(status: Bool) {
+        guard status == true else {
+            return
+        }
+        dataProvider.loadShopList(for: userOutlet.id)
+    }
+}
+
 
 
 

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Outlet {
+public struct Outlet {
     var id: String
     var name: String
     var address: String

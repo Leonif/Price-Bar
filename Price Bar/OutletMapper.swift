@@ -41,8 +41,9 @@ class OutletFactory {
     class func mapper(from outlet: OPOutletModel) -> Outlet {
 
         return Outlet(id: outlet.id,
-                             name: outlet.name,
-                             address: outlet.address, distance: outlet.distance)
+                      name: outlet.name,
+                      address: outlet.address,
+                      distance: outlet.distance)
 
     }
 

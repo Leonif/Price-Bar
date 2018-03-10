@@ -9,7 +9,7 @@
 "outlet_looking" = "Looking for nearest outlets...";
 "good_news" = "Good news: Goods are loaded!!!🤘, but: ";
 "try_later" = "Try later";
-"sync_process" = "Loading goods and proces from cloud, please wait ...";
+"sync_process" = "Loading goods and prices from cloud, please wait ...";
 "total"  = "Total: ";
 "loading" = "Loading...";
 "outlet_loading" = "Outlets loading";

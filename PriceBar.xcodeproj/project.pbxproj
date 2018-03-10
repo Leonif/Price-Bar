@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4FF37986BE78C0C683CB8D7E /* Pods_PriceBarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */; };
-		7904B4581F03728E002032CD /* ShopListControllerExchange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4571F03728E002032CD /* ShopListControllerExchange.swift */; };
 		7904B45A1F03738B002032CD /* FBItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* FBItemCategory.swift */; };
 		790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F1008202266A20060E285 /* CoreDataParsers.swift */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
@@ -87,6 +86,7 @@
 		79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
 		79DC99E220433AA400D35D1C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99E120433AA400D35D1C /* Strings.swift */; };
 		79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79DC99ED204345AC00D35D1C /* Localizable.strings */; };
+		79DC99F02044B3F600D35D1C /* ShopListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShopListViewModel.swift */; };
 		B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
 /* End PBXBuildFile section */
 
@@ -103,7 +103,6 @@
 /* Begin PBXFileReference section */
 		3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.release.xcconfig"; sourceTree = "<group>"; };
 		4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7904B4571F03728E002032CD /* ShopListControllerExchange.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopListControllerExchange.swift; sourceTree = SOURCE_ROOT; };
 		7904B4591F03738B002032CD /* FBItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBItemCategory.swift; sourceTree = SOURCE_ROOT; };
 		790F1008202266A20060E285 /* CoreDataParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParsers.swift; sourceTree = "<group>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
@@ -192,6 +191,7 @@
 		79DC99E820433F9E00D35D1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../PriceBar/en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		79DC99EC204345AC00D35D1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		79DC99EE204345B900D35D1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		79DC99EF2044B3F600D35D1C /* ShopListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListViewModel.swift; sourceTree = "<group>"; };
 		7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar.release.xcconfig"; sourceTree = "<group>"; };
@@ -234,9 +234,10 @@
 		790BC9E71F8831FB00CA9519 /* ShopListFlow */ = {
 			isa = PBXGroup;
 			children = (
+				790BC9ED1F8833D700CA9519 /* Controllers */,
+				79DC99F12044B40000D35D1C /* ViewModel */,
 				790BC9EF1F88342100CA9519 /* Entities */,
 				790BC9EE1F88341200CA9519 /* View */,
-				790BC9ED1F8833D700CA9519 /* Controllers */,
 			);
 			name = ShopListFlow;
 			sourceTree = "<group>";
@@ -291,7 +292,6 @@
 			isa = PBXGroup;
 			children = (
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
-				7904B4571F03728E002032CD /* ShopListControllerExchange.swift */,
 				793368681FFF6F5600E8E81A /* ShopListDataSource.swift */,
 				790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */,
 			);
@@ -594,6 +594,14 @@
 			name = Sources;
 			sourceTree = "<group>";
 		};
+		79DC99F12044B40000D35D1C /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				79DC99EF2044B3F600D35D1C /* ShopListViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
 		EFCFC6F2C247C1D3BDF643A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -853,6 +861,7 @@
 				793368671FFEAB3200E8E81A /* Outlet.swift in Sources */,
 				796D7B24201BDE3C0098D324 /* ItemListModelView.swift in Sources */,
 				79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */,
+				79DC99F02044B3F600D35D1C /* ShopListViewModel.swift in Sources */,
 				79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */,
 				7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */,
 				79833B3D200E812D005C6CC5 /* PickerControl.swift in Sources */,
@@ -902,7 +911,6 @@
 				79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */,
 				79833B552013ECA6005C6CC5 /* CDStatisticModel.swift in Sources */,
 				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,
-				7904B4581F03728E002032CD /* ShopListControllerExchange.swift in Sources */,
 				790F104620262FC30060E285 /* ShopList+CoreDataClass.swift in Sources */,
 				792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */,
 				795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */,

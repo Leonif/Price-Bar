@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-typealias ActionClousure = ()->Void
+typealias ActionClousure = () -> Void
 
 extension UITableView {
     func update(completion: ActionClousure) {
@@ -169,7 +169,6 @@ extension UIButton {
 }
 
 extension UIView {
-
     func castShadow() {
         self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         self.layer.shadowOpacity = 0.8

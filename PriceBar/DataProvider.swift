@@ -18,6 +18,8 @@ enum SectionInfo {
 enum DataProviderError: Error {
     case syncError(String)
     case shoplistAddedNewItem(String)
+    case productIsNotFound(String)
+    case other(String)
 
     var message: String {
         switch self {
@@ -25,6 +27,10 @@ enum DataProviderError: Error {
             return "Ошибка синхронизации"
         case .shoplistAddedNewItem:
             return "Товар уже есть в списке"
+        case .productIsNotFound:
+            return "Товар не найден в базе данных"
+        case .other:
+            return "Что-то пошло не так"
         }
     }
 }
@@ -222,7 +228,7 @@ class DataProvider {
 
     func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, DataProviderError> {
 
-        if let _ = shoplist.index(of:item) {
+        if let _ = shoplist.index(of: item) {
             print("\(item.productName) already in shoplist")
             return ResultType.failure(DataProviderError.shoplistAddedNewItem("Уже в списке"))
         }

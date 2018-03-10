@@ -17,7 +17,7 @@ protocol NearestOutletDelegate {
     func nearest(result: ResultType<OPOutletModel, OutletServiceError>)
 }
 
-enum OutletServiceError: Error {
+public enum OutletServiceError: Error {
     case outletNotFound(String)
     case userDeniedLocation(String)
     case foursqareDoesntResponce(String)
@@ -49,7 +49,7 @@ class OutletService: NSObject {
         locationService = LocationService()
     }
 
-    func nearestOutlet(completion: @escaping (ResultType<OPOutletModel, OutletServiceError>)->Void) {
+    func nearestOutlet(completion: @escaping (ResultType<OPOutletModel, OutletServiceError>) -> Void) {
         singleOutletCompletion = completion
         locationService.getCoords { result in
             switch result {
@@ -72,7 +72,7 @@ class OutletService: NSObject {
         }
     }
 
-    func outletList(completion: @escaping (ResultType<[OPOutletModel], OutletServiceError>)->Void) {
+    func outletList(completion: @escaping (ResultType<[OPOutletModel], OutletServiceError>) -> Void) {
         outletListCompletion = completion
 
         locationService.getCoords { result in

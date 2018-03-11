@@ -153,9 +153,13 @@ class ShopListController: UIViewController {
             switch result {
             case let .success(outlet):
                 self?.userOutlet = outlet
-                
-                let q = self?.interactor?.getQuantityOfGood()
-                print(q ?? 0)
+                DispatchQueue.main.async {
+                    let q = self?.interactor?.getQuantityOfGood() ?? 0
+                    print(q)
+                    
+                    let statVC = BaseStatisticsVC(productsCount: q)
+                    self?.present(statVC, animated: true, completion: nil)
+                }
                 activateControls = true
             case let .failure(error):
                 let previousSuccess = Strings.Alerts.good_news.localized

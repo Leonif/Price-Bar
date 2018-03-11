@@ -11,6 +11,10 @@ import UIKit
 
 
 class CircleIndicator: UIView {
+    enum AnimationType {
+        case all, justCircle
+    }
+    var type: AnimationType = .all
     
     private let shapeLayer = CAShapeLayer()
     private let indicatorLabel: CountingLabel = {
@@ -40,8 +44,9 @@ class CircleIndicator: UIView {
         viewCenter = CGPoint(x: size.width / 2, y: size.height / 2)
     }
     
-    public func decorate(colors: (track: UIColor, indicator: UIColor), lineWidth: CGFloat) {
+    public func decorate(titleColor: UIColor,  colors: (track: UIColor, indicator: UIColor), lineWidth: CGFloat) {
         trackColor = colors.track
+        indicatorLabel.textColor = titleColor
         inidicatorColor = colors.indicator
         self.lineWidth = lineWidth
     }
@@ -50,8 +55,13 @@ class CircleIndicator: UIView {
         highGoal = CGFloat(indicators.max)
         buildTrack()
         buildIndicator()
-//        justAnimate()
-        animateWithFigures()
+
+        switch type {
+        case .all:
+            animateWithFigures()
+        case .justCircle:
+            justAnimate()
+        }
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -87,7 +97,7 @@ class CircleIndicator: UIView {
     
     fileprivate func animateWithFigures() {
         indicatorLabel.updateBlock = updateCircle
-        indicatorLabel.count(from: 0, to: Float(highGoal), with: 5, and: .EaseOut, and: .Int)
+        indicatorLabel.count(from: 0, to: Float(highGoal), with: 1, and: .EaseOut, and: .Int)
     }
     
     func updateCircle(with currentPercentage: Float) {
@@ -104,21 +114,4 @@ class CircleIndicator: UIView {
         basicAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basicAnimation, forKey: "animId")
     }
-    
-    
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

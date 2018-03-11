@@ -11,23 +11,23 @@ import UIKit
 
 class BaseStatisticsVC: UIViewController {
     lazy var indicator: CircleIndicator = {
-        let size: CGFloat = 100
+        let size: CGFloat = 150
         let rect = CGRect(x: self.view.center.x - size / 2,
                           y: self.view.center.y - size,
                           width: size,
                           height: size)
         
         let ind = CircleIndicator(frame: rect)
-        ind.backgroundColor = .white
+        ind.backgroundColor = .clear
         ind.roundingEdges()
-        ind.decorate(colors: (.white, .red), lineWidth: 6)
+        ind.decorate(titleColor: .white, colors: (.clear, .red), lineWidth: 10)
         
         return ind
     }()
     var productsCount: Int = 0
     
     lazy var button: GoodButton = {
-        let size: CGFloat = 50
+        let size: CGFloat = 80
         let bottomMargin: CGFloat = 36
         let rect = CGRect(x: view.center.x - size / 2,
                       y: view.frame.height - size - bottomMargin,
@@ -36,6 +36,7 @@ class BaseStatisticsVC: UIViewController {
         
         let btn = GoodButton(frame: rect)
         btn.backgroundColor = .red
+        btn.setTitle("Начнем", for: .normal)
         btn.addTarget(self, action: #selector(close), for: .touchUpInside)
         
         return btn
@@ -45,8 +46,7 @@ class BaseStatisticsVC: UIViewController {
         label.text = "Сегодня товаров в базе уже"
         label.sizeToFit()
         label.center = view.center
-        label.frame.origin.y -= 150
-        label.backgroundColor = .blue
+        label.frame.origin.y -= 166
         label.textColor = .white
         
         return label

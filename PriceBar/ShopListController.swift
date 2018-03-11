@@ -153,13 +153,7 @@ class ShopListController: UIViewController {
             switch result {
             case let .success(outlet):
                 self?.userOutlet = outlet
-                DispatchQueue.main.async {
-                    let q = self?.interactor?.getQuantityOfGood() ?? 0
-                    print(q)
-                    
-                    let statVC = BaseStatisticsVC(productsCount: q)
-                    self?.present(statVC, animated: true, completion: nil)
-                }
+                self?.showBaseStatistics()
                 activateControls = true
             case let .failure(error):
                 let previousSuccess = Strings.Alerts.good_news.localized
@@ -169,7 +163,16 @@ class ShopListController: UIViewController {
         }
     }
 
-    
+    func showBaseStatistics() {
+        DispatchQueue.main.async {
+            let q = self.interactor?.getQuantityOfGood() ?? 0
+            print(q)
+            let statVC = BaseStatisticsVC(productsCount: q)
+            self.present(statVC, animated: true, completion: nil)
+        }
+        
+        
+    }
 
     @IBAction func scanItemPressed(_ sender: Any) {
         performSegue(withIdentifier: Strings.Segues.showScan.name, sender: nil)

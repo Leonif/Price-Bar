@@ -9,10 +9,12 @@
 import Foundation
 import UIKit
 
+
 class CircleIndicator: UIView {
+    
     private let shapeLayer = CAShapeLayer()
-    private let indicator: UILabel = {
-        let lbl = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+    private let indicatorLabel: CountingLabel = {
+        let lbl = CountingLabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
         lbl.textAlignment = .center
         lbl.textColor = UIColor.black
         return lbl
@@ -48,7 +50,8 @@ class CircleIndicator: UIView {
         highGoal = CGFloat(indicators.max)
         buildTrack()
         buildIndicator()
-        animate()
+//        justAnimate()
+        animateWithFigures()
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -65,9 +68,9 @@ class CircleIndicator: UIView {
     }
     
     private func buildIndicator() {
-        indicator.center = viewCenter
-        indicator.text = "\(Int(currentGoal))"
-        self.addSubview(indicator)
+        indicatorLabel.center = viewCenter
+        indicatorLabel.text = "\(Int(currentGoal))"
+        self.addSubview(indicatorLabel)
         
         shapeLayer.path = circlePath.cgPath
         shapeLayer.strokeColor = inidicatorColor.cgColor
@@ -80,10 +83,23 @@ class CircleIndicator: UIView {
         
         self.layer.addSublayer(shapeLayer)
     }
-    fileprivate func animate() {
+    
+    
+    fileprivate func animateWithFigures() {
+        indicatorLabel.updateBlock = updateCircle
+        indicatorLabel.count(from: 0, to: Float(highGoal), with: 5, and: .EaseOut, and: .Int)
+    }
+    
+    func updateCircle(with currentPercentage: Float) {
+        shapeLayer.strokeEnd = CGFloat(currentPercentage)
+        print(currentPercentage)
+        
+    }
+    
+    fileprivate func justAnimate() {
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basicAnimation.toValue = CGFloat(currentGoal)/CGFloat(highGoal)
-        basicAnimation.duration = 2
+        basicAnimation.duration = 3
         basicAnimation.fillMode = kCAFillModeForwards
         basicAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basicAnimation, forKey: "animId")
@@ -91,3 +107,18 @@ class CircleIndicator: UIView {
     
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

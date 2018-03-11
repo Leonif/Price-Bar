@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class BaseStatisticsVC: UIViewController {
-    
     lazy var indicator: CircleIndicator = {
         let size: CGFloat = 100
         let rect = CGRect(x: self.view.center.x - size / 2,
@@ -21,7 +20,7 @@ class BaseStatisticsVC: UIViewController {
         let ind = CircleIndicator(frame: rect)
         ind.backgroundColor = .white
         ind.roundingEdges()
-        ind.decorate(colors: (.gray, .red), lineWidth: 6)
+        ind.decorate(colors: (.white, .red), lineWidth: 6)
         
         return ind
     }()

@@ -99,17 +99,13 @@ class DataProvider {
             }
         }
     }
-    
-    
+
     func syncHandle(error: Error) -> ResultType<Bool, DataProviderError> {
         UserDefaults.standard.set(0, forKey: "LaunchedTime")
         return ResultType.failure(DataProviderError.syncError("Синхронизация не удалась: \(error.localizedDescription) "))
     }
 
     func needToSync() -> Bool {
-        //need to check
-//        return true
-//        return false
         var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
         switch times {
         case 0:
@@ -183,8 +179,16 @@ class DataProvider {
         }
     }
 
-    func save(new statistic: DPPriceStatisticModel) {
 
+    func getQuantityOfProducts() -> Int {
+        
+        return CoreDataService.data.getQuantityOfProducts()
+        
+    }
+    
+    
+    
+    func save(new statistic: DPPriceStatisticModel) {
         let cd = CDStatisticModel(productId: statistic.productId,
                                   price: statistic.price,
                                   outletId: statistic.outletId)
@@ -321,23 +325,20 @@ class DataProvider {
     
     
     func getQuantity(for productId: String) -> Double? {
-        
        let p = shoplist.filter { item in
             item.productId == productId
         }
-        
         return p.first?.quantity
     }
 
     func getItem(with barcode: String, and outletId: String) -> DPProductModel? {
-
         guard let cdModel = CoreDataService.data.getItem(by: barcode, and: outletId) else {
             return nil
         }
 
-        guard let uom: Uom = CoreDataService.data.getUom(by: cdModel.uomId) else {
-            fatalError("Uom is not found in CoreData")
-        }
+//        guard let uom: Uom = CoreDataService.data.getUom(by: cdModel.uomId) else {
+//            fatalError("Uom is not found in CoreData")
+//        }
 
         //let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
 
@@ -349,7 +350,6 @@ class DataProvider {
     }
 
     func getCategoryList() -> [DPCategoryModel]? {
-
         guard let cdModelList = CoreDataService.data.getCategories() else {
             fatalError("category list is empty")
         }
@@ -357,9 +357,7 @@ class DataProvider {
     }
 
     func mapper(from cdModel: CDCategoryModel) -> DPCategoryModel {
-
         return DPCategoryModel(id: cdModel.id, name: cdModel.name)
-
     }
 
     func getUomList() -> [UomModelView]? {
@@ -381,7 +379,6 @@ class DataProvider {
     }
     
     func getUom(for id: Int32) -> UomModelView? {
-        
         guard
             let uom = CoreDataService.data.getUom(by: id) else {
              fatalError("Uom is not available")

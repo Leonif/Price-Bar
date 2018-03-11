@@ -1,5 +1,5 @@
 //
-//  OutletViewModel.swift
+//  ShoplistInteractor.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 2/26/18.
@@ -8,7 +8,8 @@
 
 import Foundation
 
-public final class ShoplistViewModel {
+
+public final class ShoplistInteractor {
     private let outletService = OutletService()
     private let dataProvider: DataProvider!
     
@@ -74,8 +75,13 @@ public final class ShoplistViewModel {
     }
     
     func reloadProducts(outletId: String) {
-        
         dataProvider.loadShopList(for: outletId)
+    }
+    
+    
+    func getQuantityOfGood() -> Int {
+        
+        return dataProvider.getQuantityOfProducts()
         
     }
     

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
+
 
 class ShopListController: UIViewController {
 
@@ -21,7 +21,7 @@ class ShopListController: UIViewController {
     @IBOutlet weak var removeButtonConstrait: NSLayoutConstraint!
     
     var dataProvider: DataProvider = DataProvider()
-    var viewModel: ShoplistViewModel?
+    var interactor: ShoplistInteractor?
 
     var userOutlet: Outlet! {
         didSet {
@@ -42,7 +42,7 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel = ShoplistViewModel(dataProvider: dataProvider)
+        interactor = ShoplistInteractor(dataProvider: dataProvider)
         addGestures()
         updateRemoveButtonState()
         dataProvider.updateClousure = updateRemoveButtonState
@@ -134,7 +134,7 @@ class ShopListController: UIViewController {
     func synchronizeData() {
         self.buttonEnable(false)
         self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.sync_process.localized)
-        viewModel?.synchronizeData { [weak self] result in
+        interactor?.synchronizeData { [weak self] result in
             self?.view.pb_stopActivityIndicator()
             switch result {
             case .success:
@@ -148,11 +148,14 @@ class ShopListController: UIViewController {
     private func updateCurentOutlet() {
         var activateControls = false
         self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.outlet_looking.localized)
-        viewModel?.updateCurrentOutlet { [weak self] (result) in
+        interactor?.updateCurrentOutlet { [weak self] (result) in
             self?.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlet):
                 self?.userOutlet = outlet
+                
+                let q = self?.interactor?.getQuantityOfGood()
+                print(q ?? 0)
                 activateControls = true
             case let .failure(error):
                 let previousSuccess = Strings.Alerts.good_news.localized
@@ -200,7 +203,7 @@ class ShopListController: UIViewController {
 extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
         print(barcode)
-        viewModel?.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] result in
+        interactor?.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] result in
             switch result {
             case .success:
                 print("Product add to shoplist")
@@ -220,7 +223,7 @@ extension ShopListController: ScannerDelegate {
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
-        viewModel?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+        interactor?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
             switch result {
             case .success:
                 self?.shopTableView.reloadData()
@@ -241,7 +244,7 @@ extension ShopListController: OutletVCDelegate {
 extension ShopListController: ItemCardVCDelegate {
     func add(new productId: String) {
         print(productId)
-        viewModel?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+        interactor?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
             switch result {
             case .success:
                 print("Product is added to base and shoplist")
@@ -252,7 +255,7 @@ extension ShopListController: ItemCardVCDelegate {
     }
     
     func productUpdated() { // товар был отредактирован (цена/категория/ед измерения)
-        viewModel?.reloadProducts(outletId: userOutlet.id)
+        interactor?.reloadProducts(outletId: userOutlet.id)
     }
 }
 

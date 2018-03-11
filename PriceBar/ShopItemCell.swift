@@ -36,11 +36,9 @@ class ShopItemCell: UITableViewCell {
 // User react
 extension ShopItemCell {
     @IBAction func checkPressed(_ sender: UIButton) {
-
         guard let item = self.item else {
             fatalError("Check pressed for not existed item")
         }
-
         self.item?.checked = !item.checked
         self.checkedState()
     }
@@ -55,11 +53,9 @@ extension ShopItemCell {
     }
 
     func checkedState() {
-
         guard let item = self.item else {
             fatalError("Check state for not existed item")
         }
-
         let checkAlpha = CGFloat(item.checked ? 0.5 : 1)
         self.contentView.alpha = checkAlpha
         let imageStr = item.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue

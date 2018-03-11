@@ -110,6 +110,18 @@ class CoreDataService {
             print("Products is not got from database")
         }
     }
+    
+    
+    func getQuantityOfProducts() -> Int {
+        do {
+            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+            let productList = try context.fetch(fetchRequest)
+            return productList.count
+        } catch {
+            print("Products is not got from database")
+        }
+        return 0
+    }
 
     func loadShopList(for outletId: String?) -> [DPShoplistItemModel]? {
         var shopList: [DPShoplistItemModel] = []

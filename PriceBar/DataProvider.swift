@@ -36,13 +36,15 @@ enum DataProviderError: Error {
 }
 
 class DataProvider {
-    var updateClousure: ActionClousure?
+    // MARK: update events
+    var onUpdateShoplist: ActionClousure?
+    var onSyncProgress: ((Int) -> Void)?
 
     var sections = [String]()
     var shoplist: [DPShoplistItemModel] = [] {
         didSet {
             DispatchQueue.main.async {
-                self.updateClousure?()
+                self.onUpdateShoplist?()
             }
         }
     }
@@ -91,11 +93,11 @@ class DataProvider {
                 return
             }
             self.shoplist = shp
-            syncQueue.sync {
-                self.syncCategories(completion: completion)
-                self.syncUom(completion: completion)
-                self.syncProducts(completion: completion)
-                self.syncStatistics(completion: completion)
+            syncQueue.sync { [weak self] in
+                self?.syncCategories(completion: completion)
+                self?.syncUom(completion: completion)
+                self?.syncProducts(completion: completion)
+                self?.syncStatistics(completion: completion)
             }
         }
     }
@@ -106,21 +108,23 @@ class DataProvider {
     }
 
     func needToSync() -> Bool {
-        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
-        switch times {
-        case 0:
-            times += 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return true
-        case 10:
-            times = 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return true
-        default:
-            times += 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-        }
-        return false
+
+        return true
+        //        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
+//        switch times {
+//        case 0:
+//            times += 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//            return true
+//        case 10:
+//            times = 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//            return true
+//        default:
+//            times += 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//        }
+//        return false
 
     }
 
@@ -135,9 +139,11 @@ class DataProvider {
     
 
     private func syncCategories(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
-        CoreDataService.data.syncCategories { result in
+        CoreDataService.data.syncCategories { [weak self] result in
+            
             switch result {
             case .success:
+                self?.onSyncProgress?(1)
                 print("Function: \(#function), line: \(#line)")
             case let .failure(error):
                 completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
@@ -146,10 +152,13 @@ class DataProvider {
     }
 
     private func syncProducts(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
-        CoreDataService.data.syncProducts { result in // get from firebase
+        CoreDataService.data.syncProducts { [weak self] result in // get from firebase
+            
             switch result {
             case .success:
-                 print("Function: \(#function), line: \(#line)")
+                self?.onSyncProgress?(3)
+                print("Function: \(#function), line: \(#line)")
+                
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
@@ -157,9 +166,11 @@ class DataProvider {
     }
 
     private func syncStatistics(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
-        CoreDataService.data.syncStatistics { result in // get from firebase
+        CoreDataService.data.syncStatistics { [weak self] result in // get from firebase
+            
             switch result {
             case .success:
+                self?.onSyncProgress?(4)
                 print("Function: \(#function), line: \(#line)")
                 completion(ResultType.success(true))
             case let .failure(error):
@@ -169,9 +180,11 @@ class DataProvider {
     }
 
     private func syncUom(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
-        CoreDataService.data.syncUoms { result in // get from firebase
+        CoreDataService.data.syncUoms { [weak self] result in // get from firebase
+            
             switch result {
             case .success:
+                self?.onSyncProgress?(2)
                  print("Function: \(#function), line: \(#line)")
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))

@@ -63,7 +63,6 @@
 		79833B37200D501E005C6CC5 /* DPProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B36200D501E005C6CC5 /* DPProductModel.swift */; };
 		79833B3A200E7E4B005C6CC5 /* CategoryModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */; };
 		79833B3D200E812D005C6CC5 /* PickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B3C200E812D005C6CC5 /* PickerControl.swift */; };
-		79833B4720130186005C6CC5 /* Application.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B4620130186005C6CC5 /* Application.swift */; };
 		79833B4B20130F71005C6CC5 /* UomModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B4A20130F71005C6CC5 /* UomModelView.swift */; };
 		79833B502013AC49005C6CC5 /* DPShoplistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B4F2013AC49005C6CC5 /* DPShoplistModel.swift */; };
 		79833B532013E872005C6CC5 /* CDProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B522013E872005C6CC5 /* CDProductModel.swift */; };
@@ -165,7 +164,6 @@
 		79833B36200D501E005C6CC5 /* DPProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPProductModel.swift; sourceTree = "<group>"; };
 		79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelView.swift; sourceTree = "<group>"; };
 		79833B3C200E812D005C6CC5 /* PickerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerControl.swift; sourceTree = "<group>"; };
-		79833B4620130186005C6CC5 /* Application.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Application.swift; sourceTree = "<group>"; };
 		79833B4A20130F71005C6CC5 /* UomModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UomModelView.swift; sourceTree = "<group>"; };
 		79833B4F2013AC49005C6CC5 /* DPShoplistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPShoplistModel.swift; sourceTree = "<group>"; };
 		79833B522013E872005C6CC5 /* CDProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDProductModel.swift; sourceTree = "<group>"; };
@@ -322,6 +320,14 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
+		79210296205C69B400C83706 /* BaseStatisticFlow */ = {
+			isa = PBXGroup;
+			children = (
+				7921029220557D0E00C83706 /* BaseStatisticsVC.swift */,
+			);
+			name = BaseStatisticFlow;
+			sourceTree = "<group>";
+		};
 		792EE7771EE48CD500470669 = {
 			isa = PBXGroup;
 			children = (
@@ -346,8 +352,7 @@
 		792EE7821EE48CD500470669 /* PriceBar */ = {
 			isa = PBXGroup;
 			children = (
-				7921029220557D0E00C83706 /* BaseStatisticsVC.swift */,
-				79833B4620130186005C6CC5 /* Application.swift */,
+				79210296205C69B400C83706 /* BaseStatisticFlow */,
 				790BC9E71F8831FB00CA9519 /* ShopListFlow */,
 				790BC9EA1F8832D900CA9519 /* ItemListFlow */,
 				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
@@ -879,7 +884,6 @@
 				79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */,
 				792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */,
 				79833B572013F445005C6CC5 /* FBProductModel.swift in Sources */,
-				79833B4720130186005C6CC5 /* Application.swift in Sources */,
 				792102952055A02000C83706 /* CountingLabel.swift in Sources */,
 				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
 				792EE7B91EE7080400470669 /* DataProvider.swift in Sources */,

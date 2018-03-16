@@ -12,7 +12,7 @@ import UIKit
 
 class CircleIndicator: UIView {
     enum AnimationType {
-        case all, justCircle
+        case all, justCircle, justUpdate
     }
     var type: AnimationType = .all
     
@@ -42,6 +42,8 @@ class CircleIndicator: UIView {
                                   clockwise: true)
         let size = frame.size
         viewCenter = CGPoint(x: size.width / 2, y: size.height / 2)
+        buildTrack()
+        buildIndicator()
     }
     
     public func decorate(titleColor: UIColor,  colors: (track: UIColor, indicator: UIColor), lineWidth: CGFloat) {
@@ -53,14 +55,15 @@ class CircleIndicator: UIView {
     public func startShow(for indicators: (current: Double, max: Double)) {
         currentGoal = CGFloat(indicators.current)
         highGoal = CGFloat(indicators.max)
-        buildTrack()
-        buildIndicator()
+        
 
         switch type {
         case .all:
             animateWithFigures()
         case .justCircle:
             justAnimate()
+        case .justUpdate:
+            justUpdate()
         }
     }
     required init?(coder aDecoder: NSCoder) {
@@ -96,14 +99,11 @@ class CircleIndicator: UIView {
     
     
     fileprivate func animateWithFigures() {
-        indicatorLabel.updateBlock = updateCircle
+        indicatorLabel.updateBlock = { [weak self] currentPercentage in
+            self?.shapeLayer.strokeEnd = CGFloat(currentPercentage)
+            print(currentPercentage)
+        }
         indicatorLabel.count(from: 0, to: Float(highGoal), with: 1, and: .EaseOut, and: .Int)
-    }
-    
-    func updateCircle(with currentPercentage: Float) {
-        shapeLayer.strokeEnd = CGFloat(currentPercentage)
-        print(currentPercentage)
-        
     }
     
     fileprivate func justAnimate() {
@@ -114,4 +114,10 @@ class CircleIndicator: UIView {
         basicAnimation.isRemovedOnCompletion = false
         shapeLayer.add(basicAnimation, forKey: "animId")
     }
+    
+    
+    fileprivate func justUpdate() {
+        shapeLayer.strokeEnd = currentGoal / highGoal
+    }
+    
 }

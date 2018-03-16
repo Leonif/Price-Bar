@@ -13,8 +13,16 @@ protocol ShopItemCellDelegate {
     func weightDemanded(cell: ShopItemCell)
 }
 
+
 class ShopItemCell: UITableViewCell {
 
+    
+    enum CheckMark: String {
+        case check = "check"
+        case uncheck = "uncheck"
+    }
+
+    
     var item: DPShoplistItemModel?
 
     @IBOutlet weak var nameItem: UILabel!

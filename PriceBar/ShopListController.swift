@@ -22,6 +22,8 @@ class ShopListController: UIViewController {
     
     var dataProvider: DataProvider = DataProvider()
     var interactor: ShoplistInteractor?
+    var circleIndicator: CircleIndicator!
+    var progressVC: UIViewController = UIViewController()
 
     var userOutlet: Outlet! {
         didSet {
@@ -37,7 +39,11 @@ class ShopListController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     var buttonsHided: Bool = false
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.setupIndicator()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +51,37 @@ class ShopListController: UIViewController {
         interactor = ShoplistInteractor(dataProvider: dataProvider)
         addGestures()
         updateRemoveButtonState()
-        dataProvider.updateClousure = updateRemoveButtonState
+        dataProvider.onUpdateShoplist = { [weak self] in
+            self?.updateRemoveButtonState()
+        }
+        
+        dataProvider.onSyncProgress = { [weak self] progress in
+            
+            DispatchQueue.main.async {
+                print(progress)
+                self?.circleIndicator.startShow(for: (progress.double, 4))
+            }
+            
+        }
+        
         dataSource = ShopListDataSource(cellDelegate: self,
                                         dataProvider: dataProvider)
         shopTableView.dataSource = dataSource
         synchronizeData()
+    }
+    
+    func setupIndicator() {
+        
+        progressVC.modalPresentationStyle = .overCurrentContext
+        progressVC.view.backgroundColor = .gray
+        
+        circleIndicator = CircleIndicator(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        circleIndicator.decorate(titleColor: .black, colors: (.red, .black), lineWidth: 5)
+        circleIndicator.type = .justUpdate
+        
+        progressVC.view.addSubview(circleIndicator)
+        self.present(progressVC, animated: true, completion: nil)
+        
     }
     
     func addGestures() {
@@ -133,9 +165,8 @@ class ShopListController: UIViewController {
     // MARK: - Syncing ...
     func synchronizeData() {
         self.buttonEnable(false)
-        self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.sync_process.localized)
         interactor?.synchronizeData { [weak self] result in
-            self?.view.pb_stopActivityIndicator()
+            self?.progressVC.dismiss(animated: true, completion: nil)
             switch result {
             case .success:
                 self?.updateCurentOutlet()

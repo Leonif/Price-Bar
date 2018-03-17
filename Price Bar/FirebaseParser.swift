@@ -41,15 +41,6 @@ class FirebaseParser {
                 )
             }
         }
-//        if let suffixess = snapshot.childSnapshot(forPath: "parameters").childSnapshot(forPath: "suffixes").children.allObjects as? [DataSnapshot] {
-//            
-//            for s in suffixess {
-//                guard let suffValue = s.value as? String else {
-//                    fatalError("Uom suffixes parse error")
-//                }
-//                fbUom.suffixes.append(suffValue)
-//            }
-//        }
         return fbUom
     }
     
@@ -86,13 +77,9 @@ class FirebaseParser {
     }
     
     class func transform(from snapGoods: [String: Any]) -> [FBProductModel] {
-        //var fbModels: [FBProductModel] = []
-        
         return snapGoods.map { snap in
            parse(snap)
         }
-        
-        //return fbModels
     }
     
     

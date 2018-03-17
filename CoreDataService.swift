@@ -468,35 +468,6 @@ extension CoreDataService {
             fatalError("shopitem is not found")
         }
         return nil
-
     }
-
 }
 
-//extension CoreDataService {
-//    
-//    func categoryPrint() {
-//        do {
-//            // search category in coredata
-//            let categoryRequest = NSFetchRequest<Category>(entityName: "Category")
-//            let categories = try context.fetch(categoryRequest)
-//            
-//            if categories.count == self.initCategories.count {
-//            
-//                print("TEST: \(categories.count) vs dyn array: \(self.initCategories.count)")
-//                
-//            } else {
-//                print("TEST ATTENTION!!!: \(categories.count) vs dyn array: \(self.initCategories.count)")
-//                for cat in categories {
-//                    print("TEST: \(cat.id):\(cat.category ?? "")")
-//                }
-//            }
-//            
-//        } catch {
-//            print("Error of category data")
-//        }
-//    }
-//    
-//    
-//    
-//}

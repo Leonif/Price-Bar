@@ -22,7 +22,6 @@ enum Strings {
         }
     }
     
-    
     enum Alerts: String {
         case good_news
         case try_later
@@ -30,7 +29,6 @@ enum Strings {
         case clean_shoplist
         case not_necessary
         case ups
-        
         
         var localized: String {
             return NSLocalizedString(self.rawValue, comment: "")
@@ -44,14 +42,12 @@ enum Strings {
         var localized: String {
             return NSLocalizedString(self.rawValue, comment: "")
         }
-        
     }
     
     enum Common: String {
         case total
         case loading
         case outlet_loading
-        
         
         var localized: String {
             return NSLocalizedString(self.rawValue, comment: "")

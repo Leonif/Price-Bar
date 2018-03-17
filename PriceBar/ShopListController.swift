@@ -8,9 +8,14 @@
 
 import UIKit
 
-
 class ShopListController: UIViewController {
-
+    // MARK: IB Outlets
+    @IBOutlet weak var outletNameButton: UIButton!
+    @IBOutlet weak var outletAddressLabel: UILabel!
+    
+    @IBOutlet weak var shopTableView: UITableView!
+    @IBOutlet weak var totalLabel: UILabel!
+    
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     @IBOutlet weak var removeShoplistBtn: GoodButton!
@@ -20,71 +25,55 @@ class ShopListController: UIViewController {
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
     @IBOutlet weak var removeButtonConstrait: NSLayoutConstraint!
     
+    // MARK: - properties
     var dataProvider: DataProvider = DataProvider()
     var interactor: ShoplistInteractor?
     var circleIndicator: CircleIndicator!
     var progressVC: UIViewController = UIViewController()
-
-    var userOutlet: Outlet! {
-        didSet {
-            updateUI()
-        }
-    }
+    var userOutlet: Outlet! { didSet {  updateUI() }  }
     var dataSource: ShopListDataSource?
-
-    @IBOutlet weak var outletNameButton: UIButton!
-    @IBOutlet weak var outletAddressLabel: UILabel!
-
-    @IBOutlet weak var shopTableView: UITableView!
-    @IBOutlet weak var totalLabel: UILabel!
     var buttonsHided: Bool = false
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        self.setupIndicator()
-    }
-
+    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupIndicator()
         interactor = ShoplistInteractor(dataProvider: dataProvider)
-        addGestures()
+        setupGestures()
         updateRemoveButtonState()
         dataProvider.onUpdateShoplist = { [weak self] in
             self?.updateRemoveButtonState()
         }
-        
+        let max: Double = dataProvider.maxSyncSteps.double
         dataProvider.onSyncProgress = { [weak self] progress in
-            
             DispatchQueue.main.async {
-                print(progress)
-                self?.circleIndicator.startShow(for: (progress.double, 4))
+                self?.circleIndicator.startShow(for: (progress.double, max))
             }
-            
         }
-        
+        //FIXME: make adapter
         dataSource = ShopListDataSource(cellDelegate: self,
                                         dataProvider: dataProvider)
         shopTableView.dataSource = dataSource
         synchronizeData()
     }
     
-    func setupIndicator() {
-        
-        progressVC.modalPresentationStyle = .overCurrentContext
-        progressVC.view.backgroundColor = .gray
-        
-        circleIndicator = CircleIndicator(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        circleIndicator.decorate(titleColor: .black, colors: (.red, .black), lineWidth: 5)
-        circleIndicator.type = .justUpdate
-        
-        progressVC.view.addSubview(circleIndicator)
-        self.present(progressVC, animated: true, completion: nil)
-        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        shopTableView.reloadData()
     }
     
-    func addGestures() {
+    // MARK: - Setup functions
+    func setupIndicator() {
+        progressVC.modalPresentationStyle = .overCurrentContext
+        progressVC.view.backgroundColor = .gray
+        circleIndicator = CircleIndicator(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        circleIndicator.decorate(titleColor: .black, colors: (.red, .black), lineWidth: 6)
+        circleIndicator.type = .justUpdate
+        progressVC.view.addSubview(circleIndicator)
+    }
+    
+    func setupGestures() {
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         rightSwipe.direction = .right
         wholeViewArea.addGestureRecognizer(rightSwipe)
@@ -92,13 +81,6 @@ class ShopListController: UIViewController {
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         leftSwipe.direction = .left
         wholeViewArea.addGestureRecognizer(leftSwipe)
-        
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        shopTableView.reloadData()
     }
     
     // MARK: - UI
@@ -119,52 +101,13 @@ class ShopListController: UIViewController {
     }
     
     
-    
-    // TODO: - Animator
-    @objc func hideButtons(gesture: UIGestureRecognizer) {
-        guard userOutlet != nil else {
-            return
-        }
-        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {
-            return
-        }
-        switch swipeGesture.direction {
-        case .right:
-            shiftButton(hide: buttonsHided)
-        case .left:
-            shiftButton(hide: buttonsHided)
-        default:
-            print("other swipes")
-        }
-    }
-    
-    
-    func shiftButton(hide: Bool) {
-        let shiftOfDirection: CGFloat = hide ? -1 : 1
-        buttonsHided = !buttonsHided
-        updateRemoveButtonState()
-        [scanButton, itemListButton].forEach {
-            $0.setEnable(hide)
-        }
-        let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 50
-        let newRemoveConst: CGFloat = removeButtonConstrait.constant - shiftOfDirection * 50
-        
-        self.rightButtonConstrait.constant = newConst
-        self.removeButtonConstrait.constant = newRemoveConst
-
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 0.5,
-                       options: .curveEaseIn,
-                       animations: {
-                        self.view.layoutIfNeeded()
-        })
-    }
-    
     // MARK: - Syncing ...
     func synchronizeData() {
         self.buttonEnable(false)
+        //FIXME: move to manager
+        DispatchQueue.main.async {
+            self.present(self.progressVC, animated: true, completion: nil)
+        }
         interactor?.synchronizeData { [weak self] result in
             self?.progressVC.dismiss(animated: true, completion: nil)
             switch result {
@@ -193,7 +136,15 @@ class ShopListController: UIViewController {
             self?.buttonEnable(activateControls)
         }
     }
+    
+    func buttonEnable(_ enable: Bool) {
+        DispatchQueue.main.async {
+            [self.scanButton, self.itemListButton, self.outletNameButton]
+                .forEach { $0?.setEnable(enable) }
+        }
+    }
 
+    // FIXME: move to separate manager
     func showBaseStatistics() {
         DispatchQueue.main.async {
             let q = self.interactor?.getQuantityOfGood() ?? 0
@@ -201,17 +152,15 @@ class ShopListController: UIViewController {
             let statVC = BaseStatisticsVC(productsCount: q)
             self.present(statVC, animated: true, completion: nil)
         }
-        
-        
     }
 
+    // MARK: - Butons handlers
     @IBAction func scanItemPressed(_ sender: Any) {
         performSegue(withIdentifier: Strings.Segues.showScan.name, sender: nil)
      }
     @IBAction func itemListPressed(_ sender: Any) {
         performSegue(withIdentifier: Strings.Segues.showItemList.name, sender: nil)
     }
-
     @IBAction func outletPressed(_ sender: Any) {
         performSegue(withIdentifier: Strings.Segues.showOutlets.name, sender: nil)
     }
@@ -221,23 +170,53 @@ class ShopListController: UIViewController {
             self.dataProvider.clearShoplist()
             self.shopTableView.reloadData()
         }, cancelAction: {})
-
-    }
-    func buttonEnable(_ enable: Bool) {
-        DispatchQueue.main.async {
-            [
-                self.scanButton,
-                self.itemListButton,
-                self.outletNameButton
-                ].forEach {
-                    $0?.setEnable(enable)
-            }
-        }
     }
 }
 
+// TODO: - Animator
+extension ShopListController {
+    @objc
+    func hideButtons(gesture: UIGestureRecognizer) {
+        guard userOutlet != nil else {
+            return
+        }
+        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {
+            return
+        }
+        switch swipeGesture.direction {
+        case .right:
+            shiftButton(hide: buttonsHided)
+        case .left:
+            shiftButton(hide: buttonsHided)
+        default:
+            print("other swipes")
+        }
+    }
+    
+    
+    func shiftButton(hide: Bool) {
+        let shiftOfDirection: CGFloat = hide ? -1 : 1
+        buttonsHided = !buttonsHided
+        updateRemoveButtonState()
+        
+        [scanButton, itemListButton].forEach { $0.setEnable(hide) }
+        
+        let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 50
+        let newRemoveConst: CGFloat = removeButtonConstrait.constant - shiftOfDirection * 50
+        
+        self.rightButtonConstrait.constant = newConst
+        self.removeButtonConstrait.constant = newRemoveConst
+        
+        UIView.animate(withDuration: 0.3,
+                       delay: 0,
+                       usingSpringWithDamping: 0.5,
+                       initialSpringVelocity: 0.5,
+                       options: .curveEaseIn,
+                       animations: {  self.view.layoutIfNeeded()  })
+    }
+}
 
-
+// MARK: - Scanner handling
 extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
         print(barcode)
@@ -275,7 +254,6 @@ extension ShopListController: ItemListVCDelegate {
 extension ShopListController: OutletVCDelegate {
     func choosen(outlet: Outlet) {
         userOutlet = outlet
-        
     }
 }
 
@@ -298,10 +276,7 @@ extension ShopListController: ItemCardVCDelegate {
 }
 
 
-
-
-
-// MARK: Cell handlers
+// MARK: - Cell handlers
 extension ShopListController: ShopItemCellDelegate {
     func weightDemanded(cell: ShopItemCell) {
         print("Picker opened")
@@ -323,7 +298,7 @@ extension ShopListController: ShopItemCellDelegate {
     }
 }
 
-// MARK: Quantity changing of item handler
+// MARK: - Quantity changing of item handler
 extension ShopListController: QuantityPickerPopupDelegate {
     func choosen(weight: Double, for indexPath: IndexPath) {
         guard let item = self.dataProvider.getItem(index: indexPath) else {
@@ -334,7 +309,7 @@ extension ShopListController: QuantityPickerPopupDelegate {
     }
 }
 
-// MARK: Table
+// FIXME:  move to adapter
 extension ShopListController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 30
@@ -352,7 +327,7 @@ extension ShopListController: UITableViewDelegate {
     }
 }
 
-// MARK: transition
+// MARK: - transition
 extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == Strings.Segues.showEditItem.name,

@@ -8,20 +8,13 @@
 
 import UIKit
 
-protocol ShopItemCellDelegate {
-    func checkPressed(for item: DPShoplistItemModel)
-    func weightDemanded(cell: ShopItemCell)
-}
-
-
 class ShopItemCell: UITableViewCell {
-
-    
     enum CheckMark: String {
         case check = "check"
         case uncheck = "uncheck"
     }
 
+    var onWeightDemand: ((ShopItemCell) -> Void)?
     
     var item: DPShoplistItemModel?
 
@@ -32,13 +25,12 @@ class ShopItemCell: UITableViewCell {
     @IBOutlet weak var checkMarkBtn: UIButton!
     @IBOutlet weak var quantityButton: UIButton!
 
-    var delegate: ShopItemCellDelegate?
+
     var weightList = [Double]()
 
     @IBAction func changeQuantity(_ sender: UIButton) {
-        delegate?.weightDemanded(cell: self)
+        onWeightDemand?(self)
     }
-
 }
 
 // User react

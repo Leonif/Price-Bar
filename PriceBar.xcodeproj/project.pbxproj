@@ -39,7 +39,7 @@
 		792EE7C71EE7087200470669 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
 		793368641FFE260F00E8E81A /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368631FFE260F00E8E81A /* UIViewExtensions.swift */; };
 		793368671FFEAB3200E8E81A /* Outlet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* Outlet.swift */; };
-		793368691FFF6F5600E8E81A /* ShopListDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListDataSource.swift */; };
+		793368691FFF6F5600E8E81A /* ShopListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListAdapter.swift */; };
 		7933686D20012F1A00E8E81A /* QuantityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityModel.swift */; };
 		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
 		795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* Extension.swift */; };
@@ -139,7 +139,7 @@
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
 		793368631FFE260F00E8E81A /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		793368661FFEAB3200E8E81A /* Outlet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Outlet.swift; sourceTree = "<group>"; };
-		793368681FFF6F5600E8E81A /* ShopListDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListDataSource.swift; sourceTree = "<group>"; };
+		793368681FFF6F5600E8E81A /* ShopListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListAdapter.swift; sourceTree = "<group>"; };
 		7933686C20012F1A00E8E81A /* QuantityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityModel.swift; sourceTree = "<group>"; };
 		79388B201F532175008FD415 /* PriceBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriceBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
@@ -299,7 +299,7 @@
 			children = (
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
 				79210297205DD7BB00C83706 /* SyncAnimator.swift */,
-				793368681FFF6F5600E8E81A /* ShopListDataSource.swift */,
+				793368681FFF6F5600E8E81A /* ShopListAdapter.swift */,
 				790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */,
 			);
 			name = Controllers;
@@ -940,7 +940,7 @@
 				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,
 				79833B502013AC49005C6CC5 /* DPShoplistModel.swift in Sources */,
 				79DC99E220433AA400D35D1C /* Strings.swift in Sources */,
-				793368691FFF6F5600E8E81A /* ShopListDataSource.swift in Sources */,
+				793368691FFF6F5600E8E81A /* ShopListAdapter.swift in Sources */,
 				795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */,
 				790F104A20262FC30060E285 /* Uom+CoreDataClass.swift in Sources */,
 				79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */,

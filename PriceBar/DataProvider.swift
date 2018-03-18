@@ -337,13 +337,13 @@ class DataProvider {
 
     }
 
-    func change(_ changedItem: DPShoplistItemModel) -> Bool {
-        if let index = shoplist.index(of: changedItem) {
-            shoplist[index] = changedItem
-            return true
-        }
-        return false
-    }
+//    func change(_ changedItem: DPShoplistItemModel) -> Bool {
+//        if let index = shoplist.index(of: changedItem) {
+//            shoplist[index] = changedItem
+//            return true
+//        }
+//        return false
+//    }
 
     func changeShoplistItem(_ quantity: Double, for productId: String) {
         for (index, item) in shoplist.enumerated() {

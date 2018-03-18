@@ -25,34 +25,41 @@ class ShopListController: UIViewController {
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
     @IBOutlet weak var removeButtonConstrait: NSLayoutConstraint!
     
-    // MARK: - properties
-    var dataProvider: DataProvider = DataProvider()
-    var interactor: ShoplistInteractor?
+    // MARK: - Dependecy Injection properties
+    var dataProvider: DataProvider!
+    var interactor: ShoplistInteractor!
     var syncAnimator: SyncAnimator!
     
     
     var userOutlet: Outlet! { didSet {  updateUI() }  }
-    var dataSource: ShopListDataSource?
+    var adapter: ShopListAdapter?
     var buttonsHided: Bool = false
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // MARK: - Assembly Dependency Injection
+        dataProvider = DataProvider()
         syncAnimator = SyncAnimator(parent: self)
         interactor = ShoplistInteractor(dataProvider: dataProvider)
+        adapter = ShopListAdapter(parent: self, tableView: shopTableView,
+                                  dataProvider: dataProvider)
+        
+        
         setupGestures()
         updateRemoveButtonState()
         dataProvider.onUpdateShoplist = { [weak self] in
             self?.updateRemoveButtonState()
         }
         dataProvider.onSyncProgress = { [weak self] (progress, max) in
-            self?.syncAnimator.syncHandle(for: progress.double, and: max.double)
-            
+            self?.syncAnimator.syncHandle(for: progress.double,
+                                          and: max.double)
         }
-        //FIXME: make adapter
-        dataSource = ShopListDataSource(cellDelegate: self,
-                                        dataProvider: dataProvider)
-        shopTableView.dataSource = dataSource
+
+        adapter?.onCellDidSelected = { [weak self] item in
+            self?.performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: item)
+        }
         synchronizeData()
     }
     
@@ -159,7 +166,7 @@ class ShopListController: UIViewController {
     }
 }
 
-// TODO: - Animator
+// FIXME: - move to Animator
 extension ShopListController {
     @objc
     func hideButtons(gesture: UIGestureRecognizer) {
@@ -258,58 +265,6 @@ extension ShopListController: ItemCardVCDelegate {
     
     func productUpdated() { // товар был отредактирован (цена/категория/ед измерения)
         interactor?.reloadProducts(outletId: userOutlet.id)
-    }
-}
-
-
-// MARK: - Cell handlers
-extension ShopListController: ShopItemCellDelegate {
-    func weightDemanded(cell: ShopItemCell) {
-        print("Picker opened")
-        guard
-            let indexPath = self.shopTableView.indexPath(for: cell),
-            let item = dataProvider.getItem(index: indexPath) else {
-                fatalError("Not possible to find out type of item")
-        }
-        
-        let currentValue = dataProvider.getQuantity(for: item.productId)!
-        let model = QuantityModel(parameters: item.parameters,
-                                   indexPath: indexPath,
-                                   currentValue: currentValue)
-        let pickerVC = QuantityPickerPopup(delegate: self, model: model)
-        self.present(pickerVC, animated: true, completion: nil)
-    }
-    func checkPressed(for item: DPShoplistItemModel) {
-        _ = dataProvider.change(item)
-    }
-}
-
-// MARK: - Quantity changing of item handler
-extension ShopListController: QuantityPickerPopupDelegate {
-    func choosen(weight: Double, for indexPath: IndexPath) {
-        guard let item = self.dataProvider.getItem(index: indexPath) else {
-            return
-        }
-        dataProvider.changeShoplistItem(weight, for: item.productId)
-        self.shopTableView.reloadRows(at: [indexPath], with: .none)
-    }
-}
-
-// FIXME:  move to adapter
-extension ShopListController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: dataProvider.getItem(index: indexPath))
-    }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
-
-            headerView.categoryLabel.text = dataProvider.headerString(for: section)
-            return headerView
-        }
-        return UIView()
     }
 }
 

@@ -76,9 +76,6 @@ class BaseStatisticsVC: UIViewController {
             self.dismiss(animated: true)
         }
     }
-    
-    
-    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.obscure()

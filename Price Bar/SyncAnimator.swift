@@ -1,5 +1,5 @@
 //
-//  SyncManager.swift
+//  SyncAnimator.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 3/18/18.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SyncManager {
+class SyncAnimator {
     var progressVC: UIViewController!
     var circleIndicator: CircleIndicator!
     var parent: UIViewController!
@@ -50,10 +50,13 @@ class SyncManager {
         }
     }
     
-    func stopProgress() {
-        progressVC.view.antiObscure { [weak self] in
-            self?.progressVC.dismiss(animated: true, completion: nil)
-        }
+    func stopProgress(completion: @escaping ()->()) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
+            self?.progressVC.view.antiObscure { [weak self] in
+                self?.progressVC.dismiss(animated: true, completion: nil)
+                completion()
+            }
+        })
         
     }
 }

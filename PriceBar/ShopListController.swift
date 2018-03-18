@@ -28,7 +28,7 @@ class ShopListController: UIViewController {
     // MARK: - properties
     var dataProvider: DataProvider = DataProvider()
     var interactor: ShoplistInteractor?
-    var syncManager: SyncManager!
+    var syncAnimator: SyncAnimator!
     
     
     var userOutlet: Outlet! { didSet {  updateUI() }  }
@@ -38,7 +38,7 @@ class ShopListController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        syncManager = SyncManager(parent: self)
+        syncAnimator = SyncAnimator(parent: self)
         interactor = ShoplistInteractor(dataProvider: dataProvider)
         setupGestures()
         updateRemoveButtonState()
@@ -46,7 +46,7 @@ class ShopListController: UIViewController {
             self?.updateRemoveButtonState()
         }
         dataProvider.onSyncProgress = { [weak self] (progress, max) in
-            self?.syncManager.syncHandle(for: progress.double, and: max.double)
+            self?.syncAnimator.syncHandle(for: progress.double, and: max.double)
             
         }
         //FIXME: make adapter
@@ -93,10 +93,9 @@ class ShopListController: UIViewController {
     // MARK: - Syncing ...
     func synchronizeData() {
         self.buttonEnable(false)
-        self.syncManager.startProgress()
+        self.syncAnimator.startProgress()
         interactor?.synchronizeData { [weak self] result in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
-                self?.syncManager.stopProgress()
+            self?.syncAnimator.stopProgress(completion: {
                 switch result {
                 case .success:
                     self?.updateCurentOutlet()

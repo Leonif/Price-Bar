@@ -233,7 +233,6 @@ extension ShopListController: ItemListVCDelegate {
         interactor?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
             switch result {
             case .success:
-//                self?.shopTableView.reloadData()
                 self?.adapter.reload()
             case let .failure(error):
                 self?.alert(message: error.message)

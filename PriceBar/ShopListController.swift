@@ -50,6 +50,7 @@ class ShopListController: UIViewController {
         setupGestures()
         updateRemoveButtonState()
         dataProvider.onUpdateShoplist = { [weak self] in
+            self?.adapter.reload()
             self?.updateRemoveButtonState()
         }
         dataProvider.onSyncProgress = { [weak self] (progress, max, text) in

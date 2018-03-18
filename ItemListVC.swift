@@ -76,31 +76,18 @@ class ItemListVC: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         if shouldClose {
-            self.dismiss(animated: true, completion: nil)
+            self.close()
             shouldClose = false
         }
     }
 
     @IBAction func backPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-            segue.identifier == showProductCard,
-            let itemCardVC = segue.destination as? ItemCardVC,
-            let searchedItem = sender as? String else {
-                return
-        }
-        //itemCardVC.delegate = itemCardDelegate
-        itemCardVC.delegate = self
-        itemCardVC.outletId = outletId
-        itemCardVC.searchedItemName = searchedItem
-        itemCardVC.dataProvider = dataProvider
-        //self.shouldClose = true
-
+        self.close()
     }
 }
+
+
+
 
 extension ItemListVC: ItemCardVCDelegate {
     func productUpdated() {
@@ -137,6 +124,28 @@ extension ItemListVC: UITextFieldDelegate {
         toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
         itemSearchField.inputAccessoryView = toolbarDone
     }
+}
+
+
+extension ItemListVC {
+    
+    func close() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard
+            segue.identifier == showProductCard,
+            let itemCardVC = segue.destination as? ItemCardVC,
+            let searchedItem = sender as? String else {
+                return
+        }
+        itemCardVC.delegate = self
+        itemCardVC.outletId = outletId
+        itemCardVC.searchedItemName = searchedItem
+        itemCardVC.dataProvider = dataProvider
+    }
+    
 }
 
 // MARK: Table
@@ -184,7 +193,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
         }
 
         let item = filtredItemList[indexPath.row]
-        self.dismiss(animated: true, completion: nil)
+        self.close()
         delegate?.itemChoosen(productId: item.id)
 
     }

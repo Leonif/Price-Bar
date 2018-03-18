@@ -44,8 +44,13 @@ class OutletsVC: UIViewController {
     }
 
     @IBAction func backPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.close()
     }
+    
+    func close() {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 // MARK: Table
@@ -59,7 +64,7 @@ extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let outlet = outlets[indexPath.row]
         delegate.choosen(outlet: outlet)
-        self.dismiss(animated: true, completion: nil)
+        self.close()
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

@@ -29,6 +29,10 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         self.dataProvider = dataProvider
 
     }
+    
+    func reload() {
+        self.tableView.reloadData()
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataProvider.rowsIn(section)

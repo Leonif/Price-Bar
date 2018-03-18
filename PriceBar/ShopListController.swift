@@ -32,7 +32,7 @@ class ShopListController: UIViewController {
     
     
     var userOutlet: Outlet! { didSet {  updateUI() }  }
-    var adapter: ShopListAdapter?
+    var adapter: ShopListAdapter!
     var buttonsHided: Bool = false
     
     // MARK: - Lifecycle
@@ -52,20 +52,16 @@ class ShopListController: UIViewController {
         dataProvider.onUpdateShoplist = { [weak self] in
             self?.updateRemoveButtonState()
         }
-        dataProvider.onSyncProgress = { [weak self] (progress, max) in
+        dataProvider.onSyncProgress = { [weak self] (progress, max, text) in
             self?.syncAnimator.syncHandle(for: progress.double,
-                                          and: max.double)
+                                          and: max.double,
+                                          with: text)
         }
 
         adapter?.onCellDidSelected = { [weak self] item in
             self?.performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: item)
         }
         synchronizeData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        shopTableView.reloadData()
     }
     
     // MARK: - Setup functions
@@ -85,7 +81,7 @@ class ShopListController: UIViewController {
             self.outletAddressLabel.text = self.userOutlet.address
             self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
             self.dataProvider.loadShopList(for: self.userOutlet.id)
-            self.shopTableView.reloadData()
+            self.adapter.reload()
             self.updateRemoveButtonState()
         }
     }
@@ -236,7 +232,8 @@ extension ShopListController: ItemListVCDelegate {
         interactor?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
             switch result {
             case .success:
-                self?.shopTableView.reloadData()
+//                self?.shopTableView.reloadData()
+                self?.adapter.reload()
             case let .failure(error):
                 self?.alert(message: error.message)
             }

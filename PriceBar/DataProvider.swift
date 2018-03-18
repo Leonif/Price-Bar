@@ -37,8 +37,38 @@ enum DataProviderError: Error {
 
 class DataProvider {
     enum SyncSteps: Int {
-        case login, needSync, categories, uoms, products, statistic, loadShoplist
+        case
+        login,
+        loadShoplist,
+        needSync,
+        categories,
+        uoms,
+        products,
+        statistic,
+        putBackShoplist
+        
         case total
+        
+        var text: String {
+            let start = "Загружаем"
+            switch self {
+            case .login:
+                return "Подсоединяемся к базе"
+            case .needSync:
+                return "Начинаем синхронизацию"
+            case .categories:
+                return "\(start) категории"
+            case .uoms:
+                return "\(start) единицы измерения"
+            case .products:
+                return "\(start) товары"
+            case .statistic:
+                return "\(start) актуальные цены"
+            case .loadShoplist, .putBackShoplist:
+                return "\(start) ваш шоплист"
+            default: return "Все готово к работе !!!"
+            }
+        }
     }
     
     var maxSyncSteps: Int {
@@ -47,7 +77,7 @@ class DataProvider {
     
     // MARK: update events
     var onUpdateShoplist: ActionClousure?
-    var onSyncProgress: ((Int, Int) -> Void)?
+    var onSyncProgress: ((Int, Int, String) -> Void)?
     var onSyncNext: (() -> Void)?
     var currentNext: Int = 0
 
@@ -84,12 +114,9 @@ class DataProvider {
         self.onSyncNext = { [weak self] in
             
             guard let `self` = self else { return  }
-            
             self.currentNext += 1
-            
-            self.onSyncProgress?(self.currentNext, self.maxSyncSteps)
-            
             guard let type = SyncSteps(rawValue: self.currentNext) else { return  }
+            self.onSyncProgress?(self.currentNext, self.maxSyncSteps, type.text)
             
             switch type {
             case .needSync:
@@ -108,7 +135,11 @@ class DataProvider {
                 self.syncStatistics(completion: completion)
             case .loadShoplist:
                 self.loadShoplist(completion: completion)
-            default: break
+            case .putBackShoplist:
+                self.saveShoplist()
+                self.onSyncNext?()
+            case .total: break
+            case .login: break
             }
         }
     }
@@ -139,7 +170,8 @@ class DataProvider {
 
     func syncHandle(error: Error) -> ResultType<Bool, DataProviderError> {
         UserDefaults.standard.set(0, forKey: "LaunchedTime")
-        return ResultType.failure(DataProviderError.syncError("Синхронизация не удалась: \(error.localizedDescription) "))
+        return ResultType.failure(DataProviderError
+            .syncError("Синхронизация не удалась: \(error.localizedDescription) "))
     }
 
     func needToSync() -> Bool {
@@ -467,11 +499,8 @@ class DataProvider {
     }
 
     func rowsIn(_ section: Int) -> Int {
-        var count: Int = 0
-        for item in shoplist {
-            if item.productCategory == sections[section] {
-                count += 1
-            }
+        let count = shoplist.reduce(0) { (result, item) in
+            result + (item.productCategory == sections[section] ? 1 : 0)
         }
         return count
     }

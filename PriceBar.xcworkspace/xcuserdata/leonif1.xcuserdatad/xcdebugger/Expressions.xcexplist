@@ -47,6 +47,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -90,6 +93,12 @@
       </ContextState>
       <ContextState
          contextName = "ShopListController.itemChoosen(productId:):ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
+         contextName = "(null):(null)">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListAdapter.reload():ShopListAdapter.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListDataSource.tableView(_:cellForRowAt:):ShopListDataSource.swift">
@@ -155,10 +164,10 @@
          contextName = "QuantityPickerPopup2.numberOfComponents(in:):QuantityPickerPopup2.swift">
       </ContextState>
       <ContextState
-         contextName = "CircleIndicator.buildTrack():CircleIndicatorView.swift">
+         contextName = "closure #1 in ShopListController.updateUI():ShopListController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "lineWidth">
+               value = "self.dataProvider">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

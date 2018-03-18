@@ -12,6 +12,13 @@ import UIKit
 class SyncAnimator {
     var progressVC: UIViewController!
     var circleIndicator: CircleIndicator!
+    var title: UILabel = {
+        let lbl = UILabel()
+        lbl.textColor = .white
+        lbl.textAlignment = .center
+        lbl.text = "Синхронизируемся..."
+        return lbl
+    }()
     var parent: UIViewController!
     
     init(parent: UIViewController) {
@@ -21,28 +28,33 @@ class SyncAnimator {
         progressVC.view.backgroundColor = .gray
         
         let size: CGFloat = 200
+        let lineThickness: CGFloat = 12
         
         let rect = CGRect(x: self.parent.view.center.x - size / 2,
                           y: self.parent.view.center.y - size / 2,
                           width: size, height: size)
         
         circleIndicator = CircleIndicator(frame: rect)
-        circleIndicator.decorate(titleColor: .white, colors: (.clear, .gray), lineWidth: 12)
+        circleIndicator.decorate(titleColor: .white, colors: (.clear, .gray), lineWidth: lineThickness)
         circleIndicator.type = .justUpdate
         progressVC.view.addSubview(circleIndicator)
+        
+        let lblRect = CGRect(x: 0, y: 32, width: progressVC.view.bounds.width, height: 100)
+        
+        title.frame = lblRect
+        progressVC.view.addSubview(title)
     }
 
-    func syncHandle(for progress: Double, and max: Double) {
+    func syncHandle(for progress: Double, and max: Double, with text: String) {
         DispatchQueue.main.async { [weak self] in
             self?.circleIndicator.startShow(for: (progress, max))
+            self?.title.text = "\(text)"
         }
     }
     
     func startProgress() {
         DispatchQueue.main.async { [weak self] in
-            
             guard let vc = self?.progressVC else { return }
-            
             vc.view.obscure()
             self?.parent.present(vc,
                                  animated: true,

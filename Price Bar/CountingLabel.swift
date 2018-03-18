@@ -12,9 +12,7 @@ import UIKit
 
 
 class CountingLabel: UILabel {
-
     public var updateBlock: ((_ currentPercanage: Float) -> Void)? = nil
-    
     let counterVelocity: Float = 3.0 // ˆ3
     
     enum CounterType {
@@ -46,7 +44,6 @@ class CountingLabel: UILabel {
     var lastUpdate: TimeInterval!
     
     var timer: Timer?
-    
     
     var counterType: CounterType!
     var animationType: AnimationType!

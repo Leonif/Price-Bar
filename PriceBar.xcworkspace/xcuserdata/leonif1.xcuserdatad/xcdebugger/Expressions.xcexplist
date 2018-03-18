@@ -155,6 +155,14 @@
          contextName = "QuantityPickerPopup2.numberOfComponents(in:):QuantityPickerPopup2.swift">
       </ContextState>
       <ContextState
+         contextName = "CircleIndicator.buildTrack():CircleIndicatorView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "lineWidth">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "static FirebaseParser.parseUom(from:):FirebaseParser.swift">
          <PersistentStrings>
             <PersistentString
@@ -211,13 +219,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -260,15 +268,15 @@
          contextName = "ShopListController.loadShopList(for:):ShopListControllerExchange.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopItem.init(id:goodData:):ShopItem.swift">
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in ShopListController.synchronizeData():ShopListController.swift">
          <PersistentStrings>
             <PersistentString
                value = "error.localizedDescription">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopItem.init(id:goodData:):ShopItem.swift">
       </ContextState>
       <ContextState
          contextName = "CoreDataService.setUom(for : ShopItem) -&gt; Uom?:CoreDataService.swift">
@@ -307,10 +315,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

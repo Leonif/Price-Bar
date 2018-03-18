@@ -28,8 +28,9 @@ class ShopListController: UIViewController {
     // MARK: - properties
     var dataProvider: DataProvider = DataProvider()
     var interactor: ShoplistInteractor?
-    var circleIndicator: CircleIndicator!
-    var progressVC: UIViewController = UIViewController()
+    var syncManager: SyncManager!
+    
+    
     var userOutlet: Outlet! { didSet {  updateUI() }  }
     var dataSource: ShopListDataSource?
     var buttonsHided: Bool = false
@@ -37,19 +38,16 @@ class ShopListController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.setupIndicator()
+        syncManager = SyncManager(parent: self)
         interactor = ShoplistInteractor(dataProvider: dataProvider)
         setupGestures()
         updateRemoveButtonState()
         dataProvider.onUpdateShoplist = { [weak self] in
             self?.updateRemoveButtonState()
         }
-        let max: Double = dataProvider.maxSyncSteps.double
-        dataProvider.onSyncProgress = { [weak self] progress in
-            DispatchQueue.main.async {
-                self?.circleIndicator.startShow(for: (progress.double, max))
-            }
+        dataProvider.onSyncProgress = { [weak self] (progress, max) in
+            self?.syncManager.syncHandle(for: progress.double, and: max.double)
+            
         }
         //FIXME: make adapter
         dataSource = ShopListDataSource(cellDelegate: self,
@@ -64,15 +62,6 @@ class ShopListController: UIViewController {
     }
     
     // MARK: - Setup functions
-    func setupIndicator() {
-        progressVC.modalPresentationStyle = .overCurrentContext
-        progressVC.view.backgroundColor = .gray
-        circleIndicator = CircleIndicator(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
-        circleIndicator.decorate(titleColor: .black, colors: (.red, .black), lineWidth: 6)
-        circleIndicator.type = .justUpdate
-        progressVC.view.addSubview(circleIndicator)
-    }
-    
     func setupGestures() {
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         rightSwipe.direction = .right
@@ -104,18 +93,17 @@ class ShopListController: UIViewController {
     // MARK: - Syncing ...
     func synchronizeData() {
         self.buttonEnable(false)
-        //FIXME: move to manager
-        DispatchQueue.main.async {
-            self.present(self.progressVC, animated: true, completion: nil)
-        }
+        self.syncManager.startProgress()
         interactor?.synchronizeData { [weak self] result in
-            self?.progressVC.dismiss(animated: true, completion: nil)
-            switch result {
-            case .success:
-                self?.updateCurentOutlet()
-            case let .failure(error):
-               self?.alert(message: "\(error.message): \(error.localizedDescription)")
-            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2, execute: { [weak self] in
+                self?.syncManager.stopProgress()
+                switch result {
+                case .success:
+                    self?.updateCurentOutlet()
+                case let .failure(error):
+                    self?.alert(message: "\(error.message): \(error.localizedDescription)")
+                }
+            })
         }
     }
 
@@ -148,7 +136,6 @@ class ShopListController: UIViewController {
     func showBaseStatistics() {
         DispatchQueue.main.async {
             let q = self.interactor?.getQuantityOfGood() ?? 0
-            print(q)
             let statVC = BaseStatisticsVC(productsCount: q)
             self.present(statVC, animated: true, completion: nil)
         }

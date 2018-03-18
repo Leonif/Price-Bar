@@ -42,8 +42,7 @@ class CircleIndicator: UIView {
                                   clockwise: true)
         let size = frame.size
         viewCenter = CGPoint(x: size.width / 2, y: size.height / 2)
-        buildTrack()
-        buildIndicator()
+        
     }
     
     public func decorate(titleColor: UIColor,  colors: (track: UIColor, indicator: UIColor), lineWidth: CGFloat) {
@@ -51,6 +50,8 @@ class CircleIndicator: UIView {
         indicatorLabel.textColor = titleColor
         inidicatorColor = colors.indicator
         self.lineWidth = lineWidth
+        buildTrack()
+        buildIndicator()
     }
     public func startShow(for indicators: (current: Double, max: Double)) {
         currentGoal = CGFloat(indicators.current)
@@ -101,7 +102,6 @@ class CircleIndicator: UIView {
     fileprivate func animateWithFigures() {
         indicatorLabel.updateBlock = { [weak self] currentPercentage in
             self?.shapeLayer.strokeEnd = CGFloat(currentPercentage)
-            print(currentPercentage)
         }
         indicatorLabel.count(from: 0, to: Float(highGoal), with: 1, and: .EaseOut, and: .Int)
     }
@@ -117,7 +117,9 @@ class CircleIndicator: UIView {
     
     
     fileprivate func justUpdate() {
-        shapeLayer.strokeEnd = currentGoal / highGoal
+        let value = currentGoal / highGoal
+        shapeLayer.strokeEnd = value
+        indicatorLabel.text = "\(Int(value * 100))%"
     }
     
 }

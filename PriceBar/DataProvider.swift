@@ -47,7 +47,7 @@ class DataProvider {
     
     // MARK: update events
     var onUpdateShoplist: ActionClousure?
-    var onSyncProgress: ((Int) -> Void)?
+    var onSyncProgress: ((Int, Int) -> Void)?
     var onSyncNext: (() -> Void)?
     var currentNext: Int = 0
 
@@ -84,7 +84,7 @@ class DataProvider {
         self.onSyncNext = { [weak self] in
             guard let `self` = self else { return  }
             self.currentNext += 1
-            self.onSyncProgress?(self.currentNext)
+            self.onSyncProgress?(self.currentNext, self.maxSyncSteps)
             guard let type = SyncSteps(rawValue: self.currentNext) else { return  }
             switch type {
             case .needSync:
@@ -138,23 +138,23 @@ class DataProvider {
     }
 
     func needToSync() -> Bool {
-//        return true
+        return true
         
-        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
-        switch times {
-        case 0:
-            times += 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return true
-        case 10:
-            times = 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return true
-        default:
-            times += 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return false
-        }
+//        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
+//        switch times {
+//        case 0:
+//            times += 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//            return true
+//        case 10:
+//            times = 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//            return true
+//        default:
+//            times += 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//            return false
+//        }
     }
 
     private func saveShoplist() {

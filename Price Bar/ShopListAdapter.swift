@@ -12,7 +12,6 @@ import UIKit
 class ShopListAdapter: NSObject, UITableViewDataSource {
 
     var dataProvider: DataProvider!
-    var cellDelegate: ShopItemCellDelegate?
     var tableView: UITableView!
     
     var vc: UIViewController!

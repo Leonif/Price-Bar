@@ -82,10 +82,15 @@ class DataProvider {
     public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
         firebaseLogin(completion: completion)
         self.onSyncNext = { [weak self] in
+            
             guard let `self` = self else { return  }
+            
             self.currentNext += 1
+            
             self.onSyncProgress?(self.currentNext, self.maxSyncSteps)
+            
             guard let type = SyncSteps(rawValue: self.currentNext) else { return  }
+            
             switch type {
             case .needSync:
                 if !self.needToSync() {

@@ -8,10 +8,21 @@
 
 import UIKit
 
+
 class ShopListController: UIViewController {
     // MARK: IB Outlets
-    @IBOutlet weak var outletNameButton: UIButton!
+    
+    let outletNameButton2: UIButton = {
+        let b = UIButton(frame: CGRect.zero)
+        b.backgroundColor = .yellow
+        b.setTitleColor(.black, for: .normal)
+        b.setTitle("", for: .normal)
+        return b
+        
+    }()
+    
     @IBOutlet weak var outletAddressLabel: UILabel!
+    
     
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
@@ -46,9 +57,12 @@ class ShopListController: UIViewController {
         adapter = ShopListAdapter(parent: self, tableView: shopTableView,
                                   dataProvider: dataProvider)
         
-        
+        // MARK: - Setup UI
+        setupNavigation()
         setupGestures()
         updateRemoveButtonState()
+        
+        // MARK: - Handle depencies
         dataProvider.onUpdateShoplist = { [weak self] in
             self?.adapter.reload()
             self?.updateRemoveButtonState()
@@ -65,7 +79,28 @@ class ShopListController: UIViewController {
         synchronizeData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 200.0)
+    }
+    
+    
+    
+    
     // MARK: - Setup functions
+    func setupNavigation() {
+        let width = view.frame.width-16
+        outletNameButton2.frame = CGRect(x: 0, y: 0, width: width, height: 34)
+        outletNameButton2.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
+        navigationItem.prompt = "Пожалуйста, выберите магазин"
+        self.navigationItem.titleView = outletNameButton2
+        navigationController!.navigationBar.shadowImage = UIImage()
+
+    }
+    
+    
+    
     func setupGestures() {
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         rightSwipe.direction = .right
@@ -80,7 +115,7 @@ class ShopListController: UIViewController {
     func updateUI() {
         DispatchQueue.main.async {
             self.outletAddressLabel.text = self.userOutlet.address
-            self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
+            self.outletNameButton2.setTitle(self.userOutlet.name, for: .normal)
             self.dataProvider.loadShopList(for: self.userOutlet.id)
             self.adapter.reload()
             self.updateRemoveButtonState()
@@ -130,8 +165,8 @@ class ShopListController: UIViewController {
     
     func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async {
-            [self.scanButton, self.itemListButton, self.outletNameButton]
-                .forEach { $0?.setEnable(enable) }
+            [self.scanButton, self.itemListButton, self.outletNameButton2]
+                .forEach { $0.setEnable(enable) }
         }
     }
 
@@ -148,12 +183,15 @@ class ShopListController: UIViewController {
     @IBAction func scanItemPressed(_ sender: Any) {
         performSegue(withIdentifier: Strings.Segues.showScan.name, sender: nil)
      }
+    
+    @objc
+    func selectOutlet() {
+       performSegue(withIdentifier: Strings.Segues.showOutlets.name, sender: nil)
+    }
     @IBAction func itemListPressed(_ sender: Any) {
         performSegue(withIdentifier: Strings.Segues.showItemList.name, sender: nil)
     }
-    @IBAction func outletPressed(_ sender: Any) {
-        performSegue(withIdentifier: Strings.Segues.showOutlets.name, sender: nil)
-    }
+    
     @IBAction func cleanShopList(_ sender: GoodButton) {
         alert(title: Strings.Alerts.wow.localized,
               message: Strings.Alerts.clean_shoplist.localized, okAction: {

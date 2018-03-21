@@ -47,6 +47,10 @@ class ShopListController: UIViewController {
     var adapter: ShopListAdapter!
     var buttonsHided: Bool = false
     
+    
+    
+    
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,9 +63,9 @@ class ShopListController: UIViewController {
                                   dataProvider: dataProvider)
         
         // MARK: - Setup UI
-        setupNavigation()
-        setupGestures()
-        updateRemoveButtonState()
+        self.setupNavigation()
+        self.setupGestures()
+        self.updateRemoveButtonState()
         
         // MARK: - Handle depencies
         dataProvider.onUpdateShoplist = { [weak self] in
@@ -88,10 +92,13 @@ class ShopListController: UIViewController {
     
     // MARK: - Setup functions
     func setupNavigation() {
+        
         let width = view.frame.width-16
+        
         outletNameButton.frame = CGRect(x: 0, y: 0, width: width, height: 34)
         outletNameButton.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
         navigationItem.prompt = "Пожалуйста, выберите магазин"
+        
         self.navigationItem.titleView = outletNameButton
         navigationController!.navigationBar.shadowImage = UIImage()
     }

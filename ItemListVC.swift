@@ -14,8 +14,12 @@ protocol ItemListVCDelegate: class {
 
 class ItemListVC: UIViewController {
     let showProductCard = "showProductCard"
+    
     var itemList = [ItemListModelView]()
     var filtredItemList = [ItemListModelView]()
+    var currentPageOffset = 0
+    
+    
     var outletId: String = ""
     @IBOutlet weak var itemTableView: UITableView!
     weak var delegate: ItemListVCDelegate?
@@ -43,7 +47,7 @@ class ItemListVC: UIViewController {
         self.view.pb_startActivityIndicator(with: Strings.Common.loading.localized)
     }
 
-    var currentPageOffset = 0
+    
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
         guard
@@ -63,7 +67,6 @@ class ItemListVC: UIViewController {
             item1.currentPrice > item2.currentPrice
         }
         itemTableView.reloadData()
-
         self.view.pb_stopActivityIndicator()
     }
 
@@ -79,8 +82,6 @@ class ItemListVC: UIViewController {
         }
         itemTableView.reloadData()
     }
-    
-    
 
     override func viewWillAppear(_ animated: Bool) {
         if shouldClose {
@@ -95,14 +96,10 @@ class ItemListVC: UIViewController {
 }
 
 extension ItemListVC: UISearchBarDelegate {
-    
     func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         guard let newText = (searchBar.text as NSString?)?.replacingCharacters(in: range, with: text) else {
             return true
         }
-        
-        print("\(newText)")
-        
         self.updateResults(searchText: newText)
         
         return true
@@ -114,16 +111,13 @@ extension ItemListVC: ItemCardVCDelegate {
     func productUpdated() {
         itemCardDelegate?.productUpdated()
     }
-
     func add(new productId: String) {
         shouldClose = true
         itemCardDelegate?.add(new: productId)
     }
-
 }
 
 extension ItemListVC {
-
     @objc
     func numDonePressed() {
         searchBar.resignFirstResponder()
@@ -144,14 +138,9 @@ extension ItemListVC {
 
 
 extension ItemListVC {
-    
     func close() {
-        DispatchQueue.main.async {
-            self.navigationController?.popViewController(animated: true)
-        }
-        
+        self.navigationController?.popViewController(animated: true)
     }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard
             segue.identifier == showProductCard,
@@ -167,7 +156,7 @@ extension ItemListVC {
     
 }
 
-// MARK: Table
+// FIXME: Move to paginator
 extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
@@ -175,7 +164,6 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
         if (maxOffset - offset) <= 0 {
             if (!self.isLoading) {
                 self.isLoading = true
-                print("load new data (new \(currentPageOffset) items)")
                 currentPageOffset += filtredItemList.count
                 if let products = dataProvider.getShopItems(with: currentPageOffset,
                                                             limit: 40,
@@ -198,11 +186,9 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                     self.itemList.append(contentsOf: modelList)
                     
                     // tell the table view to update (at all of the inserted index paths)
-                    itemTableView.beginUpdates()
-                    
-                    itemTableView.insertRows(at: indexPaths, with: .bottom)
-                    itemTableView.endUpdates()
-                    
+                    itemTableView.update {
+                        itemTableView.insertRows(at: indexPaths, with: .bottom)
+                    }
                 }
                 self.isLoading = false
             }
@@ -214,7 +200,6 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
             return filtredItemList.count
         }
         return filtredItemList.isEmpty ? 1 : filtredItemList.count
-
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -238,7 +223,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
             cell.configureCell(item)
             return cell
         }
-        return UITableViewCell()
+        fatalError()
 
     }
 }

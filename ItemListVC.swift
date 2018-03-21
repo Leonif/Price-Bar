@@ -47,7 +47,7 @@ class ItemListVC: UIViewController {
 
     var currentPageOffset = 0
     override func viewDidAppear(_ animated: Bool) {
-//        addDoneButtonToNumPad()
+        addDoneButtonToNumPad()
         guard
             let products = dataProvider.getShopItems(with: currentPageOffset, limit: 40, for: outletId),
             let itemList = ProductMapper.transform(from: products, for: outletId)
@@ -142,30 +142,32 @@ extension ItemListVC: ItemCardVCDelegate {
 
 }
 
-//extension ItemListVC: UITextFieldDelegate {
-//    //hide keyboard by press Enter
-////    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-////        textField.resignFirstResponder()
-////        return true
-////    }
+extension ItemListVC: UITextFieldDelegate {
+    //hide keyboard by press Enter
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
+
+    @objc func numDonePressed() {
+//        itemSearchField.resignFirstResponder()
+        searchBar.resignFirstResponder()
+    }
 //
-////    @objc func numDonePressed() {
-////        itemSearchField.resignFirstResponder()
-////    }
-////
-////    func addDoneButtonToNumPad() {
-////        //Add done button to numeric pad keyboard
-////        let toolbarDone = UIToolbar.init()
-////        toolbarDone.sizeToFit()
-////        let flex = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,
-////                                              target: self, action: nil)
-////        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
-////                                              target: self, action: #selector(numDonePressed))
-////
-////        toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
-////        itemSearchField.inputAccessoryView = toolbarDone
-////    }
-//}
+    func addDoneButtonToNumPad() {
+        //Add done button to numeric pad keyboard
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        let flex = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace,
+                                              target: self, action: nil)
+        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
+                                              target: self, action: #selector(numDonePressed))
+
+        toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
+//        itemSearchField.inputAccessoryView = toolbarDone
+        searchBar.inputAccessoryView = toolbarDone
+    }
+}
 
 
 extension ItemListVC {

@@ -11,6 +11,7 @@
     </dependencies>
     <customFonts key="customFonts">
         <array key="Avenir.ttc">
+            <string>Avenir-Book</string>
             <string>Avenir-Heavy</string>
         </array>
         <array key="HelveticaNeue.ttc">
@@ -37,8 +38,8 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="149"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Киев, Здолбуновская, 13Д" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2so-a8-Tea">
-                                        <rect key="frame" x="8" y="8" width="359" height="24"/>
-                                        <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="17"/>
+                                        <rect key="frame" x="8" y="0.0" width="359" height="24"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -48,11 +49,11 @@
                                     <constraint firstAttribute="height" constant="149" id="HAz-aN-cdZ"/>
                                     <constraint firstItem="2so-a8-Tea" firstAttribute="leading" secondItem="nnc-58-l2C" secondAttribute="leading" constant="8" id="JKG-sR-5An"/>
                                     <constraint firstAttribute="trailing" secondItem="2so-a8-Tea" secondAttribute="trailing" constant="8" id="MZL-Hy-BYW"/>
-                                    <constraint firstItem="2so-a8-Tea" firstAttribute="top" secondItem="nnc-58-l2C" secondAttribute="top" constant="8" id="y0B-SW-bbg"/>
+                                    <constraint firstItem="2so-a8-Tea" firstAttribute="top" secondItem="nnc-58-l2C" secondAttribute="top" id="y0B-SW-bbg"/>
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="teD-oh-0KA">
-                                <rect key="frame" x="20" y="112" width="335" height="491"/>
+                                <rect key="frame" x="20" y="104" width="335" height="499"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.0" green="0.47934520244598389" blue="0.99908632040023804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
@@ -806,6 +807,6 @@
         <image name="uncheck" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Aag-Wk-edx"/>
+        <segue reference="EJ7-82-Mar"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -12,13 +12,14 @@ import UIKit
 class ShopListController: UIViewController {
     // MARK: IB Outlets
     
-    let outletNameButton2: UIButton = {
+    let outletNameButton: UIButton = {
         let b = UIButton(frame: CGRect.zero)
         b.backgroundColor = .yellow
-        b.setTitleColor(.black, for: .normal)
+        b.setTitleColor(#colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1), for: .normal)
         b.setTitle("", for: .normal)
-        return b
+        b.titleLabel?.font = UIFont(name: "Avenir Heavy", size: 20)
         
+        return b
     }()
     
     @IBOutlet weak var outletAddressLabel: UILabel!
@@ -85,18 +86,14 @@ class ShopListController: UIViewController {
         self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 200.0)
     }
     
-    
-    
-    
     // MARK: - Setup functions
     func setupNavigation() {
         let width = view.frame.width-16
-        outletNameButton2.frame = CGRect(x: 0, y: 0, width: width, height: 34)
-        outletNameButton2.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
+        outletNameButton.frame = CGRect(x: 0, y: 0, width: width, height: 34)
+        outletNameButton.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
         navigationItem.prompt = "Пожалуйста, выберите магазин"
-        self.navigationItem.titleView = outletNameButton2
+        self.navigationItem.titleView = outletNameButton
         navigationController!.navigationBar.shadowImage = UIImage()
-
     }
     
     
@@ -115,7 +112,7 @@ class ShopListController: UIViewController {
     func updateUI() {
         DispatchQueue.main.async {
             self.outletAddressLabel.text = self.userOutlet.address
-            self.outletNameButton2.setTitle(self.userOutlet.name, for: .normal)
+            self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
             self.dataProvider.loadShopList(for: self.userOutlet.id)
             self.adapter.reload()
             self.updateRemoveButtonState()
@@ -148,7 +145,7 @@ class ShopListController: UIViewController {
     private func updateCurentOutlet() {
         var activateControls = false
         self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.outlet_looking.localized)
-        interactor?.updateCurrentOutlet { [weak self] (result) in
+        interactor.updateCurrentOutlet { [weak self] (result) in
             self?.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlet):
@@ -165,7 +162,7 @@ class ShopListController: UIViewController {
     
     func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async {
-            [self.scanButton, self.itemListButton, self.outletNameButton2]
+            [self.scanButton, self.itemListButton, self.outletNameButton]
                 .forEach { $0.setEnable(enable) }
         }
     }
@@ -173,7 +170,7 @@ class ShopListController: UIViewController {
     // FIXME: move to separate manager
     func showBaseStatistics() {
         DispatchQueue.main.async {
-            let q = self.interactor?.getQuantityOfGood() ?? 0
+            let q = self.interactor.getQuantityOfGood()
             let statVC = BaseStatisticsVC(productsCount: q)
             self.present(statVC, animated: true, completion: nil)
         }
@@ -303,6 +300,7 @@ extension ShopListController: ItemCardVCDelegate {
     }
 }
 
+// FIXME: Move to router
 // MARK: - transition
 extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

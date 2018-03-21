@@ -21,6 +21,13 @@ class ItemListVC: UIViewController {
     weak var delegate: ItemListVCDelegate?
     weak var itemCardDelegate: ItemCardVCDelegate?
     var emptyList: Bool = false
+    lazy var searchBar: UISearchBar = {
+        let s = UISearchBar(frame: CGRect.zero)
+        s.placeholder = "Начните искать товар"
+        s.delegate = self
+        return s
+        
+    }()
 
     var shouldClose: Bool = false
     weak var dataProvider: DataProvider!
@@ -30,6 +37,10 @@ class ItemListVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.prompt = "Список товаров"
+        navigationItem.titleView = searchBar
+        
         itemTableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
         self.view.pb_startActivityIndicator(with: Strings.Common.loading.localized)
     }
@@ -86,7 +97,18 @@ class ItemListVC: UIViewController {
     }
 }
 
-
+extension ItemListVC: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        
+        let newText = (searchBar.text as NSString?)?.replacingCharacters(in: range, with: text)
+        
+        print("\(newText ?? "")")
+        
+        return true
+    }
+}
 
 
 extension ItemListVC: ItemCardVCDelegate {

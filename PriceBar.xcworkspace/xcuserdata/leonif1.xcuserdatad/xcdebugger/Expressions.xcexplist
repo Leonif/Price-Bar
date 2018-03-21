@@ -47,7 +47,12 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
+         contextName = "ShopListController.hideButtons(gesture:):ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userOutlet">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
@@ -95,10 +100,10 @@
          contextName = "ShopListController.itemChoosen(productId:):ShopListControllerExchange.swift">
       </ContextState>
       <ContextState
-         contextName = "(null):(null)">
+         contextName = "ShopListAdapter.reload():ShopListAdapter.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListAdapter.reload():ShopListAdapter.swift">
+         contextName = "(null):(null)">
       </ContextState>
       <ContextState
          contextName = "ShopListDataSource.tableView(_:cellForRowAt:):ShopListDataSource.swift">
@@ -156,12 +161,31 @@
       </ContextState>
       <ContextState
          contextName = "ItemListVC.tableView(_:numberOfRowsInSection:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "filtredItemList">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "static CoreDataParsers.parse(from:):CoreDataParsers.swift">
       </ContextState>
       <ContextState
          contextName = "QuantityPickerPopup2.numberOfComponents(in:):QuantityPickerPopup2.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "itemTableView">
+            </PersistentString>
+            <PersistentString
+               value = "filtredItemList">
+            </PersistentString>
+            <PersistentString
+               value = "itemList">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in ShopListController.updateUI():ShopListController.swift">
@@ -228,13 +252,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -324,10 +348,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -509,12 +533,7 @@
          contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListController.hideButtons(gesture:):ShopListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "userOutlet">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

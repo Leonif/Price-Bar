@@ -204,11 +204,11 @@ extension CoreDataService {
 
     }
 
-    func getProductList(for outletId: String, offset: Int) -> [DPProductModel]? {
+    func getProductList(for outletId: String, offset: Int, limit: Int) -> [DPProductModel]? {
         var shopItems = [DPProductModel]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            fetchRequest.fetchLimit = 20
+            fetchRequest.fetchLimit = limit
             fetchRequest.fetchOffset = offset
             let productList = try context.fetch(fetchRequest)
 

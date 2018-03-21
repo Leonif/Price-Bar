@@ -329,8 +329,8 @@ class DataProvider {
         return ResultType.success(true)
     }
 
-    func getShopItems(with pageOffset: Int, for outletId: String) -> [DPProductModel]? {
-        return CoreDataService.data.getProductList(for: outletId, offset: pageOffset)
+    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String) -> [DPProductModel]? {
+        return CoreDataService.data.getProductList(for: outletId, offset: pageOffset, limit: limit)
     }
 
     func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {

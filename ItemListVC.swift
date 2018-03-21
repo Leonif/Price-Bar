@@ -92,10 +92,10 @@ class ItemListVC: UIViewController {
                     return
             }
             filtredItemList = modelList
-            self.isLoading = true
+//            self.isLoading = true
         } else {
             filtredItemList = itemList
-            self.isLoading = false
+//            self.isLoading = false
         }
         itemTableView.reloadData()
     }
@@ -142,18 +142,12 @@ extension ItemListVC: ItemCardVCDelegate {
 
 }
 
-extension ItemListVC: UITextFieldDelegate {
-    //hide keyboard by press Enter
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        return true
-//    }
+extension ItemListVC {
 
-    @objc func numDonePressed() {
-//        itemSearchField.resignFirstResponder()
+    @objc
+    func numDonePressed() {
         searchBar.resignFirstResponder()
     }
-//
     func addDoneButtonToNumPad() {
         //Add done button to numeric pad keyboard
         let toolbarDone = UIToolbar.init()
@@ -164,7 +158,6 @@ extension ItemListVC: UITextFieldDelegate {
                                               target: self, action: #selector(numDonePressed))
 
         toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
-//        itemSearchField.inputAccessoryView = toolbarDone
         searchBar.inputAccessoryView = toolbarDone
     }
 }
@@ -193,10 +186,6 @@ extension ItemListVC {
 
 // MARK: Table
 extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return 1
-//    }
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y
         let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
@@ -209,6 +198,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                                                             limit: 40,
                                                             for: outletId),
                     let modelList = ProductMapper.transform(from: products, for: outletId) {
+                    
                     var indexPaths = [IndexPath]()
                     let currentCount: Int = filtredItemList.count
                     

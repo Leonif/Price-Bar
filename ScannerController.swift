@@ -15,8 +15,8 @@ protocol ScannerDelegate {
 
 class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-    @IBOutlet var topbar: UIView!
-    @IBOutlet var messageLabel: UILabel!
+//    @IBOutlet var topbar: UIView!
+//    @IBOutlet var messageLabel: UILabel!
     @IBOutlet var backButton: UIButton!
     var delegate: ScannerDelegate!
     @IBOutlet weak var warningRestrictedCameraView: UIView!
@@ -37,7 +37,11 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
                               AVMetadataObject.ObjectType.qr]
 
     @IBAction func backPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.close()
+    }
+    
+    func close() {
+        self.navigationController?.popViewController(animated: true)
     }
 
     override func viewDidLoad() {
@@ -80,7 +84,7 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
             captureSession?.startRunning()
 
             // Move the message label and top bar to the front
-            view.bringSubview(toFront: topbar)
+//            view.bringSubview(toFront: topbar)
             view.bringSubview(toFront: backButton)
 
             // Initialize QR Code Frame to highlight the QR code
@@ -122,13 +126,14 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
 
                 let code = metadataObj.stringValue
                 captureSession?.stopRunning()
-                messageLabel.text = code
+//                messageLabel.text = code
                 //delegate.objectExchange(object: code ?? "")
-                self.dismiss(animated: true, completion: {
+//                self.dismiss(animated: true, completion: {
 
-                    self.delegate.scanned(barcode: code ?? "")
+                self.close()
+                self.delegate.scanned(barcode: code ?? "")
 
-                })
+//                })
 
             }
         }

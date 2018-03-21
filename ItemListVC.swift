@@ -20,20 +20,18 @@ class ItemListVC: UIViewController {
     @IBOutlet weak var itemTableView: UITableView!
     weak var delegate: ItemListVCDelegate?
     weak var itemCardDelegate: ItemCardVCDelegate?
-    var emptyList: Bool = false
+    
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar(frame: CGRect.zero)
         s.placeholder = "Начните искать товар"
         s.delegate = self
         return s
-        
     }()
 
     var shouldClose: Bool = false
     weak var dataProvider: DataProvider!
 
     var isLoading = false
-//    @IBOutlet weak var itemSearchField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,22 +67,6 @@ class ItemListVC: UIViewController {
         self.view.pb_stopActivityIndicator()
     }
 
-//    @IBAction func itemSearchFieldChanged(_ sender: UITextField) {
-//        if  let searchText = sender.text, searchText.charactersArray.count >= 3 {
-//            guard let list = dataProvider.filterItemList(contains: searchText, for: outletId),
-//            let modelList = ProductMapper.transform(from: list, for: outletId) else {
-//                return
-//            }
-//            filtredItemList = modelList
-//            self.isLoading = true
-//        } else {
-//            filtredItemList = itemList
-//            self.isLoading = false
-//        }
-//        itemTableView.reloadData()
-//
-//    }
-    
     func updateResults(searchText: String) {
         if  searchText.charactersArray.count >= 3 {
             guard let list = dataProvider.filterItemList(contains: searchText, for: outletId),
@@ -92,10 +74,8 @@ class ItemListVC: UIViewController {
                     return
             }
             filtredItemList = modelList
-//            self.isLoading = true
         } else {
             filtredItemList = itemList
-//            self.isLoading = false
         }
         itemTableView.reloadData()
     }
@@ -166,7 +146,10 @@ extension ItemListVC {
 extension ItemListVC {
     
     func close() {
-        self.navigationController?.popViewController(animated: true)
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
+        }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

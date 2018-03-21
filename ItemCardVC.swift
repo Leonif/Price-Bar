@@ -138,7 +138,11 @@ class ItemCardVC: UIViewController {
     }
 
     @IBAction func backPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        self.close()
+    }
+    
+    func close() {
+        self.navigationController?.popViewController(animated: true)
     }
 
     @IBAction func savePressed(_ sender: Any) {
@@ -192,7 +196,7 @@ class ItemCardVC: UIViewController {
 
             guard productCard.productPrice != price  else {
                 alert(title: "Спасибо", message: "Цена не поменялась😉. Круто!👍", okAction: {
-                    self.dismiss(animated: true, completion: nil)
+                    self.close()
                 })
                 return
             }
@@ -202,11 +206,11 @@ class ItemCardVC: UIViewController {
                                                     price: price)
             dataProvider.save(new: dpStatModel)
             delegate.productUpdated()
-            self.dismiss(animated: true, completion: nil)
+            self.close()
 
         } else {
             alert(title: "Спасибо", message: "Такую цену мы не можем сохранить😭. Но товар в базе и шоплисте😉", okAction: {
-                self.dismiss(animated: true, completion: nil)
+                self.close()
             })
         }
     }

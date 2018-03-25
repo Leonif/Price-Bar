@@ -265,9 +265,7 @@
                             <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="qoc-gM-cxe"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="zR0-Ps-YON">
-                        <nil key="title"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="zR0-Ps-YON"/>
                     <connections>
                         <outlet property="itemListButton" destination="bBr-mn-h0O" id="iDV-wN-Ve3"/>
                         <outlet property="outletAddressLabel" destination="2so-a8-Tea" id="VsB-MC-aBU"/>
@@ -792,6 +790,6 @@
         <image name="uncheck" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="EJ7-82-Mar"/>
+        <segue reference="Aag-Wk-edx"/>
     </inferredMetricsTieBreakers>
 </document>

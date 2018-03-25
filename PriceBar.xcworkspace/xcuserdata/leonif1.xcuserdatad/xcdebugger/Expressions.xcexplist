@@ -47,12 +47,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.hideButtons(gesture:):ShopListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "userOutlet">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
       </ContextState>
       <ContextState
          contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
@@ -177,13 +172,13 @@
          contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "itemTableView">
+               value = "itemList">
             </PersistentString>
             <PersistentString
                value = "filtredItemList">
             </PersistentString>
             <PersistentString
-               value = "itemList">
+               value = "itemTableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -211,6 +206,14 @@
       </ContextState>
       <ContextState
          contextName = "DataProvider.syncCloud(completion:):DataProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.viewDidAppear(_:):ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationItem.titleView.frame">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ItemListVC.tableView(UITableView, didSelectRowAt : IndexPath) -&gt; ():ItemListVC.swift">
@@ -252,13 +255,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -286,6 +289,14 @@
          <PersistentStrings>
             <PersistentString
                value = "userOutlet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.setupNavigation():ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationItem.titleView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -348,10 +359,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -530,10 +541,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
+         contextName = "ShopListController.hideButtons(gesture:):ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userOutlet">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
+         contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

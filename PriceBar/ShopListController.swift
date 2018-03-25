@@ -49,8 +49,6 @@ class ShopListController: UIViewController {
     
     
     
-    
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,13 +84,10 @@ class ShopListController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        self.navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 200.0)
     }
     
     // MARK: - Setup functions
     func setupNavigation() {
-        
         let width = view.frame.width-16
         
         outletNameButton.frame = CGRect(x: 0, y: 0, width: width, height: 34)
@@ -102,8 +97,6 @@ class ShopListController: UIViewController {
         self.navigationItem.titleView = outletNameButton
         navigationController!.navigationBar.shadowImage = UIImage()
     }
-    
-    
     
     func setupGestures() {
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))

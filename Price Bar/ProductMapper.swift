@@ -11,7 +11,7 @@ import Foundation
 class ProductMapper {
     class func mapper(from product: DPProductModel, and outletId: String) -> DPShoplistItemModel {
 
-        let dataProvider = DataProvider()
+        let dataProvider = Repository()
 
         guard
             let categoryName = dataProvider.getCategoryName(category: product.categoryId),
@@ -35,7 +35,7 @@ class ProductMapper {
     }
 
     class func mapper(from dpModel: DPProductModel, for outletId: String) -> ItemListModelView {
-        let dataProvider = DataProvider()
+        let dataProvider = Repository()
         let price = dataProvider.getPrice(for: dpModel.id, and: outletId)
         let minPrice = dataProvider.getMinPrice(for: dpModel.id, and: outletId)
 
@@ -56,7 +56,7 @@ class ProductMapper {
     }
 
     class func mapper(from newBarcode: String) -> ProductCardModelView {
-        let dataProvider = DataProvider()
+        let dataProvider = Repository()
 
         guard let category = dataProvider.defaultCategory else {
             fatalError("default category is not found")
@@ -75,7 +75,7 @@ class ProductMapper {
     }
 
     class func mapper(for newItemName: String) -> ProductCardModelView {
-        let dataProvider = DataProvider()
+        let dataProvider = Repository()
 
         guard let category = dataProvider.defaultCategory else {
             fatalError("default category is not found")

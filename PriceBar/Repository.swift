@@ -35,7 +35,7 @@ enum DataProviderError: Error {
     }
 }
 
-class DataProvider {
+class Repository {
     enum SyncSteps: Int {
         case
         login,
@@ -518,7 +518,7 @@ class DataProvider {
     }
 }
 
-extension DataProvider {
+extension Repository {
 
     func getPrice(for productId: String, and outletId: String) -> Double {
         return CoreDataService.data.getPrice(for: productId, and: outletId)

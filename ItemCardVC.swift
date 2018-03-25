@@ -31,7 +31,7 @@ class ItemCardVC: UIViewController {
     var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
-    weak var dataProvider: DataProvider!
+    weak var dataProvider: Repository!
 
     @IBOutlet weak var commonPickerView: UIPickerView!
     var item: DPShoplistItemModel?

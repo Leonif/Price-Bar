@@ -24,7 +24,6 @@ class ShopListController: UIViewController {
     
     @IBOutlet weak var outletAddressLabel: UILabel!
     
-    
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
     
@@ -38,7 +37,7 @@ class ShopListController: UIViewController {
     @IBOutlet weak var removeButtonConstrait: NSLayoutConstraint!
     
     // MARK: - Dependecy Injection properties
-    var dataProvider: DataProvider!
+    var repository: Repository!
     var interactor: ShoplistInteractor!
     var syncAnimator: SyncAnimator!
     
@@ -53,11 +52,11 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         // MARK: - Assembly Dependency Injection
-        dataProvider = DataProvider()
+        repository = Repository()
         syncAnimator = SyncAnimator(parent: self)
-        interactor = ShoplistInteractor(dataProvider: dataProvider)
+        interactor = ShoplistInteractor(repository: repository)
         adapter = ShopListAdapter(parent: self, tableView: shopTableView,
-                                  dataProvider: dataProvider)
+                                  repository: repository)
         
         // MARK: - Setup UI
         self.setupNavigation()
@@ -65,11 +64,11 @@ class ShopListController: UIViewController {
         self.updateRemoveButtonState()
         
         // MARK: - Handle depencies
-        dataProvider.onUpdateShoplist = { [weak self] in
+        repository.onUpdateShoplist = { [weak self] in
             self?.adapter.reload()
             self?.updateRemoveButtonState()
         }
-        dataProvider.onSyncProgress = { [weak self] (progress, max, text) in
+        repository.onSyncProgress = { [weak self] (progress, max, text) in
             self?.syncAnimator.syncHandle(for: progress.double,
                                           and: max.double,
                                           with: text)
@@ -114,15 +113,15 @@ class ShopListController: UIViewController {
         DispatchQueue.main.async {
             self.outletAddressLabel.text = self.userOutlet.address
             self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
-            self.dataProvider.loadShopList(for: self.userOutlet.id)
+            self.repository.loadShopList(for: self.userOutlet.id)
             self.adapter.reload()
             self.updateRemoveButtonState()
         }
     }
     
     func updateRemoveButtonState() {
-        totalLabel.text = "\(Strings.Common.total.localized)\(dataProvider.total.asLocaleCurrency)"
-        let enable = !buttonsHided && !dataProvider.shoplist.isEmpty
+        totalLabel.text = "\(Strings.Common.total.localized)\(repository.total.asLocaleCurrency)"
+        let enable = !buttonsHided && !repository.shoplist.isEmpty
         removeShoplistBtn.setEnable(enable)
     }
     
@@ -193,7 +192,7 @@ class ShopListController: UIViewController {
     @IBAction func cleanShopList(_ sender: GoodButton) {
         alert(title: Strings.Alerts.wow.localized,
               message: Strings.Alerts.clean_shoplist.localized, okAction: {
-            self.dataProvider.clearShoplist()
+            self.repository.clearShoplist()
             self.shopTableView.reloadData()
         }, cancelAction: {})
     }
@@ -310,7 +309,7 @@ extension ShopListController {
             if let item = sender as? DPShoplistItemModel {
                 itemCardVC.item = item
                 itemCardVC.delegate = self
-                itemCardVC.dataProvider = dataProvider
+                itemCardVC.dataProvider = repository
                 itemCardVC.outletId = userOutlet.id
             }
         }
@@ -319,7 +318,7 @@ extension ShopListController {
             if let barcode = sender as? String {
                 itemCardVC.barcode = barcode
                 itemCardVC.delegate = self
-                itemCardVC.dataProvider = dataProvider
+                itemCardVC.dataProvider = repository
                 itemCardVC.outletId = userOutlet.id
             }
         }
@@ -333,7 +332,7 @@ extension ShopListController {
             itemListVC.outletId = userOutlet.id
             itemListVC.delegate = self
             itemListVC.itemCardDelegate = self
-            itemListVC.dataProvider = dataProvider
+            itemListVC.dataProvider = repository
 
         }
         if segue.identifier == Strings.Segues.showScan.name,

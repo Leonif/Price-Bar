@@ -33,7 +33,7 @@ class ItemListVC: UIViewController {
     }()
 
     var shouldClose: Bool = false
-    weak var dataProvider: DataProvider!
+    weak var dataProvider: Repository!
 
     var isLoading = false
 

@@ -11,10 +11,10 @@ import Foundation
 
 public final class ShoplistInteractor {
     private let outletService = OutletService()
-    private let dataProvider: DataProvider!
+    private let repository: Repository!
     
-    init(dataProvider: DataProvider) {
-        self.dataProvider = dataProvider
+    init(repository: Repository) {
+        self.repository = repository
     }
     
     
@@ -34,7 +34,7 @@ public final class ShoplistInteractor {
     
     
     func synchronizeData(completion: @escaping (ResultType<Bool, DataProviderError>) -> Void) {
-        dataProvider.syncCloud { result in
+        repository.syncCloud { result in
             switch result {
             case let .failure(error):
                 completion(ResultType.failure(error))
@@ -45,7 +45,7 @@ public final class ShoplistInteractor {
     }
     
     func addToShoplist(with productId: String, and outletId: String, completion: @escaping (ResultType<Bool, DataProviderError>) -> Void) {
-        guard let product: DPProductModel = dataProvider.getItem(with: productId, and: outletId) else {
+        guard let product: DPProductModel = repository.getItem(with: productId, and: outletId) else {
             completion(ResultType.failure(DataProviderError.productIsNotFound("")))
             return
         }
@@ -64,7 +64,7 @@ public final class ShoplistInteractor {
         
         let shopListItem: DPShoplistItemModel = ProductMapper.mapper(from: product, and: outletId)
         
-        let result = dataProvider.saveToShopList(new: shopListItem)
+        let result = repository.saveToShopList(new: shopListItem)
         switch result {
         case let .failure(error):
             completion(ResultType.failure(error))
@@ -74,15 +74,24 @@ public final class ShoplistInteractor {
         }
     }
     
+    private func getPriceStatistics(for productId: String) -> [String] {
+        
+        
+        
+        
+        
+        return []
+    }
+    
+    
+    
     func reloadProducts(outletId: String) {
-        dataProvider.loadShopList(for: outletId)
+        repository.loadShopList(for: outletId)
     }
     
     
     func getQuantityOfGood() -> Int {
-        
-        return dataProvider.getQuantityOfProducts()
-        
+        return repository.getQuantityOfProducts()
     }
     
     

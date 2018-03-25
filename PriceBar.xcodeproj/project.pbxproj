@@ -29,7 +29,7 @@
 		792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B01EE707E700470669 /* LaunchScreen.storyboard */; };
 		792EE7B51EE707E700470669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B21EE707E700470669 /* Main.storyboard */; };
 		792EE7B71EE707F000470669 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B61EE707F000470669 /* HeaderView.xib */; };
-		792EE7B91EE7080400470669 /* DataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7B81EE7080400470669 /* DataProvider.swift */; };
+		792EE7B91EE7080400470669 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7B81EE7080400470669 /* Repository.swift */; };
 		792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BA1EE7080F00470669 /* ShopItemCell.swift */; };
 		792EE7BD1EE7081800470669 /* NumberExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BC1EE7081800470669 /* NumberExtensions.swift */; };
 		792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BE1EE7082700470669 /* CharacterExtensions.swift */; };
@@ -130,7 +130,7 @@
 		792EE7B11EE707E700470669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PriceBar/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		792EE7B31EE707E700470669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PriceBar/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		792EE7B61EE707F000470669 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderView.xib; path = PriceBar/HeaderView.xib; sourceTree = SOURCE_ROOT; };
-		792EE7B81EE7080400470669 /* DataProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataProvider.swift; path = PriceBar/DataProvider.swift; sourceTree = SOURCE_ROOT; };
+		792EE7B81EE7080400470669 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Repository.swift; path = PriceBar/Repository.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BA1EE7080F00470669 /* ShopItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopItemCell.swift; path = PriceBar/ShopItemCell.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BC1EE7081800470669 /* NumberExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NumberExtensions.swift; path = PriceBar/NumberExtensions.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BE1EE7082700470669 /* CharacterExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterExtensions.swift; path = PriceBar/CharacterExtensions.swift; sourceTree = SOURCE_ROOT; };
@@ -508,7 +508,7 @@
 			children = (
 				796D7B1E201A485E0098D324 /* Mappers */,
 				79833B38200D503C005C6CC5 /* Entities */,
-				792EE7B81EE7080400470669 /* DataProvider.swift */,
+				792EE7B81EE7080400470669 /* Repository.swift */,
 			);
 			name = DataProvider;
 			sourceTree = "<group>";
@@ -893,7 +893,7 @@
 				79833B572013F445005C6CC5 /* FBProductModel.swift in Sources */,
 				792102952055A02000C83706 /* CountingLabel.swift in Sources */,
 				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
-				792EE7B91EE7080400470669 /* DataProvider.swift in Sources */,
+				792EE7B91EE7080400470669 /* Repository.swift in Sources */,
 				790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */,
 				79833B5920146675005C6CC5 /* CDCategoryModel.swift in Sources */,
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,

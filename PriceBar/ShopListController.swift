@@ -48,7 +48,6 @@ class ShopListController: UIViewController {
     var buttonsHided: Bool = false
     
     
-    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,17 +81,19 @@ class ShopListController: UIViewController {
         synchronizeData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     // MARK: - Setup functions
     func setupNavigation() {
         let width = view.frame.width-16
-        
+// 1.   via manual layout
         outletNameButton.frame = CGRect(x: 0, y: 0, width: width, height: 34)
         outletNameButton.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
         navigationItem.prompt = "Пожалуйста, выберите магазин"
+// 2. via constraints
+        outletNameButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            outletNameButton.widthAnchor.constraint(equalToConstant: width),
+            outletNameButton.heightAnchor.constraint(equalToConstant: 34)
+            ])
         
         self.navigationItem.titleView = outletNameButton
         navigationController!.navigationBar.shadowImage = UIImage()

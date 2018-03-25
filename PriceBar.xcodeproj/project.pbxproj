@@ -90,6 +90,7 @@
 		79DC99E220433AA400D35D1C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99E120433AA400D35D1C /* Strings.swift */; };
 		79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79DC99ED204345AC00D35D1C /* Localizable.strings */; };
 		79DC99F02044B3F600D35D1C /* ShoplistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */; };
+		79F68452206801D200257F00 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
 		B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
 /* End PBXBuildFile section */
 
@@ -198,6 +199,7 @@
 		79DC99EC204345AC00D35D1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		79DC99EE204345B900D35D1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistInteractor.swift; sourceTree = "<group>"; };
+		79F68451206801D200257F00 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar.release.xcconfig"; sourceTree = "<group>"; };
@@ -241,7 +243,7 @@
 			isa = PBXGroup;
 			children = (
 				790BC9ED1F8833D700CA9519 /* Controllers */,
-				79DC99F12044B40000D35D1C /* ViewModel */,
+				79DC99F12044B40000D35D1C /* Interactor */,
 				790BC9EF1F88342100CA9519 /* Entities */,
 				790BC9EE1F88341200CA9519 /* View */,
 			);
@@ -309,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
+				79F68451206801D200257F00 /* ShopItemCell.xib */,
 				792EE7C61EE7087200470669 /* HeaderView.swift */,
 				792EE7B61EE707F000470669 /* HeaderView.xib */,
 			);
@@ -611,12 +614,12 @@
 			name = Sources;
 			sourceTree = "<group>";
 		};
-		79DC99F12044B40000D35D1C /* ViewModel */ = {
+		79DC99F12044B40000D35D1C /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
 				79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */,
 			);
-			name = ViewModel;
+			name = Interactor;
 			sourceTree = "<group>";
 		};
 		EFCFC6F2C247C1D3BDF643A8 /* Pods */ = {
@@ -727,6 +730,7 @@
 			files = (
 				792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */,
 				792EE7B71EE707F000470669 /* HeaderView.xib in Resources */,
+				79F68452206801D200257F00 /* ShopItemCell.xib in Resources */,
 				795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */,
 				79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */,
 				796D7B28201BE4B10098D324 /* AddCellNib.xib in Resources */,

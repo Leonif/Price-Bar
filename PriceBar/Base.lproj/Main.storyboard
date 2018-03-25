@@ -636,7 +636,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EnH-hF-scj">
-                                <rect key="frame" x="0.0" y="72" width="375" height="179"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="179"/>
                                 <color key="backgroundColor" red="0.93590015479999999" green="0.89439511230000002" blue="0.55457293669999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="179" id="9bG-Gc-cKz"/>
@@ -745,7 +745,7 @@
                             <constraint firstItem="EnH-hF-scj" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" id="7oy-6h-Qkw"/>
                             <constraint firstItem="74u-MH-F1Q" firstAttribute="top" secondItem="HJA-9e-sBD" secondAttribute="bottom" id="GYI-Np-SdX"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="74u-MH-F1Q" secondAttribute="bottom" id="H0X-6Z-fYO"/>
-                            <constraint firstItem="EnH-hF-scj" firstAttribute="top" secondItem="HJA-9e-sBD" secondAttribute="bottom" constant="8" id="Z0I-X9-B2g"/>
+                            <constraint firstItem="EnH-hF-scj" firstAttribute="top" secondItem="HJA-9e-sBD" secondAttribute="bottom" id="Z0I-X9-B2g"/>
                             <constraint firstItem="jvf-3U-9A5" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" constant="20" id="glD-ab-2MN"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="jvf-3U-9A5" secondAttribute="bottom" constant="70" id="hca-Jt-hJ2"/>
                             <constraint firstAttribute="trailing" secondItem="74u-MH-F1Q" secondAttribute="trailing" id="it4-dn-ll7"/>

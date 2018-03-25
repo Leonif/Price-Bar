@@ -16,6 +16,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     
     var vc: UIViewController!
     
+    
     var onCellDidSelected: ((DPShoplistItemModel) -> Void)?
     private var onWeightDemand: ((ShopItemCell) -> Void)?
 
@@ -27,6 +28,13 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.dataProvider = dataProvider
+        
+        // For registering nib files
+        tableView.register(UINib(nibName: "ShopItemCell", bundle: Bundle.main), forCellReuseIdentifier: "ItemCell")
+        
+//        // For registering classes
+//        tableView.register(ShopItemCell.self, forCellReuseIdentifier: "ItemCell")
+        
 
     }
     
@@ -39,7 +47,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ShopItemCell
+        let cell: ShopItemCell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ShopItemCell
         let shp = dataProvider.getItem(index: indexPath)!
 
         cell.configureCell(item: shp)
@@ -83,12 +91,14 @@ extension ShopListAdapter: UITableViewDelegate {
         self.onCellDidSelected?(item)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView {
-            
-            headerView.categoryLabel.text = dataProvider.headerString(for: section)
-            return headerView
-        }
-        return UIView()
+        
+        let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView
+        
+        headerView?.categoryLabel.text = dataProvider.headerString(for: section)
+        
+        
+        return headerView
+        
     }
 }
 

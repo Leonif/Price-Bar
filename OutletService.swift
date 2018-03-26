@@ -48,6 +48,23 @@ class OutletService: NSObject {
         super.init()
         locationService = LocationService()
     }
+    
+    
+    func getOutlet(with outletId: String, completion: @escaping (ResultType<OPOutletModel, OutletServiceError>) -> Void) {
+        let foursquareProvider = FoursqareProvider()
+        foursquareProvider.getOutlet(with: outletId) { (result) in
+            switch result {
+            case let .success(fqoutlet):
+//                if let fqoutlet = fqoutlets.first {
+                    completion(ResultType.success(OutletFactory.mapper(from: fqoutlet)))
+//                }
+            case let .failure(error):
+                // need to hadle different cases of error from provider
+                completion(ResultType.failure(.other(error.errorDescription)))
+            }
+        }
+    }
+    
 
     func nearestOutlet(completion: @escaping (ResultType<OPOutletModel, OutletServiceError>) -> Void) {
         singleOutletCompletion = completion
@@ -95,7 +112,7 @@ class OutletService: NSObject {
     private func outletListFromProvider(for coords: CLLocationCoordinate2D,
                                         completion: @escaping (ResultType<[FQOutletModel], FoursqareProviderError>) -> Void) {
         let foursquareProvider = FoursqareProvider()
-        foursquareProvider.loadOultets(userCoordinate: coords, completed: { result in
+        foursquareProvider.loadOultets(userCoordinate: coords, completion: { result in
             switch result {
             case let .success(outlets):
                 completion(ResultType.success(outlets))

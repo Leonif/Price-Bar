@@ -11,22 +11,6 @@ import CoreData
 
 extension CoreDataService {
 
-//    func printPriceStatistics() {
-//        do {
-//            let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
-//            statRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-//            let stat = try context.fetch(statRequest)
-//
-//            for st in stat {
-//                print(st.date!, st.toProduct!.name!, st.price, st.outletId!)
-//            }
-//
-//        } catch {
-//            print("price is not got from database")
-//        }
-//
-//    }
-
     func getPrice(for barcode: String, and outletId: String) -> Double {
         do {
             let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
@@ -38,7 +22,7 @@ extension CoreDataService {
                 return priceExist.price
             }
         } catch {
-            print("price is not got from database")
+            fatalError("price is not got from database")
         }
         return 0
 
@@ -57,11 +41,29 @@ extension CoreDataService {
             }
 
         } catch {
-            print("price is not got from database")
+            fatalError("price is not got from database")
         }
 
         return 0
-
     }
 
+    func getPricesStatisticByOutlet(for barcode: String) -> [String: Double] {
+       
+        var statistics: [String: Double] = [:]
+        
+        do {
+            let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
+            statRequest.predicate = NSPredicate(format: "%K == %@", argumentArray:["toProduct.id", barcode])
+            statRequest.sortDescriptors = [NSSortDescriptor(key: "price", ascending: true)]
+            let stat = try context.fetch(statRequest)
+            
+            stat.forEach { s in
+                statistics[s.outletId!] = s.price
+            }
+            
+        } catch {
+            fatalError("price is not got from database")
+        }
+        return statistics
+    }
 }

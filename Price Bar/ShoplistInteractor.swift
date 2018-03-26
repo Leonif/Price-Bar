@@ -33,7 +33,7 @@ public final class ShoplistInteractor {
     }
     
     
-    func synchronizeData(completion: @escaping (ResultType<Bool, DataProviderError>) -> Void) {
+    func synchronizeData(completion: @escaping (ResultType<Bool, RepositoryError>) -> Void) {
         repository.syncCloud { result in
             switch result {
             case let .failure(error):
@@ -44,9 +44,9 @@ public final class ShoplistInteractor {
         }
     }
     
-    func addToShoplist(with productId: String, and outletId: String, completion: @escaping (ResultType<Bool, DataProviderError>) -> Void) {
+    func addToShoplist(with productId: String, and outletId: String, completion: @escaping (ResultType<Bool, RepositoryError>) -> Void) {
         guard let product: DPProductModel = repository.getItem(with: productId, and: outletId) else {
-            completion(ResultType.failure(DataProviderError.productIsNotFound("")))
+            completion(ResultType.failure(RepositoryError.productIsNotFound("")))
             return
         }
         addItemToShopList(product, and: outletId, completion: { result in
@@ -60,7 +60,7 @@ public final class ShoplistInteractor {
         
     }
     
-    private func addItemToShopList(_ product: DPProductModel, and outletId: String, completion: (ResultType<Bool, DataProviderError>)-> Void) {
+    private func addItemToShopList(_ product: DPProductModel, and outletId: String, completion: (ResultType<Bool, RepositoryError>)-> Void) {
         
         let shopListItem: DPShoplistItemModel = ProductMapper.mapper(from: product, and: outletId)
         
@@ -69,18 +69,38 @@ public final class ShoplistInteractor {
         case let .failure(error):
             completion(ResultType.failure(error))
         case .success:
+            
+            self.getPriceStatistics(for: product.id)
+            
             completion(ResultType.success(true))
         
         }
     }
     
-    private func getPriceStatistics(for productId: String) -> [String] {
+    private func getPriceStatistics(for productId: String) {
+        
+        let outletService = OutletService()
+        var statDict: [String: Double] = [:]
+        
+        
+        let stat = repository.getPricesStatisticByOutlet(for: productId)
+        stat.forEach { s in
+            let outletId = s.key
+            outletService.getOutlet(with: outletId, completion: { (result) in
+                switch result {
+                case let .success(outlet):
+                    print(outlet)
+                    statDict[outlet.name] = s.value
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
+            })
+
+        }
+        print(stat)
         
         
         
-        
-        
-        return []
     }
     
     

@@ -15,7 +15,7 @@ enum SectionInfo {
     case indexError
 }
 
-enum DataProviderError: Error {
+enum RepositoryError: Error {
     case syncError(String)
     case shoplistAddedNewItem(String)
     case productIsNotFound(String)
@@ -109,7 +109,7 @@ class Repository {
         return DPUomModel(id: cd.id, name: cd.name)
     }
 
-    public func syncCloud(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
+    public func syncCloud(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         firebaseLogin(completion: completion)
         self.onSyncNext = { [weak self] in
             
@@ -144,7 +144,7 @@ class Repository {
         }
     }
     
-    func firebaseLogin(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
+    func firebaseLogin(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         FirebaseService.data.loginToFirebase(completion: { result in
             switch result {
             case .success:
@@ -157,10 +157,10 @@ class Repository {
         })
     }
     
-    func loadShoplist(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
+    func loadShoplist(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         let outletId: String? = nil
         guard let shp = CoreDataService.data.loadShopList(for: outletId) else {
-            completion(ResultType.failure(DataProviderError.syncError("Что-то пошло не так")))
+            completion(ResultType.failure(RepositoryError.syncError("Что-то пошло не так")))
             return
         }
         self.shoplist = shp
@@ -168,9 +168,9 @@ class Repository {
         self.onSyncNext?()
     }
 
-    func syncHandle(error: Error) -> ResultType<Bool, DataProviderError> {
+    func syncHandle(error: Error) -> ResultType<Bool, RepositoryError> {
         UserDefaults.standard.set(0, forKey: "LaunchedTime")
-        return ResultType.failure(DataProviderError
+        return ResultType.failure(RepositoryError
             .syncError("Синхронизация не удалась: \(error.localizedDescription) "))
     }
 
@@ -201,7 +201,7 @@ class Repository {
         shoplist.removeAll()
     }
 
-    private func syncCategories(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
+    private func syncCategories(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         CoreDataService.data.syncCategories { [weak self] result in
             guard let `self` = self else {
                 fatalError()
@@ -212,12 +212,12 @@ class Repository {
                 self.onSyncNext?()
                 print("Function: \(#function), line: \(#line)")
             case let .failure(error):
-                completion(ResultType.failure(DataProviderError.syncError(error.localizedDescription)))
+                completion(ResultType.failure(RepositoryError.syncError(error.localizedDescription)))
             }
         }
     }
 
-    private func syncProducts(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
+    private func syncProducts(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         CoreDataService.data.syncProducts { [weak self] result in // get from firebase
             guard let `self` = self else {
                 fatalError()
@@ -233,7 +233,7 @@ class Repository {
         }
     }
 
-    private func syncStatistics(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
+    private func syncStatistics(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         CoreDataService.data.syncStatistics { [weak self] result in // get from firebase
             guard let `self` = self else {
                 fatalError()
@@ -249,7 +249,7 @@ class Repository {
         }
     }
 
-    private func syncUom(completion: @escaping (ResultType<Bool, DataProviderError>)->Void) {
+    private func syncUom(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         CoreDataService.data.syncUoms { [weak self] result in // get from firebase
             guard let `self` = self else {
                 fatalError()
@@ -315,11 +315,11 @@ class Repository {
         FirebaseService.data.saveOrUpdate(fb)
     }
 
-    func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, DataProviderError> {
+    func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, RepositoryError> {
 
         if let _ = shoplist.index(of: item) {
             print("\(item.productName) already in shoplist")
-            return ResultType.failure(DataProviderError.shoplistAddedNewItem("Уже в списке"))
+            return ResultType.failure(RepositoryError.shoplistAddedNewItem("Уже в списке"))
         }
 
         shoplist.append(item)
@@ -518,6 +518,9 @@ class Repository {
     }
 }
 
+
+
+
 extension Repository {
 
     func getPrice(for productId: String, and outletId: String) -> Double {
@@ -528,5 +531,14 @@ extension Repository {
         return CoreDataService.data.getMinPrice(for: productId, and: outletId)
 
     }
+    
+    func getPricesStatisticByOutlet(for productId: String) -> [String: Double] {
+        
+        return CoreDataService.data.getPricesStatisticByOutlet(for: productId)
+        
+    }
+    
+    
+    
 
 }

@@ -34,25 +34,25 @@ public extension String {
 	}
 
 	/// SwifterSwift: Array of characters of a string.
-	public var charactersArray: [Character] {
-		return Array(characters)
-	}
+//    public var charactersArray: [Character] {
+//        return Array(characters)
+//    }
 
 	/// SwifterSwift: CamelCase of string.
 	public var camelCased: String {
 		let source = lowercased()
-		if source.characters.contains(" ") {
+		if source.contains(" ") {
 
             let first = source[..<source.index(after: source.startIndex)]
 			//let first = source.substring(to: source.index(after: source.startIndex))
 			let camel = source.capitalized.replacing(" ", with: "").replacing("\n", with: "")
-			let rest = String(camel.characters.dropFirst())
+			let rest = String(camel.dropFirst())
 			return first + rest
 		}
 
         let first = source.lowercased()[..<source.index(after: source.startIndex)]
 		//let first = source.lowercased().substring(to: source.index(after: source.startIndex))
-		let rest = String(source.characters.dropFirst())
+		let rest = String(source.dropFirst())
 		return first + rest
 	}
 
@@ -76,7 +76,7 @@ public extension String {
 
 	/// SwifterSwift: First character of string (if applicable).
 	public var firstCharacter: String? {
-		guard let first = characters.first else {
+		guard let first = self.first else {
 			return nil
 		}
 		return String(first)
@@ -99,7 +99,7 @@ public extension String {
 
 	/// SwifterSwift: Check if string contains at least one letter and one number.
 	public var isAlphaNumeric: Bool {
-		return components(separatedBy: CharacterSet.alphanumerics).joined(separator: "").characters.count == 0 && hasLetters && hasNumbers
+		return components(separatedBy: CharacterSet.alphanumerics).joined(separator: "").count == 0 && hasLetters && hasNumbers
 	}
 
 	/// SwifterSwift: Check if string is valid email format.
@@ -149,7 +149,7 @@ public extension String {
 
 	/// SwifterSwift: Last character of string (if applicable).
 	public var lastCharacter: String? {
-		guard let last = characters.last else {
+		guard let last = self.last else {
 			return nil
 		}
 		return String(last)
@@ -162,7 +162,7 @@ public extension String {
 
 	/// SwifterSwift: Number of characters in string.
 	public var length: Int {
-		return characters.count
+		return self.count
 	}
 
 	/// SwifterSwift: Array of strings separated by new lines.
@@ -176,7 +176,7 @@ public extension String {
 
 	/// SwifterSwift: The most common character in string.
 	public var mostCommonCharacter: String {
-		let mostCommon = withoutSpacesAndNewLines.characters.reduce([Character: Int]()) {
+		let mostCommon = withoutSpacesAndNewLines.reduce([Character: Int]()) {
 			var counts = $0
 			counts[$1] = ($0[$1] ?? 0) + 1
 			return counts
@@ -186,7 +186,7 @@ public extension String {
 
 	/// SwifterSwift: Reversed string.
 	public var reversed: String {
-		return String(characters.reversed())
+		return String(self.reversed())
 	}
 
 	/// SwifterSwift: Bool value from string (if applicable).
@@ -306,7 +306,7 @@ public extension String {
 	///
 	/// - Parameter i: index.
 	public subscript(idx: Int) -> String? {
-		guard idx >= 0 && idx < characters.count else {
+		guard idx >= 0 && idx < self.count else {
 			return nil
 		}
 		return String(self[index(startIndex, offsetBy: idx)])
@@ -399,7 +399,7 @@ public extension String {
 	/// - Parameter string: substring to search for.
 	/// - Returns: first index of substring in string (if applicable).
 	public func firstIndex(of string: String) -> Int? {
-		return Array(characters).map({String($0)}).index(of: string)
+		return Array(self).map({ String($0) }).index(of: string)
 	}
 
 	/// SwifterSwift: Latinize string.
@@ -434,7 +434,7 @@ public extension String {
 
 	/// SwifterSwift: Reverse string.
 	public mutating func reverse() {
-		self = String(characters.reversed())
+		self = String(self.reversed())
 	}
 
 	/// SwifterSwift: Sliced string from a start index with length.
@@ -444,10 +444,10 @@ public extension String {
 	///   - length: amount of characters to be sliced after given index.
 	/// - Returns: sliced substring of length number of characters (if applicable) (example: "Hello World".slicing(from: 6, length: 5) -> "World")
 	public func slicing(from index: Int, length: Int) -> String? {
-		guard length >= 0, index >= 0, index < characters.count  else {
+		guard length >= 0, index >= 0, index < self.count  else {
 			return nil
 		}
-		guard index.advanced(by: length) <= characters.count else {
+		guard index.advanced(by: length) <= self.count else {
 			return slicing(at: index)
 		}
 		guard length > 0 else {
@@ -496,10 +496,10 @@ public extension String {
 	/// - Parameter i: string index the slicing should start from.
 	/// - Returns: sliced substring starting from start index (if applicable) (example: "Hello world".slicing(at: 6) -> "world")
 	public func slicing(at index: Int) -> String? {
-		guard index < characters.count else {
+		guard index < self.count else {
 			return nil
 		}
-		return self[index..<characters.count]
+		return self[index..<self.count]
 	}
 
 	/// SwifterSwift: Slice given string from a start index (if applicable).
@@ -516,7 +516,7 @@ public extension String {
 	/// - Parameter separator: separator to split string by.
 	/// - Returns: array of strings separated by given string.
 	public func splitted(by separator: Character) -> [String] {
-		return characters.split {$0 == separator}.map(String.init)
+		return self.split {$0 == separator}.map(String.init)
 	}
 
 	/// SwifterSwift: Check if string starts with substring.

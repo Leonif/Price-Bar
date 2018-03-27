@@ -87,8 +87,8 @@ class Repository {
     var sections = [String]()
     var shoplist: [DPShoplistItemModel] = [] {
         didSet {
-            DispatchQueue.main.async {
-                self.onUpdateShoplist?()
+            DispatchQueue.main.async { [weak self] in
+                self?.onUpdateShoplist?()
             }
         }
     }

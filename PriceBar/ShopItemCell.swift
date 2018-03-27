@@ -15,6 +15,7 @@ class ShopItemCell: UITableViewCell {
     }
 
     var onWeightDemand: ((ShopItemCell) -> Void)?
+    var onCompareDemand: ((ShopItemCell) -> Void)?
     
     var item: DPShoplistItemModel?
 
@@ -36,11 +37,14 @@ class ShopItemCell: UITableViewCell {
 // User react
 extension ShopItemCell {
     @IBAction func checkPressed(_ sender: UIButton) {
-        guard let item = self.item else {
-            fatalError("Check pressed for not existed item")
-        }
-        self.item?.checked = !item.checked
-        self.checkedState()
+//        guard let item = self.item else {
+//            fatalError("Check pressed for not existed item")
+//        }
+//        self.item?.checked = !item.checked
+//        self.checkedState()
+        
+        self.onCompareDemand?(self)
+        
     }
 
     func updateWeighOnCell(_ weight: Double, _ price: Double) {

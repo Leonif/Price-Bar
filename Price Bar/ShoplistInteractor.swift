@@ -49,7 +49,7 @@ public final class ShoplistInteractor {
             completion(ResultType.failure(RepositoryError.productIsNotFound("")))
             return
         }
-        addItemToShopList(product, and: outletId, completion: { result in
+        self.addItemToShopList(product, and: outletId, completion: { result in
             switch result {
             case let .failure(error):
                 completion(ResultType.failure(error))
@@ -59,9 +59,8 @@ public final class ShoplistInteractor {
         })
         
     }
-    // TODO: return Statistic
+    
     private func addItemToShopList(_ product: DPProductModel, and outletId: String, completion: (ResultType<Bool, RepositoryError>)-> Void) {
-        
         let shopListItem: DPShoplistItemModel = ProductMapper.mapper(from: product, and: outletId)
         
         let result = repository.saveToShopList(new: shopListItem)
@@ -69,41 +68,38 @@ public final class ShoplistInteractor {
         case let .failure(error):
             completion(ResultType.failure(error))
         case .success:
-            self.getPriceStatistics(for: product.id, completion: { (result) in
-                switch result {
-                case let .success(stat):
-                    print(stat)
-                case let .failure(error):
-                    print(error.localizedDescription)
-                }
-            })
-            
             completion(ResultType.success(true))
         
         }
     }
     
-    private func getPriceStatistics(for productId: String, completion: @escaping (ResultType<StatisticModel, RepositoryError>) -> Void) {
-        
+    // TODO: return Statistic
+    func getPriceStatistics(for productId: String, completion: @escaping (ResultType<StatisticModel, RepositoryError>) -> Void) {
         let outletService = OutletService()
         var statistic: StatisticModel = StatisticModel()
-        
+
         let stat = repository.getPricesStatisticByOutlet(for: productId)
-        stat.forEach { s in
-            let outletId = s.key
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        for (key, value) in stat {
+            let outletId = key
             outletService.getOutlet(with: outletId, completion: { (result) in
                 switch result {
                 case let .success(outlet):
                     statistic.productId = productId
-                    statistic.append(outlet, s.value)
+                    statistic.append(outlet, value)
+                    if statistic.outlets.count == stat.count {
+                        dispatchGroup.leave()
+                    }
                 case let .failure(error):
                     completion(ResultType.failure(.statisticError(error.localizedDescription)))
                     return
                 }
             })
         }
-        
-        completion(ResultType.success(statistic))
+        dispatchGroup.notify(queue: .main) {
+            completion(ResultType.success(statistic))
+        }
     }
     
     

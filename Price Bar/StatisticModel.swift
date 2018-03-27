@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct StatisticModel {
+public struct StatisticModel {
     var productId: String = ""
     
     var outlets: [OPOutletModel] = []

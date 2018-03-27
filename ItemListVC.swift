@@ -75,7 +75,7 @@ class ItemListVC: UIViewController {
     }
 
     func updateResults(searchText: String) {
-        if  searchText.charactersArray.count >= 3 {
+        if  searchText.count >= 3 {
             guard let list = dataProvider.filterItemList(contains: searchText, for: outletId),
                 let modelList = ProductMapper.transform(from: list, for: outletId) else {
                     return
@@ -160,7 +160,7 @@ extension ItemListVC {
     
 }
 
-// FIXME: Move to paginator
+// FIXME: Move to adapter
 extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.y

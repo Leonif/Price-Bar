@@ -17,6 +17,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     var vc: UIViewController!
     
     var onCellDidSelected: ((DPShoplistItemModel) -> Void)?
+    var onCompareDidSelected: ((DPShoplistItemModel) -> Void)?
     private var onWeightDemand: ((ShopItemCell) -> Void)?
 
     init(parent: UIViewController,  tableView: UITableView, repository: Repository) {
@@ -48,6 +49,11 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         cell.configureCell(item: shp)
         cell.onWeightDemand = { [weak self] cell in
             self?.handleWeightDemanded(cell: cell)
+        }
+        cell.onCompareDemand = { [weak self] cell in
+            guard let `self` = self else { return }
+            let item = self.repository.getItem(index: indexPath)!
+            self.onCompareDidSelected?(item)
         }
         
         return cell

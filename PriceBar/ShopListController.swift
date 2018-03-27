@@ -70,34 +70,43 @@ class ShopListController: UIViewController {
         
         // MARK: - Handle depencies
         repository.onUpdateShoplist = { [weak self] in
-            self?.adapter.reload()
-            self?.updateRemoveButtonState()
+            guard let `self` = self else { return }
+            self.adapter.reload()
+            self.updateRemoveButtonState()
         }
         repository.onSyncProgress = { [weak self] (progress, max, text) in
-            self?.syncAnimator.syncHandle(for: progress.double,
+            guard let `self` = self else { return }
+            self.syncAnimator.syncHandle(for: progress.double,
                                           and: max.double,
                                           with: text)
         }
 
-        adapter?.onCellDidSelected = { [weak self] item in
+        self.adapter.onCellDidSelected = { [weak self] item in
             self?.performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: item)
         }
+        
+        self.adapter.onCompareDidSelected = { [weak self] item in
+            guard let `self` = self else { return }
+            self.interactor.getPriceStatistics(for: item.productId, completion: { [weak self] (result) in
+                switch result {
+                case let .success(statistic):
+                    print(statistic)
+                case let .failure(error):
+                    self?.alert(message: error.message)
+                }
+            })
+        }
+        
         synchronizeData()
     }
     
     // MARK: - Setup functions
     func setupNavigation() {
         let width = view.frame.width-16
-// 1.   via manual layout
         outletNameButton.frame = CGRect(x: 0, y: 0, width: width, height: 34)
         outletNameButton.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
+        outletNameButton.layer.cornerRadius = 5.0
         navigationItem.prompt = "Пожалуйста, выберите магазин"
-// 2. via constraints
-        outletNameButton.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            outletNameButton.widthAnchor.constraint(equalToConstant: width),
-            outletNameButton.heightAnchor.constraint(equalToConstant: 34)
-            ])
         
         self.navigationItem.titleView = outletNameButton
         navigationController!.navigationBar.shadowImage = UIImage()
@@ -115,7 +124,8 @@ class ShopListController: UIViewController {
     
     // MARK: - UI
     func updateUI() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
             self.outletAddressLabel.text = self.userOutlet.address
             self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
             self.repository.loadShopList(for: self.userOutlet.id)
@@ -125,9 +135,9 @@ class ShopListController: UIViewController {
     }
     
     func updateRemoveButtonState() {
-        totalLabel.text = "\(Strings.Common.total.localized)\(repository.total.asLocaleCurrency)"
-        let enable = !buttonsHided && !repository.shoplist.isEmpty
-        removeShoplistBtn.setEnable(enable)
+        self.totalLabel.text = "\(Strings.Common.total.localized)\(self.repository.total.asLocaleCurrency)"
+        let enable = !self.buttonsHided && !self.repository.shoplist.isEmpty
+        self.removeShoplistBtn.setEnable(enable)
     }
     
     
@@ -135,13 +145,15 @@ class ShopListController: UIViewController {
     func synchronizeData() {
         self.buttonEnable(false)
         self.syncAnimator.startProgress()
-        interactor?.synchronizeData { [weak self] result in
-            self?.syncAnimator.stopProgress(completion: {
+        interactor.synchronizeData { [weak self] result in
+            guard let `self` = self else { return }
+            self.syncAnimator.stopProgress(completion: { [weak self] in
+                guard let `self` = self else { return }
                 switch result {
                 case .success:
-                    self?.updateCurentOutlet()
+                    self.updateCurentOutlet()
                 case let .failure(error):
-                    self?.alert(message: "\(error.message): \(error.localizedDescription)")
+                    self.alert(message: "\(error.message): \(error.localizedDescription)")
                 }
             })
         }
@@ -151,30 +163,32 @@ class ShopListController: UIViewController {
         var activateControls = false
         self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.outlet_looking.localized)
         interactor.updateCurrentOutlet { [weak self] (result) in
-            self?.view.pb_stopActivityIndicator()
+            guard let `self` = self else { return }
+            self.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlet):
-                self?.userOutlet = outlet
-                self?.showBaseStatistics()
+                self.userOutlet = outlet
+                self.showBaseStatistics()
                 activateControls = true
             case let .failure(error):
                 let previousSuccess = Strings.Alerts.good_news.localized
-                self?.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(Strings.Alerts.try_later.localized))")
+                self.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(Strings.Alerts.try_later.localized))")
             }
-            self?.buttonEnable(activateControls)
+            self.buttonEnable(activateControls)
         }
     }
     
     func buttonEnable(_ enable: Bool) {
-        DispatchQueue.main.async {
-            [self.scanButton, self.itemListButton, self.outletNameButton]
-                .forEach { $0.setEnable(enable) }
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
+            [self.scanButton, self.itemListButton, self.outletNameButton].forEach { $0.setEnable(enable) }
         }
     }
 
     // FIXME: move to separate manager
     func showBaseStatistics() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let `self` = self else { return }
             let q = self.interactor.getQuantityOfGood()
             let statVC = BaseStatisticsVC(productsCount: q)
             self.present(statVC, animated: true, completion: nil)
@@ -195,8 +209,8 @@ class ShopListController: UIViewController {
     }
     
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        alert(title: Strings.Alerts.wow.localized,
-              message: Strings.Alerts.clean_shoplist.localized, okAction: {
+        self.alert(title: Strings.Alerts.wow.localized, message: Strings.Alerts.clean_shoplist.localized, okAction: { [weak self] in
+            guard let `self` = self else { return }
             self.repository.clearShoplist()
             self.shopTableView.reloadData()
         }, cancelAction: {})
@@ -242,26 +256,24 @@ extension ShopListController {
                        usingSpringWithDamping: 0.5,
                        initialSpringVelocity: 0.5,
                        options: .curveEaseIn,
-                       animations: {  self.view.layoutIfNeeded()  })
+                       animations: { [weak self] in self?.view.layoutIfNeeded() })
     }
 }
 
 // MARK: - Scanner handling
 extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
-        print(barcode)
-        interactor?.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] result in
+        interactor.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] (result) in
+            guard let `self` = self else { return }
             switch result {
             case .success:
-                print("Product add to shoplist")
-                self?.shopTableView.reloadData()
+                self.shopTableView.reloadData()
             case let .failure(error):
                 switch error {
                 case .productIsNotFound:
-                    self?.performSegue(withIdentifier: Strings.Segues.scannedNewProduct.name,
+                    self.performSegue(withIdentifier: Strings.Segues.scannedNewProduct.name,
                                       sender: barcode)
-                default:
-                    self?.alert(message: error.message)
+                default: self.alert(message: error.message)
                 }
             }
         }
@@ -270,12 +282,13 @@ extension ShopListController: ScannerDelegate {
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
-        interactor?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+        interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
+            guard let `self` = self else { return }
             switch result {
             case .success:
-                self?.adapter.reload()
+                self.adapter.reload()
             case let .failure(error):
-                self?.alert(message: error.message)
+                self.alert(message: error.message)
             }
         }
     }
@@ -289,13 +302,11 @@ extension ShopListController: OutletVCDelegate {
 
 extension ShopListController: ItemCardVCDelegate {
     func add(new productId: String) {
-        print(productId)
-        interactor?.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+        interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+            guard let `self` = self else { return }
             switch result {
-            case .success:
-                print("Product is added to base and shoplist")
-            case let .failure(error):
-                self?.alert(message: error.message)
+            case .success: break
+            case let .failure(error):  self.alert(message: error.message)
             }
         }
     }

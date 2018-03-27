@@ -48,6 +48,11 @@ class ShopListController: UIViewController {
     
     
     // MARK: - Lifecycle
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        navigationItem.titleView?.alpha = 1.0
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -59,7 +59,7 @@ public final class ShoplistInteractor {
         })
         
     }
-    
+    // TODO: return Statistic
     private func addItemToShopList(_ product: DPProductModel, and outletId: String, completion: (ResultType<Bool, RepositoryError>)-> Void) {
         
         let shopListItem: DPShoplistItemModel = ProductMapper.mapper(from: product, and: outletId)
@@ -69,19 +69,24 @@ public final class ShoplistInteractor {
         case let .failure(error):
             completion(ResultType.failure(error))
         case .success:
-            
-            self.getPriceStatistics(for: product.id)
+            self.getPriceStatistics(for: product.id, completion: { (result) in
+                switch result {
+                case let .success(stat):
+                    print(stat)
+                case let .failure(error):
+                    print(error.localizedDescription)
+                }
+            })
             
             completion(ResultType.success(true))
         
         }
     }
     
-    private func getPriceStatistics(for productId: String) {
+    private func getPriceStatistics(for productId: String, completion: @escaping (ResultType<StatisticModel, RepositoryError>) -> Void) {
         
         let outletService = OutletService()
-        var statDict: [String: Double] = [:]
-        
+        var statistic: StatisticModel = StatisticModel()
         
         let stat = repository.getPricesStatisticByOutlet(for: productId)
         stat.forEach { s in
@@ -89,18 +94,16 @@ public final class ShoplistInteractor {
             outletService.getOutlet(with: outletId, completion: { (result) in
                 switch result {
                 case let .success(outlet):
-                    print(outlet)
-                    statDict[outlet.name] = s.value
+                    statistic.productId = productId
+                    statistic.append(outlet, s.value)
                 case let .failure(error):
-                    print(error.localizedDescription)
+                    completion(ResultType.failure(.statisticError(error.localizedDescription)))
+                    return
                 }
             })
-
         }
-        print(stat)
         
-        
-        
+        completion(ResultType.success(statistic))
     }
     
     

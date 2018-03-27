@@ -55,9 +55,7 @@ class OutletService: NSObject {
         foursquareProvider.getOutlet(with: outletId) { (result) in
             switch result {
             case let .success(fqoutlet):
-//                if let fqoutlet = fqoutlets.first {
-                    completion(ResultType.success(OutletFactory.mapper(from: fqoutlet)))
-//                }
+                completion(ResultType.success(OutletFactory.mapper(from: fqoutlet)))
             case let .failure(error):
                 // need to hadle different cases of error from provider
                 completion(ResultType.failure(.other(error.errorDescription)))

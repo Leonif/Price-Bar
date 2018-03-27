@@ -19,6 +19,7 @@ enum RepositoryError: Error {
     case syncError(String)
     case shoplistAddedNewItem(String)
     case productIsNotFound(String)
+    case statisticError(String)
     case other(String)
 
     var message: String {
@@ -31,6 +32,8 @@ enum RepositoryError: Error {
             return "Товар не найден в базе данных"
         case .other:
             return "Что-то пошло не так"
+        case .statisticError:
+            return "Статистики нет"
         }
     }
 }

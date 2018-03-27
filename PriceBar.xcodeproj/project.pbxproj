@@ -42,6 +42,7 @@
 		793368691FFF6F5600E8E81A /* ShopListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListAdapter.swift */; };
 		7933686D20012F1A00E8E81A /* QuantityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityModel.swift */; };
 		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
+		794658A220697E45007B4397 /* StatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794658A120697E45007B4397 /* StatisticModel.swift */; };
 		795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* Extension.swift */; };
 		795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
 		795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CA1F10004400752A68 /* GoodButton.swift */; };
@@ -145,6 +146,7 @@
 		79388B201F532175008FD415 /* PriceBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriceBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
 		79388B241F532176008FD415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		794658A120697E45007B4397 /* StatisticModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticModel.swift; sourceTree = "<group>"; };
 		795EA8C51F0EC58F00752A68 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = SOURCE_ROOT; };
 		795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodTextField.swift; sourceTree = SOURCE_ROOT; };
 		795EA8CA1F10004400752A68 /* GoodButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodButton.swift; sourceTree = SOURCE_ROOT; };
@@ -322,6 +324,7 @@
 			isa = PBXGroup;
 			children = (
 				7933686C20012F1A00E8E81A /* QuantityModel.swift */,
+				794658A120697E45007B4397 /* StatisticModel.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -899,6 +902,7 @@
 				792EE7C11EE7082700470669 /* StringExtensions.swift in Sources */,
 				790F104420262FC30060E285 /* Category+CoreDataClass.swift in Sources */,
 				79883BCD201498C5009CBEF0 /* CDUomModel.swift in Sources */,
+				794658A220697E45007B4397 /* StatisticModel.swift in Sources */,
 				796D7B1D201906B40098D324 /* UomMapper.swift in Sources */,
 				790F104920262FC30060E285 /* Statistic+CoreDataProperties.swift in Sources */,
 				790F104220262FC30060E285 /* Product+CoreDataClass.swift in Sources */,

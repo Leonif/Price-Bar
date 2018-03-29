@@ -1,16 +1,16 @@
 //
-//  CDStatisticModel.swift
+//  DPPriceStatisticModel.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 1/20/18.
+//  Created by Leonid Nifantyev on 3/28/18.
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 
 import Foundation
 
-struct CDStatisticModel {
+struct DPPriceStatisticModel {
+    var outletId: String
     var productId: String
     var price: Double
-    var outletId: String
     var date: Date
 }

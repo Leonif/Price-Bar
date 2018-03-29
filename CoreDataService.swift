@@ -47,7 +47,7 @@ class CoreDataService {
             let stat = Statistic(context: context)
             stat.outletId = statistic.outletId
             stat.price = statistic.price
-            stat.date = Date() as NSDate
+            stat.date = statistic.date as NSDate
 
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
             productRequest.predicate = NSPredicate(format: "id == %@", statistic.productId)
@@ -267,6 +267,24 @@ extension CoreDataService {
         }
         return nil
     }
+    
+    func getProductName(for productId: String) -> String? {
+        do {
+            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+            fetchRequest.predicate = NSPredicate(format: "id == %@", productId)
+            let productList = try context.fetch(fetchRequest)
+            guard  !productList.isEmpty else  { return nil }
+            guard let prd = productList.first, let name = prd.name  else { return nil }
+            
+            return name
+        } catch {
+            print("Products is not got from database")
+            return nil
+        }
+        return nil
+        
+    }
+    
 
     func save(_ item: CDProductModel) {
         let product = Product(context: context)

@@ -90,14 +90,17 @@ class ShopListController: UIViewController {
             self.interactor.getPriceStatistics(for: item.productId, completion: { [weak self] (result) in
                 switch result {
                 case let .success(statistic):
-                    print(statistic)
+                    let story = UIStoryboard.init(name: "Comparison", bundle: nil)
+                    let vc = story.instantiateViewController(withIdentifier: "ComparisonStatisticsViewController") as! ComparisonStatisticsViewController
+                    vc.dataSource = statistic
+                    self?.present(vc, animated: true)
+                    
                 case let .failure(error):
                     self?.alert(message: error.message)
                 }
             })
         }
-        
-        synchronizeData()
+        self.synchronizeData()
     }
     
     // MARK: - Setup functions

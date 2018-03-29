@@ -78,13 +78,21 @@
          contextName = "ShopListController.objectExchange(object : Any) -&gt; ():ShopListControllerExchange.swift">
       </ContextState>
       <ContextState
-         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
-      </ContextState>
-      <ContextState
          contextName = "CoreDataService.(loadShopList(outletId : String) -&gt; ShopListModel?).(closure #1):CoreDataService.swift">
          <PersistentStrings>
             <PersistentString
                value = "$0.toProduct">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ComparisonStatisticsViewController.viewDidLoad():ComparisonStatisticsViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.view">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -136,6 +144,9 @@
                value = "initCategories.count">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.loadShopList(for:):ShopListControllerExchange.swift">
@@ -193,6 +204,9 @@
       </ContextState>
       <ContextState
          contextName = "ItemListVC.tableView(_:cellForRowAt:):ItemListVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
       </ContextState>
       <ContextState
          contextName = "ShopItem.init(id:goodData:):ShopItem.swift">
@@ -302,13 +316,13 @@
          contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
+               value = "itemTableView">
+            </PersistentString>
+            <PersistentString
                value = "filtredItemList">
             </PersistentString>
             <PersistentString
                value = "itemList">
-            </PersistentString>
-            <PersistentString
-               value = "itemTableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -317,6 +331,14 @@
          <PersistentStrings>
             <PersistentString
                value = "venue[&quot;id&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CoreDataService.getPricesStatisticByOutlet(for:):PriceHandling.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "s.date">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -409,13 +431,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -543,6 +565,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #4 in ShopListController.viewDidLoad():ShopListController.swift">
+      </ContextState>
+      <ContextState
          contextName = "LocationService.locationManager(_:didUpdateLocations:):LocationService.swift">
          <PersistentStrings>
             <PersistentString
@@ -560,10 +585,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

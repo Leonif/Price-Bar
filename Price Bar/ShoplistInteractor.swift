@@ -24,7 +24,7 @@ public final class ShoplistInteractor {
             print(result)
             switch result {
             case let .success(outlet):
-                let outlet = OutletFactory.mapper(from: outlet)
+                let outlet = OutletMapper.mapper(from: outlet)
                 completion(ResultType.success(outlet))
             case let .failure(error):
                 completion(ResultType.failure(error))
@@ -73,31 +73,44 @@ public final class ShoplistInteractor {
         }
     }
     
-    // TODO: return Statistic
-    func getPriceStatistics(for productId: String, completion: @escaping (ResultType<StatisticModel, RepositoryError>) -> Void) {
+    
+    func getPriceStatistics(for productId: String, completion: @escaping (ResultType<[StatisticModel], RepositoryError>) -> Void) {
         let outletService = OutletService()
-        var statistic: StatisticModel = StatisticModel()
+        var statistic: [StatisticModel] = []
 
         let stat = repository.getPricesStatisticByOutlet(for: productId)
+        let productName = repository.getProductName(for: productId)!
         let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        for (key, value) in stat {
-            let outletId = key
-            outletService.getOutlet(with: outletId, completion: { (result) in
+        
+        stat.forEach { s in
+            
+            dispatchGroup.enter()
+            
+            outletService.getOutlet(with: s.outletId, completion: { (result) in
                 switch result {
                 case let .success(outlet):
-                    statistic.productId = productId
-                    statistic.append(outlet, value)
-                    if statistic.outlets.count == stat.count {
-                        dispatchGroup.leave()
-                    }
+                    
+                    
+                    statistic.append(StatisticModel(productId: s.productId, productName: productName,
+                                                    outlet: outlet,
+                                                    price: s.price,
+                                                    date: s.date))
+                    
+                    dispatchGroup.leave()
+                    
                 case let .failure(error):
                     completion(ResultType.failure(.statisticError(error.localizedDescription)))
                     return
                 }
             })
         }
+        
         dispatchGroup.notify(queue: .main) {
+            
+            statistic.sort(by: { (stat1, stat2) -> Bool in
+                return stat1.date > stat2.date
+            })
+            
             completion(ResultType.success(statistic))
         }
     }

@@ -1,5 +1,5 @@
 //
-//  OutletFactory.swift
+//  OutletMapper.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 1/23/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OutletFactory {
+class OutletMapper {
 
     class func transform(from fqOutlets: [FQOutletModel]) -> [OPOutletModel] {
         var opModel: [OPOutletModel] = []

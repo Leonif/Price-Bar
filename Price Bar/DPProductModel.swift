@@ -6,6 +6,8 @@
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 
+import Foundation
+
 struct DPProductModel {
     var id: String
     var name: String
@@ -20,8 +22,4 @@ struct DPUpdateProductModel {
     var uomId: Int32
 }
 
-struct DPPriceStatisticModel {
-    var outletId: String
-    var productId: String
-    var price: Double
-}
+

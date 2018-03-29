@@ -140,7 +140,8 @@ extension CoreDataService {
 
         return CDStatisticModel(productId: stat.productId,
                                 price: stat.price,
-                                outletId: stat.outletId)
+                                outletId: stat.outletId,
+                                date: stat.date)
     }
 
     public func importNew(_ statistics: [CDStatisticModel]) {

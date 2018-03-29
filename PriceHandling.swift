@@ -9,6 +9,9 @@
 import Foundation
 import CoreData
 
+
+
+
 extension CoreDataService {
 
     func getPrice(for barcode: String, and outletId: String) -> Double {
@@ -47,9 +50,9 @@ extension CoreDataService {
         return 0
     }
 
-    func getPricesStatisticByOutlet(for barcode: String) -> [String: Double] {
+    func getPricesStatisticByOutlet(for barcode: String) -> [CDStatisticModel] {
        
-        var statistics: [String: Double] = [:]
+        var statistics: [CDStatisticModel] = []
         
         do {
             let statRequest = NSFetchRequest<Statistic>(entityName: "Statistic")
@@ -58,7 +61,14 @@ extension CoreDataService {
             let stat = try context.fetch(statRequest)
             
             stat.forEach { s in
-                statistics[s.outletId!] = s.price
+                
+                let model = CDStatisticModel(productId: barcode,
+                                             price: s.price,
+                                             outletId: s.outletId!,
+                                             date: s.date! as Date)
+                
+                
+                statistics.append(model)
             }
             
         } catch {

@@ -279,7 +279,8 @@ class Repository {
     func save(new statistic: DPPriceStatisticModel) {
         let cd = CDStatisticModel(productId: statistic.productId,
                                   price: statistic.price,
-                                  outletId: statistic.outletId)
+                                  outletId: statistic.outletId,
+                                  date: statistic.date)
 
         CoreDataService.data.save(new: cd)
 
@@ -321,7 +322,6 @@ class Repository {
     func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, RepositoryError> {
 
         if let _ = shoplist.index(of: item) {
-            print("\(item.productName) already in shoplist")
             return ResultType.failure(RepositoryError.shoplistAddedNewItem("Уже в списке"))
         }
 
@@ -377,14 +377,6 @@ class Repository {
 
     }
 
-//    func change(_ changedItem: DPShoplistItemModel) -> Bool {
-//        if let index = shoplist.index(of: changedItem) {
-//            shoplist[index] = changedItem
-//            return true
-//        }
-//        return false
-//    }
-
     func changeShoplistItem(_ quantity: Double, for productId: String) {
         for (index, item) in shoplist.enumerated() {
             if item.productId == productId {
@@ -424,17 +416,16 @@ class Repository {
             return nil
         }
 
-//        guard let uom: Uom = CoreDataService.data.getUom(by: cdModel.uomId) else {
-//            fatalError("Uom is not found in CoreData")
-//        }
-
-        //let isPerPiece = uom.iterator.truncatingRemainder(dividingBy: 1) == 0
-
         return DPProductModel(id: cdModel.id,
                               name: cdModel.name,
                               categoryId: cdModel.categoryId,
                               uomId: cdModel.uomId)
 
+    }
+    
+    func getProductName(for productId: String) -> String? {
+        
+        return CoreDataService.data.getProductName(for: productId)
     }
 
     func getCategoryList() -> [DPCategoryModel]? {
@@ -535,9 +526,16 @@ extension Repository {
 
     }
     
-    func getPricesStatisticByOutlet(for productId: String) -> [String: Double] {
+    func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
         
-        return CoreDataService.data.getPricesStatisticByOutlet(for: productId)
+        let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
+        
+        let transformed = StatisticMapper.transform(from: object,
+                                  parseFunction: StatisticMapper.mapper)
+        
+        
+        
+        return transformed
         
     }
     

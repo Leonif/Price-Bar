@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Comparison Statistics View Controller-->
+        <scene sceneID="Bbe-pz-34E">
+            <objects>
+                <viewController storyboardIdentifier="ComparisonStatisticsViewController" id="cdq-SK-VKD" customClass="ComparisonStatisticsViewController" customModule="PriceBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QWy-co-XUC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6QS-q3-GH7">
+                                <rect key="frame" x="162.5" y="597" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="rEG-73-JGe"/>
+                                    <constraint firstAttribute="height" constant="50" id="w3s-DT-d0E"/>
+                                </constraints>
+                                <state key="normal" title="Ясно"/>
+                                <connections>
+                                    <action selector="closeTapped:" destination="cdq-SK-VKD" eventType="touchUpInside" id="d6Y-dV-fvl"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ПРОДУКТ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zlG-XT-jOM">
+                                <rect key="frame" x="137" y="52" width="101.5" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="a1h-y8-Wkd">
+                                <rect key="frame" x="0.0" y="120" width="375" height="447"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="71" id="nj6-ft-gcn">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="71"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nj6-ft-gcn" id="H6e-AH-AxU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="70.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="a1h-y8-Wkd" firstAttribute="trailing" secondItem="VAQ-mK-Emq" secondAttribute="trailing" id="08U-PC-Ca8"/>
+                            <constraint firstItem="a1h-y8-Wkd" firstAttribute="leading" secondItem="VAQ-mK-Emq" secondAttribute="leading" id="5bH-Ne-Dah"/>
+                            <constraint firstItem="zlG-XT-jOM" firstAttribute="top" secondItem="VAQ-mK-Emq" secondAttribute="top" constant="32" id="BJJ-YI-2XC"/>
+                            <constraint firstItem="6QS-q3-GH7" firstAttribute="top" secondItem="a1h-y8-Wkd" secondAttribute="bottom" constant="30" id="DWw-mP-lQB"/>
+                            <constraint firstItem="zlG-XT-jOM" firstAttribute="centerX" secondItem="QWy-co-XUC" secondAttribute="centerX" id="F6z-ta-q6D"/>
+                            <constraint firstItem="VAQ-mK-Emq" firstAttribute="bottom" secondItem="6QS-q3-GH7" secondAttribute="bottom" constant="20" id="KEB-hl-Cg7"/>
+                            <constraint firstItem="a1h-y8-Wkd" firstAttribute="top" secondItem="zlG-XT-jOM" secondAttribute="bottom" constant="41.5" id="MF9-6i-2X1"/>
+                            <constraint firstItem="6QS-q3-GH7" firstAttribute="centerX" secondItem="QWy-co-XUC" secondAttribute="centerX" id="s6G-N3-bcs"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="VAQ-mK-Emq"/>
+                    </view>
+                    <connections>
+                        <outlet property="productTitle" destination="zlG-XT-jOM" id="pNd-GW-Fa7"/>
+                        <outlet property="tableView" destination="a1h-y8-Wkd" id="iqH-FD-kIt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j16-HF-Ts7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-458.39999999999998" y="-1.3493253373313345"/>
+        </scene>
+    </scenes>
+</document>

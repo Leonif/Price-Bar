@@ -203,7 +203,7 @@ class ItemCardVC: UIViewController {
 
             let dpStatModel = DPPriceStatisticModel(outletId: outletId,
                                                     productId: productCard.productId,
-                                                    price: price)
+                                                    price: price, date: Date())
             dataProvider.save(new: dpStatModel)
             delegate.productUpdated()
             self.close()

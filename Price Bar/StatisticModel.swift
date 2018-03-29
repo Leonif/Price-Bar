@@ -10,15 +10,9 @@ import Foundation
 
 public struct StatisticModel {
     var productId: String = ""
+    var productName: String = ""
     
-    var outlets: [OPOutletModel] = []
-    var prices: [Double] = []
-    
-    
-    mutating func append(_ outlet: OPOutletModel, _ price: Double) {
-        self.outlets.append(outlet)
-        self.prices.append(price)
-    }
-    
-    
+    var outlet: OPOutletModel
+    var price: Double
+    var date: Date
 }

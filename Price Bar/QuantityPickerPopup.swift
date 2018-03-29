@@ -163,7 +163,7 @@ class QuantityPickerPopup: UIViewController {
     }
     
 }
-
+// TODO: Move to adapter
 extension QuantityPickerPopup: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         

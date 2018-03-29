@@ -32,7 +32,7 @@ class OutletsVC: UIViewController {
             self.view.pb_stopActivityIndicator()
             switch result {
             case let .success(outlets):
-                self.outlets = OutletFactory.transform(from: outlets)
+                self.outlets = OutletMapper.transform(from: outlets)
                 DispatchQueue.main.async {
                     self.outletTableView.reloadData()
                 }

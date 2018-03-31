@@ -15,33 +15,44 @@ protocol OutletVCDelegate {
 
 class OutletsVC: UIViewController {
 
-    var outletService: OutletService?
+    
+    var adapter: OutetListAdapter!
+    var interactor: OutletListInteractor!
 
     var delegate: OutletVCDelegate!
     @IBOutlet weak var outletTableView: UITableView!
-    var outlets = [Outlet]()
 
     @IBOutlet weak var warningLocationView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.pb_startActivityIndicator(with: Strings.Common.outlet_loading.localized)
-        outletService = OutletService()
-        outletService?.outletList(completion: { result in
-            self.view.pb_stopActivityIndicator()
-            switch result {
-            case let .success(outlets):
-                self.outlets = OutletMapper.transform(from: outlets)
-                DispatchQueue.main.async {
-                    self.outletTableView.reloadData()
-                }
-
-            case let .failure(error):
-                self.alert(title: "Ops", message: error.errorDescription)
-            }
-        })
+        
+        self.adapter = OutetListAdapter(tableView: outletTableView)
+        self.adapter.onDidSelect = { [weak self] outlet in
+            self?.delegate.choosen(outlet: outlet)
+            self?.close()
+        }
+        
+        self.setupInteractor()
+        
     }
+    
+    func setupInteractor() {
+        self.interactor = OutletListInteractor()
+        self.view.pb_startActivityIndicator(with: Strings.Common.outlet_loading.localized)
+        self.interactor.getOutletList()
+        self.interactor.onFetchedBatch = { [weak self] outlets in
+            self?.adapter.outlets = OutletMapper.transform(from: outlets)
+        }
+        self.interactor.onFetchingCompleted = { [weak self] in
+            self?.view.pb_stopActivityIndicator()
+        }
+        self.interactor.onFetchingError = { [weak self] errorMessage in
+            self?.alert(title: "Ops", message: errorMessage)
+        }
+    }
+    
+    
 
     @IBAction func backPressed(_ sender: Any) {
         self.close()
@@ -51,31 +62,4 @@ class OutletsVC: UIViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
-}
-
-// MARK: Table
-extension OutletsVC: UITableViewDelegate, UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return outlets.count
-    }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let outlet = outlets[indexPath.row]
-        delegate.choosen(outlet: outlet)
-        self.close()
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        if let cell = outletTableView.dequeueReusableCell(withIdentifier: "OutletCell", for: indexPath) as? OutletCell {
-
-            let outlet = outlets[indexPath.row]
-            cell.configureCell(outlet: outlet)
-            return cell
-        }
-
-        return UITableViewCell()
-    }
 }

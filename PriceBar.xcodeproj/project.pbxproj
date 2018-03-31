@@ -97,6 +97,9 @@
 		79E9B873206C18C700D80EA5 /* PriceStatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */; };
 		79E9B875206C228700D80EA5 /* DPPriceStatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B874206C228700D80EA5 /* DPPriceStatisticModel.swift */; };
 		79E9B877206C22EE00D80EA5 /* StatisticMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B876206C22EE00D80EA5 /* StatisticMapper.swift */; };
+		79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */; };
+		79E9B87E206ED8ED00D80EA5 /* OutletCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B87D206ED8ED00D80EA5 /* OutletCellView.xib */; };
+		79E9B880206FBAE600D80EA5 /* OutletListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87F206FBAE600D80EA5 /* OutletListInteractor.swift */; };
 		79F68452206801D200257F00 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
 		B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
 /* End PBXBuildFile section */
@@ -213,6 +216,9 @@
 		79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceStatisticCell.swift; sourceTree = "<group>"; };
 		79E9B874206C228700D80EA5 /* DPPriceStatisticModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPPriceStatisticModel.swift; sourceTree = "<group>"; };
 		79E9B876206C22EE00D80EA5 /* StatisticMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticMapper.swift; sourceTree = "<group>"; };
+		79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutetListAdapter.swift; sourceTree = "<group>"; };
+		79E9B87D206ED8ED00D80EA5 /* OutletCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutletCellView.xib; sourceTree = "<group>"; };
+		79E9B87F206FBAE600D80EA5 /* OutletListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletListInteractor.swift; sourceTree = "<group>"; };
 		79F68451206801D200257F00 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -268,7 +274,7 @@
 		790BC9E81F88322400CA9519 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				79833B42201143DE005C6CC5 /* DataProvider */,
+				79833B42201143DE005C6CC5 /* Repository */,
 				79833B4420114442005C6CC5 /* OutletProvider */,
 				79833B4520114456005C6CC5 /* LocationProvider */,
 				795EA8CE1F100C1C00752A68 /* CoreDataProvider */,
@@ -281,9 +287,10 @@
 		790BC9E91F88326E00CA9519 /* OutletFlow */ = {
 			isa = PBXGroup;
 			children = (
-				793368661FFEAB3200E8E81A /* Outlet.swift */,
-				7973DD881EF1AF430010A64F /* OutletsVC.swift */,
-				7973DD8A1EF1B16C0010A64F /* OutletCell.swift */,
+				79E9B881206FBAEF00D80EA5 /* Interactor */,
+				79E9B87A206ED84700D80EA5 /* Adapter */,
+				79E9B879206ED81600D80EA5 /* Entities */,
+				79E9B878206ED80900D80EA5 /* View */,
 			);
 			name = OutletFlow;
 			sourceTree = "<group>";
@@ -521,14 +528,14 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
-		79833B42201143DE005C6CC5 /* DataProvider */ = {
+		79833B42201143DE005C6CC5 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
 				796D7B1E201A485E0098D324 /* Mappers */,
 				79833B38200D503C005C6CC5 /* Entities */,
 				792EE7B81EE7080400470669 /* Repository.swift */,
 			);
-			name = DataProvider;
+			name = Repository;
 			sourceTree = "<group>";
 		};
 		79833B432011440C005C6CC5 /* Reusable Tools */ = {
@@ -659,6 +666,40 @@
 			name = Comparison;
 			sourceTree = "<group>";
 		};
+		79E9B878206ED80900D80EA5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7973DD881EF1AF430010A64F /* OutletsVC.swift */,
+				7973DD8A1EF1B16C0010A64F /* OutletCell.swift */,
+				79E9B87D206ED8ED00D80EA5 /* OutletCellView.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		79E9B879206ED81600D80EA5 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				793368661FFEAB3200E8E81A /* Outlet.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		79E9B87A206ED84700D80EA5 /* Adapter */ = {
+			isa = PBXGroup;
+			children = (
+				79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */,
+			);
+			name = Adapter;
+			sourceTree = "<group>";
+		};
+		79E9B881206FBAEF00D80EA5 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				79E9B87F206FBAE600D80EA5 /* OutletListInteractor.swift */,
+			);
+			name = Interactor;
+			sourceTree = "<group>";
+		};
 		EFCFC6F2C247C1D3BDF643A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -771,6 +812,7 @@
 				79E9B86F206C0DB400D80EA5 /* Comparison.storyboard in Resources */,
 				79F68452206801D200257F00 /* ShopItemCell.xib in Resources */,
 				795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */,
+				79E9B87E206ED8ED00D80EA5 /* OutletCellView.xib in Resources */,
 				79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */,
 				796D7B28201BE4B10098D324 /* AddCellNib.xib in Resources */,
 				792EE7AD1EE7075200470669 /* Assets.xcassets in Resources */,
@@ -978,6 +1020,7 @@
 				79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */,
 				79833B552013ECA6005C6CC5 /* CDStatisticModel.swift in Sources */,
 				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,
+				79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */,
 				790F104620262FC30060E285 /* ShopList+CoreDataClass.swift in Sources */,
 				792EE7C01EE7082700470669 /* CharacterExtensions.swift in Sources */,
 				795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */,
@@ -990,6 +1033,7 @@
 				793368691FFF6F5600E8E81A /* ShopListAdapter.swift in Sources */,
 				795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */,
 				790F104A20262FC30060E285 /* Uom+CoreDataClass.swift in Sources */,
+				79E9B880206FBAE600D80EA5 /* OutletListInteractor.swift in Sources */,
 				79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */,
 				79D12F2B2016823F00302AF9 /* FoursqareProvider.swift in Sources */,
 				792EE7C71EE7087200470669 /* HeaderView.swift in Sources */,

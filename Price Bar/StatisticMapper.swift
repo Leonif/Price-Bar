@@ -8,16 +8,22 @@
 
 import Foundation
 
-class StatisticMapper {
+protocol Transforming: class {
+}
+
+
+
+
+class StatisticMapper: Transforming {
     
     class func transform<InputModel, OutputModel>(from inputArray: [InputModel],
                                                   parseFunction: (InputModel)->(OutputModel)) -> [OutputModel] {
         var parsedArray: [OutputModel] = []
-        
+
         inputArray.forEach { item in
             parsedArray.append(parseFunction(item))
         }
-        
+
         return parsedArray
     }
     

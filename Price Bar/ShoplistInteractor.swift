@@ -106,11 +106,7 @@ public final class ShoplistInteractor {
         }
         
         dispatchGroup.notify(queue: .main) {
-            
-            statistic.sort(by: { (stat1, stat2) -> Bool in
-                return stat1.date > stat2.date
-            })
-            
+            statistic.sort(by: { $0.date > $1.date })
             completion(ResultType.success(statistic))
         }
     }

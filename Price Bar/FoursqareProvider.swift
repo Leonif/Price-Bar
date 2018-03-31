@@ -13,11 +13,8 @@ import CoreLocation
 typealias ForsqareResult<T> = (ResultType<T, FoursqareProviderError>)->Void
 typealias DictionaryType = [String: Any]
 
-
 typealias ForsqareOutletList = (ResultType<[FQOutletModel], FoursqareProviderError>)->Void
 typealias ForsqareSungleOutlet = (ResultType<FQOutletModel, FoursqareProviderError>)->Void
-
-
 
 enum FoursqareProviderError: Error {
     case foursqareDoesntResponce(String)
@@ -44,35 +41,33 @@ enum Target {
     static let baseUrl = "https://api.foursquare.com/v2/venues/"
     static let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
     static let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
-    static let credeantial = "&client_id=\(clientId)&client_secret=\(clientSecret)"
+    static let credential = "&client_id=\(clientId)&client_secret=\(clientSecret)"
     static let dateString = Date().getString(format: "yyyyMMdd")
     
-    case byCategory(String, String, CLLocationCoordinate2D)
+    case byCategory([String], CLLocationCoordinate2D)
     case getOutleyById(String)
     
     var url: String {
+        var url = ""
         switch self {
-        case let .byCategory(categories1, categories2, location):
+        case let .byCategory(categoriesArray, location):
             let lat = location.latitude
             let lng = location.longitude
-            
-            let categorySearch = "search?categoryId=\(categories1),\(categories2)"
+            let categories = categoriesArray.joined(separator: ",")
+            let categorySearch = "search?categoryId=\(categories)"
             let locationSearch = "ll=\(lat),\(lng)&radius=\(1000)"
+            let intent = "intent=checkin"
             
-            return "\(Target.baseUrl)\(categorySearch)&\(locationSearch)&intent=browse&client_id=\(Target.clientId)&client_secret=\(Target.clientSecret)&v=\(Target.dateString)"
+            url = "\(Target.baseUrl)\(categorySearch)&\(locationSearch)&\(intent)&client_id=\(Target.clientId)&client_secret=\(Target.clientSecret)&v=\(Target.dateString)"
         
         case let .getOutleyById(outletId):
-            return "\(Target.baseUrl)\(outletId)?\(Target.credeantial)&v=\(Target.dateString)"
+            url = "\(Target.baseUrl)\(outletId)?\(Target.credential)&v=\(Target.dateString)"
         }
+        return url
     }
-    
 }
 
-
-
-
 class FoursqareProvider {
-    
     private func request<T>(url: URL,
                             completed: @escaping ForsqareResult<T>,
                             parseFunction: @escaping (DictionaryType, ForsqareResult<T>)->()) {
@@ -105,10 +100,10 @@ class FoursqareProvider {
     
     func loadOultets(userCoordinate: CLLocationCoordinate2D, completion: @escaping ForsqareOutletList) {
         
-        let foodAndDrinkShop = "4bf58dd8d48988d1f9941735" //Food & Drink Shop
+        let foodAndDrinkShop = "4bf58dd8d48988d1f9941735"
         let convenienceStore = "4d954b0ea243a5684a65b473"
         
-        let url = URL(string: Target.byCategory(foodAndDrinkShop, convenienceStore, userCoordinate).url)!
+        let url = URL(string: Target.byCategory([foodAndDrinkShop, convenienceStore], userCoordinate).url)!
         self.request(url: url, completed: completion) { (dict, result) in
             self.parseVenues(from: dict, completion: completion)
         }
@@ -116,7 +111,7 @@ class FoursqareProvider {
     
     // MARK: parse function
     private func parseVenue(from resp: DictionaryType, completion: @escaping ForsqareSungleOutlet) {
-        guard let venue = resp["venue"] as? [String: Any] else {
+        guard let venue = resp["venue"] as? DictionaryType else {
             self.handleParseError(completed: completion)
             return
         }
@@ -127,10 +122,10 @@ class FoursqareProvider {
         completion(ResultType.success(outletModel))
     }
 
-    private func parseVenues(from resp: [String: Any], completion: @escaping ForsqareOutletList) {
+    private func parseVenues(from resp: DictionaryType, completion: @escaping ForsqareOutletList) {
         var outlets: [FQOutletModel] = []
 
-        guard let venues = resp["venues"] as? [[String: Any]] else {
+        guard let venues = resp["venues"] as? [DictionaryType] else {
             self.handleParseError(completed: completion)
             return
         }
@@ -168,7 +163,7 @@ class FoursqareProvider {
     }
     
     
-    private func outletMapper(from venue: [String: Any]) -> FQOutletModel? {
+    private func outletMapper(from venue: DictionaryType) -> FQOutletModel? {
         guard
             let id = venue["id"] as? String,
             let name = venue["name"] as? String,
@@ -181,8 +176,6 @@ class FoursqareProvider {
                              address: add,
                              distance: 0)
     }
-    
-    
     
     private func handleParseError<T>(completed: @escaping ForsqareResult<T>) {
         completed(ResultType.failure(.parseError("Что-то пошло не так")))

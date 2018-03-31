@@ -146,6 +146,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #2 in ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
       </ContextState>
       <ContextState
@@ -221,6 +224,9 @@
          contextName = "DataProvider.getItem(index:):DataProvider.swift">
       </ContextState>
       <ContextState
+         contextName = "Repository.getPricesStatisticByOutlet(for:):Repository.swift">
+      </ContextState>
+      <ContextState
          contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, minimumInteritemSpacingForSectionAt : Int) -&gt; CGFloat:CollectionFreeViewCell.swift">
          <PersistentStrings>
             <PersistentString
@@ -235,6 +241,9 @@
                value = "weightItems[component].weight">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CoreDataService.importNew(_:):CoreDataSync.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListDataSource.init(shopList:):ShopListDataSource.swift">
@@ -403,6 +412,14 @@
          contextName = "DataProvider.getUom(for:):DataProvider.swift">
       </ContextState>
       <ContextState
+         contextName = "OutletCell.layoutSubviews():OutletCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.contentView.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in ShopListController.synchronizeData():ShopListController.swift">
          <PersistentStrings>
             <PersistentString
@@ -420,6 +437,9 @@
                value = "weightPicker">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.mapper(from:):CoreDataSync.swift">
       </ContextState>
       <ContextState
          contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">

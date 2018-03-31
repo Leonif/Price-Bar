@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 
 class ShopListAdapter: NSObject, UITableViewDataSource {
-
     var repository: Repository!
     var tableView: UITableView!
     

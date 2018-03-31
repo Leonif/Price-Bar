@@ -37,14 +37,7 @@ class ShopItemCell: UITableViewCell {
 // User react
 extension ShopItemCell {
     @IBAction func checkPressed(_ sender: UIButton) {
-//        guard let item = self.item else {
-//            fatalError("Check pressed for not existed item")
-//        }
-//        self.item?.checked = !item.checked
-//        self.checkedState()
-        
         self.onCompareDemand?(self)
-        
     }
 
     func updateWeighOnCell(_ weight: Double, _ price: Double) {
@@ -53,7 +46,6 @@ extension ShopItemCell {
 
         self.quantityButton.setTitle(String(format:"%.2f", weight), for: .normal)
         self.totalItem.text = total.asLocaleCurrency
-
     }
 
     func checkedState() {
@@ -76,6 +68,5 @@ extension ShopItemCell {
         uomLabel.text = item.productUom
 
         self.updateWeighOnCell(item.quantity, item.productPrice)
-
     }
 }

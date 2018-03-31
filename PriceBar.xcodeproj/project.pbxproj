@@ -100,6 +100,8 @@
 		79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */; };
 		79E9B87E206ED8ED00D80EA5 /* OutletCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B87D206ED8ED00D80EA5 /* OutletCellView.xib */; };
 		79E9B880206FBAE600D80EA5 /* OutletListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87F206FBAE600D80EA5 /* OutletListInteractor.swift */; };
+		79E9B883206FC26200D80EA5 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B882206FC26200D80EA5 /* Target.swift */; };
+		79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */; };
 		79F68452206801D200257F00 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
 		B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
 /* End PBXBuildFile section */
@@ -219,6 +221,8 @@
 		79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutetListAdapter.swift; sourceTree = "<group>"; };
 		79E9B87D206ED8ED00D80EA5 /* OutletCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OutletCellView.xib; sourceTree = "<group>"; };
 		79E9B87F206FBAE600D80EA5 /* OutletListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletListInteractor.swift; sourceTree = "<group>"; };
+		79E9B882206FC26200D80EA5 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
+		79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareProviderError.swift; sourceTree = "<group>"; };
 		79F68451206801D200257F00 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -610,6 +614,8 @@
 			children = (
 				79D12F2F2016841300302AF9 /* Entities */,
 				79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */,
+				79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */,
+				79E9B882206FC26200D80EA5 /* Target.swift */,
 			);
 			name = FoursqareProvider;
 			sourceTree = "<group>";
@@ -974,6 +980,7 @@
 				79833B572013F445005C6CC5 /* FBProductModel.swift in Sources */,
 				792102952055A02000C83706 /* CountingLabel.swift in Sources */,
 				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
+				79E9B883206FC26200D80EA5 /* Target.swift in Sources */,
 				792EE7B91EE7080400470669 /* Repository.swift in Sources */,
 				790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */,
 				79833B5920146675005C6CC5 /* CDCategoryModel.swift in Sources */,
@@ -1017,6 +1024,7 @@
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
 				792EE7BD1EE7081800470669 /* NumberExtensions.swift in Sources */,
 				796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */,
+				79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */,
 				79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */,
 				79833B552013ECA6005C6CC5 /* CDStatisticModel.swift in Sources */,
 				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,

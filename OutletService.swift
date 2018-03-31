@@ -9,6 +9,11 @@
 import Foundation
 import CoreLocation
 
+typealias OutletResultType = (ResultType<OPOutletModel, OutletServiceError>) -> Void
+typealias OutletListResultType = (ResultType<[OPOutletModel], OutletServiceError>) -> Void
+
+
+
 protocol OutletListDelegate {
     func list(result: ResultType<[OPOutletModel], OutletServiceError>)
 }
@@ -40,36 +45,40 @@ public enum OutletServiceError: Error {
 
 class OutletService: NSObject {
     var locationService: LocationService!
+    var foursquareProvider: FoursqareProvider!
     var outletListDelegate: OutletListDelegate?
     var singleOutletCompletion: ((ResultType<OPOutletModel, OutletServiceError>) -> Void)?
     var outletListCompletion: ((ResultType<[OPOutletModel], OutletServiceError>) -> Void)?
 
+    
+    
+    
     override init() {
         super.init()
-        locationService = LocationService()
+        self.locationService = LocationService()
+        self.foursquareProvider = FoursqareProvider()
     }
     
     
-    func getOutlet(with outletId: String, completion: @escaping (ResultType<OPOutletModel, OutletServiceError>) -> Void) {
+    func getOutlet(with outletId: String, completion: @escaping OutletResultType) {
         let foursquareProvider = FoursqareProvider()
         foursquareProvider.getOutlet(with: outletId) { (result) in
             switch result {
             case let .success(fqoutlet):
                 completion(ResultType.success(OutletMapper.mapper(from: fqoutlet)))
             case let .failure(error):
-                // need to hadle different cases of error from provider
+                // TODO: need to hadle different cases of error from provider
                 completion(ResultType.failure(.other(error.errorDescription)))
             }
         }
     }
     
 
-    func nearestOutlet(completion: @escaping (ResultType<OPOutletModel, OutletServiceError>) -> Void) {
+    func nearestOutlet(completion: @escaping OutletResultType) {
         singleOutletCompletion = completion
         locationService.getCoords { result in
             switch result {
             case let .failure(error):
-                print(error)
                 self.singleOutletCompletion?(ResultType.failure(.other(error.errorDescription)))
             case let .success(coords):
                 self.outletListFromProvider(for: coords, completion: { result in
@@ -87,15 +96,21 @@ class OutletService: NSObject {
         }
     }
 
-    func outletList(completion: @escaping (ResultType<[OPOutletModel], OutletServiceError>) -> Void) {
+    func outletList(completion: @escaping OutletListResultType) {
         outletListCompletion = completion
 
-        locationService.getCoords { result in
+        self.locationService.getCoords { [weak self] result in
+            
+            guard let `self` = self else { return }
+            
             switch result {
             case let .failure(error):
                 print(error)
             case let .success(coords):
-                self.outletListFromProvider(for: coords, completion: { result in
+                self.outletListFromProvider(for: coords, completion: { [weak self] result in
+                    
+                    guard let `self` = self else { return }
+                    
                     switch result {
                     case let .success(fqoutlets):
                         self.outletListCompletion?(ResultType.success(OutletMapper.transform(from: fqoutlets)))
@@ -106,10 +121,19 @@ class OutletService: NSObject {
             }
         }
     }
+    
+    
+    func searchOutlet(with text: String, completion: @escaping OutletResultType) {
+        
+        
+        
+    }
+    
+    
 
     private func outletListFromProvider(for coords: CLLocationCoordinate2D,
                                         completion: @escaping (ResultType<[FQOutletModel], FoursqareProviderError>) -> Void) {
-        let foursquareProvider = FoursqareProvider()
+        
         foursquareProvider.loadOultets(userCoordinate: coords, completion: { result in
             switch result {
             case let .success(outlets):

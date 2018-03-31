@@ -16,56 +16,56 @@ typealias DictionaryType = [String: Any]
 typealias ForsqareOutletList = (ResultType<[FQOutletModel], FoursqareProviderError>)->Void
 typealias ForsqareSungleOutlet = (ResultType<FQOutletModel, FoursqareProviderError>)->Void
 
-enum FoursqareProviderError: Error {
-    case foursqareDoesntResponce(String)
+//enum FoursqareProviderError: Error {
+//    case foursqareDoesntResponce(String)
+//
+//    case wrongURL(String)
+//    case parseError(String)
+//    case noOutlets(String)
+//
+//    case other(String)
+//
+//    var errorDescription: String {
+//        switch self {
+//        case let .foursqareDoesntResponce(description),
+//             let .wrongURL(description),
+//             let .parseError(description),
+//             let .noOutlets(description),
+//             let .other(description):
+//            return description
+//        }
+//    }
+//}
 
-    case wrongURL(String)
-    case parseError(String)
-    case noOutlets(String)
-
-    case other(String)
-
-    var errorDescription: String {
-        switch self {
-        case let .foursqareDoesntResponce(description),
-             let .wrongURL(description),
-             let .parseError(description),
-             let .noOutlets(description),
-             let .other(description):
-            return description
-        }
-    }
-}
-
-enum Target {
-    static let baseUrl = "https://api.foursquare.com/v2/venues/"
-    static let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
-    static let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
-    static let credential = "&client_id=\(clientId)&client_secret=\(clientSecret)"
-    static let dateString = Date().getString(format: "yyyyMMdd")
-    
-    case byCategory([String], CLLocationCoordinate2D)
-    case getOutleyById(String)
-    
-    var url: String {
-        var url = ""
-        switch self {
-        case let .byCategory(categoriesArray, location):
-            let lat = location.latitude
-            let lng = location.longitude
-            let categories = categoriesArray.joined(separator: ",")
-            let categorySearch = "search?categoryId=\(categories)"
-            let locationSearch = "ll=\(lat),\(lng)&radius=\(1000)"
-            let intent = "intent=checkin"
-            
-            url = "\(Target.baseUrl)\(categorySearch)&\(locationSearch)&\(intent)&client_id=\(Target.clientId)&client_secret=\(Target.clientSecret)&v=\(Target.dateString)"
-        
-        case let .getOutleyById(outletId):
-            url = "\(Target.baseUrl)\(outletId)?\(Target.credential)&v=\(Target.dateString)"
-        }
-        return url
-    }
-}
+//enum Target {
+//    static let baseUrl = "https://api.foursquare.com/v2/venues/"
+//    static let clientId = "NPJDKUKZLFXDST4QCKJXWPLVYC3MCDSEQVQKEBMEZL1WETJM"
+//    static let clientSecret = "MA2OS055BLYF3XOUMXRHWTBBJYGYX3U33VVJE3A4VSYBTJ0X"
+//    static let credential = "&client_id=\(clientId)&client_secret=\(clientSecret)"
+//    static let dateString = Date().getString(format: "yyyyMMdd")
+//    
+//    case byCategory([String], CLLocationCoordinate2D)
+//    case getOutleyById(String)
+//    
+//    var url: String {
+//        var url = ""
+//        switch self {
+//        case let .byCategory(categoriesArray, location):
+//            let lat = location.latitude
+//            let lng = location.longitude
+//            let categories = categoriesArray.joined(separator: ",")
+//            let categorySearch = "search?categoryId=\(categories)"
+//            let locationSearch = "ll=\(lat),\(lng)&radius=\(1000)"
+//            let intent = "intent=checkin"
+//            
+//            url = "\(Target.baseUrl)\(categorySearch)&\(locationSearch)&\(intent)&client_id=\(Target.clientId)&client_secret=\(Target.clientSecret)&v=\(Target.dateString)"
+//        
+//        case let .getOutleyById(outletId):
+//            url = "\(Target.baseUrl)\(outletId)?\(Target.credential)&v=\(Target.dateString)"
+//        }
+//        return url
+//    }
+//}
 
 class FoursqareProvider {
     private func request<T>(url: URL,
@@ -107,6 +107,13 @@ class FoursqareProvider {
         self.request(url: url, completed: completion) { (dict, result) in
             self.parseVenues(from: dict, completion: completion)
         }
+    }
+    
+    
+    func searchOutlet(with text: String, completion: ForsqareSungleOutlet) {
+        
+        
+        
     }
     
     // MARK: parse function

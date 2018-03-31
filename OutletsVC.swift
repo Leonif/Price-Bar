@@ -14,8 +14,6 @@ protocol OutletVCDelegate {
 }
 
 class OutletsVC: UIViewController {
-
-    
     var adapter: OutetListAdapter!
     var interactor: OutletListInteractor!
 
@@ -41,7 +39,7 @@ class OutletsVC: UIViewController {
         self.interactor = OutletListInteractor()
         self.view.pb_startActivityIndicator(with: Strings.Common.outlet_loading.localized)
         self.interactor.getOutletList()
-        self.interactor.onFetchedBatch = { [weak self] outlets in
+        self.interactor.onOutletListFetched = { [weak self] outlets in
             self?.adapter.outlets = OutletMapper.transform(from: outlets)
         }
         self.interactor.onFetchingCompleted = { [weak self] in

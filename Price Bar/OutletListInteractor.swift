@@ -12,7 +12,7 @@ import Foundation
 class OutletListInteractor {
     
     private var outletService: OutletService!
-    var onFetchedBatch: (([OPOutletModel])->())? = nil
+    var onOutletListFetched: (([OPOutletModel])->())? = nil
     var onFetchingError: ((String)->())? = nil
     var onFetchingCompleted: (()->())? = nil
     
@@ -22,15 +22,24 @@ class OutletListInteractor {
 
     func getOutletList() {
         self.outletService?.outletList(completion: { [weak self] result in
+            
             guard let `self` = self else { return }
             
             self.onFetchingCompleted?()
             switch result {
             case let .success(outlets):
-                self.onFetchedBatch?(outlets)
+                self.onOutletListFetched?(outlets)
             case let .failure(error):
                 self.onFetchingError?(error.localizedDescription)
             }
         })
     }
+    
+    func searchOutlet(with text: String) {
+        
+        
+        
+    }
+    
+    
 }

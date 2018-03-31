@@ -940,7 +940,7 @@ NSData * GTM_NULLABLE_TYPE GTMDataFromInputStream(NSInputStream *inputStream, NS
       // Callback from test block.
       if (response == nil && responseData == nil && error == nil) {
         // Assume the fetcher should execute rather than be tested.
-        _testBlock = nil;
+          self->_testBlock = nil;
         _isUsingTestBlock = NO;
         [_sessionTask resume];
         return;

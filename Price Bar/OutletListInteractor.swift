@@ -36,9 +36,18 @@ class OutletListInteractor {
     }
     
     func searchOutlet(with text: String) {
-        
-        
-        
+        self.outletService.searchOutletList(with: text) { [weak self] result in
+            
+            guard let `self` = self else { return }
+            
+            self.onFetchingCompleted?()
+            switch result {
+            case let .success(outlets):
+                self.onOutletListFetched?(outlets)
+            case let .failure(error):
+                self.onFetchingError?(error.errorDescription)
+            }
+        }
     }
     
     

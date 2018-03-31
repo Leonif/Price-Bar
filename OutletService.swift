@@ -50,7 +50,7 @@ class OutletService: NSObject {
     var singleOutletCompletion: ((ResultType<OPOutletModel, OutletServiceError>) -> Void)?
     var outletListCompletion: ((ResultType<[OPOutletModel], OutletServiceError>) -> Void)?
 
-    
+    var location: CLLocationCoordinate2D? = nil
     
     
     override init() {
@@ -75,8 +75,8 @@ class OutletService: NSObject {
     
 
     func nearestOutlet(completion: @escaping OutletResultType) {
-        singleOutletCompletion = completion
-        locationService.getCoords { result in
+        self.singleOutletCompletion = completion
+        self.locationService.getCoords { result in
             switch result {
             case let .failure(error):
                 self.singleOutletCompletion?(ResultType.failure(.other(error.errorDescription)))
@@ -123,10 +123,42 @@ class OutletService: NSObject {
     }
     
     
-    func searchOutlet(with text: String, completion: @escaping OutletResultType) {
+    func searchOutletList(with text: String, completion: @escaping OutletListResultType) {
+        self.locationService.getCoords { [weak self] (result) in
+            
+            guard let `self` = self else { return }
+            
+            switch result {
+            case let .failure(error):
+                self.outletListCompletion?(ResultType.failure(OutletServiceError.other("")))
+            case let .success(coords):
+            
+                self.searchOutletListFromProvider(with: text, for: coords, completion: { (result) in
+                    switch result {
+                    case let .success(fqoutlets):
+                        completion(ResultType.success(OutletMapper.transform(from: fqoutlets)))
+                        
+                    case let .failure(error):
+                        completion(ResultType.failure(.other(error.errorDescription)))
+                    }
+                })
+            
+            }
+        }
+    }
+    
+    
+    
+    private func searchOutletListFromProvider(with text: String, for coords: CLLocationCoordinate2D, completion: @escaping ForsqareOutletList) {
         
-        
-        
+        self.foursquareProvider.searchOutlet(with: text, userCoordinate: coords) { (result) in
+            switch result {
+            case let .success(outlets):
+                completion(ResultType.success(outlets))
+            case let .failure(error):
+                completion(ResultType.failure(error))
+            }
+        }
     }
     
     
@@ -134,7 +166,7 @@ class OutletService: NSObject {
     private func outletListFromProvider(for coords: CLLocationCoordinate2D,
                                         completion: @escaping (ResultType<[FQOutletModel], FoursqareProviderError>) -> Void) {
         
-        foursquareProvider.loadOultets(userCoordinate: coords, completion: { result in
+        self.foursquareProvider.loadOultets(userCoordinate: coords, completion: { result in
             switch result {
             case let .success(outlets):
                 completion(ResultType.success(outlets))

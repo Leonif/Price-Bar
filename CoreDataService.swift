@@ -281,8 +281,6 @@ extension CoreDataService {
             print("Products is not got from database")
             return nil
         }
-        return nil
-        
     }
     
 

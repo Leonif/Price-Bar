@@ -16,6 +16,13 @@ protocol OutletVCDelegate {
 class OutletsVC: UIViewController {
     var adapter: OutetListAdapter!
     var interactor: OutletListInteractor!
+    
+    lazy var searchBar: UISearchBar = {
+        let s = UISearchBar(frame: CGRect.zero)
+        s.placeholder = "Начните искать товар"
+        s.delegate = self
+        return s
+    }()
 
     var delegate: OutletVCDelegate!
     @IBOutlet weak var outletTableView: UITableView!
@@ -30,6 +37,11 @@ class OutletsVC: UIViewController {
             self?.delegate.choosen(outlet: outlet)
             self?.close()
         }
+        
+        self.navigationItem.prompt = "Искать торговую точку"
+        self.navigationItem.titleView = searchBar
+        
+        
         
         self.setupInteractor()
         
@@ -46,7 +58,10 @@ class OutletsVC: UIViewController {
             self?.view.pb_stopActivityIndicator()
         }
         self.interactor.onFetchingError = { [weak self] errorMessage in
-            self?.alert(title: "Ops", message: errorMessage)
+            DispatchQueue.main.async {
+                self?.alert(title: "Ops", message: errorMessage)
+            }
+            
         }
     }
     
@@ -61,3 +76,15 @@ class OutletsVC: UIViewController {
     }
     
 }
+
+
+extension OutletsVC: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text else { return }
+        
+        self.interactor.searchOutlet(with: text)
+    }
+}
+
+
+

@@ -86,15 +86,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
-      </ContextState>
-      <ContextState
          contextName = "ComparisonStatisticsViewController.viewDidLoad():ComparisonStatisticsViewController.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.view">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
       </ContextState>
       <ContextState
          contextName = "FirebaseService.syncCategories(completion:):FirebaseService.swift">
@@ -221,10 +221,10 @@
          contextName = "CoreDataService.saveToShopList(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
-         contextName = "DataProvider.getItem(index:):DataProvider.swift">
+         contextName = "Repository.getPricesStatisticByOutlet(for:):Repository.swift">
       </ContextState>
       <ContextState
-         contextName = "Repository.getPricesStatisticByOutlet(for:):Repository.swift">
+         contextName = "DataProvider.getItem(index:):DataProvider.swift">
       </ContextState>
       <ContextState
          contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, minimumInteritemSpacingForSectionAt : Int) -&gt; CGFloat:CollectionFreeViewCell.swift">
@@ -322,24 +322,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
+         contextName = "closure #1 in OutletListInteractor.searchOutlet(with:):OutletListInteractor.swift">
          <PersistentStrings>
             <PersistentString
-               value = "itemTableView">
-            </PersistentString>
-            <PersistentString
-               value = "filtredItemList">
-            </PersistentString>
-            <PersistentString
-               value = "itemList">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "FoursqareProvider.outletMapper(from:):FoursqareProvider.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "venue[&quot;id&quot;]">
+               value = "error.errorDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -348,6 +334,28 @@
          <PersistentStrings>
             <PersistentString
                value = "s.date">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "itemList">
+            </PersistentString>
+            <PersistentString
+               value = "filtredItemList">
+            </PersistentString>
+            <PersistentString
+               value = "itemTableView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FoursqareProvider.outletMapper(from:):FoursqareProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "venue[&quot;id&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -409,15 +417,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "DataProvider.getUom(for:):DataProvider.swift">
-      </ContextState>
-      <ContextState
          contextName = "OutletCell.layoutSubviews():OutletCell.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.contentView.frame">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.getUom(for:):DataProvider.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in ShopListController.synchronizeData():ShopListController.swift">
@@ -451,13 +459,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -547,6 +555,14 @@
          contextName = "ShopListDataSource.tableView(_:commit:forRowAt:):ShopListDataSource.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in OutletService.searchOutletList(with:completion:):OutletService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error.errorDescription">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -573,6 +589,14 @@
          <PersistentStrings>
             <PersistentString
                value = "userOutlet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FoursqareProvider.searchOutlet(with:userCoordinate:completion:):FoursqareProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Target.searhOutlet(text, userCoordinate).url">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -605,10 +629,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

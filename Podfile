@@ -9,6 +9,7 @@ target 'PriceBar' do
 pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
+pod 'R.swift'
 
 target 'PriceBarTests' do
     inherit! :search_paths

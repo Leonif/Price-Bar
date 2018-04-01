@@ -14,28 +14,8 @@ class CategoryMapper {
         return CategoryModelView(id: dpCategory.id, name: dpCategory.name)
     }
 
-    class func transform(from dpModels: [DPCategoryModel]) -> [CategoryModelView] {
-
-        var modelViews: [CategoryModelView] = []
-
-        for dpModel in dpModels {
-            modelViews.append(mapper(from: dpModel))
-        }
-        return modelViews
-    }
-
     class func mapper(from dpCategory: CDCategoryModel) -> DPCategoryModel {
         return DPCategoryModel(id: dpCategory.id, name: dpCategory.name)
-    }
-
-    class func transform(from dpModels: [CDCategoryModel]) -> [DPCategoryModel] {
-
-        //var modelViews: [DPCategoryModel] = []
-
-        return dpModels.map { dpModel in
-            mapper(from: dpModel)
-        }
-//        return modelViews
     }
 
     class func mapper(from category: Category) -> DPCategoryModel {
@@ -45,16 +25,6 @@ class CategoryMapper {
         }
 
         return DPCategoryModel(id: category.id, name: categoryName)
-    }
-
-    class func transform(from models: [Category]) -> [DPCategoryModel] {
-
-        var modelViews: [DPCategoryModel] = []
-
-        for dpModel in models {
-            modelViews.append(mapper(from: dpModel))
-        }
-        return modelViews
     }
 
 }

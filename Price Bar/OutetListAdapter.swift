@@ -61,30 +61,26 @@ class OutetListAdapter: NSObject, UITableViewDataSource, UITableViewDelegate {
 }
 
 
-// TODO: Move to adapter protocol
+
 extension OutetListAdapter {
-    
-    // TODO: Move to adapter protocol
     func getRowsIn(_ section: Int) -> Int {
         return outlets.count
     }
-    
-    
-    // TODO: Move to adapter protocol
+
     func getOutlet(from indexPath: IndexPath) -> Outlet {
         return outlets[indexPath.row]
     }
     
-    // TODO: Move to adapter protocol
     func configure(_ cell: OutletCell, for outlet: Outlet) -> OutletCell {
         
         cell.castShadow()
+        
         cell.layer.cornerRadius = 5.0
         
         if outlet.distance > 600 {
-            cell.subviews.forEach { $0.alpha = 0.5 }
+            cell.distanceView.backgroundColor = UIColor.lightGray
         } else {
-            cell.subviews.forEach { $0.alpha = 1.0 }
+            cell.distanceView.backgroundColor = Color.mango
         }
         
         cell.backgroundColor = .clear
@@ -99,7 +95,7 @@ extension OutetListAdapter {
         
         return cell
     }
-    // TODO: Move to adapter protocol
+
     func getNumberOfSections() -> Int {
         return 1
     }

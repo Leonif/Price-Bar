@@ -432,7 +432,7 @@ class Repository {
         guard let cdModelList = CoreDataService.data.getCategories() else {
             fatalError("category list is empty")
         }
-        return CategoryMapper.transform(from: cdModelList)
+        return cdModelList.map { CategoryMapper.mapper(from: $0) }
     }
 
     func mapper(from cdModel: CDCategoryModel) -> DPCategoryModel {

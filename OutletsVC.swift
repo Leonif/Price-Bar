@@ -49,17 +49,18 @@ class OutletsVC: UIViewController {
     
     func setupInteractor() {
         self.interactor = OutletListInteractor()
-        self.view.pb_startActivityIndicator(with: Strings.Common.outlet_loading.localized)
+        self.view.pb_startActivityIndicator(with: R.string.localizable.outlet_loading())
+
         self.interactor.getOutletList()
         self.interactor.onOutletListFetched = { [weak self] outlets in
-            self?.adapter.outlets = OutletMapper.transform(from: outlets)
+            self?.adapter.outlets = outlets.map { OutletMapper.mapper(from: $0) }
         }
         self.interactor.onFetchingCompleted = { [weak self] in
             self?.view.pb_stopActivityIndicator()
         }
         self.interactor.onFetchingError = { [weak self] errorMessage in
             DispatchQueue.main.async {
-                self?.alert(title: "Ops", message: errorMessage)
+                self?.alert(message: errorMessage)
             }
             
         }
@@ -81,6 +82,8 @@ class OutletsVC: UIViewController {
 extension OutletsVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
+        
+        self.view.endEditing(true)
         
         self.interactor.searchOutlet(with: text)
     }

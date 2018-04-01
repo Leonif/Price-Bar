@@ -138,7 +138,7 @@ class ShopListController: UIViewController {
     }
     
     func updateRemoveButtonState() {
-        self.totalLabel.text = "\(Strings.Common.total.localized)\(self.repository.total.asLocaleCurrency)"
+        self.totalLabel.text = "\(R.string.localizable.total())\(self.repository.total.asLocaleCurrency)"
         let enable = !self.buttonsHided && !self.repository.shoplist.isEmpty
         self.removeShoplistBtn.setEnable(enable)
     }
@@ -164,7 +164,7 @@ class ShopListController: UIViewController {
 
     private func updateCurentOutlet() {
         var activateControls = false
-        self.view.pb_startActivityIndicator(with: Strings.ActivityIndicator.outlet_looking.localized)
+        self.view.pb_startActivityIndicator(with:R.string.localizable.outlet_looking())
         interactor.updateCurrentOutlet { [weak self] (result) in
             guard let `self` = self else { return }
             self.view.pb_stopActivityIndicator()
@@ -174,8 +174,8 @@ class ShopListController: UIViewController {
                 self.showBaseStatistics()
                 activateControls = true
             case let .failure(error):
-                let previousSuccess = Strings.Alerts.good_news.localized
-                self.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(Strings.Alerts.try_later.localized))")
+                let previousSuccess = R.string.localizable.good_news()
+                self.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.try_later()))")
             }
             self.buttonEnable(activateControls)
         }
@@ -205,14 +205,14 @@ class ShopListController: UIViewController {
     
     @objc
     func selectOutlet() {
-       performSegue(withIdentifier: Strings.Segues.showOutlets.name, sender: nil)
+       performSegue(withIdentifier: R.segue.shopListController.showOutlets, sender: nil)
     }
     @IBAction func itemListPressed(_ sender: Any) {
         performSegue(withIdentifier: Strings.Segues.showItemList.name, sender: nil)
     }
     
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        self.alert(title: Strings.Alerts.wow.localized, message: Strings.Alerts.clean_shoplist.localized, okAction: { [weak self] in
+        self.alert(title: R.string.localizable.wow(), message: R.string.localizable.clean_shoplist(), okAction: { [weak self] in
             guard let `self` = self else { return }
             self.repository.clearShoplist()
             self.shopTableView.reloadData()
@@ -342,10 +342,17 @@ extension ShopListController {
             }
         }
 
-        if segue.identifier == Strings.Segues.showOutlets.name,
-            let outletVC = segue.destination as? OutletsVC {
-            outletVC.delegate = self
+//        if segue.identifier == R.segue.shopListController.showOutlets,
+//            let outletVC = segue.destination as? OutletsVC {
+//            outletVC.delegate = self
+//        }
+        
+        if let typedInfo = R.segue.shopListController.showOutlets(segue: segue) {
+            typedInfo.destination.delegate = self
         }
+        
+        
+        
         if segue.identifier == Strings.Segues.showItemList.name,
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil {
             itemListVC.outletId = userOutlet.id

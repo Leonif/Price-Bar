@@ -154,7 +154,7 @@ class QuantityPickerPopup: UIViewController {
             weightPicker.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
             weightPicker.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
             weightPicker.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
-            ])
+        ])
     }
     
     override func viewDidAppear(_ animated: Bool) {

@@ -6,16 +6,21 @@
   Copyright © 2018 LionLife. All rights reserved.
 */
 
-"outlet_looking" = "Looking for nearest outlets...";
-"good_news" = "Good news: Goods are loaded!!!🤘, but: ";
-"try_later" = "Try later";
+// MARK: Common
 "sync_process" = "Loading goods and prices from cloud, please wait ...";
-"total"  = "Total: ";
+"try_later" = "Try later";
 "loading" = "Loading...";
-"outlet_loading" = "Outlets loading";
 "wow" = "Wow";
-"clean_shoplist" = "Clean shoplist?🧐";
 "not_necessary" = "Not necessary";
 "ups" = "Oops!";
 
 
+// MARK: Shoplist
+"outlet_looking" = "Looking for nearest outlets...";
+"good_news" = "Good news: Goods are loaded!!!🤘, but: ";
+"sync_process" = "Loading goods and prices from cloud, please wait ...";
+"total"  = "Total: ";
+"clean_shoplist" = "Clean shoplist?🧐";
+
+// MARK: OutletList
+"outlet_loading" = "Outlets loading";

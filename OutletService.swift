@@ -67,7 +67,6 @@ class OutletService: NSObject {
             case let .success(fqoutlet):
                 completion(ResultType.success(OutletMapper.mapper(from: fqoutlet)))
             case let .failure(error):
-                // TODO: need to hadle different cases of error from provider
                 completion(ResultType.failure(.other(error.errorDescription)))
             }
         }
@@ -113,7 +112,10 @@ class OutletService: NSObject {
                     
                     switch result {
                     case let .success(fqoutlets):
-                        self.outletListCompletion?(ResultType.success(OutletMapper.transform(from: fqoutlets)))
+                        
+                        let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
+                        
+                        self.outletListCompletion?(ResultType.success(outlets))
                     case let .failure(error):
                         self.outletListCompletion?(ResultType.failure(.other(error.errorDescription)))
                     }
@@ -123,20 +125,24 @@ class OutletService: NSObject {
     }
     
     
+    
+    
     func searchOutletList(with text: String, completion: @escaping OutletListResultType) {
         self.locationService.getCoords { [weak self] (result) in
-            
             guard let `self` = self else { return }
             
             switch result {
             case let .failure(error):
-                self.outletListCompletion?(ResultType.failure(OutletServiceError.other("")))
+                self.outletListCompletion?(ResultType.failure(OutletServiceError.other(error.errorDescription)))
             case let .success(coords):
             
                 self.searchOutletListFromProvider(with: text, for: coords, completion: { (result) in
                     switch result {
                     case let .success(fqoutlets):
-                        completion(ResultType.success(OutletMapper.transform(from: fqoutlets)))
+                        
+                        let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
+                        
+                        completion(ResultType.success(outlets))
                         
                     case let .failure(error):
                         completion(ResultType.failure(.other(error.errorDescription)))

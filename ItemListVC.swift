@@ -48,7 +48,7 @@ class ItemListVC: UIViewController {
         navigationItem.titleView = searchBar
         
         itemTableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
-        self.view.pb_startActivityIndicator(with: Strings.Common.loading.localized)
+        self.view.pb_startActivityIndicator(with: R.string.localizable.loading())
     }
 
     
@@ -56,8 +56,7 @@ class ItemListVC: UIViewController {
         addDoneButtonToNumPad()
         guard
             let products = dataProvider.getShopItems(with: currentPageOffset, limit: 40, for: outletId),
-            let itemList = ProductMapper.transform(from: products, for: outletId)
-            else {
+            let itemList = ProductMapper.transform(from: products, for: outletId)  else {
                 alert(message: "Нет товаров в базе")
                 self.view.pb_stopActivityIndicator()
                 return

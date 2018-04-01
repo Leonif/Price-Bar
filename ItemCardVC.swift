@@ -61,7 +61,7 @@ class ItemCardVC: UIViewController {
             fatalError("Category list is empty")
         }
 
-        self.categories = CategoryMapper.transform(from: dpCategoryList)
+        self.categories = dpCategoryList.map { CategoryMapper.mapper(from: $0) }
 
         guard let uoms = dataProvider.getUomList() else {
             fatalError("Catgory list is empty")

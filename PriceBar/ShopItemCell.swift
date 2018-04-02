@@ -23,7 +23,7 @@ class ShopItemCell: UITableViewCell {
     @IBOutlet weak var priceItem: UILabel!
     @IBOutlet weak var totalItem: UILabel!
     @IBOutlet weak var uomLabel: UILabel!
-    @IBOutlet weak var checkMarkBtn: UIButton!
+//    @IBOutlet weak var checkMarkBtn: UIButton!
     @IBOutlet weak var quantityButton: UIButton!
 
 
@@ -54,14 +54,17 @@ extension ShopItemCell {
         }
         let checkAlpha = CGFloat(item.checked ? 0.5 : 1)
         self.contentView.alpha = checkAlpha
-        let imageStr = item.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue
-        self.checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
+//        let imageStr = item.checked ? CheckMark.check.rawValue : CheckMark.uncheck.rawValue
+//        self.checkMarkBtn.setImage(UIImage(named: imageStr), for: .normal)
     }
 
     func configureCell(item: DPShoplistItemModel) {
 
         self.item = item
         self.checkedState()
+        
+        
+        
 
         nameItem.text = item.productName
         priceItem.text = "\(item.productPrice.asLocaleCurrency)"

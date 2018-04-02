@@ -52,5 +52,10 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>robaga-rounded.regular.otf</string>
+		<string>Robaga Rounded Bold.otf</string>
+	</array>
 </dict>
 </plist>

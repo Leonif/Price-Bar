@@ -21,6 +21,8 @@
 		790F104920262FC30060E285 /* Statistic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103F20262FC30060E285 /* Statistic+CoreDataProperties.swift */; };
 		790F104A20262FC30060E285 /* Uom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F104020262FC30060E285 /* Uom+CoreDataClass.swift */; };
 		790F104B20262FC30060E285 /* Uom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F104120262FC30060E285 /* Uom+CoreDataProperties.swift */; };
+		79142FFB2072DB69003293D5 /* robaga-rounded.regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */; };
+		791430002072DE9E003293D5 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */; };
 		792102912055778900C83706 /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102902055778900C83706 /* CircleIndicatorView.swift */; };
 		7921029320557D0E00C83706 /* BaseStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* BaseStatisticsVC.swift */; };
 		792102952055A02000C83706 /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102942055A02000C83706 /* CountingLabel.swift */; };
@@ -134,6 +136,8 @@
 		790F103F20262FC30060E285 /* Statistic+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Statistic+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		790F104020262FC30060E285 /* Uom+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uom+CoreDataClass.swift"; sourceTree = "<group>"; };
 		790F104120262FC30060E285 /* Uom+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Uom+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "robaga-rounded.regular.otf"; path = "../robaga-rounded.regular.otf"; sourceTree = "<group>"; };
+		79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Robaga Rounded Bold.otf"; sourceTree = "<group>"; };
 		792102902055778900C83706 /* CircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleIndicatorView.swift; sourceTree = "<group>"; };
 		7921029220557D0E00C83706 /* BaseStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStatisticsVC.swift; sourceTree = "<group>"; };
 		792102942055A02000C83706 /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
@@ -345,6 +349,15 @@
 				794658A120697E45007B4397 /* StatisticModel.swift */,
 			);
 			name = Entities;
+			sourceTree = "<group>";
+		};
+		79142FFC2072DD83003293D5 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */,
+				79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 		79210296205C69B400C83706 /* BaseStatisticFlow */ = {
@@ -653,6 +666,7 @@
 		79DC99E020433A9200D35D1C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				79142FFC2072DD83003293D5 /* Fonts */,
 				79DC99ED204345AC00D35D1C /* Localizable.strings */,
 				79DC99E120433AA400D35D1C /* Strings.swift */,
 			);
@@ -827,9 +841,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				791430002072DE9E003293D5 /* Robaga Rounded Bold.otf in Resources */,
 				792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */,
 				792EE7B71EE707F000470669 /* HeaderView.xib in Resources */,
 				79E9B871206C17F800D80EA5 /* PriceStatisticCell.xib in Resources */,
+				79142FFB2072DB69003293D5 /* robaga-rounded.regular.otf in Resources */,
 				79E9B86F206C0DB400D80EA5 /* Comparison.storyboard in Resources */,
 				79F68452206801D200257F00 /* ShopItemCell.xib in Resources */,
 				795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */,

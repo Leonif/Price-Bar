@@ -21,6 +21,7 @@
 "sync_process" = "Loading goods and prices from cloud, please wait ...";
 "total"  = "Total: ";
 "clean_shoplist" = "Clean shoplist?🧐";
+"shop_list_quantity" = "Qty:";
 
 // MARK: OutletList
 "outlet_loading" = "Outlets loading";

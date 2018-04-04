@@ -1,51 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Robaga Rounded Bold.otf">
+            <string>RobagaRounded-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="LAp-rm-bed" customClass="HeaderView" customModule="Price_Bar" customModuleProvider="target">
+        <view contentMode="scaleToFill" id="LAp-rm-bed" customClass="HeaderView" customModule="PriceBar" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="004-salad" translatesAutoresizingMaskIntoConstraints="NO" id="T1E-ci-srR">
-                    <rect key="frame" x="10" y="15" width="30" height="30"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="B5P-dJ-cPc">
+                    <rect key="frame" x="0.0" y="0.0" width="187.5" height="60"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Овощи, фрукты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zX2-V8-OQX">
+                            <rect key="frame" x="27.5" y="19.5" width="133" height="21"/>
+                            <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="17"/>
+                            <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="30" id="ZWe-Hc-MqE"/>
-                        <constraint firstAttribute="width" constant="30" id="gnz-gA-ioV"/>
+                        <constraint firstItem="zX2-V8-OQX" firstAttribute="centerX" secondItem="B5P-dJ-cPc" secondAttribute="centerX" id="9Ar-MT-TNh"/>
+                        <constraint firstItem="zX2-V8-OQX" firstAttribute="centerY" secondItem="B5P-dJ-cPc" secondAttribute="centerY" id="geG-MV-Bc5"/>
                     </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Овощи, фрукты" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zX2-V8-OQX">
-                    <rect key="frame" x="50" y="19.5" width="315" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                </view>
             </subviews>
-            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="zX2-V8-OQX" firstAttribute="centerY" secondItem="LAp-rm-bed" secondAttribute="centerY" id="7Yq-D8-dkv"/>
-                <constraint firstItem="T1E-ci-srR" firstAttribute="centerY" secondItem="LAp-rm-bed" secondAttribute="centerY" id="N3X-Rs-jQZ"/>
-                <constraint firstItem="zX2-V8-OQX" firstAttribute="leading" secondItem="T1E-ci-srR" secondAttribute="trailing" constant="10" id="UKi-WL-rl5"/>
-                <constraint firstItem="T1E-ci-srR" firstAttribute="leading" secondItem="LAp-rm-bed" secondAttribute="leading" constant="10" id="bmB-3h-D6p"/>
-                <constraint firstAttribute="trailing" secondItem="zX2-V8-OQX" secondAttribute="trailing" constant="10" id="odu-AN-Jbs"/>
+                <constraint firstItem="B5P-dJ-cPc" firstAttribute="leading" secondItem="LAp-rm-bed" secondAttribute="leading" id="EHs-Rh-nhU"/>
+                <constraint firstAttribute="bottom" secondItem="B5P-dJ-cPc" secondAttribute="bottom" id="Xso-TI-zbb"/>
+                <constraint firstAttribute="trailing" secondItem="B5P-dJ-cPc" secondAttribute="trailing" multiplier="2:1" id="e1f-ui-lg2"/>
+                <constraint firstItem="B5P-dJ-cPc" firstAttribute="top" secondItem="LAp-rm-bed" secondAttribute="top" id="oQn-h9-cIL"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="categoryLabel" destination="zX2-V8-OQX" id="z8A-06-pdW"/>
-                <outlet property="imageHeader" destination="T1E-ci-srR" id="MCo-1r-yCA"/>
+                <outlet property="view" destination="B5P-dJ-cPc" id="fc2-Zr-STO"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="148"/>
         </view>
     </objects>
-    <resources>
-        <image name="004-salad" width="128" height="128"/>
-    </resources>
 </document>

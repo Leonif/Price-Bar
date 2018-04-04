@@ -29,7 +29,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         self.repository = repository
         
         // For registering nib files
-        tableView.register(UINib(nibName: "ShopItemCell", bundle: Bundle.main), forCellReuseIdentifier: "ItemCell")
+        tableView.register(R.nib.shopItemCell(), forCellReuseIdentifier: "ItemCell")
         
     }
     
@@ -45,7 +45,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         let cell: ShopItemCell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ShopItemCell
         let shp = repository.getItem(index: indexPath)!
 
-        cell.configureCell(item: shp)
+        self.configure(cell, shp)
         cell.onWeightDemand = { [weak self] cell in
             self?.handleWeightDemanded(cell: cell)
         }
@@ -87,7 +87,7 @@ extension ShopListAdapter: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 82
+        return 95
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -96,10 +96,49 @@ extension ShopListAdapter: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView
+        headerView?.view.layer.cornerRadius = 8.0
+        headerView?.view.layer.borderColor = Color.darkGray.cgColor
+        headerView?.view.layer.borderWidth = 1.0
         headerView?.categoryLabel.text = repository.headerString(for: section)
 
         return headerView
     }
+    
+    
+    func configure(_ cell: ShopItemCell, _ item: DPShoplistItemModel) {
+        
+        
+        cell.selectionStyle = .none
+        cell.backgroundColor = .clear
+        cell.cellView.layer.cornerRadius = 8.0
+        cell.cellView.castShadow()
+        
+        [cell.quantityButton, cell.priceView].forEach {
+            $0?.layer.cornerRadius = 8.0
+            $0?.layer.borderWidth = 1.0
+            $0?.layer.borderColor = Color.darkGray.cgColor
+        }
+        
+        
+        cell.nameItem.text = item.productName
+        cell.priceItem.text = "\(item.productPrice.asLocaleCurrency)"
+        cell.uomLabel.text = item.productUom
+        
+        self.updateWeigh(for: cell, item.quantity, item.productPrice)
+    }
+    
+    
+    func updateWeigh(for cell: ShopItemCell, _ weight: Double, _ price: Double) {
+        
+        let total = weight * price
+        
+        let btnTitle = String(format:"%@ %.2f", R.string.localizable.shop_list_quantity(), weight)
+        
+        cell.quantityButton.setTitle(btnTitle, for: .normal)
+        cell.totalItem.text = total.asLocaleCurrency
+    }
+    
+    
 }
 
 

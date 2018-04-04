@@ -9,8 +9,7 @@
 import UIKit
 
 class HeaderView: UIView {
-
-    @IBOutlet weak var imageHeader: UIImageView!
     @IBOutlet weak var categoryLabel: UILabel!
-
+    @IBOutlet weak var view: UIView!
+    
 }

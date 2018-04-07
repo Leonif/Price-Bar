@@ -31,7 +31,7 @@ class ItemCardVC: UIViewController {
     var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
-    weak var dataProvider: Repository!
+    weak var repository: Repository!
 
     @IBOutlet weak var commonPickerView: UIPickerView!
     var item: DPShoplistItemModel?
@@ -57,13 +57,13 @@ class ItemCardVC: UIViewController {
         itemPrice.delegate = self
 
         //load categories
-        guard let dpCategoryList = dataProvider.getCategoryList() else {
+        guard let dpCategoryList = repository.getCategoryList() else {
             fatalError("Category list is empty")
         }
 
         self.categories = dpCategoryList.map { CategoryMapper.mapper(from: $0) }
 
-        guard let uoms = dataProvider.getUomList() else {
+        guard let uoms = repository.getUomList() else {
             fatalError("Catgory list is empty")
         }
         self.uoms = uoms
@@ -165,10 +165,10 @@ class ItemCardVC: UIViewController {
                                                       categoryId: productCard.categoryId,
                                                       uomId: productCard.uomId)
         if state == CardState.editMode {
-            dataProvider.update(dpProductCardModel)
+            repository.update(dpProductCardModel)
             delegate.productUpdated()
         } else {
-            dataProvider.save(new: dpProductCardModel)
+            repository.save(new: dpProductCardModel)
             delegate.add(new: productCard.productId)
         }
     }
@@ -204,7 +204,7 @@ class ItemCardVC: UIViewController {
             let dpStatModel = DPPriceStatisticModel(outletId: outletId,
                                                     productId: productCard.productId,
                                                     price: price, date: Date())
-            dataProvider.save(new: dpStatModel)
+            repository.save(new: dpStatModel)
             delegate.productUpdated()
             self.close()
 

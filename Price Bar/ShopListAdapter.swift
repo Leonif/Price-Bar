@@ -64,11 +64,13 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let item = repository.getItem(index: indexPath) {
-                tableView.update {
+            if let item = self.repository.getItem(index: indexPath) {
+                tableView.update { [weak self] in
                     let itemCountWasInSection = repository.rowsIn(indexPath.section)
-                    repository.remove(item: item)
+                    
+                    self?.repository.remove(item: item)
                     tableView.deleteRows(at: [indexPath], with: .fade)
+                    
                     if itemCountWasInSection == 1 {
                         let indexSet = IndexSet(integer: indexPath.section)
                         tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
@@ -97,7 +99,7 @@ extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView
         headerView?.view.layer.cornerRadius = 8.0
-        headerView?.view.layer.borderColor = Color.darkGray.cgColor
+        headerView?.view.layer.borderColor = Color.dustyGray.cgColor
         headerView?.view.layer.borderWidth = 1.0
         headerView?.categoryLabel.text = repository.headerString(for: section)
 
@@ -116,26 +118,25 @@ extension ShopListAdapter: UITableViewDelegate {
         [cell.quantityButton, cell.priceView].forEach {
             $0?.layer.cornerRadius = 8.0
             $0?.layer.borderWidth = 1.0
-            $0?.layer.borderColor = Color.darkGray.cgColor
+            $0?.layer.borderColor = Color.dustyGray.cgColor
         }
-        
-        
+        cell.priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
         cell.nameItem.text = item.productName
-        cell.priceItem.text = "\(item.productPrice.asLocaleCurrency)"
+        cell.priceItem.text = String(format: "%.2f", item.productPrice)
         cell.uomLabel.text = item.productUom
         
-        self.updateWeigh(for: cell, item.quantity, item.productPrice)
+        self.updateWeight(for: cell, item.quantity, item.productPrice)
     }
     
     
-    func updateWeigh(for cell: ShopItemCell, _ weight: Double, _ price: Double) {
+    func updateWeight(for cell: ShopItemCell, _ weight: Double, _ price: Double) {
         
         let total = weight * price
         
         let btnTitle = String(format:"%@ %.2f", R.string.localizable.shop_list_quantity(), weight)
         
         cell.quantityButton.setTitle(btnTitle, for: .normal)
-        cell.totalItem.text = total.asLocaleCurrency
+        cell.totalItem.text = String(format: "UAH\n%.2f", total)
     }
     
     
@@ -146,7 +147,6 @@ extension ShopListAdapter: UITableViewDelegate {
 // MARK: - Cell handlers
 extension ShopListAdapter {
     func handleWeightDemanded(cell: ShopItemCell) {
-        print("Picker opened")
         guard
             let indexPath = self.tableView.indexPath(for: cell),
             let item = repository.getItem(index: indexPath) else {

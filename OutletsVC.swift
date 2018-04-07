@@ -19,7 +19,7 @@ class OutletsVC: UIViewController {
     
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar(frame: CGRect.zero)
-        s.placeholder = "Начните искать товар"
+        s.placeholder = R.string.localizable.outlet_list_start_to_search_store()
         s.delegate = self
         return s
     }()
@@ -32,13 +32,13 @@ class OutletsVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.adapter = OutetListAdapter(tableView: outletTableView)
+        self.adapter = OutetListAdapter(tableView: self.outletTableView)
         self.adapter.onDidSelect = { [weak self] outlet in
             self?.delegate.choosen(outlet: outlet)
             self?.close()
         }
         
-        self.navigationItem.prompt = "Искать торговую точку"
+        self.navigationItem.prompt = R.string.localizable.outlet_list_search()
         self.navigationItem.titleView = searchBar
         
         

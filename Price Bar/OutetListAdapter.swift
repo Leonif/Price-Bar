@@ -29,7 +29,7 @@ class OutetListAdapter: NSObject, UITableViewDataSource, UITableViewDelegate {
         
         
         // For registering nib files
-        tableView.register(UINib(nibName: "OutletCellView", bundle: Bundle.main), forCellReuseIdentifier: "OutletCell")
+        tableView.register(R.nib.outletCellView(), forCellReuseIdentifier: "OutletCell")
     }
     
     func reload() {
@@ -50,13 +50,11 @@ class OutetListAdapter: NSObject, UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return self.getNumberOfSections()
     }
-    
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let object = self.getOutlet(from: indexPath)
         self.onDidSelect?(object)
     }
-
     
 }
 
@@ -80,14 +78,20 @@ extension OutetListAdapter {
         if outlet.distance > 600 {
             cell.distanceView.backgroundColor = UIColor.lightGray
         } else {
-            cell.distanceView.backgroundColor = Color.mango
+            cell.distanceView.backgroundColor = Color.neonCarrot
         }
         
         cell.backgroundColor = .clear
         
         
         cell.outletName.text = outlet.name
-        let distance = outlet.distance > 1000 ? "\(Int(outlet.distance/1000)) км" : "\(Int(outlet.distance)) м"
+        
+        
+        
+        let km = R.string.localizable.outlet_list_km("\(Int(outlet.distance/1000))")
+        let m = R.string.localizable.outlet_list_m("\(Int(outlet.distance))")
+        
+        let distance = outlet.distance > 1000 ? km : m
         
         
         cell.distanceLabel.text = distance

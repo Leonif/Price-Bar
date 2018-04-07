@@ -16,7 +16,7 @@ class SyncAnimator {
         let lbl = UILabel()
         lbl.textColor = .white
         lbl.textAlignment = .center
-        lbl.text = "Синхронизируемся..."
+        lbl.text = R.string.localizable.sync_process()
         return lbl
     }()
     var parent: UIViewController!

@@ -18,7 +18,7 @@ class ItemListCell: UITableViewCell {
         self.contentView.alpha = checkAlpha
         itemNameLabel.text = item.product
         itemPriceLabel.text = item.currentPrice.asLocaleCurrency
-        itemMinPriceLabel.text = "лучшая: \(item.minPrice.asLocaleCurrency)"
+        itemMinPriceLabel.text = R.string.localizable.item_list_best_price("\(item.minPrice)")
     }
 
 }

@@ -12,26 +12,30 @@ import UIKit
 class ShopListController: UIViewController {
     // MARK: IB Outlets
     
-    let outletNameButton: UIButton = {
+    let storeButton: UIButton = {
         let b = UIButton(frame: CGRect.zero)
-        b.backgroundColor = .yellow
-        b.setTitleColor(#colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1), for: .normal)
-        b.setTitle("", for: .normal)
-        b.titleLabel?.font = UIFont(name: "Avenir Heavy", size: 20)
-        
+        b.frame.size = CGSize(width: 44, height: 44)
+        b.backgroundColor = Color.atlantis
+        b.setImage(R.image.shop(), for: .normal)
+        b.layer.borderColor = Color.dustyGray.cgColor
+        b.layer.borderWidth = 1.0
+        b.layer.cornerRadius = 44 / 2
+
         return b
     }()
     
-    @IBOutlet weak var outletAddressLabel: UILabel!
+
     
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalView: UIView!
     
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
     @IBOutlet weak var removeShoplistBtn: GoodButton!
     @IBOutlet weak var rightButtonViewArea: UIView!
     @IBOutlet var wholeViewArea: UIView!
+    var navigationView: NavigationView!
 
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
     @IBOutlet weak var removeButtonConstrait: NSLayoutConstraint!
@@ -42,7 +46,7 @@ class ShopListController: UIViewController {
     var syncAnimator: SyncAnimator!
     
     
-    var userOutlet: Outlet! { didSet {  updateUI() }  }
+    var userOutlet: Outlet! { didSet {  self.updateUI() }  }
     var adapter: ShopListAdapter!
     var buttonsHided: Bool = false
     
@@ -50,7 +54,7 @@ class ShopListController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        navigationItem.titleView?.alpha = 1.0
+//        navigationItem.titleView?.alpha = 1.0
     }
     
     override func viewDidLoad() {
@@ -67,6 +71,7 @@ class ShopListController: UIViewController {
         self.setupNavigation()
         self.setupGestures()
         self.updateRemoveButtonState()
+        self.setupTotalView()
         
         // MARK: - Handle depencies
         repository.onUpdateShoplist = { [weak self] in
@@ -105,14 +110,25 @@ class ShopListController: UIViewController {
     
     // MARK: - Setup functions
     func setupNavigation() {
-        let width = view.frame.width-16
-        outletNameButton.frame = CGRect(x: 0, y: 0, width: width, height: 34)
-        outletNameButton.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
-        outletNameButton.layer.cornerRadius = 5.0
-        navigationItem.prompt = "Пожалуйста, выберите магазин"
         
-        self.navigationItem.titleView = outletNameButton
+        self.navigationView = R.nib.navigationView.firstView(owner: self)
+        
+        self.storeButton.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.storeButton)
+        
+        self.navigationItem.titleView = self.navigationView
+        
         navigationController!.navigationBar.shadowImage = UIImage()
+    }
+    
+    func setupTotalView() {
+        
+        
+        self.totalView.layer.cornerRadius = 8.0
+        self.totalView.layer.borderWidth = 1.0
+        self.totalView.layer.borderColor = Color.dustyGray.cgColor
+        
     }
     
     func setupGestures() {
@@ -129,8 +145,8 @@ class ShopListController: UIViewController {
     func updateUI() {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
-            self.outletAddressLabel.text = self.userOutlet.address
-            self.outletNameButton.setTitle(self.userOutlet.name, for: .normal)
+            self.navigationView.outletName.text = self.userOutlet.name
+            self.navigationView.outletAddress.text = self.userOutlet.address
             self.repository.loadShopList(for: self.userOutlet.id)
             self.adapter.reload()
             self.updateRemoveButtonState()
@@ -138,7 +154,7 @@ class ShopListController: UIViewController {
     }
     
     func updateRemoveButtonState() {
-        self.totalLabel.text = "\(R.string.localizable.total())\(self.repository.total.asLocaleCurrency)"
+        self.totalLabel.text = String(format:"%.2f UAH", self.repository.total)
         let enable = !self.buttonsHided && !self.repository.shoplist.isEmpty
         self.removeShoplistBtn.setEnable(enable)
     }
@@ -174,8 +190,8 @@ class ShopListController: UIViewController {
                 self.showBaseStatistics()
                 activateControls = true
             case let .failure(error):
-                let previousSuccess = R.string.localizable.good_news()
-                self.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.try_later()))")
+                let previousSuccess = R.string.localizable.common_good_news()
+                self.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.common_try_later()))")
             }
             self.buttonEnable(activateControls)
         }
@@ -184,7 +200,7 @@ class ShopListController: UIViewController {
     func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
-            [self.scanButton, self.itemListButton, self.outletNameButton].forEach { $0.setEnable(enable) }
+            [self.scanButton, self.itemListButton, self.storeButton].forEach { $0.setEnable(enable) }
         }
     }
 
@@ -212,7 +228,7 @@ class ShopListController: UIViewController {
     }
     
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        self.alert(title: R.string.localizable.wow(), message: R.string.localizable.clean_shoplist(), okAction: { [weak self] in
+        self.alert(message: R.string.localizable.shoplist_clean(), okAction: { [weak self] in
             guard let `self` = self else { return }
             self.repository.clearShoplist()
             self.shopTableView.reloadData()
@@ -274,7 +290,7 @@ extension ShopListController: ScannerDelegate {
             case let .failure(error):
                 switch error {
                 case .productIsNotFound:
-                    self.performSegue(withIdentifier: Strings.Segues.scannedNewProduct.name,
+                    self.performSegue(withIdentifier: R.segue.shopListController.scannedNewProduct.identifier,
                                       sender: barcode)
                 default: self.alert(message: error.message)
                 }
@@ -328,24 +344,30 @@ extension ShopListController {
             if let item = sender as? DPShoplistItemModel {
                 itemCardVC.item = item
                 itemCardVC.delegate = self
-                itemCardVC.dataProvider = repository
+                itemCardVC.repository = repository
                 itemCardVC.outletId = userOutlet.id
             }
         }
-        if segue.identifier == Strings.Segues.scannedNewProduct.name,
-            let itemCardVC = segue.destination as? ItemCardVC {
-            if let barcode = sender as? String {
-                itemCardVC.barcode = barcode
-                itemCardVC.delegate = self
-                itemCardVC.dataProvider = repository
-                itemCardVC.outletId = userOutlet.id
-            }
-        }
-
-//        if segue.identifier == R.segue.shopListController.showOutlets,
-//            let outletVC = segue.destination as? OutletsVC {
-//            outletVC.delegate = self
+//        if segue.identifier == Strings.Segues.scannedNewProduct.name,
+//            let itemCardVC = segue.destination as? ItemCardVC {
+//            if let barcode = sender as? String {
+//                itemCardVC.barcode = barcode
+//                itemCardVC.delegate = self
+//                itemCardVC.dataProvider = repository
+//                itemCardVC.outletId = userOutlet.id
+//            }
 //        }
+        
+        
+        if let typedInfo = R.segue.shopListController.scannedNewProduct(segue: segue) {
+            if let barcode = sender as? String {
+                typedInfo.destination.barcode = barcode
+                typedInfo.destination.delegate = self
+                typedInfo.destination.repository = repository
+                typedInfo.destination.outletId = userOutlet.id
+            }
+        }
+        
         
         if let typedInfo = R.segue.shopListController.showOutlets(segue: segue) {
             typedInfo.destination.delegate = self
@@ -358,7 +380,7 @@ extension ShopListController {
             itemListVC.outletId = userOutlet.id
             itemListVC.delegate = self
             itemListVC.itemCardDelegate = self
-            itemListVC.dataProvider = repository
+            itemListVC.repository = repository
 
         }
         if segue.identifier == Strings.Segues.showScan.name,
@@ -367,3 +389,6 @@ extension ShopListController {
         }
     }
 }
+
+
+

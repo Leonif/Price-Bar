@@ -22,10 +22,10 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GMc-0y-oQC">
-                    <rect key="frame" x="2" y="0.0" width="335" height="97"/>
+                    <rect key="frame" x="4" y="0.0" width="331" height="97"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11,80 грн." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Id0-oF-f5L">
-                            <rect key="frame" x="287" y="48" width="40" height="36"/>
+                            <rect key="frame" x="283" y="48" width="40" height="36"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="36" id="emu-9n-jfO"/>
                                 <constraint firstAttribute="width" constant="40" id="hls-5o-UH2"/>
@@ -35,7 +35,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vcA-HX-h56">
-                            <rect key="frame" x="197" y="43" width="74" height="46"/>
+                            <rect key="frame" x="193" y="43" width="74" height="46"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Abn-oN-J1M">
                                     <rect key="frame" x="15" y="1" width="45" height="45"/>
@@ -64,7 +64,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mqd-s5-rFY">
-                            <rect key="frame" x="16" y="8" width="303" height="17.5"/>
+                            <rect key="frame" x="16" y="8" width="299" height="17.5"/>
                             <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="14"/>
                             <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -91,9 +91,10 @@
                         <constraint firstItem="Id0-oF-f5L" firstAttribute="leading" secondItem="vcA-HX-h56" secondAttribute="trailing" constant="16" id="DIr-rx-O7u"/>
                         <constraint firstAttribute="trailing" secondItem="mqd-s5-rFY" secondAttribute="trailing" constant="16" id="YqX-1c-WTl"/>
                         <constraint firstAttribute="bottom" secondItem="vcA-HX-h56" secondAttribute="bottom" constant="8" id="bMY-n7-azW"/>
-                        <constraint firstItem="mdQ-QZ-QlJ" firstAttribute="leading" secondItem="GMc-0y-oQC" secondAttribute="leading" constant="38" id="dvG-K0-wfR"/>
                         <constraint firstAttribute="trailing" secondItem="Id0-oF-f5L" secondAttribute="trailing" constant="8" id="fmM-gy-kZc"/>
                         <constraint firstItem="mqd-s5-rFY" firstAttribute="leading" secondItem="GMc-0y-oQC" secondAttribute="leading" constant="16" id="gtx-Mw-8bg"/>
+                        <constraint firstItem="vcA-HX-h56" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mdQ-QZ-QlJ" secondAttribute="trailing" constant="16" id="oLu-Dn-Fhi"/>
+                        <constraint firstItem="mdQ-QZ-QlJ" firstAttribute="leading" secondItem="GMc-0y-oQC" secondAttribute="leading" constant="38" id="os1-nd-EwK"/>
                         <constraint firstItem="mqd-s5-rFY" firstAttribute="top" secondItem="GMc-0y-oQC" secondAttribute="top" constant="8" id="uiR-6b-Bob"/>
                         <constraint firstItem="mdQ-QZ-QlJ" firstAttribute="centerY" secondItem="vcA-HX-h56" secondAttribute="centerY" id="v6Z-DA-UUe"/>
                     </constraints>
@@ -108,8 +109,8 @@
             <constraints>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="GMc-0y-oQC" secondAttribute="bottom" constant="9" id="DK7-Nc-Lq1"/>
                 <constraint firstItem="GMc-0y-oQC" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Uc1-CO-lx0"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GMc-0y-oQC" secondAttribute="trailing" constant="2" id="Uce-7p-Iz1"/>
-                <constraint firstItem="GMc-0y-oQC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="2" id="VS9-ly-iNo"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="GMc-0y-oQC" secondAttribute="trailing" constant="4" id="Uce-7p-Iz1"/>
+                <constraint firstItem="GMc-0y-oQC" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="4" id="VS9-ly-iNo"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

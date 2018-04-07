@@ -53,23 +53,23 @@ class Repository {
         case total
         
         var text: String {
-            let start = "Загружаем"
+            let start = R.string.localizable.common_loading()
             switch self {
             case .login:
-                return "Подсоединяемся к базе"
+                return R.string.localizable.sync_process_connecting()
             case .needSync:
-                return "Начинаем синхронизацию"
+                return R.string.localizable.sync_process_start()
             case .categories:
-                return "\(start) категории"
+                return R.string.localizable.sync_process_categories(start)
             case .uoms:
-                return "\(start) единицы измерения"
+                return R.string.localizable.sync_process_uom(start)
             case .products:
-                return "\(start) товары"
+                return R.string.localizable.sync_process_products(start)
             case .statistic:
-                return "\(start) актуальные цены"
+                return R.string.localizable.sync_process_prices(start)
             case .loadShoplist, .putBackShoplist:
-                return "\(start) ваш шоплист"
-            default: return "Все готово к работе !!!"
+                return R.string.localizable.sync_process_shoplist(start)
+            default: return R.string.localizable.sync_process_all_is_done()
             }
         }
     }
@@ -163,7 +163,7 @@ class Repository {
     func loadShoplist(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         let outletId: String? = nil
         guard let shp = CoreDataService.data.loadShopList(for: outletId) else {
-            completion(ResultType.failure(RepositoryError.syncError("Что-то пошло не так")))
+            completion(ResultType.failure(RepositoryError.syncError(R.string.localizable.error_something_went_wrong())))
             return
         }
         self.shoplist = shp
@@ -174,7 +174,7 @@ class Repository {
     func syncHandle(error: Error) -> ResultType<Bool, RepositoryError> {
         UserDefaults.standard.set(0, forKey: "LaunchedTime")
         return ResultType.failure(RepositoryError
-            .syncError("Синхронизация не удалась: \(error.localizedDescription) "))
+            .syncError("\(R.string.localizable.error_sync_stopped()) \(error.localizedDescription) "))
     }
 
     func needToSync() -> Bool {
@@ -213,7 +213,6 @@ class Repository {
             switch result {
             case .success:
                 self.onSyncNext?()
-                print("Function: \(#function), line: \(#line)")
             case let .failure(error):
                 completion(ResultType.failure(RepositoryError.syncError(error.localizedDescription)))
             }
@@ -228,8 +227,6 @@ class Repository {
             switch result {
             case .success:
                 self.onSyncNext?()
-                print("Function: \(#function), line: \(#line)")
-                
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
@@ -244,7 +241,6 @@ class Repository {
             switch result {
             case .success:
                 self.onSyncNext?()
-                print("Function: \(#function), line: \(#line)")
                 completion(ResultType.success(true))
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
@@ -260,7 +256,6 @@ class Repository {
             switch result {
             case .success:
                 self.onSyncNext?()
-                 print("Function: \(#function), line: \(#line)")
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
@@ -322,7 +317,7 @@ class Repository {
     func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, RepositoryError> {
 
         if let _ = shoplist.index(of: item) {
-            return ResultType.failure(RepositoryError.shoplistAddedNewItem("Уже в списке"))
+            return ResultType.failure(RepositoryError.shoplistAddedNewItem(R.string.localizable.common_already_in_list()))
         }
 
         shoplist.append(item)

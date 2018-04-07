@@ -22,7 +22,20 @@ class ShopItemCell: UITableViewCell {
     var onCompareDemand: ((ShopItemCell) -> Void)?
     
 
-//    var weightList = [Double]()
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(onCompareHandler))
+        
+        self.priceView.addGestureRecognizer(gesture)
+    }
+    
+    @objc
+    func onCompareHandler() {
+        self.onCompareDemand?(self)
+    }
+    
 
     @IBAction func changeQuantity(_ sender: UIButton) {
         self.onWeightDemand?(self)

@@ -341,13 +341,13 @@
          contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
+               value = "itemTableView">
+            </PersistentString>
+            <PersistentString
                value = "itemList">
             </PersistentString>
             <PersistentString
                value = "filtredItemList">
-            </PersistentString>
-            <PersistentString
-               value = "itemTableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -459,13 +459,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
-               value = "shopList">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -629,10 +629,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -647,6 +647,17 @@
          <PersistentStrings>
             <PersistentString
                value = "self.shoplist">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "OutetListAdapter.tableView(_:cellForRowAt:):OutetListAdapter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tableView.dataSource">
+            </PersistentString>
+            <PersistentString
+               value = "self.tableView.delegate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

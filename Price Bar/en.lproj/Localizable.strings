@@ -1,27 +1,35 @@
-/* 
-  Localizable.strings
-  PriceBar
-
-  Created by Leonid Nifantyev on 2/25/18.
-  Copyright © 2018 LionLife. All rights reserved.
-*/
-
-// MARK: Common
-"sync_process" = "Loading goods and prices from cloud, please wait ...";
-"try_later" = "Try later";
-"loading" = "Loading...";
-"wow" = "Wow";
-"not_necessary" = "Not necessary";
-"ups" = "Oops!";
-
-
-// MARK: Shoplist
-"outlet_looking" = "Looking for nearest outlets...";
-"good_news" = "Good news: Goods are loaded!!!🤘, but: ";
-"sync_process" = "Loading goods and prices from cloud, please wait ...";
-"total"  = "Total: ";
-"clean_shoplist" = "Clean shoplist?🧐";
+"common_try_later" = "Please try again later";
+"common_loading" = "Loading...";
+"common_wow" = "Wow";
+"common_not_necessary" = "It is not necessary";
+"common_ups" = "Oh";
+"outlet_looking" = "Looking for the nearest stores ...";
+"common_good_news" = "Good news: Products uploaded!!!🤘, but:";
+"sync_process" = "Loading products and prices from the cloud, please wait ...";
+"common_total" = "Total:";
+"shoplist_clean" = "Clean shop list? 🧐";
 "shop_list_quantity" = "Qty:";
-
-// MARK: OutletList
-"outlet_loading" = "Outlets loading";
+"outlet_loading" = "Loading outlets";
+"shoplist_please_choose_outlet" = "Please, choose store";
+"base_statistics_products_in_base_today" = "Today the goods in the database are already";
+"common_lets_get_start" = "Let's start";
+"sync_process_connecting" = "Connecting to the Cloud";
+"sync_process_start" = "Begin synchronization";
+"sync_process_categories" = "%@ categories";
+"sync_process_uom" = "%@ measurement units";
+"sync_process_products" = "%@ goods";
+"sync_process_prices" = "%@ actual prices";
+"sync_process_shoplist" = "%@ your shop list";
+"sync_process_all_is_done" = "You're ready to go!";
+"error_something_went_wrong" = "Something went wrong";
+"error_sync_stopped" = "Synchronization failed:";
+"common_already_in_list" = "Already in the list";
+"item_list_start_to_search_product" = "Start to search for a product";
+"outlet_list_start_to_search_store" = "Start looking for a store";
+"item_list" = "List of products";
+"item_list_empty" = "No products in database";
+"outlet_list_search" = "Search for a store";
+"outlet_list_m" = "%@ m";
+"outlet_list_km" = "%@ km";
+"item_list_best_price" = "the best: %@";
+"item_list_add_new" = "Add new product";

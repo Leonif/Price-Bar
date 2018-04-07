@@ -15,7 +15,7 @@ enum Strings {
         case showItemList
 //        case showOutlets
         case showEditItem
-        case scannedNewProduct
+//        case scannedNewProduct
         
         var name: String {
             return self.rawValue

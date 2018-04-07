@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		4FF37986BE78C0C683CB8D7E /* Pods_PriceBarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */; };
 		7904B45A1F03738B002032CD /* FBItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* FBItemCategory.swift */; };
+		790B7D07207901F8003DD560 /* navigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D06207901F8003DD560 /* navigationView.xib */; };
+		790B7D09207902EF003DD560 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D08207902EF003DD560 /* NavigationView.swift */; };
 		790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F1008202266A20060E285 /* CoreDataParsers.swift */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
 		790F104220262FC30060E285 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103820262FC30060E285 /* Product+CoreDataClass.swift */; };
@@ -124,6 +126,8 @@
 		3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.release.xcconfig"; sourceTree = "<group>"; };
 		4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7904B4591F03738B002032CD /* FBItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBItemCategory.swift; sourceTree = SOURCE_ROOT; };
+		790B7D06207901F8003DD560 /* navigationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = navigationView.xib; sourceTree = "<group>"; };
+		790B7D08207902EF003DD560 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 		790F1008202266A20060E285 /* CoreDataParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParsers.swift; sourceTree = "<group>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
 		790F103820262FC30060E285 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -271,6 +275,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		790B7D0A207902F5003DD560 /* NavigationBarView */ = {
+			isa = PBXGroup;
+			children = (
+				790B7D06207901F8003DD560 /* navigationView.xib */,
+				790B7D08207902EF003DD560 /* NavigationView.swift */,
+			);
+			name = NavigationBarView;
+			sourceTree = "<group>";
+		};
+		790B7D0B20790310003DD560 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
+				79F68451206801D200257F00 /* ShopItemCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		790B7D0C20790319003DD560 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				792EE7C61EE7087200470669 /* HeaderView.swift */,
+				792EE7B61EE707F000470669 /* HeaderView.xib */,
+			);
+			name = Header;
+			sourceTree = "<group>";
+		};
 		790BC9E71F8831FB00CA9519 /* ShopListFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -334,10 +365,9 @@
 			children = (
 				79210297205DD7BB00C83706 /* SyncAnimator.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
-				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
-				79F68451206801D200257F00 /* ShopItemCell.xib */,
-				792EE7C61EE7087200470669 /* HeaderView.swift */,
-				792EE7B61EE707F000470669 /* HeaderView.xib */,
+				790B7D0A207902F5003DD560 /* NavigationBarView */,
+				790B7D0B20790310003DD560 /* Cell */,
+				790B7D0C20790319003DD560 /* Header */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -849,6 +879,7 @@
 				79E9B86F206C0DB400D80EA5 /* Comparison.storyboard in Resources */,
 				79F68452206801D200257F00 /* ShopItemCell.xib in Resources */,
 				795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */,
+				790B7D07207901F8003DD560 /* navigationView.xib in Resources */,
 				79E9B87E206ED8ED00D80EA5 /* OutletCellView.xib in Resources */,
 				79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */,
 				796D7B28201BE4B10098D324 /* AddCellNib.xib in Resources */,
@@ -1082,6 +1113,7 @@
 				79833B37200D501E005C6CC5 /* DPProductModel.swift in Sources */,
 				790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */,
 				7933686D20012F1A00E8E81A /* QuantityModel.swift in Sources */,
+				790B7D09207902EF003DD560 /* NavigationView.swift in Sources */,
 				7975D63620714224003A6288 /* UIColorsExtensions.swift in Sources */,
 				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,
 				79833B502013AC49005C6CC5 /* DPShoplistModel.swift in Sources */,

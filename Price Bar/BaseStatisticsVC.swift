@@ -36,14 +36,14 @@ class BaseStatisticsVC: UIViewController {
         
         let btn = GoodButton(frame: rect)
         btn.backgroundColor = .red
-        btn.setTitle("Начнем", for: .normal)
+        btn.setTitle(R.string.localizable.common_lets_get_start(), for: .normal)
         btn.addTarget(self, action: #selector(close), for: .touchUpInside)
         
         return btn
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
-        label.text = "Сегодня товаров в базе уже"
+        label.text = R.string.localizable.base_statistics_products_in_base_today()
         label.sizeToFit()
         label.center = view.center
         label.frame.origin.y -= 166

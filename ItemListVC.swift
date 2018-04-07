@@ -27,13 +27,13 @@ class ItemListVC: UIViewController {
     
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar(frame: CGRect.zero)
-        s.placeholder = "Начните искать товар"
+        s.placeholder = R.string.localizable.item_list_start_to_search_product()
         s.delegate = self
         return s
     }()
 
     var shouldClose: Bool = false
-    weak var dataProvider: Repository!
+    weak var repository: Repository!
 
     var isLoading = false
 
@@ -44,20 +44,20 @@ class ItemListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.prompt = "Список товаров"
+        navigationItem.prompt = R.string.localizable.item_list()
         navigationItem.titleView = searchBar
         
         itemTableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
-        self.view.pb_startActivityIndicator(with: R.string.localizable.loading())
+        self.view.pb_startActivityIndicator(with: R.string.localizable.common_loading())
     }
 
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
         guard
-            let products = dataProvider.getShopItems(with: currentPageOffset, limit: 40, for: outletId),
+            let products = repository.getShopItems(with: currentPageOffset, limit: 40, for: outletId),
             let itemList = ProductMapper.transform(from: products, for: outletId)  else {
-                alert(message: "Нет товаров в базе")
+                alert(message: R.string.localizable.item_list_empty())
                 self.view.pb_stopActivityIndicator()
                 return
         }
@@ -75,7 +75,7 @@ class ItemListVC: UIViewController {
 
     func updateResults(searchText: String) {
         if  searchText.count >= 3 {
-            guard let list = dataProvider.filterItemList(contains: searchText, for: outletId),
+            guard let list = repository.filterItemList(contains: searchText, for: outletId),
                 let modelList = ProductMapper.transform(from: list, for: outletId) else {
                     return
             }
@@ -154,7 +154,7 @@ extension ItemListVC {
         itemCardVC.delegate = self
         itemCardVC.outletId = outletId
         itemCardVC.searchedItemName = searchedItem
-        itemCardVC.dataProvider = dataProvider
+        itemCardVC.repository = repository
     }
     
 }
@@ -168,7 +168,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
             if (!self.isLoading) {
                 self.isLoading = true
                 currentPageOffset += filtredItemList.count
-                if let products = dataProvider.getShopItems(with: currentPageOffset,
+                if let products = repository.getShopItems(with: currentPageOffset,
                                                             limit: 40,
                                                             for: outletId),
                     let modelList = ProductMapper.transform(from: products, for: outletId) {

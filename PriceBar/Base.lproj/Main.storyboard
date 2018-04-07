@@ -25,8 +25,8 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shop_background" translatesAutoresizingMaskIntoConstraints="NO" id="ZHg-hU-nMH">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="teD-oh-0KA">
-                                <rect key="frame" x="20" y="96" width="335" height="555"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="teD-oh-0KA">
+                                <rect key="frame" x="20" y="88" width="335" height="579"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.0" green="0.47934520244598389" blue="0.99908632040023804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
@@ -122,10 +122,11 @@
                             <constraint firstItem="DSE-ET-7ip" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TGz-sq-y4v"/>
                             <constraint firstItem="DSE-ET-7ip" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZYV-WJ-32I"/>
                             <constraint firstAttribute="trailing" secondItem="DSE-ET-7ip" secondAttribute="trailing" id="bDf-0r-GJg"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" constant="16" id="hxF-qp-Nzl"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" id="hxF-qp-Nzl"/>
                             <constraint firstItem="7ol-nf-4Rs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="23" id="idk-nW-Ovk"/>
                             <constraint firstAttribute="trailing" secondItem="61o-de-Tit" secondAttribute="trailing" constant="20" id="ltQ-ly-3bW"/>
                             <constraint firstAttribute="trailing" secondItem="ZHg-hU-nMH" secondAttribute="trailing" id="mcN-Fv-ic4"/>
+                            <constraint firstItem="teD-oh-0KA" firstAttribute="top" secondItem="DSE-ET-7ip" secondAttribute="bottom" id="mkE-rx-NQg"/>
                             <constraint firstAttribute="bottom" secondItem="61o-de-Tit" secondAttribute="bottom" constant="16" id="nhi-ev-SRe"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="qoc-gM-cxe"/>
                             <constraint firstItem="ZHg-hU-nMH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zbb-Hy-7MN"/>

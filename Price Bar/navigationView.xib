@@ -25,16 +25,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="scK-lP-gey">
-                    <rect key="frame" x="0.0" y="0.0" width="395" height="55"/>
+                    <rect key="frame" x="0.0" y="8" width="395" height="47"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сильпо" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sak-BQ-VEj">
-                            <rect key="frame" x="159.5" y="0.0" width="76" height="29.5"/>
+                            <rect key="frame" x="159.5" y="0.0" width="76" height="25.5"/>
                             <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Здолбуновская 14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XR6-DF-d88">
-                            <rect key="frame" x="138.5" y="33.5" width="118.5" height="21.5"/>
+                            <rect key="frame" x="138.5" y="29.5" width="118.5" height="17.5"/>
                             <fontDescription key="fontDescription" name="RobagaRounded" family="Robaga Rounded" pointSize="14"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
@@ -47,7 +47,7 @@
                 <constraint firstAttribute="bottom" secondItem="scK-lP-gey" secondAttribute="bottom" id="5jh-ax-u6Q"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="scK-lP-gey" secondAttribute="trailing" id="7ga-BL-NkO"/>
                 <constraint firstItem="scK-lP-gey" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="UL3-92-90i"/>
-                <constraint firstItem="scK-lP-gey" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="uKI-Ve-jhy"/>
+                <constraint firstItem="scK-lP-gey" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="uKI-Ve-jhy"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

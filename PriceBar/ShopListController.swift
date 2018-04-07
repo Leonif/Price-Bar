@@ -54,7 +54,7 @@ class ShopListController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        navigationItem.titleView?.alpha = 1.0
+        navigationItem.titleView?.alpha = 1.0
     }
     
     override func viewDidLoad() {
@@ -116,6 +116,7 @@ class ShopListController: UIViewController {
         self.storeButton.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
 
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.storeButton)
+        self.navigationItem.prompt = ""
         
         self.navigationItem.titleView = self.navigationView
         
@@ -321,7 +322,7 @@ extension ShopListController: OutletVCDelegate {
 
 extension ShopListController: ItemCardVCDelegate {
     func add(new productId: String) {
-        interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+        self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .success: break

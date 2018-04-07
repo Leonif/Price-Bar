@@ -43,7 +43,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ShopItemCell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ShopItemCell
-        let shp = repository.getItem(index: indexPath)!
+        let shp = self.repository.getItem(index: indexPath)!
 
         self.configure(cell, shp)
         cell.onWeightDemand = { [weak self] cell in
@@ -64,13 +64,11 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let item = self.repository.getItem(index: indexPath) {
-                tableView.update { [weak self] in
+            if let item = repository.getItem(index: indexPath) {
+                tableView.update {
                     let itemCountWasInSection = repository.rowsIn(indexPath.section)
-                    
-                    self?.repository.remove(item: item)
+                    repository.remove(item: item)
                     tableView.deleteRows(at: [indexPath], with: .fade)
-                    
                     if itemCountWasInSection == 1 {
                         let indexSet = IndexSet(integer: indexPath.section)
                         tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)

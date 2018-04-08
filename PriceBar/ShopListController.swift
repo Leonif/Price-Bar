@@ -14,13 +14,18 @@ class ShopListController: UIViewController {
     
     let storeButton: UIButton = {
         let b = UIButton(frame: CGRect.zero)
-        b.frame.size = CGSize(width: 44, height: 44)
-        b.backgroundColor = Color.atlantis
-        b.setImage(R.image.shop(), for: .normal)
-        b.layer.borderColor = Color.dustyGray.cgColor
-        b.layer.borderWidth = 1.0
-        b.layer.cornerRadius = 44 / 2
+        let icon = R.image.storeButton()
+        b.setImage(icon, for: .normal)
+        b.imageView?.contentMode = .scaleAspectFit
 
+        return b
+    }()
+    
+    let deleteButton: UIButton = {
+        let b = UIButton(frame: CGRect.zero)
+        b.setImage(R.image.delete_button(), for: .normal)
+        b.imageView?.contentMode = .scaleAspectFit
+        
         return b
     }()
     
@@ -32,13 +37,12 @@ class ShopListController: UIViewController {
     
     @IBOutlet weak var scanButton: GoodButton!
     @IBOutlet weak var itemListButton: GoodButton!
-    @IBOutlet weak var removeShoplistBtn: GoodButton!
     @IBOutlet weak var rightButtonViewArea: UIView!
     @IBOutlet var wholeViewArea: UIView!
     var navigationView: NavigationView!
 
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
-    @IBOutlet weak var removeButtonConstrait: NSLayoutConstraint!
+    
     
     // MARK: - Dependecy Injection properties
     var repository: Repository!
@@ -113,10 +117,12 @@ class ShopListController: UIViewController {
         
         self.navigationView = R.nib.navigationView.firstView(owner: self)
         
-        self.storeButton.addTarget(self, action: #selector(selectOutlet), for: .touchUpInside)
-
+        self.storeButton.addTarget(self, action: #selector(self.selectOutlet), for: .touchUpInside)
+        self.deleteButton.addTarget(self, action: #selector(self.cleanShoplist2), for: .touchUpInside)
+        
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.storeButton)
-        self.navigationItem.prompt = ""
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.deleteButton)
+//        self.navigationItem.prompt = ""
         
         self.navigationItem.titleView = self.navigationView
         
@@ -157,7 +163,7 @@ class ShopListController: UIViewController {
     func updateRemoveButtonState() {
         self.totalLabel.text = String(format:"%.2f UAH", self.repository.total)
         let enable = !self.buttonsHided && !self.repository.shoplist.isEmpty
-        self.removeShoplistBtn.setEnable(enable)
+        self.deleteButton.setEnable(enable)
     }
     
     
@@ -229,12 +235,19 @@ class ShopListController: UIViewController {
     }
     
     @IBAction func cleanShopList(_ sender: GoodButton) {
+        self.cleanShoplist2()
+    }
+    
+    
+    @objc
+    func cleanShoplist2() {
         self.alert(message: R.string.localizable.shoplist_clean(), okAction: { [weak self] in
             guard let `self` = self else { return }
             self.repository.clearShoplist()
             self.shopTableView.reloadData()
-        }, cancelAction: {})
+            }, cancelAction: {})
     }
+    
 }
 
 // FIXME: - move to Animator
@@ -266,10 +279,10 @@ extension ShopListController {
         [scanButton, itemListButton].forEach { $0.setEnable(hide) }
         
         let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 50
-        let newRemoveConst: CGFloat = removeButtonConstrait.constant - shiftOfDirection * 50
+        
         
         self.rightButtonConstrait.constant = newConst
-        self.removeButtonConstrait.constant = newRemoveConst
+        
         
         UIView.animate(withDuration: 0.3,
                        delay: 0,

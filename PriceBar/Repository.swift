@@ -93,6 +93,11 @@ class Repository {
         }
     }
 
+    
+    var itemsCount: Int {
+        return shoplist.count
+    }
+    
     var total: Double {
         let sum = shoplist.reduce(0) { $0 + ($1.productPrice * $1.quantity) }
         return sum

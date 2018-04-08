@@ -23,7 +23,7 @@ class ShopListController: UIViewController {
     
     let deleteButton: UIButton = {
         let b = UIButton(frame: CGRect.zero)
-        b.setImage(R.image.delete_button(), for: .normal)
+        b.setImage(R.image.deleteButton(), for: .normal)
         b.imageView?.contentMode = .scaleAspectFit
         
         return b
@@ -122,7 +122,6 @@ class ShopListController: UIViewController {
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.storeButton)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.deleteButton)
-//        self.navigationItem.prompt = ""
         
         self.navigationItem.titleView = self.navigationView
         
@@ -130,12 +129,7 @@ class ShopListController: UIViewController {
     }
     
     func setupTotalView() {
-        
-        
-        self.totalView.layer.cornerRadius = 8.0
-        self.totalView.layer.borderWidth = 1.0
-        self.totalView.layer.borderColor = Color.dustyGray.cgColor
-        
+        PriceBarStyles.borderedRoundedView.apply(to: self.totalView)
     }
     
     func setupGestures() {

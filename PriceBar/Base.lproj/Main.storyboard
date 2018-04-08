@@ -26,9 +26,19 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="teD-oh-0KA">
-                                <rect key="frame" x="20" y="84" width="335" height="583"/>
+                                <rect key="frame" x="8" y="84" width="359" height="583"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" red="0.0" green="0.47934520244598389" blue="0.99908632040023804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" id="owl-gY-UzF">
+                                        <rect key="frame" x="0.0" y="28" width="359" height="88"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="owl-gY-UzF" id="eKF-oe-H5D">
+                                            <rect key="frame" x="0.0" y="0.0" width="359" height="88"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ol-nf-4Rs">
                                 <rect key="frame" x="23" y="605" width="131" height="46"/>
@@ -100,7 +110,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="teD-oh-0KA" secondAttribute="trailing" constant="20" id="CKZ-ys-EfI"/>
+                            <constraint firstAttribute="trailing" secondItem="teD-oh-0KA" secondAttribute="trailing" constant="8" id="CKZ-ys-EfI"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ZHg-hU-nMH" secondAttribute="bottom" id="JhA-EK-Qm9"/>
                             <constraint firstItem="ZHg-hU-nMH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="OwZ-jz-sh3"/>
                             <constraint firstItem="DSE-ET-7ip" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="TGz-sq-y4v"/>
@@ -112,7 +122,7 @@
                             <constraint firstAttribute="trailing" secondItem="ZHg-hU-nMH" secondAttribute="trailing" id="mcN-Fv-ic4"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="top" secondItem="DSE-ET-7ip" secondAttribute="bottom" constant="4" id="mkE-rx-NQg"/>
                             <constraint firstAttribute="bottom" secondItem="61o-de-Tit" secondAttribute="bottom" constant="16" id="nhi-ev-SRe"/>
-                            <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="qoc-gM-cxe"/>
+                            <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="qoc-gM-cxe"/>
                             <constraint firstItem="ZHg-hU-nMH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zbb-Hy-7MN"/>
                             <constraint firstAttribute="bottom" secondItem="7ol-nf-4Rs" secondAttribute="bottom" constant="16" id="zhS-Qw-oBC"/>
                         </constraints>

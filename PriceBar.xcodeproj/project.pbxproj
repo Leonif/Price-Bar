@@ -11,6 +11,7 @@
 		7904B45A1F03738B002032CD /* FBItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* FBItemCategory.swift */; };
 		790B7D07207901F8003DD560 /* navigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D06207901F8003DD560 /* navigationView.xib */; };
 		790B7D09207902EF003DD560 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D08207902EF003DD560 /* NavigationView.swift */; };
+		790B7D2C207A6000003DD560 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D2B207A6000003DD560 /* Styles.swift */; };
 		790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F1008202266A20060E285 /* CoreDataParsers.swift */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
 		790F104220262FC30060E285 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103820262FC30060E285 /* Product+CoreDataClass.swift */; };
@@ -128,6 +129,7 @@
 		7904B4591F03738B002032CD /* FBItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBItemCategory.swift; sourceTree = SOURCE_ROOT; };
 		790B7D06207901F8003DD560 /* navigationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = navigationView.xib; sourceTree = "<group>"; };
 		790B7D08207902EF003DD560 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
+		790B7D2B207A6000003DD560 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		790F1008202266A20060E285 /* CoreDataParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParsers.swift; sourceTree = "<group>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
 		790F103820262FC30060E285 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -537,6 +539,7 @@
 			isa = PBXGroup;
 			children = (
 				7975D63520714224003A6288 /* UIColorsExtensions.swift */,
+				790B7D2B207A6000003DD560 /* Styles.swift */,
 			);
 			name = Styles;
 			sourceTree = "<group>";
@@ -1089,6 +1092,7 @@
 				79A2EB732002D471008F7DAA /* ResultType.swift in Sources */,
 				796D7B22201A51690098D324 /* CategoryMapper.swift in Sources */,
 				79833B5B20146795005C6CC5 /* DPCategoryModel.swift in Sources */,
+				790B7D2C207A6000003DD560 /* Styles.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
 				792102912055778900C83706 /* CircleIndicatorView.swift in Sources */,
 				79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */,

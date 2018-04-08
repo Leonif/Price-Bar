@@ -17,6 +17,8 @@ class ShopItemCell: UITableViewCell {
     @IBOutlet weak var quantityButton: UIButton!
     @IBOutlet weak var priceView: UIView!
     @IBOutlet weak var cellView: UIView!
+    @IBOutlet weak var topConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
     
     var onWeightDemand: ((ShopItemCell) -> Void)?
     var onCompareDemand: ((ShopItemCell) -> Void)?

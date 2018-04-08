@@ -32,8 +32,8 @@ class AddCell: UITableViewCell {
 
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        cellView.layer.cornerRadius = cellView.frame.height/2
-        cellView.castShadow()
+        cellView.layer.cornerRadius = cellView.frame.height / 2
+//        cellView.castShadow()
 
     }
 

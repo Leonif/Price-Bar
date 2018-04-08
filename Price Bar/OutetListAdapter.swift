@@ -71,7 +71,8 @@ extension OutetListAdapter {
     
     func configure(_ cell: OutletCell, for outlet: Outlet) -> OutletCell {
         
-        cell.castShadow()
+//        cell.castShadow()
+        PriceBarStyles.shadowAround.apply(to: cell)
         
         cell.layer.cornerRadius = 5.0
         

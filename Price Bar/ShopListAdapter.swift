@@ -29,7 +29,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         self.repository = repository
         
         // For registering nib files
-        tableView.register(R.nib.shopItemCell(), forCellReuseIdentifier: "ItemCell")
+        tableView.register(R.nib.shopItemCell(), forCellReuseIdentifier: R.reuseIdentifier.itemCell.identifier)
         
     }
     
@@ -42,10 +42,28 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ShopItemCell = tableView.dequeueReusableCell(withIdentifier: "ItemCell", for: indexPath) as! ShopItemCell
+        let cell: ShopItemCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.itemCell.identifier, for: indexPath) as! ShopItemCell
         let shp = self.repository.getItem(index: indexPath)!
 
         self.configure(cell, shp)
+        
+        
+//        if indexPath.row == 0 && indexPath.row == self.repository.rowsIn(indexPath.section) - 1 {
+//            cell.topConstraint.constant = 16
+//            cell.bottomConstraint.constant = 16
+//        } else if indexPath.row == 0 {
+//            cell.topConstraint.constant = 16
+//            cell.bottomConstraint.constant = 8
+//        } else if indexPath.row == self.repository.rowsIn(indexPath.section) - 1  {
+//            cell.topConstraint.constant = 8
+//            cell.bottomConstraint.constant = 16
+//        } else {
+//            cell.topConstraint.constant = 8
+//            cell.bottomConstraint.constant = 8
+//        }
+        
+        
+        
         cell.onWeightDemand = { [weak self] cell in
             self?.handleWeightDemanded(cell: cell)
         }
@@ -54,6 +72,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
             let item = self.repository.getItem(index: indexPath)!
             self.onCompareDidSelected?(item)
         }
+        
         
         return cell
     }
@@ -86,37 +105,32 @@ extension ShopListAdapter: UITableViewDelegate {
         return 30
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 95
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 95
+//    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.repository.getItem(index: indexPath)!
         self.onCellDidSelected?(item)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)?.first as? HeaderView
-        headerView?.view.layer.cornerRadius = 8.0
-        headerView?.view.layer.borderColor = Color.dustyGray.cgColor
-        headerView?.view.layer.borderWidth = 1.0
-        headerView?.categoryLabel.text = repository.headerString(for: section)
+        let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)!.first as! HeaderView
+        
+        PriceBarStyles.borderedRoundedView.apply(to: headerView.view)
+        headerView.categoryLabel.text = repository.headerString(for: section)
 
         return headerView
     }
     
     
     func configure(_ cell: ShopItemCell, _ item: DPShoplistItemModel) {
-        
-        
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
         cell.cellView.layer.cornerRadius = 8.0
-        cell.cellView.castShadow()
+        PriceBarStyles.shadowAround.apply(to: cell.cellView)
         
         [cell.quantityButton, cell.priceView].forEach {
-            $0?.layer.cornerRadius = 8.0
-            $0?.layer.borderWidth = 1.0
-            $0?.layer.borderColor = Color.dustyGray.cgColor
+            PriceBarStyles.borderedRoundedView.apply(to: $0)
         }
         cell.priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
         cell.nameItem.text = item.productName

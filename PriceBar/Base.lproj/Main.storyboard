@@ -41,7 +41,7 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ol-nf-4Rs">
-                                <rect key="frame" x="23" y="605" width="131" height="46"/>
+                                <rect key="frame" x="0.0" y="605" width="131" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Итого: 0, 00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUL-id-lem">
                                         <rect key="frame" x="6.5" y="11" width="118" height="24"/>
@@ -117,7 +117,7 @@
                             <constraint firstItem="DSE-ET-7ip" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZYV-WJ-32I"/>
                             <constraint firstAttribute="trailing" secondItem="DSE-ET-7ip" secondAttribute="trailing" id="bDf-0r-GJg"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" id="hxF-qp-Nzl"/>
-                            <constraint firstItem="7ol-nf-4Rs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="23" id="idk-nW-Ovk"/>
+                            <constraint firstItem="7ol-nf-4Rs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="idk-nW-Ovk"/>
                             <constraint firstAttribute="trailing" secondItem="61o-de-Tit" secondAttribute="trailing" constant="-16" id="ltQ-ly-3bW"/>
                             <constraint firstAttribute="trailing" secondItem="ZHg-hU-nMH" secondAttribute="trailing" id="mcN-Fv-ic4"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="top" secondItem="DSE-ET-7ip" secondAttribute="bottom" constant="4" id="mkE-rx-NQg"/>

@@ -48,18 +48,56 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         self.configure(cell, shp)
         
         
-        if indexPath.row == 0 && indexPath.row == self.repository.rowsIn(indexPath.section) - 1 {
-            cell.topConstraint.constant = 16
-            cell.bottomConstraint.constant = 16
-        } else if indexPath.row == 0 {
-            cell.topConstraint.constant = 16
-            cell.bottomConstraint.constant = 8
-        } else if indexPath.row == self.repository.rowsIn(indexPath.section) - 1  {
-            cell.topConstraint.constant = 8
-            cell.bottomConstraint.constant = 16
+        let isFirstAndLastCell = indexPath.row == 0 && indexPath.row == self.repository.rowsIn(indexPath.section) - 1
+        let isFirstCell = indexPath.row == 0
+        let isLastCell = indexPath.row == self.repository.rowsIn(indexPath.section) - 1
+        
+        
+        let wide: CGFloat = 16
+        let thin: CGFloat = 8
+        
+        if  isFirstAndLastCell {
+            
+            cell.topView.isHidden = false
+            cell.bottomView.isHidden = false
+            cell.leftView.isHidden = false
+            cell.rightView.isHidden = false
+            
+            cell.topConstraint.constant = wide
+            cell.bottomConstraint.constant = wide
+            
+        } else if isFirstCell {
+            
+            cell.topView.isHidden = false
+            cell.bottomView.isHidden = true
+            cell.leftView.isHidden = false
+            cell.rightView.isHidden = false
+
+            
+            
+            cell.topConstraint.constant = wide
+            cell.bottomConstraint.constant = thin
+            
+        } else if isLastCell  {
+            
+            
+            cell.topView.isHidden = true
+            cell.bottomView.isHidden = false
+            cell.leftView.isHidden = false
+            cell.rightView.isHidden = false
+            
+            cell.topConstraint.constant = thin
+            cell.bottomConstraint.constant = wide
+            
         } else {
-            cell.topConstraint.constant = 8
-            cell.bottomConstraint.constant = 8
+            
+            cell.topView.isHidden = true
+            cell.bottomView.isHidden = true
+            cell.leftView.isHidden = false
+            cell.rightView.isHidden = false
+
+            cell.topConstraint.constant = thin
+            cell.bottomConstraint.constant = thin
         }
         
         

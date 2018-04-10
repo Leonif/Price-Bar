@@ -141,7 +141,7 @@ class FoursqareProvider {
     }
     
     private func handleParseError<T>(completed: @escaping ForsqareResult<T>) {
-        completed(ResultType.failure(.parseError("Что-то пошло не так")))
+        completed(ResultType.failure(.parseError(R.string.localizable.error_something_went_wrong())))
     }
 
 }

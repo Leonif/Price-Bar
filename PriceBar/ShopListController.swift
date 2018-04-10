@@ -188,7 +188,7 @@ class ShopListController: UIViewController {
     func synchronizeData() {
         self.buttonEnable(false)
         self.syncAnimator.startProgress()
-        interactor.synchronizeData { [weak self] result in
+        self.interactor.synchronizeData { [weak self] result in
             guard let `self` = self else { return }
             self.syncAnimator.stopProgress(completion: { [weak self] in
                 guard let `self` = self else { return }
@@ -205,7 +205,7 @@ class ShopListController: UIViewController {
     private func updateCurentOutlet() {
         var activateControls = false
         self.view.pb_startActivityIndicator(with:R.string.localizable.outlet_looking())
-        interactor.updateCurrentOutlet { [weak self] (result) in
+        self.interactor.updateCurrentOutlet { [weak self] (result) in
             guard let `self` = self else { return }
             self.view.pb_stopActivityIndicator()
             switch result {

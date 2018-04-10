@@ -127,14 +127,6 @@
          contextName = "== infix(_:_:):ShoplistItemModel.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListModel.getItem(index:):ShopListModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.sections[index.section]">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "ShopListAdapter.tableView(_:cellForRowAt:):ShopListAdapter.swift">
          <PersistentStrings>
             <PersistentString
@@ -142,6 +134,14 @@
             </PersistentString>
             <PersistentString
                value = "indexPath.row">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.getItem(index:):ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.sections[index.section]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -181,6 +181,9 @@
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #1 in ShoplistInteractor.getPriceStatistics(for:):ShoplistInteractor.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopItemCell.setBorder(for:with:borderWidth:):ShopItemCell.swift">
       </ContextState>
       <ContextState
          contextName = "CoreDataService.shopItem(parse:and:):CoreDataService.swift">
@@ -333,6 +336,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "FoursqareProvider.parseVenues(from:completion:):FoursqareProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "resp">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in OutletListInteractor.searchOutlet(with:):OutletListInteractor.swift">
          <PersistentStrings>
             <PersistentString
@@ -352,13 +363,13 @@
          contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
+               value = "itemTableView">
+            </PersistentString>
+            <PersistentString
                value = "filtredItemList">
             </PersistentString>
             <PersistentString
                value = "itemList">
-            </PersistentString>
-            <PersistentString
-               value = "itemTableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -470,13 +481,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -563,6 +574,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in FoursqareProvider.request&lt;A&gt;(url:completed:parseFunction:):FoursqareProvider.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListDataSource.tableView(_:commit:forRowAt:):ShopListDataSource.swift">
       </ContextState>
       <ContextState
@@ -640,10 +654,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

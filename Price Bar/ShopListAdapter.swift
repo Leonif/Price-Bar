@@ -48,19 +48,19 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         self.configure(cell, shp)
         
         
-//        if indexPath.row == 0 && indexPath.row == self.repository.rowsIn(indexPath.section) - 1 {
-//            cell.topConstraint.constant = 16
-//            cell.bottomConstraint.constant = 16
-//        } else if indexPath.row == 0 {
-//            cell.topConstraint.constant = 16
-//            cell.bottomConstraint.constant = 8
-//        } else if indexPath.row == self.repository.rowsIn(indexPath.section) - 1  {
-//            cell.topConstraint.constant = 8
-//            cell.bottomConstraint.constant = 16
-//        } else {
-//            cell.topConstraint.constant = 8
-//            cell.bottomConstraint.constant = 8
-//        }
+        if indexPath.row == 0 && indexPath.row == self.repository.rowsIn(indexPath.section) - 1 {
+            cell.topConstraint.constant = 16
+            cell.bottomConstraint.constant = 16
+        } else if indexPath.row == 0 {
+            cell.topConstraint.constant = 16
+            cell.bottomConstraint.constant = 8
+        } else if indexPath.row == self.repository.rowsIn(indexPath.section) - 1  {
+            cell.topConstraint.constant = 8
+            cell.bottomConstraint.constant = 16
+        } else {
+            cell.topConstraint.constant = 8
+            cell.bottomConstraint.constant = 8
+        }
         
         
         
@@ -101,14 +101,6 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 
 // MARK: -  Delegate
 extension ShopListAdapter: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
-    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 95
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.repository.getItem(index: indexPath)!
         self.onCellDidSelected?(item)

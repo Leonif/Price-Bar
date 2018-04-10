@@ -59,45 +59,45 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="61o-de-Tit">
-                                <rect key="frame" x="275" y="511" width="80" height="140"/>
+                                <rect key="frame" x="226" y="578" width="165" height="66"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1v-Mz-DlY" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="4" width="60" height="60"/>
-                                        <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-mn-h0O">
+                                        <rect key="frame" x="82" y="8" width="50" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="FKj-OU-Gok"/>
-                                            <constraint firstAttribute="width" constant="60" id="byO-Gt-ndU"/>
+                                            <constraint firstAttribute="height" constant="50" id="5ef-c1-AWl"/>
+                                            <constraint firstAttribute="width" constant="50" id="skC-jL-Ulq"/>
                                         </constraints>
-                                        <state key="normal" image="scanning">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-mn-h0O" customClass="GoodButton" customModule="PriceBar" customModuleProvider="target">
-                                        <rect key="frame" x="12" y="72" width="60" height="60"/>
-                                        <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="9WM-PL-hau"/>
-                                            <constraint firstAttribute="width" constant="60" id="VEN-HR-Ohx"/>
-                                        </constraints>
-                                        <state key="normal" image="check-list">
+                                        <state key="normal" image="search button">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
                                             <action selector="itemListPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Joo-Hz-PrH"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S1v-Mz-DlY">
+                                        <rect key="frame" x="16" y="8" width="50" height="50"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="Yxj-ij-LAb"/>
+                                            <constraint firstAttribute="width" constant="50" id="vUH-fZ-1kv"/>
+                                        </constraints>
+                                        <state key="normal" image="scan button">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="scanItemPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TLp-kq-SOu"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" red="0.84705882349999995" green="0.84705882349999995" blue="0.84705882349999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="bBr-mn-h0O" firstAttribute="top" secondItem="S1v-Mz-DlY" secondAttribute="bottom" constant="8" id="K3r-nN-mOi"/>
-                                    <constraint firstAttribute="bottom" secondItem="bBr-mn-h0O" secondAttribute="bottom" constant="8" id="K5F-Db-zrX"/>
-                                    <constraint firstAttribute="height" constant="140" id="M83-i7-pF8"/>
-                                    <constraint firstAttribute="width" constant="80" id="jP9-Al-6XM"/>
-                                    <constraint firstItem="S1v-Mz-DlY" firstAttribute="trailing" secondItem="bBr-mn-h0O" secondAttribute="trailing" id="tNg-m7-AqA"/>
-                                    <constraint firstAttribute="trailing" secondItem="bBr-mn-h0O" secondAttribute="trailing" constant="8" id="y3L-CE-qUw"/>
+                                    <constraint firstItem="bBr-mn-h0O" firstAttribute="leading" secondItem="S1v-Mz-DlY" secondAttribute="trailing" constant="16" id="KZh-ny-i7K"/>
+                                    <constraint firstItem="bBr-mn-h0O" firstAttribute="centerY" secondItem="61o-de-Tit" secondAttribute="centerY" id="M4d-AS-O5V"/>
+                                    <constraint firstAttribute="height" constant="66" id="M83-i7-pF8"/>
+                                    <constraint firstAttribute="width" constant="165" id="jP9-Al-6XM"/>
+                                    <constraint firstItem="S1v-Mz-DlY" firstAttribute="leading" secondItem="61o-de-Tit" secondAttribute="leading" constant="16" id="uF3-P4-8vG"/>
+                                    <constraint firstItem="S1v-Mz-DlY" firstAttribute="centerY" secondItem="61o-de-Tit" secondAttribute="centerY" id="yTA-bN-VeX"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DSE-ET-7ip">
@@ -118,10 +118,10 @@
                             <constraint firstAttribute="trailing" secondItem="DSE-ET-7ip" secondAttribute="trailing" id="bDf-0r-GJg"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="teD-oh-0KA" secondAttribute="bottom" id="hxF-qp-Nzl"/>
                             <constraint firstItem="7ol-nf-4Rs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="23" id="idk-nW-Ovk"/>
-                            <constraint firstAttribute="trailing" secondItem="61o-de-Tit" secondAttribute="trailing" constant="20" id="ltQ-ly-3bW"/>
+                            <constraint firstAttribute="trailing" secondItem="61o-de-Tit" secondAttribute="trailing" constant="-16" id="ltQ-ly-3bW"/>
                             <constraint firstAttribute="trailing" secondItem="ZHg-hU-nMH" secondAttribute="trailing" id="mcN-Fv-ic4"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="top" secondItem="DSE-ET-7ip" secondAttribute="bottom" constant="4" id="mkE-rx-NQg"/>
-                            <constraint firstAttribute="bottom" secondItem="61o-de-Tit" secondAttribute="bottom" constant="16" id="nhi-ev-SRe"/>
+                            <constraint firstAttribute="bottom" secondItem="61o-de-Tit" secondAttribute="bottom" constant="23" id="nhi-ev-SRe"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="8" id="qoc-gM-cxe"/>
                             <constraint firstItem="ZHg-hU-nMH" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="zbb-Hy-7MN"/>
                             <constraint firstAttribute="bottom" secondItem="7ol-nf-4Rs" secondAttribute="bottom" constant="16" id="zhS-Qw-oBC"/>
@@ -129,6 +129,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="zR0-Ps-YON"/>
                     <connections>
+                        <outlet property="buttonsView" destination="61o-de-Tit" id="hHW-YS-ZI2"/>
                         <outlet property="itemListButton" destination="bBr-mn-h0O" id="iDV-wN-Ve3"/>
                         <outlet property="rightButtonConstrait" destination="ltQ-ly-3bW" id="caQ-st-w3f"/>
                         <outlet property="rightButtonViewArea" destination="61o-de-Tit" id="a7Y-8K-Prg"/>
@@ -558,10 +559,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="check-list" width="128" height="128"/>
         <image name="product-back" width="1607" height="1073"/>
         <image name="save" width="128" height="128"/>
-        <image name="scanning" width="128" height="128"/>
+        <image name="scan button" width="52" height="52"/>
+        <image name="search button" width="52" height="52"/>
         <image name="shop_background" width="500" height="500"/>
         <image name="shopping-basket" width="128" height="128"/>
     </resources>

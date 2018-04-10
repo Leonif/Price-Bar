@@ -89,22 +89,17 @@ public final class ShoplistInteractor {
             outletService.getOutlet(with: s.outletId, completion: { (result) in
                 switch result {
                 case let .success(outlet):
-                    
-                    
                     statistic.append(StatisticModel(productId: s.productId, productName: productName,
                                                     outlet: outlet,
                                                     price: s.price,
                                                     date: s.date))
-                    
                     dispatchGroup.leave()
-                    
                 case let .failure(error):
                     completion(ResultType.failure(.statisticError(error.localizedDescription)))
                     return
                 }
             })
         }
-        
         dispatchGroup.notify(queue: .main) {
             statistic.sort(by: { $0.date > $1.date })
             completion(ResultType.success(statistic))
@@ -112,14 +107,19 @@ public final class ShoplistInteractor {
     }
     
     
+    func isProductHasPrice(for productId: String, in outletId: String) -> Bool {
+        let price = self.repository.getPrice(for: productId, and: outletId)
+        return price > 0.0
+    }
+    
     
     func reloadProducts(outletId: String) {
-        repository.loadShopList(for: outletId)
+        self.repository.loadShopList(for: outletId)
     }
     
     
     func getQuantityOfGood() -> Int {
-        return repository.getQuantityOfProducts()
+        return self.repository.getQuantityOfProducts()
     }
     
     

@@ -35,10 +35,11 @@ class ShopListController: UIViewController {
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var totalView: UIView!
     
-    @IBOutlet weak var scanButton: GoodButton!
-    @IBOutlet weak var itemListButton: GoodButton!
+    @IBOutlet weak var scanButton: UIButton!
+    @IBOutlet weak var itemListButton: UIButton!
     @IBOutlet weak var rightButtonViewArea: UIView!
     @IBOutlet var wholeViewArea: UIView!
+    @IBOutlet weak var buttonsView: UIView!
     var navigationView: NavigationView!
 
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
@@ -65,14 +66,19 @@ class ShopListController: UIViewController {
         super.viewDidLoad()
         
         // MARK: - Assembly Dependency Injection
-        repository = Repository()
-        syncAnimator = SyncAnimator(parent: self)
-        interactor = ShoplistInteractor(repository: repository)
-        adapter = ShopListAdapter(parent: self, tableView: shopTableView,
+        self.repository = Repository()
+        self.syncAnimator = SyncAnimator(parent: self)
+        self.interactor = ShoplistInteractor(repository: repository)
+        self.adapter = ShopListAdapter(parent: self, tableView: shopTableView,
                                   repository: repository)
         
         // MARK: - Setup UI
         self.setupNavigation()
+        
+        
+        PriceBarStyles.borderedRoundedView.apply(to: self.buttonsView)
+        PriceBarStyles.shadowAround.apply(to: self.buttonsView)
+        
         self.setupGestures()
         self.updateRemoveButtonState()
         self.setupTotalView()
@@ -90,6 +96,23 @@ class ShopListController: UIViewController {
                                           with: text)
         }
 
+        self.setupAdapter()
+        
+        self.synchronizeData()
+    }
+    
+    
+    func setupAdapter() {
+        
+        
+        self.shopTableView.estimatedRowHeight = UITableViewAutomaticDimension
+        self.shopTableView.rowHeight = UITableViewAutomaticDimension
+        
+        self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
+        self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
+        
+        
+        
         self.adapter.onCellDidSelected = { [weak self] item in
             self?.performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: item)
         }
@@ -109,7 +132,7 @@ class ShopListController: UIViewController {
                 }
             })
         }
-        self.synchronizeData()
+        
     }
     
     // MARK: - Setup functions
@@ -156,7 +179,7 @@ class ShopListController: UIViewController {
     
     func updateRemoveButtonState() {
         self.totalLabel.text = String(format:"%.2f UAH", self.repository.total)
-        let enable = !self.buttonsHided && !self.repository.shoplist.isEmpty
+        let enable = !self.repository.shoplist.isEmpty
         self.deleteButton.setEnable(enable)
     }
     
@@ -256,9 +279,9 @@ extension ShopListController {
         }
         switch swipeGesture.direction {
         case .right:
-            shiftButton(hide: buttonsHided)
+            self.shiftButton(hide: buttonsHided)
         case .left:
-            shiftButton(hide: buttonsHided)
+            self.shiftButton(hide: buttonsHided)
         default:
             print("other swipes")
         }
@@ -272,7 +295,7 @@ extension ShopListController {
         
         [scanButton, itemListButton].forEach { $0.setEnable(hide) }
         
-        let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 50
+        let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 100
         
         
         self.rightButtonConstrait.constant = newConst
@@ -300,6 +323,9 @@ extension ShopListController: ScannerDelegate {
                 case .productIsNotFound:
                     self.performSegue(withIdentifier: R.segue.shopListController.scannedNewProduct.identifier,
                                       sender: barcode)
+                    
+                    
+                    
                 default: self.alert(message: error.message)
                 }
             }
@@ -309,7 +335,16 @@ extension ShopListController: ScannerDelegate {
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
-        interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
+
+        
+        if !self.interactor.isProductHasPrice(for: productId, in: userOutlet.id) {
+            let vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
+            self.present(vc, animated: true)
+        }
+
+
+
+        self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }
             switch result {
             case .success:
@@ -356,17 +391,7 @@ extension ShopListController {
                 itemCardVC.outletId = userOutlet.id
             }
         }
-//        if segue.identifier == Strings.Segues.scannedNewProduct.name,
-//            let itemCardVC = segue.destination as? ItemCardVC {
-//            if let barcode = sender as? String {
-//                itemCardVC.barcode = barcode
-//                itemCardVC.delegate = self
-//                itemCardVC.dataProvider = repository
-//                itemCardVC.outletId = userOutlet.id
-//            }
-//        }
-        
-        
+
         if let typedInfo = R.segue.shopListController.scannedNewProduct(segue: segue) {
             if let barcode = sender as? String {
                 typedInfo.destination.barcode = barcode

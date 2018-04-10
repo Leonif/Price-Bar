@@ -213,7 +213,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
 
         let item = filtredItemList[indexPath.row]
         self.close()
-        delegate?.itemChoosen(productId: item.id)
+        self.delegate?.itemChoosen(productId: item.id)
 
     }
 

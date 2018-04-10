@@ -66,8 +66,8 @@
                                         <constraint firstItem="Abn-oN-J1M" firstAttribute="centerX" secondItem="vcA-HX-h56" secondAttribute="centerX" id="ZdD-mn-alo"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="mqd-s5-rFY">
-                                    <rect key="frame" x="16" y="8" width="291" height="17.5"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqd-s5-rFY">
+                                    <rect key="frame" x="16" y="8" width="291" height="20"/>
                                     <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="14"/>
                                     <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
@@ -92,14 +92,16 @@
                             <constraints>
                                 <constraint firstItem="Id0-oF-f5L" firstAttribute="centerY" secondItem="vcA-HX-h56" secondAttribute="centerY" id="3q9-h3-o0k"/>
                                 <constraint firstItem="Id0-oF-f5L" firstAttribute="leading" secondItem="vcA-HX-h56" secondAttribute="trailing" constant="16" id="DIr-rx-O7u"/>
+                                <constraint firstAttribute="bottom" secondItem="mdQ-QZ-QlJ" secondAttribute="bottom" constant="18" id="Mdd-lc-Hkj"/>
+                                <constraint firstItem="vcA-HX-h56" firstAttribute="top" secondItem="mqd-s5-rFY" secondAttribute="bottom" constant="8" id="QlU-f3-wsT"/>
                                 <constraint firstAttribute="trailing" secondItem="mqd-s5-rFY" secondAttribute="trailing" constant="16" id="YqX-1c-WTl"/>
                                 <constraint firstAttribute="bottom" secondItem="vcA-HX-h56" secondAttribute="bottom" constant="8" id="bMY-n7-azW"/>
                                 <constraint firstAttribute="trailing" secondItem="Id0-oF-f5L" secondAttribute="trailing" constant="8" id="fmM-gy-kZc"/>
                                 <constraint firstItem="mqd-s5-rFY" firstAttribute="leading" secondItem="GMc-0y-oQC" secondAttribute="leading" constant="16" id="gtx-Mw-8bg"/>
+                                <constraint firstItem="mdQ-QZ-QlJ" firstAttribute="top" secondItem="mqd-s5-rFY" secondAttribute="bottom" constant="17.5" id="mMV-BI-9am"/>
                                 <constraint firstItem="vcA-HX-h56" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="mdQ-QZ-QlJ" secondAttribute="trailing" constant="16" id="oLu-Dn-Fhi"/>
                                 <constraint firstItem="mdQ-QZ-QlJ" firstAttribute="leading" secondItem="GMc-0y-oQC" secondAttribute="leading" constant="38" id="os1-nd-EwK"/>
                                 <constraint firstItem="mqd-s5-rFY" firstAttribute="top" secondItem="GMc-0y-oQC" secondAttribute="top" constant="8" id="uiR-6b-Bob"/>
-                                <constraint firstItem="mdQ-QZ-QlJ" firstAttribute="centerY" secondItem="vcA-HX-h56" secondAttribute="centerY" id="v6Z-DA-UUe"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -127,11 +129,13 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="bottomConstraint" destination="9vV-wB-QN8" id="VWu-nd-bkK"/>
                 <outlet property="cellView" destination="GMc-0y-oQC" id="rZR-xn-NJ6"/>
                 <outlet property="nameItem" destination="mqd-s5-rFY" id="KMf-cj-9Ry"/>
                 <outlet property="priceItem" destination="qzU-BL-Bjg" id="eb4-07-gZ8"/>
                 <outlet property="priceView" destination="vcA-HX-h56" id="eZv-iS-Ro2"/>
                 <outlet property="quantityButton" destination="mdQ-QZ-QlJ" id="dKL-Zb-YGL"/>
+                <outlet property="topConstraint" destination="Ugv-qx-1aF" id="Ghc-XT-Se3"/>
                 <outlet property="totalItem" destination="Id0-oF-f5L" id="YWJ-HL-lhq"/>
                 <outlet property="uomLabel" destination="Z7p-J2-klJ" id="bmr-hr-G8h"/>
             </connections>

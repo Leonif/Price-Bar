@@ -172,26 +172,10 @@ class ItemCardVC: UIViewController {
             delegate.add(new: productCard.productId)
         }
     }
-
-    
-    func formmatter(_ priceString: String) -> Double? {
-        let formatter = NumberFormatter()
-        formatter.decimalSeparator = "."
-        if let number = formatter.number(from: priceString) {
-            return Double(truncating: number)
-        } else  {
-            formatter.decimalSeparator = ","
-            if let number = formatter.number(from: priceString) {
-                return Double(truncating: number)
-            }
-        }
-        return nil
-    }
-
     
     private func saveStatistic() {
         if let priceStr = itemPrice.text,
-            let price = formmatter(priceStr),
+            let price = priceStr.numberFormatting(),
             price != 0.0 {
 
             guard productCard.productPrice != price  else {
@@ -240,18 +224,18 @@ extension ItemCardVC: PickerControlDelegate {
     }
 }
 
-extension ItemCardVC: UITextFieldDelegate {
-    //hide keyboard by press ENter
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.animateViewMoving(up: true, moveValue: 150, view: self.view)
-    }
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.animateViewMoving(up: false, moveValue: 150, view: self.view)
-    }
-
-}
+//extension ItemCardVC: UITextFieldDelegate {
+//    //hide keyboard by press ENter
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        textField.resignFirstResponder()
+//        return true
+//    }
+//
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        textField.animateViewMoving(up: true, moveValue: 150, view: self.view)
+//    }
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        textField.animateViewMoving(up: false, moveValue: 150, view: self.view)
+//    }
+//
+//}

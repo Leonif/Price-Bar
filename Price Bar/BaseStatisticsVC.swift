@@ -19,7 +19,6 @@ class BaseStatisticsVC: UIViewController {
         
         let ind = CircleIndicator(frame: rect)
         ind.backgroundColor = .clear
-        ind.roundingEdges()
         ind.decorate(titleColor: .white, colors: (.clear, .red), lineWidth: 10)
         
         return ind
@@ -79,7 +78,7 @@ class BaseStatisticsVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         view.obscure()
-        indicator.startShow(for: (productsCount.double, productsCount.double))
+        indicator.startShow(for: (Double(productsCount), Double(productsCount)))
     }
     
     required init?(coder aDecoder: NSCoder) {

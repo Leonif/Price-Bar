@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PriceStatisticCell: UITableViewCell {
+class PriceStatisticCell: UITableViewCell, NibLoadableReusable {
     @IBOutlet weak var outletName: UILabel!
     @IBOutlet weak var outletAddress: UILabel!
     @IBOutlet weak var priceInfo: UILabel!

@@ -10,30 +10,50 @@ import UIKit
 
 class UpdatePriceVC: UIViewController {
 
+    @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var priceTextField: UITextField!
+    public var dataSource: [StatisticModel]!
+    var adapter: UpdatePriceAdapter!
+    @IBOutlet weak var saveButton: UIButton!
+    
+    @IBOutlet weak var tableView: UITableView!
+    var onSavePrice: ((Double)->())? = nil
+    
+    var productName: String!
+    var price: Double = 0.0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        self.adapter = UpdatePriceAdapter(tableView: self.tableView, dataSource: self.dataSource)
+        self.addToolBar(textField: priceTextField)
+        self.priceTextField.text = "\(self.price)"
+        self.productNameLabel.text = productName
+        
+        PriceBarStyles.grayBorderedRoundedView.apply(to: self.saveButton)
+        
+        self.priceTextField.delegate = self
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func savePriceTapped(_ sender: Any) {
+        guard let price = self.priceTextField.text?.numberFormatting() else {
+            return
+        }
+        
+        self.onSavePrice?(price)
+        self.dismiss(animated: true)
     }
     
     @IBAction func closeTapped(_ sender: Any) {
         self.dismiss(animated: true)
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+
+
+
+
+
+
+
+

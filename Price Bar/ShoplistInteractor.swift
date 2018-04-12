@@ -106,10 +106,25 @@ public final class ShoplistInteractor {
         }
     }
     
+    func updatePrice(for productId: String, price: Double, outletId: String) {
+        
+        let dpStatModel = DPPriceStatisticModel(outletId: outletId,
+                                                productId: productId,
+                                                price: price, date: Date())
+        self.repository.save(new: dpStatModel)
+    }
     
     func isProductHasPrice(for productId: String, in outletId: String) -> Bool {
         let price = self.repository.getPrice(for: productId, and: outletId)
         return price > 0.0
+    }
+    
+    func getPrice(for productId: String, in outletId: String) -> Double {
+        return self.repository.getPrice(for: productId, and: outletId)
+    }
+    
+    func getProductName(for productId: String) -> String {
+        return self.repository.getProductName(for: productId)!
     }
     
     

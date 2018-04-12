@@ -49,6 +49,7 @@ class ShopListController: UIViewController {
     var repository: Repository!
     var interactor: ShoplistInteractor!
     var syncAnimator: SyncAnimator!
+    var manager: UpdatePriceManager!
     
     
     var userOutlet: Outlet! { didSet {  self.updateUI() }  }
@@ -71,12 +72,14 @@ class ShopListController: UIViewController {
         self.interactor = ShoplistInteractor(repository: repository)
         self.adapter = ShopListAdapter(parent: self, tableView: shopTableView,
                                   repository: repository)
+        self.manager = UpdatePriceManager(vc: self,
+                                         interactor: self.interactor)
         
         // MARK: - Setup UI
         self.setupNavigation()
         
         
-        PriceBarStyles.borderedRoundedView.apply(to: self.buttonsView)
+        PriceBarStyles.grayBorderedRoundedView.apply(to: self.buttonsView)
         PriceBarStyles.shadowAround.apply(to: self.buttonsView)
         
         self.setupGestures()
@@ -91,27 +94,22 @@ class ShopListController: UIViewController {
         }
         repository.onSyncProgress = { [weak self] (progress, max, text) in
             guard let `self` = self else { return }
-            self.syncAnimator.syncHandle(for: progress.double,
-                                          and: max.double,
+            self.syncAnimator.syncHandle(for: Double(progress),
+                                          and: Double(max),
                                           with: text)
         }
 
         self.setupAdapter()
-        
         self.synchronizeData()
     }
     
     
     func setupAdapter() {
-        
-        
         self.shopTableView.estimatedRowHeight = UITableViewAutomaticDimension
         self.shopTableView.rowHeight = UITableViewAutomaticDimension
         
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
-        
-        
         
         self.adapter.onCellDidSelected = { [weak self] item in
             self?.performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: item)
@@ -119,18 +117,7 @@ class ShopListController: UIViewController {
         
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-            self.interactor.getPriceStatistics(for: item.productId, completion: { [weak self] (result) in
-                switch result {
-                case let .success(statistic):
-                    let story = UIStoryboard.init(name: "Comparison", bundle: nil)
-                    let vc = story.instantiateViewController(withIdentifier: "ComparisonStatisticsViewController") as! ComparisonStatisticsViewController
-                    vc.dataSource = statistic
-                    self?.present(vc, animated: true)
-                    
-                case let .failure(error):
-                    self?.alert(message: error.message)
-                }
-            })
+            self.manager.updatePrice(productId: item.productId, outletId: self.userOutlet.id)
         }
         
     }
@@ -152,7 +139,7 @@ class ShopListController: UIViewController {
     }
     
     func setupTotalView() {
-        PriceBarStyles.borderedRoundedView.apply(to: self.totalView)
+        PriceBarStyles.grayBorderedRoundedView.apply(to: self.totalView)
     }
     
     func setupGestures() {
@@ -313,6 +300,12 @@ extension ShopListController {
 // MARK: - Scanner handling
 extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
+        
+        if !self.interactor.isProductHasPrice(for: barcode, in: userOutlet.id) {
+            self.manager.updatePrice(productId: barcode, outletId: userOutlet.id)
+        }
+        
+        
         interactor.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }
             switch result {
@@ -324,8 +317,6 @@ extension ShopListController: ScannerDelegate {
                     self.performSegue(withIdentifier: R.segue.shopListController.scannedNewProduct.identifier,
                                       sender: barcode)
                     
-                    
-                    
                 default: self.alert(message: error.message)
                 }
             }
@@ -336,13 +327,9 @@ extension ShopListController: ScannerDelegate {
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
 
-        
         if !self.interactor.isProductHasPrice(for: productId, in: userOutlet.id) {
-            let vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
-            self.present(vc, animated: true)
+            self.manager.updatePrice(productId: productId, outletId: userOutlet.id)
         }
-
-
 
         self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }

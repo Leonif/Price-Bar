@@ -42,6 +42,42 @@ extension UIViewController {
     }
 }
 
+
+extension UIViewController: UITextFieldDelegate {
+    func addToolBar(textField: UITextField) {
+        let toolBar = UIToolbar()
+        toolBar.barStyle = .default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = Color.atlantis
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePressed))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        
+        
+        toolBar.isUserInteractionEnabled = true
+        toolBar.sizeToFit()
+        
+        textField.delegate = self
+        textField.inputAccessoryView = toolBar
+    }
+    
+    @objc func donePressed() {
+        view.endEditing(true)
+    }
+    
+    @objc func cancelPressed() {
+        view.endEditing(true) // or do something
+    }
+}
+
+
+
+
+
+
+
+
 // Activity Indicator
 extension UIView {
     private var activityIndicatorTag: Int { return 999998 }
@@ -168,16 +204,16 @@ extension UIButton {
     }
 }
 
-extension UIView {
-//    func castShadow() {
-//        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-//        self.layer.shadowOpacity = 0.8
-//        self.layer.shadowRadius = 5.0
-//        self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+//extension UIView {
+////    func castShadow() {
+////        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
+////        self.layer.shadowOpacity = 0.8
+////        self.layer.shadowRadius = 5.0
+////        self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
+////    }
+//
+//    func roundingEdges() {
+//        self.layer.cornerRadius = self.frame.height / 2
 //    }
-
-    func roundingEdges() {
-        self.layer.cornerRadius = self.frame.height / 2
-    }
-
-}
+//
+//}

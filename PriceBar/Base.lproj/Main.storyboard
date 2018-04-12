@@ -9,6 +9,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Robaga Rounded Bold.otf">
+            <string>RobagaRounded-Bold</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Shop List Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -44,8 +49,8 @@
                                 <rect key="frame" x="0.0" y="605" width="131" height="46"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Итого: 0, 00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yUL-id-lem">
-                                        <rect key="frame" x="6.5" y="11" width="118" height="24"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <rect key="frame" x="8.5" y="11.5" width="115" height="25"/>
+                                        <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
                                         <color key="textColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>

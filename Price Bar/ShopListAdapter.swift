@@ -146,7 +146,7 @@ extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)!.first as! HeaderView
         
-        PriceBarStyles.borderedRoundedView.apply(to: headerView.view)
+        PriceBarStyles.grayBorderedRoundedView.apply(to: headerView.view)
         headerView.categoryLabel.text = repository.headerString(for: section)
 
         return headerView
@@ -160,7 +160,7 @@ extension ShopListAdapter: UITableViewDelegate {
         PriceBarStyles.shadowAround.apply(to: cell.cellView)
         
         [cell.quantityButton, cell.priceView].forEach {
-            PriceBarStyles.borderedRoundedView.apply(to: $0)
+            PriceBarStyles.grayBorderedRoundedView.apply(to: $0)
         }
         cell.priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
         cell.nameItem.text = item.productName

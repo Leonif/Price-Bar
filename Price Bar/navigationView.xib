@@ -10,11 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="Robaga Rounded Bold.otf">
-            <string>RobagaRounded-Bold</string>
+        <array key="YanoneKaffeesatz-Bold.ttf">
+            <string>YanoneKaffeesatz-Bold</string>
         </array>
-        <array key="robaga-rounded.regular.otf">
-            <string>RobagaRounded</string>
+        <array key="YanoneKaffeesatz-Regular.ttf">
+            <string>YanoneKaffeesatz-Regular</string>
         </array>
     </customFonts>
     <objects>
@@ -28,14 +28,14 @@
                     <rect key="frame" x="0.0" y="8" width="395" height="47"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Сильпо" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sak-BQ-VEj">
-                            <rect key="frame" x="159.5" y="0.0" width="76" height="25.5"/>
-                            <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
+                            <rect key="frame" x="171.5" y="0.0" width="52.5" height="25"/>
+                            <fontDescription key="fontDescription" name="YanoneKaffeesatz-Bold" family="Yanone Kaffeesatz" pointSize="24"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Здолбуновская 14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XR6-DF-d88">
-                            <rect key="frame" x="138.5" y="29.5" width="118.5" height="17.5"/>
-                            <fontDescription key="fontDescription" name="RobagaRounded" family="Robaga Rounded" pointSize="14"/>
+                            <rect key="frame" x="145" y="29" width="105.5" height="18"/>
+                            <fontDescription key="fontDescription" name="YanoneKaffeesatz-Regular" family="Yanone Kaffeesatz" pointSize="18"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>

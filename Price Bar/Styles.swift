@@ -78,7 +78,7 @@ let smallLabelStyle: UIViewStyle<UILabel> = UIViewStyle { label in
 
 
 enum PriceBarStyles {
-    static let borderedRoundedView: UIViewStyle<UIView> = UIViewStyle { view in
+    static let grayBorderedRoundedView: UIViewStyle<UIView> = UIViewStyle { view in
         view.layer.cornerRadius = 8.0
         view.layer.borderWidth = 1.0
         view.layer.borderColor = Color.dustyGray.cgColor

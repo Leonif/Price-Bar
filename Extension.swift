@@ -38,21 +38,6 @@ extension Date {
     }
 }
 
-extension String {
-    // types of format sting
-    //http://userguide.icu-project.org/formatparse/datetime
-    private var currentTimeZone: TimeZone {
-        return TimeZone.current
-    }
-
-    func toDate(with format: String) -> Date? {
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        dateFormatter.timeZone = currentTimeZone
-        return dateFormatter.date(from: self)
-    }
-}
 
 extension UIColor {
     static var systemGray: UIColor {

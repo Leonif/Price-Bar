@@ -17,7 +17,7 @@ class ItemListCell: UITableViewCell {
         let checkAlpha = CGFloat(item.currentPrice == 0 ? 0.5 : 1)
         self.contentView.alpha = checkAlpha
         itemNameLabel.text = item.product
-        itemPriceLabel.text = item.currentPrice.asLocaleCurrency
+        itemPriceLabel.text = "\(item.currentPrice)"
         itemMinPriceLabel.text = R.string.localizable.item_list_best_price("\(item.minPrice)")
     }
 

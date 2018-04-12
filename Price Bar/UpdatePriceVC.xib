@@ -9,9 +9,24 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Robaga Rounded Bold.otf">
+            <string>RobagaRounded-Bold</string>
+        </array>
+        <array key="YanoneKaffeesatz-Bold.ttf">
+            <string>YanoneKaffeesatz-Bold</string>
+        </array>
+        <array key="YanoneKaffeesatz-Regular.ttf">
+            <string>YanoneKaffeesatz-Regular</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UpdatePriceVC" customModule="PriceBar" customModuleProvider="target">
             <connections>
+                <outlet property="priceTextField" destination="and-DR-0Il" id="9EP-dM-5PK"/>
+                <outlet property="productNameLabel" destination="01N-Vz-BiU" id="APA-bj-dkh"/>
+                <outlet property="saveButton" destination="Pxx-zU-6QK" id="itY-cP-1Ds"/>
+                <outlet property="tableView" destination="KOR-qe-90H" id="gQd-7x-1L1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -54,7 +69,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KOR-qe-90H">
-                    <rect key="frame" x="23" y="250" width="329" height="330"/>
+                    <rect key="frame" x="23" y="285" width="329" height="295"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pxx-zU-6QK">
@@ -63,29 +78,33 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="46" id="fme-W3-7xN"/>
                     </constraints>
-                    <state key="normal" title="Button">
+                    <fontDescription key="fontDescription" name="YanoneKaffeesatz-Bold" family="Yanone Kaffeesatz" pointSize="20"/>
+                    <state key="normal" title="Сохранить">
                         <color key="titleColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="savePriceTapped:" destination="-1" eventType="touchUpInside" id="j44-B8-DhN"/>
+                    </connections>
                 </button>
-                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="5.90" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="and-DR-0Il">
-                    <rect key="frame" x="94" y="174" width="187" height="60"/>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="5.90" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="and-DR-0Il">
+                    <rect key="frame" x="94" y="209" width="187" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="KqP-d5-Rq3"/>
                         <constraint firstAttribute="width" constant="187" id="Puh-Tf-NnC"/>
                     </constraints>
                     <color key="textColor" red="0.87450980392156863" green="0.55686274509803924" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="36"/>
+                    <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="за 1 шт" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxu-Bx-qsr">
-                    <rect key="frame" x="159.5" y="145" width="56" height="21"/>
+                    <rect key="frame" x="159.5" y="180" width="56" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy  Чер шоколад" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01N-Vz-BiU">
-                    <rect key="frame" x="43" y="116" width="289" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy  Чер шоколад" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01N-Vz-BiU">
+                    <rect key="frame" x="16" y="116" width="343" height="56"/>
+                    <fontDescription key="fontDescription" name="YanoneKaffeesatz-Regular" family="Yanone Kaffeesatz" pointSize="24"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -95,6 +114,7 @@
                 <constraint firstItem="Pxx-zU-6QK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="29" id="2IH-jZ-DwP"/>
                 <constraint firstItem="Vxu-Bx-qsr" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="64f-fV-6ur"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Pxx-zU-6QK" secondAttribute="bottom" constant="18" id="886-7k-LfL"/>
+                <constraint firstItem="01N-Vz-BiU" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="BSN-JA-z5P"/>
                 <constraint firstItem="U7j-sG-ALK" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Bai-zl-3Oa"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Pxx-zU-6QK" secondAttribute="trailing" constant="29" id="GyT-Nm-Xw8"/>
                 <constraint firstItem="1Yg-pY-xhJ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="HVK-VU-OgS"/>
@@ -102,6 +122,7 @@
                 <constraint firstItem="KOR-qe-90H" firstAttribute="top" secondItem="and-DR-0Il" secondAttribute="bottom" constant="16" id="Qk3-cA-kcL"/>
                 <constraint firstItem="Pxx-zU-6QK" firstAttribute="top" secondItem="KOR-qe-90H" secondAttribute="bottom" constant="23" id="ROL-F3-Ahs"/>
                 <constraint firstItem="1Yg-pY-xhJ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="UXD-mx-RJ1"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="01N-Vz-BiU" secondAttribute="trailing" constant="16" id="Vje-tS-UeX"/>
                 <constraint firstItem="Vxu-Bx-qsr" firstAttribute="top" secondItem="01N-Vz-BiU" secondAttribute="bottom" constant="8" id="Whh-f9-f4N"/>
                 <constraint firstItem="and-DR-0Il" firstAttribute="top" secondItem="Vxu-Bx-qsr" secondAttribute="bottom" constant="8" id="aqQ-X3-wRu"/>
                 <constraint firstItem="and-DR-0Il" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ba2-2q-e59"/>

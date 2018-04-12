@@ -39,12 +39,24 @@ class UpdatePriceVC: UIViewController {
         guard let price = self.priceTextField.text?.numberFormatting() else {
             return
         }
-        
-        self.onSavePrice?(price)
-        self.dismiss(animated: true)
+        if self.price != price && price != 0  {
+            self.onSavePrice?(price)
+            self.close()
+        } else {
+            self.alert(title: R.string.localizable.thank_you(),
+                       message: R.string.localizable.price_update_not_changed(),
+                       okAction: {
+                        self.close()
+            })
+        }
     }
     
     @IBAction func closeTapped(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
+    
+    func close() {
         self.dismiss(animated: true)
     }
 }

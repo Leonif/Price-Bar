@@ -31,8 +31,11 @@ class UpdatePriceManager {
                     vc.productName = self.interactor.getProductName(for: productId)
                     vc.onSavePrice = { [weak self] price in
                         guard let `self` = self else { return }
+                        
+                        
                         self.interactor.updatePrice(for: productId, price: price, outletId: outletId)
                         self.interactor.reloadProducts(outletId: outletId)
+                        
                     }
                     self.vc.present(vc, animated: true)
                 case let .failure(error):

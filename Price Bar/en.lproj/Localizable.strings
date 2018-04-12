@@ -33,3 +33,7 @@
 "outlet_list_km" = "%@ km";
 "item_list_best_price" = "the best: %@";
 "item_list_add_new" = "Add new product";
+"outlet_list_no_stores" = "No shops";
+"thank_you" = "Thank you";
+"update_price_we_cant_update" = "We can not keep this price 😭. But the goods in the database and shopping list😉";
+"price_update_not_changed" = "The price has not changed😉. Cool! 👍";

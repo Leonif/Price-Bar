@@ -49,7 +49,7 @@ class ShopListController: UIViewController {
     var repository: Repository!
     var interactor: ShoplistInteractor!
     var syncAnimator: SyncAnimator!
-    var manager: UpdatePriceManager!
+    var priceManager: UpdatePriceManager!
     
     
     var userOutlet: Outlet! { didSet {  self.updateUI() }  }
@@ -72,7 +72,7 @@ class ShopListController: UIViewController {
         self.interactor = ShoplistInteractor(repository: repository)
         self.adapter = ShopListAdapter(parent: self, tableView: shopTableView,
                                   repository: repository)
-        self.manager = UpdatePriceManager(vc: self,
+        self.priceManager = UpdatePriceManager(vc: self,
                                          interactor: self.interactor)
         
         // MARK: - Setup UI
@@ -117,7 +117,7 @@ class ShopListController: UIViewController {
         
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-            self.manager.updatePrice(productId: item.productId, outletId: self.userOutlet.id)
+            self.priceManager.updatePrice(productId: item.productId, outletId: self.userOutlet.id)
         }
         
     }
@@ -302,7 +302,7 @@ extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
         
         if !self.interactor.isProductHasPrice(for: barcode, in: userOutlet.id) {
-            self.manager.updatePrice(productId: barcode, outletId: userOutlet.id)
+            self.priceManager.updatePrice(productId: barcode, outletId: userOutlet.id)
         }
         
         
@@ -328,7 +328,7 @@ extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
 
         if !self.interactor.isProductHasPrice(for: productId, in: userOutlet.id) {
-            self.manager.updatePrice(productId: productId, outletId: userOutlet.id)
+            self.priceManager.updatePrice(productId: productId, outletId: userOutlet.id)
         }
 
         self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
@@ -388,12 +388,9 @@ extension ShopListController {
             }
         }
         
-        
         if let typedInfo = R.segue.shopListController.showOutlets(segue: segue) {
             typedInfo.destination.delegate = self
         }
-        
-        
         
         if segue.identifier == Strings.Segues.showItemList.name,
             let itemListVC = segue.destination as? ItemListVC, userOutlet != nil {

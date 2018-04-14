@@ -40,6 +40,14 @@
 	<string>In order to scan bar and qr codes need your access</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Please give us location to find nearest outlet </string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>robaga-rounded.regular.otf</string>
+		<string>Robaga Rounded Bold.otf</string>
+		<string>YanoneKaffeesatz-Bold.ttf</string>
+		<string>YanoneKaffeesatz-Regular.ttf</string>
+		<string>YanoneKaffeesatz-Light.ttf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -51,14 +59,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>robaga-rounded.regular.otf</string>
-		<string>Robaga Rounded Bold.otf</string>
-		<string>YanoneKaffeesatz-Bold.ttf</string>
-		<string>YanoneKaffeesatz-Regular.ttf</string>
-		<string>YanoneKaffeesatz-Light.ttf</string>
 	</array>
 </dict>
 </plist>

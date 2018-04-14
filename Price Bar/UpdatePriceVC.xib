@@ -27,6 +27,7 @@
                 <outlet property="productNameLabel" destination="01N-Vz-BiU" id="APA-bj-dkh"/>
                 <outlet property="saveButton" destination="Pxx-zU-6QK" id="itY-cP-1Ds"/>
                 <outlet property="tableView" destination="KOR-qe-90H" id="gQd-7x-1L1"/>
+                <outlet property="uomLabel" destination="Vxu-Bx-qsr" id="zcy-Mw-57G"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -69,7 +70,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="KOR-qe-90H">
-                    <rect key="frame" x="23" y="285" width="329" height="295"/>
+                    <rect key="frame" x="23" y="257" width="329" height="323"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pxx-zU-6QK">
@@ -87,7 +88,7 @@
                     </connections>
                 </button>
                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="5.90" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="and-DR-0Il">
-                    <rect key="frame" x="94" y="209" width="187" height="60"/>
+                    <rect key="frame" x="94" y="181" width="187" height="60"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="KqP-d5-Rq3"/>
                         <constraint firstAttribute="width" constant="187" id="Puh-Tf-NnC"/>
@@ -97,13 +98,13 @@
                     <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="за 1 шт" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vxu-Bx-qsr">
-                    <rect key="frame" x="159.5" y="180" width="56" height="21"/>
+                    <rect key="frame" x="159.5" y="152" width="56" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy  Чер шоколад" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="01N-Vz-BiU">
-                    <rect key="frame" x="16" y="116" width="343" height="56"/>
+                    <rect key="frame" x="16" y="116" width="343" height="28"/>
                     <fontDescription key="fontDescription" name="YanoneKaffeesatz-Regular" family="Yanone Kaffeesatz" pointSize="24"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>

@@ -422,9 +422,16 @@ class Repository {
                               uomId: cdModel.uomId)
 
     }
+
+    
+    func getUomName(for productId: String) -> String {
+        let product = CoreDataService.data.getProduct(by: productId)
+        
+        return product!.toUom!.uom!
+    }
+    
     
     func getProductName(for productId: String) -> String? {
-        
         return CoreDataService.data.getProductName(for: productId)
     }
 

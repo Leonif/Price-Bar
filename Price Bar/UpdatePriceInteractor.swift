@@ -31,8 +31,14 @@ public final class UpdatePriceInteractor {
         return self.repository.getPrice(for: productId, and: outletId)
     }
     
+
+    func getUomName(for productId: String) -> String {
+        return self.repository.getUomName(for: productId)
+    }
+
     func getProductName(for productId: String) -> String {
         return self.repository.getProductName(for: productId)!
+        
     }
     
     func getPriceStatistics(for productId: String, completion: @escaping (ResultType<[StatisticModel], RepositoryError>) -> Void) {

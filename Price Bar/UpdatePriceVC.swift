@@ -11,6 +11,7 @@ import UIKit
 class UpdatePriceVC: UIViewController {
 
     @IBOutlet weak var productNameLabel: UILabel!
+    @IBOutlet weak var uomLabel: UILabel!
     @IBOutlet weak var priceTextField: UITextField!
     public var dataSource: [StatisticModel]!
     var data: DataStorage!
@@ -60,6 +61,7 @@ class UpdatePriceVC: UIViewController {
                 self.dataSource = statistic
                 let productName = self.interactor.getProductName(for: self.productId)
                 self.productNameLabel.text = productName
+                self.uomLabel.text = self.interactor.getUomName(for: self.productId)
                 completion()
 
             case let .failure(error):

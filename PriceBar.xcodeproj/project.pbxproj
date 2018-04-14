@@ -17,12 +17,12 @@
 		790B7D34207D649B003DD560 /* UITextField+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D33207D649B003DD560 /* UITextField+extension.swift */; };
 		790B7D36207FDA09003DD560 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */; };
 		790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */; };
-		790B7D3A207FDF98003DD560 /* UpdatePriceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D39207FDF98003DD560 /* UpdatePriceManager.swift */; };
 		790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D3B207FEAE5003DD560 /* String+Extension.swift */; };
 		790B7D4D207FFCDD003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D49207FF707003DD560 /* YanoneKaffeesatz-Bold.ttf */; };
 		790B7D4E207FFCE6003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */; };
 		790B7D512081C24B003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
 		790B7D532081CB04003DD560 /* UpdatePriceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */; };
+		790B7D562081E56B003DD560 /* BaseStatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* BaseStatisticsInteractor.swift */; };
 		790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F1008202266A20060E285 /* CoreDataParsers.swift */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
 		790F104220262FC30060E285 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103820262FC30060E285 /* Product+CoreDataClass.swift */; };
@@ -141,7 +141,6 @@
 		790B7D33207D649B003DD560 /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceAdapter.swift; sourceTree = "<group>"; };
-		790B7D39207FDF98003DD560 /* UpdatePriceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceManager.swift; sourceTree = "<group>"; };
 		790B7D3B207FEAE5003DD560 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		790B7D49207FF707003DD560 /* YanoneKaffeesatz-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-Bold.ttf"; sourceTree = "<group>"; };
 		790B7D4A207FF707003DD560 /* YanoneKaffeesatz-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-Light.ttf"; sourceTree = "<group>"; };
@@ -149,6 +148,7 @@
 		790B7D4C207FF709003DD560 /* YanoneKaffeesatz-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-ExtraLight.ttf"; sourceTree = "<group>"; };
 		790B7D502081C24B003DD560 /* ShoplistRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistRouter.swift; sourceTree = "<group>"; };
 		790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceInteractor.swift; sourceTree = "<group>"; };
+		790B7D552081E56B003DD560 /* BaseStatisticsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStatisticsInteractor.swift; sourceTree = "<group>"; };
 		790F1008202266A20060E285 /* CoreDataParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParsers.swift; sourceTree = "<group>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
 		790F103820262FC30060E285 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -331,7 +331,6 @@
 			children = (
 				790B7D542081CB16003DD560 /* View */,
 				790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */,
-				790B7D39207FDF98003DD560 /* UpdatePriceManager.swift */,
 				790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */,
 			);
 			name = UpdatePriceAndStatistics;
@@ -456,6 +455,7 @@
 			isa = PBXGroup;
 			children = (
 				7921029220557D0E00C83706 /* BaseStatisticsVC.swift */,
+				790B7D552081E56B003DD560 /* BaseStatisticsInteractor.swift */,
 			);
 			name = BaseStatisticFlow;
 			sourceTree = "<group>";
@@ -1102,6 +1102,7 @@
 				79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */,
 				7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */,
 				79833B3D200E812D005C6CC5 /* PickerControl.swift in Sources */,
+				790B7D562081E56B003DD560 /* BaseStatisticsInteractor.swift in Sources */,
 				79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */,
 				790F104720262FC30060E285 /* ShopList+CoreDataProperties.swift in Sources */,
 				79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */,
@@ -1135,7 +1136,6 @@
 				793368641FFE260F00E8E81A /* UIViewExtensions.swift in Sources */,
 				790F104B20262FC30060E285 /* Uom+CoreDataProperties.swift in Sources */,
 				79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */,
-				790B7D3A207FDF98003DD560 /* UpdatePriceManager.swift in Sources */,
 				795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */,
 				7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */,
 				795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */,

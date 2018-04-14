@@ -54,8 +54,8 @@ class UpdatePriceVC: UIViewController {
                     fatalError()
                 }
                 
-                let price = self.interactor.getPrice(for: self.productId, in: outlet.id)
-                self.priceTextField.text = "\(price)"
+                self.price = self.interactor.getPrice(for: self.productId, in: outlet.id)
+                self.priceTextField.text = "\(self.price)"
                 
                 
                 self.dataSource = statistic

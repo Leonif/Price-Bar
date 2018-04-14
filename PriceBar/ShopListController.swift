@@ -29,8 +29,6 @@ class ShopListController: UIViewController {
         return b
     }()
     
-
-    
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var totalView: UIView!
@@ -44,7 +42,6 @@ class ShopListController: UIViewController {
 
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
     
-    
     // MARK: - Dependecy Injection properties
     var repository: Repository!
     var interactor: ShoplistInteractor!
@@ -52,8 +49,6 @@ class ShopListController: UIViewController {
     var data: DataStorage!
     
     var syncAnimator: SyncAnimator!
-//    var priceManager: UpdatePriceManager!
-    
     
     var userOutlet: Outlet! {
         didSet {
@@ -85,11 +80,6 @@ class ShopListController: UIViewController {
         
         self.adapter = ShopListAdapter(parent: self, tableView: shopTableView,
                                   repository: repository)
-        
-        
-        
-//        self.priceManager = UpdatePriceManager(vc: self,
-//                                         interactor: self.interactor)
         
         // MARK: - Setup UI
         self.setupNavigation()
@@ -133,13 +123,13 @@ class ShopListController: UIViewController {
         
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-//            self.priceManager.updatePrice(productId: item.productId, outletId: self.userOutlet.id)
+
             self.router.openUpdatePrice(for: item.productId, data: self.data)
             self.router.onSavePrice = { [weak self] in
                 guard let `self` = self else { return }
                 
                 guard let outlet = self.data.outlet else {
-                    fatalError()
+                    fatalError("No outlet data")
                 }
                 self.interactor.reloadProducts(outletId: outlet.id)
             }
@@ -153,7 +143,7 @@ class ShopListController: UIViewController {
         self.navigationView = R.nib.navigationView.firstView(owner: self)
         
         self.storeButton.addTarget(self, action: #selector(self.selectOutlet), for: .touchUpInside)
-        self.deleteButton.addTarget(self, action: #selector(self.cleanShoplist2), for: .touchUpInside)
+        self.deleteButton.addTarget(self, action: #selector(self.cleanShoplist), for: .touchUpInside)
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.storeButton)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.deleteButton)
@@ -223,7 +213,7 @@ class ShopListController: UIViewController {
             switch result {
             case let .success(outlet):
                 self.userOutlet = outlet
-                self.showBaseStatistics()
+                self.router.openStatistics(data: self.data)
                 activateControls = true
             case let .failure(error):
                 let previousSuccess = R.string.localizable.common_good_news()
@@ -237,16 +227,6 @@ class ShopListController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
             [self.scanButton, self.itemListButton, self.storeButton].forEach { $0.setEnable(enable) }
-        }
-    }
-
-    // FIXME: move to separate manager
-    func showBaseStatistics() {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
-            let q = self.interactor.getQuantityOfGood()
-            let statVC = BaseStatisticsVC(productsCount: q)
-            self.present(statVC, animated: true, completion: nil)
         }
     }
 
@@ -264,12 +244,12 @@ class ShopListController: UIViewController {
     }
     
     @IBAction func cleanShopList(_ sender: GoodButton) {
-        self.cleanShoplist2()
+        self.cleanShoplist()
     }
     
     
     @objc
-    func cleanShoplist2() {
+    func cleanShoplist() {
         self.alert(message: R.string.localizable.shoplist_clean(), okAction: { [weak self] in
             guard let `self` = self else { return }
             self.repository.clearShoplist()
@@ -327,7 +307,6 @@ extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
         
         if !self.interactor.isProductHasPrice(for: barcode, in: userOutlet.id) {
-//            self.priceManager.updatePrice(productId: barcode, outletId: userOutlet.id)
             self.router.openUpdatePrice(for: barcode, data: self.data)
         }
         
@@ -352,12 +331,9 @@ extension ShopListController: ScannerDelegate {
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
-
-        if !self.interactor.isProductHasPrice(for: productId, in: userOutlet.id) {
-//            self.priceManager.updatePrice(productId: productId, outletId: userOutlet.id)
+        if let outlet = data.outlet, !self.interactor.isProductHasPrice(for: productId, in: outlet.id) {
             self.router.openUpdatePrice(for: productId, data: data)
         }
-
         self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }
             switch result {

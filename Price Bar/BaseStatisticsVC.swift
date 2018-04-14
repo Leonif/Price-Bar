@@ -51,17 +51,8 @@ class BaseStatisticsVC: UIViewController {
         return label
     }()
     
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-    }
-    
-    convenience init(productsCount: Int) {
-        self.init()
-        
-        self.productsCount = productsCount
-        self.configurePopup()
-        self.modalPresentationStyle = .overCurrentContext
-    }
+    var interactor: BaseStatisticsInteractor!
+    var repository: Repository!
     
     func configurePopup() {
         view.addSubview(titleLabel)
@@ -75,17 +66,28 @@ class BaseStatisticsVC: UIViewController {
             self.dismiss(animated: true)
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        self.configurePopup()
+        
+        
+        self.interactor = BaseStatisticsInteractor()
+        self.interactor.repository = self.repository
+        
+        self.productsCount = self.interactor.getQuantityOfGood()
+        
+        
+        
+
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        view.obscure()
-        indicator.startShow(for: (Double(productsCount), Double(productsCount)))
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
         
+        self.view.obscure()
+        self.indicator.startShow(for: (Double(productsCount), Double(productsCount)))
     }
-    
-    
-    
 }

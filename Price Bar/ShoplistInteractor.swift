@@ -133,9 +133,9 @@ public final class ShoplistInteractor {
     }
     
     
-    func getQuantityOfGood() -> Int {
-        return self.repository.getQuantityOfProducts()
-    }
+//    func getQuantityOfGood() -> Int {
+//        return self.repository.getQuantityOfProducts()
+//    }
     
     
     

@@ -20,13 +20,9 @@ class ShoplistRouter {
     
     var vc: UpdatePriceVC!
     var onSavePrice: (() -> Void)? = nil
-    
+    var data: DataStorage!
     
     func openUpdatePrice(for productId: String, data: DataStorage) {
-        
-//        guard let outlet = data.outlet else {
-//            fatalError("Outlet is nil")
-//        }
         self.vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
         self.vc.productId = productId
         self.vc.repository = data.repository
@@ -35,9 +31,18 @@ class ShoplistRouter {
         self.vc.onSavePrice = { [weak self] in
             self?.onSavePrice?()
         }
-        
     }
     
+    func openStatistics(data: DataStorage) {
+        let statVC = BaseStatisticsVC()
+        statVC.modalPresentationStyle = .overCurrentContext
+        self.data = data
+        statVC.repository = self.data.repository
+
+        DispatchQueue.main.async {
+            self.data.vc.present(statVC, animated: true)
+        }
+    }
     
     
     

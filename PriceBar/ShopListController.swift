@@ -299,14 +299,13 @@ extension ShopListController {
 // MARK: - Scanner handling
 extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
-        if !self.interactor.isProductHasPrice(for: barcode, in: userOutlet.id) {
-            self.router.openUpdatePrice(for: barcode, data: self.data)
-        }
-        
         self.interactor.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }
             switch result {
             case .success:
+                if !self.interactor.isProductHasPrice(for: barcode, in: self.userOutlet.id) {
+                    self.router.openUpdatePrice(for: barcode, data: self.data)
+                }
                 self.shopTableView.reloadData()
             case let .failure(error):
                 switch error {

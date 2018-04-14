@@ -18,20 +18,13 @@ class GooglePlacesProvider {
     }
     
     func getOutlet(for outletId: String, callback: @escaping (GMSPlace) -> Void) {
-    
         self.placesClient.lookUpPlaceID(outletId) { (gmsPlace, error) in
             if let error = error {
                 fatalError("Pick Place error: \(error.localizedDescription)")
             }
-            
             callback(gmsPlace!)
-            
         }
-    
-    
     }
-    
-    
     
     func getOutlet(with searchText: String, callback: @escaping ([GMSAutocompletePrediction]) -> Void) {
         
@@ -39,21 +32,17 @@ class GooglePlacesProvider {
         filter.type = .establishment
         filter.country = "UA"
         
-        
         self.placesClient.autocompleteQuery(searchText, bounds: nil, filter: filter) { (result, error) in
             guard let foundList = result else { fatalError() }
-            
             callback(foundList)
         }
     }
     
     func getNearestOutletList(callback: @escaping ([GMSPlaceLikelihood]) -> Void) {
-        
         placesClient.currentPlace(callback: { (placeLikelihoodList, error) -> Void in
             if let error = error {
                 fatalError("Pick Place error: \(error.localizedDescription)")
             }
-            
             if let placeLikelihoodList = placeLikelihoodList {
                 placeLikelihoodList.likelihoods.forEach {
                     print($0.place.types)
@@ -62,7 +51,6 @@ class GooglePlacesProvider {
                     $0.place.types.contains("store")
                 }
                 callback(stores)
-                
             }
         })
     }
@@ -73,7 +61,6 @@ class GooglePlacesProvider {
             if let error = error {
                 fatalError("Pick Place error: \(error.localizedDescription)")
             }
-            
             if let placeLikelihoodList = placeLikelihoodList {
                 placeLikelihoodList.likelihoods.forEach {
                     print($0.place.types)

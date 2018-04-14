@@ -25,15 +25,15 @@ enum RepositoryError: Error {
     var message: String {
         switch self {
         case .syncError:
-            return "Ошибка синхронизации"
+            return R.string.localizable.error_sync_stopped()
         case .shoplistAddedNewItem:
-            return "Товар уже есть в списке"
+            return R.string.localizable.common_already_in_list()
         case .productIsNotFound:
-            return "Товар не найден в базе данных"
+            return R.string.localizable.error_product_is_not_found()
         case .other:
-            return "Что-то пошло не так"
+            return R.string.localizable.error_something_went_wrong()
         case .statisticError:
-            return "Статистики нет"
+            return R.string.localizable.error_no_statistics()
         }
     }
 }
@@ -156,7 +156,7 @@ class Repository {
         FirebaseService.data.loginToFirebase(completion: { result in
             switch result {
             case .success:
-                print("Firebase login success")
+                debugPrint("Firebase login success")
                 self.onSyncNext?()
             case let .failure(error):
                 completion(self.syncHandle(error: error))
@@ -172,7 +172,7 @@ class Repository {
             return
         }
         self.shoplist = shp
-        print("Function: \(#function), line: \(#line)")
+        debugPrint("Function: \(#function), line: \(#line)")
         self.onSyncNext?()
     }
 
@@ -363,7 +363,7 @@ class Repository {
 
         for item in shoplist {
             if item.productCategory == name {
-                print("section \(name) can't be removed cause contains some items")
+                debugPrint("section \(name) can't be removed cause contains some items")
                 return
             }
         }
@@ -477,7 +477,7 @@ class Repository {
     func loadShopList(for outletId: String) {
         shoplist.removeAll()
         sections.removeAll()
-        guard let list =  CoreDataService.data.loadShopList(for: outletId) else {
+        guard let list = CoreDataService.data.loadShopList(for: outletId) else {
             return
         }
         list.forEach { item in

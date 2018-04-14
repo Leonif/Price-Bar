@@ -48,11 +48,19 @@ class ShopListController: UIViewController {
     // MARK: - Dependecy Injection properties
     var repository: Repository!
     var interactor: ShoplistInteractor!
+    var router: ShoplistRouter!
+    var data: DataStorage!
+    
     var syncAnimator: SyncAnimator!
-    var priceManager: UpdatePriceManager!
+//    var priceManager: UpdatePriceManager!
     
     
-    var userOutlet: Outlet! { didSet {  self.updateUI() }  }
+    var userOutlet: Outlet! {
+        didSet {
+            self.data.outlet = userOutlet
+            self.updateUI()
+        }
+    }
     var adapter: ShopListAdapter!
     var buttonsHided: Bool = false
     
@@ -70,10 +78,18 @@ class ShopListController: UIViewController {
         self.repository = Repository()
         self.syncAnimator = SyncAnimator(parent: self)
         self.interactor = ShoplistInteractor(repository: repository)
+        
+        
+        self.router = ShoplistRouter()
+        self.data = DataStorage(repository: self.repository, vc: self, outlet: userOutlet)
+        
         self.adapter = ShopListAdapter(parent: self, tableView: shopTableView,
                                   repository: repository)
-        self.priceManager = UpdatePriceManager(vc: self,
-                                         interactor: self.interactor)
+        
+        
+        
+//        self.priceManager = UpdatePriceManager(vc: self,
+//                                         interactor: self.interactor)
         
         // MARK: - Setup UI
         self.setupNavigation()
@@ -117,7 +133,16 @@ class ShopListController: UIViewController {
         
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-            self.priceManager.updatePrice(productId: item.productId, outletId: self.userOutlet.id)
+//            self.priceManager.updatePrice(productId: item.productId, outletId: self.userOutlet.id)
+            self.router.openUpdatePrice(for: item.productId, data: self.data)
+            self.router.onSavePrice = { [weak self] in
+                guard let `self` = self else { return }
+                
+                guard let outlet = self.data.outlet else {
+                    fatalError()
+                }
+                self.interactor.reloadProducts(outletId: outlet.id)
+            }
         }
         
     }
@@ -302,7 +327,8 @@ extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
         
         if !self.interactor.isProductHasPrice(for: barcode, in: userOutlet.id) {
-            self.priceManager.updatePrice(productId: barcode, outletId: userOutlet.id)
+//            self.priceManager.updatePrice(productId: barcode, outletId: userOutlet.id)
+            self.router.openUpdatePrice(for: barcode, data: self.data)
         }
         
         
@@ -328,7 +354,8 @@ extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
 
         if !self.interactor.isProductHasPrice(for: productId, in: userOutlet.id) {
-            self.priceManager.updatePrice(productId: productId, outletId: userOutlet.id)
+//            self.priceManager.updatePrice(productId: productId, outletId: userOutlet.id)
+            self.router.openUpdatePrice(for: productId, data: data)
         }
 
         self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
@@ -365,45 +392,11 @@ extension ShopListController: ItemCardVCDelegate {
     }
 }
 
-// FIXME: Move to router
+
 // MARK: - transition
 extension ShopListController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == Strings.Segues.showEditItem.name,
-            let itemCardVC = segue.destination as? ItemCardVC {
-            if let item = sender as? DPShoplistItemModel {
-                itemCardVC.item = item
-                itemCardVC.delegate = self
-                itemCardVC.repository = repository
-                itemCardVC.outletId = userOutlet.id
-            }
-        }
-
-        if let typedInfo = R.segue.shopListController.scannedNewProduct(segue: segue) {
-            if let barcode = sender as? String {
-                typedInfo.destination.barcode = barcode
-                typedInfo.destination.delegate = self
-                typedInfo.destination.repository = repository
-                typedInfo.destination.outletId = userOutlet.id
-            }
-        }
-        
-        if let typedInfo = R.segue.shopListController.showOutlets(segue: segue) {
-            typedInfo.destination.delegate = self
-        }
-        
-        if segue.identifier == Strings.Segues.showItemList.name,
-            let itemListVC = segue.destination as? ItemListVC, userOutlet != nil {
-            itemListVC.outletId = userOutlet.id
-            itemListVC.delegate = self
-            itemListVC.itemCardDelegate = self
-            itemListVC.repository = repository
-
-        }
-        if segue.identifier == Strings.Segues.showScan.name,
-            let scanVC = segue.destination as? ScannerController {
-            scanVC.delegate = self
-        }
+        self.router.prepare(for: segue, sender: sender, data: self.data)
     }
 }
 

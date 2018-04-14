@@ -21,6 +21,8 @@
 		790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D3B207FEAE5003DD560 /* String+Extension.swift */; };
 		790B7D4D207FFCDD003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D49207FF707003DD560 /* YanoneKaffeesatz-Bold.ttf */; };
 		790B7D4E207FFCE6003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */; };
+		790B7D512081C24B003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
+		790B7D532081CB04003DD560 /* UpdatePriceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */; };
 		790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F1008202266A20060E285 /* CoreDataParsers.swift */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
 		790F104220262FC30060E285 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103820262FC30060E285 /* Product+CoreDataClass.swift */; };
@@ -145,6 +147,8 @@
 		790B7D4A207FF707003DD560 /* YanoneKaffeesatz-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-Light.ttf"; sourceTree = "<group>"; };
 		790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-Regular.ttf"; sourceTree = "<group>"; };
 		790B7D4C207FF709003DD560 /* YanoneKaffeesatz-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-ExtraLight.ttf"; sourceTree = "<group>"; };
+		790B7D502081C24B003DD560 /* ShoplistRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistRouter.swift; sourceTree = "<group>"; };
+		790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceInteractor.swift; sourceTree = "<group>"; };
 		790F1008202266A20060E285 /* CoreDataParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParsers.swift; sourceTree = "<group>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
 		790F103820262FC30060E285 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -325,18 +329,41 @@
 		790B7D32207BBC3B003DD560 /* UpdatePriceAndStatistics */ = {
 			isa = PBXGroup;
 			children = (
+				790B7D542081CB16003DD560 /* View */,
+				790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */,
+				790B7D39207FDF98003DD560 /* UpdatePriceManager.swift */,
+				790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */,
+			);
+			name = UpdatePriceAndStatistics;
+			sourceTree = "<group>";
+		};
+		790B7D4F2081C219003DD560 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				790BC9E71F8831FB00CA9519 /* ShopListFlow */,
+				790BC9EA1F8832D900CA9519 /* ItemListFlow */,
+				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
+				79833B3E201142F5005C6CC5 /* ScannerFlow */,
+				790BC9E91F88326E00CA9519 /* OutletFlow */,
+			);
+			name = Modules;
+			sourceTree = "<group>";
+		};
+		790B7D542081CB16003DD560 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				790B7D2D207AA590003DD560 /* UpdatePriceVC.swift */,
 				790B7D2E207AA590003DD560 /* UpdatePriceVC.xib */,
-				790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */,
 				79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */,
 				79E9B870206C17F800D80EA5 /* PriceStatisticCell.xib */,
 			);
-			name = UpdatePriceAndStatistics;
+			name = View;
 			sourceTree = "<group>";
 		};
 		790BC9E71F8831FB00CA9519 /* ShopListFlow */ = {
 			isa = PBXGroup;
 			children = (
+				790B7D502081C24B003DD560 /* ShoplistRouter.swift */,
 				79E9B86C206C0D5800D80EA5 /* Adapter */,
 				79DC99F12044B40000D35D1C /* Interactor */,
 				790BC9EF1F88342100CA9519 /* Entities */,
@@ -396,7 +423,6 @@
 			children = (
 				79210297205DD7BB00C83706 /* SyncAnimator.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
-				790B7D39207FDF98003DD560 /* UpdatePriceManager.swift */,
 				790B7D0A207902F5003DD560 /* NavigationBarView */,
 				790B7D0B20790310003DD560 /* Cell */,
 				790B7D0C20790319003DD560 /* Header */,
@@ -459,11 +485,7 @@
 			isa = PBXGroup;
 			children = (
 				7975D63120713D24003A6288 /* Common */,
-				790BC9E71F8831FB00CA9519 /* ShopListFlow */,
-				790BC9EA1F8832D900CA9519 /* ItemListFlow */,
-				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
-				79833B3E201142F5005C6CC5 /* ScannerFlow */,
-				790BC9E91F88326E00CA9519 /* OutletFlow */,
+				790B7D4F2081C219003DD560 /* Modules */,
 				790BC9E81F88322400CA9519 /* Services */,
 				790BC9EB1F88334800CA9519 /* Supported Files */,
 				792EE7B21EE707E700470669 /* Main.storyboard */,
@@ -1072,6 +1094,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				790B7D512081C24B003DD560 /* ShoplistRouter.swift in Sources */,
 				793368671FFEAB3200E8E81A /* Outlet.swift in Sources */,
 				796D7B24201BDE3C0098D324 /* ItemListModelView.swift in Sources */,
 				79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */,
@@ -1102,6 +1125,7 @@
 				790F104220262FC30060E285 /* Product+CoreDataClass.swift in Sources */,
 				79883BCF20149962009CBEF0 /* DPUomModel.swift in Sources */,
 				79833B35200D5002005C6CC5 /* ProductCardModelView.swift in Sources */,
+				790B7D532081CB04003DD560 /* UpdatePriceInteractor.swift in Sources */,
 				790B7D2F207AA590003DD560 /* UpdatePriceVC.swift in Sources */,
 				79D12F312016858300302AF9 /* OPOutletModel.swift in Sources */,
 				790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */,

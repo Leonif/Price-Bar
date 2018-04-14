@@ -22,6 +22,8 @@ protocol NearestOutletDelegate {
     func nearest(result: ResultType<OPOutletModel, OutletServiceError>)
 }
 
+
+
 public enum OutletServiceError: Error {
     case outletNotFound(String)
     case userDeniedLocation(String)
@@ -46,6 +48,9 @@ public enum OutletServiceError: Error {
 class OutletService: NSObject {
     var locationService: LocationService!
     var foursquareProvider: FoursqareProvider!
+    var googlePlacesProvider: GooglePlacesProvider!
+    
+    
     var outletListDelegate: OutletListDelegate?
     var singleOutletCompletion: ((ResultType<OPOutletModel, OutletServiceError>) -> Void)?
     var outletListCompletion: ((ResultType<[OPOutletModel], OutletServiceError>) -> Void)?
@@ -57,10 +62,11 @@ class OutletService: NSObject {
         super.init()
         self.locationService = LocationService()
         self.foursquareProvider = FoursqareProvider()
+        self.googlePlacesProvider = GooglePlacesProvider()
     }
     
     
-    func getOutlet(with outletId: String, completion: @escaping OutletResultType) {
+    func getOutlet2(with outletId: String, completion: @escaping OutletResultType) {
         let foursquareProvider = FoursqareProvider()
         foursquareProvider.getOutlet(with: outletId) { (result) in
             switch result {
@@ -72,88 +78,135 @@ class OutletService: NSObject {
         }
     }
     
+    func getOutlet(with outletId: String, completion: @escaping OutletResultType) {
+        
+        self.googlePlacesProvider.getOutlet(for: outletId) { (gmsPlace) in
+            completion(ResultType.success(OPOutletModel(id: gmsPlace.placeID,
+                                                        name: gmsPlace.name,
+                                                        address: gmsPlace.formattedAddress!,
+                                                        distance: 0.0) ))
+        }
+        
+    }
 
+
+//    func nearestOutlet2(completion: @escaping OutletResultType) {
+//        self.singleOutletCompletion = completion
+//        self.locationService.getCoords { result in
+//            switch result {
+//            case let .failure(error):
+//                self.singleOutletCompletion?(ResultType.failure(.other(error.errorDescription)))
+//            case let .success(coords):
+//                self.outletListFromProvider(for: coords, completion: { result in
+//                    switch result {
+//                    case let .success(fqoutlets):
+//                        if let fqoutlet = fqoutlets.first {
+//                            self.singleOutletCompletion?(ResultType.success(OutletMapper.mapper(from: fqoutlet)))
+//                        }
+//                    case let .failure(error):
+//                        // need to hadle different cases of error from provider
+//                        self.singleOutletCompletion?(ResultType.failure(.other(error.errorDescription)))
+//                    }
+//                })
+//            }
+//        }
+//    }
+    
+    
     func nearestOutlet(completion: @escaping OutletResultType) {
         self.singleOutletCompletion = completion
-        self.locationService.getCoords { result in
-            switch result {
-            case let .failure(error):
-                self.singleOutletCompletion?(ResultType.failure(.other(error.errorDescription)))
-            case let .success(coords):
-                self.outletListFromProvider(for: coords, completion: { result in
-                    switch result {
-                    case let .success(fqoutlets):
-                        if let fqoutlet = fqoutlets.first {
-                            self.singleOutletCompletion?(ResultType.success(OutletMapper.mapper(from: fqoutlet)))
-                        }
-                    case let .failure(error):
-                        // need to hadle different cases of error from provider
-                        self.singleOutletCompletion?(ResultType.failure(.other(error.errorDescription)))
-                    }
-                })
-            }
+        
+        self.googlePlacesProvider.getNearestOutlet { (gmsPlaceLikelihood) in
+            self.singleOutletCompletion?(ResultType.success(OPOutletModel(id: gmsPlaceLikelihood.place.placeID,
+                                                                          name: gmsPlaceLikelihood.place.name,
+                                                                          address: gmsPlaceLikelihood.place.formattedAddress!,
+                                                                          distance: 0.0)))
         }
+        
     }
 
+//    func outletList2(completion: @escaping OutletListResultType) {
+//        outletListCompletion = completion
+//
+//        self.locationService.getCoords { [weak self] result in
+//
+//            guard let `self` = self else { return }
+//
+//            switch result {
+//            case let .failure(error):
+//                print(error)
+//            case let .success(coords):
+//                self.outletListFromProvider(for: coords, completion: { [weak self] result in
+//
+//                    guard let `self` = self else { return }
+//
+//                    switch result {
+//                    case let .success(fqoutlets):
+//
+//                        let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
+//
+//                        self.outletListCompletion?(ResultType.success(outlets))
+//                    case let .failure(error):
+//                        self.outletListCompletion?(ResultType.failure(.other(error.errorDescription)))
+//                    }
+//                })
+//            }
+//        }
+//    }
+    
+    
     func outletList(completion: @escaping OutletListResultType) {
         outletListCompletion = completion
-
-        self.locationService.getCoords { [weak self] result in
-            
-            guard let `self` = self else { return }
-            
-            switch result {
-            case let .failure(error):
-                print(error)
-            case let .success(coords):
-                self.outletListFromProvider(for: coords, completion: { [weak self] result in
-                    
-                    guard let `self` = self else { return }
-                    
-                    switch result {
-                    case let .success(fqoutlets):
-                        
-                        let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
-                        
-                        self.outletListCompletion?(ResultType.success(outlets))
-                    case let .failure(error):
-                        self.outletListCompletion?(ResultType.failure(.other(error.errorDescription)))
-                    }
-                })
-            }
+        self.googlePlacesProvider.getNearestOutletList { (gmsPlaceLikelihoods) in
+            let outlets = gmsPlaceLikelihoods.map { OPOutletModel(id: $0.place.placeID,
+                                                      name: $0.place.name,
+                                                      address: $0.place.formattedAddress!,
+                                                      distance: 0.0) }
+            self.outletListCompletion?(ResultType.success(outlets))
         }
     }
     
     
     
+//    func searchOutletList(with text: String, completion: @escaping OutletListResultType) {
+//        self.locationService.getCoords { [weak self] (result) in
+//            guard let `self` = self else { return }
+//
+//            switch result {
+//            case let .failure(error):
+//                self.outletListCompletion?(ResultType.failure(OutletServiceError.other(error.errorDescription)))
+//            case let .success(coords):
+//
+//                self.searchOutletListFromProvider(with: text, for: coords, completion: { (result) in
+//                    switch result {
+//                    case let .success(fqoutlets):
+//
+//                        let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
+//
+//                        completion(ResultType.success(outlets))
+//
+//                    case let .failure(error):
+//                        completion(ResultType.failure(.other(error.errorDescription)))
+//                    }
+//                })
+//
+//            }
+//        }
+//    }
     
     func searchOutletList(with text: String, completion: @escaping OutletListResultType) {
-        self.locationService.getCoords { [weak self] (result) in
-            guard let `self` = self else { return }
+        
+        self.googlePlacesProvider.getOutlet(with: text) { (gmsAutocompletePredictions) in
+            let outlets = gmsAutocompletePredictions.map { OPOutletModel(id: $0.placeID!,
+                                                           name: $0.attributedFullText.string,
+                                                           address: "",
+                                                           distance: 0.0) }
             
-            switch result {
-            case let .failure(error):
-                self.outletListCompletion?(ResultType.failure(OutletServiceError.other(error.errorDescription)))
-            case let .success(coords):
-            
-                self.searchOutletListFromProvider(with: text, for: coords, completion: { (result) in
-                    switch result {
-                    case let .success(fqoutlets):
-                        
-                        let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
-                        
-                        completion(ResultType.success(outlets))
-                        
-                    case let .failure(error):
-                        completion(ResultType.failure(.other(error.errorDescription)))
-                    }
-                })
-            
-            }
+            completion(ResultType.success(outlets))
         }
+        
+        
     }
-    
-    
     
     private func searchOutletListFromProvider(with text: String, for coords: CLLocationCoordinate2D, completion: @escaping ForsqareOutletList) {
         
@@ -166,6 +219,7 @@ class OutletService: NSObject {
             }
         }
     }
+    
     
     
 

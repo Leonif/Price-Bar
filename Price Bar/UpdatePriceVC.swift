@@ -18,7 +18,6 @@ class UpdatePriceVC: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     
     var interactor: UpdatePriceInteractor!
-    var repository: Repository!
     
     @IBOutlet weak var tableView: UITableView!
     var onSavePrice: (() -> Void)? = nil
@@ -30,7 +29,7 @@ class UpdatePriceVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.interactor = UpdatePriceInteractor(repository: self.repository)
+        self.interactor = UpdatePriceInteractor(repository: self.data.repository)
         self.updateStatistics { [weak self] in
             guard let `self` = self else { return }
 
@@ -43,7 +42,7 @@ class UpdatePriceVC: UIViewController {
     }
     
     
-    func updateStatistics(completin: @escaping () -> ()) {
+    func updateStatistics(completion: @escaping () -> ()) {
         
         self.interactor.getPriceStatistics(for: productId, completion: { [weak self] (result) in
             guard let `self` = self else { return }
@@ -61,10 +60,8 @@ class UpdatePriceVC: UIViewController {
                 self.dataSource = statistic
                 let productName = self.interactor.getProductName(for: self.productId)
                 self.productNameLabel.text = productName
-                completin()
-                
-                
-//                data.vc.present(vc, animated: true)
+                completion()
+
             case let .failure(error):
                 self.alert(message: error.message)
             }
@@ -79,14 +76,10 @@ class UpdatePriceVC: UIViewController {
             return
         }
         if self.price != price && price != 0  {
-            guard let outlet = self.data.outlet else {
-                    fatalError()
-            }
+            guard let outlet = self.data.outlet else { fatalError()  }
             
             self.interactor.updatePrice(for: self.productId, price: price, outletId: outlet.id)
             self.onSavePrice?()
-//            self.interactor.reloadProducts(outletId: outlet.id)
-            
             self.close()
         } else {
             self.alert(title: R.string.localizable.thank_you(),

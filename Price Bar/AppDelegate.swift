@@ -11,6 +11,9 @@ import CoreData
 import Firebase
 import Fabric
 import Crashlytics
+import GooglePlaces
+
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -25,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
 
         
-        
+        GMSPlacesClient.provideAPIKey("AIzaSyANoPgVD9zYXXOYrtjFPSfIltAdRNgtYs4")
         
         
 

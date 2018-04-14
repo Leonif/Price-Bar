@@ -16,16 +16,50 @@ struct DataStorage {
     var outlet: Outlet?
 }
 
-class ShoplistRouter {
+
+enum ShoplistNextModules {
+    case updatePrice
+    case statistics
+    case productCard
+    case productList
+    case scanner
+    case outletList
     
+    
+    var viewController: UIViewController? {
+        switch self {
+        case .updatePrice:
+            return UpdatePriceVC(nib: R.nib.updatePriceVC)
+        default: return nil
+            
+        }
+    }
+    
+}
+
+
+
+
+class ShoplistRouter {
+
     var vc: UpdatePriceVC!
     var onSavePrice: (() -> Void)? = nil
     var data: DataStorage!
     
+    // MARK: - need to work on it
+//    func present(module: ShoplistNextModules, with data: DataStorage) {
+//        self.vc = module.viewController
+//        self.data = data
+//        data.vc.present(self.vc, animated: true)
+//        
+//
+//    }
+    
+    
+    
     func openUpdatePrice(for productId: String, data: DataStorage) {
         self.vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
         self.vc.productId = productId
-        self.vc.repository = data.repository
         self.vc.data = data
         data.vc.present(self.vc, animated: true)
         self.vc.onSavePrice = { [weak self] in

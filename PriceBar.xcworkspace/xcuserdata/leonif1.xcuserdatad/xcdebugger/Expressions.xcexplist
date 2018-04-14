@@ -50,6 +50,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "UpdatePriceVC.updateStatistics(completin:):UpdatePriceVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "ItemListVC.scrollViewDidScroll(UIScrollView) -&gt; ():ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -149,6 +152,9 @@
          contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
       </ContextState>
       <ContextState
+         contextName = "UpdatePriceVC.savePriceTapped(_:):UpdatePriceVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.getCategoriesFromCoreData() -&gt; [ItemCategory]:CoreDataService.swift">
          <PersistentStrings>
             <PersistentString
@@ -207,6 +213,9 @@
       </ContextState>
       <ContextState
          contextName = "ShopListDataSource.tableView(_:cellForRowAt:):ShopListDataSource.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UpdatePriceVC.viewDidLoad():UpdatePriceVC.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListModel.append(ShopItem) -&gt; ():ShopListModel.swift">
@@ -290,6 +299,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ShoplistRouter.openStatistics():ShoplistRouter.swift">
+      </ContextState>
+      <ContextState
          contextName = "ItemListVC.itemSearchFieldChanged(UITextField) -&gt; ():ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -309,10 +321,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopItemCell.awakeFromNib() -&gt; ():ShopItemCell.swift">
+         contextName = "FoursqareProvider.parseVenues(from:completion:):FoursqareProvider.swift">
          <PersistentStrings>
             <PersistentString
-               value = "weightPicker.frame">
+               value = "resp">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -336,10 +348,10 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FoursqareProvider.parseVenues(from:completion:):FoursqareProvider.swift">
+         contextName = "ShopItemCell.awakeFromNib() -&gt; ():ShopItemCell.swift">
          <PersistentStrings>
             <PersistentString
-               value = "resp">
+               value = "weightPicker.frame">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -350,6 +362,9 @@
                value = "error.errorDescription">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "BaseStatisticsVC.init():BaseStatisticsVC.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in CoreDataService.getPricesStatisticByOutlet(for:):PriceHandling.swift">
@@ -363,13 +378,13 @@
          contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "itemTableView">
+               value = "itemList">
             </PersistentString>
             <PersistentString
                value = "filtredItemList">
             </PersistentString>
             <PersistentString
-               value = "itemList">
+               value = "itemTableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -380,6 +395,9 @@
                value = "venue[&quot;id&quot;]">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShoplistRouter.openStatistics(data:):ShoplistRouter.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in FoursqareProvider.parse(url:completed:):FoursqareProvider.swift">
@@ -399,6 +417,9 @@
                value = "shopList">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShoplistRouter.prepare(for:sender:data:):ShoplistRouter.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.viewDidAppear(_:):ShopListController.swift">
@@ -469,6 +490,12 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListController.viewDidLoad():ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FoursqareProvider.loadOultets(userCoordinate:completion:):FoursqareProvider.swift">
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.mapper(from:):CoreDataSync.swift">
       </ContextState>
       <ContextState
@@ -481,13 +508,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -523,6 +550,9 @@
                value = "self.currentModel.indexPath">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in UpdatePriceVC.viewDidLoad():UpdatePriceVC.swift">
       </ContextState>
       <ContextState
          contextName = "DataProvider.headerString(for:):DataProvider.swift">
@@ -575,6 +605,11 @@
       </ContextState>
       <ContextState
          contextName = "closure #1 in FoursqareProvider.request&lt;A&gt;(url:completed:parseFunction:):FoursqareProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "parseData[&quot;response&quot;]">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ShopListDataSource.tableView(_:commit:forRowAt:):ShopListDataSource.swift">
@@ -654,10 +689,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

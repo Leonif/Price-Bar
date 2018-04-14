@@ -39,3 +39,4 @@
 "price_update_not_changed" = "The price has not changed😉. Cool! 👍";
 "error_product_is_not_found" = "Product not found in database";
 "error_no_statistics" = "There are no statistics";
+"error_stores_is_not_found_around_you" = "No stores found around you 😢";

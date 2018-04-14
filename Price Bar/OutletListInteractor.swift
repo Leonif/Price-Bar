@@ -8,17 +8,18 @@
 
 import Foundation
 
-
 class OutletListInteractor {
     
     private var outletService: OutletService!
     var onOutletListFetched: (([OPOutletModel])->())? = nil
-    var onFetchingError: ((String)->())? = nil
-    var onFetchingCompleted: (()->())? = nil
+    var onFetchingError: ((String) -> Void)? = nil
+    var onFetchingCompleted: (() -> Void)? = nil
     
     init() {
         self.outletService = OutletService()
     }
+    
+    
 
     func getOutletList() {
         self.outletService?.outletList(completion: { [weak self] result in

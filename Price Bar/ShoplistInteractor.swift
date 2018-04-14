@@ -7,14 +7,18 @@
 //
 
 import Foundation
+import GooglePlaces
 
 
 public final class ShoplistInteractor {
     private let outletService = OutletService()
     private let repository: Repository!
     
+    
     init(repository: Repository) {
         self.repository = repository
+        
+        
     }
     
     

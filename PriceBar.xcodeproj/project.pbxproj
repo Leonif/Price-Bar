@@ -14,7 +14,6 @@
 		790B7D2C207A6000003DD560 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D2B207A6000003DD560 /* Styles.swift */; };
 		790B7D2F207AA590003DD560 /* UpdatePriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D2D207AA590003DD560 /* UpdatePriceVC.swift */; };
 		790B7D30207AA590003DD560 /* UpdatePriceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D2E207AA590003DD560 /* UpdatePriceVC.xib */; };
-		790B7D34207D649B003DD560 /* UITextField+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D33207D649B003DD560 /* UITextField+extension.swift */; };
 		790B7D36207FDA09003DD560 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */; };
 		790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */; };
 		790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D3B207FEAE5003DD560 /* String+Extension.swift */; };
@@ -23,6 +22,7 @@
 		790B7D512081C24B003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
 		790B7D532081CB04003DD560 /* UpdatePriceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */; };
 		790B7D562081E56B003DD560 /* BaseStatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* BaseStatisticsInteractor.swift */; };
+		790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */; };
 		790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F1008202266A20060E285 /* CoreDataParsers.swift */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
 		790F104220262FC30060E285 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103820262FC30060E285 /* Product+CoreDataClass.swift */; };
@@ -56,7 +56,7 @@
 		7933686D20012F1A00E8E81A /* QuantityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityModel.swift */; };
 		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
 		794658A220697E45007B4397 /* StatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794658A120697E45007B4397 /* StatisticModel.swift */; };
-		795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* Extension.swift */; };
+		795EA8C61F0EC58F00752A68 /* FoundationTypes+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */; };
 		795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
 		795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CA1F10004400752A68 /* GoodButton.swift */; };
 		795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CC1F100C1500752A68 /* PriceHandling.swift */; };
@@ -138,7 +138,6 @@
 		790B7D2B207A6000003DD560 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
 		790B7D2D207AA590003DD560 /* UpdatePriceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceVC.swift; sourceTree = "<group>"; };
 		790B7D2E207AA590003DD560 /* UpdatePriceVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UpdatePriceVC.xib; sourceTree = "<group>"; };
-		790B7D33207D649B003DD560 /* UITextField+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+extension.swift"; sourceTree = "<group>"; };
 		790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceAdapter.swift; sourceTree = "<group>"; };
 		790B7D3B207FEAE5003DD560 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -149,6 +148,7 @@
 		790B7D502081C24B003DD560 /* ShoplistRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistRouter.swift; sourceTree = "<group>"; };
 		790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceInteractor.swift; sourceTree = "<group>"; };
 		790B7D552081E56B003DD560 /* BaseStatisticsInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStatisticsInteractor.swift; sourceTree = "<group>"; };
+		790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesProvider.swift; sourceTree = "<group>"; };
 		790F1008202266A20060E285 /* CoreDataParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParsers.swift; sourceTree = "<group>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
 		790F103820262FC30060E285 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -186,7 +186,7 @@
 		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
 		79388B241F532176008FD415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		794658A120697E45007B4397 /* StatisticModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticModel.swift; sourceTree = "<group>"; };
-		795EA8C51F0EC58F00752A68 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = SOURCE_ROOT; };
+		795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FoundationTypes+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodTextField.swift; sourceTree = SOURCE_ROOT; };
 		795EA8CA1F10004400752A68 /* GoodButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodButton.swift; sourceTree = SOURCE_ROOT; };
 		795EA8CC1F100C1500752A68 /* PriceHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceHandling.swift; sourceTree = SOURCE_ROOT; };
@@ -363,7 +363,6 @@
 			isa = PBXGroup;
 			children = (
 				790B7D502081C24B003DD560 /* ShoplistRouter.swift */,
-				79E9B86C206C0D5800D80EA5 /* Adapter */,
 				79DC99F12044B40000D35D1C /* Interactor */,
 				790BC9EF1F88342100CA9519 /* Entities */,
 				790BC9EE1F88341200CA9519 /* View */,
@@ -380,6 +379,7 @@
 				795EA8CE1F100C1C00752A68 /* CoreDataProvider */,
 				795EA8D11F102A9200752A68 /* FirebaseProvider */,
 				79D12F2E201683FD00302AF9 /* FoursqareProvider */,
+				790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -420,6 +420,7 @@
 		790BC9EE1F88341200CA9519 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				793368681FFF6F5600E8E81A /* ShopListAdapter.swift */,
 				79210297205DD7BB00C83706 /* SyncAnimator.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
 				790B7D0A207902F5003DD560 /* NavigationBarView */,
@@ -500,8 +501,7 @@
 			children = (
 				793368631FFE260F00E8E81A /* UIViewExtensions.swift */,
 				790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */,
-				790B7D33207D649B003DD560 /* UITextField+extension.swift */,
-				795EA8C51F0EC58F00752A68 /* Extension.swift */,
+				795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */,
 				790B7D3B207FEAE5003DD560 /* String+Extension.swift */,
 			);
 			name = Extensions;
@@ -771,14 +771,6 @@
 			name = Interactor;
 			sourceTree = "<group>";
 		};
-		79E9B86C206C0D5800D80EA5 /* Adapter */ = {
-			isa = PBXGroup;
-			children = (
-				793368681FFF6F5600E8E81A /* ShopListAdapter.swift */,
-			);
-			name = Adapter;
-			sourceTree = "<group>";
-		};
 		79E9B878206ED80900D80EA5 /* View */ = {
 			isa = PBXGroup;
 			children = (
@@ -837,8 +829,8 @@
 				792EE77D1EE48CD500470669 /* Frameworks */,
 				792EE77E1EE48CD500470669 /* Resources */,
 				3E230506A473382A380A6FA0 /* [CP] Embed Pods Frameworks */,
-				252C575853F5FCB63B7A7473 /* [CP] Copy Pods Resources */,
 				796C739F1F727F1900F26C90 /* ShellScript */,
+				D8423C2F8802495C1B27230F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -858,7 +850,6 @@
 				79388B1D1F532175008FD415 /* Frameworks */,
 				79388B1E1F532175008FD415 /* Resources */,
 				26B200D0F58FB63E17A54367 /* [CP] Embed Pods Frameworks */,
-				97B7A1FA75418159EEF3BD95 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -967,21 +958,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		252C575853F5FCB63B7A7473 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		26B200D0F58FB63E17A54367 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1054,21 +1030,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"";
 		};
-		97B7A1FA75418159EEF3BD95 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		B6C4C3A94B7785377B5846F0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1085,6 +1046,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D8423C2F8802495C1B27230F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1112,7 +1091,6 @@
 				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
 				79E9B883206FC26200D80EA5 /* Target.swift in Sources */,
 				7975D63C20715062003A6288 /* R.generated.swift in Sources */,
-				790B7D34207D649B003DD560 /* UITextField+extension.swift in Sources */,
 				792EE7B91EE7080400470669 /* Repository.swift in Sources */,
 				790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */,
 				79833B5920146675005C6CC5 /* CDCategoryModel.swift in Sources */,
@@ -1136,7 +1114,7 @@
 				793368641FFE260F00E8E81A /* UIViewExtensions.swift in Sources */,
 				790F104B20262FC30060E285 /* Uom+CoreDataProperties.swift in Sources */,
 				79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */,
-				795EA8C61F0EC58F00752A68 /* Extension.swift in Sources */,
+				795EA8C61F0EC58F00752A68 /* FoundationTypes+Extension.swift in Sources */,
 				7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */,
 				795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */,
 				790F104320262FC30060E285 /* Product+CoreDataProperties.swift in Sources */,
@@ -1163,6 +1141,7 @@
 				79833B552013ECA6005C6CC5 /* CDStatisticModel.swift in Sources */,
 				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,
 				79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */,
+				790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */,
 				790F104620262FC30060E285 /* ShopList+CoreDataClass.swift in Sources */,
 				795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */,
 				79833B37200D501E005C6CC5 /* DPProductModel.swift in Sources */,

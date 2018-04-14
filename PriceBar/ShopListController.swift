@@ -282,17 +282,11 @@ extension ShopListController {
     
     func shiftButton(hide: Bool) {
         let shiftOfDirection: CGFloat = hide ? -1 : 1
-        buttonsHided = !buttonsHided
+        buttonsHided.toggle()// = !buttonsHided
         updateRemoveButtonState()
-        
         [scanButton, itemListButton].forEach { $0.setEnable(hide) }
-        
         let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 100
-        
-        
         self.rightButtonConstrait.constant = newConst
-        
-        
         UIView.animate(withDuration: 0.3,
                        delay: 0,
                        usingSpringWithDamping: 0.5,
@@ -305,13 +299,11 @@ extension ShopListController {
 // MARK: - Scanner handling
 extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
-        
         if !self.interactor.isProductHasPrice(for: barcode, in: userOutlet.id) {
             self.router.openUpdatePrice(for: barcode, data: self.data)
         }
         
-        
-        interactor.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] (result) in
+        self.interactor.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }
             switch result {
             case .success:

@@ -10,6 +10,7 @@ pod 'Firebase/Core'
 pod 'Firebase/Database'
 pod 'Firebase/Auth'
 pod 'R.swift'
+pod 'GooglePlaces'
 
 target 'PriceBarTests' do
     inherit! :search_paths

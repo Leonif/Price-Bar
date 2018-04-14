@@ -29,13 +29,13 @@ class FoursqareProvider {
             }
             do {
                 guard
-                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any],
-                    let resp = parsedData["response"] as? DictionaryType
+                    let parsedData = try JSONSerialization.jsonObject(with: data!, options: []) as? DictionaryType
                     else {
                         self.handleParseError(completed: completed)
                         return
                 }
-                parseFunction(resp, completed)
+                
+                parseFunction(parsedData, completed)
             } catch let error as NSError {
                 completed(ResultType.failure(.other(error.localizedDescription)))
             }}.resume()
@@ -73,7 +73,21 @@ class FoursqareProvider {
     }
     
     // MARK: parse function
-    private func parseVenue(from resp: DictionaryType, completion: @escaping ForsqareSingleOutlet) {
+    private func parseVenue(from dict: DictionaryType, completion: @escaping ForsqareSingleOutlet) {
+        
+        if let errorDetail = self.metaMapper(dict: dict, completion: completion) {
+            self.handleFoursquareError(completed: completion, detail: errorDetail)
+            return
+        }
+        
+        guard let resp = dict["response"] as? DictionaryType else {
+            self.handleParseError(completed: completion)
+            return
+        }
+        
+        
+        
+        
         guard let venue = resp["venue"] as? DictionaryType else {
             self.handleParseError(completed: completion)
             return
@@ -85,7 +99,18 @@ class FoursqareProvider {
         completion(ResultType.success(outletModel))
     }
 
-    private func parseVenues(from resp: DictionaryType, completion: @escaping ForsqareOutletList) {
+    private func parseVenues(from dict: DictionaryType, completion: @escaping ForsqareOutletList) {
+        
+        if let errorDetail = metaMapper(dict: dict, completion: completion) {
+            self.handleFoursquareError(completed: completion, detail: errorDetail)
+            return
+        }
+
+        guard let resp = dict["response"] as? DictionaryType else {
+            self.handleParseError(completed: completion)
+            return
+        }
+
         var outlets: [FQOutletModel] = []
 
         guard let venues = resp["venues"] as? [DictionaryType] else {
@@ -98,7 +123,7 @@ class FoursqareProvider {
             }
         }
         guard !outlets.isEmpty else {
-            completion(ResultType.failure(.noOutlets("Не найдены вокруг вас магазины 😢")))
+            completion(ResultType.failure(.noOutlets(R.string.localizable.error_stores_is_not_found_around_you())))
             return
         }
         outlets = outlets.sorted(by: { $0.distance < $1.distance })
@@ -140,8 +165,26 @@ class FoursqareProvider {
                              distance: 0)
     }
     
+    
+    private func metaMapper<T>(dict: DictionaryType, completion: @escaping ForsqareResult<T>) -> String? {
+        guard let meta = dict["meta"] as? DictionaryType else {
+            self.handleParseError(completed: completion)
+            return nil
+        }
+        
+        if let errorDetail = meta["errorDetail"] as? String {
+            return errorDetail
+        }
+        return nil
+    }
+    
     private func handleParseError<T>(completed: @escaping ForsqareResult<T>) {
         completed(ResultType.failure(.parseError(R.string.localizable.error_something_went_wrong())))
     }
+    
+    private func handleFoursquareError<T>(completed: @escaping ForsqareResult<T>, detail: String) {
+        completed(ResultType.failure(.parseError("Foursquare error: \(detail)")))
+    }
+    
 
 }

@@ -118,7 +118,10 @@ class ShopListController: UIViewController {
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         
         self.adapter.onCellDidSelected = { [weak self] item in
-            self?.performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: item)
+
+            guard let `self` = self else { return }
+            self.performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: item)
+//            self.router.openItemCard(for: item.productId, data: self.data)
         }
         
         self.adapter.onCompareDidSelected = { [weak self] item in

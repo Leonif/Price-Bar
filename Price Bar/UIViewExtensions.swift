@@ -49,8 +49,8 @@ extension UIViewController: UITextFieldDelegate {
         toolBar.barStyle = .default
         toolBar.isTranslucent = true
         toolBar.tintColor = Color.atlantis
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePressed))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelPressed))
+        let doneButton = UIBarButtonItem(title: R.string.localizable.common_done(), style: .done, target: self, action: #selector(donePressed))
+        let cancelButton = UIBarButtonItem(title: R.string.localizable.common_next(), style: .plain, target: self, action: #selector(cancelPressed))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         
@@ -69,6 +69,9 @@ extension UIViewController: UITextFieldDelegate {
     @objc func cancelPressed() {
         view.endEditing(true) // or do something
     }
+    
+    
+    
 }
 
 

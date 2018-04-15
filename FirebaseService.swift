@@ -20,7 +20,10 @@ enum FirebaseError: Error {
 class FirebaseService {
     static let data = FirebaseService()
     var refGoods = Database.database().reference().child("goods")
-    var refPriceStatistics = Database.database().reference().child("price_statistics")
+    
+    var refPriceStatistics = Database.database().reference().child("price_statistics").child("foursqare_provider")
+//    var refPriceStatistics = Database.database().reference().child("price_statistics").child("google_places_provider")
+    
     var refCategories = Database.database().reference().child("categories")
     var refUoms = Database.database().reference().child("uoms")
     var refUomsParams = Database.database().reference().child("uoms").child("parameters")

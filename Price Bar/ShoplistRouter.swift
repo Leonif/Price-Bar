@@ -42,7 +42,7 @@ enum ShoplistNextModules {
 
 class ShoplistRouter {
 
-    var vc: UpdatePriceVC!
+    var vc: UIViewController!
     var onSavePrice: (() -> Void)? = nil
     var data: DataStorage!
     
@@ -56,15 +56,25 @@ class ShoplistRouter {
 //    }
     
     
+    func openItemCard(for productId: String, data: DataStorage) {
+        self.vc = ItemCardNew(nib: R.nib.itemCardNew)
+//        self.vc.productId = productId
+//        self.vc.data = data
+        data.vc.present(self.vc, animated: true)
+        
+    }
+    
     
     func openUpdatePrice(for productId: String, data: DataStorage) {
-        self.vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
-        self.vc.productId = productId
-        self.vc.data = data
-        data.vc.present(self.vc, animated: true)
-        self.vc.onSavePrice = { [weak self] in
+        let vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
+        vc.productId = productId
+        vc.data = data
+        vc.onSavePrice = { [weak self] in
             self?.onSavePrice?()
         }
+        self.vc = vc
+        data.vc.present(self.vc, animated: true)
+        
     }
     
     func openStatistics(data: DataStorage) {

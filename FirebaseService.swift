@@ -21,16 +21,40 @@ class FirebaseService {
     static let data = FirebaseService()
     var refGoods = Database.database().reference().child("goods")
     
-    var refPriceStatistics = Database.database().reference().child("price_statistics").child("foursqare_provider")
-//    var refPriceStatistics = Database.database().reference().child("price_statistics").child("google_places_provider")
-    
-    var refCategories = Database.database().reference().child("categories")
-    var refUoms = Database.database().reference().child("uoms")
-    var refUomsParams = Database.database().reference().child("uoms").child("parameters")
-    
-    let email = "good_getter@gmail.com"
-    let pwd = "123456"
+    var refPriceStatistics: DatabaseReference? = nil
 
+    
+    var refCategories: DatabaseReference? = nil
+    var refUoms: DatabaseReference? = nil
+    var refUomsParams: DatabaseReference? = nil
+    
+    var email = "good_getter@gmail.com"
+    var pwd = "123456"
+
+    
+    init() {
+        refGoods = Database.database().reference().child("goods")
+        
+        #if DEVELOPMENT
+        let statistics = "price_statistics_dev"
+        #else
+        let statistics = "price_statistics_fq"
+        //        let statistics = "price_statistics_gp"
+        
+        #endif
+        
+        refPriceStatistics = Database.database().reference().child(statistics)
+        
+        refCategories = Database.database().reference().child("categories")
+        refUoms = Database.database().reference().child("uoms")
+        refUomsParams = Database.database().reference().child("uoms").child("parameters")
+        
+        email = "good_getter@gmail.com"
+        pwd = "123456"
+    }
+    
+    
+    
     func loginToFirebase(completion: @escaping (ResultType<Bool, FirebaseError>)->Void) {
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
             if error != nil {
@@ -53,7 +77,7 @@ class FirebaseService {
     }
 
     func syncCategories(completion: @escaping (ResultType<[FBItemCategory], FirebaseError>)->Void) {
-        self.refCategories.observeSingleEvent(of: .value, with: { snapshot in
+        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 var categories = [FBItemCategory]()
                 for snapCategory in snapCategories {
@@ -81,7 +105,7 @@ class FirebaseService {
     }
 
     func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->Void) {
-        refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
+        refPriceStatistics?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 var itemStatistic = [FBItemStatistic]()
                 for snapPrice in snapPrices {
@@ -100,7 +124,7 @@ class FirebaseService {
     }
 
     func syncUoms(completion: @escaping (ResultType<[FBUomModel], FirebaseError>)->Void) {
-        self.refUoms.observeSingleEvent(of: .value, with: { snapshot in
+        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 let uoms: [FBUomModel] = FirebaseParser.parseUoms(from: snapUoms)
                 completion(ResultType.success(uoms))
@@ -128,7 +152,7 @@ class FirebaseService {
             "outlet_id": statistic.outletId,
             "price": statistic.price
             ] as [String: Any]
-        refPriceStatistics.childByAutoId().setValue(priceStat)
+        refPriceStatistics?.childByAutoId().setValue(priceStat)
     }
 
 }

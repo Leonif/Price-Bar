@@ -4,14 +4,26 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Price Bar.xcscheme</key>
+		<key>Price Bar Prod.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<true/>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>PriceBar Dev.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>790B7D7B20835D8C003DD560</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>792EE77F1EE48CD500470669</key>
 		<dict>
 			<key>primary</key>

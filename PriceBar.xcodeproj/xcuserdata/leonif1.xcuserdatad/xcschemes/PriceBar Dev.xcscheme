@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "792EE77F1EE48CD500470669"
-               BuildableName = "PriceBar.app"
-               BlueprintName = "PriceBar"
+               BlueprintIdentifier = "790B7D7B20835D8C003DD560"
+               BuildableName = "PriceBar Dev.app"
+               BlueprintName = "PriceBar Dev"
                ReferencedContainer = "container:PriceBar.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,33 +28,13 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "79388B1F1F532175008FD415"
-               BuildableName = "PriceBarTests.xctest"
-               BlueprintName = "PriceBarTests"
-               ReferencedContainer = "container:PriceBar.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "799A8A271F7425020027EB59"
-               BuildableName = "PriceBarUITests.xctest"
-               BlueprintName = "PriceBarUITests"
-               ReferencedContainer = "container:PriceBar.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "792EE77F1EE48CD500470669"
-            BuildableName = "PriceBar.app"
-            BlueprintName = "PriceBar"
+            BlueprintIdentifier = "790B7D7B20835D8C003DD560"
+            BuildableName = "PriceBar Dev.app"
+            BlueprintName = "PriceBar Dev"
             ReferencedContainer = "container:PriceBar.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -75,9 +55,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "792EE77F1EE48CD500470669"
-            BuildableName = "PriceBar.app"
-            BlueprintName = "PriceBar"
+            BlueprintIdentifier = "790B7D7B20835D8C003DD560"
+            BuildableName = "PriceBar Dev.app"
+            BlueprintName = "PriceBar Dev"
             ReferencedContainer = "container:PriceBar.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -94,9 +74,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "792EE77F1EE48CD500470669"
-            BuildableName = "PriceBar.app"
-            BlueprintName = "PriceBar"
+            BlueprintIdentifier = "790B7D7B20835D8C003DD560"
+            BuildableName = "PriceBar Dev.app"
+            BlueprintName = "PriceBar Dev"
             ReferencedContainer = "container:PriceBar.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

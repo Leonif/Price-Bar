@@ -25,6 +25,116 @@
 		790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */; };
 		790B7D79208327E1003DD560 /* ItemCardNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D77208327E1003DD560 /* ItemCardNew.swift */; };
 		790B7D7A208327E1003DD560 /* ItemCardNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D78208327E1003DD560 /* ItemCardNew.xib */; };
+		790B7D7F20835D8C003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
+		790B7D8020835D8C003DD560 /* Outlet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* Outlet.swift */; };
+		790B7D8120835D8C003DD560 /* ItemListModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListModelView.swift */; };
+		790B7D8220835D8C003DD560 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
+		790B7D8320835D8C003DD560 /* ShoplistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */; };
+		790B7D8420835D8C003DD560 /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */; };
+		790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
+		790B7D8620835D8C003DD560 /* PickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B3C200E812D005C6CC5 /* PickerControl.swift */; };
+		790B7D8720835D8C003DD560 /* BaseStatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* BaseStatisticsInteractor.swift */; };
+		790B7D8820835D8C003DD560 /* ScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C56B031EF2F10300FAA91C /* ScannerController.swift */; };
+		790B7D8920835D8C003DD560 /* ShopList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103D20262FC30060E285 /* ShopList+CoreDataProperties.swift */; };
+		790B7D8A20835D8C003DD560 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB702002CD46008F7DAA /* LocationService.swift */; };
+		790B7D8B20835D8C003DD560 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C21EE7085500470669 /* AppDelegate.swift */; };
+		790B7D8C20835D8C003DD560 /* FBProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B562013F445005C6CC5 /* FBProductModel.swift */; };
+		790B7D8D20835D8C003DD560 /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102942055A02000C83706 /* CountingLabel.swift */; };
+		790B7D8E20835D8C003DD560 /* ItemCardNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D77208327E1003DD560 /* ItemCardNew.swift */; };
+		790B7D8F20835D8C003DD560 /* FirebaseParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7976A6F920219AD20031CC79 /* FirebaseParser.swift */; };
+		790B7D9020835D8C003DD560 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B882206FC26200D80EA5 /* Target.swift */; };
+		790B7D9120835D8C003DD560 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975D63B20715062003A6288 /* R.generated.swift */; };
+		790B7D9220835D8C003DD560 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7B81EE7080400470669 /* Repository.swift */; };
+		790B7D9320835D8C003DD560 /* CoreDataParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F1008202266A20060E285 /* CoreDataParsers.swift */; };
+		790B7D9420835D8C003DD560 /* CDCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B5820146675005C6CC5 /* CDCategoryModel.swift */; };
+		790B7D9520835D8C003DD560 /* StatisticMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B876206C22EE00D80EA5 /* StatisticMapper.swift */; };
+		790B7D9620835D8C003DD560 /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103A20262FC30060E285 /* Category+CoreDataClass.swift */; };
+		790B7D9720835D8C003DD560 /* CDUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCC201498C5009CBEF0 /* CDUomModel.swift */; };
+		790B7D9820835D8C003DD560 /* StatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794658A120697E45007B4397 /* StatisticModel.swift */; };
+		790B7D9920835D8C003DD560 /* UomMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1C201906B40098D324 /* UomMapper.swift */; };
+		790B7D9A20835D8C003DD560 /* DPPriceStatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B874206C228700D80EA5 /* DPPriceStatisticModel.swift */; };
+		790B7D9B20835D8C003DD560 /* Statistic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103F20262FC30060E285 /* Statistic+CoreDataProperties.swift */; };
+		790B7D9C20835D8C003DD560 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103820262FC30060E285 /* Product+CoreDataClass.swift */; };
+		790B7D9D20835D8C003DD560 /* DPUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCE20149962009CBEF0 /* DPUomModel.swift */; };
+		790B7D9E20835D8C003DD560 /* ProductCardModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardModelView.swift */; };
+		790B7D9F20835D8C003DD560 /* UpdatePriceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */; };
+		790B7DA020835D8C003DD560 /* UpdatePriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D2D207AA590003DD560 /* UpdatePriceVC.swift */; };
+		790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F302016858300302AF9 /* OPOutletModel.swift */; };
+		790B7DA220835D8C003DD560 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D3B207FEAE5003DD560 /* String+Extension.swift */; };
+		790B7DA320835D8C003DD560 /* CategoryModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */; };
+		790B7DA420835D8C003DD560 /* FBUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1A201905800098D324 /* FBUomModel.swift */; };
+		790B7DA520835D8C003DD560 /* Statistic+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103E20262FC30060E285 /* Statistic+CoreDataClass.swift */; };
+		790B7DA620835D8C003DD560 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368631FFE260F00E8E81A /* UIViewExtensions.swift */; };
+		790B7DA720835D8C003DD560 /* Uom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F104120262FC30060E285 /* Uom+CoreDataProperties.swift */; };
+		790B7DA820835D8C003DD560 /* ItemListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A001EFECC4800337DA3 /* ItemListVC.swift */; };
+		790B7DA920835D8C003DD560 /* FoundationTypes+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */; };
+		790B7DAA20835D8C003DD560 /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
+		790B7DAB20835D8C003DD560 /* PriceHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CC1F100C1500752A68 /* PriceHandling.swift */; };
+		790B7DAC20835D8C003DD560 /* Product+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103920262FC30060E285 /* Product+CoreDataProperties.swift */; };
+		790B7DAD20835D8C003DD560 /* SyncAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79210297205DD7BB00C83706 /* SyncAnimator.swift */; };
+		790B7DAE20835D8C003DD560 /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB722002D471008F7DAA /* ResultType.swift */; };
+		790B7DAF20835D8C003DD560 /* CategoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B21201A51690098D324 /* CategoryMapper.swift */; };
+		790B7DB020835D8C003DD560 /* DPCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B5A20146732005C6CC5 /* DPCategoryModel.swift */; };
+		790B7DB120835D8C003DD560 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D2B207A6000003DD560 /* Styles.swift */; };
+		790B7DB220835D8C003DD560 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BA1EE7080F00470669 /* ShopItemCell.swift */; };
+		790B7DB320835D8C003DD560 /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102902055778900C83706 /* CircleIndicatorView.swift */; };
+		790B7DB420835D8C003DD560 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */; };
+		790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F322016ED2A00302AF9 /* OutletMapper.swift */; };
+		790B7DB620835D8C003DD560 /* OutletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletService.swift */; };
+		790B7DB720835D8C003DD560 /* FBItemStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCA20147E2D009CBEF0 /* FBItemStatistic.swift */; };
+		790B7DB820835D8C003DD560 /* UomModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B4A20130F71005C6CC5 /* UomModelView.swift */; };
+		790B7DB920835D8C003DD560 /* FQOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2C201683F600302AF9 /* FQOutletModel.swift */; };
+		790B7DBA20835D8C003DD560 /* CDProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B522013E872005C6CC5 /* CDProductModel.swift */; };
+		790B7DBB20835D8C003DD560 /* FBItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* FBItemCategory.swift */; };
+		790B7DBC20835D8C003DD560 /* BaseStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* BaseStatisticsVC.swift */; };
+		790B7DBD20835D8C003DD560 /* ShopListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C31EE7085500470669 /* ShopListController.swift */; };
+		790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1F201A492E0098D324 /* ProductMapper.swift */; };
+		790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */; };
+		790B7DC020835D8C003DD560 /* CoreDataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */; };
+		790B7DC120835D8C003DD560 /* CDStatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B542013ECA6005C6CC5 /* CDStatisticModel.swift */; };
+		790B7DC220835D8C003DD560 /* GoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CA1F10004400752A68 /* GoodButton.swift */; };
+		790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */; };
+		790B7DC420835D8C003DD560 /* GooglePlacesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */; };
+		790B7DC520835D8C003DD560 /* ShopList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103C20262FC30060E285 /* ShopList+CoreDataClass.swift */; };
+		790B7DC620835D8C003DD560 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
+		790B7DC720835D8C003DD560 /* DPProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B36200D501E005C6CC5 /* DPProductModel.swift */; };
+		790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */; };
+		790B7DC920835D8C003DD560 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
+		790B7DCA20835D8C003DD560 /* QuantityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityModel.swift */; };
+		790B7DCB20835D8C003DD560 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D08207902EF003DD560 /* NavigationView.swift */; };
+		790B7DCC20835D8C003DD560 /* UIColors+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975D63520714224003A6288 /* UIColors+Extensions.swift */; };
+		790B7DCD20835D8C003DD560 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
+		790B7DCE20835D8C003DD560 /* DPShoplistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B4F2013AC49005C6CC5 /* DPShoplistModel.swift */; };
+		790B7DCF20835D8C003DD560 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99E120433AA400D35D1C /* Strings.swift */; };
+		790B7DD020835D8C003DD560 /* ShopListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListAdapter.swift */; };
+		790B7DD120835D8C003DD560 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8D21F102AAB00752A68 /* FirebaseService.swift */; };
+		790B7DD220835D8C003DD560 /* Uom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F104020262FC30060E285 /* Uom+CoreDataClass.swift */; };
+		790B7DD320835D8C003DD560 /* OutletListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87F206FBAE600D80EA5 /* OutletListInteractor.swift */; };
+		790B7DD420835D8C003DD560 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FF11EF6BF2500903133 /* CoreDataService.swift */; };
+		790B7DD520835D8C003DD560 /* FoursqareProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */; };
+		790B7DD620835D8C003DD560 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
+		790B7DD720835D8C003DD560 /* PriceStatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */; };
+		790B7DD820835D8C003DD560 /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103B20262FC30060E285 /* Category+CoreDataProperties.swift */; };
+		790B7DDA20835D8C003DD560 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
+		790B7DDB20835D8C003DD560 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
+		790B7DDC20835D8C003DD560 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
+		790B7DDE20835D8C003DD560 /* ItemCardNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D78208327E1003DD560 /* ItemCardNew.xib */; };
+		790B7DDF20835D8C003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */; };
+		790B7DE020835D8C003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D49207FF707003DD560 /* YanoneKaffeesatz-Bold.ttf */; };
+		790B7DE120835D8C003DD560 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */; };
+		790B7DE220835D8C003DD560 /* robaga-rounded.regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */; };
+		790B7DE320835D8C003DD560 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B01EE707E700470669 /* LaunchScreen.storyboard */; };
+		790B7DE420835D8C003DD560 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B61EE707F000470669 /* HeaderView.xib */; };
+		790B7DE520835D8C003DD560 /* PriceStatisticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B870206C17F800D80EA5 /* PriceStatisticCell.xib */; };
+		790B7DE620835D8C003DD560 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
+		790B7DE720835D8C003DD560 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */; };
+		790B7DE820835D8C003DD560 /* navigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D06207901F8003DD560 /* navigationView.xib */; };
+		790B7DE920835D8C003DD560 /* OutletCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B87D206ED8ED00D80EA5 /* OutletCellView.xib */; };
+		790B7DEA20835D8C003DD560 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79DC99ED204345AC00D35D1C /* Localizable.strings */; };
+		790B7DEB20835D8C003DD560 /* AddCellNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 796D7B27201BE4B10098D324 /* AddCellNib.xib */; };
+		790B7DEC20835D8C003DD560 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7AC1EE7075200470669 /* Assets.xcassets */; };
+		790B7DED20835D8C003DD560 /* UpdatePriceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D2E207AA590003DD560 /* UpdatePriceVC.xib */; };
+		790B7DEE20835D8C003DD560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B21EE707E700470669 /* Main.storyboard */; };
 		790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F1008202266A20060E285 /* CoreDataParsers.swift */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
 		790F104220262FC30060E285 /* Product+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F103820262FC30060E285 /* Product+CoreDataClass.swift */; };
@@ -153,6 +263,8 @@
 		790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesProvider.swift; sourceTree = "<group>"; };
 		790B7D77208327E1003DD560 /* ItemCardNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardNew.swift; sourceTree = "<group>"; };
 		790B7D78208327E1003DD560 /* ItemCardNew.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCardNew.xib; sourceTree = "<group>"; };
+		790B7DF520835D8C003DD560 /* PriceBar Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PriceBar Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		790B7DF620835D8D003DD560 /* PriceBar copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBar copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBar copy-Info.plist"; sourceTree = "<absolute>"; };
 		790F1008202266A20060E285 /* CoreDataParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParsers.swift; sourceTree = "<group>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
 		790F103820262FC30060E285 /* Product+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Product+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -171,7 +283,7 @@
 		7921029220557D0E00C83706 /* BaseStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStatisticsVC.swift; sourceTree = "<group>"; };
 		792102942055A02000C83706 /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
 		79210297205DD7BB00C83706 /* SyncAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncAnimator.swift; sourceTree = "<group>"; };
-		792EE7801EE48CD500470669 /* PriceBar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PriceBar.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		792EE7801EE48CD500470669 /* PriceBar Prod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PriceBar Prod.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		792EE7AC1EE7075200470669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PriceBar/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		792EE7AE1EE7076600470669 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PriceBar/Info.plist; sourceTree = SOURCE_ROOT; };
 		792EE7B11EE707E700470669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PriceBar/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
@@ -263,6 +375,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		790B7DD920835D8C003DD560 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				790B7DDA20835D8C003DD560 /* Pods_PriceBar.framework in Frameworks */,
+				790B7DDB20835D8C003DD560 /* Crashlytics.framework in Frameworks */,
+				790B7DDC20835D8C003DD560 /* Fabric.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		792EE77D1EE48CD500470669 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -474,14 +596,16 @@
 				EFCFC6F2C247C1D3BDF643A8 /* Pods */,
 				1E9FDC8744A798E17F4DC63F /* Frameworks */,
 				799A8A231F7423E20027EB59 /* PriceBarTests copy-Info.plist */,
+				790B7DF620835D8D003DD560 /* PriceBar copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
 		792EE7811EE48CD500470669 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				792EE7801EE48CD500470669 /* PriceBar.app */,
+				792EE7801EE48CD500470669 /* PriceBar Prod.app */,
 				79388B201F532175008FD415 /* PriceBarTests.xctest */,
+				790B7DF520835D8C003DD560 /* PriceBar Dev.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -825,9 +949,31 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		792EE77F1EE48CD500470669 /* PriceBar */ = {
+		790B7D7B20835D8C003DD560 /* PriceBar Dev */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 792EE7921EE48CD600470669 /* Build configuration list for PBXNativeTarget "PriceBar" */;
+			buildConfigurationList = 790B7DF220835D8C003DD560 /* Build configuration list for PBXNativeTarget "PriceBar Dev" */;
+			buildPhases = (
+				790B7D7C20835D8C003DD560 /* [CP] Check Pods Manifest.lock */,
+				790B7D7D20835D8C003DD560 /* ShellScript */,
+				790B7D7E20835D8C003DD560 /* Sources */,
+				790B7DD920835D8C003DD560 /* Frameworks */,
+				790B7DDD20835D8C003DD560 /* Resources */,
+				790B7DEF20835D8C003DD560 /* [CP] Embed Pods Frameworks */,
+				790B7DF020835D8C003DD560 /* ShellScript */,
+				790B7DF120835D8C003DD560 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PriceBar Dev";
+			productName = "Price Bar";
+			productReference = 790B7DF520835D8C003DD560 /* PriceBar Dev.app */;
+			productType = "com.apple.product-type.application";
+		};
+		792EE77F1EE48CD500470669 /* PriceBar Prod */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 792EE7921EE48CD600470669 /* Build configuration list for PBXNativeTarget "PriceBar Prod" */;
 			buildPhases = (
 				B6C4C3A94B7785377B5846F0 /* [CP] Check Pods Manifest.lock */,
 				7975D63820714F22003A6288 /* ShellScript */,
@@ -842,9 +988,9 @@
 			);
 			dependencies = (
 			);
-			name = PriceBar;
+			name = "PriceBar Prod";
 			productName = "Price Bar";
-			productReference = 792EE7801EE48CD500470669 /* PriceBar.app */;
+			productReference = 792EE7801EE48CD500470669 /* PriceBar Prod.app */;
 			productType = "com.apple.product-type.application";
 		};
 		79388B1F1F532175008FD415 /* PriceBarTests */ = {
@@ -877,6 +1023,9 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = LionLife;
 				TargetAttributes = {
+					790B7D7B20835D8C003DD560 = {
+						DevelopmentTeam = 379294YDPQ;
+					};
 					792EE77F1EE48CD500470669 = {
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = 379294YDPQ;
@@ -906,13 +1055,38 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				792EE77F1EE48CD500470669 /* PriceBar */,
+				792EE77F1EE48CD500470669 /* PriceBar Prod */,
+				790B7D7B20835D8C003DD560 /* PriceBar Dev */,
 				79388B1F1F532175008FD415 /* PriceBarTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		790B7DDD20835D8C003DD560 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				790B7DDE20835D8C003DD560 /* ItemCardNew.xib in Resources */,
+				790B7DDF20835D8C003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */,
+				790B7DE020835D8C003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */,
+				790B7DE120835D8C003DD560 /* Robaga Rounded Bold.otf in Resources */,
+				790B7DE220835D8C003DD560 /* robaga-rounded.regular.otf in Resources */,
+				790B7DE320835D8C003DD560 /* LaunchScreen.storyboard in Resources */,
+				790B7DE420835D8C003DD560 /* HeaderView.xib in Resources */,
+				790B7DE520835D8C003DD560 /* PriceStatisticCell.xib in Resources */,
+				790B7DE620835D8C003DD560 /* ShopItemCell.xib in Resources */,
+				790B7DE720835D8C003DD560 /* GoogleService-Info.plist in Resources */,
+				790B7DE820835D8C003DD560 /* navigationView.xib in Resources */,
+				790B7DE920835D8C003DD560 /* OutletCellView.xib in Resources */,
+				790B7DEA20835D8C003DD560 /* Localizable.strings in Resources */,
+				790B7DEB20835D8C003DD560 /* AddCellNib.xib in Resources */,
+				790B7DEC20835D8C003DD560 /* Assets.xcassets in Resources */,
+				790B7DED20835D8C003DD560 /* UpdatePriceVC.xib in Resources */,
+				790B7DEE20835D8C003DD560 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		792EE77E1EE48CD500470669 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1011,6 +1185,94 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		790B7D7C20835D8C003DD560 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PriceBar-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		790B7D7D20835D8C003DD560 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"";
+		};
+		790B7DEF20835D8C003DD560 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		790B7DF020835D8C003DD560 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run 3287543ca2d6f916e2ec45e6e040f6e55ae30e18 ee74ce186ccf4521acaec8ba8bd26362fae8392848857d1c23e639ff4e6afa6f\n";
+		};
+		790B7DF120835D8C003DD560 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		796C739F1F727F1900F26C90 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1076,6 +1338,103 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		790B7D7E20835D8C003DD560 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				790B7D7F20835D8C003DD560 /* ShoplistRouter.swift in Sources */,
+				790B7D8020835D8C003DD560 /* Outlet.swift in Sources */,
+				790B7D8120835D8C003DD560 /* ItemListModelView.swift in Sources */,
+				790B7D8220835D8C003DD560 /* PriceBar.xcdatamodel in Sources */,
+				790B7D8320835D8C003DD560 /* ShoplistInteractor.swift in Sources */,
+				790B7D8420835D8C003DD560 /* ItemCardVC.swift in Sources */,
+				790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */,
+				790B7D8620835D8C003DD560 /* PickerControl.swift in Sources */,
+				790B7D8720835D8C003DD560 /* BaseStatisticsInteractor.swift in Sources */,
+				790B7D8820835D8C003DD560 /* ScannerController.swift in Sources */,
+				790B7D8920835D8C003DD560 /* ShopList+CoreDataProperties.swift in Sources */,
+				790B7D8A20835D8C003DD560 /* LocationService.swift in Sources */,
+				790B7D8B20835D8C003DD560 /* AppDelegate.swift in Sources */,
+				790B7D8C20835D8C003DD560 /* FBProductModel.swift in Sources */,
+				790B7D8D20835D8C003DD560 /* CountingLabel.swift in Sources */,
+				790B7D8E20835D8C003DD560 /* ItemCardNew.swift in Sources */,
+				790B7D8F20835D8C003DD560 /* FirebaseParser.swift in Sources */,
+				790B7D9020835D8C003DD560 /* Target.swift in Sources */,
+				790B7D9120835D8C003DD560 /* R.generated.swift in Sources */,
+				790B7D9220835D8C003DD560 /* Repository.swift in Sources */,
+				790B7D9320835D8C003DD560 /* CoreDataParsers.swift in Sources */,
+				790B7D9420835D8C003DD560 /* CDCategoryModel.swift in Sources */,
+				790B7D9520835D8C003DD560 /* StatisticMapper.swift in Sources */,
+				790B7D9620835D8C003DD560 /* Category+CoreDataClass.swift in Sources */,
+				790B7D9720835D8C003DD560 /* CDUomModel.swift in Sources */,
+				790B7D9820835D8C003DD560 /* StatisticModel.swift in Sources */,
+				790B7D9920835D8C003DD560 /* UomMapper.swift in Sources */,
+				790B7D9A20835D8C003DD560 /* DPPriceStatisticModel.swift in Sources */,
+				790B7D9B20835D8C003DD560 /* Statistic+CoreDataProperties.swift in Sources */,
+				790B7D9C20835D8C003DD560 /* Product+CoreDataClass.swift in Sources */,
+				790B7D9D20835D8C003DD560 /* DPUomModel.swift in Sources */,
+				790B7D9E20835D8C003DD560 /* ProductCardModelView.swift in Sources */,
+				790B7D9F20835D8C003DD560 /* UpdatePriceInteractor.swift in Sources */,
+				790B7DA020835D8C003DD560 /* UpdatePriceVC.swift in Sources */,
+				790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */,
+				790B7DA220835D8C003DD560 /* String+Extension.swift in Sources */,
+				790B7DA320835D8C003DD560 /* CategoryModelView.swift in Sources */,
+				790B7DA420835D8C003DD560 /* FBUomModel.swift in Sources */,
+				790B7DA520835D8C003DD560 /* Statistic+CoreDataClass.swift in Sources */,
+				790B7DA620835D8C003DD560 /* UIViewExtensions.swift in Sources */,
+				790B7DA720835D8C003DD560 /* Uom+CoreDataProperties.swift in Sources */,
+				790B7DA820835D8C003DD560 /* ItemListVC.swift in Sources */,
+				790B7DA920835D8C003DD560 /* FoundationTypes+Extension.swift in Sources */,
+				790B7DAA20835D8C003DD560 /* OutletCell.swift in Sources */,
+				790B7DAB20835D8C003DD560 /* PriceHandling.swift in Sources */,
+				790B7DAC20835D8C003DD560 /* Product+CoreDataProperties.swift in Sources */,
+				790B7DAD20835D8C003DD560 /* SyncAnimator.swift in Sources */,
+				790B7DAE20835D8C003DD560 /* ResultType.swift in Sources */,
+				790B7DAF20835D8C003DD560 /* CategoryMapper.swift in Sources */,
+				790B7DB020835D8C003DD560 /* DPCategoryModel.swift in Sources */,
+				790B7DB120835D8C003DD560 /* Styles.swift in Sources */,
+				790B7DB220835D8C003DD560 /* ShopItemCell.swift in Sources */,
+				790B7DB320835D8C003DD560 /* CircleIndicatorView.swift in Sources */,
+				790B7DB420835D8C003DD560 /* UITableView+Extensions.swift in Sources */,
+				790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */,
+				790B7DB620835D8C003DD560 /* OutletService.swift in Sources */,
+				790B7DB720835D8C003DD560 /* FBItemStatistic.swift in Sources */,
+				790B7DB820835D8C003DD560 /* UomModelView.swift in Sources */,
+				790B7DB920835D8C003DD560 /* FQOutletModel.swift in Sources */,
+				790B7DBA20835D8C003DD560 /* CDProductModel.swift in Sources */,
+				790B7DBB20835D8C003DD560 /* FBItemCategory.swift in Sources */,
+				790B7DBC20835D8C003DD560 /* BaseStatisticsVC.swift in Sources */,
+				790B7DBD20835D8C003DD560 /* ShopListController.swift in Sources */,
+				790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */,
+				790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */,
+				790B7DC020835D8C003DD560 /* CoreDataSync.swift in Sources */,
+				790B7DC120835D8C003DD560 /* CDStatisticModel.swift in Sources */,
+				790B7DC220835D8C003DD560 /* GoodButton.swift in Sources */,
+				790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */,
+				790B7DC420835D8C003DD560 /* GooglePlacesProvider.swift in Sources */,
+				790B7DC520835D8C003DD560 /* ShopList+CoreDataClass.swift in Sources */,
+				790B7DC620835D8C003DD560 /* GoodTextField.swift in Sources */,
+				790B7DC720835D8C003DD560 /* DPProductModel.swift in Sources */,
+				790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */,
+				790B7DC920835D8C003DD560 /* QuantityPickerPopup.swift in Sources */,
+				790B7DCA20835D8C003DD560 /* QuantityModel.swift in Sources */,
+				790B7DCB20835D8C003DD560 /* NavigationView.swift in Sources */,
+				790B7DCC20835D8C003DD560 /* UIColors+Extensions.swift in Sources */,
+				790B7DCD20835D8C003DD560 /* ItemListCell.swift in Sources */,
+				790B7DCE20835D8C003DD560 /* DPShoplistModel.swift in Sources */,
+				790B7DCF20835D8C003DD560 /* Strings.swift in Sources */,
+				790B7DD020835D8C003DD560 /* ShopListAdapter.swift in Sources */,
+				790B7DD120835D8C003DD560 /* FirebaseService.swift in Sources */,
+				790B7DD220835D8C003DD560 /* Uom+CoreDataClass.swift in Sources */,
+				790B7DD320835D8C003DD560 /* OutletListInteractor.swift in Sources */,
+				790B7DD420835D8C003DD560 /* CoreDataService.swift in Sources */,
+				790B7DD520835D8C003DD560 /* FoursqareProvider.swift in Sources */,
+				790B7DD620835D8C003DD560 /* HeaderView.swift in Sources */,
+				790B7DD720835D8C003DD560 /* PriceStatisticCell.swift in Sources */,
+				790B7DD820835D8C003DD560 /* Category+CoreDataProperties.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		792EE77C1EE48CD500470669 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1186,7 +1545,7 @@
 /* Begin PBXTargetDependency section */
 		79388B261F532176008FD415 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 792EE77F1EE48CD500470669 /* PriceBar */;
+			target = 792EE77F1EE48CD500470669 /* PriceBar Prod */;
 			targetProxy = 79388B251F532176008FD415 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1224,6 +1583,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		790B7DF320835D8C003DD560 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DB0AE4600538D7BEBF558ECF /* Pods-PriceBar.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 379294YDPQ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "PriceBar copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar-Dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		790B7DF420835D8C003DD560 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 379294YDPQ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
+				INFOPLIST_FILE = "PriceBar copy-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar-Dev";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		792EE7901EE48CD600470669 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1350,7 +1759,7 @@
 				INFOPLIST_FILE = PriceBar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar-Prod";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1374,7 +1783,7 @@
 				INFOPLIST_FILE = PriceBar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar-Prod";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1418,6 +1827,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		790B7DF220835D8C003DD560 /* Build configuration list for PBXNativeTarget "PriceBar Dev" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				790B7DF320835D8C003DD560 /* Debug */,
+				790B7DF420835D8C003DD560 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		792EE77B1EE48CD500470669 /* Build configuration list for PBXProject "PriceBar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1427,7 +1845,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		792EE7921EE48CD600470669 /* Build configuration list for PBXNativeTarget "PriceBar" */ = {
+		792EE7921EE48CD600470669 /* Build configuration list for PBXNativeTarget "PriceBar Prod" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				792EE7931EE48CD600470669 /* Debug */,

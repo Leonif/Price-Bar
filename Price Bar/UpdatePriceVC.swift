@@ -32,15 +32,15 @@ class UpdatePriceVC: UIViewController {
         
         self.interactor = UpdatePriceInteractor(repository: self.data.repository)
         
-        self.priceTextField.text = "\(self.price)"
+//        self.priceTextField.text = "\(self.price)"
         
         self.addToolBar(textField: self.priceTextField)
         PriceBarStyles.grayBorderedRoundedView.apply(to: self.saveButton)
         self.priceTextField.delegate = self
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         self.view.pb_startActivityIndicator(with: R.string.localizable.sync_process_prices(R.string.localizable.common_loading()))
         self.updateStatistics { [weak self] in
@@ -55,23 +55,20 @@ class UpdatePriceVC: UIViewController {
     
     func updateStatistics(completion: @escaping () -> ()) {
         
+        guard let outlet = self.data.outlet else {
+            fatalError()
+        }
+        self.price = self.interactor.getPrice(for: self.productId, in: outlet.id)
+        self.priceTextField.text = "\(self.price)"
+        let productName = self.interactor.getProductName(for: self.productId)
+        self.productNameLabel.text = productName
+        self.uomLabel.text = self.interactor.getUomName(for: self.productId)
+        
         self.interactor.getPriceStatistics(for: productId, completion: { [weak self] (result) in
             guard let `self` = self else { return }
             switch result {
             case let .success(statistic):
-                
-                guard let outlet = self.data.outlet else {
-                    fatalError()
-                }
-                
-                self.price = self.interactor.getPrice(for: self.productId, in: outlet.id)
-                self.priceTextField.text = "\(self.price)"
-                
-                
                 self.dataSource = statistic
-                let productName = self.interactor.getProductName(for: self.productId)
-                self.productNameLabel.text = productName
-                self.uomLabel.text = self.interactor.getUomName(for: self.productId)
                 completion()
 
             case let .failure(error):

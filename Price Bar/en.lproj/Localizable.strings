@@ -1,5 +1,5 @@
 "common_try_later" = "Please try again later";
-"common_loading" = "Loading...";
+"common_loading" = "Loading";
 "common_wow" = "Wow";
 "common_not_necessary" = "It is not necessary";
 "common_ups" = "Oh";
@@ -7,20 +7,12 @@
 "common_good_news" = "Good news: Products uploaded!!!🤘, but:";
 "sync_process" = "Loading products and prices from the cloud, please wait ...";
 "common_total" = "Total:";
-"common_lets_get_start" = "Let's start";
-"common_done" = "Done";
-"common_next" = "Next";
-
-
-
-
-
 "shoplist_clean" = "Clean shop list? 🧐";
 "shop_list_quantity" = "Qty:";
 "outlet_loading" = "Loading outlets";
 "shoplist_please_choose_outlet" = "Please, choose store";
 "base_statistics_products_in_base_today" = "Today the goods in the database are already";
-
+"common_lets_get_start" = "Let's start";
 "sync_process_connecting" = "Connecting to the Cloud";
 "sync_process_start" = "Begin synchronization";
 "sync_process_categories" = "%@ categories";
@@ -48,3 +40,5 @@
 "error_product_is_not_found" = "Product not found in database";
 "error_no_statistics" = "There are no statistics";
 "error_stores_is_not_found_around_you" = "No stores found around you 😢";
+"common_done" = "Done";
+"common_next" = "Next";

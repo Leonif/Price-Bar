@@ -118,26 +118,23 @@ class ShopListController: UIViewController {
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         
         self.adapter.onCellDidSelected = { [weak self] item in
-
             guard let `self` = self else { return }
-            self.performSegue(withIdentifier: Strings.Segues.showEditItem.name, sender: item)
-//            self.router.openItemCard(for: item.productId, data: self.data)
+            self.router.openItemCard(for: item, data: self.data)
+        }
+        
+        self.router.onSavePrice = { [weak self] in
+            guard let `self` = self else { return }
+            
+            guard let outlet = self.data.outlet else {
+                fatalError("No outlet data")
+            }
+            self.interactor.reloadProducts(outletId: outlet.id)
         }
         
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-
-            self.router.openUpdatePrice(for: item.productId, data: self.data)
-            self.router.onSavePrice = { [weak self] in
-                guard let `self` = self else { return }
-                
-                guard let outlet = self.data.outlet else {
-                    fatalError("No outlet data")
-                }
-                self.interactor.reloadProducts(outletId: outlet.id)
-            }
+            self.router.openUpdatePrice(for: item.productId, currentPrice: item.productPrice, data: self.data)
         }
-        
     }
     
     // MARK: - Setup functions
@@ -313,9 +310,7 @@ extension ShopListController: ScannerDelegate {
             case let .failure(error):
                 switch error {
                 case .productIsNotFound:
-                    self.performSegue(withIdentifier: R.segue.shopListController.scannedNewProduct.identifier,
-                                      sender: barcode)
-                    
+                    self.router.openScannedNewItemCard(for: barcode, data: self.data)
                 default: self.alert(message: error.message)
                 }
             }

@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol ItemCardVCDelegate: class {
-    func productUpdated()
-    func add(new productId: String)
-}
-
 class ItemCardVC: UIViewController {
     enum PickerType {
         case category

@@ -56,18 +56,36 @@ class ShoplistRouter {
 //    }
     
     
-    func openItemCard(for productId: String, data: DataStorage) {
-        self.vc = ItemCardNew(nib: R.nib.itemCardNew)
-//        self.vc.productId = productId
-//        self.vc.data = data
+    func openItemCard(for item: DPShoplistItemModel, data: DataStorage) {
+        let vc = ItemCardNew(nib: R.nib.itemCardNew)
+        vc.item = item
+        vc.delegate = data.vc as! ItemCardVCDelegate
+        vc.repository = data.repository
+        vc.outletId = data.outlet?.id
+        self.vc = vc
         data.vc.present(self.vc, animated: true)
         
     }
     
     
-    func openUpdatePrice(for productId: String, data: DataStorage) {
+    func openScannedNewItemCard(for barcode: String, data: DataStorage) {
+        let vc = ItemCardNew(nib: R.nib.itemCardNew)
+        vc.barcode = barcode
+        vc.item = nil
+        vc.delegate = data.vc as! ItemCardVCDelegate
+        vc.repository = data.repository
+        vc.outletId = data.outlet?.id
+        self.vc = vc
+        data.vc.present(self.vc, animated: true)
+        
+    }
+    
+    
+    
+    func openUpdatePrice(for productId: String, currentPrice: Double = 0.0,  data: DataStorage) {
         let vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
         vc.productId = productId
+        vc.price = currentPrice
         vc.data = data
         vc.onSavePrice = { [weak self] in
             self?.onSavePrice?()
@@ -91,24 +109,24 @@ class ShoplistRouter {
     
     
     func prepare(for segue: UIStoryboardSegue, sender: Any?, data: DataStorage) {
-        if segue.identifier == Strings.Segues.showEditItem.name,
-            let itemCardVC = segue.destination as? ItemCardVC {
-            if let item = sender as? DPShoplistItemModel {
-                itemCardVC.item = item
-                itemCardVC.delegate = data.vc as! ItemCardVCDelegate
-                itemCardVC.repository = data.repository
-                itemCardVC.outletId = data.outlet?.id
-            }
-        }
-        
-        if let typedInfo = R.segue.shopListController.scannedNewProduct(segue: segue) {
-            if let barcode = sender as? String, let outlet = data.outlet {
-                typedInfo.destination.barcode = barcode
-                typedInfo.destination.delegate = data.vc as! ItemCardVCDelegate
-                typedInfo.destination.repository = data.repository
-                typedInfo.destination.outletId = outlet.id
-            }
-        }
+//        if segue.identifier == Strings.Segues.showEditItem.name,
+//            let itemCardVC = segue.destination as? ItemCardVC {
+//            if let item = sender as? DPShoplistItemModel {
+//                itemCardVC.item = item
+//                itemCardVC.delegate = data.vc as! ItemCardVCDelegate
+//                itemCardVC.repository = data.repository
+//                itemCardVC.outletId = data.outlet?.id
+//            }
+//        }
+//        
+//        if let typedInfo = R.segue.shopListController.scannedNewProduct(segue: segue) {
+//            if let barcode = sender as? String, let outlet = data.outlet {
+//                typedInfo.destination.barcode = barcode
+//                typedInfo.destination.delegate = data.vc as! ItemCardVCDelegate
+//                typedInfo.destination.repository = data.repository
+//                typedInfo.destination.outletId = outlet.id
+//            }
+//        }
         
         if let typedInfo = R.segue.shopListController.showOutlets(segue: segue) {
             typedInfo.destination.delegate = data.vc as! OutletVCDelegate

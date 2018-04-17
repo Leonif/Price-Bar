@@ -30,7 +30,6 @@
 		790B7D8120835D8C003DD560 /* ItemListModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListModelView.swift */; };
 		790B7D8220835D8C003DD560 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
 		790B7D8320835D8C003DD560 /* ShoplistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */; };
-		790B7D8420835D8C003DD560 /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */; };
 		790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		790B7D8620835D8C003DD560 /* PickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B3C200E812D005C6CC5 /* PickerControl.swift */; };
 		790B7D8720835D8C003DD560 /* BaseStatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* BaseStatisticsInteractor.swift */; };
@@ -202,12 +201,13 @@
 		79883BCB20147E2D009CBEF0 /* FBItemStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCA20147E2D009CBEF0 /* FBItemStatistic.swift */; };
 		79883BCD201498C5009CBEF0 /* CDUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCC201498C5009CBEF0 /* CDUomModel.swift */; };
 		79883BCF20149962009CBEF0 /* DPUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCE20149962009CBEF0 /* DPUomModel.swift */; };
+		79902970208679A800085F72 /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7990296F208679A700085F72 /* ItemCardVC.swift */; };
+		79902971208679A800085F72 /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7990296F208679A700085F72 /* ItemCardVC.swift */; };
 		79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB702002CD46008F7DAA /* LocationService.swift */; };
 		79A2EB732002D471008F7DAA /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB722002D471008F7DAA /* ResultType.swift */; };
 		79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */; };
 		79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
 		79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FF11EF6BF2500903133 /* CoreDataService.swift */; };
-		79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */; };
 		79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C56B031EF2F10300FAA91C /* ScannerController.swift */; };
 		79D12F2B2016823F00302AF9 /* FoursqareProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */; };
 		79D12F2D201683F600302AF9 /* FQOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2C201683F600302AF9 /* FQOutletModel.swift */; };
@@ -336,13 +336,13 @@
 		79883BCA20147E2D009CBEF0 /* FBItemStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBItemStatistic.swift; sourceTree = "<group>"; };
 		79883BCC201498C5009CBEF0 /* CDUomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDUomModel.swift; sourceTree = "<group>"; };
 		79883BCE20149962009CBEF0 /* DPUomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPUomModel.swift; sourceTree = "<group>"; };
+		7990296F208679A700085F72 /* ItemCardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCardVC.swift; sourceTree = SOURCE_ROOT; };
 		799A8A231F7423E20027EB59 /* PriceBarTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBarTests copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBarTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		79A2EB702002CD46008F7DAA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		79A2EB722002D471008F7DAA /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
 		79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSync.swift; sourceTree = "<group>"; };
 		79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = PriceBar.xcdatamodel; path = PriceBar.xcdatamodeld/PriceBar.xcdatamodel; sourceTree = SOURCE_ROOT; };
 		79AA0FF11EF6BF2500903133 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = SOURCE_ROOT; };
-		79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemCardVC.swift; sourceTree = SOURCE_ROOT; };
 		79C56B031EF2F10300FAA91C /* ScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerController.swift; sourceTree = SOURCE_ROOT; };
 		79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareProvider.swift; sourceTree = "<group>"; };
 		79D12F2C201683F600302AF9 /* FQOutletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FQOutletModel.swift; sourceTree = "<group>"; };
@@ -703,6 +703,7 @@
 		7975D63120713D24003A6288 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				7990296E20853EF600085F72 /* PickerVC */,
 				79833B432011440C005C6CC5 /* Reusable Tools */,
 				7975D633207141FB003A6288 /* Styles */,
 				790B7D31207BBC28003DD560 /* WeightPicker */,
@@ -715,8 +716,8 @@
 		7975D63220713D48003A6288 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				79C17A4D1EEBD818003A8D6B /* ItemCardVC.swift */,
 				790B7D77208327E1003DD560 /* ItemCardNew.swift */,
+				7990296F208679A700085F72 /* ItemCardVC.swift */,
 				790B7D78208327E1003DD560 /* ItemCardNew.xib */,
 			);
 			name = View;
@@ -837,6 +838,13 @@
 				79883BCC201498C5009CBEF0 /* CDUomModel.swift */,
 			);
 			name = Entities;
+			sourceTree = "<group>";
+		};
+		7990296E20853EF600085F72 /* PickerVC */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = PickerVC;
 			sourceTree = "<group>";
 		};
 		79AA0FE41EF5D13300903133 /* gen */ = {
@@ -1347,7 +1355,6 @@
 				790B7D8120835D8C003DD560 /* ItemListModelView.swift in Sources */,
 				790B7D8220835D8C003DD560 /* PriceBar.xcdatamodel in Sources */,
 				790B7D8320835D8C003DD560 /* ShoplistInteractor.swift in Sources */,
-				790B7D8420835D8C003DD560 /* ItemCardVC.swift in Sources */,
 				790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */,
 				790B7D8620835D8C003DD560 /* PickerControl.swift in Sources */,
 				790B7D8720835D8C003DD560 /* BaseStatisticsInteractor.swift in Sources */,
@@ -1406,6 +1413,7 @@
 				790B7DBC20835D8C003DD560 /* BaseStatisticsVC.swift in Sources */,
 				790B7DBD20835D8C003DD560 /* ShopListController.swift in Sources */,
 				790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */,
+				79902971208679A800085F72 /* ItemCardVC.swift in Sources */,
 				790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */,
 				790B7DC020835D8C003DD560 /* CoreDataSync.swift in Sources */,
 				790B7DC120835D8C003DD560 /* CDStatisticModel.swift in Sources */,
@@ -1444,7 +1452,6 @@
 				796D7B24201BDE3C0098D324 /* ItemListModelView.swift in Sources */,
 				79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */,
 				79DC99F02044B3F600D35D1C /* ShoplistInteractor.swift in Sources */,
-				79C17A4E1EEBD818003A8D6B /* ItemCardVC.swift in Sources */,
 				7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */,
 				79833B3D200E812D005C6CC5 /* PickerControl.swift in Sources */,
 				790B7D562081E56B003DD560 /* BaseStatisticsInteractor.swift in Sources */,
@@ -1503,6 +1510,7 @@
 				7921029320557D0E00C83706 /* BaseStatisticsVC.swift in Sources */,
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
 				796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */,
+				79902970208679A800085F72 /* ItemCardVC.swift in Sources */,
 				79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */,
 				79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */,
 				79833B552013ECA6005C6CC5 /* CDStatisticModel.swift in Sources */,

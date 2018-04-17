@@ -10,18 +10,27 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Robaga Rounded Bold.otf">
+            <string>RobagaRounded-Bold</string>
+        </array>
+        <array key="YanoneKaffeesatz-Bold.ttf">
+            <string>YanoneKaffeesatz-Bold</string>
+        </array>
+    </customFonts>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ItemCardNew" customModule="PriceBar" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ItemCardNew" customModule="PriceBar_Dev" customModuleProvider="target">
             <connections>
+                <outlet property="categoryButton" destination="cp1-Wh-zwL" id="gPo-My-Tx3"/>
                 <outlet property="constraintContentHeight" destination="yzn-dv-o5C" id="JWs-k0-Jjs"/>
                 <outlet property="contentView" destination="lLo-kQ-Ys5" id="QhK-la-IQ6"/>
                 <outlet property="itemBrand" destination="l97-Nc-UGs" id="yXd-r0-OBh"/>
-                <outlet property="itemCategory" destination="bnP-OV-PS0" id="tbF-eg-2UY"/>
                 <outlet property="itemName" destination="KgS-ec-bmM" id="bz5-0z-xzb"/>
                 <outlet property="itemPrice" destination="3Wv-uY-Cnt" id="Gza-SE-3j1"/>
-                <outlet property="itemUom" destination="Orm-bQ-lDs" id="m0Y-In-zFq"/>
                 <outlet property="itemWeight" destination="1fi-r1-W2z" id="aaz-QZ-K48"/>
+                <outlet property="saveButton" destination="EFQ-iu-LeR" id="2Z0-sn-OAZ"/>
                 <outlet property="scrollView" destination="2nL-wX-WQo" id="YSH-m3-0OK"/>
+                <outlet property="uomButton" destination="uPv-mA-taf" id="Uxm-14-Da4"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -39,46 +48,31 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLo-kQ-Ys5">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="572"/>
                             <subviews>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KgS-ec-bmM">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Название товара" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KgS-ec-bmM">
                                     <rect key="frame" x="42" y="32" width="291" height="47"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="47" id="AZk-mY-tXA"/>
                                     </constraints>
                                     <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l97-Nc-UGs">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Бренд" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="l97-Nc-UGs">
                                     <rect key="frame" x="42" y="95" width="291" height="47"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="47" id="0fS-25-N34"/>
                                     </constraints>
                                     <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fi-r1-W2z">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="100 г" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1fi-r1-W2z">
                                     <rect key="frame" x="42" y="158" width="145.5" height="47"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="47" id="T0D-Ud-GLN"/>
                                     </constraints>
                                     <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Orm-bQ-lDs">
-                                    <rect key="frame" x="204" y="158" width="129" height="47"/>
-                                    <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
-                                </textField>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bnP-OV-PS0">
-                                    <rect key="frame" x="42" y="284" width="291" height="47"/>
-                                    <constraints>
-                                        <constraint firstAttribute="height" constant="47" id="mj5-ix-cDF"/>
-                                    </constraints>
-                                    <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
                                     <textInputTraits key="textInputTraits"/>
                                 </textField>
                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3Wv-uY-Cnt">
@@ -87,38 +81,80 @@
                                         <constraint firstAttribute="height" constant="47" id="vd9-7s-dlC"/>
                                     </constraints>
                                     <nil key="textColor"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <textInputTraits key="textInputTraits"/>
+                                    <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
+                                    <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                 </textField>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPv-mA-taf">
+                                    <rect key="frame" x="195" y="158" width="138" height="47"/>
+                                    <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                                    <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
+                                    <state key="normal" title="за 1 шт">
+                                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="uomPressed:" destination="-1" eventType="touchUpInside" id="xGe-xA-FWB"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cp1-Wh-zwL">
+                                    <rect key="frame" x="42" y="293" width="291" height="47"/>
+                                    <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.90196078431372551" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="47" id="VZM-SN-64G"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="20"/>
+                                    <state key="normal" title="Неопредленно">
+                                        <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="categoryPressed:" destination="-1" eventType="touchUpInside" id="6E1-rG-coa"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="KgS-ec-bmM" secondAttribute="trailing" constant="42" id="08L-fW-tEx"/>
                                 <constraint firstItem="l97-Nc-UGs" firstAttribute="top" secondItem="KgS-ec-bmM" secondAttribute="bottom" constant="16" id="1P4-yt-pqV"/>
+                                <constraint firstItem="cp1-Wh-zwL" firstAttribute="trailing" secondItem="uPv-mA-taf" secondAttribute="trailing" id="BSJ-it-s7K"/>
                                 <constraint firstItem="3Wv-uY-Cnt" firstAttribute="top" secondItem="1fi-r1-W2z" secondAttribute="bottom" constant="16" id="Hcp-bL-AAq"/>
                                 <constraint firstItem="1fi-r1-W2z" firstAttribute="top" secondItem="l97-Nc-UGs" secondAttribute="bottom" constant="16" id="HdW-kl-34U"/>
-                                <constraint firstItem="bnP-OV-PS0" firstAttribute="top" secondItem="3Wv-uY-Cnt" secondAttribute="bottom" constant="16" id="O6H-MG-doq"/>
-                                <constraint firstItem="bnP-OV-PS0" firstAttribute="leading" secondItem="3Wv-uY-Cnt" secondAttribute="leading" id="O6k-hD-GGB"/>
+                                <constraint firstItem="uPv-mA-taf" firstAttribute="top" secondItem="1fi-r1-W2z" secondAttribute="top" id="NIr-b1-9Jo"/>
                                 <constraint firstItem="3Wv-uY-Cnt" firstAttribute="width" secondItem="1fi-r1-W2z" secondAttribute="width" id="OQ1-AM-aH9"/>
-                                <constraint firstItem="Orm-bQ-lDs" firstAttribute="top" secondItem="1fi-r1-W2z" secondAttribute="top" id="QOE-Vj-r5J"/>
+                                <constraint firstItem="cp1-Wh-zwL" firstAttribute="leading" secondItem="3Wv-uY-Cnt" secondAttribute="leading" id="Obf-Va-8ck"/>
+                                <constraint firstItem="uPv-mA-taf" firstAttribute="height" secondItem="1fi-r1-W2z" secondAttribute="height" id="Qk2-ca-Wbe"/>
                                 <constraint firstItem="3Wv-uY-Cnt" firstAttribute="leading" secondItem="1fi-r1-W2z" secondAttribute="leading" id="axs-de-50p"/>
                                 <constraint firstItem="KgS-ec-bmM" firstAttribute="top" secondItem="lLo-kQ-Ys5" secondAttribute="top" constant="32" id="b0R-cm-PqT"/>
-                                <constraint firstItem="Orm-bQ-lDs" firstAttribute="height" secondItem="1fi-r1-W2z" secondAttribute="height" id="d8y-BQ-o0A"/>
+                                <constraint firstItem="cp1-Wh-zwL" firstAttribute="top" secondItem="3Wv-uY-Cnt" secondAttribute="bottom" constant="25" id="fKf-pb-JYS"/>
+                                <constraint firstItem="uPv-mA-taf" firstAttribute="trailing" secondItem="l97-Nc-UGs" secondAttribute="trailing" id="jFe-J3-8rW"/>
                                 <constraint firstItem="1fi-r1-W2z" firstAttribute="leading" secondItem="l97-Nc-UGs" secondAttribute="leading" id="jSO-zf-txF"/>
-                                <constraint firstItem="Orm-bQ-lDs" firstAttribute="trailing" secondItem="l97-Nc-UGs" secondAttribute="trailing" id="jhS-RM-dNh"/>
-                                <constraint firstItem="bnP-OV-PS0" firstAttribute="trailing" secondItem="l97-Nc-UGs" secondAttribute="trailing" id="jnf-0l-9jg"/>
                                 <constraint firstItem="l97-Nc-UGs" firstAttribute="leading" secondItem="KgS-ec-bmM" secondAttribute="leading" id="kBz-rV-WMQ"/>
+                                <constraint firstItem="uPv-mA-taf" firstAttribute="leading" secondItem="1fi-r1-W2z" secondAttribute="trailing" constant="7.5" id="kzg-BA-Hnv"/>
                                 <constraint firstItem="KgS-ec-bmM" firstAttribute="leading" secondItem="lLo-kQ-Ys5" secondAttribute="leading" constant="42" id="l6y-Md-yuA"/>
                                 <constraint firstItem="1fi-r1-W2z" firstAttribute="width" secondItem="l97-Nc-UGs" secondAttribute="width" multiplier="0.5" id="nIe-tH-i7Q"/>
-                                <constraint firstItem="Orm-bQ-lDs" firstAttribute="leading" secondItem="1fi-r1-W2z" secondAttribute="trailing" constant="16.5" id="odu-SM-cOp"/>
                                 <constraint firstItem="l97-Nc-UGs" firstAttribute="trailing" secondItem="KgS-ec-bmM" secondAttribute="trailing" id="xv7-8L-LCC"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EFQ-iu-LeR">
+                            <rect key="frame" x="29" y="508" width="317" height="46"/>
+                            <color key="backgroundColor" red="0.87450980389999999" green="0.5568627451" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="46" id="BId-rt-iu6"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="YanoneKaffeesatz-Bold" family="Yanone Kaffeesatz" pointSize="20"/>
+                            <state key="normal" title="Сохранить">
+                                <color key="titleColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="savePressed:" destination="-1" eventType="touchUpInside" id="GPP-fP-1k4"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="EFQ-iu-LeR" firstAttribute="leading" secondItem="2nL-wX-WQo" secondAttribute="leading" constant="29" id="1le-ho-QEo"/>
                         <constraint firstAttribute="trailing" secondItem="lLo-kQ-Ys5" secondAttribute="trailing" id="70g-g2-vSl"/>
+                        <constraint firstAttribute="trailing" secondItem="EFQ-iu-LeR" secondAttribute="trailing" constant="29" id="BWo-lD-tFH"/>
                         <constraint firstItem="lLo-kQ-Ys5" firstAttribute="top" secondItem="2nL-wX-WQo" secondAttribute="top" id="Su2-nu-KlU"/>
                         <constraint firstItem="lLo-kQ-Ys5" firstAttribute="width" secondItem="2nL-wX-WQo" secondAttribute="width" id="eZs-bA-yLm"/>
+                        <constraint firstAttribute="bottom" secondItem="EFQ-iu-LeR" secondAttribute="bottom" constant="18" id="loN-RT-ZvB"/>
                         <constraint firstItem="lLo-kQ-Ys5" firstAttribute="leading" secondItem="2nL-wX-WQo" secondAttribute="leading" id="pTV-BW-5Ly"/>
                         <constraint firstAttribute="bottom" secondItem="lLo-kQ-Ys5" secondAttribute="bottom" id="si4-Nk-6XN"/>
                         <constraint firstItem="lLo-kQ-Ys5" firstAttribute="height" secondItem="2nL-wX-WQo" secondAttribute="height" id="yzn-dv-o5C"/>

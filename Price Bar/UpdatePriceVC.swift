@@ -31,15 +31,25 @@ class UpdatePriceVC: UIViewController {
         super.viewDidLoad()
         
         self.interactor = UpdatePriceInteractor(repository: self.data.repository)
-        self.updateStatistics { [weak self] in
-            guard let `self` = self else { return }
-
-            self.adapter = UpdatePriceAdapter(tableView: self.tableView, dataSource: self.dataSource)
-            self.tableView.reloadData()
-        }
+        
+        self.priceTextField.text = "\(self.price)"
+        
         self.addToolBar(textField: self.priceTextField)
         PriceBarStyles.grayBorderedRoundedView.apply(to: self.saveButton)
         self.priceTextField.delegate = self
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.view.pb_startActivityIndicator(with: R.string.localizable.sync_process_prices(R.string.localizable.common_loading()))
+        self.updateStatistics { [weak self] in
+            guard let `self` = self else { return }
+            
+            self.view.pb_stopActivityIndicator()
+            self.adapter = UpdatePriceAdapter(tableView: self.tableView, dataSource: self.dataSource)
+            self.tableView.reloadData()
+        }
     }
     
     

@@ -11,7 +11,6 @@ import UIKit
 
 class ShopListController: UIViewController {
     // MARK: IB Outlets
-    
     let storeButton: UIButton = {
         let b = UIButton(frame: CGRect.zero)
         let icon = R.image.storeButton()

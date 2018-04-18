@@ -18,6 +18,8 @@ class ItemListVC: UIViewController {
     var itemList = [ItemListModelView]()
     var filtredItemList = [ItemListModelView]()
     var currentPageOffset = 0
+    var router: ItemListRouter!
+    var data: ItemListRouterDataStorage!
     
     
     var outletId: String = ""
@@ -44,6 +46,10 @@ class ItemListVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        self.router = ItemListRouter()
+        self.data = ItemListRouterDataStorage(repository: repository, vc: self, outletId: outletId)
+        
         navigationItem.prompt = R.string.localizable.item_list()
         navigationItem.titleView = searchBar
         
@@ -62,13 +68,9 @@ class ItemListVC: UIViewController {
                 return
         }
 
-        self.itemList = itemList.sorted { (item1, item2) in
-            item1.currentPrice > item2.currentPrice
-        }
+        self.itemList = itemList.sorted { $0.currentPrice > $1.currentPrice  }
 
-        filtredItemList = self.itemList.sorted { (item1, item2) in
-            item1.currentPrice > item2.currentPrice
-        }
+        filtredItemList = self.itemList.sorted { $0.currentPrice > $1.currentPrice  }
         itemTableView.reloadData()
         self.view.pb_stopActivityIndicator()
     }
@@ -165,7 +167,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
         let offset = scrollView.contentOffset.y
         let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
         if (maxOffset - offset) <= 0 {
-            if (!self.isLoading) {
+            if !self.isLoading {
                 self.isLoading = true
                 currentPageOffset += filtredItemList.count
                 if let products = repository.getShopItems(with: currentPageOffset,
@@ -189,7 +191,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                     self.itemList.append(contentsOf: modelList)
                     
                     // tell the table view to update (at all of the inserted index paths)
-                    itemTableView.update {
+                    self.itemTableView.update {
                         itemTableView.insertRows(at: indexPaths, with: .bottom)
                     }
                 }
@@ -207,7 +209,9 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if filtredItemList.isEmpty {
-            self.performSegue(withIdentifier: self.showProductCard, sender: self.searchBar.text)
+//            self.performSegue(withIdentifier: self.showProductCard, sender: self.searchBar.text)
+            self.router.openItemCard(for: self.searchBar.text!, data: self.data)
+            
             return
         }
 

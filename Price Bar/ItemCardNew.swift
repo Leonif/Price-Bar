@@ -185,41 +185,15 @@ class ItemCardNew: UIViewController {
     
     @objc
     func keyboardWillHide(notification: NSNotification) {
-        UIView.animate(withDuration: 0.3) {
-            self.constraintContentHeight.constant -= self.keyboardHeight
-            self.scrollView.contentOffset = self.lastOffset
-        }
-        keyboardHeight = nil
+        self.scrollView.contentInset.bottom = 0
     }
     
         
         
     @objc
     func keyboardWillShow(notification: NSNotification) {
-        
-        if self.keyboardHeight != nil {
-            return
-        }
-        
-        
         if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
-            self.keyboardHeight = keyboardSize.height
-            // so increase contentView's height by keyboard height
-            UIView.animate(withDuration: 0.3, animations: {
-                self.constraintContentHeight.constant += self.keyboardHeight
-            })
-            // move if keyboard hide input field
-            let distanceToBottom = self.scrollView.frame.size.height - (activeField?.frame.origin.y)! - (activeField?.frame.size.height)!
-            let collapseSpace = keyboardHeight - distanceToBottom
-            if collapseSpace < 0 {
-                // no collapse
-                return
-            }
-            // set new offset for scroll view
-            UIView.animate(withDuration: 0.3, animations: {
-                // scroll to the position above keyboard 10 points
-                self.scrollView.contentOffset = CGPoint(x: self.lastOffset.x, y: collapseSpace + 10 + self.activeField.inputAccessoryView!.frame.height)
-            })
+            self.scrollView.contentInset.bottom = keyboardSize.height
         }
     }
     
@@ -288,6 +262,9 @@ class ItemCardNew: UIViewController {
         }
     }
     
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
     
 }
 

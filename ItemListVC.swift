@@ -146,19 +146,6 @@ extension ItemListVC {
     func close() {
         self.navigationController?.popViewController(animated: true)
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-            segue.identifier == showProductCard,
-            let itemCardVC = segue.destination as? ItemCardVC,
-            let searchedItem = sender as? String else {
-                return
-        }
-        itemCardVC.delegate = self
-        itemCardVC.outletId = outletId
-        itemCardVC.searchedItemName = searchedItem
-        itemCardVC.repository = repository
-    }
-    
 }
 
 // FIXME: Move to adapter

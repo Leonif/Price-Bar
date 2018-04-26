@@ -14,7 +14,7 @@ enum BorderSide {
 }
 
 
-class ShopItemCell: UITableViewCell {
+class ShopItemCell: UITableViewCell, NibLoadableReusable {
     @IBOutlet weak var nameItem: UILabel!
     @IBOutlet weak var priceItem: UILabel!
     @IBOutlet weak var totalItem: UILabel!
@@ -35,8 +35,6 @@ class ShopItemCell: UITableViewCell {
     
     var onWeightDemand: ((ShopItemCell) -> Void)?
     var onCompareDemand: ((ShopItemCell) -> Void)?
-    
-
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -46,13 +44,19 @@ class ShopItemCell: UITableViewCell {
         self.priceView.addGestureRecognizer(gesture)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.topView.isHidden = false
+        self.bottomView.isHidden = false
+        self.leftView.isHidden = false
+        self.rightView.isHidden = false
+    }
+    
     @objc
     func onCompareHandler() {
         self.onCompareDemand?(self)
     }
-    
-    
-    
 
     @IBAction func changeQuantity(_ sender: UIButton) {
         self.onWeightDemand?(self)

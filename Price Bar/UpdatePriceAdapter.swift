@@ -30,7 +30,7 @@ class UpdatePriceAdapter: NSObject,  UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: PriceStatisticCell = tableView.dequeueReusableCell(forIndexPath: indexPath)
+        let cell: PriceStatisticCell = tableView.dequeueReusableCell(for: indexPath)
         
         let outlet = dataSource[indexPath.row].outlet
         let price = dataSource[indexPath.row].price

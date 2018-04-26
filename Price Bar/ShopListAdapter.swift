@@ -28,8 +28,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         self.tableView.dataSource = self
         self.repository = repository
         
-        // For registering nib files
-        tableView.register(R.nib.shopItemCell(), forCellReuseIdentifier: R.reuseIdentifier.itemCell.identifier)
+        tableView.register(ShopItemCell.self)
         
     }
     
@@ -42,7 +41,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ShopItemCell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.itemCell.identifier, for: indexPath) as! ShopItemCell
+        let cell: ShopItemCell = tableView.dequeueReusableCell(for: indexPath)
         let shp = self.repository.getItem(index: indexPath)!
 
         self.configure(cell, shp)
@@ -52,55 +51,26 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         let isFirstCell = indexPath.row == 0
         let isLastCell = indexPath.row == self.repository.rowsIn(indexPath.section) - 1
         
-        
         let wide: CGFloat = 16
         let thin: CGFloat = 8
         
         if  isFirstAndLastCell {
-            
-            cell.topView.isHidden = false
-            cell.bottomView.isHidden = false
-            cell.leftView.isHidden = false
-            cell.rightView.isHidden = false
-            
             cell.topConstraint.constant = wide
             cell.bottomConstraint.constant = wide
-            
         } else if isFirstCell {
-            
-            cell.topView.isHidden = false
             cell.bottomView.isHidden = true
-            cell.leftView.isHidden = false
-            cell.rightView.isHidden = false
-
-            
-            
             cell.topConstraint.constant = wide
             cell.bottomConstraint.constant = thin
-            
         } else if isLastCell  {
-            
-            
             cell.topView.isHidden = true
-            cell.bottomView.isHidden = false
-            cell.leftView.isHidden = false
-            cell.rightView.isHidden = false
-            
             cell.topConstraint.constant = thin
             cell.bottomConstraint.constant = wide
-            
         } else {
-            
             cell.topView.isHidden = true
             cell.bottomView.isHidden = true
-            cell.leftView.isHidden = false
-            cell.rightView.isHidden = false
-
             cell.topConstraint.constant = thin
             cell.bottomConstraint.constant = thin
         }
-        
-        
         
         cell.onWeightDemand = { [weak self] cell in
             self?.handleWeightDemanded(cell: cell)
@@ -110,7 +80,6 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
             let item = self.repository.getItem(index: indexPath)!
             self.onCompareDidSelected?(item)
         }
-        
         
         return cell
     }

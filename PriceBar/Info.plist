@@ -47,6 +47,8 @@
 		<string>YanoneKaffeesatz-Bold.ttf</string>
 		<string>YanoneKaffeesatz-Regular.ttf</string>
 		<string>YanoneKaffeesatz-Light.ttf</string>
+		<string>PT_Sans-Narrow-Web-Bold.ttf</string>
+		<string>PT_Sans-Narrow-Web-Regular.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

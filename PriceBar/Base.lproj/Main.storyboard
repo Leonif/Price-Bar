@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -146,8 +145,6 @@
                         <segue destination="CgW-nK-NrY" kind="show" identifier="showOutlets" id="zf9-OY-zBU"/>
                         <segue destination="rA1-Ob-kOe" kind="show" identifier="showScan" id="Mxi-jI-C5Z"/>
                         <segue destination="Aph-JN-BT7" kind="show" identifier="showItemList" id="wEm-Es-ZSc"/>
-                        <segue destination="eEM-bT-isb" kind="show" identifier="showEditItem" id="QPO-FU-qjJ"/>
-                        <segue destination="eEM-bT-isb" kind="show" identifier="scannedNewProduct" id="Aag-Wk-edx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -253,158 +250,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fu7-6x-4Ut" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-740" y="857.72113943028489"/>
-        </scene>
-        <!--Карточка товара-->
-        <scene sceneID="9Pz-TX-lGE">
-            <objects>
-                <viewController title="Карточка товара" id="eEM-bT-isb" customClass="ItemCardVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="wTi-CM-lKD"/>
-                        <viewControllerLayoutGuide type="bottom" id="TcM-iB-yFR"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Ypb-Do-KWG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="product-back" translatesAutoresizingMaskIntoConstraints="NO" id="FLH-G6-BOk">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="176"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="176" id="pi9-r0-par"/>
-                                </constraints>
-                            </imageView>
-                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UzM-G5-ETZ">
-                                <rect key="frame" x="0.0" y="429" width="375" height="204"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                            </pickerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4kv-tB-vni" customClass="GoodButton" customModule="PriceBar_Dev" customModuleProvider="target">
-                                <rect key="frame" x="299" y="537" width="60" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="EV6-i6-Yfc"/>
-                                    <constraint firstAttribute="width" constant="60" id="ipn-P1-CoH"/>
-                                </constraints>
-                                <state key="normal" image="save">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="savePressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="kpS-Vd-hpp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OHB-pK-kb0" customClass="GoodButton" customModule="PriceBar_Dev" customModuleProvider="target">
-                                <rect key="frame" x="16" y="537" width="60" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="RBX-qN-0H0"/>
-                                    <constraint firstAttribute="width" constant="60" id="nfx-Xu-enE"/>
-                                </constraints>
-                                <state key="normal" image="shopping-basket">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="backPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="cJN-oT-E2b"/>
-                                </connections>
-                            </button>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Заполните название" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-2f-mBr" customClass="GoodTextField" customModule="PriceBar_Dev" customModuleProvider="target">
-                                <rect key="frame" x="16" y="262" width="343" height="60"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="AEz-Ur-tcp"/>
-                                </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="25"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" spellCheckingType="yes"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="65,90" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TNC-Ik-Mx3">
-                                <rect key="frame" x="16" y="354" width="188" height="60"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="QEd-0y-poA"/>
-                                    <constraint firstAttribute="width" constant="188" id="faL-wF-FAJ"/>
-                                </constraints>
-                                <color key="textColor" red="0.0" green="0.66617838539999996" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="40"/>
-                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="41z-nM-1tE">
-                                <rect key="frame" x="16" y="184" width="343" height="60"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="12P-66-nbg"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="25"/>
-                                <state key="normal" title="Овощи и фрукты"/>
-                                <connections>
-                                    <action selector="categoryPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="m8c-vF-bYr"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1SJ-lB-xI9">
-                                <rect key="frame" x="234" y="354" width="125" height="60"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="8XK-p4-R1H"/>
-                                </constraints>
-                                <state key="normal" title="Ед-ца измерения"/>
-                                <connections>
-                                    <action selector="uomPressed:" destination="eEM-bT-isb" eventType="touchUpInside" id="LSX-r4-7Ld"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="за" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOz-fX-oct">
-                                <rect key="frame" x="212" y="354" width="14" height="60"/>
-                                <fontDescription key="fontDescription" name="Palatino-Roman" family="Palatino" pointSize="23"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="UzM-G5-ETZ" firstAttribute="top" secondItem="TNC-Ik-Mx3" secondAttribute="bottom" constant="15" id="09r-m8-IJg"/>
-                            <constraint firstItem="FLH-G6-BOk" firstAttribute="top" secondItem="Ypb-Do-KWG" secondAttribute="top" id="1jG-VU-Izh"/>
-                            <constraint firstItem="TNC-Ik-Mx3" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="2fY-OU-x1e"/>
-                            <constraint firstItem="1SJ-lB-xI9" firstAttribute="top" secondItem="Qff-2f-mBr" secondAttribute="bottom" constant="32" id="3MV-LV-gVp"/>
-                            <constraint firstItem="Qff-2f-mBr" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="9ZK-9V-a15"/>
-                            <constraint firstItem="gOz-fX-oct" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="trailing" constant="8" id="DiG-kk-xgV"/>
-                            <constraint firstItem="1SJ-lB-xI9" firstAttribute="leading" secondItem="gOz-fX-oct" secondAttribute="trailing" constant="8" id="Fz9-xQ-7LL"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="4kv-tB-vni" secondAttribute="trailing" id="K0Q-er-dNr"/>
-                            <constraint firstAttribute="trailing" secondItem="UzM-G5-ETZ" secondAttribute="trailing" id="KRS-AP-cG4"/>
-                            <constraint firstItem="FLH-G6-BOk" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leading" id="QMw-Cd-dp3"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="1SJ-lB-xI9" secondAttribute="trailing" id="R8O-Q9-QFi"/>
-                            <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="OHB-pK-kb0" secondAttribute="bottom" constant="70" id="Uv0-Za-3Ov"/>
-                            <constraint firstItem="UzM-G5-ETZ" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leading" id="XFM-By-aGL"/>
-                            <constraint firstItem="gOz-fX-oct" firstAttribute="top" secondItem="TNC-Ik-Mx3" secondAttribute="top" id="aKY-gb-JNa"/>
-                            <constraint firstItem="OHB-pK-kb0" firstAttribute="leading" secondItem="TNC-Ik-Mx3" secondAttribute="leading" id="eM9-g4-Quk"/>
-                            <constraint firstAttribute="trailing" secondItem="FLH-G6-BOk" secondAttribute="trailing" id="j3j-dF-hIQ"/>
-                            <constraint firstItem="Qff-2f-mBr" firstAttribute="trailing" secondItem="Ypb-Do-KWG" secondAttribute="trailingMargin" id="jTH-2v-bP0"/>
-                            <constraint firstItem="FLH-G6-BOk" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" constant="-244" id="kN4-hG-m8m"/>
-                            <constraint firstItem="TNC-Ik-Mx3" firstAttribute="top" secondItem="Qff-2f-mBr" secondAttribute="bottom" constant="32" id="kkt-0b-qTd"/>
-                            <constraint firstItem="41z-nM-1tE" firstAttribute="leading" secondItem="Ypb-Do-KWG" secondAttribute="leadingMargin" id="nhI-Wv-by2"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="41z-nM-1tE" secondAttribute="trailing" id="o5B-vG-uzR"/>
-                            <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="UzM-G5-ETZ" secondAttribute="bottom" constant="34" id="sMi-fF-y74"/>
-                            <constraint firstItem="TcM-iB-yFR" firstAttribute="top" secondItem="4kv-tB-vni" secondAttribute="bottom" constant="70" id="tDB-zr-iYL"/>
-                            <constraint firstItem="Qff-2f-mBr" firstAttribute="top" secondItem="41z-nM-1tE" secondAttribute="bottom" constant="18" id="tXG-8B-rUZ"/>
-                            <constraint firstItem="gOz-fX-oct" firstAttribute="height" secondItem="TNC-Ik-Mx3" secondAttribute="height" id="xLR-19-lAG"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="categoryButton" destination="41z-nM-1tE" id="XTm-Fd-yYN"/>
-                        <outlet property="commonPickerView" destination="UzM-G5-ETZ" id="Wm8-ri-7p0"/>
-                        <outlet property="itemPrice" destination="TNC-Ik-Mx3" id="g7z-Sf-ZP7"/>
-                        <outlet property="itemTitle" destination="Qff-2f-mBr" id="uci-AB-IRl"/>
-                        <outlet property="uomButton" destination="1SJ-lB-xI9" id="EmU-OR-Itk"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lIW-7a-WeA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1560.8" y="-108.39580209895054"/>
         </scene>
         <!--Список товаров-->
         <scene sceneID="Kb3-Qt-3ax">
@@ -536,7 +381,6 @@
                     </view>
                     <connections>
                         <outlet property="itemTableView" destination="74u-MH-F1Q" id="j6K-js-uXB"/>
-                        <segue destination="eEM-bT-isb" kind="show" identifier="showProductCard" id="EJ7-82-Mar"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DdM-ec-f2l" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -564,14 +408,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="product-back" width="1607" height="1073"/>
-        <image name="save" width="128" height="128"/>
         <image name="scan button" width="52" height="52"/>
         <image name="search button" width="52" height="52"/>
         <image name="shop_background" width="500" height="500"/>
         <image name="shopping-basket" width="128" height="128"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="Aag-Wk-edx"/>
-    </inferredMetricsTieBreakers>
 </document>

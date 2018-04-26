@@ -22,6 +22,7 @@ class UpdatePriceAdapter: NSObject,  UITableViewDelegate, UITableViewDataSource 
         self.tableView = tableView
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.rowHeight = UITableViewAutomaticDimension
         self.dataSource = dataSource
         
         // For registering nib files
@@ -48,8 +49,8 @@ class UpdatePriceAdapter: NSObject,  UITableViewDelegate, UITableViewDataSource 
         return dataSource.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 100
+//    }
     
 }

@@ -26,16 +26,13 @@ class UpdatePriceVC: UIViewController {
     var productId: String!
     var price: Double = 0.0
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.interactor = UpdatePriceInteractor(repository: self.data.repository)
         
-//        self.priceTextField.text = "\(self.price)"
-        
         self.addToolBar(textField: self.priceTextField)
-        PriceBarStyles.grayBorderedRoundedView.apply(to: self.saveButton)
+        PriceBarStyles.grayBorderedRoundedView.apply(to: self.priceTextField, self.saveButton)
         self.priceTextField.delegate = self
     }
     

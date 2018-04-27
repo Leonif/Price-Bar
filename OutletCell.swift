@@ -13,18 +13,32 @@ class OutletCell: UITableViewCell {
     @IBOutlet weak var outletName: UILabel!
     @IBOutlet weak var outletAddress: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
-    @IBOutlet weak var distanceView: UIView!
     @IBOutlet weak var outletView: UIView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .clear
+        PriceBarStyles.grayBorderedRoundedView.apply(to: outletView)
+    }
+    
+    
+    func bind(outlet: Outlet) {
         
-        self.outletView.layer.cornerRadius = 5.0
-        self.distanceView.layer.cornerRadius = self.distanceView.frame.width / 2
-        self.distanceView.layer.borderColor = UIColor.white.cgColor
-        self.distanceView.layer.borderWidth = 2.0
+        if outlet.distance > 600 {
+            //cell.distanceView.backgroundColor = UIColor.lightGray
+        } else {
+            //cell.distanceView.backgroundColor = Color.neonCarrot
+        }
         
+        self.outletName.text = outlet.name
+        let km = R.string.localizable.outlet_list_km("\(Int(outlet.distance/1000))")
+        let m = R.string.localizable.outlet_list_m("\(Int(outlet.distance))")
+        
+        let distance = outlet.distance > 1000 ? km : m
+        
+        self.distanceLabel.text = distance
+        self.outletAddress.text = outlet.address
     }
     
 }

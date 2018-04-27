@@ -45,21 +45,22 @@ public final class UpdatePriceInteractor {
         let outletService = OutletService()
         var statistic: [StatisticModel] = []
         
-        let stat = repository.getPricesStatisticByOutlet(for: productId)
+        let cdPriceStatistics = repository.getPricesStatisticByOutlet(for: productId)
         let productName = repository.getProductName(for: productId)!
         let dispatchGroup = DispatchGroup()
         
-        stat.forEach { s in
+        cdPriceStatistics.forEach { cdPriceStatistic in
             
             dispatchGroup.enter()
             
-            outletService.getOutlet(with: s.outletId, completion: { (result) in
+            outletService.getOutlet(with: cdPriceStatistic.outletId, completion: { (result) in
                 switch result {
                 case let .success(outlet):
-                    statistic.append(StatisticModel(productId: s.productId, productName: productName,
+                    statistic.append(StatisticModel(productId: cdPriceStatistic.productId,
+                                                    productName: productName,
                                                     outlet: outlet,
-                                                    price: s.price,
-                                                    date: s.date))
+                                                    price: cdPriceStatistic.price,
+                                                    date: cdPriceStatistic.date))
                     dispatchGroup.leave()
                 case let .failure(error):
                     completion(ResultType.failure(.statisticError(error.localizedDescription)))
@@ -67,11 +68,10 @@ public final class UpdatePriceInteractor {
                 }
             })
         }
+        
         dispatchGroup.notify(queue: .main) {
             statistic.sort(by: { $0.date > $1.date })
             completion(ResultType.success(statistic))
         }
     }
-    
-
 }

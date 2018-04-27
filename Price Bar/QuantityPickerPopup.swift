@@ -123,9 +123,7 @@ class QuantityPickerPopup: UIViewController {
     func selectCurrentValue() {
         let indexes = foundCurrentIndexes(for: currentModel.currentValue)
         
-        guard !indexes.isEmpty else {
-            return
-        }
+        guard !indexes.isEmpty else { return  }
         
         for comp in 0..<weightPicker.numberOfComponents {
             weightPicker.selectRow(indexes[comp], inComponent: comp, animated: true)

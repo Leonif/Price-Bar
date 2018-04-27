@@ -44,7 +44,9 @@ class OutetListAdapter: NSObject, UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OutletCell", for: indexPath) as! OutletCell
         let object = self.getOutlet(from: indexPath)
         
-        return self.configure(cell, for: object)
+        cell.bind(outlet: object)
+        
+        return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -69,37 +71,7 @@ extension OutetListAdapter {
         return outlets[indexPath.row]
     }
     
-    func configure(_ cell: OutletCell, for outlet: Outlet) -> OutletCell {
-        
-//        cell.castShadow()
-        PriceBarStyles.shadowAround.apply(to: cell)
-        
-        cell.layer.cornerRadius = 5.0
-        
-        if outlet.distance > 600 {
-            cell.distanceView.backgroundColor = UIColor.lightGray
-        } else {
-            cell.distanceView.backgroundColor = Color.neonCarrot
-        }
-        
-        cell.backgroundColor = .clear
-        
-        
-        cell.outletName.text = outlet.name
-        
-        
-        
-        let km = R.string.localizable.outlet_list_km("\(Int(outlet.distance/1000))")
-        let m = R.string.localizable.outlet_list_m("\(Int(outlet.distance))")
-        
-        let distance = outlet.distance > 1000 ? km : m
-        
-        
-        cell.distanceLabel.text = distance
-        cell.outletAddress.text = outlet.address
-        
-        return cell
-    }
+    
 
     func getNumberOfSections() -> Int {
         return 1

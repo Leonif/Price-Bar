@@ -37,8 +37,9 @@ class OutletsVC: UIViewController {
             self?.delegate.choosen(outlet: outlet)
             self?.close()
         }
+//        self.navigationItem.prompt = R.string.localizable.outlet_list_search()
         
-        self.navigationItem.prompt = R.string.localizable.outlet_list_search()
+        PriceBarStyles.grayBorderedRoundedView.apply(to: searchBar.textField)
         self.navigationItem.titleView = searchBar
         
         
@@ -62,15 +63,9 @@ class OutletsVC: UIViewController {
             DispatchQueue.main.async {
                 self?.alert(message: errorMessage)
             }
-            
         }
     }
-    
-    
 
-    @IBAction func backPressed(_ sender: Any) {
-        self.close()
-    }
     
     func close() {
         self.navigationController?.popViewController(animated: true)

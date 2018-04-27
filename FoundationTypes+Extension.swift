@@ -55,6 +55,13 @@ extension UIColor {
     }
 }
 
+extension UISearchBar {
+    var textField: UITextField {
+        guard let tf = (value(forKey: "searchField") as? UITextField) else { fatalError() }
+        return tf
+    }
+}
+
 extension UILabel {
     func size(_ size: CGFloat) {
         self.font = UIFont(name: self.font.fontName, size: size)

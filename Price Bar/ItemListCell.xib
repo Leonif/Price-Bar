@@ -43,7 +43,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UAH 22.00" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjK-1F-Tut">
-                            <rect key="frame" x="231" y="23" width="70" height="48"/>
+                            <rect key="frame" x="231" y="23" width="70" height="42"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="70" id="C8R-wF-Iyg"/>
                             </constraints>
@@ -56,9 +56,9 @@
                     <constraints>
                         <constraint firstItem="CjK-1F-Tut" firstAttribute="top" secondItem="ELb-Oj-Ute" secondAttribute="top" constant="23" id="8o5-gC-956"/>
                         <constraint firstItem="eM5-ka-2xh" firstAttribute="leading" secondItem="jeH-Lk-SFw" secondAttribute="leading" id="GPK-yc-26V"/>
-                        <constraint firstAttribute="bottom" secondItem="CjK-1F-Tut" secondAttribute="bottom" constant="23" id="L1h-yu-Qcx"/>
+                        <constraint firstAttribute="bottom" secondItem="CjK-1F-Tut" secondAttribute="bottom" priority="250" constant="23" id="L1h-yu-Qcx"/>
                         <constraint firstItem="jeH-Lk-SFw" firstAttribute="leading" secondItem="ELb-Oj-Ute" secondAttribute="leading" constant="18" id="LfV-9P-YAv"/>
-                        <constraint firstItem="eM5-ka-2xh" firstAttribute="top" secondItem="jeH-Lk-SFw" secondAttribute="bottom" constant="8" id="Plh-LQ-z4f"/>
+                        <constraint firstItem="eM5-ka-2xh" firstAttribute="top" secondItem="jeH-Lk-SFw" secondAttribute="bottom" priority="250" constant="8" id="Plh-LQ-z4f"/>
                         <constraint firstAttribute="bottom" secondItem="eM5-ka-2xh" secondAttribute="bottom" constant="23.5" id="Sfx-5b-kGh"/>
                         <constraint firstItem="CjK-1F-Tut" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jeH-Lk-SFw" secondAttribute="trailing" constant="8" id="WLc-rf-5Ia"/>
                         <constraint firstItem="jeH-Lk-SFw" firstAttribute="top" secondItem="ELb-Oj-Ute" secondAttribute="top" constant="18" id="ck0-WX-ngY"/>

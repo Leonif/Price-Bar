@@ -14,13 +14,7 @@ protocol ScannerDelegate {
 }
 
 class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-
-//    @IBOutlet var topbar: UIView!
-//    @IBOutlet var messageLabel: UILabel!
-    @IBOutlet var backButton: UIButton!
     var delegate: ScannerDelegate!
-    @IBOutlet weak var warningRestrictedCameraView: UIView!
-
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var qrCodeFrameView: UIView?
@@ -35,11 +29,6 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
                               AVMetadataObject.ObjectType.aztec,
                               AVMetadataObject.ObjectType.pdf417,
                               AVMetadataObject.ObjectType.qr]
-
-    @IBAction func backPressed(_ sender: Any) {
-        self.close()
-    }
-    
     func close() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -49,7 +38,7 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
 
         let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if  authStatus == AVAuthorizationStatus.denied {
-            warningRestrictedCameraView.isHidden = false
+            self.alert(message: "You deined camera access")
 
         }
 
@@ -83,9 +72,6 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
             // Start video capture.
             captureSession?.startRunning()
 
-            // Move the message label and top bar to the front
-//            view.bringSubview(toFront: topbar)
-            view.bringSubview(toFront: backButton)
 
             // Initialize QR Code Frame to highlight the QR code
             qrCodeFrameView = UIView()
@@ -126,15 +112,8 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
 
                 let code = metadataObj.stringValue
                 captureSession?.stopRunning()
-//                messageLabel.text = code
-                //delegate.objectExchange(object: code ?? "")
-//                self.dismiss(animated: true, completion: {
-
                 self.close()
                 self.delegate.scanned(barcode: code ?? "")
-
-//                })
-
             }
         }
     }

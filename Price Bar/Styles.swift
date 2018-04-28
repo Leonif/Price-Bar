@@ -84,6 +84,12 @@ enum PriceBarStyles {
         view.layer.borderColor = Color.dustyGray.cgColor
     }
     
+    static let blueBorderedRounded: UIViewStyle<UIView> = UIViewStyle { view in
+        view.layer.cornerRadius = 8.0
+        view.layer.borderWidth = 2.0
+        view.layer.borderColor = Color.havelockBlue.cgColor
+    }
+    
     static let shadowAround: UIViewStyle<UIView> = UIViewStyle { view in
         view.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
         view.layer.shadowOpacity = 0.8

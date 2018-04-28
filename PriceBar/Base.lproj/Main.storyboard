@@ -162,36 +162,8 @@
                     <view key="view" contentMode="scaleToFill" id="o3o-TK-wfx">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OFn-Xn-Yz3" customClass="GoodButton" customModule="PriceBar_Dev" customModuleProvider="target">
-                                <rect key="frame" x="20" y="537" width="60" height="60"/>
-                                <color key="backgroundColor" red="1" green="0.40626293089999999" blue="0.42611599630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="60" id="AQX-78-1IG"/>
-                                    <constraint firstAttribute="height" constant="60" id="yZA-zq-AgS"/>
-                                </constraints>
-                                <state key="normal" image="shopping-basket">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="30"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="backPressed:" destination="rA1-Ob-kOe" eventType="touchUpInside" id="lBN-gG-Ww3"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="pNb-4h-P6u" firstAttribute="top" secondItem="OFn-Xn-Yz3" secondAttribute="bottom" constant="70" id="N2i-y9-m26"/>
-                            <constraint firstItem="OFn-Xn-Yz3" firstAttribute="leading" secondItem="o3o-TK-wfx" secondAttribute="leading" constant="20" id="mn5-Th-Ecq"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="backButton" destination="OFn-Xn-Yz3" id="Ypm-Sr-7dK"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgs-Ur-Fsj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -248,13 +220,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EnH-hF-scj">
-                                <rect key="frame" x="0.0" y="64" width="375" height="179"/>
-                                <color key="backgroundColor" red="0.93590015479999999" green="0.89439511230000002" blue="0.55457293669999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="179" id="9bG-Gc-cKz"/>
-                                </constraints>
-                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="nPQ-4U-ojo">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="74u-MH-F1Q">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -264,15 +232,15 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="nPQ-4U-ojo" secondAttribute="bottom" id="0qN-yk-jDj"/>
                             <constraint firstItem="74u-MH-F1Q" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" id="2cy-vQ-N2z"/>
-                            <constraint firstAttribute="trailing" secondItem="EnH-hF-scj" secondAttribute="trailing" id="5Ta-ow-6VR"/>
-                            <constraint firstItem="EnH-hF-scj" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" id="7oy-6h-Qkw"/>
+                            <constraint firstAttribute="trailing" secondItem="nPQ-4U-ojo" secondAttribute="trailing" id="31o-4O-1KZ"/>
                             <constraint firstItem="74u-MH-F1Q" firstAttribute="top" secondItem="HJA-9e-sBD" secondAttribute="bottom" id="GYI-Np-SdX"/>
                             <constraint firstItem="YiY-tc-mOt" firstAttribute="top" secondItem="74u-MH-F1Q" secondAttribute="bottom" id="H0X-6Z-fYO"/>
-                            <constraint firstItem="EnH-hF-scj" firstAttribute="top" secondItem="HJA-9e-sBD" secondAttribute="bottom" id="Z0I-X9-B2g"/>
                             <constraint firstAttribute="trailing" secondItem="74u-MH-F1Q" secondAttribute="trailing" id="it4-dn-ll7"/>
+                            <constraint firstItem="nPQ-4U-ojo" firstAttribute="leading" secondItem="Lo6-EM-0Ff" secondAttribute="leading" id="rjW-Qo-6Vb"/>
+                            <constraint firstItem="nPQ-4U-ojo" firstAttribute="top" secondItem="Lo6-EM-0Ff" secondAttribute="top" id="v3t-3d-XZe"/>
                         </constraints>
                     </view>
                     <connections>
@@ -308,6 +276,5 @@
         <image name="scan button" width="52" height="52"/>
         <image name="search button" width="52" height="52"/>
         <image name="shop_background" width="500" height="500"/>
-        <image name="shopping-basket" width="128" height="128"/>
     </resources>
 </document>

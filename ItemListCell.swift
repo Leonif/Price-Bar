@@ -23,29 +23,22 @@ class ItemListCell: UITableViewCell, NibLoadableReusable {
         
     }
     
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        self.itemPriceLabel.textColor = Color.havelockBlue
+        
+    }
 
     func configureCell(_ item: ItemListModelView) {
         itemNameLabel.text = item.product
         self.itemCategoryLabel.text = item.categoryName
         itemPriceLabel.text = "UAH\n\(item.currentPrice)"
+        if item.currentPrice == 0 {
+            self.itemPriceLabel.text = "No price"
+            self.itemPriceLabel.textColor = Color.petiteOrchid
+        }
         
-    }
-
-}
-
-class AddCell: UITableViewCell {
-    @IBOutlet weak var cellView: UIView!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.backgroundColor = .clear
-    }
-
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        cellView.layer.cornerRadius = cellView.frame.height / 2
-
-
     }
 
 }

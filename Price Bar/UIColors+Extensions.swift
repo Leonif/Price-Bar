@@ -17,6 +17,7 @@ public enum Color {
     static var alto: UIColor = UIColor.simpleColor(red: 216, green: 216, blue: 216)
     static var petiteOrchid: UIColor = UIColor.simpleColor(red: 223, green: 142.0, blue: 142.0)
     static var jaggedIce: UIColor = UIColor.simpleColor(red: 200, green: 231, blue: 238)
+    static var havelockBlue: UIColor = UIColor.init(rgb: 0x4A90E2)
     static var atlantis: UIColor = UIColor.simpleColor(red: 131, green: 200, blue: 60)
 }
 

@@ -61,7 +61,7 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
         
         self.setupNavigation()
         
-        self.tableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
+        self.tableView.register(AddCell.self)
         self.tableView.register(ItemListCell.self)
         self.view.pb_startActivityIndicator(with: R.string.localizable.common_loading())
     }
@@ -226,8 +226,8 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if filtredItemList.isEmpty,
-            let cellAdd = self.tableView.dequeueReusableCell(withIdentifier: "CustomCellOne", for: indexPath) as? AddCell {
+        if filtredItemList.isEmpty {
+            let cellAdd: AddCell = self.tableView.dequeueReusableCell(for: indexPath)
             return cellAdd
         } else {
             let cell: ItemListCell = self.tableView.dequeueReusableCell(for: indexPath)

@@ -38,11 +38,14 @@
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBn-KM-Xkx">
                             <rect key="frame" x="263" y="21.5" width="43" height="19"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="43" id="l6t-0z-mJh"/>
+                            </constraints>
                             <fontDescription key="fontDescription" name="RobagaRounded" family="Robaga Rounded" pointSize="15"/>
                             <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OutletName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="daD-NS-U2m">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OutletName" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daD-NS-U2m">
                             <rect key="frame" x="16" y="8" width="77.5" height="23.5"/>
                             <fontDescription key="fontDescription" name="PTSans-NarrowBold" family="PT Sans Narrow" pointSize="18"/>
                             <nil key="textColor"/>
@@ -56,6 +59,7 @@
                         <constraint firstAttribute="trailing" secondItem="NBn-KM-Xkx" secondAttribute="trailing" constant="18" id="5Lt-Ee-DoT"/>
                         <constraint firstItem="NBn-KM-Xkx" firstAttribute="centerY" secondItem="U4v-bk-Aec" secondAttribute="centerY" id="EbQ-b5-9vD"/>
                         <constraint firstItem="7cN-On-R4Z" firstAttribute="top" secondItem="daD-NS-U2m" secondAttribute="bottom" id="GxA-yk-G2q"/>
+                        <constraint firstItem="NBn-KM-Xkx" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="daD-NS-U2m" secondAttribute="trailing" constant="8" id="Rcf-EA-3xk"/>
                         <constraint firstItem="7cN-On-R4Z" firstAttribute="leading" secondItem="daD-NS-U2m" secondAttribute="leading" id="Sxf-yl-tYX"/>
                         <constraint firstItem="daD-NS-U2m" firstAttribute="leading" secondItem="U4v-bk-Aec" secondAttribute="leading" constant="16" id="Z4h-Pt-3cX"/>
                     </constraints>

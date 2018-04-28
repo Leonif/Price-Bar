@@ -8,17 +8,28 @@
 
 import UIKit
 
-class ItemListCell: UITableViewCell {
+class ItemListCell: UITableViewCell, NibLoadableReusable {
     @IBOutlet weak var itemNameLabel: UILabel!
+    @IBOutlet weak var itemCategoryLabel: UILabel!
     @IBOutlet weak var itemPriceLabel: UILabel!
-    @IBOutlet weak var itemMinPriceLabel: UILabel!
+    @IBOutlet weak var backView: UIView!
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        PriceBarStyles.grayBorderedRounded.apply(to: self.backView)
+        self.backgroundColor = .clear
+        
+    }
+    
+    
 
     func configureCell(_ item: ItemListModelView) {
-        let checkAlpha = CGFloat(item.currentPrice == 0 ? 0.5 : 1)
-        self.contentView.alpha = checkAlpha
         itemNameLabel.text = item.product
-        itemPriceLabel.text = "\(item.currentPrice)"
-        itemMinPriceLabel.text = R.string.localizable.item_list_best_price("\(item.minPrice)")
+        self.itemCategoryLabel.text = item.categoryName
+        itemPriceLabel.text = "UAH\n\(item.currentPrice)"
+        
     }
 
 }
@@ -33,7 +44,7 @@ class AddCell: UITableViewCell {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         cellView.layer.cornerRadius = cellView.frame.height / 2
-//        cellView.castShadow()
+
 
     }
 

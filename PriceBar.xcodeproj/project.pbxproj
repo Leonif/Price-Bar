@@ -207,6 +207,8 @@
 		7990297B2087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799029782087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf */; };
 		7990297C2087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799029792087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf */; };
 		7990297D2087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 799029792087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf */; };
+		7990297F2094B24D00085F72 /* ItemListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7990297E2094B24D00085F72 /* ItemListCell.xib */; };
+		799029802094B24D00085F72 /* ItemListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7990297E2094B24D00085F72 /* ItemListCell.xib */; };
 		79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB702002CD46008F7DAA /* LocationService.swift */; };
 		79A2EB732002D471008F7DAA /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB722002D471008F7DAA /* ResultType.swift */; };
 		79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */; };
@@ -343,6 +345,7 @@
 		799029722087C35A00085F72 /* ItemListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListRouter.swift; sourceTree = "<group>"; };
 		799029782087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Narrow-Web-Bold.ttf"; sourceTree = "<group>"; };
 		799029792087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Narrow-Web-Regular.ttf"; sourceTree = "<group>"; };
+		7990297E2094B24D00085F72 /* ItemListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemListCell.xib; sourceTree = "<group>"; };
 		799A8A231F7423E20027EB59 /* PriceBarTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBarTests copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBarTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		79A2EB702002CD46008F7DAA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		79A2EB722002D471008F7DAA /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
@@ -773,6 +776,7 @@
 			isa = PBXGroup;
 			children = (
 				79D26A001EFECC4800337DA3 /* ItemListVC.swift */,
+				7990297E2094B24D00085F72 /* ItemListCell.xib */,
 				799029722087C35A00085F72 /* ItemListRouter.swift */,
 				79D26A021EFECD5700337DA3 /* ItemListCell.swift */,
 				796D7B27201BE4B10098D324 /* AddCellNib.xib */,
@@ -1099,6 +1103,7 @@
 				790B7DEA20835D8C003DD560 /* Localizable.strings in Resources */,
 				7990297D2087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */,
 				790B7DEB20835D8C003DD560 /* AddCellNib.xib in Resources */,
+				799029802094B24D00085F72 /* ItemListCell.xib in Resources */,
 				790B7DEC20835D8C003DD560 /* Assets.xcassets in Resources */,
 				790B7DED20835D8C003DD560 /* UpdatePriceVC.xib in Resources */,
 				790B7DEE20835D8C003DD560 /* Main.storyboard in Resources */,
@@ -1125,6 +1130,7 @@
 				79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */,
 				7990297C2087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */,
 				796D7B28201BE4B10098D324 /* AddCellNib.xib in Resources */,
+				7990297F2094B24D00085F72 /* ItemListCell.xib in Resources */,
 				792EE7AD1EE7075200470669 /* Assets.xcassets in Resources */,
 				790B7D30207AA590003DD560 /* UpdatePriceVC.xib in Resources */,
 				792EE7B51EE707E700470669 /* Main.storyboard in Resources */,

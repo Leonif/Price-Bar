@@ -84,7 +84,7 @@ class ShopListController: UIViewController {
         self.setupNavigation()
         
         
-        PriceBarStyles.grayBorderedRoundedView.apply(to: self.buttonsView)
+        PriceBarStyles.grayBorderedRounded.apply(to: self.buttonsView)
         PriceBarStyles.shadowAround.apply(to: self.buttonsView)
         
         self.setupGestures()
@@ -153,7 +153,7 @@ class ShopListController: UIViewController {
     }
     
     func setupTotalView() {
-        PriceBarStyles.grayBorderedRoundedView.apply(to: self.totalView)
+        PriceBarStyles.grayBorderedRounded.apply(to: self.totalView)
     }
     
     func setupGestures() {

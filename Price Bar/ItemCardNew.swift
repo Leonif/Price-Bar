@@ -61,7 +61,7 @@ class ItemCardNew: UIViewController {
         super.viewDidLoad()
 
         [itemName, itemBrand, itemWeight, uomButton, itemPrice, categoryButton, saveButton].forEach {
-            PriceBarStyles.grayBorderedRoundedView.apply(to: $0)
+            PriceBarStyles.grayBorderedRounded.apply(to: $0)
         }
         [itemName, itemBrand, itemWeight, itemPrice].forEach {
             $0!.delegate = self

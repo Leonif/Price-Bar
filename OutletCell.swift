@@ -19,7 +19,7 @@ class OutletCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.backgroundColor = .clear
-        PriceBarStyles.grayBorderedRoundedView.apply(to: outletView)
+        PriceBarStyles.grayBorderedRounded.apply(to: outletView)
     }
     
     

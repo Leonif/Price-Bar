@@ -13,7 +13,7 @@ protocol OutletVCDelegate {
     func choosen(outlet: Outlet)
 }
 
-class OutletsVC: UIViewController {
+class OutletsVC: UIViewController, UIGestureRecognizerDelegate {
     var adapter: OutetListAdapter!
     var interactor: OutletListInteractor!
     
@@ -22,6 +22,15 @@ class OutletsVC: UIViewController {
         s.placeholder = R.string.localizable.outlet_list_start_to_search_store()
         s.delegate = self
         return s
+    }()
+    
+    let backButton: UIButton = {
+        let b = UIButton(frame: CGRect.zero)
+        let icon = R.image.backButton()
+        b.setImage(icon, for: .normal)
+        b.imageView?.contentMode = .scaleAspectFit
+        
+        return b
     }()
 
     var delegate: OutletVCDelegate!
@@ -37,14 +46,24 @@ class OutletsVC: UIViewController {
             self?.delegate.choosen(outlet: outlet)
             self?.close()
         }
-//        self.navigationItem.prompt = R.string.localizable.outlet_list_search()
         
-        PriceBarStyles.grayBorderedRoundedView.apply(to: searchBar.textField)
-        self.navigationItem.titleView = searchBar
-        
-        
+        self.setupNavigation()
         
         self.setupInteractor()
+        
+    }
+    
+    private func setupNavigation() {
+        PriceBarStyles.grayBorderedRounded.apply(to: searchBar.textField)
+        self.navigationItem.titleView = searchBar
+
+        self.backButton.addTarget(self, action: #selector(self.close), for: UIControlEvents.touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
+       
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
+    @objc func setBackIndicatorImage() {
         
     }
     
@@ -66,7 +85,7 @@ class OutletsVC: UIViewController {
         }
     }
 
-    
+    @objc
     func close() {
         self.navigationController?.popViewController(animated: true)
     }

@@ -41,12 +41,12 @@ class ProductMapper {
     class func mapper(from dpModel: DPProductModel, for outletId: String) -> ItemListModelView {
         let dataProvider = Repository()
         let price = dataProvider.getPrice(for: dpModel.id, and: outletId)
-        let minPrice = dataProvider.getMinPrice(for: dpModel.id, and: outletId)
+        let categoryName = dataProvider.getCategoryName(category: dpModel.categoryId)
 
         return ItemListModelView(id: dpModel.id,
                              product: dpModel.name,
                              currentPrice: price,
-                             minPrice: minPrice)
+                             categoryName: categoryName!)
     }
 
     class func transform(from dpModels: [DPProductModel], for outletId: String) -> [ItemListModelView]? {

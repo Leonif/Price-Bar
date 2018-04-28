@@ -12,18 +12,26 @@ protocol ItemListVCDelegate: class {
     func itemChoosen(productId: String)
 }
 
-class ItemListVC: UIViewController {
+class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
+    
+    
+    @IBOutlet weak var tableView: UITableView!
+    
+    
     let showProductCard = "showProductCard"
     
     var itemList = [ItemListModelView]()
     var filtredItemList = [ItemListModelView]()
     var currentPageOffset = 0
+    var isLoading = false
+    var outletId: String = ""
+   
     var router: ItemListRouter!
     var data: ItemListRouterDataStorage!
     
+    var shouldClose: Bool = false
     
-    var outletId: String = ""
-    @IBOutlet weak var itemTableView: UITableView!
+    weak var repository: Repository!
     weak var delegate: ItemListVCDelegate?
     weak var itemCardDelegate: ItemCardVCDelegate?
     
@@ -34,13 +42,14 @@ class ItemListVC: UIViewController {
         return s
     }()
 
-    var shouldClose: Bool = false
-    weak var repository: Repository!
-
-    var isLoading = false
-
-
-    
+    let backButton: UIButton = {
+        let b = UIButton(frame: CGRect.zero)
+        let icon = R.image.backButton()
+        b.setImage(icon, for: .normal)
+        b.imageView?.contentMode = .scaleAspectFit
+        
+        return b
+    }()
     
     
     override func viewDidLoad() {
@@ -50,13 +59,23 @@ class ItemListVC: UIViewController {
         self.router = ItemListRouter()
         self.data = ItemListRouterDataStorage(repository: repository, vc: self, outletId: outletId)
         
-        navigationItem.prompt = R.string.localizable.item_list()
-        navigationItem.titleView = searchBar
+        self.setupNavigation()
         
-        itemTableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
+        self.tableView.register(UINib(nibName: "AddCellNib", bundle: nil), forCellReuseIdentifier: "CustomCellOne")
+        self.tableView.register(ItemListCell.self)
         self.view.pb_startActivityIndicator(with: R.string.localizable.common_loading())
     }
 
+    
+    private func setupNavigation() {
+        PriceBarStyles.grayBorderedRounded.apply(to: searchBar.textField)
+        self.navigationItem.titleView = searchBar
+        
+        self.backButton.addTarget(self, action: #selector(self.close), for: UIControlEvents.touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         addDoneButtonToNumPad()
@@ -71,7 +90,7 @@ class ItemListVC: UIViewController {
         self.itemList = itemList.sorted { $0.currentPrice > $1.currentPrice  }
 
         filtredItemList = self.itemList.sorted { $0.currentPrice > $1.currentPrice  }
-        itemTableView.reloadData()
+        self.tableView.reloadData()
         self.view.pb_stopActivityIndicator()
     }
 
@@ -85,7 +104,7 @@ class ItemListVC: UIViewController {
         } else {
             filtredItemList = itemList
         }
-        itemTableView.reloadData()
+        self.tableView.reloadData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -143,7 +162,7 @@ extension ItemListVC {
 
 
 extension ItemListVC {
-    func close() {
+    @objc func close() {
         self.navigationController?.popViewController(animated: true)
     }
 }
@@ -170,7 +189,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                     }
                     
                     if filtredItemList.isEmpty {
-                        itemTableView.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+                        self.tableView.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
                     }
                     
                     // do the insertion
@@ -178,8 +197,8 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
                     self.itemList.append(contentsOf: modelList)
                     
                     // tell the table view to update (at all of the inserted index paths)
-                    self.itemTableView.update {
-                        itemTableView.insertRows(at: indexPaths, with: .bottom)
+                    self.tableView.update {
+                        self.tableView.insertRows(at: indexPaths, with: .bottom)
                     }
                 }
                 self.isLoading = false
@@ -196,9 +215,7 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if filtredItemList.isEmpty {
-//            self.performSegue(withIdentifier: self.showProductCard, sender: self.searchBar.text)
             self.router.openItemCard(for: self.searchBar.text!, data: self.data)
-            
             return
         }
 
@@ -210,14 +227,13 @@ extension ItemListVC: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if filtredItemList.isEmpty,
-            let cellAdd = itemTableView.dequeueReusableCell(withIdentifier: "CustomCellOne", for: indexPath) as? AddCell {
+            let cellAdd = self.tableView.dequeueReusableCell(withIdentifier: "CustomCellOne", for: indexPath) as? AddCell {
             return cellAdd
-        } else if let cell = itemTableView.dequeueReusableCell(withIdentifier: "ItemListCell", for: indexPath) as? ItemListCell {
+        } else {
+            let cell: ItemListCell = self.tableView.dequeueReusableCell(for: indexPath)
             let item = filtredItemList[indexPath.row]
             cell.configureCell(item)
             return cell
         }
-        fatalError()
-
     }
 }

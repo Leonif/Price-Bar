@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="PT_Sans-Narrow-Web-Bold.ttf">
+            <string>PTSans-NarrowBold</string>
+        </array>
+        <array key="PT_Sans-Narrow-Web-Regular.ttf">
+            <string>PTSans-Narrow</string>
+        </array>
+        <array key="Robaga Rounded Bold.otf">
+            <string>RobagaRounded-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ItemListCell" customModule="PriceBar_Dev" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="328" height="102"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ELb-Oj-Ute">
+                    <rect key="frame" x="2" y="4" width="324" height="94"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Помидоры на развес" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jeH-Lk-SFw">
+                            <rect key="frame" x="18" y="18" width="152.5" height="26"/>
+                            <fontDescription key="fontDescription" name="PTSans-NarrowBold" family="PT Sans Narrow" pointSize="20"/>
+                            <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Овощи и фрукты " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eM5-ka-2xh">
+                            <rect key="frame" x="18" y="52" width="85.5" height="18.5"/>
+                            <fontDescription key="fontDescription" name="PTSans-Narrow" family="PT Sans Narrow" pointSize="14"/>
+                            <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UAH 22.00" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CjK-1F-Tut">
+                            <rect key="frame" x="231" y="23" width="70" height="48"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="70" id="C8R-wF-Iyg"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="17"/>
+                            <color key="textColor" red="0.29019607843137252" green="0.56470588235294117" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="CjK-1F-Tut" firstAttribute="top" secondItem="ELb-Oj-Ute" secondAttribute="top" constant="23" id="8o5-gC-956"/>
+                        <constraint firstItem="eM5-ka-2xh" firstAttribute="leading" secondItem="jeH-Lk-SFw" secondAttribute="leading" id="GPK-yc-26V"/>
+                        <constraint firstAttribute="bottom" secondItem="CjK-1F-Tut" secondAttribute="bottom" constant="23" id="L1h-yu-Qcx"/>
+                        <constraint firstItem="jeH-Lk-SFw" firstAttribute="leading" secondItem="ELb-Oj-Ute" secondAttribute="leading" constant="18" id="LfV-9P-YAv"/>
+                        <constraint firstItem="eM5-ka-2xh" firstAttribute="top" secondItem="jeH-Lk-SFw" secondAttribute="bottom" constant="8" id="Plh-LQ-z4f"/>
+                        <constraint firstAttribute="bottom" secondItem="eM5-ka-2xh" secondAttribute="bottom" constant="23.5" id="Sfx-5b-kGh"/>
+                        <constraint firstItem="CjK-1F-Tut" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jeH-Lk-SFw" secondAttribute="trailing" constant="8" id="WLc-rf-5Ia"/>
+                        <constraint firstItem="jeH-Lk-SFw" firstAttribute="top" secondItem="ELb-Oj-Ute" secondAttribute="top" constant="18" id="ck0-WX-ngY"/>
+                        <constraint firstAttribute="trailing" secondItem="CjK-1F-Tut" secondAttribute="trailing" constant="23" id="z97-3c-1Hj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ELb-Oj-Ute" secondAttribute="trailing" constant="2" id="B4h-6K-LhK"/>
+                <constraint firstItem="ELb-Oj-Ute" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="2" id="DOt-YJ-2FO"/>
+                <constraint firstAttribute="bottom" secondItem="ELb-Oj-Ute" secondAttribute="bottom" constant="4" id="hP9-Fs-3IU"/>
+                <constraint firstItem="ELb-Oj-Ute" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="4" id="hZa-AH-ikh"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="backView" destination="ELb-Oj-Ute" id="ebk-42-PZz"/>
+                <outlet property="itemCategoryLabel" destination="eM5-ka-2xh" id="laT-Re-ysr"/>
+                <outlet property="itemNameLabel" destination="jeH-Lk-SFw" id="dyq-xI-fbb"/>
+                <outlet property="itemPriceLabel" destination="CjK-1F-Tut" id="9NH-JP-o3o"/>
+            </connections>
+            <point key="canvasLocation" x="-279" y="-25"/>
+        </view>
+    </objects>
+</document>

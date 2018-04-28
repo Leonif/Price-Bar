@@ -20,7 +20,7 @@ class PriceStatisticCell: UITableViewCell, NibLoadableReusable {
         super.awakeFromNib()
         
         self.backgroundColor = .clear
-        PriceBarStyles.grayBorderedRoundedView.apply(to: self.backView)
+        PriceBarStyles.grayBorderedRounded.apply(to: self.backView)
         
     }
     

@@ -32,7 +32,7 @@ class UpdatePriceVC: UIViewController {
         self.interactor = UpdatePriceInteractor(repository: self.data.repository)
         
         self.addToolBar(textField: self.priceTextField)
-        PriceBarStyles.grayBorderedRoundedView.apply(to: self.priceTextField, self.saveButton)
+        PriceBarStyles.grayBorderedRounded.apply(to: self.priceTextField, self.saveButton)
         self.priceTextField.delegate = self
     }
     

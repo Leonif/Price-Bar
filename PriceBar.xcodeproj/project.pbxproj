@@ -211,6 +211,8 @@
 		799029802094B24D00085F72 /* ItemListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7990297E2094B24D00085F72 /* ItemListCell.xib */; };
 		799029822094BDEC00085F72 /* AddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799029812094BDEC00085F72 /* AddCell.swift */; };
 		799029832094BDEC00085F72 /* AddCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799029812094BDEC00085F72 /* AddCell.swift */; };
+		799029872095F0F200085F72 /* ItemListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799029862095F0F200085F72 /* ItemListAdapter.swift */; };
+		799029882095F0F200085F72 /* ItemListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799029862095F0F200085F72 /* ItemListAdapter.swift */; };
 		79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB702002CD46008F7DAA /* LocationService.swift */; };
 		79A2EB732002D471008F7DAA /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB722002D471008F7DAA /* ResultType.swift */; };
 		79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */; };
@@ -349,6 +351,7 @@
 		799029792087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Narrow-Web-Regular.ttf"; sourceTree = "<group>"; };
 		7990297E2094B24D00085F72 /* ItemListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemListCell.xib; sourceTree = "<group>"; };
 		799029812094BDEC00085F72 /* AddCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCell.swift; sourceTree = "<group>"; };
+		799029862095F0F200085F72 /* ItemListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListAdapter.swift; sourceTree = "<group>"; };
 		799A8A231F7423E20027EB59 /* PriceBarTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBarTests copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBarTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		79A2EB702002CD46008F7DAA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		79A2EB722002D471008F7DAA /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
@@ -781,6 +784,7 @@
 				799029852095EE8300085F72 /* AddCell */,
 				799029842095EDA400085F72 /* ItemListCell */,
 				79D26A001EFECC4800337DA3 /* ItemListVC.swift */,
+				799029862095F0F200085F72 /* ItemListAdapter.swift */,
 				799029722087C35A00085F72 /* ItemListRouter.swift */,
 			);
 			name = View;
@@ -1440,6 +1444,7 @@
 				790B7DB020835D8C003DD560 /* DPCategoryModel.swift in Sources */,
 				790B7DB120835D8C003DD560 /* Styles.swift in Sources */,
 				790B7DB220835D8C003DD560 /* ShopItemCell.swift in Sources */,
+				799029882095F0F200085F72 /* ItemListAdapter.swift in Sources */,
 				790B7DB320835D8C003DD560 /* CircleIndicatorView.swift in Sources */,
 				790B7DB420835D8C003DD560 /* UITableView+Extensions.swift in Sources */,
 				790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */,
@@ -1538,6 +1543,7 @@
 				79833B5B20146795005C6CC5 /* DPCategoryModel.swift in Sources */,
 				790B7D2C207A6000003DD560 /* Styles.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
+				799029872095F0F200085F72 /* ItemListAdapter.swift in Sources */,
 				792102912055778900C83706 /* CircleIndicatorView.swift in Sources */,
 				790B7D36207FDA09003DD560 /* UITableView+Extensions.swift in Sources */,
 				79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */,

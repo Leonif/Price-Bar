@@ -108,7 +108,7 @@
                                     <rect key="frame" x="38" y="45.5" width="105" height="27"/>
                                     <color key="backgroundColor" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="105" id="CpR-7N-Qkr"/>
+                                        <constraint firstAttribute="width" priority="900" constant="105" id="CpR-7N-Qkr"/>
                                         <constraint firstAttribute="height" constant="27" id="ckh-We-aqA"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="14"/>

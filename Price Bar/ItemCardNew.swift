@@ -214,7 +214,7 @@ class ItemCardNew: UIViewController {
             let name = itemName.text,
             !name.isEmpty
             else {
-                self.alert(title: "Агинь", message: "Заполните название товара 👿 !!!")
+                self.alert(message: R.string.localizable.empty_product_name())
                 return
         }
         self.saveProduct(with: name)
@@ -227,7 +227,7 @@ class ItemCardNew: UIViewController {
                                                       name: productCard.productName,
                                                       categoryId: productCard.categoryId,
                                                       uomId: productCard.uomId)
-        if state == CardState.editMode {
+        if state == .editMode {
             repository.update(dpProductCardModel)
             delegate.productUpdated()
         } else {
@@ -242,7 +242,8 @@ class ItemCardNew: UIViewController {
             price != 0.0 {
             
             guard productCard.productPrice != price  else {
-                alert(title: "Спасибо", message: "Цена не поменялась😉. Круто!👍", okAction: {
+                alert(title: R.string.localizable.thank_you(),
+                      message: R.string.localizable.price_update_not_changed(), okAction: {
                     self.close()
                 })
                 return
@@ -256,58 +257,33 @@ class ItemCardNew: UIViewController {
             self.close()
             
         } else {
-            alert(title: "Спасибо", message: "Такую цену мы не можем сохранить😭. Но товар в базе и шоплисте😉", okAction: {
+            alert(title: R.string.localizable.thank_you(),
+                  message: R.string.localizable.update_price_we_cant_update(), okAction: {
                 self.close()
             })
         }
     }
-    
-    deinit {
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         NotificationCenter.default.removeObserver(self)
     }
-    
 }
 
 
 // MARK: Picker
 extension ItemCardNew: PickerControlDelegate {
     func choosen(id: Int32) {
-        if pickerType == PickerType.category {
+        if pickerType == .category {
             productCard.categoryId = id
-            for category in categories {
-                if category.id == id {
-                    
-                    self.categoryButton.setTitle(category.name, for: .normal)
-                    
-                    
-                    break
-                }
-            }
+            let name = categories.filter { $0.id == id }.first?.name
+            self.categoryButton.setTitle(name, for: .normal)
         } else {
             productCard.uomId = id
-            self.uoms.forEach {
-                if $0.id == id {
-                    self.uomButton.setTitle($0.name, for: .normal)
-                }
-            }
+            let name = self.uoms.filter { $0.id == id }.first?.name
+            self.uomButton.setTitle(name, for: .normal)
+            
         }
     }
-}
-
-
-
-extension ItemCardNew {
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        activeField = textField
-        lastOffset = self.scrollView.contentOffset
-        return true
-    }
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        activeField?.resignFirstResponder()
-        activeField = nil
-        return true
-    }
-    
-    
 }

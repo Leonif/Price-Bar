@@ -340,12 +340,13 @@ class Repository {
         return CoreDataService.data.filterItemList(contains: text, for: outletId)
     }
 
-    func pricesUpdate(by outletId: String) {
-        for (index, item) in shoplist.enumerated() {
-            let price = CoreDataService.data.getPrice(for: item.productId, and:outletId)
-            shoplist[index].productPrice = price
-        }
-    }
+    // FIXME: get price from just cloud
+//    func pricesUpdate(by outletId: String) {
+//        for (index, item) in shoplist.enumerated() {
+//            let price = CoreDataService.data.getPrice(for: item.productId, and:outletId)
+//            shoplist[index].productPrice = price
+//        }
+//    }
 
     func remove(item: DPShoplistItemModel) {
         guard let index = shoplist.index(of: item) else {
@@ -524,25 +525,23 @@ class Repository {
 
 extension Repository {
 
+    // FIXME: get price just cloud
     func getPrice(for productId: String, and outletId: String) -> Double {
         return CoreDataService.data.getPrice(for: productId, and: outletId)
     }
 
-    func getMinPrice(for productId: String, and outletId: String) -> Double {
-        return CoreDataService.data.getMinPrice(for: productId, and: outletId)
-
-    }
+//    func getMinPrice(for productId: String, and outletId: String) -> Double {
+//        return CoreDataService.data.getMinPrice(for: productId, and: outletId)
+//
+//    }
     
+    // FIXME: get price just cloud
     func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
         
         let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
         
-        let transformed = StatisticMapper.transform(from: object,
-                                  parseFunction: StatisticMapper.mapper)
+        return object.map { StatisticMapper.mapper(from: $0) }
         
-        
-        
-        return transformed
         
     }
     

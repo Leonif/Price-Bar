@@ -45,6 +45,7 @@ public final class UpdatePriceInteractor {
         let outletService = OutletService()
         var statistic: [StatisticModel] = []
         
+        // FIXME: get price from cloud
         let cdPriceStatistics = repository.getPricesStatisticByOutlet(for: productId)
         let productName = repository.getProductName(for: productId)!
         let dispatchGroup = DispatchGroup()

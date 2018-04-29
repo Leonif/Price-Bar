@@ -45,16 +45,6 @@ extension Bool {
     }
 }
 
-
-//extension UIColor {
-//    static var systemGray: UIColor {
-//        return UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1.0)
-//    }
-//    static var systemBlue: UIColor {
-//        return UIColor(red: 0/255, green: 122/255, blue: 255/255, alpha: 1.0)
-//    }
-//}
-
 extension UISearchBar {
     var textField: UITextField {
         guard let tf = (value(forKey: "searchField") as? UITextField) else { fatalError() }

@@ -778,11 +778,9 @@
 		79833B3F2011433B005C6CC5 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				799029852095EE8300085F72 /* AddCell */,
+				799029842095EDA400085F72 /* ItemListCell */,
 				79D26A001EFECC4800337DA3 /* ItemListVC.swift */,
-				799029812094BDEC00085F72 /* AddCell.swift */,
-				796D7B27201BE4B10098D324 /* AddCell.xib */,
-				7990297E2094B24D00085F72 /* ItemListCell.xib */,
-				79D26A021EFECD5700337DA3 /* ItemListCell.swift */,
 				799029722087C35A00085F72 /* ItemListRouter.swift */,
 			);
 			name = View;
@@ -861,6 +859,24 @@
 			children = (
 			);
 			name = PickerVC;
+			sourceTree = "<group>";
+		};
+		799029842095EDA400085F72 /* ItemListCell */ = {
+			isa = PBXGroup;
+			children = (
+				7990297E2094B24D00085F72 /* ItemListCell.xib */,
+				79D26A021EFECD5700337DA3 /* ItemListCell.swift */,
+			);
+			name = ItemListCell;
+			sourceTree = "<group>";
+		};
+		799029852095EE8300085F72 /* AddCell */ = {
+			isa = PBXGroup;
+			children = (
+				799029812094BDEC00085F72 /* AddCell.swift */,
+				796D7B27201BE4B10098D324 /* AddCell.xib */,
+			);
+			name = AddCell;
 			sourceTree = "<group>";
 		};
 		79AA0FE41EF5D13300903133 /* gen */ = {

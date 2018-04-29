@@ -33,7 +33,6 @@
                     </subviews>
                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="j5f-ER-buL" firstAttribute="centerY" secondItem="XQO-Zf-19k" secondAttribute="centerY" id="6bj-Av-5xD"/>
                         <constraint firstItem="j5f-ER-buL" firstAttribute="centerX" secondItem="XQO-Zf-19k" secondAttribute="centerX" id="Cnj-D5-xHA"/>
                         <constraint firstAttribute="bottom" secondItem="j5f-ER-buL" secondAttribute="bottom" constant="14" id="el4-gh-7O8"/>
                         <constraint firstItem="j5f-ER-buL" firstAttribute="top" secondItem="XQO-Zf-19k" secondAttribute="top" constant="15" id="exX-2d-Gi0"/>

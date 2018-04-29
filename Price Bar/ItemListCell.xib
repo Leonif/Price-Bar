@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -58,7 +58,7 @@
                         <constraint firstItem="eM5-ka-2xh" firstAttribute="leading" secondItem="jeH-Lk-SFw" secondAttribute="leading" id="GPK-yc-26V"/>
                         <constraint firstAttribute="bottom" secondItem="CjK-1F-Tut" secondAttribute="bottom" priority="250" constant="23" id="L1h-yu-Qcx"/>
                         <constraint firstItem="jeH-Lk-SFw" firstAttribute="leading" secondItem="ELb-Oj-Ute" secondAttribute="leading" constant="18" id="LfV-9P-YAv"/>
-                        <constraint firstItem="eM5-ka-2xh" firstAttribute="top" secondItem="jeH-Lk-SFw" secondAttribute="bottom" priority="250" constant="8" id="Plh-LQ-z4f"/>
+                        <constraint firstItem="eM5-ka-2xh" firstAttribute="top" secondItem="jeH-Lk-SFw" secondAttribute="bottom" priority="900" constant="8" id="Plh-LQ-z4f"/>
                         <constraint firstAttribute="bottom" secondItem="eM5-ka-2xh" secondAttribute="bottom" constant="23.5" id="Sfx-5b-kGh"/>
                         <constraint firstItem="CjK-1F-Tut" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jeH-Lk-SFw" secondAttribute="trailing" constant="8" id="WLc-rf-5Ia"/>
                         <constraint firstItem="jeH-Lk-SFw" firstAttribute="top" secondItem="ELb-Oj-Ute" secondAttribute="top" constant="18" id="ck0-WX-ngY"/>

@@ -37,10 +37,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100 m" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NBn-KM-Xkx">
-                            <rect key="frame" x="263" y="21.5" width="43" height="19"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="43" id="l6t-0z-mJh"/>
-                            </constraints>
+                            <rect key="frame" x="263" y="22" width="43" height="18.5"/>
                             <fontDescription key="fontDescription" name="RobagaRounded" family="Robaga Rounded" pointSize="15"/>
                             <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>

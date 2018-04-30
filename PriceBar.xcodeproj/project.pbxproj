@@ -482,6 +482,8 @@
 				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
 				79833B3E201142F5005C6CC5 /* ScannerFlow */,
 				790BC9E91F88326E00CA9519 /* OutletFlow */,
+				792EE7B21EE707E700470669 /* Main.storyboard */,
+				792EE7B01EE707E700470669 /* LaunchScreen.storyboard */,
 			);
 			name = Modules;
 			sourceTree = "<group>";
@@ -631,8 +633,6 @@
 				790B7D4F2081C219003DD560 /* Modules */,
 				790BC9E81F88322400CA9519 /* Services */,
 				790BC9EB1F88334800CA9519 /* Supported Files */,
-				792EE7B21EE707E700470669 /* Main.storyboard */,
-				792EE7B01EE707E700470669 /* LaunchScreen.storyboard */,
 			);
 			name = PriceBar;
 			path = "Price Bar";

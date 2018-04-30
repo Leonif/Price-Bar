@@ -154,7 +154,7 @@
         <!--Наведиите камеру на штрих-код-->
         <scene sceneID="TnZ-Zg-dgi">
             <objects>
-                <viewController title="Наведиите камеру на штрих-код" id="rA1-Ob-kOe" customClass="ScannerController" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScannerController" title="Наведиите камеру на штрих-код" id="rA1-Ob-kOe" customClass="ScannerController" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ECR-nh-ca0"/>
                         <viewControllerLayoutGuide type="bottom" id="pNb-4h-P6u"/>
@@ -172,7 +172,7 @@
         <!--Торговые точки-->
         <scene sceneID="kod-XZ-SNJ">
             <objects>
-                <viewController title="Торговые точки" id="CgW-nK-NrY" customClass="OutletsVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OutletsVC" title="Торговые точки" id="CgW-nK-NrY" customClass="OutletsVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="cFc-RZ-F8V"/>
                         <viewControllerLayoutGuide type="bottom" id="CQA-ar-EU4"/>
@@ -211,7 +211,7 @@
         <!--Список товаров-->
         <scene sceneID="Kb3-Qt-3ax">
             <objects>
-                <viewController title="Список товаров" id="Aph-JN-BT7" customClass="ItemListVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ItemListVC" title="Список товаров" id="Aph-JN-BT7" customClass="ItemListVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HJA-9e-sBD"/>
                         <viewControllerLayoutGuide type="bottom" id="YiY-tc-mOt"/>

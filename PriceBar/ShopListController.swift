@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class ShopListController: UIViewController {
     // MARK: IB Outlets
     let storeButton: UIButton = {
@@ -44,7 +43,6 @@ class ShopListController: UIViewController {
     // MARK: - Dependecy Injection properties
     var repository: Repository!
     var interactor: ShoplistInteractor!
-    var router: ShoplistRouter!
     var data: DataStorage!
     
     var syncAnimator: SyncAnimator!
@@ -72,17 +70,13 @@ class ShopListController: UIViewController {
         self.repository = Repository()
         self.syncAnimator = SyncAnimator(parent: self)
         self.interactor = ShoplistInteractor(repository: repository)
-        
-        
-        self.router = ShoplistRouter()
+
         self.data = DataStorage(repository: self.repository, vc: self, outlet: userOutlet)
-        
         self.adapter = ShopListAdapter(parent: self, tableView: shopTableView,
                                   repository: repository)
         
         // MARK: - Setup UI
         self.setupNavigation()
-        
         
         PriceBarStyles.grayBorderedRounded.apply(to: self.buttonsView)
         PriceBarStyles.shadowAround.apply(to: self.buttonsView)
@@ -118,21 +112,12 @@ class ShopListController: UIViewController {
         
         self.adapter.onCellDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-            self.router.openItemCard(for: item, data: self.data)
-        }
-        
-        self.router.onSavePrice = { [weak self] in
-            guard let `self` = self else { return }
-            
-            guard let outlet = self.data.outlet else {
-                fatalError("No outlet data")
-            }
-            self.interactor.reloadProducts(outletId: outlet.id)
+            self.openItemCard(for: item, data: self.data)
         }
         
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-            self.router.openUpdatePrice(for: item.productId, currentPrice: item.productPrice, data: self.data)
+            self.openUpdatePrice(for: item.productId, currentPrice: item.productPrice, data: self.data)
         }
     }
     
@@ -212,7 +197,7 @@ class ShopListController: UIViewController {
             switch result {
             case let .success(outlet):
                 self.userOutlet = outlet
-                self.router.openStatistics(data: self.data)
+                self.openStatistics(data: self.data)
                 activateControls = true
             case let .failure(error):
                 let previousSuccess = R.string.localizable.common_good_news()
@@ -231,15 +216,15 @@ class ShopListController: UIViewController {
 
     // MARK: - Butons handlers
     @IBAction func scanItemPressed(_ sender: Any) {
-        performSegue(withIdentifier: Strings.Segues.showScan.name, sender: nil)
+        self.openScanner()
      }
     
     @objc
     func selectOutlet() {
-       performSegue(withIdentifier: R.segue.shopListController.showOutlets, sender: nil)
+        self.openOutletLst()
     }
     @IBAction func itemListPressed(_ sender: Any) {
-        performSegue(withIdentifier: Strings.Segues.showItemList.name, sender: nil)
+        self.openItemList(for: userOutlet.id)
     }
     
     @IBAction func cleanShopList(_ sender: GoodButton) {
@@ -281,7 +266,7 @@ extension ShopListController {
     
     func shiftButton(hide: Bool) {
         let shiftOfDirection: CGFloat = hide ? -1 : 1
-        buttonsHided.toggle()// = !buttonsHided
+        buttonsHided.toggle()
         updateRemoveButtonState()
         [scanButton, itemListButton].forEach { $0.setEnable(hide) }
         let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 100
@@ -303,13 +288,13 @@ extension ShopListController: ScannerDelegate {
             switch result {
             case .success:
                 if !self.interactor.isProductHasPrice(for: barcode, in: self.userOutlet.id) {
-                    self.router.openUpdatePrice(for: barcode, data: self.data)
+                    self.openUpdatePrice(for: barcode, data: self.data)
                 }
                 self.shopTableView.reloadData()
             case let .failure(error):
                 switch error {
                 case .productIsNotFound:
-                    self.router.openScannedNewItemCard(for: barcode, data: self.data)
+                    self.openScannedNewItemCard(for: barcode, data: self.data)
                 default: self.alert(message: error.message)
                 }
             }
@@ -320,7 +305,7 @@ extension ShopListController: ScannerDelegate {
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
         if let outlet = data.outlet, !self.interactor.isProductHasPrice(for: productId, in: outlet.id) {
-            self.router.openUpdatePrice(for: productId, data: data)
+            self.openUpdatePrice(for: productId, data: data)
         }
         self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }
@@ -355,14 +340,19 @@ extension ShopListController: ItemCardVCDelegate {
         interactor?.reloadProducts(outletId: userOutlet.id)
     }
 }
+extension ShopListController: ItemCardRoute {}
 
-
-// MARK: - transition
-extension ShopListController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        self.router.prepare(for: segue, sender: sender, data: self.data)
+extension ShopListController: UpdatePriceRoute {
+    func onSavePrice() {
+        guard let outlet = self.data.outlet else {
+            fatalError("No outlet data")
+        }
+        self.interactor.reloadProducts(outletId: outlet.id)
     }
 }
 
-
+extension ShopListController: StatisticsRoute {}
+extension ShopListController: ItemListRoute {}
+extension ShopListController: ScannerRoute {}
+extension ShopListController: OutletListRoute {}
 

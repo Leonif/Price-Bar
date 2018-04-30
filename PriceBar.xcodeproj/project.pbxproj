@@ -104,7 +104,6 @@
 		790B7DCC20835D8C003DD560 /* UIColors+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975D63520714224003A6288 /* UIColors+Extensions.swift */; };
 		790B7DCD20835D8C003DD560 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
 		790B7DCE20835D8C003DD560 /* DPShoplistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B4F2013AC49005C6CC5 /* DPShoplistModel.swift */; };
-		790B7DCF20835D8C003DD560 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99E120433AA400D35D1C /* Strings.swift */; };
 		790B7DD020835D8C003DD560 /* ShopListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListAdapter.swift */; };
 		790B7DD120835D8C003DD560 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8D21F102AAB00752A68 /* FirebaseService.swift */; };
 		790B7DD220835D8C003DD560 /* Uom+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F104020262FC30060E285 /* Uom+CoreDataClass.swift */; };
@@ -225,7 +224,6 @@
 		79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F322016ED2A00302AF9 /* OutletMapper.swift */; };
 		79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A001EFECC4800337DA3 /* ItemListVC.swift */; };
 		79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
-		79DC99E220433AA400D35D1C /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99E120433AA400D35D1C /* Strings.swift */; };
 		79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79DC99ED204345AC00D35D1C /* Localizable.strings */; };
 		79DC99F02044B3F600D35D1C /* ShoplistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */; };
 		79E9B871206C17F800D80EA5 /* PriceStatisticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B870206C17F800D80EA5 /* PriceStatisticCell.xib */; };
@@ -365,7 +363,6 @@
 		79D12F322016ED2A00302AF9 /* OutletMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletMapper.swift; sourceTree = "<group>"; };
 		79D26A001EFECC4800337DA3 /* ItemListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListVC.swift; sourceTree = SOURCE_ROOT; };
 		79D26A021EFECD5700337DA3 /* ItemListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListCell.swift; sourceTree = SOURCE_ROOT; };
-		79DC99E120433AA400D35D1C /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		79DC99E320433DAC00D35D1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../PriceBar/ru.lproj/Main.strings; sourceTree = "<group>"; };
 		79DC99E420433DAC00D35D1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../PriceBar/ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		79DC99E620433F9200D35D1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../PriceBar/en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -932,7 +929,6 @@
 			children = (
 				79142FFC2072DD83003293D5 /* Fonts */,
 				79DC99ED204345AC00D35D1C /* Localizable.strings */,
-				79DC99E120433AA400D35D1C /* Strings.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -1473,7 +1469,6 @@
 				790B7DCC20835D8C003DD560 /* UIColors+Extensions.swift in Sources */,
 				790B7DCD20835D8C003DD560 /* ItemListCell.swift in Sources */,
 				790B7DCE20835D8C003DD560 /* DPShoplistModel.swift in Sources */,
-				790B7DCF20835D8C003DD560 /* Strings.swift in Sources */,
 				790B7DD020835D8C003DD560 /* ShopListAdapter.swift in Sources */,
 				790B7DD120835D8C003DD560 /* FirebaseService.swift in Sources */,
 				790B7DD220835D8C003DD560 /* Uom+CoreDataClass.swift in Sources */,
@@ -1572,7 +1567,6 @@
 				7975D63620714224003A6288 /* UIColors+Extensions.swift in Sources */,
 				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,
 				79833B502013AC49005C6CC5 /* DPShoplistModel.swift in Sources */,
-				79DC99E220433AA400D35D1C /* Strings.swift in Sources */,
 				793368691FFF6F5600E8E81A /* ShopListAdapter.swift in Sources */,
 				795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */,
 				790F104A20262FC30060E285 /* Uom+CoreDataClass.swift in Sources */,

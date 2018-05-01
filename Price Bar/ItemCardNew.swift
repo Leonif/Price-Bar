@@ -63,6 +63,7 @@ class ItemCardNew: UIViewController {
         [itemName, itemBrand, itemWeight, uomButton, itemPrice, categoryButton, saveButton].forEach {
             PriceBarStyles.grayBorderedRounded.apply(to: $0)
         }
+        
         [itemName, itemBrand, itemWeight, itemPrice].forEach {
             $0!.delegate = self
             self.addToolBar(textField: $0!)

@@ -43,3 +43,5 @@
 "common_done" = "Done";
 "common_next" = "Next";
 "empty_product_name" = "Fill out the product name 👿 !!!";
+"no_gps_access" = "We can not find stores near you. You restricted monitoring your position. Enable in the settings to use the program 😢";
+"try_again" = "Try again";

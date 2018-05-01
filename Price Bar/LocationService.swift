@@ -64,7 +64,7 @@ class LocationService: NSObject {
         case .denied:
             self.coordinatesResult?(ResultType
                 .failure(
-                    .notAuthorizedAccess("Мы не можем найти магазины возле вас. Вы запретили следить за вашей позицией. Включите в настройках, чтобы использовать программу 😢")))
+                    .notAuthorizedAccess(R.string.localizable.no_gps_access())))
         default:
             print(status)
             locationManager.requestWhenInUseAuthorization()

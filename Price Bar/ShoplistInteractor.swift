@@ -14,18 +14,13 @@ public final class ShoplistInteractor {
     private let outletService = OutletService()
     private let repository: Repository!
     
-    
     init(repository: Repository) {
         self.repository = repository
-        
-        
     }
-    
     
     public func updateCurrentOutlet(completion: @escaping (ResultType<Outlet, OutletServiceError>) -> Void) {
         let outletService = OutletService()
         outletService.nearestOutlet { result in
-            print(result)
             switch result {
             case let .success(outlet):
                 let outlet = OutletMapper.mapper(from: outlet)
@@ -35,7 +30,6 @@ public final class ShoplistInteractor {
             }
         }
     }
-    
     
     func synchronizeData(completion: @escaping (ResultType<Bool, RepositoryError>) -> Void) {
         repository.syncCloud { result in
@@ -61,7 +55,6 @@ public final class ShoplistInteractor {
                 completion(ResultType.success(true))
             }
         })
-        
     }
     
     private func addItemToShopList(_ product: DPProductModel, and outletId: String, completion: (ResultType<Bool, RepositoryError>)-> Void) {
@@ -76,8 +69,6 @@ public final class ShoplistInteractor {
         
         }
     }
-    
-    
     
     func isProductHasPrice(for productId: String, in outletId: String) -> Bool {
         let price = self.repository.getPrice(for: productId, and: outletId)

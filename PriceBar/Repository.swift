@@ -118,9 +118,9 @@ class Repository {
     }
 
     public func syncCloud(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
+        defer {  self.currentNext = 0  }
         firebaseLogin(completion: completion)
         self.onSyncNext = { [weak self] in
-            
             guard let `self` = self else { return  }
             self.currentNext += 1
             guard let type = SyncSteps(rawValue: self.currentNext) else { return  }

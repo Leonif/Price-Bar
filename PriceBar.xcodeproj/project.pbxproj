@@ -224,6 +224,10 @@
 		79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F322016ED2A00302AF9 /* OutletMapper.swift */; };
 		79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A001EFECC4800337DA3 /* ItemListVC.swift */; };
 		79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
+		79D8E5E7209854BD00C182DA /* IssueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D8E5E5209854BD00C182DA /* IssueVC.swift */; };
+		79D8E5E8209854BD00C182DA /* IssueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D8E5E5209854BD00C182DA /* IssueVC.swift */; };
+		79D8E5E9209854BD00C182DA /* IssueVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D8E5E6209854BD00C182DA /* IssueVC.xib */; };
+		79D8E5EA209854BD00C182DA /* IssueVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D8E5E6209854BD00C182DA /* IssueVC.xib */; };
 		79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79DC99ED204345AC00D35D1C /* Localizable.strings */; };
 		79DC99F02044B3F600D35D1C /* ShoplistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */; };
 		79E9B871206C17F800D80EA5 /* PriceStatisticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B870206C17F800D80EA5 /* PriceStatisticCell.xib */; };
@@ -363,6 +367,8 @@
 		79D12F322016ED2A00302AF9 /* OutletMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletMapper.swift; sourceTree = "<group>"; };
 		79D26A001EFECC4800337DA3 /* ItemListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListVC.swift; sourceTree = SOURCE_ROOT; };
 		79D26A021EFECD5700337DA3 /* ItemListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListCell.swift; sourceTree = SOURCE_ROOT; };
+		79D8E5E5209854BD00C182DA /* IssueVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueVC.swift; sourceTree = "<group>"; };
+		79D8E5E6209854BD00C182DA /* IssueVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueVC.xib; sourceTree = "<group>"; };
 		79DC99E320433DAC00D35D1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../PriceBar/ru.lproj/Main.strings; sourceTree = "<group>"; };
 		79DC99E420433DAC00D35D1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../PriceBar/ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		79DC99E620433F9200D35D1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../PriceBar/en.lproj/Main.strings; sourceTree = "<group>"; };
@@ -717,6 +723,7 @@
 		7975D63120713D24003A6288 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				79D8E5EB209854C700C182DA /* IssueVC */,
 				7990296E20853EF600085F72 /* PickerVC */,
 				79833B432011440C005C6CC5 /* Reusable Tools */,
 				7975D633207141FB003A6288 /* Styles */,
@@ -924,6 +931,15 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
+		79D8E5EB209854C700C182DA /* IssueVC */ = {
+			isa = PBXGroup;
+			children = (
+				79D8E5E5209854BD00C182DA /* IssueVC.swift */,
+				79D8E5E6209854BD00C182DA /* IssueVC.xib */,
+			);
+			name = IssueVC;
+			sourceTree = "<group>";
+		};
 		79DC99E020433A9200D35D1C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1115,6 +1131,7 @@
 				790B7DE320835D8C003DD560 /* LaunchScreen.storyboard in Resources */,
 				7990297B2087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */,
 				790B7DE420835D8C003DD560 /* HeaderView.xib in Resources */,
+				79D8E5EA209854BD00C182DA /* IssueVC.xib in Resources */,
 				790B7DE520835D8C003DD560 /* PriceStatisticCell.xib in Resources */,
 				790B7DE620835D8C003DD560 /* ShopItemCell.xib in Resources */,
 				790B7DE720835D8C003DD560 /* GoogleService-Info.plist in Resources */,
@@ -1142,6 +1159,7 @@
 				792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */,
 				7990297A2087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */,
 				792EE7B71EE707F000470669 /* HeaderView.xib in Resources */,
+				79D8E5E9209854BD00C182DA /* IssueVC.xib in Resources */,
 				79E9B871206C17F800D80EA5 /* PriceStatisticCell.xib in Resources */,
 				79F68452206801D200257F00 /* ShopItemCell.xib in Resources */,
 				795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */,
@@ -1410,6 +1428,7 @@
 				790B7D9220835D8C003DD560 /* Repository.swift in Sources */,
 				790B7D9320835D8C003DD560 /* CoreDataParsers.swift in Sources */,
 				790B7D9420835D8C003DD560 /* CDCategoryModel.swift in Sources */,
+				79D8E5E8209854BD00C182DA /* IssueVC.swift in Sources */,
 				790B7D9520835D8C003DD560 /* StatisticMapper.swift in Sources */,
 				790B7D9620835D8C003DD560 /* Category+CoreDataClass.swift in Sources */,
 				790B7D9720835D8C003DD560 /* CDUomModel.swift in Sources */,
@@ -1508,6 +1527,7 @@
 				792EE7B91EE7080400470669 /* Repository.swift in Sources */,
 				790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */,
 				79833B5920146675005C6CC5 /* CDCategoryModel.swift in Sources */,
+				79D8E5E7209854BD00C182DA /* IssueVC.swift in Sources */,
 				79E9B877206C22EE00D80EA5 /* StatisticMapper.swift in Sources */,
 				790F104420262FC30060E285 /* Category+CoreDataClass.swift in Sources */,
 				79883BCD201498C5009CBEF0 /* CDUomModel.swift in Sources */,

@@ -146,7 +146,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="472.80000000000001" y="134.48275862068968"/>
+            <point key="canvasLocation" x="-87" y="598"/>
         </scene>
         <!--Наведиите камеру на штрих-код-->
         <scene sceneID="TnZ-Zg-dgi">
@@ -164,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dgs-Ur-Fsj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="176.81159420289856" y="919.56521739130437"/>
+            <point key="canvasLocation" x="2321" y="858"/>
         </scene>
         <!--Торговые точки-->
         <scene sceneID="kod-XZ-SNJ">
@@ -203,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fu7-6x-4Ut" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-740" y="857.72113943028489"/>
+            <point key="canvasLocation" x="1436" y="598"/>
         </scene>
         <!--Список товаров-->
         <scene sceneID="Kb3-Qt-3ax">
@@ -246,7 +246,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DdM-ec-f2l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1560.8" y="728.18590704647681"/>
+            <point key="canvasLocation" x="2321" y="99"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sPh-xr-qtv">
@@ -265,7 +265,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y8g-xM-dVN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-412" y="100"/>
+            <point key="canvasLocation" x="-924" y="598"/>
         </scene>
     </scenes>
     <resources>

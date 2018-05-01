@@ -16,6 +16,26 @@ struct DataStorage {
     var outlet: Outlet?
 }
 
+protocol IssueRoute {
+    func onTryAgain()
+}
+
+extension IssueRoute where Self: UIViewController {
+    func openIssueVC(issue: String) {
+        let vc = IssueVC(nib: R.nib.issueVC)
+        vc.issueMessage = issue
+        vc.onTryAgain = {
+            self.onTryAgain()
+        }
+        self.present(vc, animated: true)
+    }
+}
+
+
+
+
+
+
 protocol ItemCardRoute {
 }
 

@@ -19,22 +19,16 @@ class BaseStatisticsVC: UIViewController {
         
         let ind = CircleIndicator(frame: rect)
         ind.backgroundColor = .clear
-        ind.decorate(titleColor: .white, colors: (.clear, .red), lineWidth: 10)
+        ind.decorate(titleColor: .white, colors: (.clear, Color.petiteOrchid), lineWidth: 10)
         
         return ind
     }()
     var productsCount: Int = 0
     
-    lazy var button: GoodButton = {
-        let size: CGFloat = 80
-        let bottomMargin: CGFloat = 36
-        let rect = CGRect(x: view.center.x - size / 2,
-                      y: view.frame.height - size - bottomMargin,
-                      width: size,
-                      height: size)
-        
-        let btn = GoodButton(frame: rect)
-        btn.backgroundColor = .red
+    lazy var button: UIButton = {
+        let btn = UIButton()
+        btn.translatesAutoresizingMaskIntoConstraints = false
+        btn.backgroundColor = Color.petiteOrchid
         btn.setTitle(R.string.localizable.common_lets_get_start(), for: .normal)
         btn.addTarget(self, action: #selector(close), for: .touchUpInside)
         
@@ -42,10 +36,11 @@ class BaseStatisticsVC: UIViewController {
     }()
     lazy var titleLabel: UILabel = {
         let label = UILabel(frame: CGRect.zero)
+        label.translatesAutoresizingMaskIntoConstraints = false
         label.text = R.string.localizable.base_statistics_products_in_base_today()
-        label.sizeToFit()
-        label.center = view.center
-        label.frame.origin.y -= 166
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.textColor = .white
         
         return label
@@ -55,9 +50,27 @@ class BaseStatisticsVC: UIViewController {
     var repository: Repository!
     
     func configurePopup() {
+        
+        PriceBarStyles.grayBorderedRounded.apply(to: button)
+        
         view.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            titleLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 0),
+            titleLabel.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0),
+            titleLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 32),
+            ])
+        
         view.addSubview(indicator)
         view.addSubview(button)
+        
+        NSLayoutConstraint.activate([
+            button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            button.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -32),
+            button.heightAnchor.constraint(equalToConstant: 80),
+            button.widthAnchor.constraint(equalToConstant: 100)
+            
+            ])
     }
     
     @objc

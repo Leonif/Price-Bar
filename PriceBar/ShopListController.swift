@@ -10,6 +10,28 @@ import UIKit
 
 class ShopListController: UIViewController {
     // MARK: IB Outlets
+    @IBOutlet weak var shopTableView: UITableView!
+    @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var totalView: UIView!
+    
+    @IBOutlet weak var scanButton: UIButton!
+    @IBOutlet weak var itemListButton: UIButton!
+    @IBOutlet weak var rightButtonViewArea: UIView!
+    @IBOutlet var wholeViewArea: UIView!
+    @IBOutlet weak var buttonsView: UIView!
+    @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
+    
+    var navigationView: NavigationView!
+    
+    // MARK: - Dependecy Injection properties
+    var repository: Repository!
+    var interactor: ShoplistInteractor!
+    var data: DataStorage!
+    var adapter: ShopListAdapter!
+    var syncAnimator: SyncAnimator!
+    
+    var buttonsHided: Bool = false
+    
     let storeButton: UIButton = {
         let b = UIButton(frame: CGRect.zero)
         let icon = R.image.storeButton()
@@ -27,35 +49,12 @@ class ShopListController: UIViewController {
         return b
     }()
     
-    @IBOutlet weak var shopTableView: UITableView!
-    @IBOutlet weak var totalLabel: UILabel!
-    @IBOutlet weak var totalView: UIView!
-    
-    @IBOutlet weak var scanButton: UIButton!
-    @IBOutlet weak var itemListButton: UIButton!
-    @IBOutlet weak var rightButtonViewArea: UIView!
-    @IBOutlet var wholeViewArea: UIView!
-    @IBOutlet weak var buttonsView: UIView!
-    var navigationView: NavigationView!
-
-    @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
-    
-    // MARK: - Dependecy Injection properties
-    var repository: Repository!
-    var interactor: ShoplistInteractor!
-    var data: DataStorage!
-    
-    var syncAnimator: SyncAnimator!
-    
     var userOutlet: Outlet! {
         didSet {
             self.data.outlet = userOutlet
             self.updateUI()
         }
     }
-    var adapter: ShopListAdapter!
-    var buttonsHided: Bool = false
-    
     
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
@@ -97,7 +96,6 @@ class ShopListController: UIViewController {
                                           and: Double(max),
                                           with: text)
         }
-
         self.setupAdapter()
         self.synchronizeData()
     }
@@ -123,9 +121,7 @@ class ShopListController: UIViewController {
     
     // MARK: - Setup functions
     func setupNavigation() {
-        
         self.navigationView = R.nib.navigationView.firstView(owner: self)
-        
         self.storeButton.addTarget(self, action: #selector(self.selectOutlet), for: .touchUpInside)
         self.deleteButton.addTarget(self, action: #selector(self.cleanShoplist), for: .touchUpInside)
         
@@ -133,7 +129,6 @@ class ShopListController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.deleteButton)
         
         self.navigationItem.titleView = self.navigationView
-        
         navigationController!.navigationBar.shadowImage = UIImage()
     }
     
@@ -182,7 +177,9 @@ class ShopListController: UIViewController {
                 case .success:
                     self.updateCurentOutlet()
                 case let .failure(error):
-                    self.alert(message: "\(error.message): \(error.localizedDescription)")
+//                    self.alert(message: "\(error.message): \(error.localizedDescription)")
+                    self.openIssueVC(issue: "\(error.message): \(error.localizedDescription)")
+                    
                 }
             })
         }
@@ -201,7 +198,8 @@ class ShopListController: UIViewController {
                 activateControls = true
             case let .failure(error):
                 let previousSuccess = R.string.localizable.common_good_news()
-                self.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.common_try_later()))")
+//                self.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.common_try_later()))")
+                self.openIssueVC(issue: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.common_try_later()))")
             }
             self.buttonEnable(activateControls)
         }
@@ -355,4 +353,9 @@ extension ShopListController: StatisticsRoute {}
 extension ShopListController: ItemListRoute {}
 extension ShopListController: ScannerRoute {}
 extension ShopListController: OutletListRoute {}
+extension ShopListController: IssueRoute {
+    func onTryAgain() {
+        self.synchronizeData()
+    }
+}
 

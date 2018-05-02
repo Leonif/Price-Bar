@@ -60,6 +60,11 @@ class FirebaseParser {
             fatalError("Product is not parsed")
         }
         
+        let brand = goodDict["brand"] as? String ?? ""
+        let weightPerPiece = goodDict["weight_per_piece"] as? String ?? ""
+        
+        
+        
         let defaultCategoryid: Int32 = 1
         
         var catId = goodDict["category_id"] as? Int32
@@ -70,17 +75,23 @@ class FirebaseParser {
         var uomId = goodDict["uom_id"] as? Int32
         uomId = uomId == nil ? defaultUomid : uomId
         
+        
+        
+        
+        
         return FBProductModel(id: id,
                               name: name,
+                              brand: brand,
+                              weightPerPiece: weightPerPiece,
                               categoryId: catId!,
                               uomId: uomId!)
     }
     
-    class func transform(from snapGoods: [String: Any]) -> [FBProductModel] {
-        return snapGoods.map { snap in
-           parse(snap)
-        }
-    }
+//    class func transform(from snapGoods: [String: Any]) -> [FBProductModel] {
+//        return snapGoods.map { snap in
+//           parse(snap)
+//        }
+//    }
     
     
     

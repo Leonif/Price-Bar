@@ -74,7 +74,7 @@ extension CoreDataService {
         FirebaseService.data.syncProducts { result in
             switch result {
             case let .success(products):
-                let cdProducts = self.transform(from: products)
+                let cdProducts = products.map { self.mapper(from: $0) }
                 self.importNew(cdProducts)
                 completion(ResultType.success(true))
             case let .failure(error):
@@ -83,20 +83,22 @@ extension CoreDataService {
         }
     }
 
-    func transform(from fbProducts: [FBProductModel]) -> [CDProductModel] {
-
-        var cdProducts: [CDProductModel] = []
-
-        for product in fbProducts {
-            cdProducts.append(mapper(from: product))
-        }
-        return cdProducts
-    }
+//    func transform(from fbProducts: [FBProductModel]) -> [CDProductModel] {
+//
+////        var cdProducts: [CDProductModel] = []
+//
+////        for product in fbProducts {
+////            cdProducts.append(mapper(from: product))
+////        }
+//        return fbProducts.map { mapper(from: $0) }//cdProducts
+//    }
 
     func mapper(from product: FBProductModel) -> CDProductModel {
 
         return CDProductModel(id: product.id,
                               name: product.name,
+                              brand: product.brand,
+                              weightPerPiece: product.weightPerPiece,
                               categoryId: product.categoryId,
                               uomId: product.uomId)
     }
@@ -105,9 +107,8 @@ extension CoreDataService {
         if !synced {
             removeAll(from: "Product")
             synced = true
-            products.forEach { product in
-                self.save(new: product)
-                print(product.name)
+            products.forEach {
+                self.save(new: $0)
             }
         }
 

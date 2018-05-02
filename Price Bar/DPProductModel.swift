@@ -11,6 +11,8 @@ import Foundation
 struct DPProductModel {
     var id: String
     var name: String
+    var brand: String
+    var weightPerPiece: String
     var categoryId: Int32
     var uomId: Int32
 }
@@ -18,6 +20,8 @@ struct DPProductModel {
 struct DPUpdateProductModel {
     var id: String
     var name: String
+    var brand: String
+    var weightPerPiece: String
     var categoryId: Int32
     var uomId: Int32
 }

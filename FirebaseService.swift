@@ -96,7 +96,7 @@ class FirebaseService {
     func syncProducts(completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
-                let goods = FirebaseParser.transform(from: snapGoods)
+                let goods = snapGoods.map { FirebaseParser.parse($0) }//FirebaseParser.transform(from: snapGoods)
                 completion(ResultType.success(goods))
             }
         }) { error in
@@ -139,6 +139,8 @@ class FirebaseService {
         let good = [
             "barcode": item.id,
             "name": item.name,
+            "brand": item.brand,
+            "weight_per_piece": item.weightPerPiece,
             "category_id": item.categoryId,
             "uom_id": item.uomId
         ] as [String: Any]

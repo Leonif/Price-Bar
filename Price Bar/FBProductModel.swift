@@ -11,6 +11,8 @@ import Foundation
 struct FBProductModel {
     var id: String
     var name: String
+    var brand: String
+    var weightPerPiece: String
     var categoryId: Int32
     var uomId: Int32
 }

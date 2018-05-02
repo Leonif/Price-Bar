@@ -125,12 +125,11 @@ class CoreDataService {
 
     func loadShopList(for outletId: String?) -> [DPShoplistItemModel]? {
         var shopList: [DPShoplistItemModel] = []
-
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
             let savedShopList = try context.fetch(shpLstRequest)
-
-            savedShopList.forEach { shoplistItem in
+            
+            shopList = savedShopList.map { shoplistItem in
                 if let product = shoplistItem.toProduct,
                     let id = product.id,
                     let name = product.name,
@@ -138,27 +137,32 @@ class CoreDataService {
                     let categoryName = category.category,
                     let uom = product.toUom,
                     let uomName = uom.uom,
-                    let uomParameters = uom.parameters  {
-
-                    let quantity = shoplistItem.quantity
-                    let checked = shoplistItem.checked
-
-                    let price = outletId != nil ? getPrice(for: id, and: outletId!) : 0.0
-
-                    let params = UomMapper.transform(from: uomParameters)
-                    let item = DPShoplistItemModel(productId: id,
-                                                 productName: name,
-                                                 categoryId: category.id,
-                                                 productCategory: categoryName,
-                                                 productPrice: price,
-                                                 uomId: uom.id,
-                                                 productUom: uomName,
-                                                 quantity: quantity,
-                                                 checked: checked,
-                                                 parameters: params)
-
-                    shopList.append(item)
+                    let uomParameters = uom.parameters
+                    {
+                    
+                        let brand = product.brand ?? ""
+                        let w = product.weightPerPiece ?? ""
+                        
+                        let quantity = shoplistItem.quantity
+                        let checked = shoplistItem.checked
+                        
+                        let price = outletId != nil ? getPrice(for: id, and: outletId!) : 0.0
+                        
+                        let params = UomMapper.transform(from: uomParameters)
+                        return DPShoplistItemModel(productId: id,
+                                                   productName: name,
+                                                   brand: brand,
+                                                   weightPerPiece: w,
+                                                   categoryId: category.id,
+                                                   productCategory: categoryName,
+                                                   productPrice: price,
+                                                   uomId: uom.id,
+                                                   productUom: uomName,
+                                                   quantity: quantity,
+                                                   checked: checked,
+                                                   parameters: params)
                 }
+                fatalError()
             }
         } catch {
             print("Products is not got from database")
@@ -193,14 +197,20 @@ extension CoreDataService {
         guard let id = product.id,
             let name = product.name,
             let category = product.toCategory,
-            let uom = product.toUom else {
+            let uom = product.toUom
+            else {
                 fatalError("Product is not parsed")
         }
-
+        
+        let brand = product.brand ?? ""
+        let weightPerPiece = product.weightPerPiece ?? ""
+        
         return DPProductModel(id: id,
-                            name: name,
-                            categoryId: category.id,
-                            uomId: uom.id)
+                              name: name,
+                              brand: brand,
+                              weightPerPiece: weightPerPiece,
+                              categoryId: category.id,
+                              uomId: uom.id)
 
     }
 
@@ -249,12 +259,18 @@ extension CoreDataService {
             let productList = try context.fetch(fetchRequest)
             if !productList.isEmpty {
                 if let prd = productList.first {
-                    if let id = prd.id, let name = prd.name,
+                    if let id = prd.id,
+                        let name = prd.name,
                         let prodUom = prd.toUom,
                         let prodCat = prd.toCategory {
+                        
+                        let brand = prd.brand ?? ""
+                        let weightPerPiece = prd.weightPerPiece ?? ""
 
                         let item = CDProductModel(id: id,
                                                   name: name,
+                                                  brand: brand,
+                                                  weightPerPiece: weightPerPiece,
                                                   categoryId: prodCat.id,
                                                   uomId: prodUom.id)
                         return item
@@ -288,6 +304,9 @@ extension CoreDataService {
         let product = Product(context: context)
         product.id = item.id
         product.name = item.name
+        product.brand = item.brand
+        product.weightPerPiece = item.weightPerPiece
+        
         let uom = getUom(by: item.uomId)
         product.toUom = uom
         let category = getCategory(by: item.categoryId)
@@ -302,6 +321,8 @@ extension CoreDataService {
             fatalError("Product is not found!!!")
         }
         product.name = item.name
+        product.brand = item.brand
+        product.weightPerPiece = item.weightPerPiece
 
         let category = getCategory(by: item.categoryId)
         product.toCategory = category
@@ -317,7 +338,6 @@ extension CoreDataService {
 // MARK: Categories
 extension CoreDataService {
     func getCategories() -> [CDCategoryModel]? {
-        //var categories: [Category] = []
         var categoryList: [CDCategoryModel] = []
         do {
             let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
@@ -365,6 +385,8 @@ extension CoreDataService {
         let prod = Product(context: context)
         prod.id = product.id
         prod.name = product.name
+        prod.brand = product.brand
+        prod.weightPerPiece = product.weightPerPiece
         guard
             let category = getCategory(by: product.categoryId) else {
             fatalError("Category is not found")

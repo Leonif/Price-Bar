@@ -132,7 +132,7 @@ extension ShopListAdapter: UITableViewDelegate {
             PriceBarStyles.grayBorderedRounded.apply(to: $0)
         }
         cell.priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
-        cell.nameItem.text = item.productName
+        cell.nameItem.text = item.fullName
         cell.priceItem.text = String(format: "%.2f", item.productPrice)
         cell.uomLabel.text = item.productUom
         

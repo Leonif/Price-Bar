@@ -124,6 +124,8 @@ class ItemCardNew: UIViewController {
     func updateUI(for productCard: ProductCardModelView) {
         itemName.text = productCard.productName
         itemPrice.text = "\(productCard.productPrice)"
+        itemBrand.text = productCard.brand
+        itemWeight.text = productCard.weightPerPiece
         
         categoryButton.setTitle(productCard.categoryName, for: .normal)
         uomButton.setTitle(productCard.uomName, for: .normal)
@@ -224,8 +226,15 @@ class ItemCardNew: UIViewController {
     
     private func saveProduct(with name: String) {
         productCard.productName = name
+        productCard.brand = itemBrand.text ?? ""
+        productCard.weightPerPiece = itemWeight.text ?? ""
+        
+        
+        
         let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
                                                       name: productCard.productName,
+                                                      brand: productCard.brand,
+                                                      weightPerPiece: productCard.weightPerPiece,
                                                       categoryId: productCard.categoryId,
                                                       uomId: productCard.uomId)
         if state == .editMode {

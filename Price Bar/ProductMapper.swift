@@ -26,15 +26,17 @@ class ProductMapper {
         let price = dataProvider.getPrice(for: product.id, and: outletId)
 
         return DPShoplistItemModel(productId: product.id,
-                                               productName: product.name,
-                                               categoryId: product.categoryId,
-                                               productCategory: categoryName,
-                                               productPrice: price,
-                                               uomId: product.uomId,
-                                               productUom: uom.name,
-                                               quantity: 1.0,
-                                               checked: false,
-                                               parameters: uom.parameters)
+                                   productName: product.name,
+                                   brand: product.brand,
+                                   weightPerPiece: product.weightPerPiece,
+                                   categoryId: product.categoryId,
+                                   productCategory: categoryName,
+                                   productPrice: price,
+                                   uomId: product.uomId,
+                                   productUom: uom.name,
+                                   quantity: 1.0,
+                                   checked: false,
+                                   parameters: uom.parameters)
 
     }
 
@@ -71,6 +73,8 @@ class ProductMapper {
 
         return ProductCardModelView(productId: newBarcode,
                                     productName: "",
+                                    brand: "",
+                                    weightPerPiece: "",
                                     categoryId: category.id,
                                     categoryName: category.name,
                                     productPrice: 0.0,
@@ -91,6 +95,8 @@ class ProductMapper {
         let newid = NSUUID().uuidString
         return ProductCardModelView(productId: newid,
                                     productName: newItemName.capitalized,
+                                    brand: "",
+                                    weightPerPiece: "",
                                     categoryId: category.id,
                                     categoryName: category.name,
                                     productPrice: 0.0,
@@ -101,6 +107,8 @@ class ProductMapper {
     class func mapper(from item: DPShoplistItemModel) -> ProductCardModelView {
         return ProductCardModelView(productId: item.productId,
                                     productName: item.productName,
+                                    brand: item.brand,
+                                    weightPerPiece: item.weightPerPiece,
                                     categoryId: item.categoryId,
                                     categoryName: item.productCategory,
                                     productPrice: item.productPrice,

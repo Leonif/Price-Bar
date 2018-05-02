@@ -11,6 +11,8 @@ import Foundation
 struct ProductCardModelView {
     var productId: String
     var productName: String
+    var brand: String
+    var weightPerPiece: String
     var categoryId: Int32
     var categoryName: String
     var productPrice: Double

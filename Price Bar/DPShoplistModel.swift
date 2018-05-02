@@ -11,6 +11,8 @@ import Foundation
 struct DPShoplistItemModel: Equatable {
     var productId: String
     var productName: String
+    var brand: String
+    var weightPerPiece: String
     var categoryId: Int32
     var productCategory: String
     var productPrice: Double
@@ -18,6 +20,16 @@ struct DPShoplistItemModel: Equatable {
     var productUom: String
     var quantity: Double
     var checked: Bool
+    
+    
+    var fullName: String {
+        
+        let pr = "\(productName)"
+        let br = brand.isEmpty ? "" : ", \(brand)"
+        let w = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
+        
+        return "\(pr)\(br)\(w)"
+    }
     
     var parameters: [Parameter]
 }

@@ -293,12 +293,16 @@ class Repository {
     func save(new product: DPUpdateProductModel) {
         let pr = CDProductModel(id: product.id,
                                 name: product.name,
+                                brand: product.brand,
+                                weightPerPiece: product.weightPerPiece,
                                 categoryId: product.categoryId,
                                 uomId: product.uomId)
 
         CoreDataService.data.save(pr)
         let fb = FBProductModel(id: product.id,
                                 name: product.name,
+                                brand: product.brand,
+                                weightPerPiece: product.weightPerPiece,
                                 categoryId: product.categoryId,
                                 uomId: product.uomId)
         FirebaseService.data.saveOrUpdate(fb)
@@ -306,7 +310,9 @@ class Repository {
 
     func update(_ product: DPUpdateProductModel) {
         let pr = CDProductModel(id: product.id,
-                              name: product.name,
+                                name: product.name,
+                                brand: product.brand,
+                                weightPerPiece: product.weightPerPiece,
                               categoryId: product.categoryId,
                               uomId: product.uomId)
 
@@ -314,6 +320,8 @@ class Repository {
 
         let fb = FBProductModel(id: product.id,
                                 name: product.name,
+                                brand: product.brand,
+                                weightPerPiece: product.weightPerPiece,
                                 categoryId: product.categoryId,
                                 uomId: product.uomId)
         FirebaseService.data.saveOrUpdate(fb)
@@ -391,12 +399,7 @@ class Repository {
         let sec = index.section
         let indexInSec = index.row
 
-        var productListInsection: [DPShoplistItemModel] = []
-        for shopiItem in shoplist {
-            if shopiItem.productCategory == sections[sec] {
-                productListInsection.append(shopiItem)
-            }
-        }
+        let productListInsection = shoplist.filter { $0.productCategory == sections[sec] }
         guard !productListInsection.isEmpty else {
             return nil
         }
@@ -406,9 +409,7 @@ class Repository {
     
     
     func getQuantity(for productId: String) -> Double? {
-       let p = shoplist.filter { item in
-            item.productId == productId
-        }
+        let p = shoplist.filter { $0.productId == productId }
         return p.first?.quantity
     }
 
@@ -419,6 +420,8 @@ class Repository {
 
         return DPProductModel(id: cdModel.id,
                               name: cdModel.name,
+                              brand: cdModel.brand,
+                              weightPerPiece: cdModel.weightPerPiece,
                               categoryId: cdModel.categoryId,
                               uomId: cdModel.uomId)
 

@@ -177,7 +177,6 @@ class ShopListController: UIViewController {
                 case .success:
                     self.updateCurentOutlet()
                 case let .failure(error):
-//                    self.alert(message: "\(error.message): \(error.localizedDescription)")
                     self.openIssueVC(issue: "\(error.message): \(error.localizedDescription)")
                     
                 }
@@ -198,7 +197,6 @@ class ShopListController: UIViewController {
                 activateControls = true
             case let .failure(error):
                 let previousSuccess = R.string.localizable.common_good_news()
-//                self.alert(message: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.common_try_later()))")
                 self.openIssueVC(issue: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.common_try_later()))")
             }
             self.buttonEnable(activateControls)

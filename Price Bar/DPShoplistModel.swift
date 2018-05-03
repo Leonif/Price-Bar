@@ -8,6 +8,11 @@
 
 import Foundation
 
+
+
+
+
+
 struct DPShoplistItemModel: Equatable {
     var productId: String
     var productName: String

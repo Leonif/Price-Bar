@@ -179,7 +179,9 @@ extension CoreDataService {
         var shopItems = [DPProductModel]()
         do {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            fetchRequest.predicate = NSPredicate(format: "name CONTAINS[cd] %@", text)
+            
+            let condition = "name CONTAINS[cd] %@ OR brand CONTAINS[cd] %@ OR weightPerPiece CONTAINS[cd] %@"
+            fetchRequest.predicate = NSPredicate(format: condition, text, text, text)
             let productList = try context.fetch(fetchRequest)
             for product in productList {
                 let item = productMapper(from: product)

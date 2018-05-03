@@ -48,14 +48,15 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     func loadItems() {
         self.onStartLoading?()
         guard
-            let products = repository.getShopItems(with: currentPageOffset, limit: 40, for: outletId),
-            let itemList = ProductMapper.transform(from: products, for: outletId)  else {
+            let products = repository.getShopItems(with: currentPageOffset, limit: 40, for: outletId) else {
                 self.onError?(R.string.localizable.item_list_empty())
                 self.onStopLoading?()
                 return
         }
         
-        self.dataSource = itemList.sorted { $0.currentPrice > $1.currentPrice  }
+        self.dataSource = products
+            .map { ProductMapper.mapper(from: $0, for: outletId) }
+            .sorted { $0.currentPrice > $1.currentPrice  }
         
         filtredItemList = self.dataSource.sorted { $0.currentPrice > $1.currentPrice  }
         self.tableView.reloadData()
@@ -66,11 +67,10 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     
     func updateResults(searchText: String) {
         if  searchText.count >= 3 {
-            guard let list = repository.filterItemList(contains: searchText, for: outletId),
-                let modelList = ProductMapper.transform(from: list, for: outletId) else {
-                    return
+            guard let list = repository.filterItemList(contains: searchText, for: outletId) else {
+                return
             }
-            filtredItemList = modelList
+            filtredItemList = list.map { ProductMapper.mapper(from: $0, for: outletId) }
         } else {
             filtredItemList = self.dataSource
         }
@@ -113,7 +113,6 @@ extension ItemListAdapter: UITableViewDelegate {
             self.onAddNewItem?()
             return
         }
-        
         let item = filtredItemList[indexPath.row]
         self.onItemChoosen?(item.id)
     }
@@ -145,8 +144,8 @@ extension ItemListAdapter {
     func addNewBatch(offset: Int, limit: Int) {
         if let products = repository.getShopItems(with: offset,
                                                   limit: limit,
-                                                  for: outletId),
-            let modelList = ProductMapper.transform(from: products, for: outletId) {
+                                                  for: outletId) {
+            let modelList = products.map { ProductMapper.mapper(from: $0, for: outletId) }
             
             var indexPaths = [IndexPath]()
             let currentCount: Int = filtredItemList.count

@@ -31,7 +31,7 @@ class ItemListCell: UITableViewCell, NibLoadableReusable {
     }
 
     func configureCell(_ item: ItemListModelView) {
-        itemNameLabel.text = item.product
+        itemNameLabel.text = item.fullName
         self.itemCategoryLabel.text = item.categoryName
         itemPriceLabel.text = "UAH\n\(item.currentPrice)"
         if item.currentPrice == 0 {

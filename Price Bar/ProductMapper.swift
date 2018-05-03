@@ -46,20 +46,13 @@ class ProductMapper {
         let categoryName = dataProvider.getCategoryName(category: dpModel.categoryId)
 
         return ItemListModelView(id: dpModel.id,
-                             product: dpModel.name,
-                             currentPrice: price,
-                             categoryName: categoryName!)
+                                 product: dpModel.name,
+                                 brand: dpModel.brand,
+                                 weightPerPiece: dpModel.weightPerPiece,
+                                 currentPrice: price,
+                                 categoryName: categoryName!)
     }
 
-    class func transform(from dpModels: [DPProductModel], for outletId: String) -> [ItemListModelView]? {
-        var itemModels: [ItemListModelView] = []
-
-        for dpModel in dpModels {
-            itemModels.append(mapper(from: dpModel, for: outletId))
-        }
-
-        return itemModels
-    }
 
     class func mapper(from newBarcode: String) -> ProductCardModelView {
         let dataProvider = Repository()

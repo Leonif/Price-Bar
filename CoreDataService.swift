@@ -137,8 +137,7 @@ class CoreDataService {
                     let categoryName = category.category,
                     let uom = product.toUom,
                     let uomName = uom.uom,
-                    let uomParameters = uom.parameters
-                    {
+                    let uomParameters = uom.parameters {
                     
                         let brand = product.brand ?? ""
                         let w = product.weightPerPiece ?? ""
@@ -161,8 +160,9 @@ class CoreDataService {
                                                    quantity: quantity,
                                                    checked: checked,
                                                    parameters: params)
+                } else {
+                    fatalError("Database broken. Need to start sync again")
                 }
-                fatalError()
             }
         } catch {
             print("Products is not got from database")
@@ -183,10 +183,8 @@ extension CoreDataService {
             let condition = "name CONTAINS[cd] %@ OR brand CONTAINS[cd] %@ OR weightPerPiece CONTAINS[cd] %@"
             fetchRequest.predicate = NSPredicate(format: condition, text, text, text)
             let productList = try context.fetch(fetchRequest)
-            for product in productList {
-                let item = productMapper(from: product)
-                shopItems.append(item)
-            }
+            
+            shopItems = productList.compactMap { productMapper(from: $0) }
             return shopItems
         } catch {
             print("Products is not got from database")
@@ -195,13 +193,13 @@ extension CoreDataService {
 
     }
 
-    func productMapper(from product: Product) -> DPProductModel {
+    func productMapper(from product: Product) -> DPProductModel? {
         guard let id = product.id,
             let name = product.name,
             let category = product.toCategory,
             let uom = product.toUom
             else {
-                fatalError("Product is not parsed")
+                return nil
         }
         
         let brand = product.brand ?? ""
@@ -223,12 +221,8 @@ extension CoreDataService {
             fetchRequest.fetchLimit = limit
             fetchRequest.fetchOffset = offset
             let productList = try context.fetch(fetchRequest)
-
-            for product in productList {
-                let item = productMapper(from: product)
-                shopItems.append(item)
-
-            }
+            shopItems = productList.compactMap { self.productMapper(from: $0) }
+            
             return shopItems.isEmpty ? nil : shopItems
         } catch {
             print("Products is not got from database")
@@ -241,11 +235,7 @@ extension CoreDataService {
             let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
             let productExist = try context.fetch(fetchRequest)
             if !productExist.isEmpty {
-                productExist.forEach { product in
-                    let item = productMapper(from: product)
-                    shopItems.append(item)
-
-                }
+                shopItems = productExist.compactMap { productMapper(from: $0) }
                 return shopItems
             }
         } catch {
@@ -452,21 +442,6 @@ extension CoreDataService {
         return nil
     }
 
-//    func getUomName(by id: Int32) -> String? {
-//        do {
-//            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
-//            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
-//            let uoms = try context.fetch(fetchRequest)
-//
-//            guard !uoms.isEmpty, let uom = uoms.first else {
-//                return nil
-//            }
-//            return uom.uom
-//        } catch {
-//            fatalError("uom is not got from database")
-//        }
-//        return nil
-//    }
 
     func getProduct(by id: String) -> Product? {
         do {

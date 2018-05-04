@@ -14,6 +14,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ItemListAdapter.tableView(_:numberOfRowsInSection:):ItemListAdapter.swift">
+      </ContextState>
+      <ContextState
          contextName = "CoreDataService.loadShopList(for:):CoreDataService.swift">
       </ContextState>
       <ContextState
@@ -51,6 +54,17 @@
          <PersistentStrings>
             <PersistentString
                value = "initCategories.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemListAdapter.tableView(_:willDisplay:forRowAt:):ItemListAdapter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.dataSource.count - 1">
+            </PersistentString>
+            <PersistentString
+               value = "self.limit">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -185,6 +199,9 @@
          contextName = "ItemCardNew.saveProduct():ItemCardNew.swift">
       </ContextState>
       <ContextState
+         contextName = "Repository.getItem(with:and:):Repository.swift">
+      </ContextState>
+      <ContextState
          contextName = "UpdatePriceVC.updateStatistics(completin:):UpdatePriceVC.swift">
       </ContextState>
       <ContextState
@@ -281,6 +298,11 @@
       </ContextState>
       <ContextState
          contextName = "closure #1 in CoreDataService.loadShopList(for:):CoreDataService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shoplistItem.toProduct">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "CoreDataService.mapper(from:):CoreDataSync.swift">

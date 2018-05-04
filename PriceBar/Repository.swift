@@ -403,7 +403,6 @@ class Repository {
         guard !productListInsection.isEmpty else {
             return nil
         }
-
         return productListInsection[indexInSec]
     }
     

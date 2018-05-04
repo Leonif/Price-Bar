@@ -28,6 +28,7 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     var onStartLoading: (() -> Void)? = nil
     var onStopLoading: (() -> Void)? = nil
     var onError: ((String) -> Void)? = nil
+    var limit = 40
     
     init(tableView: UITableView,
          repository: Repository, outletId: String) {
@@ -42,13 +43,12 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
         self.tableView.register(AddCell.self)
         self.tableView.register(ItemListCell.self)
         
-        
     }
     
     func loadItems() {
         self.onStartLoading?()
         guard
-            let products = repository.getShopItems(with: currentPageOffset, limit: 40, for: outletId) else {
+            let products = repository.getShopItems(with: currentPageOffset, limit: self.limit, for: outletId) else {
                 self.onError?(R.string.localizable.item_list_empty())
                 self.onStopLoading?()
                 return
@@ -77,12 +77,9 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
         self.tableView.reloadData()
     }
     
-    
-    
     func reload() {
         self.tableView.reloadData()
     }
-    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.isLoading {
@@ -116,30 +113,21 @@ extension ItemListAdapter: UITableViewDelegate {
         let item = filtredItemList[indexPath.row]
         self.onItemChoosen?(item.id)
     }
-    
-    
-    
 }
 
 
 extension ItemListAdapter {
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offset = scrollView.contentOffset.y
-        let maxOffset = scrollView.contentSize.height - scrollView.frame.size.height
-        if (maxOffset - offset) <= 0 {
-            if !self.isLoading {
-                self.isLoading = true
-                
-                self.currentPageOffset += filtredItemList.count
-                self.addNewBatch(offset: self.currentPageOffset, limit: 40)
-                
-                self.isLoading = false
-            }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        print("cur idx: \(indexPath.row), data: \(dataSource.count) ff: \(filtredItemList.count)")
+        if indexPath.row == self.dataSource.count - 1 {
+            self.isLoading = true
+            self.currentPageOffset += self.limit
+            self.addNewBatch(offset: self.currentPageOffset, limit: self.limit)
+            self.isLoading.toggle()
         }
     }
-    
-    
     
     func addNewBatch(offset: Int, limit: Int) {
         if let products = repository.getShopItems(with: offset,
@@ -163,9 +151,11 @@ extension ItemListAdapter {
             self.dataSource.append(contentsOf: modelList)
             
             // tell the table view to update (at all of the inserted index paths)
-            self.tableView.update {
-                self.tableView.insertRows(at: indexPaths, with: .bottom)
-            }
+//            self.tableView.update {
+//                self.tableView.insertRows(at: indexPaths, with: .bottom)
+//            }
+            
+            self.reload()
         }
     }
 }

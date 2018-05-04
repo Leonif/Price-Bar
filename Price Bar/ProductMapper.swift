@@ -8,11 +8,8 @@
 
 import Foundation
 
-
-
-
-
 class ProductMapper {
+    
     class func mapper(from product: DPProductModel, and outletId: String) -> DPShoplistItemModel {
 
         let dataProvider = Repository()

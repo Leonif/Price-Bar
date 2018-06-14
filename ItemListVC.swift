@@ -18,6 +18,9 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
     var outletId: String = ""
    
     var router: ItemListRouter!
+    var presenter: ItemListPresenter!
+    
+    
     var data: ItemListRouterDataStorage!
     var adapter: ItemListAdapter!
     
@@ -47,10 +50,24 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         self.router = ItemListRouter()
         self.data = ItemListRouterDataStorage(repository: repository, vc: self, outletId: outletId)
         
+        self.presenter = ItemListPresenter(repository: self.repository)
+        
         self.setupAdapter()
+        
+        self.presenter.onLoadedData = { (items) in
+            self.adapter.updateDatasorce(sortedItems: items)
+        }
+        
+        self.presenter.onNextBatch = { (items) in
+            self.adapter.addNewBatch(nextBatch: items)
+        }
+        
+        
         self.setupNavigation()
         
     }
@@ -61,9 +78,9 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
                                        repository: self.repository,
                                        outletId: outletId)
         
-//        self.adapter.onStartLoading = { [weak self] in
-//            self?.view.pb_startActivityIndicator(with: R.string.localizable.common_loading())
-//        }
+        self.adapter.onStartLoading = { [weak self] in
+            self?.view.pb_startActivityIndicator(with: R.string.localizable.common_loading())
+        }
         
         self.adapter.onAddNewItem = { [weak self] in
             guard let `self` = self else { return }
@@ -74,12 +91,20 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
             self?.delegate?.itemChoosen(productId: itemId)
         }
         
-//        self.adapter.onStopLoading = { [weak self] in
-//            self?.view.pb_stopActivityIndicator()
-//        }
+        self.adapter.onStopLoading = { [weak self] in
+            self?.view.pb_stopActivityIndicator()
+        }
         
         self.adapter.onError = { [weak self] errorString in
             self?.alert(message: errorString)
+        }
+        
+        self.adapter.onGetData = { (offset, limit) in
+            self.presenter.getProductWithPrices(offset: offset, limit: limit, for: self.outletId)
+        }
+        
+        self.adapter.onGetNextBatch = { (offset, limit) in
+            self.presenter.getNextBatch(offset: offset, limit: limit, for: self.outletId)
         }
         
         
@@ -113,7 +138,7 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
 
 extension ItemListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.adapter.updateResults(searchText: searchText)
+        self.presenter.filterList(basedOn: searchText, with: outletId)
     }
 }
 

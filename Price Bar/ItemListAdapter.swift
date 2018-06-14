@@ -26,6 +26,11 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     var onAddNewItem: (() -> Void)? = nil
     var onItemChoosen: ((String) -> Void)? = nil
     var onStartLoading: (() -> Void)? = nil
+    
+    
+    var onGetData: ((Int, Int) -> Void)? = nil
+    var onGetNextBatch: ((Int, Int) -> Void)? = nil
+    
     var onStopLoading: (() -> Void)? = nil
     var onError: ((String) -> Void)? = nil
     var limit = 40
@@ -47,34 +52,14 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     
     func loadItems() {
         self.onStartLoading?()
-        guard
-            let products = repository.getShopItems(with: currentPageOffset, limit: self.limit, for: outletId) else {
-                self.onError?(R.string.localizable.item_list_empty())
-                self.onStopLoading?()
-                return
-        }
-        
-        self.dataSource = products
-            .map { ProductMapper.mapper(from: $0, for: outletId) }
-            .sorted { $0.currentPrice > $1.currentPrice  }
-        
-        filtredItemList = self.dataSource.sorted { $0.currentPrice > $1.currentPrice  }
-        self.tableView.reloadData()
-        
-        self.onStopLoading?()
+        self.onGetData?(currentPageOffset, limit)
     }
     
-    
-    func updateResults(searchText: String) {
-        if  searchText.count >= 3 {
-            guard let list = repository.filterItemList(contains: searchText, for: outletId) else {
-                return
-            }
-            filtredItemList = list.map { ProductMapper.mapper(from: $0, for: outletId) }
-        } else {
-            filtredItemList = self.dataSource
-        }
-        self.tableView.reloadData()
+    func updateDatasorce(sortedItems: [ItemListModelView]) {
+        self.onStopLoading?()
+        self.dataSource = sortedItems
+        self.filtredItemList = sortedItems
+        self.reload()
     }
     
     func reload() {
@@ -124,39 +109,28 @@ extension ItemListAdapter {
         if indexPath.row == self.dataSource.count - 1 {
             self.isLoading = true
             self.currentPageOffset += self.limit
-            self.addNewBatch(offset: self.currentPageOffset, limit: self.limit)
+            self.onGetNextBatch?(self.currentPageOffset, self.limit)
             self.isLoading.toggle()
         }
     }
     
-    func addNewBatch(offset: Int, limit: Int) {
-        if let products = repository.getShopItems(with: offset,
-                                                  limit: limit,
-                                                  for: outletId) {
-            let modelList = products.map { ProductMapper.mapper(from: $0, for: outletId) }
-            
-            var indexPaths = [IndexPath]()
-            let currentCount: Int = filtredItemList.count
-            
-            for i in 0..<modelList.count {
-                indexPaths.append(IndexPath(row: currentCount + i, section: 0))
-            }
-            
-            if filtredItemList.isEmpty {
-                self.tableView.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
-            }
-            
-            // do the insertion
-            filtredItemList.append(contentsOf: modelList)
-            self.dataSource.append(contentsOf: modelList)
-            
-            // tell the table view to update (at all of the inserted index paths)
-//            self.tableView.update {
-//                self.tableView.insertRows(at: indexPaths, with: .bottom)
-//            }
-            
-            self.reload()
+    func addNewBatch(nextBatch: [ItemListModelView]) {
+        var indexPaths = [IndexPath]()
+        let currentCount: Int = filtredItemList.count
+        
+        for i in 0..<nextBatch.count {
+            indexPaths.append(IndexPath(row: currentCount + i, section: 0))
         }
+        
+        if filtredItemList.isEmpty {
+            self.tableView.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
+        }
+        
+        // do the insertion
+        filtredItemList.append(contentsOf: nextBatch)
+        self.dataSource.append(contentsOf: nextBatch)
+        self.reload()
+        
     }
 }
 

@@ -340,9 +340,83 @@ class Repository {
         return ResultType.success(true)
     }
 
+    
+    
+    
+   ////////////////////////////// FIXME /////////////////////////////////
+    
+    
+    
     func getShopItems(with pageOffset: Int, limit: Int, for outletId: String) -> [DPProductModel]? {
         return CoreDataService.data.getProductList(for: outletId, offset: pageOffset, limit: limit)
     }
+    
+    
+    func getPrices(for outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
+        FirebaseService.data.getPrices(for: outletId, callback: { (statistics) in
+            let prices = statistics.map {
+                return ProductPrice(productId: $0.productId, currentPrice: $0.price)
+            }
+            
+            completion(prices)
+        })
+    }
+    
+    
+    
+    
+    
+    // FIXME: get price just cloud
+    func getPrice(for productId: String, and outletId: String, callback: @escaping (Double) -> Void) {
+        
+        //       let price = CoreDataService.data.getPrice(for: productId, and: outletId)
+        
+        
+        getPriceFromCloud(for: productId, and: outletId) { (price) in
+            guard let price = price else {
+                callback(0)
+                return
+            }
+            callback(price)
+        }
+        
+        
+        
+        
+    }
+    
+    private func getPriceFromCloud(for productId: String, and outletId: String, callback: @escaping (Double?) -> Void) {
+        
+        FirebaseService.data.getPrice(with: productId, outletId: outletId) { (price) in
+            callback(price)
+        }
+        
+    }
+    
+    // FIXME: get price just cloud
+    func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
+        
+        let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
+        
+        return object.map { StatisticMapper.mapper(from: $0) }
+        
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    //////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    
+    
 
     func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {
         return CoreDataService.data.filterItemList(contains: text, for: outletId)
@@ -412,19 +486,10 @@ class Repository {
         return p.first?.quantity
     }
 
-    func getItem(with barcode: String, and outletId: String) -> DPProductModel? {
-        guard let cdModel = CoreDataService.data.getItem(by: barcode, and: outletId) else {
-            return nil
-        }
-
-        return DPProductModel(id: cdModel.id,
-                              name: cdModel.name,
-                              brand: cdModel.brand,
-                              weightPerPiece: cdModel.weightPerPiece,
-                              categoryId: cdModel.categoryId,
-                              uomId: cdModel.uomId)
-
-    }
+    
+    
+    
+    
 
     
     func getUomName(for productId: String) -> String {
@@ -527,25 +592,43 @@ class Repository {
 
 extension Repository {
 
-    // FIXME: get price just cloud
-    func getPrice(for productId: String, and outletId: String) -> Double {
-        return CoreDataService.data.getPrice(for: productId, and: outletId)
-    }
-
-//    func getMinPrice(for productId: String, and outletId: String) -> Double {
-//        return CoreDataService.data.getMinPrice(for: productId, and: outletId)
-//
-//    }
     
-    // FIXME: get price just cloud
-    func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
-        
-        let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
-        
-        return object.map { StatisticMapper.mapper(from: $0) }
-        
-        
+    func getItem(with barcode: String, and outletId: String, callback: @escaping (DPProductModel?) -> Void) {
+        if let cdModel = CoreDataService.data.getItem(by: barcode, and: outletId) {
+            let result = DPProductModel(id: cdModel.id,
+                                        name: cdModel.name,
+                                        brand: cdModel.brand,
+                                        weightPerPiece: cdModel.weightPerPiece,
+                                        categoryId: cdModel.categoryId,
+                                        uomId: cdModel.uomId)
+            callback(result)
+            
+        } else {
+            self.getProductFromCloud(with: barcode) { (item) in
+                guard let item = item else {
+                    callback(nil)
+                    return
+                }
+                let result = DPProductModel(id: item.id,
+                                            name: item.name,
+                                            brand: item.brand,
+                                            weightPerPiece: item.weightPerPiece,
+                                            categoryId: item.categoryId,
+                                            uomId: item.uomId)
+                callback(result)
+            }
+        }
     }
+    
+    
+    private func getProductFromCloud(with productId: String, callback: @escaping (FBProductModel?) -> Void) {
+        FirebaseService.data.getProduct(with: productId) { (item) in
+            callback(item)
+        }
+    }
+    
+    
+    
     
     
     

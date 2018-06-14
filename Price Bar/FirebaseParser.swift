@@ -50,6 +50,15 @@ class FirebaseParser {
         }
     }
     
+    class func parsePrice(_ snapGood: DataSnapshot) -> FBItemStatistic? {
+        guard let priceData = snapGood.value as? Dictionary<String, Any> else {
+            fatalError("Prices is not parsed")
+        }
+        
+        guard let price = FBItemStatistic(priceData: priceData) else { return nil }
+        
+        return price
+    }
     
     class func parse(_ snapGood: (key: String, value: Any)) -> FBProductModel {
         guard let goodDict = snapGood.value as? Dictionary<String, Any> else {

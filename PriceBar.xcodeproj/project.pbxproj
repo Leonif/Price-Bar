@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4FF37986BE78C0C683CB8D7E /* Pods_PriceBarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */; };
+		59508802495DCFB978F5B926 /* libPods-PriceBar Prod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D273F6FD70DAF6AA2B8B6B5 /* libPods-PriceBar Prod.a */; };
+		5E0286C1F06199F8EB49BCCD /* libPods-PriceBar Dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4736C4A505BCECE0927D5123 /* libPods-PriceBar Dev.a */; };
 		7904B45A1F03738B002032CD /* FBItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* FBItemCategory.swift */; };
 		790B7D07207901F8003DD560 /* navigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D06207901F8003DD560 /* navigationView.xib */; };
 		790B7D09207902EF003DD560 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D08207902EF003DD560 /* NavigationView.swift */; };
@@ -29,7 +30,7 @@
 		790B7D8020835D8C003DD560 /* Outlet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* Outlet.swift */; };
 		790B7D8120835D8C003DD560 /* ItemListModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListModelView.swift */; };
 		790B7D8220835D8C003DD560 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
-		790B7D8320835D8C003DD560 /* ShoplistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */; };
+		790B7D8320835D8C003DD560 /* ShoplistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */; };
 		790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		790B7D8620835D8C003DD560 /* PickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B3C200E812D005C6CC5 /* PickerControl.swift */; };
 		790B7D8720835D8C003DD560 /* BaseStatisticsInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* BaseStatisticsInteractor.swift */; };
@@ -103,7 +104,6 @@
 		790B7DD520835D8C003DD560 /* FoursqareProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */; };
 		790B7DD620835D8C003DD560 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C61EE7087200470669 /* HeaderView.swift */; };
 		790B7DD720835D8C003DD560 /* PriceStatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */; };
-		790B7DDA20835D8C003DD560 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
 		790B7DDB20835D8C003DD560 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		790B7DDC20835D8C003DD560 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
 		790B7DDE20835D8C003DD560 /* ItemCardNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D78208327E1003DD560 /* ItemCardNew.xib */; };
@@ -127,6 +127,8 @@
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
 		79142FFB2072DB69003293D5 /* robaga-rounded.regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */; };
 		791430002072DE9E003293D5 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */; };
+		792091C620D25A98002CC251 /* ItemListMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792091C520D25A98002CC251 /* ItemListMappers.swift */; };
+		792091C720D25A98002CC251 /* ItemListMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792091C520D25A98002CC251 /* ItemListMappers.swift */; };
 		792102912055778900C83706 /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102902055778900C83706 /* CircleIndicatorView.swift */; };
 		7921029320557D0E00C83706 /* BaseStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* BaseStatisticsVC.swift */; };
 		792102952055A02000C83706 /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102942055A02000C83706 /* CountingLabel.swift */; };
@@ -145,6 +147,8 @@
 		793368691FFF6F5600E8E81A /* ShopListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListAdapter.swift */; };
 		7933686D20012F1A00E8E81A /* QuantityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityModel.swift */; };
 		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
+		79449A9820D280B200E28C68 /* ItemListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79449A9720D280B200E28C68 /* ItemListPresenter.swift */; };
+		79449A9920D280B200E28C68 /* ItemListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79449A9720D280B200E28C68 /* ItemListPresenter.swift */; };
 		794658A220697E45007B4397 /* StatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794658A120697E45007B4397 /* StatisticModel.swift */; };
 		795EA8C61F0EC58F00752A68 /* FoundationTypes+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */; };
 		795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
@@ -229,7 +233,7 @@
 		79D8E608209A39A700C182DA /* Statistic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D8E5F5209A39A700C182DA /* Statistic+CoreDataProperties.swift */; };
 		79D8E609209A39A700C182DA /* Statistic+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D8E5F5209A39A700C182DA /* Statistic+CoreDataProperties.swift */; };
 		79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79DC99ED204345AC00D35D1C /* Localizable.strings */; };
-		79DC99F02044B3F600D35D1C /* ShoplistInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */; };
+		79DC99F02044B3F600D35D1C /* ShoplistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */; };
 		79E9B871206C17F800D80EA5 /* PriceStatisticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B870206C17F800D80EA5 /* PriceStatisticCell.xib */; };
 		79E9B873206C18C700D80EA5 /* PriceStatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */; };
 		79E9B875206C228700D80EA5 /* DPPriceStatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B874206C228700D80EA5 /* DPPriceStatisticModel.swift */; };
@@ -241,6 +245,7 @@
 		79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */; };
 		79F68452206801D200257F00 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
 		B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
+		B828DD6C0E8B74D7F11B630E /* libPods-PriceBarTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B3FD875FE1F9402DEBAAFD /* libPods-PriceBarTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,8 +259,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12B3FD875FE1F9402DEBAAFD /* libPods-PriceBarTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceBarTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D273F6FD70DAF6AA2B8B6B5 /* libPods-PriceBar Prod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceBar Prod.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.release.xcconfig"; sourceTree = "<group>"; };
+		45EDEB1DE167C880F522C7B5 /* Pods-PriceBar Prod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Prod.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Prod/Pods-PriceBar Prod.release.xcconfig"; sourceTree = "<group>"; };
+		4736C4A505BCECE0927D5123 /* libPods-PriceBar Dev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceBar Dev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4F2D9204A6EA5726F946329F /* Pods-PriceBar Prod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Prod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Prod/Pods-PriceBar Prod.debug.xcconfig"; sourceTree = "<group>"; };
 		7904B4591F03738B002032CD /* FBItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBItemCategory.swift; sourceTree = SOURCE_ROOT; };
 		790B7D06207901F8003DD560 /* navigationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = navigationView.xib; sourceTree = "<group>"; };
 		790B7D08207902EF003DD560 /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
@@ -281,6 +291,7 @@
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
 		79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "robaga-rounded.regular.otf"; path = "../robaga-rounded.regular.otf"; sourceTree = "<group>"; };
 		79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Robaga Rounded Bold.otf"; sourceTree = "<group>"; };
+		792091C520D25A98002CC251 /* ItemListMappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListMappers.swift; sourceTree = "<group>"; };
 		792102902055778900C83706 /* CircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleIndicatorView.swift; sourceTree = "<group>"; };
 		7921029220557D0E00C83706 /* BaseStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStatisticsVC.swift; sourceTree = "<group>"; };
 		792102942055A02000C83706 /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
@@ -303,6 +314,7 @@
 		79388B201F532175008FD415 /* PriceBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriceBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
 		79388B241F532176008FD415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79449A9720D280B200E28C68 /* ItemListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListPresenter.swift; sourceTree = "<group>"; };
 		794658A120697E45007B4397 /* StatisticModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticModel.swift; sourceTree = "<group>"; };
 		795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FoundationTypes+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodTextField.swift; sourceTree = SOURCE_ROOT; };
@@ -375,7 +387,7 @@
 		79DC99E820433F9E00D35D1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../PriceBar/en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		79DC99EC204345AC00D35D1C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		79DC99EE204345B900D35D1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
-		79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistInteractor.swift; sourceTree = "<group>"; };
+		79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistPresenter.swift; sourceTree = "<group>"; };
 		79E9B870206C17F800D80EA5 /* PriceStatisticCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PriceStatisticCell.xib; sourceTree = "<group>"; };
 		79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceStatisticCell.swift; sourceTree = "<group>"; };
 		79E9B874206C228700D80EA5 /* DPPriceStatisticModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPPriceStatisticModel.swift; sourceTree = "<group>"; };
@@ -386,10 +398,9 @@
 		79E9B882206FC26200D80EA5 /* Target.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Target.swift; sourceTree = "<group>"; };
 		79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareProviderError.swift; sourceTree = "<group>"; };
 		79F68451206801D200257F00 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
-		7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
-		9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar.release.xcconfig"; sourceTree = "<group>"; };
-		DB0AE4600538D7BEBF558ECF /* Pods-PriceBar.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar.debug.xcconfig"; sourceTree = "<group>"; };
+		9EB852996EC991AE11B2C6F4 /* Pods-PriceBar Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Dev/Pods-PriceBar Dev.release.xcconfig"; sourceTree = "<group>"; };
+		BEE33A43573E234B1965CC53 /* Pods-PriceBar Dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Dev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Dev/Pods-PriceBar Dev.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,9 +408,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				790B7DDA20835D8C003DD560 /* Pods_PriceBar.framework in Frameworks */,
 				790B7DDB20835D8C003DD560 /* Crashlytics.framework in Frameworks */,
 				790B7DDC20835D8C003DD560 /* Fabric.framework in Frameworks */,
+				5E0286C1F06199F8EB49BCCD /* libPods-PriceBar Dev.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,6 +421,7 @@
 				B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */,
 				796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */,
 				796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */,
+				59508802495DCFB978F5B926 /* libPods-PriceBar Prod.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,7 +429,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4FF37986BE78C0C683CB8D7E /* Pods_PriceBarTests.framework in Frameworks */,
+				B828DD6C0E8B74D7F11B630E /* libPods-PriceBarTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,7 +442,9 @@
 				796C73A01F727F4A00F26C90 /* Fabric.framework */,
 				796C73A11F727F4A00F26C90 /* Crashlytics.framework */,
 				4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */,
-				7ED801C3C8E5FCA09D9652B9 /* Pods_PriceBarTests.framework */,
+				4736C4A505BCECE0927D5123 /* libPods-PriceBar Dev.a */,
+				1D273F6FD70DAF6AA2B8B6B5 /* libPods-PriceBar Prod.a */,
+				12B3FD875FE1F9402DEBAAFD /* libPods-PriceBarTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -544,8 +558,10 @@
 		790BC9EA1F8832D900CA9519 /* ItemListFlow */ = {
 			isa = PBXGroup;
 			children = (
+				792091C420D25A5A002CC251 /* Mappers */,
 				79833B4120114354005C6CC5 /* Entities */,
 				79833B3F2011433B005C6CC5 /* View */,
+				79449A9720D280B200E28C68 /* ItemListPresenter.swift */,
 			);
 			name = ItemListFlow;
 			sourceTree = "<group>";
@@ -598,6 +614,14 @@
 				79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		792091C420D25A5A002CC251 /* Mappers */ = {
+			isa = PBXGroup;
+			children = (
+				792091C520D25A98002CC251 /* ItemListMappers.swift */,
+			);
+			name = Mappers;
 			sourceTree = "<group>";
 		};
 		79210296205C69B400C83706 /* BaseStatisticFlow */ = {
@@ -952,7 +976,7 @@
 		79DC99F12044B40000D35D1C /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				79DC99EF2044B3F600D35D1C /* ShoplistInteractor.swift */,
+				79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */,
 			);
 			name = Interactor;
 			sourceTree = "<group>";
@@ -994,10 +1018,12 @@
 		EFCFC6F2C247C1D3BDF643A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				DB0AE4600538D7BEBF558ECF /* Pods-PriceBar.debug.xcconfig */,
-				9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */,
 				80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */,
 				3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */,
+				4F2D9204A6EA5726F946329F /* Pods-PriceBar Prod.debug.xcconfig */,
+				45EDEB1DE167C880F522C7B5 /* Pods-PriceBar Prod.release.xcconfig */,
+				BEE33A43573E234B1965CC53 /* Pods-PriceBar Dev.debug.xcconfig */,
+				9EB852996EC991AE11B2C6F4 /* Pods-PriceBar Dev.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1009,14 +1035,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 790B7DF220835D8C003DD560 /* Build configuration list for PBXNativeTarget "PriceBar Dev" */;
 			buildPhases = (
-				790B7D7C20835D8C003DD560 /* [CP] Check Pods Manifest.lock */,
+				2199F2E9872B96B2FE379DBF /* [CP] Check Pods Manifest.lock */,
 				790B7D7D20835D8C003DD560 /* ShellScript */,
 				790B7D7E20835D8C003DD560 /* Sources */,
 				790B7DD920835D8C003DD560 /* Frameworks */,
 				790B7DDD20835D8C003DD560 /* Resources */,
-				790B7DEF20835D8C003DD560 /* [CP] Embed Pods Frameworks */,
 				790B7DF020835D8C003DD560 /* ShellScript */,
-				790B7DF120835D8C003DD560 /* [CP] Copy Pods Resources */,
+				5ABFF4EE53B1D775DE865756 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1036,7 +1061,6 @@
 				792EE77C1EE48CD500470669 /* Sources */,
 				792EE77D1EE48CD500470669 /* Frameworks */,
 				792EE77E1EE48CD500470669 /* Resources */,
-				3E230506A473382A380A6FA0 /* [CP] Embed Pods Frameworks */,
 				796C739F1F727F1900F26C90 /* ShellScript */,
 				D8423C2F8802495C1B27230F /* [CP] Copy Pods Resources */,
 			);
@@ -1057,7 +1081,6 @@
 				79388B1C1F532175008FD415 /* Sources */,
 				79388B1D1F532175008FD415 /* Frameworks */,
 				79388B1E1F532175008FD415 /* Resources */,
-				26B200D0F58FB63E17A54367 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1203,53 +1226,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		26B200D0F58FB63E17A54367 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-Defines-NSData+zlib/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3E230506A473382A380A6FA0 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		790B7D7C20835D8C003DD560 /* [CP] Check Pods Manifest.lock */ = {
+		2199F2E9872B96B2FE379DBF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1260,11 +1237,29 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PriceBar-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PriceBar Dev-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5ABFF4EE53B1D775DE865756 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar Dev/Pods-PriceBar Dev-resources.sh",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar Dev/Pods-PriceBar Dev-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		790B7D7D20835D8C003DD560 /* ShellScript */ = {
@@ -1280,32 +1275,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"";
 		};
-		790B7DEF20835D8C003DD560 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac-f0850809/GoogleToolboxForMac.framework",
-				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
-				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		790B7DF020835D8C003DD560 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1318,24 +1287,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 3287543ca2d6f916e2ec45e6e040f6e55ae30e18 ee74ce186ccf4521acaec8ba8bd26362fae8392848857d1c23e639ff4e6afa6f\n";
-		};
-		790B7DF120835D8C003DD560 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh",
-				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 		796C739F1F727F1900F26C90 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1374,7 +1325,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-PriceBar-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-PriceBar Prod-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1387,7 +1338,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar Prod/Pods-PriceBar Prod-resources.sh",
 				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -1396,7 +1347,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar/Pods-PriceBar-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-PriceBar Prod/Pods-PriceBar Prod-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1410,7 +1361,7 @@
 				790B7D8020835D8C003DD560 /* Outlet.swift in Sources */,
 				790B7D8120835D8C003DD560 /* ItemListModelView.swift in Sources */,
 				790B7D8220835D8C003DD560 /* PriceBar.xcdatamodel in Sources */,
-				790B7D8320835D8C003DD560 /* ShoplistInteractor.swift in Sources */,
+				790B7D8320835D8C003DD560 /* ShoplistPresenter.swift in Sources */,
 				79D8E5FF209A39A700C182DA /* ShopList+CoreDataClass.swift in Sources */,
 				799029832094BDEC00085F72 /* AddCell.swift in Sources */,
 				79D8E601209A39A700C182DA /* ShopList+CoreDataProperties.swift in Sources */,
@@ -1466,8 +1417,10 @@
 				790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */,
 				790B7DB620835D8C003DD560 /* OutletService.swift in Sources */,
 				790B7DB720835D8C003DD560 /* FBItemStatistic.swift in Sources */,
+				792091C720D25A98002CC251 /* ItemListMappers.swift in Sources */,
 				790B7DB820835D8C003DD560 /* UomModelView.swift in Sources */,
 				790B7DB920835D8C003DD560 /* FQOutletModel.swift in Sources */,
+				79449A9920D280B200E28C68 /* ItemListPresenter.swift in Sources */,
 				790B7DBA20835D8C003DD560 /* CDProductModel.swift in Sources */,
 				790B7DBB20835D8C003DD560 /* FBItemCategory.swift in Sources */,
 				790B7DBC20835D8C003DD560 /* BaseStatisticsVC.swift in Sources */,
@@ -1509,7 +1462,7 @@
 				793368671FFEAB3200E8E81A /* Outlet.swift in Sources */,
 				796D7B24201BDE3C0098D324 /* ItemListModelView.swift in Sources */,
 				79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */,
-				79DC99F02044B3F600D35D1C /* ShoplistInteractor.swift in Sources */,
+				79DC99F02044B3F600D35D1C /* ShoplistPresenter.swift in Sources */,
 				79D8E5FE209A39A700C182DA /* ShopList+CoreDataClass.swift in Sources */,
 				799029822094BDEC00085F72 /* AddCell.swift in Sources */,
 				79D8E600209A39A700C182DA /* ShopList+CoreDataProperties.swift in Sources */,
@@ -1565,8 +1518,10 @@
 				79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */,
 				7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */,
 				79883BCB20147E2D009CBEF0 /* FBItemStatistic.swift in Sources */,
+				792091C620D25A98002CC251 /* ItemListMappers.swift in Sources */,
 				79833B4B20130F71005C6CC5 /* UomModelView.swift in Sources */,
 				79D12F2D201683F600302AF9 /* FQOutletModel.swift in Sources */,
+				79449A9820D280B200E28C68 /* ItemListPresenter.swift in Sources */,
 				79833B532013E872005C6CC5 /* CDProductModel.swift in Sources */,
 				7904B45A1F03738B002032CD /* FBItemCategory.swift in Sources */,
 				7921029320557D0E00C83706 /* BaseStatisticsVC.swift in Sources */,
@@ -1653,7 +1608,7 @@
 /* Begin XCBuildConfiguration section */
 		790B7DF320835D8C003DD560 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB0AE4600538D7BEBF558ECF /* Pods-PriceBar.debug.xcconfig */;
+			baseConfigurationReference = BEE33A43573E234B1965CC53 /* Pods-PriceBar Dev.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1666,7 +1621,6 @@
 				INFOPLIST_FILE = "PriceBar copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar-Dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1678,7 +1632,7 @@
 		};
 		790B7DF420835D8C003DD560 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */;
+			baseConfigurationReference = 9EB852996EC991AE11B2C6F4 /* Pods-PriceBar Dev.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1691,7 +1645,6 @@
 				INFOPLIST_FILE = "PriceBar copy-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_SWIFT_FLAGS = "-DDEVELOPMENT";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar-Dev";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1814,7 +1767,7 @@
 		};
 		792EE7931EE48CD600470669 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DB0AE4600538D7BEBF558ECF /* Pods-PriceBar.debug.xcconfig */;
+			baseConfigurationReference = 4F2D9204A6EA5726F946329F /* Pods-PriceBar Prod.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1827,7 +1780,7 @@
 				INFOPLIST_FILE = PriceBar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar-Prod";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
@@ -1838,7 +1791,7 @@
 		};
 		792EE7941EE48CD600470669 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9112EA9E34F7BC2278A40D75 /* Pods-PriceBar.release.xcconfig */;
+			baseConfigurationReference = 45EDEB1DE167C880F522C7B5 /* Pods-PriceBar Prod.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -1851,7 +1804,7 @@
 				INFOPLIST_FILE = PriceBar/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar-Prod";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.LionLife.Price-Bar";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;

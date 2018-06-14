@@ -27,8 +27,10 @@ public final class UpdatePriceInteractor {
     }
     
     
-    func getPrice(for productId: String, in outletId: String) -> Double {
-        return self.repository.getPrice(for: productId, and: outletId)
+    func getPrice(for productId: String, in outletId: String, callback: @escaping (Double) -> Void) {
+        return self.repository.getPrice(for: productId, and: outletId, callback: { (price) in
+            callback(price)
+        })
     }
     
 

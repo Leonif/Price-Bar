@@ -19,17 +19,17 @@ enum FirebaseError: Error {
 
 class FirebaseService {
     static let data = FirebaseService()
-    var refGoods = Database.database().reference().child("goods")
+    private var refGoods = Database.database().reference().child("goods")
     
-    var refPriceStatistics: DatabaseReference? = nil
+    private var refPriceStatistics: DatabaseReference
 
     
-    var refCategories: DatabaseReference? = nil
-    var refUoms: DatabaseReference? = nil
-    var refUomsParams: DatabaseReference? = nil
+    private var refCategories: DatabaseReference? = nil
+    private var refUoms: DatabaseReference? = nil
+    private var refUomsParams: DatabaseReference? = nil
     
-    var email = "good_getter@gmail.com"
-    var pwd = "123456"
+    private var email = "good_getter@gmail.com"
+    private var pwd = "123456"
 
     
     init() {
@@ -96,7 +96,7 @@ class FirebaseService {
     func syncProducts(completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
-                let goods = snapGoods.map { FirebaseParser.parse($0) }//FirebaseParser.transform(from: snapGoods)
+                let goods = snapGoods.map { FirebaseParser.parse($0) }
                 completion(ResultType.success(goods))
             }
         }) { error in
@@ -105,17 +105,9 @@ class FirebaseService {
     }
 
     func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->Void) {
-        refPriceStatistics?.observeSingleEvent(of: .value, with: { snapshot in
+        refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                var itemStatistic = [FBItemStatistic]()
-                for snapPrice in snapPrices {
-                    if let priceDict = snapPrice.value as? Dictionary<String, Any> {
-                        if let statistic = FBItemStatistic(priceData: priceDict) {
-                            itemStatistic.append(statistic)
-                        }
-
-                    }
-                }
+                let itemStatistic = snapPrices.compactMap { FirebaseParser.parsePrice($0) }
                 completion(ResultType.success(itemStatistic))
             }
         }) { error in
@@ -134,6 +126,9 @@ class FirebaseService {
         }
     }
 
+    
+    
+    
     func saveOrUpdate(_ item: FBProductModel) {
 
         let good = [
@@ -154,7 +149,64 @@ class FirebaseService {
             "outlet_id": statistic.outletId,
             "price": statistic.price
             ] as [String: Any]
-        refPriceStatistics?.childByAutoId().setValue(priceStat)
+        refPriceStatistics.childByAutoId().setValue(priceStat)
     }
 
 }
+
+
+extension FirebaseService {
+    
+    // MARK: Work ==========================
+    func getProduct(with productId: String, callback: @escaping (FBProductModel?) -> Void) {
+        self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snap = snapshot.value as? [String: Any] else { fatalError() }
+            
+            let goods = snap.map { FirebaseParser.parse($0) }.filter { $0.id == productId }
+            
+            guard !goods.isEmpty else {
+                callback(nil)
+                return
+            }
+            callback(goods.first)
+        }
+    }
+    
+    func getPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
+        self.refPriceStatistics.observeSingleEvent(of: .value) { (snapshot) in
+            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+                let itemStatistics = snapPrices
+                    .compactMap { FirebaseParser.parsePrice($0) }
+                    .filter { $0.outletId == outletId && $0.productId == productId }
+                guard let stat = itemStatistics.first else {
+                    callback(nil)
+                    return
+                }
+                callback(stat.price)
+            }
+        }
+    }
+    
+    
+    func getPrices(for outletId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
+        refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+                let itemStatistic = snapPrices.compactMap { FirebaseParser.parsePrice($0) }
+                callback(itemStatistic)
+            }
+        }) { error in
+            fatalError(error.localizedDescription)
+        }
+    }
+    
+    
+}
+
+
+
+
+
+
+
+
+

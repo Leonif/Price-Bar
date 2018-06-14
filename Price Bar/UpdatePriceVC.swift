@@ -55,23 +55,28 @@ class UpdatePriceVC: UIViewController {
         guard let outlet = self.data.outlet else {
             fatalError()
         }
-        self.price = self.interactor.getPrice(for: self.productId, in: outlet.id)
-        self.priceTextField.text = "\(self.price)"
-        let productName = self.interactor.getProductName(for: self.productId)
-        self.productNameLabel.text = productName
-        self.uomLabel.text = self.interactor.getUomName(for: self.productId)
+        self.interactor
+            .getPrice(for: self.productId,
+                      in: outlet.id,
+                      callback: { (price) in
+                        self.priceTextField.text = "\(self.price)"
+                        let productName = self.interactor.getProductName(for: self.productId)
+                        self.productNameLabel.text = productName
+                        self.uomLabel.text = self.interactor.getUomName(for: self.productId)
+                        
+                        self.interactor.getPriceStatistics(for: self.productId, completion: { [weak self] (result) in
+                            guard let `self` = self else { return }
+                            switch result {
+                            case let .success(statistic):
+                                self.dataSource = statistic
+                                completion()
+                                
+                            case let .failure(error):
+                                self.alert(message: error.message)
+                            }
+                        })
+            })
         
-        self.interactor.getPriceStatistics(for: productId, completion: { [weak self] (result) in
-            guard let `self` = self else { return }
-            switch result {
-            case let .success(statistic):
-                self.dataSource = statistic
-                completion()
-
-            case let .failure(error):
-                self.alert(message: error.message)
-            }
-        })
         
     }
     

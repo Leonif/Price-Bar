@@ -22,5 +22,12 @@ struct ItemListModelView {
         
         return "\(pr)\(br)\(w)"
     }
-    
 }
+
+
+struct ProductPrice {
+    var productId: String
+    var currentPrice: Double
+}
+
+

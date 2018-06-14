@@ -115,6 +115,7 @@ extension StatisticsRoute where Self: UIViewController {
 }
 
 protocol ScannerRoute {
+    
 }
 
 

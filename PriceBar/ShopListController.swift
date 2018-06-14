@@ -25,7 +25,7 @@ class ShopListController: UIViewController {
     
     // MARK: - Dependecy Injection properties
     var repository: Repository!
-    var interactor: ShoplistInteractor!
+    var presenter: ShoplistPresenter!
     var data: DataStorage!
     var adapter: ShopListAdapter!
     var syncAnimator: SyncAnimator!
@@ -68,7 +68,11 @@ class ShopListController: UIViewController {
         // MARK: - Assembly Dependency Injection
         self.repository = Repository()
         self.syncAnimator = SyncAnimator(parent: self)
-        self.interactor = ShoplistInteractor(repository: repository)
+        self.presenter = ShoplistPresenter(repository: repository)
+        self.presenter.onIsProductHasPrice = { (isHasPrice, barcode) in
+            self.openUpdatePrice(for: barcode, data: self.data)
+            self.shopTableView.reloadData()
+        }
 
         self.data = DataStorage(repository: self.repository, vc: self, outlet: userOutlet)
         self.adapter = ShopListAdapter(parent: self, tableView: shopTableView,
@@ -169,7 +173,7 @@ class ShopListController: UIViewController {
     func synchronizeData() {
         self.buttonEnable(false)
         self.syncAnimator.startProgress()
-        self.interactor.synchronizeData { [weak self] result in
+        self.presenter.synchronizeData { [weak self] result in
             guard let `self` = self else { return }
             self.syncAnimator.stopProgress(completion: { [weak self] in
                 guard let `self` = self else { return }
@@ -187,7 +191,7 @@ class ShopListController: UIViewController {
     private func updateCurentOutlet() {
         var activateControls = false
         self.view.pb_startActivityIndicator(with:R.string.localizable.outlet_looking())
-        self.interactor.updateCurrentOutlet { [weak self] (result) in
+        self.presenter.updateCurrentOutlet { [weak self] (result) in
             guard let `self` = self else { return }
             self.view.pb_stopActivityIndicator()
             switch result {
@@ -279,14 +283,12 @@ extension ShopListController {
 // MARK: - Scanner handling
 extension ShopListController: ScannerDelegate {
     func scanned(barcode: String) {
-        self.interactor.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] (result) in
+        self.presenter.addToShoplist(with: barcode, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }
             switch result {
             case .success:
-                if !self.interactor.isProductHasPrice(for: barcode, in: self.userOutlet.id) {
-                    self.openUpdatePrice(for: barcode, data: self.data)
-                }
-                self.shopTableView.reloadData()
+                self.presenter.isProductHasPrice(for: barcode, in: self.userOutlet.id)
+                
             case let .failure(error):
                 switch error {
                 case .productIsNotFound:
@@ -300,10 +302,10 @@ extension ShopListController: ScannerDelegate {
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
-        if let outlet = data.outlet, !self.interactor.isProductHasPrice(for: productId, in: outlet.id) {
-            self.openUpdatePrice(for: productId, data: data)
+        if let outlet = data.outlet {
+            self.presenter.isProductHasPrice(for: productId, in: outlet.id)
         }
-        self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
+        self.presenter.addToShoplist(with: productId, and: userOutlet.id) { [weak self] (result) in
             guard let `self` = self else { return }
             switch result {
             case .success:
@@ -323,7 +325,7 @@ extension ShopListController: OutletVCDelegate {
 
 extension ShopListController: ItemCardVCDelegate {
     func add(new productId: String) {
-        self.interactor.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
+        self.presenter.addToShoplist(with: productId, and: userOutlet.id) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case .success: break
@@ -333,7 +335,7 @@ extension ShopListController: ItemCardVCDelegate {
     }
     
     func productUpdated() { // товар был отредактирован (цена/категория/ед измерения)
-        interactor?.reloadProducts(outletId: userOutlet.id)
+        presenter?.reloadProducts(outletId: userOutlet.id)
     }
 }
 extension ShopListController: ItemCardRoute {}
@@ -343,7 +345,7 @@ extension ShopListController: UpdatePriceRoute {
         guard let outlet = self.data.outlet else {
             fatalError("No outlet data")
         }
-        self.interactor.reloadProducts(outletId: outlet.id)
+        self.presenter.reloadProducts(outletId: outlet.id)
     }
 }
 

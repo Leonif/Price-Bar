@@ -10,17 +10,16 @@ import Foundation
 
 class ProductMapper {
     
-    class func mapper(from product: DPProductModel, and outletId: String) -> DPShoplistItemModel {
+    class func mapper(from product: DPProductModel, price: Double) -> DPShoplistItemModel {
 
-        let dataProvider = Repository()
+        let repositoriy = Repository()
 
         guard
-            let categoryName = dataProvider.getCategoryName(category: product.categoryId),
-            let uom = dataProvider.getUom(for: product.uomId)
+            let categoryName = repositoriy.getCategoryName(category: product.categoryId),
+            let uom = repositoriy.getUom(for: product.uomId)
             else {
                 fatalError("category or uom name doesnt exist")
         }
-        let price = dataProvider.getPrice(for: product.id, and: outletId)
 
         return DPShoplistItemModel(productId: product.id,
                                    productName: product.name,
@@ -37,18 +36,7 @@ class ProductMapper {
 
     }
 
-    class func mapper(from dpModel: DPProductModel, for outletId: String) -> ItemListModelView {
-        let dataProvider = Repository()
-        let price = dataProvider.getPrice(for: dpModel.id, and: outletId)
-        let categoryName = dataProvider.getCategoryName(category: dpModel.categoryId)
-
-        return ItemListModelView(id: dpModel.id,
-                                 product: dpModel.name,
-                                 brand: dpModel.brand,
-                                 weightPerPiece: dpModel.weightPerPiece,
-                                 currentPrice: price,
-                                 categoryName: categoryName!)
-    }
+    
 
 
     class func mapper(from newBarcode: String) -> ProductCardModelView {

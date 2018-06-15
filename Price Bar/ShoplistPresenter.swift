@@ -85,8 +85,8 @@ public final class ShoplistPresenter {
     }
     
     func isProductHasPrice(for productId: String, in outletId: String) {
-        self.repository.getPrice(for: productId, and: outletId, callback: { (price) in
-            self.onIsProductHasPrice(price > 0.0, productId)
+        self.repository.getPrice(for: productId, and: outletId, callback: { [weak self] (price) in
+            self?.onIsProductHasPrice(price > 0.0, productId)
             
         })
     }

@@ -50,8 +50,6 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         self.router = ItemListRouter()
         self.data = ItemListRouterDataStorage(repository: repository, vc: self, outletId: outletId)
         
@@ -66,10 +64,7 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
         self.presenter.onNextBatch = { (items) in
             self.adapter.addNewBatch(nextBatch: items)
         }
-        
-        
         self.setupNavigation()
-        
     }
 
     

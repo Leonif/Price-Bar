@@ -357,7 +357,6 @@ class Repository {
             let prices = statistics.map {
                 return ProductPrice(productId: $0.productId, currentPrice: $0.price)
             }
-            
             completion(prices)
         })
     }
@@ -369,10 +368,7 @@ class Repository {
     // FIXME: get price just cloud
     func getPrice(for productId: String, and outletId: String, callback: @escaping (Double) -> Void) {
         
-        //       let price = CoreDataService.data.getPrice(for: productId, and: outletId)
-        
-        
-        getPriceFromCloud(for: productId, and: outletId) { (price) in
+        self.getPriceFromCloud(for: productId, and: outletId) { (price) in
             guard let price = price else {
                 callback(0)
                 return

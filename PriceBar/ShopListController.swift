@@ -70,7 +70,9 @@ class ShopListController: UIViewController {
         self.syncAnimator = SyncAnimator(parent: self)
         self.presenter = ShoplistPresenter(repository: repository)
         self.presenter.onIsProductHasPrice = { (isHasPrice, barcode) in
-            self.openUpdatePrice(for: barcode, data: self.data)
+            if !isHasPrice {
+                self.openUpdatePrice(for: barcode, data: self.data)
+            }
             self.shopTableView.reloadData()
         }
 

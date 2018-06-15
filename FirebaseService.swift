@@ -191,7 +191,9 @@ extension FirebaseService {
     func getPrices(for outletId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
         refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                let itemStatistic = snapPrices.compactMap { FirebaseParser.parsePrice($0) }
+                let itemStatistic = snapPrices
+                    .compactMap { FirebaseParser.parsePrice($0) }
+                    .filter { $0.outletId == outletId }
                 callback(itemStatistic)
             }
         }) { error in

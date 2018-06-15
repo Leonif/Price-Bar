@@ -19,22 +19,13 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     var onCompareDidSelected: ((DPShoplistItemModel) -> Void)?
     private var onWeightDemand: ((ShopItemCell) -> Void)?
 
-    init(parent: UIViewController,  tableView: UITableView, repository: Repository) {
+    init(parent: UIViewController,  repository: Repository) {
         super.init()
         
         self.vc = parent
-        self.tableView = tableView
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
         self.repository = repository
-        
-        tableView.register(ShopItemCell.self)
-        
     }
     
-    func reload() {
-        self.tableView.reloadData()
-    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repository.rowsIn(section)

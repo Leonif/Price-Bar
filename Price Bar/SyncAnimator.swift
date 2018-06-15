@@ -26,7 +26,16 @@ class SyncAnimator {
         self.parent = parent
         progressVC.modalPresentationStyle = .overCurrentContext
         progressVC.view.backgroundColor = .gray
-        
+    }
+
+    func syncHandle(for progress: Double, and max: Double, with text: String) {
+        DispatchQueue.main.async { [weak self] in
+            self?.circleIndicator.startShow(for: (progress, max))
+            self?.title.text = "\(text)"
+        }
+    }
+    
+    func startProgress() {
         let size: CGFloat = 200
         let lineThickness: CGFloat = 12
         
@@ -43,16 +52,8 @@ class SyncAnimator {
         
         title.frame = lblRect
         progressVC.view.addSubview(title)
-    }
-
-    func syncHandle(for progress: Double, and max: Double, with text: String) {
-        DispatchQueue.main.async { [weak self] in
-            self?.circleIndicator.startShow(for: (progress, max))
-            self?.title.text = "\(text)"
-        }
-    }
-    
-    func startProgress() {
+        
+        
         DispatchQueue.main.async { [weak self] in
             guard let vc = self?.progressVC else { return }
             vc.view.obscure()

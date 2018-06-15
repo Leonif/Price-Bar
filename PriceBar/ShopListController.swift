@@ -65,20 +65,19 @@ class ShopListController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // MARK: - Assembly Dependency Injection
-        self.repository = Repository()
-        self.syncAnimator = SyncAnimator(parent: self)
-        self.presenter = ShoplistPresenter(repository: repository)
         self.presenter.onIsProductHasPrice = { (isHasPrice, barcode) in
             if !isHasPrice {
                 self.openUpdatePrice(for: barcode, data: self.data)
             }
             self.shopTableView.reloadData()
         }
-
-        self.data = DataStorage(repository: self.repository, vc: self, outlet: userOutlet)
-        self.adapter = ShopListAdapter(parent: self, tableView: shopTableView,
-                                  repository: repository)
+        
+        self.presenter.onSyncProgress = { [weak self] (progress, max, text) in
+            guard let `self` = self else { return }
+            self.syncAnimator.syncHandle(for: Double(progress),
+                                         and: Double(max),
+                                         with: text)
+        }
         
         // MARK: - Setup UI
         self.setupNavigation()
@@ -93,14 +92,8 @@ class ShopListController: UIViewController {
         // MARK: - Handle depencies
         repository.onUpdateShoplist = { [weak self] in
             guard let `self` = self else { return }
-            self.adapter.reload()
+            self.shopTableView.reloadData()
             self.updateRemoveButtonState()
-        }
-        repository.onSyncProgress = { [weak self] (progress, max, text) in
-            guard let `self` = self else { return }
-            self.syncAnimator.syncHandle(for: Double(progress),
-                                          and: Double(max),
-                                          with: text)
         }
         self.setupAdapter()
         self.synchronizeData()
@@ -108,6 +101,12 @@ class ShopListController: UIViewController {
     
     
     func setupAdapter() {
+        
+        self.shopTableView.delegate = self.adapter
+        self.shopTableView.dataSource = self.adapter
+        
+        self.shopTableView.register(ShopItemCell.self)
+        
         self.shopTableView.estimatedRowHeight = UITableViewAutomaticDimension
         self.shopTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -135,7 +134,7 @@ class ShopListController: UIViewController {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.deleteButton)
         
         self.navigationItem.titleView = self.navigationView
-        navigationController!.navigationBar.shadowImage = UIImage()
+//        navigationController!.navigationBar.shadowImage = UIImage()
     }
     
     func setupTotalView() {
@@ -159,7 +158,7 @@ class ShopListController: UIViewController {
             self.navigationView.outletName.text = self.userOutlet.name
             self.navigationView.outletAddress.text = self.userOutlet.address
             self.repository.loadShopList(for: self.userOutlet.id)
-            self.adapter.reload()
+            self.shopTableView.reloadData()
             self.updateRemoveButtonState()
         }
     }
@@ -174,20 +173,36 @@ class ShopListController: UIViewController {
     // MARK: - Syncing ...
     func synchronizeData() {
         self.buttonEnable(false)
+        
+        self.presenter.startSyncronize()
         self.syncAnimator.startProgress()
-        self.presenter.synchronizeData { [weak self] result in
-            guard let `self` = self else { return }
-            self.syncAnimator.stopProgress(completion: { [weak self] in
-                guard let `self` = self else { return }
-                switch result {
-                case .success:
-                    self.updateCurentOutlet()
-                case let .failure(error):
-                    self.openIssueVC(issue: "\(error.message): \(error.localizedDescription)")
-                    
-                }
-            })
+        
+        self.presenter.onUpdateCurrentOutlet = { [weak self] in
+            self?.syncAnimator.stopProgress { [weak self] in
+                self?.updateCurentOutlet()
+            }
         }
+        
+        self.presenter.onSyncError = { [weak self] errorMessage in
+            self?.syncAnimator.stopProgress { [weak self] in
+                self?.openIssueVC(issue: errorMessage)
+            }
+        }
+        
+//        self.syncAnimator.startProgress()
+//        self.presenter.synchronizeData { [weak self] result in
+//            guard let `self` = self else { return }
+//            self.syncAnimator.stopProgress(completion: { [weak self] in
+//                guard let `self` = self else { return }
+//                switch result {
+//                case .success:
+//                    self.updateCurentOutlet()
+//                case let .failure(error):
+//                    self.openIssueVC(issue: "\(error.message): \(error.localizedDescription)")
+//
+//                }
+//            })
+//        }
     }
 
     private func updateCurentOutlet() {
@@ -311,7 +326,7 @@ extension ShopListController: ItemListVCDelegate {
             guard let `self` = self else { return }
             switch result {
             case .success:
-                self.adapter.reload()
+                self.shopTableView.reloadData() 
             case let .failure(error):
                 self.alert(message: error.message)
             }

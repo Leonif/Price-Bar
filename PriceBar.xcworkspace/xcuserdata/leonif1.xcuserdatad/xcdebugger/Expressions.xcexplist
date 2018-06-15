@@ -56,10 +56,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in FirebaseService.getPrices(for:callback:):FirebaseService.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListController.setupNavigation():ShopListController.swift">
          <PersistentStrings>
             <PersistentString
                value = "self.navigationItem.titleView">
+            </PersistentString>
+            <PersistentString
+               value = "navigationController">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -219,6 +225,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListAssembler.assemble():ShopListAssembler.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListController.itemChoosen(productId:):ShopListController.swift">
       </ContextState>
       <ContextState
@@ -226,6 +235,9 @@
       </ContextState>
       <ContextState
          contextName = "UpdatePriceVC.updateStatistics(completin:):UpdatePriceVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.viewDidLoad():ItemListVC.swift">
       </ContextState>
       <ContextState
          contextName = "static CoreDataParsers.parse(from:):CoreDataParsers.swift">
@@ -740,6 +752,9 @@
       </ContextState>
       <ContextState
          contextName = "ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in ItemListPresenter.getProductWithPrices(offset:limit:for:):ItemListPresenter.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.handle(for : String) -&gt; ():ShopListControllerExchange.swift">

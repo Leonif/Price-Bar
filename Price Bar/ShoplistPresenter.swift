@@ -11,12 +11,22 @@ import GooglePlaces
 
 
 public final class ShoplistPresenter {
+    
+    var view: ShopListController!
+    
     private let outletService = OutletService()
     private let repository: Repository!
     var onIsProductHasPrice: ((Bool, String) -> Void) = { _,_  in}
+    var onUpdateCurrentOutlet: (() -> Void) = {}
+    var onError: ((String) -> Void) = { _ in}
+    var onSyncProgress: ((Int, Int, String) -> Void) = { _,_,_ in}
+    var onSyncError: ((String) -> Void) = { _ in}
     
     init(repository: Repository) {
         self.repository = repository
+        self.repository.onSyncProgress = { [weak self] (progress, max, text) in
+            self?.onSyncProgress(progress, max, text)
+        }
     }
     
     public func updateCurrentOutlet(completion: @escaping (ResultType<Outlet, OutletServiceError>) -> Void) {
@@ -32,16 +42,17 @@ public final class ShoplistPresenter {
         }
     }
     
-    func synchronizeData(completion: @escaping (ResultType<Bool, RepositoryError>) -> Void) {
-        repository.syncCloud { result in
+    func startSyncronize() {
+        repository.syncCloud { [weak self] result in
             switch result {
             case let .failure(error):
-                completion(ResultType.failure(error))
+                self?.onSyncError("\(error.message): \(error.localizedDescription)")
             case .success:
-                completion(ResultType.success(true))
+                self?.onUpdateCurrentOutlet()
             }
         }
     }
+    
     
     func addToShoplist(with productId: String, and outletId: String, completion: @escaping (ResultType<Bool, RepositoryError>) -> Void) {
 //        guard let product: DPProductModel = repository.getItem(with: productId, and: outletId) else {

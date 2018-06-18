@@ -10,9 +10,34 @@ import Foundation
 import GooglePlaces
 
 
-public final class ShoplistPresenter {
+protocol ShoplistPresenter {
+    func startSyncronize()
+    func isProductHasPrice(for productId: String, in outletId: String)
+    func addToShoplist(with productId: String, and outletId: String)
+    func updateCurrentOutlet()
+    func reloadProducts(outletId: String)
     
-    var view: ShopListController!
+    func onOpenStatistics()
+    func onOpenUpdatePrice(for barcode: String, outletId: String)
+    func onOpenIssueVC(with issue: String)
+    func onOpenItemCard(for item: DPShoplistItemModel, with outletId: String)
+    func onOpenNewItemCard(for productId: String)
+    func onOpenScanner()
+    func onOpenItemList(for outletId: String)
+    func onOpenOutletList()
+    func onReloadShoplist(for outletId: String)
+    func onCleanShopList()
+    
+}
+
+
+
+public final class ShoplistPresenterImpl: ShoplistPresenter {
+    
+    
+    
+    weak var view: ShoplistView!
+    var router: ShoplistRouter!
     
     private let outletService = OutletService()
     private let repository: Repository!
@@ -29,15 +54,15 @@ public final class ShoplistPresenter {
         }
     }
     
-    public func updateCurrentOutlet(completion: @escaping (ResultType<Outlet, OutletServiceError>) -> Void) {
+    public func updateCurrentOutlet() {
         let outletService = OutletService()
         outletService.nearestOutlet { result in
             switch result {
             case let .success(outlet):
                 let outlet = OutletMapper.mapper(from: outlet)
-                completion(ResultType.success(outlet))
+                self.view.onCurrentOutletUpdated(outlet: outlet)
             case let .failure(error):
-                completion(ResultType.failure(error))
+                self.view.onError(error: error.errorDescription)
             }
         }
     }
@@ -54,12 +79,7 @@ public final class ShoplistPresenter {
     }
     
     
-    func addToShoplist(with productId: String, and outletId: String, completion: @escaping (ResultType<Bool, RepositoryError>) -> Void) {
-//        guard let product: DPProductModel = repository.getItem(with: productId, and: outletId) else {
-//            completion(ResultType.failure(RepositoryError.productIsNotFound("")))
-//            return
-//        }
-        
+    func addToShoplist(with productId: String, and outletId: String) {
         repository.getItem(with: productId, and: outletId) { (product) in
             
             guard let product = product else { fatalError() }
@@ -67,9 +87,9 @@ public final class ShoplistPresenter {
             self.addItemToShopList(product, and: outletId, completion: { result in
                 switch result {
                 case let .failure(error):
-                    completion(ResultType.failure(error))
+                    self.view.onError(error: error.message)
                 case .success:
-                    completion(ResultType.success(true))
+                    self.view.onAddedItemToShoplist(productId: productId)
                 }
             })
         }
@@ -91,8 +111,6 @@ public final class ShoplistPresenter {
                 
             }
         }
-        
-        
     }
     
     func isProductHasPrice(for productId: String, in outletId: String) {
@@ -104,5 +122,55 @@ public final class ShoplistPresenter {
     
     func reloadProducts(outletId: String) {
         self.repository.loadShopList(for: outletId)
+    }
+    
+    
+    
+    func onOpenStatistics() {
+        self.router.openStatistics()
+    }
+    
+    
+    func onOpenIssueVC(with issue: String) {
+        self.router.openIssue(with: issue)
+
+    }
+    
+    
+    func onOpenItemCard(for item: DPShoplistItemModel, with outletId: String) {
+        self.router.openItemCard(for: item, outletId: outletId)
+    }
+    
+    
+    func onOpenScanner() {
+        self.router.openScanner()
+    }
+    
+    func onOpenItemList(for outletId: String) {
+        self.router.openItemList(for: outletId)
+    }
+    
+    func onOpenOutletList() {
+        self.router.openOutletList()
+    }
+    
+    func onOpenNewItemCard(for productId: String) {
+        
+    }
+    
+    
+    func onReloadShoplist(for outletId: String) {
+        self.repository.loadShopList(for: outletId)
+    }
+    
+    func onCleanShopList() {
+        self.repository.clearShoplist()
+    }
+    
+    
+    func onOpenUpdatePrice(for barcode: String, outletId: String) {
+        self.repository.getPrice(for: barcode, and: outletId, callback: { [weak self] (price) in
+            self?.router.openUpdatePrice(for: barcode, currentPrice: price, outletId: outletId)
+        })
     }
 }

@@ -76,11 +76,7 @@ class UpdatePriceVC: UIViewController {
                             }
                         })
             })
-        
-        
     }
-    
-    
     
     @IBAction func savePriceTapped(_ sender: Any) {
         guard let price = self.priceTextField.text?.numberFormatting() else {

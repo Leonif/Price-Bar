@@ -15,21 +15,28 @@ class ShopListAssembler {
         let view = R.storyboard.main.shopListController()!
 
         let repository = Repository()
-        view.repository = repository
+//        view.repository = repository
         
         let adapter = ShopListAdapter(parent: view, repository: repository)
         view.adapter = adapter
         
-        let presenter = ShoplistPresenter(repository: repository)
+        let presenter = ShoplistPresenterImpl(repository: repository)
         presenter.view = view
         view.presenter = presenter
+        
+        let router = ShoplistRouterImpl()
+        router.fromVC = view
+        router.repository = repository
+        
+        presenter.router = router
+        
         
         let syncAnimator = SyncAnimator(parent: view)
         view.syncAnimator = syncAnimator
         
-        let data = DataStorage(repository: repository, vc: view, outlet: view.userOutlet)
+//        let data = DataStorage(repository: repository, vc: view, outlet: view.userOutlet)
         
-        view.data = data
+//        view.data = data
         
         
         return view

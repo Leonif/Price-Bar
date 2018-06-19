@@ -40,13 +40,9 @@ class ShopListController: UIViewController, ShoplistView {
     var navigationView: NavigationView!
     
     // MARK: - Dependecy Injection properties
-//    var repository: Repository!
     var presenter: ShoplistPresenter!
-
     var adapter: ShopListAdapter!
-    
     var syncAnimator: SyncAnimator!
-    
     
     private var buttonsHided: Bool = false
     
@@ -68,18 +64,12 @@ class ShopListController: UIViewController, ShoplistView {
     }()
     
     var userOutlet: Outlet!
-//        didSet {
-////            self.data.outlet = userOutlet
-//            self.updateUI()
-//        }
-//    }
     
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         navigationItem.titleView?.alpha = 1.0
     }
-    
     
     // MARK: - Presenter events
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {
@@ -103,6 +93,8 @@ class ShopListController: UIViewController, ShoplistView {
     
     func onAddedItemToShoplist(productId: String) {
         self.presenter.isProductHasPrice(for: productId, in: self.userOutlet.id)
+        self.presenter.onReloadShoplist(for: userOutlet.id)
+        self.shopTableView.reloadData()
     }
     
     
@@ -131,12 +123,12 @@ class ShopListController: UIViewController, ShoplistView {
     
     
     func onError(error: String) {
-//        let previousSuccess = R.string.localizable.common_good_news()
-//        self.openIssueVC(issue: "\(previousSuccess)\n\(error.errorDescription)\n\(R.string.localizable.common_try_later()))")
         self.presenter.onOpenIssueVC(with: error)
         self.buttonEnable(false)
     }
     
+    
+    // MARK: Life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -177,13 +169,11 @@ class ShopListController: UIViewController, ShoplistView {
         
         self.adapter.onCellDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-//            self.openItemCard(for: item, data: self.data)
             self.presenter.onOpenItemCard(for: item, with: self.userOutlet.id)
         }
         
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-//            self.openUpdatePrice(for: item.productId, currentPrice: item.productPrice, data: self.data)
             self.presenter.onOpenUpdatePrice(for: item.productId, outletId: self.userOutlet.id)
         }
     }
@@ -228,9 +218,9 @@ class ShopListController: UIViewController, ShoplistView {
     }
     
     func updateRemoveButtonState() {
-        self.totalLabel.text = String(format:"%.2f UAH", self.repository.total)
-        let enable = !self.repository.shoplist.isEmpty
-        self.deleteButton.setEnable(enable)
+//        self.totalLabel.text = String(format:"%.2f UAH", self.repository.total)
+//        let enable = !self.repository.shoplist.isEmpty
+//        self.deleteButton.setEnable(enable)
     }
     
     
@@ -266,7 +256,6 @@ class ShopListController: UIViewController, ShoplistView {
     @IBAction func cleanShopList(_ sender: GoodButton) {
         self.cleanShoplist()
     }
-    
     
     @objc
     func cleanShoplist() {
@@ -325,9 +314,7 @@ extension ShopListController: ScannerDelegate {
 
 extension ShopListController: ItemListVCDelegate {
     func itemChoosen(productId: String) {
-//        if let outlet = userOutlet.id {
         self.presenter.isProductHasPrice(for: productId, in: userOutlet.id)
-//        }
         self.presenter.addToShoplist(with: productId, and: userOutlet.id)
     }
 }
@@ -347,24 +334,3 @@ extension ShopListController: ItemCardVCDelegate {
         presenter?.reloadProducts(outletId: userOutlet.id)
     }
 }
-//extension ShopListController: ItemCardRoute {}
-
-//extension ShopListController: UpdatePriceRoute {
-//    func onSavePrice() {
-//        guard let outlet = self.data.outlet else {
-//            fatalError("No outlet data")
-//        }
-//        self.presenter.reloadProducts(outletId: outlet.id)
-//    }
-//}
-//
-//extension ShopListController: StatisticsRoute {}
-//extension ShopListController: ItemListRoute {}
-//extension ShopListController: ScannerRoute {}
-//extension ShopListController: OutletListRoute {}
-//extension ShopListController: IssueRoute {
-//    func onTryAgain() {
-//        self.synchronizeData()
-//    }
-//}
-

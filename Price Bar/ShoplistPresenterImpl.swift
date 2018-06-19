@@ -34,23 +34,16 @@ protocol ShoplistPresenter {
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
     
-    
-    
     weak var view: ShoplistView!
     var router: ShoplistRouter!
     
     private let outletService = OutletService()
     private let repository: Repository!
-    var onIsProductHasPrice: ((Bool, String) -> Void) = { _,_  in}
-    var onUpdateCurrentOutlet: (() -> Void) = {}
-    var onError: ((String) -> Void) = { _ in}
-    var onSyncProgress: ((Int, Int, String) -> Void) = { _,_,_ in}
-    var onSyncError: ((String) -> Void) = { _ in}
     
     init(repository: Repository) {
         self.repository = repository
         self.repository.onSyncProgress = { [weak self] (progress, max, text) in
-            self?.onSyncProgress(progress, max, text)
+            self?.view.onSyncProgress(progress: Double(progress), max: Double(max), text: text)
         }
     }
     
@@ -71,9 +64,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         repository.syncCloud { [weak self] result in
             switch result {
             case let .failure(error):
-                self?.onSyncError("\(error.message): \(error.localizedDescription)")
+                self?.view.onSyncError(error: "\(error.message): \(error.localizedDescription)")
             case .success:
-                self?.onUpdateCurrentOutlet()
+                self?.view.onUpdateCurrentOutlet()
             }
         }
     }
@@ -115,7 +108,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func isProductHasPrice(for productId: String, in outletId: String) {
         self.repository.getPrice(for: productId, and: outletId, callback: { [weak self] (price) in
-            self?.onIsProductHasPrice(price > 0.0, productId)
+            self?.view.onIsProductHasPrice(isHasPrice: price > 0.0, barcode: productId)
             
         })
     }

@@ -183,7 +183,7 @@ class Repository {
     }
 
     func needToSync() -> Bool {
-//        return true
+//        return false
         
         var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
         switch times {

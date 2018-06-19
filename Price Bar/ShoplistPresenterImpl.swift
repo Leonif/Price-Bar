@@ -73,16 +73,18 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     
     func addToShoplist(with productId: String, and outletId: String) {
-        repository.getItem(with: productId, and: outletId) { (product) in
+        self.view.showLoading()
+        repository.getItem(with: productId, and: outletId) { [weak self] (product) in
             
             guard let product = product else { fatalError() }
             
-            self.addItemToShopList(product, and: outletId, completion: { result in
+            self?.addItemToShopList(product, and: outletId, completion: { result in
+                self?.view.hideLoading()
                 switch result {
                 case let .failure(error):
-                    self.view.onError(error: error.message)
+                    self?.view.onError(error: error.message)
                 case .success:
-                    self.view.onAddedItemToShoplist(productId: productId)
+                    self?.view.onAddedItemToShoplist(productId: productId)
                 }
             })
         }

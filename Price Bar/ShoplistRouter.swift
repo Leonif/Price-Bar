@@ -77,9 +77,8 @@ class ShoplistRouterImpl: ShoplistRouter {
     
     func openItemList(for outletId: String) {
         let vc = R.storyboard.main.itemListVC()!
-        vc.delegate = self as? ItemListVCDelegate
+        vc.delegate = fromVC as? ItemListVCDelegate
         vc.outletId = outletId
-        vc.itemCardDelegate = self as? ItemCardVCDelegate
         vc.repository = repository
         (self.fromVC as! UIViewController).navigationController?.pushViewController(vc, animated: true)
     }
@@ -92,6 +91,7 @@ class ShoplistRouterImpl: ShoplistRouter {
 
     }
 }
+
 
 
 

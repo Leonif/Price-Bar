@@ -19,7 +19,13 @@ protocol ShoplistView:  class {
     func onSavePrice()
     func onProductIsNotFound(productId: String)
     func onAddedItemToShoplist(productId: String)
+    func showLoading()
+    func hideLoading()
+    
     func updateUI()
+    
+    
+    
 }
 
 
@@ -152,6 +158,16 @@ class ShopListController: UIViewController, ShoplistView {
         self.setupAdapter()
         self.synchronizeData()
     }
+    
+    
+    func showLoading() {
+        self.view.pb_startActivityIndicator(with: "")
+    }
+    
+    func hideLoading() {
+        self.view.pb_stopActivityIndicator()
+    }
+    
     
     
     func setupAdapter() {

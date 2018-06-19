@@ -30,7 +30,7 @@ class ItemCardNew: UIViewController {
     var searchedItemName: String?
     weak var repository: Repository!
 
-    var item: DPShoplistItemModel?
+    var item: ShoplistItem?
     var barcode: String?
     var productCard: ProductCardModelView!
     

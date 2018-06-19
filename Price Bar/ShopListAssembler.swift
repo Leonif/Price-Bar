@@ -17,7 +17,7 @@ class ShopListAssembler {
         let repository = Repository()
 //        view.repository = repository
         
-        let adapter = ShopListAdapter(parent: view, repository: repository)
+        let adapter = ShopListAdapter(parent: view)
         view.adapter = adapter
         
         let presenter = ShoplistPresenterImpl(repository: repository)

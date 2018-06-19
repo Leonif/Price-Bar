@@ -19,13 +19,13 @@ protocol ShoplistView:  class {
     func onSavePrice()
     func onProductIsNotFound(productId: String)
     func onAddedItemToShoplist(productId: String)
-    func showLoading()
+    func onUpdatedTotal(_ total: Double)
+    func onUpdatedShoplist(_ dataSource: [ShoplistItem])
+    
+    func showLoading(with text: String)
     func hideLoading()
     
     func updateUI()
-    
-    
-    
 }
 
 
@@ -77,61 +77,6 @@ class ShopListController: UIViewController, ShoplistView {
         navigationItem.titleView?.alpha = 1.0
     }
     
-    // MARK: - Presenter events
-    func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {
-        if !isHasPrice {
-            self.presenter.onOpenUpdatePrice(for: barcode, outletId: self.userOutlet.id)
-        }
-        self.shopTableView.reloadData()
-    }
-    
-    func onSyncProgress(progress: Double, max: Double, text: String) {
-        self.syncAnimator.syncHandle(for: Double(progress),
-                                     and: Double(max),
-                                     with: text)
-    }
-    
-    func onUpdateCurrentOutlet() {
-        self.syncAnimator.stopProgress { [weak self] in
-            self?.presenter.updateCurrentOutlet()
-        }
-    }
-    
-    func onAddedItemToShoplist(productId: String) {
-        self.presenter.isProductHasPrice(for: productId, in: self.userOutlet.id)
-        self.presenter.onReloadShoplist(for: userOutlet.id)
-        self.shopTableView.reloadData()
-    }
-    
-    
-    func onSyncError(error: String) {
-        self.syncAnimator.stopProgress { [weak self] in
-            self?.presenter.onOpenIssueVC(with: error)
-        }
-    }
-    
-    func onCurrentOutletUpdated(outlet: Outlet) {
-        self.view.pb_stopActivityIndicator()
-        self.userOutlet = outlet
-        self.presenter.onReloadShoplist(for: userOutlet.id)
-        self.presenter.onOpenStatistics()
-        self.buttonEnable(true)
-    }
-    
-    func onSavePrice() {
-        self.presenter.reloadProducts(outletId: userOutlet.id)
-    }
-
-    
-    func onProductIsNotFound(productId: String) {
-        self.presenter.onOpenNewItemCard(for: productId)
-    }
-    
-    
-    func onError(error: String) {
-        self.presenter.onOpenIssueVC(with: error)
-        self.buttonEnable(false)
-    }
     
     
     // MARK: Life cycle
@@ -146,29 +91,100 @@ class ShopListController: UIViewController, ShoplistView {
         PriceBarStyles.shadowAround.apply(to: self.buttonsView)
         
         self.setupGestures()
-        self.updateRemoveButtonState()
         self.setupTotalView()
         
         // MARK: - Handle depencies
-//        repository.onUpdateShoplist = { [weak self] in
-//            guard let `self` = self else { return }
-//            self.shopTableView.reloadData()
-//            self.updateRemoveButtonState()
-//        }
-        self.setupAdapter()
+        //        repository.onUpdateShoplist = { [weak self] in
+        //            guard let `self` = self else { return }
+        //            self.shopTableView.reloadData()
+        //            self.updateRemoveButtonState()
+        //        }
         self.synchronizeData()
+        self.setupAdapter()
+        
     }
     
     
-    func showLoading() {
-        self.view.pb_startActivityIndicator(with: "")
+    
+    
+    
+    
+    // MARK: - Presenter events
+    func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {
+        if !isHasPrice {
+            self.presenter.onOpenUpdatePrice(for: barcode, outletId: self.userOutlet.id)
+        }
+        self.shopTableView.reloadData()
+    }
+    
+    func onSyncProgress(progress: Double, max: Double, text: String) {
+        self.syncAnimator.syncHandle(for: Double(progress),
+                                     and: Double(max),
+                                     with: text)
+    }
+    func onUpdateCurrentOutlet() {
+        self.syncAnimator.stopProgress { [weak self] in
+            self?.presenter.updateCurrentOutlet()
+        }
+    }
+    
+    func onAddedItemToShoplist(productId: String) {
+        self.presenter.isProductHasPrice(for: productId, in: self.userOutlet.id)
+        self.presenter.onReloadShoplist(for: userOutlet.id)
+        self.deleteButton.setEnable(true)
+    }
+    
+    func onUpdatedTotal(_ total: Double) {
+        DispatchQueue.main.async { [weak self] in
+//            self?.shopTableView.reloadData()
+            self?.totalLabel.text = "\(R.string.localizable.common_total()) \(total)"
+        }
+    }
+    
+    
+    func onUpdatedShoplist(_ dataSource: [ShoplistItem]) {
+        self.adapter.dataSource = dataSource
+        DispatchQueue.main.async { [weak self] in
+            self?.shopTableView.reloadData()
+        }
+    }
+    
+    func onSyncError(error: String) {
+        self.syncAnimator.stopProgress { [weak self] in
+            self?.presenter.onOpenIssueVC(with: error)
+        }
+    }
+    
+    func onCurrentOutletUpdated(outlet: Outlet) {
+        self.view.pb_stopActivityIndicator()
+        self.presenter.onReloadShoplist(for: outlet.id)
+        self.userOutlet = outlet
+        self.presenter.onOpenStatistics()
+        self.buttonEnable(true)
+    }
+    
+    func onSavePrice() {
+        self.presenter.onReloadShoplist(for: userOutlet.id)
+    }
+
+    
+    func onProductIsNotFound(productId: String) {
+        self.presenter.onOpenNewItemCard(for: productId)
+    }
+    
+    
+    func onError(error: String) {
+        self.presenter.onOpenIssueVC(with: error)
+        self.buttonEnable(false)
+    }
+    
+    func showLoading(with text: String = "") {
+        self.view.pb_startActivityIndicator(with: text)
     }
     
     func hideLoading() {
         self.view.pb_stopActivityIndicator()
     }
-    
-    
     
     func setupAdapter() {
         
@@ -227,17 +243,11 @@ class ShopListController: UIViewController, ShoplistView {
             guard let `self` = self else { return }
             self.navigationView.outletName.text = self.userOutlet.name
             self.navigationView.outletAddress.text = self.userOutlet.address
-            
             self.shopTableView.reloadData()
-            self.updateRemoveButtonState()
         }
     }
     
-    func updateRemoveButtonState() {
-//        self.totalLabel.text = String(format:"%.2f UAH", self.repository.total)
-//        let enable = !self.repository.shoplist.isEmpty
-//        self.deleteButton.setEnable(enable)
-    }
+    
     
     
     // MARK: - Syncing ...
@@ -279,8 +289,12 @@ class ShopListController: UIViewController, ShoplistView {
             guard let `self` = self else { return }
             self.presenter.onCleanShopList()
             self.shopTableView.reloadData()
+            self.deleteButton.setEnable(false)
             }, cancelAction: {})
     }
+    
+    
+    
     
 }
 
@@ -308,7 +322,6 @@ extension ShopListController {
     func shiftButton(hide: Bool) {
         let shiftOfDirection: CGFloat = hide ? -1 : 1
         buttonsHided.toggle()
-        updateRemoveButtonState()
         [scanButton, itemListButton].forEach { $0.setEnable(hide) }
         let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 100
         self.rightButtonConstrait.constant = newConst
@@ -347,6 +360,6 @@ extension ShopListController: ItemCardVCDelegate {
     }
     
     func productUpdated() { // товар был отредактирован (цена/категория/ед измерения)
-        presenter?.reloadProducts(outletId: userOutlet.id)
+        self.presenter?.onReloadShoplist(for: userOutlet.id)
     }
 }

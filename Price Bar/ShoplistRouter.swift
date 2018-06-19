@@ -13,7 +13,7 @@ protocol ShoplistRouter {
     func openStatistics()
     func openUpdatePrice(for productId: String, currentPrice: Double, outletId: String)
     func openIssue(with issue: String)
-    func openItemCard(for item: DPShoplistItemModel, outletId: String)
+    func openItemCard(for item: ShoplistItem, outletId: String)
     func openScanner()
     func openItemList(for outletId: String)
     func openOutletList()
@@ -59,7 +59,7 @@ class ShoplistRouterImpl: ShoplistRouter {
         }
     }
     
-    func openItemCard(for item: DPShoplistItemModel, outletId: String) {
+    func openItemCard(for item: ShoplistItem, outletId: String) {
         let vc = ItemCardNew(nib: R.nib.itemCardNew)
         vc.item = item
         vc.repository = repository

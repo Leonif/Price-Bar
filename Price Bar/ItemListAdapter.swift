@@ -104,8 +104,6 @@ extension ItemListAdapter: UITableViewDelegate {
 extension ItemListAdapter {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        print("cur idx: \(indexPath.row), data: \(dataSource.count) ff: \(filtredItemList.count)")
         if indexPath.row == self.dataSource.count - 1 {
             self.isLoading = true
             self.currentPageOffset += self.limit

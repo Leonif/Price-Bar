@@ -15,12 +15,12 @@ protocol ShoplistPresenter {
     func isProductHasPrice(for productId: String, in outletId: String)
     func addToShoplist(with productId: String, and outletId: String)
     func updateCurrentOutlet()
-    func reloadProducts(outletId: String)
+
     
     func onOpenStatistics()
     func onOpenUpdatePrice(for barcode: String, outletId: String)
     func onOpenIssueVC(with issue: String)
-    func onOpenItemCard(for item: DPShoplistItemModel, with outletId: String)
+    func onOpenItemCard(for item: ShoplistItem, with outletId: String)
     func onOpenNewItemCard(for productId: String)
     func onOpenScanner()
     func onOpenItemList(for outletId: String)
@@ -54,11 +54,23 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             case let .success(outlet):
                 let outlet = OutletMapper.mapper(from: outlet)
                 self.view.onCurrentOutletUpdated(outlet: outlet)
+                
+                self.updateDataSource()
+                
+                
+                
             case let .failure(error):
                 self.view.onError(error: error.errorDescription)
             }
         }
     }
+    
+    private func updateDataSource() {
+        let dataSource = self.repository.shoplist
+        self.view.onUpdatedShoplist(dataSource)
+    }
+    
+    
     
     func startSyncronize() {
         repository.syncCloud { [weak self] result in
@@ -73,18 +85,21 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     
     func addToShoplist(with productId: String, and outletId: String) {
-        self.view.showLoading()
+        self.view.showLoading(with: "Получаем актуальную цену")
         repository.getItem(with: productId, and: outletId) { [weak self] (product) in
-            
             guard let product = product else { fatalError() }
+            guard let `self` = self else { return }
             
-            self?.addItemToShopList(product, and: outletId, completion: { result in
-                self?.view.hideLoading()
+            self.addItemToShopList(product, and: outletId, completion: { result in
+                self.view.hideLoading()
                 switch result {
                 case let .failure(error):
-                    self?.view.onError(error: error.message)
+                    self.view.onError(error: error.message)
                 case .success:
-                    self?.view.onAddedItemToShoplist(productId: productId)
+                    let total = self.repository.total
+                    self.view.onAddedItemToShoplist(productId: productId)
+                    self.view.onUpdatedTotal(total)
+                    self.updateDataSource()
                 }
             })
         }
@@ -95,7 +110,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         repository.getPrice(for: product.id, and: outletId) { [weak self] (price) in
             guard let `self` = self else { return }
             
-            let shopListItem: DPShoplistItemModel = ProductMapper.mapper(from: product, price: price)
+            let shopListItem: ShoplistItem = ProductMapper.mapper(from: product, price: price)
             
             let result = self.repository.saveToShopList(new: shopListItem)
             switch result {
@@ -111,31 +126,28 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     func isProductHasPrice(for productId: String, in outletId: String) {
         self.repository.getPrice(for: productId, and: outletId, callback: { [weak self] (price) in
             self?.view.onIsProductHasPrice(isHasPrice: price > 0.0, barcode: productId)
-            
         })
     }
     
-    func reloadProducts(outletId: String) {
-        self.repository.loadShopList(for: outletId)
-    }
     
+    func onReloadShoplist(for outletId: String) {
+        self.repository.loadShopList(for: outletId)
+        let total = self.repository.total
+        self.view.onUpdatedTotal(total)
+    }
     
     
     func onOpenStatistics() {
         self.router.openStatistics()
     }
     
-    
     func onOpenIssueVC(with issue: String) {
         self.router.openIssue(with: issue)
-
     }
     
-    
-    func onOpenItemCard(for item: DPShoplistItemModel, with outletId: String) {
+    func onOpenItemCard(for item: ShoplistItem, with outletId: String) {
         self.router.openItemCard(for: item, outletId: outletId)
     }
-    
     
     func onOpenScanner() {
         self.router.openScanner()
@@ -149,19 +161,16 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.router.openOutletList()
     }
     
+    
     func onOpenNewItemCard(for productId: String) {
-        
-    }
-    
-    
-    func onReloadShoplist(for outletId: String) {
-        self.repository.loadShopList(for: outletId)
+        //TODO: need to implement
     }
     
     func onCleanShopList() {
         self.repository.clearShoplist()
+        self.view.onUpdatedTotal(0)
+        self.updateDataSource()
     }
-    
     
     func onOpenUpdatePrice(for barcode: String, outletId: String) {
         self.repository.getPrice(for: barcode, and: outletId, callback: { [weak self] (price) in

@@ -85,7 +85,7 @@ class Repository {
     var currentNext: Int = 0
 
     var sections = [String]()
-    var shoplist: [DPShoplistItemModel] = [] {
+    var shoplist: [ShoplistItem] = [] {
         didSet {
             DispatchQueue.main.async { [weak self] in
                 self?.onUpdateShoplist?()
@@ -245,8 +245,8 @@ class Repository {
             }
             switch result {
             case .success:
-                self.onSyncNext?()
-                completion(ResultType.success(true))
+        self.onSyncNext?()
+        completion(ResultType.success(true))
             case let .failure(error):
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
@@ -327,7 +327,7 @@ class Repository {
         FirebaseService.data.saveOrUpdate(fb)
     }
 
-    func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, RepositoryError> {
+    func saveToShopList(new item: ShoplistItem) -> ResultType<Bool, RepositoryError> {
 
         if let _ = shoplist.index(of: item) {
             return ResultType.failure(RepositoryError.shoplistAddedNewItem(R.string.localizable.common_already_in_list()))
@@ -400,54 +400,34 @@ class Repository {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    //////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
-    
 
     func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {
         return CoreDataService.data.filterItemList(contains: text, for: outletId)
     }
 
-    // FIXME: get price from just cloud
-//    func pricesUpdate(by outletId: String) {
-//        for (index, item) in shoplist.enumerated() {
-//            let price = CoreDataService.data.getPrice(for: item.productId, and:outletId)
-//            shoplist[index].productPrice = price
+    
+//    func remove(item: ShoplistItem) {
+//        guard let index = shoplist.index(of: item) else {
+//            fatalError("item doesnt exist")
 //        }
+//        shoplist.remove(at: index)
+//        removeSection(with: item.productCategory)
+//        CoreDataService.data.removeFromShopList(with: item.productId)
 //    }
-
-    func remove(item: DPShoplistItemModel) {
-        guard let index = shoplist.index(of: item) else {
-            fatalError("item doesnt exist")
-        }
-        shoplist.remove(at: index)
-        removeSection(with: item.productCategory)
-        CoreDataService.data.removeFromShopList(with: item.productId)
-    }
-
-    func removeSection(with name: String) {
-        guard let index = sections.index(of: name) else {
-            return
-        }
-
-        for item in shoplist {
-            if item.productCategory == name {
-                debugPrint("section \(name) can't be removed cause contains some items")
-                return
-            }
-        }
-        sections.remove(at: index)
-    }
+//
+//    func removeSection(with name: String) {
+//        guard let index = sections.index(of: name) else {
+//            return
+//        }
+//
+//        for item in shoplist {
+//            if item.productCategory == name {
+//                debugPrint("section \(name) can't be removed cause contains some items")
+//                return
+//            }
+//        }
+//        sections.remove(at: index)
+//    }
 
     func clearShoplist() {
         shoplist.removeAll()
@@ -456,31 +436,31 @@ class Repository {
 
     }
 
-    func changeShoplistItem(_ quantity: Double, for productId: String) {
-        for (index, item) in shoplist.enumerated() {
-            if item.productId == productId {
-               shoplist[index].quantity = quantity
-            }
-        }
-        CoreDataService.data.changeShoplistItem(quantity, for: productId)
-    }
+//    func changeShoplistItem(_ quantity: Double, for productId: String) {
+//        for (index, item) in shoplist.enumerated() {
+//            if item.productId == productId {
+//               shoplist[index].quantity = quantity
+//            }
+//        }
+//        CoreDataService.data.changeShoplistItem(quantity, for: productId)
+//    }
 
-    func getItem(index: IndexPath) -> DPShoplistItemModel? {
-        let sec = index.section
-        let indexInSec = index.row
-
-        let productListInsection = shoplist.filter { $0.productCategory == sections[sec] }
-        guard !productListInsection.isEmpty else {
-            return nil
-        }
-        return productListInsection[indexInSec]
-    }
-    
-    
-    func getQuantity(for productId: String) -> Double? {
-        let p = shoplist.filter { $0.productId == productId }
-        return p.first?.quantity
-    }
+//    func getItem(index: IndexPath) -> ShoplistItem? {
+//        let sec = index.section
+//        let indexInSec = index.row
+//
+//        let productListInsection = shoplist.filter { $0.productCategory == sections[sec] }
+//        guard !productListInsection.isEmpty else {
+//            return nil
+//        }
+//        return productListInsection[indexInSec]
+//    }
+//
+//
+//    func getQuantity(for productId: String) -> Double? {
+//        let p = shoplist.filter { $0.productId == productId }
+//        return p.first?.quantity
+//    }
 
     
     
@@ -557,30 +537,30 @@ class Repository {
         }
     }
 
-    private func addSection(for item: DPShoplistItemModel) {
+    private func addSection(for item: ShoplistItem) {
         if !sections.contains(item.productCategory) {
             sections.append(item.productCategory)
         }
     }
 
-    func rowsIn(_ section: Int) -> Int {
-        let count = shoplist.reduce(0) { (result, item) in
-            result + (item.productCategory == sections[section] ? 1 : 0)
-        }
-        return count
-    }
+//    func rowsIn(_ section: Int) -> Int {
+//        let count = shoplist.reduce(0) { (result, item) in
+//            result + (item.productCategory == sections[section] ? 1 : 0)
+//        }
+//        return count
+//    }
 
-    var sectionCount: Int {
-        return sections.count
-    }
+//    var sectionCount: Int {
+//        return sections.count
+//    }
 
-    func headerString(for section: Int) -> String {
-        guard !sections.isEmpty else {
-            return "No section"
-        }
-        
-        return sections[section]
-    }
+//    func headerString(for section: Int) -> String {
+//        guard !sections.isEmpty else {
+//            return "No section"
+//        }
+//
+//        return sections[section]
+//    }
 }
 
 

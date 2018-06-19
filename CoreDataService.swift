@@ -64,7 +64,7 @@ class CoreDataService {
         }
     }
 
-    func saveToShopList(_ shopItem: DPShoplistItemModel) {
+    func saveToShopList(_ shopItem: ShoplistItem) {
         do {
             //find product in catalog
             let productRequest = NSFetchRequest<Product>(entityName: "Product")
@@ -123,8 +123,8 @@ class CoreDataService {
         return 0
     }
 
-    func loadShopList(for outletId: String?) -> [DPShoplistItemModel]? {
-        var shopList: [DPShoplistItemModel] = []
+    func loadShopList(for outletId: String?) -> [ShoplistItem]? {
+        var shopList: [ShoplistItem] = []
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
             let savedShopList = try context.fetch(shpLstRequest)
@@ -148,7 +148,7 @@ class CoreDataService {
                         let price = outletId != nil ? getPrice(for: id, and: outletId!) : 0.0
                         
                         let params = UomMapper.transform(from: uomParameters)
-                        return DPShoplistItemModel(productId: id,
+                        return ShoplistItem(productId: id,
                                                    productName: name,
                                                    brand: brand,
                                                    weightPerPiece: w,

@@ -9,7 +9,6 @@
 import Foundation
 import GooglePlaces
 
-
 protocol ShoplistPresenter {
     func startSyncronize()
     func isProductHasPrice(for productId: String, in outletId: String)
@@ -59,9 +58,8 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     private func updateShoplist() {
         let dataSource = self.repository.shoplist
         self.view.onUpdatedShoplist(dataSource)
-        if dataSource.isEmpty {
-            self.view.onUpdatedTotal(0)
-        }
+        self.view.onUpdatedTotal(self.repository.total)
+        
     }
     
     func startSyncronize() {
@@ -87,9 +85,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 case let .failure(error):
                     self.view.onError(error: error.message)
                 case .success:
-                    let total = self.repository.total
                     self.view.onAddedItemToShoplist(productId: productId)
-                    self.view.onUpdatedTotal(total)
                     self.updateShoplist()
                 }
             })
@@ -101,7 +97,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         repository.getPrice(for: product.id, and: outletId) { [weak self] (price) in
             guard let `self` = self else { return }
             
-            let shopListItem: ShoplistItem = ProductMapper.mapper(from: product, price: price)
+            let shopListItem: ShoplistItem = ProductMapper.mapper(from: product, price: price, outletId: outletId)
             
             let result = self.repository.saveToShopList(new: shopListItem)
             switch result {
@@ -121,10 +117,29 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     
     func onReloadShoplist(for outletId: String) {
-        self.repository.loadShopList(for: outletId)
-        let total = self.repository.total
-        self.view.onUpdatedTotal(total)
+        guard let shoplistWithoutPrices = self.repository.loadShopList() else { fatalError() }
+        
+        var shoplistWithPrices: [ShoplistItem] = shoplistWithoutPrices
+        
+        let dispatchGroup = DispatchGroup()
+        shoplistWithoutPrices.forEach {
+            dispatchGroup.enter()
+            guard let index = shoplistWithPrices.index(of: $0) else { fatalError() }
+            self.repository.getPrice(for: $0.productId, and: outletId, callback: { (price) in
+                shoplistWithPrices[index].productPrice = price
+                dispatchGroup.leave()
+            })
+        }
+        
+        dispatchGroup.notify(queue: .main) {
+            self.repository.shoplist = shoplistWithPrices
+            self.updateShoplist()
+        }
+        
+        
     }
+    
+    
     
     
     func onOpenStatistics() {
@@ -158,7 +173,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func onCleanShopList() {
         self.repository.clearShoplist()
-        self.view.onUpdatedTotal(0)
         self.updateShoplist()
     }
     

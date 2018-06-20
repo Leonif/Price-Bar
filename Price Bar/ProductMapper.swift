@@ -10,7 +10,7 @@ import Foundation
 
 class ProductMapper {
     
-    class func mapper(from product: DPProductModel, price: Double) -> ShoplistItem {
+    class func mapper(from product: DPProductModel, price: Double, outletId: String) -> ShoplistItem {
 
         let repositoriy = Repository()
 
@@ -30,7 +30,7 @@ class ProductMapper {
                                    productPrice: price,
                                    uomId: product.uomId,
                                    productUom: uom.name,
-                                   quantity: 1.0,
+                                   quantity: 1.0, 
                                    checked: false,
                                    parameters: uom.parameters)
 

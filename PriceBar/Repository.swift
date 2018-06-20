@@ -134,7 +134,8 @@ class Repository {
             case .statistic:
                 self.syncStatistics(completion: completion)
             case .loadShoplist:
-                self.loadShoplist(completion: completion)
+                self.onSyncNext?()
+//                self.loadShoplist(completion: completion)
             case .putBackShoplist:
                 self.saveShoplist()
                 self.onSyncNext?()
@@ -157,16 +158,16 @@ class Repository {
         })
     }
     
-    func loadShoplist(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        let outletId: String? = nil
-        guard let shp = CoreDataService.data.loadShopList(for: outletId) else {
-            completion(ResultType.failure(RepositoryError.syncError(R.string.localizable.error_something_went_wrong())))
-            return
-        }
-        self.shoplist = shp
-        debugPrint("Function: \(#function), line: \(#line)")
-        self.onSyncNext?()
-    }
+//    func loadShoplist(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
+//        let outletId: String? = nil
+//        guard let shp = CoreDataService.data.loadShopList(for: outletId) else {
+//            completion(ResultType.failure(RepositoryError.syncError(R.string.localizable.error_something_went_wrong())))
+//            return
+//        }
+//        self.shoplist = shp
+//        debugPrint("Function: \(#function), line: \(#line)")
+//        self.onSyncNext?()
+//    }
 
     func syncHandle(error: Error) -> ResultType<Bool, RepositoryError> {
         UserDefaults.standard.set(0, forKey: "LaunchedTime")
@@ -324,9 +325,7 @@ class Repository {
         if let _ = shoplist.index(of: item) {
             return ResultType.failure(RepositoryError.shoplistAddedNewItem(R.string.localizable.common_already_in_list()))
         }
-
         shoplist.append(item)
-//        addSection(for: item)
         CoreDataService.data.saveToShopList(item)
 
         return ResultType.success(true)
@@ -499,12 +498,29 @@ class Repository {
         return categoryName
     }
 
-    func loadShopList(for outletId: String) {
+    func loadShopList() -> [ShoplistItem]?  {
         shoplist.removeAll()
-        guard let list = CoreDataService.data.loadShopList(for: outletId) else {
-            return
+        guard let list = CoreDataService.data.loadShopList() else {
+            return nil
         }
-        self.shoplist = list
+        
+        let shoplistWithoutPrices: [ShoplistItem] = list.map { item in
+            ShoplistItem(productId: item.productId,
+                         productName: item.productName,
+                         brand: item.brand,
+                         weightPerPiece: item.weightPerPiece,
+                         categoryId: item.categoryId,
+                         productCategory: item.productCategory,
+                         productPrice: 0.0,
+                         uomId: item.uomId,
+                         productUom: item.productUom,
+                         quantity: item.quantity,
+                         checked: item.checked,
+                         parameters: item.parameters) }
+        
+        
+        self.shoplist = shoplistWithoutPrices
+        return shoplistWithoutPrices
     }
 
 //    private func addSection(for item: ShoplistItem) {

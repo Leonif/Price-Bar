@@ -77,7 +77,7 @@ class CoreDataService {
 
             if shoppedProduct.isEmpty {
                 let shpLst = ShopList(context: context)
-                //shpLst.outlet_id = shopItem.outletId
+//                shpLst.outlet_id = shopItem.outletId
                 shpLst.quantity = shopItem.quantity
                 shpLst.checked = shopItem.checked
                 shpLst.toProduct = productExist.first
@@ -85,7 +85,7 @@ class CoreDataService {
             } else {
                 //change parametrs
                 if let shpLst = shoppedProduct.first {
-                    //shpLst.outlet_id = shopItem.outletId
+//                    shpLst.outlet_id  = shopItem.outletId
                     shpLst.quantity = shopItem.quantity
                     shpLst.checked = shopItem.checked
                     shpLst.toProduct = productExist.first
@@ -123,8 +123,8 @@ class CoreDataService {
         return 0
     }
 
-    func loadShopList(for outletId: String?) -> [ShoplistItem]? {
-        var shopList: [ShoplistItem] = []
+    func loadShopList() -> [CDShoplistItem]? {
+        var shopList: [CDShoplistItem] = []
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
             let savedShopList = try context.fetch(shpLstRequest)
@@ -144,20 +144,18 @@ class CoreDataService {
                         
                         let quantity = shoplistItem.quantity
                         let checked = shoplistItem.checked
-                        
-                        let price = outletId != nil ? getPrice(for: id, and: outletId!) : 0.0
+                    
                         
                         let params = UomMapper.transform(from: uomParameters)
-                        return ShoplistItem(productId: id,
+                        return CDShoplistItem(productId: id,
                                                    productName: name,
                                                    brand: brand,
                                                    weightPerPiece: w,
                                                    categoryId: category.id,
                                                    productCategory: categoryName,
-                                                   productPrice: price,
                                                    uomId: uom.id,
                                                    productUom: uomName,
-                                                   quantity: quantity,
+                                                   quantity: quantity, 
                                                    checked: checked,
                                                    parameters: params)
                 } else {

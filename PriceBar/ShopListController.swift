@@ -77,7 +77,6 @@ class ShopListController: UIViewController, ShoplistView {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         // MARK: - Setup UI
         self.setupNavigation()
         
@@ -116,7 +115,6 @@ class ShopListController: UIViewController, ShoplistView {
         DispatchQueue.main.async { [weak self] in
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(total)"
         }
-        
     }
     
     

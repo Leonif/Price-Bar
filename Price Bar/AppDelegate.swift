@@ -14,7 +14,6 @@ import Crashlytics
 import GooglePlaces
 
 
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -78,7 +77,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
 }
 
 let ad = UIApplication.shared.delegate as! AppDelegate

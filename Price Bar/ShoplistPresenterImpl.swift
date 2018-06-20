@@ -15,7 +15,6 @@ protocol ShoplistPresenter {
     func isProductHasPrice(for productId: String, in outletId: String)
     func addToShoplist(with productId: String, and outletId: String)
     func updateCurrentOutlet()
-
     
     func onOpenStatistics()
     func onOpenUpdatePrice(for barcode: String, outletId: String)
@@ -27,10 +26,7 @@ protocol ShoplistPresenter {
     func onOpenOutletList()
     func onReloadShoplist(for outletId: String)
     func onCleanShopList()
-    
 }
-
-
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
     
@@ -70,8 +66,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.view.onUpdatedShoplist(dataSource)
     }
     
-    
-    
     func startSyncronize() {
         repository.syncCloud { [weak self] result in
             switch result {
@@ -82,7 +76,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
         }
     }
-    
     
     func addToShoplist(with productId: String, and outletId: String) {
         self.view.showLoading(with: "Получаем актуальную цену")
@@ -118,7 +111,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 completion(ResultType.failure(error))
             case .success:
                 completion(ResultType.success(true))
-                
             }
         }
     }

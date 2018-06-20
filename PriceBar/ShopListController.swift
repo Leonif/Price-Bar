@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 protocol ShoplistView:  class {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
     func onSyncProgress(progress: Double, max: Double, text: String)
@@ -27,7 +26,6 @@ protocol ShoplistView:  class {
     
     func updateUI()
 }
-
 
 class ShopListController: UIViewController, ShoplistView {
     
@@ -76,11 +74,7 @@ class ShopListController: UIViewController, ShoplistView {
         super.viewDidAppear(animated)
         navigationItem.titleView?.alpha = 1.0
     }
-    
-    
-    
-    // MARK: Life cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -92,29 +86,15 @@ class ShopListController: UIViewController, ShoplistView {
         
         self.setupGestures()
         self.setupTotalView()
-        
-        // MARK: - Handle depencies
-        //        repository.onUpdateShoplist = { [weak self] in
-        //            guard let `self` = self else { return }
-        //            self.shopTableView.reloadData()
-        //            self.updateRemoveButtonState()
-        //        }
         self.synchronizeData()
         self.setupAdapter()
-        
     }
-    
-    
-    
-    
-    
     
     // MARK: - Presenter events
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {
         if !isHasPrice {
             self.presenter.onOpenUpdatePrice(for: barcode, outletId: self.userOutlet.id)
         }
-        self.shopTableView.reloadData()
     }
     
     func onSyncProgress(progress: Double, max: Double, text: String) {
@@ -136,7 +116,6 @@ class ShopListController: UIViewController, ShoplistView {
     
     func onUpdatedTotal(_ total: Double) {
         DispatchQueue.main.async { [weak self] in
-//            self?.shopTableView.reloadData()
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(total)"
         }
     }
@@ -247,17 +226,12 @@ class ShopListController: UIViewController, ShoplistView {
         }
     }
     
-    
-    
-    
     // MARK: - Syncing ...
     func synchronizeData() {
         self.buttonEnable(false)
         self.presenter.startSyncronize()
         self.syncAnimator.startProgress()
     }
-
-    
     
     private func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async { [weak self] in
@@ -288,14 +262,9 @@ class ShopListController: UIViewController, ShoplistView {
         self.alert(message: R.string.localizable.shoplist_clean(), okAction: { [weak self] in
             guard let `self` = self else { return }
             self.presenter.onCleanShopList()
-            self.shopTableView.reloadData()
             self.deleteButton.setEnable(false)
             }, cancelAction: {})
     }
-    
-    
-    
-    
 }
 
 // FIXME: - move to Animator
@@ -317,7 +286,6 @@ extension ShopListController {
             print("other swipes")
         }
     }
-    
     
     func shiftButton(hide: Bool) {
         let shiftOfDirection: CGFloat = hide ? -1 : 1
@@ -358,7 +326,6 @@ extension ShopListController: ItemCardVCDelegate {
     func add(new productId: String) {
         self.presenter.addToShoplist(with: productId, and: userOutlet.id)
     }
-    
     func productUpdated() { // товар был отредактирован (цена/категория/ед измерения)
         self.presenter?.onReloadShoplist(for: userOutlet.id)
     }

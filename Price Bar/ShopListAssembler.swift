@@ -15,8 +15,6 @@ class ShopListAssembler {
         let view = R.storyboard.main.shopListController()!
 
         let repository = Repository()
-//        view.repository = repository
-        
         let adapter = ShopListAdapter(parent: view)
         view.adapter = adapter
         
@@ -30,14 +28,8 @@ class ShopListAssembler {
         
         presenter.router = router
         
-        
         let syncAnimator = SyncAnimator(parent: view)
         view.syncAnimator = syncAnimator
-        
-//        let data = DataStorage(repository: repository, vc: view, outlet: view.userOutlet)
-        
-//        view.data = data
-        
         
         return view
     }

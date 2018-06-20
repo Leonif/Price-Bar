@@ -110,14 +110,13 @@ class ShopListController: UIViewController, ShoplistView {
     
     func onAddedItemToShoplist(productId: String) {
         self.presenter.isProductHasPrice(for: productId, in: self.userOutlet.id)
-        self.presenter.onReloadShoplist(for: userOutlet.id)
-        self.deleteButton.setEnable(true)
     }
     
     func onUpdatedTotal(_ total: Double) {
         DispatchQueue.main.async { [weak self] in
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(total)"
         }
+        
     }
     
     
@@ -126,6 +125,7 @@ class ShopListController: UIViewController, ShoplistView {
         DispatchQueue.main.async { [weak self] in
             self?.shopTableView.reloadData()
         }
+        self.deleteButton.setEnable(!dataSource.isEmpty)
     }
     
     func onSyncError(error: String) {
@@ -137,7 +137,14 @@ class ShopListController: UIViewController, ShoplistView {
     func onCurrentOutletUpdated(outlet: Outlet) {
         self.view.pb_stopActivityIndicator()
         self.presenter.onReloadShoplist(for: outlet.id)
+        
         self.userOutlet = outlet
+        DispatchQueue.main.async { [weak self] in
+            self?.navigationView.outletName.text = self?.userOutlet.name
+            self?.navigationView.outletAddress.text = self?.userOutlet.address
+        }
+        
+        
         self.presenter.onOpenStatistics()
         self.buttonEnable(true)
     }
@@ -186,6 +193,10 @@ class ShopListController: UIViewController, ShoplistView {
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
             self.presenter.onOpenUpdatePrice(for: item.productId, outletId: self.userOutlet.id)
+        }
+        self.adapter.onRemoveItem = { [weak self] itemId in
+            guard let `self` = self else { return }
+            self.presenter.onRemoveItem(productId: itemId)
         }
     }
     
@@ -262,7 +273,6 @@ class ShopListController: UIViewController, ShoplistView {
         self.alert(message: R.string.localizable.shoplist_clean(), okAction: { [weak self] in
             guard let `self` = self else { return }
             self.presenter.onCleanShopList()
-            self.deleteButton.setEnable(false)
             }, cancelAction: {})
     }
 }

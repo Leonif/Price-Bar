@@ -15,6 +15,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     
     var onCellDidSelected: ((ShoplistItem) -> Void)?
     var onCompareDidSelected: ((ShoplistItem) -> Void)?
+    var onRemoveItem: ((String) -> Void)?
     
     var sectionNames: [String] = []
     var dataSource: [ShoplistItem] = [] {
@@ -77,9 +78,9 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         guard let index = self.dataSource.index(of: item) else {
             fatalError("item doesnt exist")
         }
-        dataSource.remove(at: index)
-        removeSection(with: item.productCategory)
-        CoreDataService.data.removeFromShopList(with: item.productId)
+        self.dataSource.remove(at: index)
+        self.removeSection(with: item.productCategory)
+        self.onRemoveItem?(item.productId)
     }
     
     // FIXME: move to presenter

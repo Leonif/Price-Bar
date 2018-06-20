@@ -26,14 +26,13 @@ protocol ShoplistPresenter {
     func onOpenOutletList()
     func onReloadShoplist(for outletId: String)
     func onCleanShopList()
+    func onRemoveItem(productId: String)
 }
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     weak var view: ShoplistView!
     var router: ShoplistRouter!
-    
-    private let outletService = OutletService()
     private let repository: Repository!
     
     init(repository: Repository) {
@@ -50,20 +49,19 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             case let .success(outlet):
                 let outlet = OutletMapper.mapper(from: outlet)
                 self.view.onCurrentOutletUpdated(outlet: outlet)
-                
-                self.updateDataSource()
-                
-                
-                
+                self.updateShoplist()
             case let .failure(error):
                 self.view.onError(error: error.errorDescription)
             }
         }
     }
     
-    private func updateDataSource() {
+    private func updateShoplist() {
         let dataSource = self.repository.shoplist
         self.view.onUpdatedShoplist(dataSource)
+        if dataSource.isEmpty {
+            self.view.onUpdatedTotal(0)
+        }
     }
     
     func startSyncronize() {
@@ -78,7 +76,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func addToShoplist(with productId: String, and outletId: String) {
-        self.view.showLoading(with: "Получаем актуальную цену")
+        self.view.showLoading(with: R.string.localizable.getting_actual_price())
         repository.getItem(with: productId, and: outletId) { [weak self] (product) in
             guard let product = product else { fatalError() }
             guard let `self` = self else { return }
@@ -92,7 +90,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                     let total = self.repository.total
                     self.view.onAddedItemToShoplist(productId: productId)
                     self.view.onUpdatedTotal(total)
-                    self.updateDataSource()
+                    self.updateShoplist()
                 }
             })
         }
@@ -161,7 +159,13 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     func onCleanShopList() {
         self.repository.clearShoplist()
         self.view.onUpdatedTotal(0)
-        self.updateDataSource()
+        self.updateShoplist()
+    }
+    
+    // FIXME: move to repository
+    func onRemoveItem(productId: String) {
+        self.repository.remove(itemId: productId)
+        self.updateShoplist()
     }
     
     func onOpenUpdatePrice(for barcode: String, outletId: String) {

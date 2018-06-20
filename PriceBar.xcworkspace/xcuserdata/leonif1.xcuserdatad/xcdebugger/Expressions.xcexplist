@@ -14,7 +14,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.itemChoosen(productId:):ShopListControllerExchange.swift">
+         contextName = "closure #6 in ItemListVC.setupAdapter():ItemListVC.swift">
       </ContextState>
       <ContextState
          contextName = "CoreDataService.loadShopList(for:):CoreDataService.swift">
@@ -28,7 +28,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #6 in ItemListVC.setupAdapter():ItemListVC.swift">
+         contextName = "FBItemStatistic.init(priceData:):FBItemStatistic.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.objectExchange(object : Any) -&gt; ():ShopListControllerExchange.swift">
@@ -37,10 +37,10 @@
          contextName = "closure #1 in FirebaseService.getPrices(for:callback:):FirebaseService.swift">
       </ContextState>
       <ContextState
-         contextName = "FBItemStatistic.init(priceData:):FBItemStatistic.swift">
+         contextName = "FoursqareProvider.parseVenue(from:completion:):FoursqareProvider.swift">
       </ContextState>
       <ContextState
-         contextName = "FoursqareProvider.parseVenue(from:completion:):FoursqareProvider.swift">
+         contextName = "ItemListAdapter.tableView(_:numberOfRowsInSection:):ItemListAdapter.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.viewDidAppear(_:):ShopListController.swift">
@@ -51,7 +51,20 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "(null):(null)">
+         contextName = "closure #1 in FirebaseService.getPrice(with:outletId:callback:):FirebaseService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "$0">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShoplistPresenterImpl.addItemToShopList(_:and:completion:):ShoplistPresenterImpl.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopListItem">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ShopListController.setupNavigation():ShopListController.swift">
@@ -215,6 +228,14 @@
          contextName = "ShopListAssembler.assemble():ShopListAssembler.swift">
       </ContextState>
       <ContextState
+         contextName = "ShopListAdapter.tableView(_:numberOfRowsInSection:):ShopListAdapter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "repository.rowsIn(section)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "OutetListAdapter.tableView(_:cellForRowAt:):OutetListAdapter.swift">
          <PersistentStrings>
             <PersistentString
@@ -222,14 +243,6 @@
             </PersistentString>
             <PersistentString
                value = "self.tableView.delegate">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShopListAdapter.tableView(_:numberOfRowsInSection:):ShopListAdapter.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "repository.rowsIn(section)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -269,13 +282,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -297,6 +310,9 @@
          contextName = "Repository.getItem(index:):Repository.swift">
       </ContextState>
       <ContextState
+         contextName = "ShopListAdapter.dataSource.didset:ShopListAdapter.swift">
+      </ContextState>
+      <ContextState
          contextName = "QuantityPickerPopup.viewDidLoad():QuantityPickerPopup.swift">
          <PersistentStrings>
             <PersistentString
@@ -306,9 +322,6 @@
                value = "weightPicker">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShopListAdapter.dataSource.didset:ShopListAdapter.swift">
       </ContextState>
       <ContextState
          contextName = "Repository.getPricesStatisticByOutlet(for:):Repository.swift">
@@ -372,6 +385,9 @@
       </ContextState>
       <ContextState
          contextName = "ShopListDataSource.tableView(_:commit:forRowAt:):ShopListDataSource.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.selectOutlet():ShopListController.swift">
       </ContextState>
       <ContextState
          contextName = "DataProvider.handleStatistics(result:completion:):DataProvider.swift">
@@ -564,13 +580,13 @@
          contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "itemTableView">
+               value = "itemList">
             </PersistentString>
             <PersistentString
                value = "filtredItemList">
             </PersistentString>
             <PersistentString
-               value = "itemList">
+               value = "itemTableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -630,6 +646,9 @@
       </ContextState>
       <ContextState
          contextName = "CoreDataService.save(new:):CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.onCurrentOutletUpdated(outlet:):ShopListController.swift">
       </ContextState>
       <ContextState
          contextName = "ShopItemCell.pickerView(UIPickerView, didSelectRow : Int, inComponent : Int) -&gt; ():ShopItemCell.swift">
@@ -807,10 +826,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -843,15 +862,10 @@
          contextName = "DataProvider.saveShoplist():DataProvider.swift">
       </ContextState>
       <ContextState
-         contextName = "ItemListAdapter.tableView(_:numberOfRowsInSection:):ItemListAdapter.swift">
+         contextName = "(null):(null)">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in FirebaseService.getPrice(with:outletId:callback:):FirebaseService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "$0">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "ShopListController.itemChoosen(productId:):ShopListControllerExchange.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

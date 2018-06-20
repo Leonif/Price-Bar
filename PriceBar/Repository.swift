@@ -79,20 +79,12 @@ class Repository {
     }
     
     // MARK: update events
-    var onUpdateShoplist: ActionClousure?
+//    var onUpdateShoplist: ActionClousure?
     var onSyncProgress: ((Int, Int, String) -> Void)?
     var onSyncNext: (() -> Void)?
     var currentNext: Int = 0
 
-    var sections = [String]()
-    var shoplist: [ShoplistItem] = [] {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.onUpdateShoplist?()
-            }
-        }
-    }
-
+    var shoplist: [ShoplistItem] = []
     
     var itemsCount: Int {
         return shoplist.count
@@ -183,23 +175,23 @@ class Repository {
     }
 
     func needToSync() -> Bool {
-//        return false
+        return false
         
-        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
-        switch times {
-        case 0:
-            times += 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return true
-        case 10:
-            times = 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return true
-        default:
-            times += 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return false
-        }
+//        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
+//        switch times {
+//        case 0:
+//            times += 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//            return true
+//        case 10:
+//            times = 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//            return true
+//        default:
+//            times += 1
+//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
+//            return false
+//        }
     }
 
     private func saveShoplist() {
@@ -334,7 +326,7 @@ class Repository {
         }
 
         shoplist.append(item)
-        addSection(for: item)
+//        addSection(for: item)
         CoreDataService.data.saveToShopList(item)
 
         return ResultType.success(true)
@@ -406,32 +398,14 @@ class Repository {
     }
 
     
-//    func remove(item: ShoplistItem) {
-//        guard let index = shoplist.index(of: item) else {
-//            fatalError("item doesnt exist")
-//        }
-//        shoplist.remove(at: index)
-//        removeSection(with: item.productCategory)
-//        CoreDataService.data.removeFromShopList(with: item.productId)
-//    }
-//
-//    func removeSection(with name: String) {
-//        guard let index = sections.index(of: name) else {
-//            return
-//        }
-//
-//        for item in shoplist {
-//            if item.productCategory == name {
-//                debugPrint("section \(name) can't be removed cause contains some items")
-//                return
-//            }
-//        }
-//        sections.remove(at: index)
-//    }
+    func remove(itemId: String) {
+        self.shoplist = self.shoplist.filter { $0.productId != itemId }
+
+        CoreDataService.data.removeFromShopList(with: itemId)
+    }
 
     func clearShoplist() {
         shoplist.removeAll()
-        sections.removeAll()
         CoreDataService.data.removeAll(from: "ShopList")
 
     }
@@ -527,21 +501,17 @@ class Repository {
 
     func loadShopList(for outletId: String) {
         shoplist.removeAll()
-        sections.removeAll()
         guard let list = CoreDataService.data.loadShopList(for: outletId) else {
             return
         }
-        list.forEach { item in
-            self.shoplist.append(item)
-            addSection(for: item)
-        }
+        self.shoplist = list
     }
 
-    private func addSection(for item: ShoplistItem) {
-        if !sections.contains(item.productCategory) {
-            sections.append(item.productCategory)
-        }
-    }
+//    private func addSection(for item: ShoplistItem) {
+//        if !sections.contains(item.productCategory) {
+//            sections.append(item.productCategory)
+//        }
+//    }
 
 //    func rowsIn(_ section: Int) -> Int {
 //        let count = shoplist.reduce(0) { (result, item) in

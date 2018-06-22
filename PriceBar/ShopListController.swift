@@ -8,7 +8,10 @@
 
 import UIKit
 
-protocol ShoplistView:  class {
+
+
+
+protocol ShoplistView: class {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
     func onSyncProgress(progress: Double, max: Double, text: String)
     func onUpdateCurrentOutlet()
@@ -23,6 +26,8 @@ protocol ShoplistView:  class {
     
     func showLoading(with text: String)
     func hideLoading()
+    
+    func startIsCompleted()
     
     func updateUI()
 }
@@ -141,9 +146,6 @@ class ShopListController: UIViewController, ShoplistView {
             self?.navigationView.outletName.text = self?.userOutlet.name
             self?.navigationView.outletAddress.text = self?.userOutlet.address
         }
-        
-        
-        self.presenter.onOpenStatistics()
         self.buttonEnable(true)
     }
     
@@ -151,6 +153,9 @@ class ShopListController: UIViewController, ShoplistView {
         self.presenter.onReloadShoplist(for: userOutlet.id)
     }
 
+    func startIsCompleted() {
+        self.presenter.onOpenStatistics()
+    }
     
     func onProductIsNotFound(productId: String) {
         self.presenter.onOpenNewItemCard(for: productId)

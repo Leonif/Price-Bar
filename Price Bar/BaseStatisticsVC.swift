@@ -9,7 +9,13 @@
 import Foundation
 import UIKit
 
-class BaseStatisticsVC: UIViewController {
+
+protocol BaseStatisticsView: class {
+    func renderStatistic(goodQuantity: Int)
+}
+
+
+class BaseStatisticsVC: UIViewController, BaseStatisticsView {
     lazy var indicator: CircleIndicator = {
         let size: CGFloat = 150
         let rect = CGRect(x: self.view.center.x - size / 2,
@@ -23,7 +29,6 @@ class BaseStatisticsVC: UIViewController {
         
         return ind
     }()
-    var productsCount: Int = 0
     
     lazy var button: UIButton = {
         let btn = UIButton()
@@ -46,10 +51,10 @@ class BaseStatisticsVC: UIViewController {
         return label
     }()
     
-    var interactor: BaseStatisticsInteractor!
-    var repository: Repository!
+    var presenter: BaseStatisticsPresenter!
+
     
-    func configurePopup() {
+    private func configurePopup() {
         
         PriceBarStyles.grayBorderedRounded.apply(to: button)
         
@@ -69,7 +74,6 @@ class BaseStatisticsVC: UIViewController {
             button.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -32),
             button.heightAnchor.constraint(equalToConstant: 80),
             button.widthAnchor.constraint(equalToConstant: 100)
-            
             ])
     }
     
@@ -80,27 +84,16 @@ class BaseStatisticsVC: UIViewController {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
+    func renderStatistic(goodQuantity: Int) {
         self.configurePopup()
-        
-        
-        self.interactor = BaseStatisticsInteractor()
-        self.interactor.repository = self.repository
-        
-        self.productsCount = self.interactor.getQuantityOfGood()
-        
-        
-        
-
+        self.view.obscure()
+        self.indicator.startShow(for: (Double(goodQuantity), Double(goodQuantity)))
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        self.view.obscure()
-        self.indicator.startShow(for: (Double(productsCount), Double(productsCount)))
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.presenter.onGetQuantityOfGood()
     }
+    
+    
 }

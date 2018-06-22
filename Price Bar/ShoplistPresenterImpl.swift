@@ -60,6 +60,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.view.onUpdatedShoplist(dataSource)
         self.view.onUpdatedTotal(self.repository.total)
         
+        
     }
     
     func startSyncronize() {
@@ -118,7 +119,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func onReloadShoplist(for outletId: String) {
         guard let shoplistWithoutPrices = self.repository.loadShopList() else { fatalError() }
-        
         var shoplistWithPrices: [ShoplistItem] = shoplistWithoutPrices
         
         let dispatchGroup = DispatchGroup()
@@ -134,13 +134,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         dispatchGroup.notify(queue: .main) {
             self.repository.shoplist = shoplistWithPrices
             self.updateShoplist()
+            self.view.startIsCompleted()
         }
-        
-        
     }
-    
-    
-    
     
     func onOpenStatistics() {
         self.router.openStatistics()

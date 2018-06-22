@@ -10,6 +10,15 @@ import Foundation
 import UIKit
 
 
+struct DataStorage {
+    var repository: Repository
+    var vc: UIViewController
+    var outlet: Outlet?
+}
+
+
+
+
 struct ItemListRouterDataStorage {
     var repository: Repository
     var vc: UIViewController

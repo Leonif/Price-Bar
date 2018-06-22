@@ -9,7 +9,31 @@
 import Foundation
 import UIKit
 
+
+//protocol BaseRouter {
+//    associatedtype View
+//
+//    var fromVC: View! { get set }
+//}
+//
+//
+//extension BaseRouter {
+//    func presentModule(module: UIViewController) {
+//        (self.fromVC as! UIViewController).present(module, animated: true)
+//    }
+//    func pushModule(module: UIViewController) {
+//        (self.fromVC as! UIViewController).navigationController?.pushViewController(module, animated: true)
+//    }
+//}
+
+
+
+
+
 protocol ShoplistRouter {
+    
+    var fromVC: ShoplistView! { get set }
+    
     func openStatistics()
     func openUpdatePrice(for productId: String, currentPrice: Double, outletId: String)
     func openIssue(with issue: String)
@@ -20,42 +44,44 @@ protocol ShoplistRouter {
 }
 
 
+extension ShoplistRouter {
+    func presentModule(module: UIViewController) {
+        (self.fromVC as! UIViewController).present(module, animated: true)
+    }
+
+    func pushModule(module: UIViewController) {
+        (self.fromVC as! UIViewController).navigationController?.pushViewController(module, animated: true)
+    }
+}
+
+
 class ShoplistRouterImpl: ShoplistRouter {
-    
-    
+
     weak var fromVC: ShoplistView!
     var repository: Repository!
     
     func openStatistics() {
-        let statVC = BaseStatisticsVC()
-        statVC.modalPresentationStyle = .overCurrentContext
-        statVC.repository = repository
-        
-        DispatchQueue.main.async {
-            (self.fromVC as! UIViewController).present(statVC, animated: true)
-        }
+        let module = BaseStatisticsAssembler().assemble()
+
+//        statVC.modalPresentationStyle = .overCurrentContext
+        self.presentModule(module: module)
     }
     
     func openUpdatePrice(for productId: String, currentPrice: Double, outletId: String) {
         let vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
         vc.productId = productId
         vc.price = currentPrice
-//        vc.data = data
         vc.onSavePrice = { [weak self] in
             self?.fromVC.onSavePrice()
         }
-        (self.fromVC as! UIViewController).present(vc, animated: true)
-
+        self.presentModule(module: vc)
     }
     
     func openIssue(with issue: String) {
         func openIssueVC(issue: String) {
             let vc = IssueVC(nib: R.nib.issueVC)
             vc.issueMessage = issue
-//            vc.onTryAgain = { [weak self] in
-//                self?.fromVC.onTryAgain()
-//            }
-            (self.fromVC as! UIViewController).present(vc, animated: true)
+            self.presentModule(module: vc)
         }
     }
     
@@ -65,14 +91,13 @@ class ShoplistRouterImpl: ShoplistRouter {
         vc.repository = repository
         vc.outletId = outletId
         
-        (self.fromVC as! UIViewController).present(vc, animated: true)
-
+        self.presentModule(module: vc)
     }
     
     func openScanner() {
         let vc = R.storyboard.main.scannerController()!
         vc.delegate = self as! ScannerDelegate
-        (self.fromVC as! UIViewController).navigationController?.pushViewController(vc, animated: true)
+        self.pushModule(module: vc)
     }
     
     func openItemList(for outletId: String) {
@@ -80,15 +105,14 @@ class ShoplistRouterImpl: ShoplistRouter {
         vc.delegate = fromVC as? ItemListVCDelegate
         vc.outletId = outletId
         vc.repository = repository
-        (self.fromVC as! UIViewController).navigationController?.pushViewController(vc, animated: true)
+        self.pushModule(module: vc)
     }
     
     
     func openOutletList() {
         let vc = R.storyboard.main.outletsVC()!
         vc.delegate = self as? OutletVCDelegate
-        (self.fromVC as! UIViewController).navigationController?.pushViewController(vc, animated: true)
-
+        self.pushModule(module: vc)
     }
 }
 
@@ -98,11 +122,6 @@ class ShoplistRouterImpl: ShoplistRouter {
 
 
 
-struct DataStorage {
-    var repository: Repository
-    var vc: UIViewController
-    var outlet: Outlet?
-}
 
 //protocol IssueRoute {
 //    func onTryAgain()

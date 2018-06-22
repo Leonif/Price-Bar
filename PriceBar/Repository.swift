@@ -335,9 +335,6 @@ class Repository {
     
     
    ////////////////////////////// FIXME /////////////////////////////////
-    
-    
-    
     func getShopItems(with pageOffset: Int, limit: Int, for outletId: String) -> [DPProductModel]? {
         return CoreDataService.data.getProductList(for: outletId, offset: pageOffset, limit: limit)
     }

@@ -21,8 +21,8 @@
 		790B7D4D207FFCDD003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D49207FF707003DD560 /* YanoneKaffeesatz-Bold.ttf */; };
 		790B7D4E207FFCE6003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */; };
 		790B7D512081C24B003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
-		790B7D532081CB04003DD560 /* UpdatePriceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */; };
-		790B7D562081E56B003DD560 /* BaseStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* BaseStatisticsPresenter.swift */; };
+		790B7D532081CB04003DD560 /* UpdatePricePresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePricePresenterImpl.swift */; };
+		790B7D562081E56B003DD560 /* CloudStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */; };
 		790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */; };
 		790B7D79208327E1003DD560 /* ItemCardNew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D77208327E1003DD560 /* ItemCardNew.swift */; };
 		790B7D7A208327E1003DD560 /* ItemCardNew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D78208327E1003DD560 /* ItemCardNew.xib */; };
@@ -33,7 +33,7 @@
 		790B7D8320835D8C003DD560 /* ShoplistPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistPresenterImpl.swift */; };
 		790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		790B7D8620835D8C003DD560 /* PickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B3C200E812D005C6CC5 /* PickerControl.swift */; };
-		790B7D8720835D8C003DD560 /* BaseStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* BaseStatisticsPresenter.swift */; };
+		790B7D8720835D8C003DD560 /* CloudStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */; };
 		790B7D8820835D8C003DD560 /* ScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C56B031EF2F10300FAA91C /* ScannerController.swift */; };
 		790B7D8A20835D8C003DD560 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB702002CD46008F7DAA /* LocationService.swift */; };
 		790B7D8B20835D8C003DD560 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C21EE7085500470669 /* AppDelegate.swift */; };
@@ -53,7 +53,7 @@
 		790B7D9A20835D8C003DD560 /* DPPriceStatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B874206C228700D80EA5 /* DPPriceStatisticModel.swift */; };
 		790B7D9D20835D8C003DD560 /* DPUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCE20149962009CBEF0 /* DPUomModel.swift */; };
 		790B7D9E20835D8C003DD560 /* ProductCardModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardModelView.swift */; };
-		790B7D9F20835D8C003DD560 /* UpdatePriceInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */; };
+		790B7D9F20835D8C003DD560 /* UpdatePricePresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePricePresenterImpl.swift */; };
 		790B7DA020835D8C003DD560 /* UpdatePriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D2D207AA590003DD560 /* UpdatePriceVC.swift */; };
 		790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F302016858300302AF9 /* OPOutletModel.swift */; };
 		790B7DA220835D8C003DD560 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D3B207FEAE5003DD560 /* String+Extension.swift */; };
@@ -79,7 +79,7 @@
 		790B7DB920835D8C003DD560 /* FQOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2C201683F600302AF9 /* FQOutletModel.swift */; };
 		790B7DBA20835D8C003DD560 /* CDProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B522013E872005C6CC5 /* CDProductModel.swift */; };
 		790B7DBB20835D8C003DD560 /* FBItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* FBItemCategory.swift */; };
-		790B7DBC20835D8C003DD560 /* BaseStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* BaseStatisticsVC.swift */; };
+		790B7DBC20835D8C003DD560 /* CloudStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* CloudStatisticsVC.swift */; };
 		790B7DBD20835D8C003DD560 /* ShopListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C31EE7085500470669 /* ShopListController.swift */; };
 		790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1F201A492E0098D324 /* ProductMapper.swift */; };
 		790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */; };
@@ -130,7 +130,7 @@
 		792091C620D25A98002CC251 /* ItemListMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792091C520D25A98002CC251 /* ItemListMappers.swift */; };
 		792091C720D25A98002CC251 /* ItemListMappers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792091C520D25A98002CC251 /* ItemListMappers.swift */; };
 		792102912055778900C83706 /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102902055778900C83706 /* CircleIndicatorView.swift */; };
-		7921029320557D0E00C83706 /* BaseStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* BaseStatisticsVC.swift */; };
+		7921029320557D0E00C83706 /* CloudStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* CloudStatisticsVC.swift */; };
 		792102952055A02000C83706 /* CountingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102942055A02000C83706 /* CountingLabel.swift */; };
 		79210298205DD7BB00C83706 /* SyncAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79210297205DD7BB00C83706 /* SyncAnimator.swift */; };
 		792EE7AD1EE7075200470669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7AC1EE7075200470669 /* Assets.xcassets */; };
@@ -201,10 +201,16 @@
 		79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB702002CD46008F7DAA /* LocationService.swift */; };
 		79A2EB732002D471008F7DAA /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB722002D471008F7DAA /* ResultType.swift */; };
 		79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */; };
-		79A8B0C320DB6CFD00CD9F02 /* BaseStatisticsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A8B0C220DB6CFD00CD9F02 /* BaseStatisticsAssembler.swift */; };
-		79A8B0C420DB6CFD00CD9F02 /* BaseStatisticsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A8B0C220DB6CFD00CD9F02 /* BaseStatisticsAssembler.swift */; };
+		79A8B0C320DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A8B0C220DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift */; };
+		79A8B0C420DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A8B0C220DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift */; };
 		79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
 		79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FF11EF6BF2500903133 /* CoreDataService.swift */; };
+		79C4EA4C20DD0A2C006866F9 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA4B20DD0A2C006866F9 /* BaseRouter.swift */; };
+		79C4EA4D20DD0A2C006866F9 /* BaseRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA4B20DD0A2C006866F9 /* BaseRouter.swift */; };
+		79C4EA4F20DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA4E20DD0B73006866F9 /* UpdatePriceAssembler.swift */; };
+		79C4EA5020DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA4E20DD0B73006866F9 /* UpdatePriceAssembler.swift */; };
+		79C4EA5420DD7B52006866F9 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5320DD7B52006866F9 /* BaseView.swift */; };
+		79C4EA5520DD7B52006866F9 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5320DD7B52006866F9 /* BaseView.swift */; };
 		79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C56B031EF2F10300FAA91C /* ScannerController.swift */; };
 		79D12F2B2016823F00302AF9 /* FoursqareProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */; };
 		79D12F2D201683F600302AF9 /* FQOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2C201683F600302AF9 /* FQOutletModel.swift */; };
@@ -284,8 +290,8 @@
 		790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-Regular.ttf"; sourceTree = "<group>"; };
 		790B7D4C207FF709003DD560 /* YanoneKaffeesatz-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-ExtraLight.ttf"; sourceTree = "<group>"; };
 		790B7D502081C24B003DD560 /* ShoplistRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistRouter.swift; sourceTree = "<group>"; };
-		790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceInteractor.swift; sourceTree = "<group>"; };
-		790B7D552081E56B003DD560 /* BaseStatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStatisticsPresenter.swift; sourceTree = "<group>"; };
+		790B7D522081CB04003DD560 /* UpdatePricePresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePricePresenterImpl.swift; sourceTree = "<group>"; };
+		790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsPresenter.swift; sourceTree = "<group>"; };
 		790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesProvider.swift; sourceTree = "<group>"; };
 		790B7D77208327E1003DD560 /* ItemCardNew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardNew.swift; sourceTree = "<group>"; };
 		790B7D78208327E1003DD560 /* ItemCardNew.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCardNew.xib; sourceTree = "<group>"; };
@@ -297,7 +303,7 @@
 		79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Robaga Rounded Bold.otf"; sourceTree = "<group>"; };
 		792091C520D25A98002CC251 /* ItemListMappers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListMappers.swift; sourceTree = "<group>"; };
 		792102902055778900C83706 /* CircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleIndicatorView.swift; sourceTree = "<group>"; };
-		7921029220557D0E00C83706 /* BaseStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStatisticsVC.swift; sourceTree = "<group>"; };
+		7921029220557D0E00C83706 /* CloudStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsVC.swift; sourceTree = "<group>"; };
 		792102942055A02000C83706 /* CountingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountingLabel.swift; sourceTree = "<group>"; };
 		79210297205DD7BB00C83706 /* SyncAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncAnimator.swift; sourceTree = "<group>"; };
 		792EE7801EE48CD500470669 /* PriceBar Prod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PriceBar Prod.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -365,9 +371,12 @@
 		79A2EB702002CD46008F7DAA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		79A2EB722002D471008F7DAA /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
 		79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSync.swift; sourceTree = "<group>"; };
-		79A8B0C220DB6CFD00CD9F02 /* BaseStatisticsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStatisticsAssembler.swift; sourceTree = "<group>"; };
+		79A8B0C220DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsAssembler.swift; sourceTree = "<group>"; };
 		79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = PriceBar.xcdatamodel; path = PriceBar.xcdatamodeld/PriceBar.xcdatamodel; sourceTree = SOURCE_ROOT; };
 		79AA0FF11EF6BF2500903133 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = SOURCE_ROOT; };
+		79C4EA4B20DD0A2C006866F9 /* BaseRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseRouter.swift; sourceTree = "<group>"; };
+		79C4EA4E20DD0B73006866F9 /* UpdatePriceAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceAssembler.swift; sourceTree = "<group>"; };
+		79C4EA5320DD7B52006866F9 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		79C56B031EF2F10300FAA91C /* ScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerController.swift; sourceTree = SOURCE_ROOT; };
 		79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareProvider.swift; sourceTree = "<group>"; };
 		79D12F2C201683F600302AF9 /* FQOutletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FQOutletModel.swift; sourceTree = "<group>"; };
@@ -493,9 +502,9 @@
 		790B7D32207BBC3B003DD560 /* UpdatePriceAndStatistics */ = {
 			isa = PBXGroup;
 			children = (
+				79C4EA4E20DD0B73006866F9 /* UpdatePriceAssembler.swift */,
+				790B7D522081CB04003DD560 /* UpdatePricePresenterImpl.swift */,
 				790B7D542081CB16003DD560 /* View */,
-				790B7D522081CB04003DD560 /* UpdatePriceInteractor.swift */,
-				790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */,
 			);
 			name = UpdatePriceAndStatistics;
 			sourceTree = "<group>";
@@ -517,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				790B7D2D207AA590003DD560 /* UpdatePriceVC.swift */,
+				790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */,
 				790B7D2E207AA590003DD560 /* UpdatePriceVC.xib */,
 				79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */,
 				79E9B870206C17F800D80EA5 /* PriceStatisticCell.xib */,
@@ -632,9 +642,9 @@
 		79210296205C69B400C83706 /* BaseStatisticFlow */ = {
 			isa = PBXGroup;
 			children = (
-				79A8B0C220DB6CFD00CD9F02 /* BaseStatisticsAssembler.swift */,
-				7921029220557D0E00C83706 /* BaseStatisticsVC.swift */,
-				790B7D552081E56B003DD560 /* BaseStatisticsPresenter.swift */,
+				79A8B0C220DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift */,
+				7921029220557D0E00C83706 /* CloudStatisticsVC.swift */,
+				790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */,
 			);
 			name = BaseStatisticFlow;
 			sourceTree = "<group>";
@@ -755,6 +765,8 @@
 		7975D63120713D24003A6288 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				79C4EA4B20DD0A2C006866F9 /* BaseRouter.swift */,
+				79C4EA5320DD7B52006866F9 /* BaseView.swift */,
 				79D8E5EB209854C700C182DA /* IssueVC */,
 				7990296E20853EF600085F72 /* PickerVC */,
 				79833B432011440C005C6CC5 /* Reusable Tools */,
@@ -1374,10 +1386,10 @@
 				799029832094BDEC00085F72 /* AddCell.swift in Sources */,
 				79D8E601209A39A700C182DA /* ShopList+CoreDataProperties.swift in Sources */,
 				790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */,
-				79A8B0C420DB6CFD00CD9F02 /* BaseStatisticsAssembler.swift in Sources */,
+				79A8B0C420DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift in Sources */,
 				79D8E607209A39A700C182DA /* Statistic+CoreDataClass.swift in Sources */,
 				790B7D8620835D8C003DD560 /* PickerControl.swift in Sources */,
-				790B7D8720835D8C003DD560 /* BaseStatisticsPresenter.swift in Sources */,
+				790B7D8720835D8C003DD560 /* CloudStatisticsPresenter.swift in Sources */,
 				790B7D8820835D8C003DD560 /* ScannerController.swift in Sources */,
 				790B7D8A20835D8C003DD560 /* LocationService.swift in Sources */,
 				790B7D8B20835D8C003DD560 /* AppDelegate.swift in Sources */,
@@ -1401,11 +1413,13 @@
 				790B7D9A20835D8C003DD560 /* DPPriceStatisticModel.swift in Sources */,
 				790B7D9D20835D8C003DD560 /* DPUomModel.swift in Sources */,
 				790B7D9E20835D8C003DD560 /* ProductCardModelView.swift in Sources */,
-				790B7D9F20835D8C003DD560 /* UpdatePriceInteractor.swift in Sources */,
+				790B7D9F20835D8C003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
 				790B7DA020835D8C003DD560 /* UpdatePriceVC.swift in Sources */,
 				790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */,
 				790B7DA220835D8C003DD560 /* String+Extension.swift in Sources */,
+				79C4EA4D20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
 				79D8E605209A39A700C182DA /* Category+CoreDataProperties.swift in Sources */,
+				79C4EA5520DD7B52006866F9 /* BaseView.swift in Sources */,
 				790B7DA320835D8C003DD560 /* CategoryModelView.swift in Sources */,
 				790B7DA420835D8C003DD560 /* FBUomModel.swift in Sources */,
 				790B7DA620835D8C003DD560 /* UIViewExtensions.swift in Sources */,
@@ -1423,6 +1437,7 @@
 				799029882095F0F200085F72 /* ItemListAdapter.swift in Sources */,
 				790B7DB320835D8C003DD560 /* CircleIndicatorView.swift in Sources */,
 				790B7DB420835D8C003DD560 /* UITableView+Extensions.swift in Sources */,
+				79C4EA5020DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */,
 				790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */,
 				790B7DB620835D8C003DD560 /* OutletService.swift in Sources */,
 				790B7DB720835D8C003DD560 /* FBItemStatistic.swift in Sources */,
@@ -1432,7 +1447,7 @@
 				79449A9920D280B200E28C68 /* ItemListPresenter.swift in Sources */,
 				790B7DBA20835D8C003DD560 /* CDProductModel.swift in Sources */,
 				790B7DBB20835D8C003DD560 /* FBItemCategory.swift in Sources */,
-				790B7DBC20835D8C003DD560 /* BaseStatisticsVC.swift in Sources */,
+				790B7DBC20835D8C003DD560 /* CloudStatisticsVC.swift in Sources */,
 				790B7DBD20835D8C003DD560 /* ShopListController.swift in Sources */,
 				790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */,
 				790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */,
@@ -1477,10 +1492,10 @@
 				799029822094BDEC00085F72 /* AddCell.swift in Sources */,
 				79D8E600209A39A700C182DA /* ShopList+CoreDataProperties.swift in Sources */,
 				7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */,
-				79A8B0C320DB6CFD00CD9F02 /* BaseStatisticsAssembler.swift in Sources */,
+				79A8B0C320DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift in Sources */,
 				79D8E606209A39A700C182DA /* Statistic+CoreDataClass.swift in Sources */,
 				79833B3D200E812D005C6CC5 /* PickerControl.swift in Sources */,
-				790B7D562081E56B003DD560 /* BaseStatisticsPresenter.swift in Sources */,
+				790B7D562081E56B003DD560 /* CloudStatisticsPresenter.swift in Sources */,
 				79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */,
 				79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */,
 				792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */,
@@ -1504,11 +1519,13 @@
 				79E9B875206C228700D80EA5 /* DPPriceStatisticModel.swift in Sources */,
 				79883BCF20149962009CBEF0 /* DPUomModel.swift in Sources */,
 				79833B35200D5002005C6CC5 /* ProductCardModelView.swift in Sources */,
-				790B7D532081CB04003DD560 /* UpdatePriceInteractor.swift in Sources */,
+				790B7D532081CB04003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
 				790B7D2F207AA590003DD560 /* UpdatePriceVC.swift in Sources */,
 				79D12F312016858300302AF9 /* OPOutletModel.swift in Sources */,
 				790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */,
+				79C4EA4C20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
 				79D8E604209A39A700C182DA /* Category+CoreDataProperties.swift in Sources */,
+				79C4EA5420DD7B52006866F9 /* BaseView.swift in Sources */,
 				79833B3A200E7E4B005C6CC5 /* CategoryModelView.swift in Sources */,
 				796D7B1B201905800098D324 /* FBUomModel.swift in Sources */,
 				793368641FFE260F00E8E81A /* UIViewExtensions.swift in Sources */,
@@ -1526,6 +1543,7 @@
 				799029872095F0F200085F72 /* ItemListAdapter.swift in Sources */,
 				792102912055778900C83706 /* CircleIndicatorView.swift in Sources */,
 				790B7D36207FDA09003DD560 /* UITableView+Extensions.swift in Sources */,
+				79C4EA4F20DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */,
 				79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */,
 				7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */,
 				79883BCB20147E2D009CBEF0 /* FBItemStatistic.swift in Sources */,
@@ -1535,7 +1553,7 @@
 				79449A9820D280B200E28C68 /* ItemListPresenter.swift in Sources */,
 				79833B532013E872005C6CC5 /* CDProductModel.swift in Sources */,
 				7904B45A1F03738B002032CD /* FBItemCategory.swift in Sources */,
-				7921029320557D0E00C83706 /* BaseStatisticsVC.swift in Sources */,
+				7921029320557D0E00C83706 /* CloudStatisticsVC.swift in Sources */,
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
 				796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */,
 				79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */,

@@ -8,10 +8,7 @@
 
 import UIKit
 
-
-
-
-protocol ShoplistView: class {
+protocol ShoplistView: BaseView {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
     func onSyncProgress(progress: Double, max: Double, text: String)
     func onUpdateCurrentOutlet()
@@ -24,11 +21,7 @@ protocol ShoplistView: class {
     func onUpdatedTotal(_ total: Double)
     func onUpdatedShoplist(_ dataSource: [ShoplistItem])
     
-    func showLoading(with text: String)
-    func hideLoading()
-    
     func startIsCompleted()
-    
     func updateUI()
 }
 
@@ -167,14 +160,6 @@ class ShopListController: UIViewController, ShoplistView {
         self.buttonEnable(false)
     }
     
-    func showLoading(with text: String = "") {
-        self.view.pb_startActivityIndicator(with: text)
-    }
-    
-    func hideLoading() {
-        self.view.pb_stopActivityIndicator()
-    }
-    
     func setupAdapter() {
         
         self.shopTableView.delegate = self.adapter
@@ -270,6 +255,11 @@ class ShopListController: UIViewController, ShoplistView {
     @IBAction func cleanShopList(_ sender: GoodButton) {
         self.cleanShoplist()
     }
+    
+    func close() {
+        
+    }
+    
     
     @objc
     func cleanShoplist() {

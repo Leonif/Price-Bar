@@ -1,5 +1,5 @@
 //
-//  BaseStatisticsVC.swift
+//  CloudStatisticsVC.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 3/11/18.
@@ -10,12 +10,12 @@ import Foundation
 import UIKit
 
 
-protocol BaseStatisticsView: class {
+protocol CloudStatisticsView: BaseView {
     func renderStatistic(goodQuantity: Int)
 }
 
 
-class BaseStatisticsVC: UIViewController, BaseStatisticsView {
+class CloudStatisticsVC: UIViewController, CloudStatisticsView {
     lazy var indicator: CircleIndicator = {
         let size: CGFloat = 150
         let rect = CGRect(x: self.view.center.x - size / 2,
@@ -51,7 +51,7 @@ class BaseStatisticsVC: UIViewController, BaseStatisticsView {
         return label
     }()
     
-    var presenter: BaseStatisticsPresenter!
+    var presenter: CloudStatisticsPresenter!
 
     
     private func configurePopup() {

@@ -12,7 +12,7 @@ protocol ItemListVCDelegate: class {
     func itemChoosen(productId: String)
 }
 
-class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
+class ItemListVC: UIViewController, UIGestureRecognizerDelegate, BaseView {
     
     @IBOutlet weak var tableView: UITableView!
     var outletId: String = ""

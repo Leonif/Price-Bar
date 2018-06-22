@@ -262,7 +262,6 @@ class Repository {
 
 
     func getQuantityOfProducts() -> Int {
-        
         return CoreDataService.data.getQuantityOfProducts()
         
     }
@@ -330,15 +329,11 @@ class Repository {
 
         return ResultType.success(true)
     }
-
-    
-    
     
    ////////////////////////////// FIXME /////////////////////////////////
     func getShopItems(with pageOffset: Int, limit: Int, for outletId: String) -> [DPProductModel]? {
         return CoreDataService.data.getProductList(for: outletId, offset: pageOffset, limit: limit)
     }
-    
     
     func getPrices(for outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
         FirebaseService.data.getPrices(for: outletId, callback: { (statistics) in
@@ -348,10 +343,6 @@ class Repository {
             completion(prices)
         })
     }
-    
-    
-    
-    
     
     // FIXME: get price just cloud
     func getPrice(for productId: String, and outletId: String, callback: @escaping (Double) -> Void) {

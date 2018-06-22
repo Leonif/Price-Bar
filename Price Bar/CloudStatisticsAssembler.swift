@@ -1,5 +1,5 @@
 //
-//  BaseStatisticsAssembler.swift
+//  CloudStatisticsAssembler.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 6/21/18.
@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 
-class BaseStatisticsAssembler {
-    func assemble() -> UIViewController {
-        let view = BaseStatisticsVC()
+class CloudStatisticsAssembler {
+    func assemble() -> BaseView {
+        let view = CloudStatisticsVC()
         view.modalPresentationStyle = .overCurrentContext
         
         let repository = Repository()
-        let presenter = BaseStatisticsPresenterImpl()
+        let presenter = CloudStatisticsPresenterImpl()
         presenter.repository = repository
         
         presenter.view = view

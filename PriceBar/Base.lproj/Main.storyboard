@@ -6,14 +6,145 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
         <array key="Robaga Rounded Bold.otf">
             <string>RobagaRounded-Bold</string>
         </array>
+        <array key="YanoneKaffeesatz-Bold.ttf">
+            <string>YanoneKaffeesatz-Bold</string>
+        </array>
+        <array key="YanoneKaffeesatz-Regular.ttf">
+            <string>YanoneKaffeesatz-Regular</string>
+        </array>
     </customFonts>
     <scenes>
+        <!--Update PriceVC-->
+        <scene sceneID="jFU-hE-1wd">
+            <objects>
+                <viewController id="cQE-sB-VHi" customClass="UpdatePriceVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IDI-kQ-l5m"/>
+                        <viewControllerLayoutGuide type="bottom" id="3xp-eE-6SX"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8r5-c4-MZ2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CLx-LE-fnm">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="back" translatesAutoresizingMaskIntoConstraints="NO" id="W0S-Iz-ABC">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                    </imageView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nkn-Gt-aKq">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="95"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Статистика цен" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3EO-34-3PP">
+                                                <rect key="frame" x="124.5" y="37" width="126" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDL-yZ-UMV">
+                                                <rect key="frame" x="25" y="32" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="OLV-jQ-sdF"/>
+                                                    <constraint firstAttribute="height" constant="30" id="UNS-T3-zH2"/>
+                                                </constraints>
+                                                <state key="normal" image="closeButton"/>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.69019607839999997" green="0.85882352939999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="3EO-34-3PP" firstAttribute="centerX" secondItem="nkn-Gt-aKq" secondAttribute="centerX" id="BeS-W7-rdi"/>
+                                            <constraint firstItem="vDL-yZ-UMV" firstAttribute="centerY" secondItem="nkn-Gt-aKq" secondAttribute="centerY" id="ZgT-dE-QA3"/>
+                                            <constraint firstItem="vDL-yZ-UMV" firstAttribute="leading" secondItem="nkn-Gt-aKq" secondAttribute="leading" constant="25" id="bUF-yJ-Qr4"/>
+                                            <constraint firstAttribute="height" constant="95" id="hij-eQ-fdo"/>
+                                            <constraint firstItem="3EO-34-3PP" firstAttribute="centerY" secondItem="nkn-Gt-aKq" secondAttribute="centerY" id="vZN-Ra-CCT"/>
+                                        </constraints>
+                                    </view>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dbh-Ef-IUD">
+                                        <rect key="frame" x="23" y="257" width="329" height="323"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3B-XL-0Vp">
+                                        <rect key="frame" x="29" y="603" width="317" height="46"/>
+                                        <color key="backgroundColor" red="0.87450980389999999" green="0.5568627451" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="46" id="nJc-n2-jc8"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="YanoneKaffeesatz-Bold" family="Yanone Kaffeesatz" pointSize="20"/>
+                                        <state key="normal" title="Сохранить">
+                                            <color key="titleColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="5.90" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jge-D7-Rtk">
+                                        <rect key="frame" x="94" y="181" width="187" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="h0f-5Y-psD"/>
+                                            <constraint firstAttribute="width" constant="187" id="u59-0v-wx0"/>
+                                        </constraints>
+                                        <color key="textColor" red="0.87450980389999999" green="0.5568627451" blue="0.5568627451" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="36"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="за 1 шт" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnd-wS-7LD">
+                                        <rect key="frame" x="159.5" y="152" width="56" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy  Чер шоколад" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j1K-kf-qDA">
+                                        <rect key="frame" x="16" y="116" width="343" height="28"/>
+                                        <fontDescription key="fontDescription" name="YanoneKaffeesatz-Regular" family="Yanone Kaffeesatz" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="W0S-Iz-ABC" firstAttribute="trailing" secondItem="t2h-5q-YgU" secondAttribute="trailing" id="6f6-BO-P0K"/>
+                                    <constraint firstItem="mnd-wS-7LD" firstAttribute="top" secondItem="j1K-kf-qDA" secondAttribute="bottom" constant="8" id="73f-MC-cwU"/>
+                                    <constraint firstItem="t2h-5q-YgU" firstAttribute="bottom" secondItem="q3B-XL-0Vp" secondAttribute="bottom" constant="18" id="7sI-df-hG1"/>
+                                    <constraint firstItem="j1K-kf-qDA" firstAttribute="centerX" secondItem="CLx-LE-fnm" secondAttribute="centerX" id="8Jh-iL-RyC"/>
+                                    <constraint firstItem="Dbh-Ef-IUD" firstAttribute="top" secondItem="jge-D7-Rtk" secondAttribute="bottom" constant="16" id="900-Om-mIK"/>
+                                    <constraint firstItem="jge-D7-Rtk" firstAttribute="centerX" secondItem="CLx-LE-fnm" secondAttribute="centerX" id="AQr-sF-Ses"/>
+                                    <constraint firstItem="W0S-Iz-ABC" firstAttribute="bottom" secondItem="t2h-5q-YgU" secondAttribute="bottom" id="BHm-Xs-MbN"/>
+                                    <constraint firstItem="t2h-5q-YgU" firstAttribute="trailing" secondItem="Dbh-Ef-IUD" secondAttribute="trailing" constant="23" id="BSd-bf-acf"/>
+                                    <constraint firstItem="jge-D7-Rtk" firstAttribute="top" secondItem="mnd-wS-7LD" secondAttribute="bottom" constant="8" id="CKs-Oj-B1o"/>
+                                    <constraint firstItem="q3B-XL-0Vp" firstAttribute="leading" secondItem="t2h-5q-YgU" secondAttribute="leading" constant="29" id="CrG-PP-ZA3"/>
+                                    <constraint firstItem="mnd-wS-7LD" firstAttribute="centerX" secondItem="CLx-LE-fnm" secondAttribute="centerX" id="FWq-vw-dg5"/>
+                                    <constraint firstItem="q3B-XL-0Vp" firstAttribute="top" secondItem="Dbh-Ef-IUD" secondAttribute="bottom" constant="23" id="IKY-d6-ufd"/>
+                                    <constraint firstItem="j1K-kf-qDA" firstAttribute="leading" secondItem="t2h-5q-YgU" secondAttribute="leading" constant="16" id="IcF-JA-hge"/>
+                                    <constraint firstItem="t2h-5q-YgU" firstAttribute="trailing" secondItem="q3B-XL-0Vp" secondAttribute="trailing" constant="29" id="QMf-sc-oI3"/>
+                                    <constraint firstItem="nkn-Gt-aKq" firstAttribute="leading" secondItem="t2h-5q-YgU" secondAttribute="leading" id="S4f-kE-8IL"/>
+                                    <constraint firstItem="nkn-Gt-aKq" firstAttribute="top" secondItem="CLx-LE-fnm" secondAttribute="top" id="TJj-iQ-psH"/>
+                                    <constraint firstItem="t2h-5q-YgU" firstAttribute="trailing" secondItem="j1K-kf-qDA" secondAttribute="trailing" constant="16" id="Tvy-cb-OqB"/>
+                                    <constraint firstItem="W0S-Iz-ABC" firstAttribute="leading" secondItem="t2h-5q-YgU" secondAttribute="leading" id="kBq-oc-Qxf"/>
+                                    <constraint firstItem="Dbh-Ef-IUD" firstAttribute="leading" secondItem="t2h-5q-YgU" secondAttribute="leading" constant="23" id="oMP-c6-g7r"/>
+                                    <constraint firstItem="nkn-Gt-aKq" firstAttribute="trailing" secondItem="t2h-5q-YgU" secondAttribute="trailing" id="oUr-xs-2Sz"/>
+                                    <constraint firstItem="j1K-kf-qDA" firstAttribute="top" secondItem="nkn-Gt-aKq" secondAttribute="bottom" constant="21" id="prG-Ha-84y"/>
+                                    <constraint firstItem="W0S-Iz-ABC" firstAttribute="top" secondItem="CLx-LE-fnm" secondAttribute="top" id="wP3-TG-eQA"/>
+                                </constraints>
+                                <viewLayoutGuide key="safeArea" id="t2h-5q-YgU"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="3xp-eE-6SX" firstAttribute="top" secondItem="CLx-LE-fnm" secondAttribute="bottom" id="MNu-Uc-YL2"/>
+                            <constraint firstAttribute="trailing" secondItem="CLx-LE-fnm" secondAttribute="trailing" id="YhC-Yg-IcX"/>
+                            <constraint firstItem="CLx-LE-fnm" firstAttribute="leading" secondItem="8r5-c4-MZ2" secondAttribute="leading" id="pdK-Rd-6i6"/>
+                            <constraint firstItem="CLx-LE-fnm" firstAttribute="top" secondItem="8r5-c4-MZ2" secondAttribute="top" id="q6x-ac-VsO"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="emb-3N-gtw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-636" y="-827"/>
+        </scene>
         <!--Shop List Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -251,6 +382,7 @@
     </scenes>
     <resources>
         <image name="back" width="375" height="667"/>
+        <image name="closeButton" width="22" height="22"/>
         <image name="scan button" width="52" height="52"/>
         <image name="search button" width="52" height="52"/>
         <image name="shop_background" width="500" height="500"/>

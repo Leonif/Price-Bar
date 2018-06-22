@@ -1,5 +1,5 @@
 //
-//  BaseStatisticsInteractor.swift
+//  CloudStatisticsPresenterImpl.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 4/14/18.
@@ -8,19 +8,17 @@
 
 import Foundation
 
-protocol BaseStatisticsPresenter {
+protocol CloudStatisticsPresenter {
     func onGetQuantityOfGood()
 }
 
 
-class BaseStatisticsPresenterImpl: BaseStatisticsPresenter {
-
+class CloudStatisticsPresenterImpl: CloudStatisticsPresenter {
     var repository: Repository!
-    weak var view: BaseStatisticsView!
+    weak var view: CloudStatisticsView!
     
     func onGetQuantityOfGood() {
         let goodCout = self.repository.getQuantityOfProducts()
         self.view.renderStatistic(goodQuantity: goodCout)
-        
     }
 }

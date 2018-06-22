@@ -8,55 +8,52 @@
 
 import Foundation
 
+protocol UpdatePricePresenter {
+    func onSavePrice(for productId: String, for outletId: String, with newPrice: Double, and oldPrice: Double)
+    func onGetProductInfo(for productId: String, and outletId: String)
+    func onGetPriceStatistics(for productId: String)
+}
 
-public final class UpdatePriceInteractor {
+public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     
-    private let repository: Repository!
+    var repository: Repository!
+    weak var view: UpdatePriceView!
     
-    init(repository: Repository) {
-        self.repository = repository
-    }
-    
-    
-    func updatePrice(for productId: String, price: Double, outletId: String) {
-        
-        let dpStatModel = DPPriceStatisticModel(outletId: outletId,
-                                                productId: productId,
-                                                price: price, date: Date())
-        self.repository.save(new: dpStatModel)
-    }
-    
-    
-    func getPrice(for productId: String, in outletId: String, callback: @escaping (Double) -> Void) {
+    func onGetProductInfo(for productId: String, and outletId: String) {
+        self.view.showLoading(with: "Получаем информацию о продукте")
         return self.repository.getPrice(for: productId, and: outletId, callback: { (price) in
-            callback(price)
+            let uomName = self.repository.getUomName(for: productId)
+            let name = self.repository.getProductName(for: productId)!
+            self.view.hideLoading()
+            self.view.onGetProductInfo(price: price, name: name, uomName: uomName)
         })
     }
     
-
-    func getUomName(for productId: String) -> String {
-        return self.repository.getUomName(for: productId)
-    }
-
-    func getProductName(for productId: String) -> String {
-        return self.repository.getProductName(for: productId)!
-        
+    func onSavePrice(for productId: String, for outletId: String, with newPrice: Double, and oldPrice: Double) {
+        defer { self.view.close() }
+        guard newPrice != oldPrice && newPrice != 0
+            else { return  }
+        let dpStatModel = DPPriceStatisticModel(outletId: outletId,
+                                                productId: productId,
+                                                price: newPrice, date: Date())
+        self.repository.save(new: dpStatModel)
     }
     
-    func getPriceStatistics(for productId: String, completion: @escaping (ResultType<[StatisticModel], RepositoryError>) -> Void) {
+    func onGetPriceStatistics(for productId: String) {
         let outletService = OutletService()
         var statistic: [StatisticModel] = []
         
+        
+        self.view.showLoading(with: "Получаем историю цен")
         // FIXME: get price from cloud
         let cdPriceStatistics = repository.getPricesStatisticByOutlet(for: productId)
         let productName = repository.getProductName(for: productId)!
         let dispatchGroup = DispatchGroup()
         
         cdPriceStatistics.forEach { cdPriceStatistic in
-            
             dispatchGroup.enter()
-            
             outletService.getOutlet(with: cdPriceStatistic.outletId, completion: { (result) in
+                
                 switch result {
                 case let .success(outlet):
                     statistic.append(StatisticModel(productId: cdPriceStatistic.productId,
@@ -66,15 +63,16 @@ public final class UpdatePriceInteractor {
                                                     date: cdPriceStatistic.date))
                     dispatchGroup.leave()
                 case let .failure(error):
-                    completion(ResultType.failure(.statisticError(error.localizedDescription)))
-                    return
+                    self.view.hideLoading()
+                    self.view.onError(with: error.localizedDescription)
                 }
             })
         }
         
         dispatchGroup.notify(queue: .main) {
+            self.view.hideLoading()
             statistic.sort(by: { $0.date > $1.date })
-            completion(ResultType.success(statistic))
+            self.view.onGetStatistics(statistic: statistic)
         }
     }
 }

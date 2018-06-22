@@ -8,110 +8,71 @@
 
 import UIKit
 
-class UpdatePriceVC: UIViewController {
+protocol UpdatePriceView: BaseView {
+    func onError(with message: String)
+    func onGetProductInfo(price: Double, name: String, uomName: String)
+    func onGetStatistics(statistic: [StatisticModel])
+}
+
+class UpdatePriceVC: UIViewController, UpdatePriceView {
 
     @IBOutlet weak var productNameLabel: UILabel!
     @IBOutlet weak var uomLabel: UILabel!
     @IBOutlet weak var priceTextField: UITextField!
     public var dataSource: [StatisticModel]!
-    var data: DataStorage!
+
     var adapter: UpdatePriceAdapter!
     @IBOutlet weak var saveButton: UIButton!
     
-    var interactor: UpdatePriceInteractor!
+    var presenter: UpdatePricePresenter!
     
     @IBOutlet weak var tableView: UITableView!
-    var onSavePrice: (() -> Void)? = nil
+
     
     var productId: String!
+    var outletId: String!
     var price: Double = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.interactor = UpdatePriceInteractor(repository: self.data.repository)
-        
         self.addToolBar(textField: self.priceTextField)
         PriceBarStyles.grayBorderedRounded.apply(to: self.priceTextField, self.saveButton)
         self.priceTextField.delegate = self
+        self.presenter.onGetProductInfo(for: productId, and: outletId)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        self.view.pb_startActivityIndicator(with: R.string.localizable.sync_process_prices(R.string.localizable.common_loading()))
-        self.updateStatistics { [weak self] in
-            guard let `self` = self else { return }
-            
-            self.view.pb_stopActivityIndicator()
-            self.adapter = UpdatePriceAdapter(tableView: self.tableView, dataSource: self.dataSource)
-            self.tableView.reloadData()
-        }
+    func onGetStatistics(statistic: [StatisticModel]) {
+        self.dataSource = statistic
+        self.adapter = UpdatePriceAdapter(tableView: self.tableView, dataSource: self.dataSource)
+        self.tableView.reloadData()
     }
     
-    
-    func updateStatistics(completion: @escaping () -> ()) {
+    func onGetProductInfo(price: Double, name: String, uomName: String) {
+        self.priceTextField.text = "\(price)"
+        self.price = price
+        self.productNameLabel.text = name
+        self.uomLabel.text = uomName
         
-        guard let outlet = self.data.outlet else {
-            fatalError()
-        }
-        self.interactor
-            .getPrice(for: self.productId,
-                      in: outlet.id,
-                      callback: { (price) in
-                        self.priceTextField.text = "\(self.price)"
-                        let productName = self.interactor.getProductName(for: self.productId)
-                        self.productNameLabel.text = productName
-                        self.uomLabel.text = self.interactor.getUomName(for: self.productId)
-                        
-                        self.interactor.getPriceStatistics(for: self.productId, completion: { [weak self] (result) in
-                            guard let `self` = self else { return }
-                            switch result {
-                            case let .success(statistic):
-                                self.dataSource = statistic
-                                completion()
-                                
-                            case let .failure(error):
-                                self.alert(message: error.message)
-                            }
-                        })
-            })
+        self.presenter.onGetPriceStatistics(for: productId)
+    }
+    
+    func onError(with message: String) {
+        self.alert(message: message)
     }
     
     @IBAction func savePriceTapped(_ sender: Any) {
         guard let price = self.priceTextField.text?.numberFormatting() else {
             return
         }
-        if self.price != price && price != 0  {
-            guard let outlet = self.data.outlet else { fatalError()  }
-            
-            self.interactor.updatePrice(for: self.productId, price: price, outletId: outlet.id)
-            self.onSavePrice?()
-            self.close()
-        } else {
-            self.alert(title: R.string.localizable.thank_you(),
-                       message: R.string.localizable.price_update_not_changed(),
-                       okAction: {
-                        self.close()
-            })
-        }
+        self.presenter.onSavePrice(for: productId, for: outletId, with: price, and: self.price)
     }
     
     @IBAction func closeTapped(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.close()
     }
-    
     
     func close() {
         self.dismiss(animated: true)
     }
 }
-
-
-
-
-
-
-
-
-

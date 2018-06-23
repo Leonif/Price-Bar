@@ -198,9 +198,9 @@ extension FirebaseService {
                 
                 var uniqArrray: [FBItemStatistic] = []
                 
-                itemStatistic.forEach {
-                    if !uniqArrray.contains($0) {
-                        uniqArrray.append($0)
+                itemStatistic.forEach { (item) in
+                    if !uniqArrray.contains(where: { $0.productId == item.productId }) {
+                        uniqArrray.append(item)
                     }
                 }
                 callback(uniqArrray)
@@ -218,14 +218,14 @@ extension FirebaseService {
                     .filter { $0.productId == productId }
                     .sorted { $0.date > $1.date }
                 
-                var uniqArrray: [FBItemStatistic] = []
+                var uniqArray: [FBItemStatistic] = []
                 
-                itemStatistic.forEach {
-                    if !uniqArrray.contains($0) {
-                        uniqArrray.append($0)
+                for item in itemStatistic {
+                    if !uniqArray.contains(where: { $0.outletId == item.outletId }) {
+                        uniqArray.append(item)
                     }
                 }
-                callback(uniqArrray)
+                callback(uniqArray)
             }
         }) { error in
             fatalError(error.localizedDescription)

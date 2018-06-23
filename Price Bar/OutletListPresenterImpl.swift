@@ -8,7 +8,7 @@
 
 import Foundation
 
-class OutletListInteractor {
+class OutletListPresenterImpl {
     
     private var outletService: OutletService!
     var onOutletListFetched: (([OPOutletModel])->())? = nil

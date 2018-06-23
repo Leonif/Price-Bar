@@ -11,7 +11,7 @@ import UIKit
 
 protocol ShoplistRouter: BaseRouter {
     func openStatistics()
-    func openUpdatePrice(for productId: String, currentPrice: Double, outletId: String)
+    func openUpdatePrice(presenter: ShoplistPresenter, for productId: String, currentPrice: Double, outletId: String)
     func openIssue(with issue: String)
     func openItemCard(for item: ShoplistItem, outletId: String)
     func openScanner()
@@ -32,8 +32,8 @@ class ShoplistRouterImpl: ShoplistRouter {
         self.presentModule(fromModule: fromVC, toModule: module)
     }
     
-    func openUpdatePrice(for productId: String, currentPrice: Double, outletId: String) {
-        let module = UpdatePriceAssembler().assemble(productId: productId, outletId: outletId)
+    func openUpdatePrice(presenter: ShoplistPresenter, for productId: String, currentPrice: Double, outletId: String) {
+        let module = UpdatePriceAssembler().assemble(productId: productId, outletId: outletId, updatePriceOutput: presenter)
         self.presentModule(fromModule: fromVC, toModule: module)
     }
     

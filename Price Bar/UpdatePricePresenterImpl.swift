@@ -8,6 +8,13 @@
 
 import Foundation
 
+
+protocol UpdatePriceOutput {
+    func saved()
+}
+
+
+
 protocol UpdatePricePresenter {
     func onSavePrice(for productId: String, for outletId: String, with newPrice: Double, and oldPrice: Double)
     func onGetProductInfo(for productId: String, and outletId: String)
@@ -18,6 +25,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     
     var repository: Repository!
     weak var view: UpdatePriceView!
+    var updatePriceOutput: UpdatePriceOutput!
     
     func onGetProductInfo(for productId: String, and outletId: String) {
         self.view.showLoading(with: "Получаем информацию о продукте")
@@ -37,6 +45,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
                                                 productId: productId,
                                                 price: newPrice, date: Date())
         self.repository.save(new: dpStatModel)
+        self.updatePriceOutput.saved()
     }
     
     func onGetPriceStatistics(for productId: String) {

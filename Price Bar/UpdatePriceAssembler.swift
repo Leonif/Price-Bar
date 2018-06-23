@@ -12,12 +12,13 @@ import UIKit
 
 class UpdatePriceAssembler {
     
-    func assemble(productId: String, outletId: String) -> BaseView {
+    func assemble(productId: String, outletId: String, updatePriceOutput: UpdatePriceOutput) -> BaseView {
         
         let repository = Repository()
         
         let presenter = UpdatePricePresenterImpl()
         presenter.repository = repository
+        presenter.updatePriceOutput = updatePriceOutput
         
         let vc = R.storyboard.main.updatePriceVC()!
         vc.productId = productId

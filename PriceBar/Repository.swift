@@ -268,12 +268,12 @@ class Repository {
     
     
     func save(new statistic: DPPriceStatisticModel) {
-        let cd = CDStatisticModel(productId: statistic.productId,
-                                  price: statistic.price,
-                                  outletId: statistic.outletId,
-                                  date: statistic.date)
+//        let cd = CDStatisticModel(productId: statistic.productId,
+//                                  price: statistic.price,
+//                                  outletId: statistic.outletId,
+//                                  date: statistic.date)
 
-        CoreDataService.data.save(new: cd)
+//        CoreDataService.data.save(new: cd)
 
         let fb = FBItemStatistic(productId: statistic.productId,
                                price: statistic.price,

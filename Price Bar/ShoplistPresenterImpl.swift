@@ -9,7 +9,7 @@
 import Foundation
 import GooglePlaces
 
-protocol ShoplistPresenter: OutletListOutput {
+protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput {
     func startSyncronize()
     func isProductHasPrice(for productId: String, in outletId: String)
     func addToShoplist(with productId: String, and outletId: String)
@@ -29,9 +29,6 @@ protocol ShoplistPresenter: OutletListOutput {
 }
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
-    
-    
-    
     weak var view: ShoplistView!
     var router: ShoplistRouter!
     private let repository: Repository!
@@ -121,7 +118,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func onReloadShoplist(for outletId: String) {
         
-        
         let loading = R.string.localizable.common_loading()
         let message = R.string.localizable.sync_process_prices(loading)
         
@@ -172,7 +168,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.router.openOutletList(presenter: self)
     }
     
-    
     func onOpenNewItemCard(for productId: String) {
         //TODO: need to implement
     }
@@ -190,11 +185,18 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func onOpenUpdatePrice(for barcode: String, outletId: String) {
         self.repository.getPrice(for: barcode, and: outletId, callback: { [weak self] (price) in
-            self?.router.openUpdatePrice(for: barcode, currentPrice: price, outletId: outletId)
+            guard let `self` = self else { return }
+            self.router.openUpdatePrice(presenter: self, for: barcode, currentPrice: price, outletId: outletId)
         })
     }
     
     func choosen(outlet: Outlet) {
         self.view.onCurrentOutletUpdated(outlet: outlet)
     }
+    
+    func saved() {
+        self.view.onSavePrice()
+    }
+    
+    
 }

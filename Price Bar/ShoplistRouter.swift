@@ -16,11 +16,13 @@ protocol ShoplistRouter: BaseRouter {
     func openItemCard(for item: ShoplistItem, outletId: String)
     func openScanner()
     func openItemList(for outletId: String)
-    func openOutletList()
+    func openOutletList(presenter: ShoplistPresenter)
 }
 
 
 class ShoplistRouterImpl: ShoplistRouter {
+    
+    
 
     weak var fromVC: ShoplistView!
     var repository: Repository!
@@ -31,12 +33,6 @@ class ShoplistRouterImpl: ShoplistRouter {
     }
     
     func openUpdatePrice(for productId: String, currentPrice: Double, outletId: String) {
-//        let vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
-//        vc.productId = productId
-//        vc.price = currentPrice
-//        vc.onSavePrice = { [weak self] in
-//            self?.fromVC.onSavePrice()
-//        }
         let module = UpdatePriceAssembler().assemble(productId: productId, outletId: outletId)
         self.presentModule(fromModule: fromVC, toModule: module)
     }
@@ -73,10 +69,9 @@ class ShoplistRouterImpl: ShoplistRouter {
     }
     
     
-    func openOutletList() {
-        let vc = R.storyboard.main.outletsVC()!
-        vc.delegate = self as? OutletVCDelegate
-        self.pushModule(fromModule: fromVC, toModule: vc as! BaseView)
+    func openOutletList(presenter: ShoplistPresenter) {
+        let module = OutletListAssembler().assemble(outletListOutput: presenter)
+        self.pushModule(fromModule: fromVC, toModule: module)
     }
 }
 

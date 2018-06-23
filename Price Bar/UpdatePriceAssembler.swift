@@ -19,7 +19,7 @@ class UpdatePriceAssembler {
         let presenter = UpdatePricePresenterImpl()
         presenter.repository = repository
         
-        let vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
+        let vc = R.storyboard.main.updatePriceVC()!
         vc.productId = productId
         vc.presenter = presenter
         vc.outletId = outletId
@@ -28,5 +28,4 @@ class UpdatePriceAssembler {
         
         return vc
     }
-    
 }

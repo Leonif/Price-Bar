@@ -9,8 +9,6 @@
 import Foundation
 import Firebase
 
-//let DB_FIRBASE = Database.database().reference()
-
 enum FirebaseError: Error {
     case loginError(String)
     case syncError(String)

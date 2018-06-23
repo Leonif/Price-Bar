@@ -24,7 +24,7 @@
         <!--Update PriceVC-->
         <scene sceneID="jFU-hE-1wd">
             <objects>
-                <viewController id="cQE-sB-VHi" customClass="UpdatePriceVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UpdatePriceVC" id="cQE-sB-VHi" customClass="UpdatePriceVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IDI-kQ-l5m"/>
                         <viewControllerLayoutGuide type="bottom" id="3xp-eE-6SX"/>
@@ -55,6 +55,9 @@
                                                     <constraint firstAttribute="height" constant="30" id="UNS-T3-zH2"/>
                                                 </constraints>
                                                 <state key="normal" image="closeButton"/>
+                                                <connections>
+                                                    <action selector="closeTapped:" destination="cQE-sB-VHi" eventType="touchUpInside" id="Qf1-qA-vXc"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" red="0.69019607839999997" green="0.85882352939999995" blue="0.51764705879999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -80,6 +83,9 @@
                                         <state key="normal" title="Сохранить">
                                             <color key="titleColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <connections>
+                                            <action selector="savePriceTapped:" destination="cQE-sB-VHi" eventType="touchUpInside" id="uu7-I2-zbV"/>
+                                        </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" text="5.90" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jge-D7-Rtk">
                                         <rect key="frame" x="94" y="181" width="187" height="60"/>
@@ -140,10 +146,17 @@
                             <constraint firstItem="CLx-LE-fnm" firstAttribute="top" secondItem="8r5-c4-MZ2" secondAttribute="top" id="q6x-ac-VsO"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="priceTextField" destination="jge-D7-Rtk" id="ipP-Zq-jr3"/>
+                        <outlet property="productNameLabel" destination="j1K-kf-qDA" id="zaj-0d-zMW"/>
+                        <outlet property="saveButton" destination="q3B-XL-0Vp" id="Y2j-Gl-7bf"/>
+                        <outlet property="tableView" destination="Dbh-Ef-IUD" id="FpE-OX-Laa"/>
+                        <outlet property="uomLabel" destination="mnd-wS-7LD" id="MaL-8i-YIa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="emb-3N-gtw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-636" y="-827"/>
+            <point key="canvasLocation" x="430" y="-463"/>
         </scene>
         <!--Shop List Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -329,7 +342,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="outletTableView" destination="wnc-Qk-gxs" id="g9S-5e-gY5"/>
+                        <outlet property="tableView" destination="wnc-Qk-gxs" id="hfY-wf-K04"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fu7-6x-4Ut" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -319,11 +319,6 @@ extension ShopListController: ItemListVCDelegate {
     }
 }
 
-extension ShopListController: OutletVCDelegate {
-    func choosen(outlet: Outlet) {
-        userOutlet = outlet
-    }
-}
 
 extension ShopListController: ItemCardVCDelegate {
     func add(new productId: String) {

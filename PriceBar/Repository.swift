@@ -79,7 +79,6 @@ class Repository {
     }
     
     // MARK: update events
-//    var onUpdateShoplist: ActionClousure?
     var onSyncProgress: ((Int, Int, String) -> Void)?
     var onSyncNext: (() -> Void)?
     var currentNext: Int = 0
@@ -354,10 +353,6 @@ class Repository {
             }
             callback(price)
         }
-        
-        
-        
-        
     }
     
     private func getPriceFromCloud(for productId: String, and outletId: String, callback: @escaping (Double?) -> Void) {
@@ -370,12 +365,8 @@ class Repository {
     
     // FIXME: get price just cloud
     func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
-        
         let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
-        
         return object.map { StatisticMapper.mapper(from: $0) }
-        
-        
     }
     
     
@@ -396,37 +387,6 @@ class Repository {
         CoreDataService.data.removeAll(from: "ShopList")
 
     }
-
-//    func changeShoplistItem(_ quantity: Double, for productId: String) {
-//        for (index, item) in shoplist.enumerated() {
-//            if item.productId == productId {
-//               shoplist[index].quantity = quantity
-//            }
-//        }
-//        CoreDataService.data.changeShoplistItem(quantity, for: productId)
-//    }
-
-//    func getItem(index: IndexPath) -> ShoplistItem? {
-//        let sec = index.section
-//        let indexInSec = index.row
-//
-//        let productListInsection = shoplist.filter { $0.productCategory == sections[sec] }
-//        guard !productListInsection.isEmpty else {
-//            return nil
-//        }
-//        return productListInsection[indexInSec]
-//    }
-//
-//
-//    func getQuantity(for productId: String) -> Double? {
-//        let p = shoplist.filter { $0.productId == productId }
-//        return p.first?.quantity
-//    }
-
-    
-    
-    
-    
 
     
     func getUomName(for productId: String) -> String {
@@ -510,39 +470,12 @@ class Repository {
         self.shoplist = shoplistWithoutPrices
         return shoplistWithoutPrices
     }
-
-//    private func addSection(for item: ShoplistItem) {
-//        if !sections.contains(item.productCategory) {
-//            sections.append(item.productCategory)
-//        }
-//    }
-
-//    func rowsIn(_ section: Int) -> Int {
-//        let count = shoplist.reduce(0) { (result, item) in
-//            result + (item.productCategory == sections[section] ? 1 : 0)
-//        }
-//        return count
-//    }
-
-//    var sectionCount: Int {
-//        return sections.count
-//    }
-
-//    func headerString(for section: Int) -> String {
-//        guard !sections.isEmpty else {
-//            return "No section"
-//        }
-//
-//        return sections[section]
-//    }
 }
 
 
 
 
 extension Repository {
-
-    
     func getItem(with barcode: String, and outletId: String, callback: @escaping (DPProductModel?) -> Void) {
         if let cdModel = CoreDataService.data.getItem(by: barcode, and: outletId) {
             let result = DPProductModel(id: cdModel.id,
@@ -576,11 +509,4 @@ extension Repository {
             callback(item)
         }
     }
-    
-    
-    
-    
-    
-    
-
 }

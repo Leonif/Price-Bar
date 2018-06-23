@@ -9,7 +9,7 @@
 import Foundation
 import GooglePlaces
 
-protocol ShoplistPresenter {
+protocol ShoplistPresenter: OutletListOutput {
     func startSyncronize()
     func isProductHasPrice(for productId: String, in outletId: String)
     func addToShoplist(with productId: String, and outletId: String)
@@ -29,6 +29,8 @@ protocol ShoplistPresenter {
 }
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
+    
+    
     
     weak var view: ShoplistView!
     var router: ShoplistRouter!
@@ -118,6 +120,13 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     
     func onReloadShoplist(for outletId: String) {
+        
+        
+        let loading = R.string.localizable.common_loading()
+        let message = R.string.localizable.sync_process_prices(loading)
+        
+        self.view.showLoading(with: message)
+        
         guard let shoplistWithoutPrices = self.repository.loadShopList() else { fatalError() }
         var shoplistWithPrices: [ShoplistItem] = shoplistWithoutPrices
         
@@ -132,6 +141,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         }
         
         dispatchGroup.notify(queue: .main) {
+            self.view.hideLoading()
             self.repository.shoplist = shoplistWithPrices
             self.updateShoplist()
             self.view.startIsCompleted()
@@ -159,7 +169,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func onOpenOutletList() {
-        self.router.openOutletList()
+        self.router.openOutletList(presenter: self)
     }
     
     
@@ -182,5 +192,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.repository.getPrice(for: barcode, and: outletId, callback: { [weak self] (price) in
             self?.router.openUpdatePrice(for: barcode, currentPrice: price, outletId: outletId)
         })
+    }
+    
+    func choosen(outlet: Outlet) {
+        self.view.onCurrentOutletUpdated(outlet: outlet)
     }
 }

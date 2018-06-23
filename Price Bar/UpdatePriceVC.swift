@@ -9,7 +9,6 @@
 import UIKit
 
 protocol UpdatePriceView: BaseView {
-    func onError(with message: String)
     func onGetProductInfo(price: Double, name: String, uomName: String)
     func onGetStatistics(statistic: [StatisticModel])
 }
@@ -57,9 +56,6 @@ class UpdatePriceVC: UIViewController, UpdatePriceView {
         self.presenter.onGetPriceStatistics(for: productId)
     }
     
-    func onError(with message: String) {
-        self.alert(message: message)
-    }
     
     @IBAction func savePriceTapped(_ sender: Any) {
         guard let price = self.priceTextField.text?.numberFormatting() else {

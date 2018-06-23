@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OutletCell: UITableViewCell {
+class OutletCell: UITableViewCell, NibLoadableReusable {
 
     @IBOutlet weak var outletName: UILabel!
     @IBOutlet weak var outletAddress: UILabel!

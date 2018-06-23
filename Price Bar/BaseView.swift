@@ -12,6 +12,7 @@ import UIKit
 protocol BaseView: class {
     func showLoading(with text: String)
     func hideLoading()
+    func onError(with message: String)
     func close()
     
 }
@@ -23,5 +24,9 @@ extension BaseView where Self: UIViewController {
     
     func hideLoading() {
         self.view.pb_stopActivityIndicator()
+    }
+    
+    func onError(with message: String) {
+        self.alert(message: message)
     }
 }

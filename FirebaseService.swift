@@ -194,7 +194,38 @@ extension FirebaseService {
                 let itemStatistic = snapPrices
                     .compactMap { FirebaseParser.parsePrice($0) }
                     .filter { $0.outletId == outletId }
-                callback(itemStatistic)
+                    .sorted { $0.date > $1.date }
+                
+                var uniqArrray: [FBItemStatistic] = []
+                
+                itemStatistic.forEach {
+                    if !uniqArrray.contains($0) {
+                        uniqArrray.append($0)
+                    }
+                }
+                callback(uniqArrray)
+            }
+        }) { error in
+            fatalError(error.localizedDescription)
+        }
+    }
+    
+    func getPricesFor(_ productId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
+        refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+                let itemStatistic = snapPrices
+                    .compactMap { FirebaseParser.parsePrice($0) }
+                    .filter { $0.productId == productId }
+                    .sorted { $0.date > $1.date }
+                
+                var uniqArrray: [FBItemStatistic] = []
+                
+                itemStatistic.forEach {
+                    if !uniqArrray.contains($0) {
+                        uniqArrray.append($0)
+                    }
+                }
+                callback(uniqArrray)
             }
         }) { error in
             fatalError(error.localizedDescription)

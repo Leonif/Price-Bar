@@ -13,7 +13,6 @@ import UIKit
 class UpdatePriceAssembler {
     
     func assemble(productId: String, outletId: String, updatePriceOutput: UpdatePriceOutput) -> BaseView {
-        
         let repository = Repository()
         
         let presenter = UpdatePricePresenterImpl()

@@ -6,6 +6,9 @@
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 
+import Foundation
+
+
 struct ItemListModelView {
     var id: String
     var product: String
@@ -28,6 +31,8 @@ struct ItemListModelView {
 struct ProductPrice {
     var productId: String
     var currentPrice: Double
+    var outletId: String
+    var date: Date
 }
 
 

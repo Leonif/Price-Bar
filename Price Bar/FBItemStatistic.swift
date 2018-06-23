@@ -35,5 +35,14 @@ struct FBItemStatistic {
         self.outletId = outletId
         self.date = Date()
     }
+}
 
+
+extension FBItemStatistic: Equatable {
+    static func == (lhs: FBItemStatistic, rhs: FBItemStatistic) -> Bool {
+        return (lhs.productId == rhs.productId &&
+//            lhs.price == rhs.price &&
+            lhs.outletId == rhs.outletId)// &&
+//            lhs.date == rhs.date)
+    }
 }

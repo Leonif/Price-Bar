@@ -32,6 +32,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     weak var view: ShoplistView!
     var router: ShoplistRouter!
     private let repository: Repository!
+    var isStatisticShown: Bool = false
     
     init(repository: Repository) {
         self.repository = repository
@@ -140,7 +141,10 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self.view.hideLoading()
             self.repository.shoplist = shoplistWithPrices
             self.updateShoplist()
-            self.view.startIsCompleted()
+            if !self.isStatisticShown {
+                self.view.startIsCompleted()
+                self.isStatisticShown = true
+            }
         }
     }
     

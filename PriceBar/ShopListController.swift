@@ -85,6 +85,8 @@ class ShopListController: UIViewController, ShoplistView {
         self.setupTotalView()
         self.synchronizeData()
         self.setupAdapter()
+        
+        
     }
     
     // MARK: - Presenter events

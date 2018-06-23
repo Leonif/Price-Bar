@@ -49,27 +49,30 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     }
     
     func onGetPriceStatistics(for productId: String) {
+        self.view.showLoading(with: "Получаем историю цен")
+        self.repository.getPricesFor(productId: productId) { (prices) in
+            self.mergeOutletsWithPrices(productId: productId, fbPriceStatistics: prices)
+        }
+    }
+    
+    func mergeOutletsWithPrices(productId: String, fbPriceStatistics: [ProductPrice]) {
         let outletService = OutletService()
         var statistic: [StatisticModel] = []
         
-        
-        self.view.showLoading(with: "Получаем историю цен")
-        // FIXME: get price from cloud
-        let cdPriceStatistics = repository.getPricesStatisticByOutlet(for: productId)
         let productName = repository.getProductName(for: productId)!
+        
         let dispatchGroup = DispatchGroup()
         
-        cdPriceStatistics.forEach { cdPriceStatistic in
+        fbPriceStatistics.forEach { fbPriceStatistic in
             dispatchGroup.enter()
-            outletService.getOutlet(with: cdPriceStatistic.outletId, completion: { (result) in
-                
+            outletService.getOutlet(with: fbPriceStatistic.outletId, completion: { (result) in
                 switch result {
                 case let .success(outlet):
-                    statistic.append(StatisticModel(productId: cdPriceStatistic.productId,
+                    statistic.append(StatisticModel(productId: fbPriceStatistic.productId,
                                                     productName: productName,
                                                     outlet: outlet,
-                                                    price: cdPriceStatistic.price,
-                                                    date: cdPriceStatistic.date))
+                                                    price: fbPriceStatistic.currentPrice,
+                                                    date: fbPriceStatistic.date))
                     dispatchGroup.leave()
                 case let .failure(error):
                     self.view.hideLoading()

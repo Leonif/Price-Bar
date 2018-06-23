@@ -37,7 +37,7 @@ class ItemListPresenter {
         }
         
         
-        repository.getPrices(for: outletId, completion: { (prices) in
+        repository.getPricesFor(outletId: outletId, completion: { (prices) in
             let productsWithPrices = ItemListMappers
                 .merge(products: productAdjusted, with: prices)
                 .sorted { $0.currentPrice > $1.currentPrice  }
@@ -66,7 +66,7 @@ class ItemListPresenter {
         }
         
         
-        repository.getPrices(for: outletId, completion: { (prices) in
+        repository.getPricesFor(outletId: outletId, completion: { (prices) in
             let productsWithPrices = ItemListMappers
                 .merge(products: productAdjusted, with: prices)
                 .sorted { $0.currentPrice > $1.currentPrice  }
@@ -96,7 +96,7 @@ class ItemListPresenter {
             }
             
             
-            repository.getPrices(for: outletId, completion: { (prices) in
+            repository.getPricesFor(outletId: outletId, completion: { (prices) in
                 let productsWithPrices = ItemListMappers
                     .merge(products: productAdjusted, with: prices)
                     .sorted { $0.currentPrice > $1.currentPrice  }

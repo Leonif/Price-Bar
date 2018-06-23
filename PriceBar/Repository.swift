@@ -334,14 +334,32 @@ class Repository {
         return CoreDataService.data.getProductList(for: outletId, offset: pageOffset, limit: limit)
     }
     
-    func getPrices(for outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
+    func getPricesFor(outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
         FirebaseService.data.getPrices(for: outletId, callback: { (statistics) in
             let prices = statistics.map {
-                return ProductPrice(productId: $0.productId, currentPrice: $0.price)
+                return ProductPrice(productId: $0.productId,
+                                    currentPrice: $0.price,
+                                    outletId: $0.outletId,
+                                    date: $0.date)
             }
             completion(prices)
         })
     }
+    
+    
+    func getPricesFor(productId: String, completion: @escaping ([ProductPrice]) -> Void) {
+        
+        FirebaseService.data.getPricesFor(productId) { (statistics) in
+            let prices = statistics.map {
+                return ProductPrice(productId: $0.productId,
+                                    currentPrice: $0.price,
+                                    outletId: $0.outletId,
+                                    date: $0.date)
+            }
+            completion(prices)
+        }
+    }
+    
     
     // FIXME: get price just cloud
     func getPrice(for productId: String, and outletId: String, callback: @escaping (Double) -> Void) {

@@ -176,6 +176,8 @@ extension FirebaseService {
                 let itemStatistics = snapPrices
                     .compactMap { FirebaseParser.parsePrice($0) }
                     .filter { $0.outletId == outletId && $0.productId == productId }
+                    .sorted { $0.date > $1.date }
+                
                 guard let stat = itemStatistics.first else {
                     callback(nil)
                     return

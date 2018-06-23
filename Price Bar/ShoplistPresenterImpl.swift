@@ -118,8 +118,8 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func onReloadShoplist(for outletId: String) {
         
-        let loading = R.string.localizable.common_loading()
-        let message = R.string.localizable.sync_process_prices(loading)
+        let loadingString = R.string.localizable.common_loading()
+        let message = R.string.localizable.sync_process_prices(loadingString)
         
         self.view.showLoading(with: message)
         

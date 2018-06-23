@@ -13,8 +13,6 @@ protocol UpdatePriceOutput {
     func saved()
 }
 
-
-
 protocol UpdatePricePresenter {
     func onSavePrice(for productId: String, for outletId: String, with newPrice: Double, and oldPrice: Double)
     func onGetProductInfo(for productId: String, and outletId: String)
@@ -49,7 +47,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     }
     
     func onGetPriceStatistics(for productId: String) {
-        self.view.showLoading(with: "Получаем историю цен")
+        self.view.showLoading(with: "Получаем актуальные цены в других магазинах")
         self.repository.getPricesFor(productId: productId) { (prices) in
             self.mergeOutletsWithPrices(productId: productId, fbPriceStatistics: prices)
         }

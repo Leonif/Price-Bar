@@ -55,9 +55,12 @@ class ShoplistRouterImpl: ShoplistRouter {
     }
     
     func openScanner() {
-        let vc = R.storyboard.main.scannerController()!
-        vc.delegate = self as! ScannerDelegate
-        self.pushModule(fromModule: fromVC, toModule: vc as! BaseView)
+        
+        let module = ScannerAssembler().assemble()
+        
+//        let vc = R.storyboard.main.scannerController()!
+//        vc.delegate = self as! ScannerDelegate
+        self.pushModule(fromModule: fromVC, toModule: module)
     }
     
     func openItemList(for outletId: String) {

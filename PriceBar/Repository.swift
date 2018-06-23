@@ -156,17 +156,6 @@ class Repository {
             }
         })
     }
-    
-//    func loadShoplist(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-//        let outletId: String? = nil
-//        guard let shp = CoreDataService.data.loadShopList(for: outletId) else {
-//            completion(ResultType.failure(RepositoryError.syncError(R.string.localizable.error_something_went_wrong())))
-//            return
-//        }
-//        self.shoplist = shp
-//        debugPrint("Function: \(#function), line: \(#line)")
-//        self.onSyncNext?()
-//    }
 
     func syncHandle(error: Error) -> ResultType<Bool, RepositoryError> {
         UserDefaults.standard.set(0, forKey: "LaunchedTime")
@@ -176,22 +165,6 @@ class Repository {
 
     func needToSync() -> Bool {
         return false
-        
-//        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
-//        switch times {
-//        case 0:
-//            times += 1
-//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-//            return true
-//        case 10:
-//            times = 1
-//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-//            return true
-//        default:
-//            times += 1
-//            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-//            return false
-//        }
     }
 
     private func saveShoplist() {
@@ -268,13 +241,6 @@ class Repository {
     
     
     func save(new statistic: DPPriceStatisticModel) {
-//        let cd = CDStatisticModel(productId: statistic.productId,
-//                                  price: statistic.price,
-//                                  outletId: statistic.outletId,
-//                                  date: statistic.date)
-
-//        CoreDataService.data.save(new: cd)
-
         let fb = FBItemStatistic(productId: statistic.productId,
                                price: statistic.price,
                                outletId: statistic.outletId)
@@ -346,7 +312,6 @@ class Repository {
         })
     }
     
-    
     func getPricesFor(productId: String, completion: @escaping ([ProductPrice]) -> Void) {
         
         FirebaseService.data.getPricesFor(productId) { (statistics) in
@@ -360,10 +325,7 @@ class Repository {
         }
     }
     
-    
-    // FIXME: get price just cloud
     func getPrice(for productId: String, and outletId: String, callback: @escaping (Double) -> Void) {
-        
         self.getPriceFromCloud(for: productId, and: outletId) { (price) in
             guard let price = price else {
                 callback(0)

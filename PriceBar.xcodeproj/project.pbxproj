@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		59508802495DCFB978F5B926 /* libPods-PriceBar Prod.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D273F6FD70DAF6AA2B8B6B5 /* libPods-PriceBar Prod.a */; };
-		5E0286C1F06199F8EB49BCCD /* libPods-PriceBar Dev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4736C4A505BCECE0927D5123 /* libPods-PriceBar Dev.a */; };
 		7904B45A1F03738B002032CD /* FBItemCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7904B4591F03738B002032CD /* FBItemCategory.swift */; };
 		790B7D07207901F8003DD560 /* navigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D06207901F8003DD560 /* navigationView.xib */; };
 		790B7D09207902EF003DD560 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D08207902EF003DD560 /* NavigationView.swift */; };
@@ -211,8 +210,12 @@
 		79C4EA5520DD7B52006866F9 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5320DD7B52006866F9 /* BaseView.swift */; };
 		79C4EA5820DE09D6006866F9 /* OutletListAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5720DE09D6006866F9 /* OutletListAssembler.swift */; };
 		79C4EA5920DE09D6006866F9 /* OutletListAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5720DE09D6006866F9 /* OutletListAssembler.swift */; };
-		79C4EA5B20DE11EE006866F9 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5A20DE11EE006866F9 /* BasePresenter.swift */; };
-		79C4EA5C20DE11EE006866F9 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5A20DE11EE006866F9 /* BasePresenter.swift */; };
+		79C4EA5E20DF028C006866F9 /* ScannerPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5D20DF028C006866F9 /* ScannerPresenterImpl.swift */; };
+		79C4EA5F20DF028C006866F9 /* ScannerPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA5D20DF028C006866F9 /* ScannerPresenterImpl.swift */; };
+		79C4EA6120DF075B006866F9 /* ScannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA6020DF075B006866F9 /* ScannerAdapter.swift */; };
+		79C4EA6220DF075B006866F9 /* ScannerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA6020DF075B006866F9 /* ScannerAdapter.swift */; };
+		79C4EA6420DF0B0B006866F9 /* ScannerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA6320DF0B0B006866F9 /* ScannerAssembler.swift */; };
+		79C4EA6520DF0B0B006866F9 /* ScannerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C4EA6320DF0B0B006866F9 /* ScannerAssembler.swift */; };
 		79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C56B031EF2F10300FAA91C /* ScannerController.swift */; };
 		79D12F2B2016823F00302AF9 /* FoursqareProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */; };
 		79D12F2D201683F600302AF9 /* FQOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2C201683F600302AF9 /* FQOutletModel.swift */; };
@@ -256,8 +259,6 @@
 		79E9B883206FC26200D80EA5 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B882206FC26200D80EA5 /* Target.swift */; };
 		79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */; };
 		79F68452206801D200257F00 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
-		B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */; };
-		B828DD6C0E8B74D7F11B630E /* libPods-PriceBarTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B3FD875FE1F9402DEBAAFD /* libPods-PriceBarTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -271,12 +272,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		12B3FD875FE1F9402DEBAAFD /* libPods-PriceBarTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceBarTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1D273F6FD70DAF6AA2B8B6B5 /* libPods-PriceBar Prod.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceBar Prod.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.release.xcconfig"; sourceTree = "<group>"; };
 		45EDEB1DE167C880F522C7B5 /* Pods-PriceBar Prod.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Prod.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Prod/Pods-PriceBar Prod.release.xcconfig"; sourceTree = "<group>"; };
-		4736C4A505BCECE0927D5123 /* libPods-PriceBar Dev.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceBar Dev.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PriceBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F2D9204A6EA5726F946329F /* Pods-PriceBar Prod.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Prod.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Prod/Pods-PriceBar Prod.debug.xcconfig"; sourceTree = "<group>"; };
 		7904B4591F03738B002032CD /* FBItemCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FBItemCategory.swift; sourceTree = SOURCE_ROOT; };
 		790B7D06207901F8003DD560 /* navigationView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = navigationView.xib; sourceTree = "<group>"; };
@@ -379,7 +377,9 @@
 		79C4EA4E20DD0B73006866F9 /* UpdatePriceAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePriceAssembler.swift; sourceTree = "<group>"; };
 		79C4EA5320DD7B52006866F9 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		79C4EA5720DE09D6006866F9 /* OutletListAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletListAssembler.swift; sourceTree = "<group>"; };
-		79C4EA5A20DE11EE006866F9 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
+		79C4EA5D20DF028C006866F9 /* ScannerPresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerPresenterImpl.swift; sourceTree = "<group>"; };
+		79C4EA6020DF075B006866F9 /* ScannerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerAdapter.swift; sourceTree = "<group>"; };
+		79C4EA6320DF0B0B006866F9 /* ScannerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerAssembler.swift; sourceTree = "<group>"; };
 		79C56B031EF2F10300FAA91C /* ScannerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerController.swift; sourceTree = SOURCE_ROOT; };
 		79D12F2A2016823F00302AF9 /* FoursqareProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareProvider.swift; sourceTree = "<group>"; };
 		79D12F2C201683F600302AF9 /* FQOutletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FQOutletModel.swift; sourceTree = "<group>"; };
@@ -428,7 +428,6 @@
 			files = (
 				790B7DDB20835D8C003DD560 /* Crashlytics.framework in Frameworks */,
 				790B7DDC20835D8C003DD560 /* Fabric.framework in Frameworks */,
-				5E0286C1F06199F8EB49BCCD /* libPods-PriceBar Dev.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,7 +435,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5CAF8002F67F61FA2F358C3 /* Pods_PriceBar.framework in Frameworks */,
 				796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */,
 				796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */,
 				59508802495DCFB978F5B926 /* libPods-PriceBar Prod.a in Frameworks */,
@@ -447,7 +445,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B828DD6C0E8B74D7F11B630E /* libPods-PriceBarTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -459,10 +456,7 @@
 			children = (
 				796C73A01F727F4A00F26C90 /* Fabric.framework */,
 				796C73A11F727F4A00F26C90 /* Crashlytics.framework */,
-				4AE76A7128D3C848BF2261B6 /* Pods_PriceBar.framework */,
-				4736C4A505BCECE0927D5123 /* libPods-PriceBar Dev.a */,
 				1D273F6FD70DAF6AA2B8B6B5 /* libPods-PriceBar Prod.a */,
-				12B3FD875FE1F9402DEBAAFD /* libPods-PriceBarTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -768,9 +762,7 @@
 			children = (
 				79C4EA4B20DD0A2C006866F9 /* BaseRouter.swift */,
 				79C4EA5320DD7B52006866F9 /* BaseView.swift */,
-				79C4EA5A20DE11EE006866F9 /* BasePresenter.swift */,
 				79D8E5EB209854C700C182DA /* IssueVC */,
-				7990296E20853EF600085F72 /* PickerVC */,
 				79833B432011440C005C6CC5 /* Reusable Tools */,
 				7975D633207141FB003A6288 /* Styles */,
 				790B7D31207BBC28003DD560 /* WeightPicker */,
@@ -824,6 +816,9 @@
 			isa = PBXGroup;
 			children = (
 				79C56B031EF2F10300FAA91C /* ScannerController.swift */,
+				79C4EA6320DF0B0B006866F9 /* ScannerAssembler.swift */,
+				79C4EA6020DF075B006866F9 /* ScannerAdapter.swift */,
+				79C4EA5D20DF028C006866F9 /* ScannerPresenterImpl.swift */,
 			);
 			name = ScannerFlow;
 			sourceTree = "<group>";
@@ -906,13 +901,6 @@
 				79883BCC201498C5009CBEF0 /* CDUomModel.swift */,
 			);
 			name = Entities;
-			sourceTree = "<group>";
-		};
-		7990296E20853EF600085F72 /* PickerVC */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = PickerVC;
 			sourceTree = "<group>";
 		};
 		799029842095EDA400085F72 /* ItemListCell */ = {
@@ -1415,6 +1403,7 @@
 				790B7D9220835D8C003DD560 /* Repository.swift in Sources */,
 				790B7D9320835D8C003DD560 /* CoreDataParsers.swift in Sources */,
 				790B7D9420835D8C003DD560 /* CDCategoryModel.swift in Sources */,
+				79C4EA6520DF0B0B006866F9 /* ScannerAssembler.swift in Sources */,
 				79D8E5E8209854BD00C182DA /* IssueVC.swift in Sources */,
 				790B7D9520835D8C003DD560 /* StatisticMapper.swift in Sources */,
 				79D8E609209A39A700C182DA /* Statistic+CoreDataProperties.swift in Sources */,
@@ -1429,6 +1418,7 @@
 				790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */,
 				790B7DA220835D8C003DD560 /* String+Extension.swift in Sources */,
 				79C4EA4D20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
+				79C4EA5F20DF028C006866F9 /* ScannerPresenterImpl.swift in Sources */,
 				79D8E605209A39A700C182DA /* Category+CoreDataProperties.swift in Sources */,
 				79C4EA5520DD7B52006866F9 /* BaseView.swift in Sources */,
 				790B7DA320835D8C003DD560 /* CategoryModelView.swift in Sources */,
@@ -1468,6 +1458,7 @@
 				790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */,
 				790B7DC420835D8C003DD560 /* GooglePlacesProvider.swift in Sources */,
 				79D8E603209A39A700C182DA /* Category+CoreDataClass.swift in Sources */,
+				79C4EA6220DF075B006866F9 /* ScannerAdapter.swift in Sources */,
 				790B7DC620835D8C003DD560 /* GoodTextField.swift in Sources */,
 				790B7DC720835D8C003DD560 /* DPProductModel.swift in Sources */,
 				790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */,
@@ -1480,7 +1471,6 @@
 				790B7DD020835D8C003DD560 /* ShopListAdapter.swift in Sources */,
 				79449A9C20D3F73400E28C68 /* ShopListAssembler.swift in Sources */,
 				790B7DD120835D8C003DD560 /* FirebaseService.swift in Sources */,
-				79C4EA5C20DE11EE006866F9 /* BasePresenter.swift in Sources */,
 				790B7DD320835D8C003DD560 /* OutletListPresenterImpl.swift in Sources */,
 				790B7DD420835D8C003DD560 /* CoreDataService.swift in Sources */,
 				79D8E5FD209A39A700C182DA /* Uom+CoreDataProperties.swift in Sources */,
@@ -1523,6 +1513,7 @@
 				792EE7B91EE7080400470669 /* Repository.swift in Sources */,
 				790F1009202266A20060E285 /* CoreDataParsers.swift in Sources */,
 				79833B5920146675005C6CC5 /* CDCategoryModel.swift in Sources */,
+				79C4EA6420DF0B0B006866F9 /* ScannerAssembler.swift in Sources */,
 				79D8E5E7209854BD00C182DA /* IssueVC.swift in Sources */,
 				79E9B877206C22EE00D80EA5 /* StatisticMapper.swift in Sources */,
 				79D8E608209A39A700C182DA /* Statistic+CoreDataProperties.swift in Sources */,
@@ -1537,6 +1528,7 @@
 				79D12F312016858300302AF9 /* OPOutletModel.swift in Sources */,
 				790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */,
 				79C4EA4C20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
+				79C4EA5E20DF028C006866F9 /* ScannerPresenterImpl.swift in Sources */,
 				79D8E604209A39A700C182DA /* Category+CoreDataProperties.swift in Sources */,
 				79C4EA5420DD7B52006866F9 /* BaseView.swift in Sources */,
 				79833B3A200E7E4B005C6CC5 /* CategoryModelView.swift in Sources */,
@@ -1576,6 +1568,7 @@
 				79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */,
 				790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */,
 				79D8E602209A39A700C182DA /* Category+CoreDataClass.swift in Sources */,
+				79C4EA6120DF075B006866F9 /* ScannerAdapter.swift in Sources */,
 				795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */,
 				79833B37200D501E005C6CC5 /* DPProductModel.swift in Sources */,
 				790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */,
@@ -1588,7 +1581,6 @@
 				793368691FFF6F5600E8E81A /* ShopListAdapter.swift in Sources */,
 				79449A9B20D3F73400E28C68 /* ShopListAssembler.swift in Sources */,
 				795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */,
-				79C4EA5B20DE11EE006866F9 /* BasePresenter.swift in Sources */,
 				79E9B880206FBAE600D80EA5 /* OutletListPresenterImpl.swift in Sources */,
 				79AA0FF21EF6BF2500903133 /* CoreDataService.swift in Sources */,
 				79D8E5FC209A39A700C182DA /* Uom+CoreDataProperties.swift in Sources */,

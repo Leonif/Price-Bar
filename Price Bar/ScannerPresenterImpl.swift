@@ -10,14 +10,22 @@ import Foundation
 import AVFoundation
 
 
+protocol ScannerOutput {
+    func scanned(barcode: String)
+}
+
+
+
 protocol ScannerPresenter {
     func onCheckAccess()
+    func onSendCodeOutside(code: String)
 }
 
 
 class ScannerPresenterImpl: ScannerPresenter {
     
     weak var view: ScannerView!
+    var scannerOutput: ScannerOutput!
     
     func onCheckAccess() {
         let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
@@ -28,4 +36,11 @@ class ScannerPresenterImpl: ScannerPresenter {
             self.view.onCameraAccessChecked()
         }
     }
+    
+    
+    func onSendCodeOutside(code: String) {
+        self.scannerOutput.scanned(barcode: code)
+    }
+    
+    
 }

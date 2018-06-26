@@ -9,17 +9,28 @@
 import Foundation
 
 
-class ItemListPresenter {
+protocol ItemListOutput {
+    func itemChoosen(productId: String)
+    func addNewItem(suggestedName: String)
+}
+
+protocol ItemListPresenter {
+    func onItemChoosen(productId: String)
+    func onFetchData(offset: Int, limit: Int,  for outletId: String)
+    func onFetchNextBatch(offset: Int, limit: Int,  for outletId: String)
+    func onFilterList(basedOn searchText: String, with outletId: String)
+    func onAddNewItem(suggestedName: String)
+}
+
+
+class ItemListPresenterImpl: ItemListPresenter {
+    
+    weak var view: ItemListView!
+    
+    var itemListOutput: ItemListOutput!
     var repository: Repository!
-    var onLoadedData: (([ItemListModelView])->Void) = { _ in}
-    var onNextBatch: (([ItemListModelView])->Void) = { _ in}
     
-    
-    init(repository: Repository) {
-        self.repository = repository
-    }
-    
-    func getProductWithPrices(offset: Int, limit: Int,  for outletId: String) {
+    func onFetchData(offset: Int, limit: Int,  for outletId: String) {
         guard
             let products = repository.getShopItems(with: offset, limit: limit, for: outletId) else {
                 return
@@ -29,11 +40,11 @@ class ItemListPresenter {
             guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
             
             return ItemListModelView(id: $0.id,
-                              product: $0.name,
-                              brand: $0.brand,
-                              weightPerPiece: $0.weightPerPiece,
-                              currentPrice: 0,
-                              categoryName: categoryName)
+                                     product: $0.name,
+                                     brand: $0.brand,
+                                     weightPerPiece: $0.weightPerPiece,
+                                     currentPrice: 0,
+                                     categoryName: categoryName)
         }
         
         
@@ -42,12 +53,12 @@ class ItemListPresenter {
                 .merge(products: productAdjusted, with: prices)
                 .sorted { $0.currentPrice > $1.currentPrice  }
             
-            self.onLoadedData(productsWithPrices)
+            self.view.onFetchedData(items: productsWithPrices)
         })
     }
     
     
-    func getNextBatch(offset: Int, limit: Int,  for outletId: String) {
+    func onFetchNextBatch(offset: Int, limit: Int,  for outletId: String) {
         guard
             let products = repository.getShopItems(with: offset, limit: limit, for: outletId) else {
                 return
@@ -71,13 +82,13 @@ class ItemListPresenter {
                 .merge(products: productAdjusted, with: prices)
                 .sorted { $0.currentPrice > $1.currentPrice  }
             
-            self.onNextBatch(productsWithPrices)
+            self.view.onFetchedNewBatch(items: productsWithPrices)
         })
         
     }
     
     
-    func filterList(basedOn searchText: String, with outletId: String) {
+    func onFilterList(basedOn searchText: String, with outletId: String) {
         
         if  searchText.count >= 3 {
             guard let products = repository.filterItemList(contains: searchText, for: outletId) else {
@@ -100,13 +111,21 @@ class ItemListPresenter {
                 let productsWithPrices = ItemListMappers
                     .merge(products: productAdjusted, with: prices)
                     .sorted { $0.currentPrice > $1.currentPrice  }
-                
-                self.onLoadedData(productsWithPrices)
+
+                self.view.onFetchedData(items: productsWithPrices)
                 
             })
         }
     }
     
+    func onAddNewItem(suggestedName: String) {
+        self.itemListOutput.addNewItem(suggestedName: suggestedName)
+    }
+    
+    
+    func onItemChoosen(productId: String) {
+        self.itemListOutput.itemChoosen(productId: productId)
+    }
     
     
 }

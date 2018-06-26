@@ -109,6 +109,7 @@ class ShopListController: UIViewController, ShoplistView {
     
     func onAddedItemToShoplist(productId: String) {
         self.presenter.isProductHasPrice(for: productId, in: self.userOutlet.id)
+        self.presenter.addToShoplist(with: productId, and: userOutlet.id)
     }
     
     func onUpdatedTotal(_ total: Double) {
@@ -307,19 +308,7 @@ extension ShopListController {
     }
 }
 
-// MARK: - Scanner handling
-extension ShopListController: ScannerDelegate {
-    func scanned(barcode: String) {
-        self.presenter.addToShoplist(with: barcode, and: userOutlet.id)
-    }
-}
 
-extension ShopListController: ItemListVCDelegate {
-    func itemChoosen(productId: String) {
-        self.presenter.isProductHasPrice(for: productId, in: userOutlet.id)
-        self.presenter.addToShoplist(with: productId, and: userOutlet.id)
-    }
-}
 
 
 extension ShopListController: ItemCardVCDelegate {

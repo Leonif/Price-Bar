@@ -14,8 +14,8 @@ protocol ShoplistRouter: BaseRouter {
     func openUpdatePrice(presenter: ShoplistPresenter, for productId: String, currentPrice: Double, outletId: String)
     func openIssue(with issue: String)
     func openItemCard(for item: ShoplistItem, outletId: String)
-    func openScanner()
-    func openItemList(for outletId: String)
+    func openScanner(presenter: ShoplistPresenter)
+    func openItemList(for outletId: String, presenter: ShoplistPresenter)
     func openOutletList(presenter: ShoplistPresenter)
 }
 
@@ -23,7 +23,6 @@ protocol ShoplistRouter: BaseRouter {
 class ShoplistRouterImpl: ShoplistRouter {
     
     
-
     weak var fromVC: ShoplistView!
     var repository: Repository!
     
@@ -46,29 +45,20 @@ class ShoplistRouterImpl: ShoplistRouter {
     }
     
     func openItemCard(for item: ShoplistItem, outletId: String) {
-        let vc = ItemCardNew(nib: R.nib.itemCardNew)
-        vc.item = item
-        vc.repository = repository
-        vc.outletId = outletId
         
-        self.presentModule(fromModule: fromVC, toModule: vc as! BaseView)
+        let module = ItemCardAssembler().assemble(for: item, outletId: outletId)
+        
+        self.presentModule(fromModule: fromVC, toModule: module)
     }
     
-    func openScanner() {
-        
-        let module = ScannerAssembler().assemble()
-        
-//        let vc = R.storyboard.main.scannerController()!
-//        vc.delegate = self as! ScannerDelegate
+    func openScanner(presenter: ShoplistPresenter) {
+        let module = ScannerAssembler().assemble(scannerOutput: presenter)
         self.pushModule(fromModule: fromVC, toModule: module)
     }
     
-    func openItemList(for outletId: String) {
-        let vc = R.storyboard.main.itemListVC()!
-        vc.delegate = fromVC as? ItemListVCDelegate
-        vc.outletId = outletId
-        vc.repository = repository
-        self.pushModule(fromModule: fromVC, toModule: vc)
+    func openItemList(for outletId: String, presenter: ShoplistPresenter) {
+        let module = ItemListAssembler().assemble(for: outletId, itemListOutput: presenter)
+        self.pushModule(fromModule: fromVC, toModule: module)
     }
     
     

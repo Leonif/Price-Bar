@@ -35,20 +35,7 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     var onError: ((String) -> Void)? = nil
     var limit = 40
     
-    init(tableView: UITableView,
-         repository: Repository, outletId: String) {
-        super.init()
-
-        self.tableView = tableView
-        self.outletId = outletId
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.repository = repository
-        
-        self.tableView.register(AddCell.self)
-        self.tableView.register(ItemListCell.self)
-        
-    }
+    
     
     func loadItems() {
         self.onStartLoading?()

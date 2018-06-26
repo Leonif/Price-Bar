@@ -1,5 +1,5 @@
 //
-//  ItemCardNew.swift
+//  ItemCardVC.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 4/15/18.
@@ -13,13 +13,25 @@ protocol ItemCardVCDelegate: class {
     func add(new productId: String)
 }
 
-class ItemCardNew: UIViewController {
-    enum PickerType {
-        case category, uom
-    }
+
+enum PickerType {
+    case category, uom
+}
+
+protocol ItemCardView: BaseView {
+    func onPickerUpdated(currentIndex: Int, dataSource: [PickerData])
+}
+
+
+class ItemCardVC: UIViewController, ItemCardView {
+    
     enum CardState {
         case createMode, editMode
     }
+    
+    
+    var presenter: ItemCardPresenter!
+    
     
     var state: CardState!
     
@@ -28,7 +40,7 @@ class ItemCardNew: UIViewController {
     var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
-    weak var repository: Repository!
+//    weak var repository: Repository!
 
     var item: ShoplistItem?
     var barcode: String?
@@ -69,20 +81,23 @@ class ItemCardNew: UIViewController {
             self.addToolBar(textField: $0!)
         }
         
-        //load categories
-        guard let dpCategoryList = repository.getCategoryList() else {
-            fatalError("Category list is empty")
-        }
         
-        self.categories = dpCategoryList.map { CategoryMapper.mapper(from: $0) }
         
-        guard let uoms = repository.getUomList() else {
-            fatalError("Catgory list is empty")
-        }
-        self.uoms = uoms
+//        guard let uoms = repository.getUomList() else {
+//            fatalError("Catgory list is empty")
+//        }
+//        self.uoms = uoms
         self.cardOpenHandler()
         
         self.setupKeyboardObserver()
+    }
+    
+    
+    func onPickerUpdated(currentIndex: Int, dataSource: PickerData) {
+        let picker = PickerControl(delegate: self,
+                                   dataSource: dataSource,
+                                   currentIndex: currentIndex)
+        self.present(picker, animated: true, completion: nil)
     }
     
     func setupKeyboardObserver() {
@@ -134,24 +149,18 @@ class ItemCardNew: UIViewController {
     @IBAction func categoryPressed(_ sender: Any) {
         self.view.endEditing(true)
         
-        self.pickerType = PickerType.category
-        var pickerData: [PickerData] = []
-        var curentIndex = 0
-        for (index, category) in categories.enumerated() {
-            if productCard.categoryId == category.id {
-                curentIndex = index
-            }
-            pickerData.append(PickerData(id: category.id, name: category.name))
-        }
+        guard let label = categoryButton.titleLabel,
+        let currentCategory = label.text  else { return }
         
-        let picker = PickerControl(delegate: self,
-                                   dataSource: pickerData,
-                                   currentIndex: curentIndex)
-        self.present(picker, animated: true, completion: nil)
+        self.presenter.onCategoryPressed(currentCategory: currentCategory)
+        
     }
     
     @IBAction func uomPressed(_ sender: Any) {
         self.view.endEditing(true)
+        
+        
+        
         self.pickerType = PickerType.uom
         var pickerData: [PickerData] = []
         var curentIndex = 0
@@ -283,17 +292,3 @@ class ItemCardNew: UIViewController {
 
 
 // MARK: Picker
-extension ItemCardNew: PickerControlDelegate {
-    func choosen(id: Int32) {
-        if pickerType == .category {
-            productCard.categoryId = id
-            let name = categories.filter { $0.id == id }.first?.name
-            self.categoryButton.setTitle(name, for: .normal)
-        } else {
-            productCard.uomId = id
-            let name = self.uoms.filter { $0.id == id }.first?.name
-            self.uomButton.setTitle(name, for: .normal)
-            
-        }
-    }
-}

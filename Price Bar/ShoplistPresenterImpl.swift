@@ -9,7 +9,7 @@
 import Foundation
 import GooglePlaces
 
-protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput {
+protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, ItemListOutput {
     func startSyncronize()
     func isProductHasPrice(for productId: String, in outletId: String)
     func addToShoplist(with productId: String, and outletId: String)
@@ -29,6 +29,8 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput {
 }
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
+    
+    
     weak var view: ShoplistView!
     var router: ShoplistRouter!
     private let repository: Repository!
@@ -161,11 +163,11 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func onOpenScanner() {
-        self.router.openScanner()
+        self.router.openScanner(presenter: self)
     }
     
     func onOpenItemList(for outletId: String) {
-        self.router.openItemList(for: outletId)
+        self.router.openItemList(for: outletId, presenter: self)
     }
     
     func onOpenOutletList() {
@@ -181,7 +183,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.updateShoplist()
     }
     
-    // FIXME: move to repository
     func onRemoveItem(productId: String) {
         self.repository.remove(itemId: productId)
         self.updateShoplist()
@@ -194,6 +195,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         })
     }
     
+    
+    
+    // MARK: delagates hadnling
     func choosen(outlet: Outlet) {
         self.view.onCurrentOutletUpdated(outlet: outlet)
     }
@@ -202,5 +206,16 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.view.onSavePrice()
     }
     
+    func scanned(barcode: String) {
+        self.view.onAddedItemToShoplist(productId: barcode)
+    }
+    
+    func itemChoosen(productId: String) {
+        self.view.onAddedItemToShoplist(productId: productId)
+    }
+    
+    func addNewItem(suggestedName: String) {
+        // TODO: open new Item card with suggested name product
+    }
     
 }

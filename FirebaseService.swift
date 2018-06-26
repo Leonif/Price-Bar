@@ -101,6 +101,28 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
+    
+    
+    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+        self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapGoods = snapshot.value as? [String: Any] {
+                let goods = snapGoods.map { FirebaseParser.parse($0) }
+                
+                let start = pageOffset
+                let end = pageOffset + limit
+                
+                let batch = goods[start..<end].map({ $0 })
+                
+                completion(ResultType.success(batch))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+
+    
+    
+    
 
     func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->Void) {
         refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in

@@ -75,10 +75,6 @@ class FirebaseParser {
         var uomId = goodDict["uom_id"] as? Int32
         uomId = uomId == nil ? defaultUomid : uomId
         
-        
-        
-        
-        
         return FBProductModel(id: id,
                               name: name,
                               brand: brand,
@@ -86,13 +82,4 @@ class FirebaseParser {
                               categoryId: catId!,
                               uomId: uomId!)
     }
-    
-//    class func transform(from snapGoods: [String: Any]) -> [FBProductModel] {
-//        return snapGoods.map { snap in
-//           parse(snap)
-//        }
-//    }
-    
-    
-    
 }

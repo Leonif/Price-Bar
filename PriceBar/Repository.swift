@@ -296,8 +296,27 @@ class Repository {
     }
     
    ////////////////////////////// FIXME /////////////////////////////////
-    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String) -> [DPProductModel]? {
-        return CoreDataService.data.getProductList(for: outletId, offset: pageOffset, limit: limit)
+    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[DPProductModel], RepositoryError>) -> Void) {
+        FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
+            switch result {
+            case let .success(products):
+                
+                let dpProducts = products.map { item in
+                    
+                    return  DPProductModel(id: item.id,
+                                           name: item.name,
+                                           brand: item.brand,
+                                           weightPerPiece: item.weightPerPiece,
+                                           categoryId: item.categoryId,
+                                           uomId: item.uomId)
+                }
+                completion(ResultType.success(dpProducts))
+            case let .failure(error):
+                completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
+            }
+        }
+        
+        
     }
     
     func getPricesFor(outletId: String, completion: @escaping ([ProductPrice]) -> Void) {

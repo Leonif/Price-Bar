@@ -18,6 +18,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     
     weak var view: ItemCardView!
     var repository: Repository!
+    var router: ItemCardRouter!
     
     func onCategoryPressed(currentCategory: String) {
 

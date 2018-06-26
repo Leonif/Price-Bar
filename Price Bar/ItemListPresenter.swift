@@ -17,7 +17,7 @@ protocol ItemListOutput {
 protocol ItemListPresenter {
     func onItemChoosen(productId: String)
     func onFetchData(offset: Int, limit: Int,  for outletId: String)
-    func onFetchNextBatch(offset: Int, limit: Int,  for outletId: String)
+//    func onFetchNextBatch(offset: Int, limit: Int,  for outletId: String)
     func onFilterList(basedOn searchText: String, with outletId: String)
     func onAddNewItem(suggestedName: String)
 }
@@ -30,21 +30,30 @@ class ItemListPresenterImpl: ItemListPresenter {
     var itemListOutput: ItemListOutput!
     var repository: Repository!
     
+    
     func onFetchData(offset: Int, limit: Int,  for outletId: String) {
-        guard
-            let products = repository.getShopItems(with: offset, limit: limit, for: outletId) else {
-                return
+        self.repository.getShopItems(with: offset, limit: limit, for: outletId) { (result) in
+            switch result {
+            case let .success(products):
+                self.mergePricesWith(products: products, outletId: outletId)
+            case let .failure(error):
+                self.view.onError(with: error.message)
+            }
         }
+    }
+    
+    
+    private func mergePricesWith(products: [DPProductModel], outletId: String) {
         
         let productAdjusted: [ItemListViewEntity] = products.compactMap {
             guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
             
             return ItemListViewEntity(id: $0.id,
-                                     product: $0.name,
-                                     brand: $0.brand,
-                                     weightPerPiece: $0.weightPerPiece,
-                                     currentPrice: 0,
-                                     categoryName: categoryName)
+                                      product: $0.name,
+                                      brand: $0.brand,
+                                      weightPerPiece: $0.weightPerPiece,
+                                      currentPrice: 0,
+                                      categoryName: categoryName)
         }
         
         
@@ -55,37 +64,40 @@ class ItemListPresenterImpl: ItemListPresenter {
             
             self.view.onFetchedData(items: productsWithPrices)
         })
+        
+        
     }
     
     
-    func onFetchNextBatch(offset: Int, limit: Int,  for outletId: String) {
-        guard
-            let products = repository.getShopItems(with: offset, limit: limit, for: outletId) else {
-                return
-        }
-        
-        
-        let productAdjusted: [ItemListViewEntity] = products.compactMap {
-            guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
-            
-            return ItemListViewEntity(id: $0.id,
-                                     product: $0.name,
-                                     brand: $0.brand,
-                                     weightPerPiece: $0.weightPerPiece,
-                                     currentPrice: 0,
-                                     categoryName: categoryName)
-        }
-        
-        
-        repository.getPricesFor(outletId: outletId, completion: { (prices) in
-            let productsWithPrices = ItemListMappers
-                .merge(products: productAdjusted, with: prices)
-                .sorted { $0.currentPrice > $1.currentPrice  }
-            
-            self.view.onFetchedNewBatch(items: productsWithPrices)
-        })
-        
-    }
+    // USE onFetchDATA
+//    func onFetchNextBatch(offset: Int, limit: Int,  for outletId: String) {
+//        guard
+//            let products = repository.getShopItems(with: offset, limit: limit, for: outletId) else {
+//                return
+//        }
+//
+//
+//        let productAdjusted: [ItemListViewEntity] = products.compactMap {
+//            guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
+//
+//            return ItemListViewEntity(id: $0.id,
+//                                     product: $0.name,
+//                                     brand: $0.brand,
+//                                     weightPerPiece: $0.weightPerPiece,
+//                                     currentPrice: 0,
+//                                     categoryName: categoryName)
+//        }
+//
+//
+//        repository.getPricesFor(outletId: outletId, completion: { (prices) in
+//            let productsWithPrices = ItemListMappers
+//                .merge(products: productAdjusted, with: prices)
+//                .sorted { $0.currentPrice > $1.currentPrice  }
+//
+//            self.view.onFetchedNewBatch(items: productsWithPrices)
+//        })
+//
+//    }
     
     
     func onFilterList(basedOn searchText: String, with outletId: String) {

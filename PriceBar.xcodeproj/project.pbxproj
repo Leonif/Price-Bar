@@ -23,7 +23,6 @@
 		790B7D562081E56B003DD560 /* CloudStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */; };
 		790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */; };
 		790B7D79208327E1003DD560 /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D77208327E1003DD560 /* ItemCardVC.swift */; };
-		790B7D7A208327E1003DD560 /* ItemCardVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D78208327E1003DD560 /* ItemCardVC.xib */; };
 		790B7D7F20835D8C003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
 		790B7D8020835D8C003DD560 /* Outlet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* Outlet.swift */; };
 		790B7D8120835D8C003DD560 /* ItemListViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */; };
@@ -104,7 +103,6 @@
 		790B7DD720835D8C003DD560 /* PriceStatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */; };
 		790B7DDB20835D8C003DD560 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		790B7DDC20835D8C003DD560 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
-		790B7DDE20835D8C003DD560 /* ItemCardVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D78208327E1003DD560 /* ItemCardVC.xib */; };
 		790B7DDF20835D8C003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */; };
 		790B7DE020835D8C003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D49207FF707003DD560 /* YanoneKaffeesatz-Bold.ttf */; };
 		790B7DE120835D8C003DD560 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */; };
@@ -175,6 +173,8 @@
 		79795CC820DFD8CE0063319B /* ItemCardAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CC620DFD8CE0063319B /* ItemCardAssembler.swift */; };
 		79795CCA20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CC920DFDB790063319B /* ItemCardPresenterImpl.swift */; };
 		79795CCB20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CC920DFDB790063319B /* ItemCardPresenterImpl.swift */; };
+		79795CD020E2A41F0063319B /* ItemCardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CCF20E2A41F0063319B /* ItemCardRouter.swift */; };
+		79795CD120E2A41F0063319B /* ItemCardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CCF20E2A41F0063319B /* ItemCardRouter.swift */; };
 		79833B35200D5002005C6CC5 /* ProductCardModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardModelView.swift */; };
 		79833B37200D501E005C6CC5 /* DPProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B36200D501E005C6CC5 /* DPProductModel.swift */; };
 		79833B3A200E7E4B005C6CC5 /* CategoryModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */; };
@@ -299,7 +299,6 @@
 		790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsPresenter.swift; sourceTree = "<group>"; };
 		790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesProvider.swift; sourceTree = "<group>"; };
 		790B7D77208327E1003DD560 /* ItemCardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardVC.swift; sourceTree = "<group>"; };
-		790B7D78208327E1003DD560 /* ItemCardVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemCardVC.xib; sourceTree = "<group>"; };
 		790B7DF520835D8C003DD560 /* PriceBar Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PriceBar Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		790B7DF620835D8D003DD560 /* PriceBar copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBar copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBar copy-Info.plist"; sourceTree = "<absolute>"; };
 		790F1008202266A20060E285 /* CoreDataParsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataParsers.swift; sourceTree = "<group>"; };
@@ -355,6 +354,7 @@
 		79795CC320DF6E4D0063319B /* ItemListAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListAssembler.swift; sourceTree = "<group>"; };
 		79795CC620DFD8CE0063319B /* ItemCardAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardAssembler.swift; sourceTree = "<group>"; };
 		79795CC920DFDB790063319B /* ItemCardPresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardPresenterImpl.swift; sourceTree = "<group>"; };
+		79795CCF20E2A41F0063319B /* ItemCardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardRouter.swift; sourceTree = "<group>"; };
 		79833B34200D5002005C6CC5 /* ProductCardModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardModelView.swift; sourceTree = "<group>"; };
 		79833B36200D501E005C6CC5 /* DPProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPProductModel.swift; sourceTree = "<group>"; };
 		79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelView.swift; sourceTree = "<group>"; };
@@ -715,6 +715,7 @@
 			children = (
 				79795CC620DFD8CE0063319B /* ItemCardAssembler.swift */,
 				79795CC920DFDB790063319B /* ItemCardPresenterImpl.swift */,
+				79795CCF20E2A41F0063319B /* ItemCardRouter.swift */,
 				79833B3B200E7E81005C6CC5 /* Entities */,
 				7975D63220713D48003A6288 /* View */,
 			);
@@ -787,7 +788,6 @@
 			isa = PBXGroup;
 			children = (
 				790B7D77208327E1003DD560 /* ItemCardVC.swift */,
-				790B7D78208327E1003DD560 /* ItemCardVC.xib */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -1170,7 +1170,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				790B7DDE20835D8C003DD560 /* ItemCardVC.xib in Resources */,
 				790B7DDF20835D8C003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */,
 				790B7DE020835D8C003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */,
 				790B7DE120835D8C003DD560 /* Robaga Rounded Bold.otf in Resources */,
@@ -1197,7 +1196,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				790B7D7A208327E1003DD560 /* ItemCardVC.xib in Resources */,
 				790B7D4E207FFCE6003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */,
 				790B7D4D207FFCDD003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */,
 				791430002072DE9E003293D5 /* Robaga Rounded Bold.otf in Resources */,
@@ -1417,6 +1415,7 @@
 				790B7D9820835D8C003DD560 /* StatisticModel.swift in Sources */,
 				790B7D9920835D8C003DD560 /* UomMapper.swift in Sources */,
 				790B7D9A20835D8C003DD560 /* DPPriceStatisticModel.swift in Sources */,
+				79795CD120E2A41F0063319B /* ItemCardRouter.swift in Sources */,
 				790B7D9D20835D8C003DD560 /* DPUomModel.swift in Sources */,
 				790B7D9E20835D8C003DD560 /* ProductCardModelView.swift in Sources */,
 				790B7D9F20835D8C003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
@@ -1530,6 +1529,7 @@
 				794658A220697E45007B4397 /* StatisticModel.swift in Sources */,
 				796D7B1D201906B40098D324 /* UomMapper.swift in Sources */,
 				79E9B875206C228700D80EA5 /* DPPriceStatisticModel.swift in Sources */,
+				79795CD020E2A41F0063319B /* ItemCardRouter.swift in Sources */,
 				79883BCF20149962009CBEF0 /* DPUomModel.swift in Sources */,
 				79833B35200D5002005C6CC5 /* ProductCardModelView.swift in Sources */,
 				790B7D532081CB04003DD560 /* UpdatePricePresenterImpl.swift in Sources */,

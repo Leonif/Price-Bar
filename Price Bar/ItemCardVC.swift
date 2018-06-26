@@ -18,22 +18,23 @@ enum PickerType {
     case category, uom
 }
 
+
+
+enum CardState {
+    case createMode, editMode
+}
+
+
+
 protocol ItemCardView: BaseView {
     func onPickerUpdated(currentIndex: Int, dataSource: [PickerData])
 }
 
 
 class ItemCardVC: UIViewController, ItemCardView {
-    
-    enum CardState {
-        case createMode, editMode
-    }
-    
-    
     var presenter: ItemCardPresenter!
-    
-    
     var state: CardState!
+    var pickerAdapter:
     
     var categories: [CategoryModelView] = []
     var uoms: [UomModelView] = []
@@ -93,12 +94,7 @@ class ItemCardVC: UIViewController, ItemCardView {
     }
     
     
-    func onPickerUpdated(currentIndex: Int, dataSource: PickerData) {
-        let picker = PickerControl(delegate: self,
-                                   dataSource: dataSource,
-                                   currentIndex: currentIndex)
-        self.present(picker, animated: true, completion: nil)
-    }
+    
     
     func setupKeyboardObserver() {
         // Observe keyboard change

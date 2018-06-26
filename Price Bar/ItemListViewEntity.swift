@@ -9,7 +9,7 @@
 import Foundation
 
 
-struct ItemListModelView {
+struct ItemListViewEntity {
     var id: String
     var product: String
     var brand: String

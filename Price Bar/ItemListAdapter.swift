@@ -17,8 +17,8 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     var outletId: String!
     var repository: Repository!
     
-    var dataSource: [ItemListModelView] = []
-    var filtredItemList: [ItemListModelView] = []
+    var dataSource: [ItemListViewEntity] = []
+    var filtredItemList: [ItemListViewEntity] = []
     var currentPageOffset: Int = 0
     
     var isLoading = false
@@ -42,7 +42,7 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
         self.onGetData?(currentPageOffset, limit)
     }
     
-    func updateDatasorce(sortedItems: [ItemListModelView]) {
+    func updateDatasorce(sortedItems: [ItemListViewEntity]) {
         self.onStopLoading?()
         self.dataSource = sortedItems
         self.filtredItemList = sortedItems
@@ -99,7 +99,7 @@ extension ItemListAdapter {
         }
     }
     
-    func addNewBatch(nextBatch: [ItemListModelView]) {
+    func addNewBatch(nextBatch: [ItemListViewEntity]) {
         var indexPaths = [IndexPath]()
         let currentCount: Int = filtredItemList.count
         

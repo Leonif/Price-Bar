@@ -26,7 +26,7 @@
 		790B7D7A208327E1003DD560 /* ItemCardVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D78208327E1003DD560 /* ItemCardVC.xib */; };
 		790B7D7F20835D8C003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
 		790B7D8020835D8C003DD560 /* Outlet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* Outlet.swift */; };
-		790B7D8120835D8C003DD560 /* ItemListModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListModelView.swift */; };
+		790B7D8120835D8C003DD560 /* ItemListViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */; };
 		790B7D8220835D8C003DD560 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
 		790B7D8320835D8C003DD560 /* ShoplistPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistPresenterImpl.swift */; };
 		790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
@@ -161,7 +161,7 @@
 		796D7B1D201906B40098D324 /* UomMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1C201906B40098D324 /* UomMapper.swift */; };
 		796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1F201A492E0098D324 /* ProductMapper.swift */; };
 		796D7B22201A51690098D324 /* CategoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B21201A51690098D324 /* CategoryMapper.swift */; };
-		796D7B24201BDE3C0098D324 /* ItemListModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListModelView.swift */; };
+		796D7B24201BDE3C0098D324 /* ItemListViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */; };
 		796D7B28201BE4B10098D324 /* AddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 796D7B27201BE4B10098D324 /* AddCell.xib */; };
 		7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletService.swift */; };
 		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
@@ -344,7 +344,7 @@
 		796D7B1C201906B40098D324 /* UomMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UomMapper.swift; sourceTree = "<group>"; };
 		796D7B1F201A492E0098D324 /* ProductMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductMapper.swift; sourceTree = "<group>"; };
 		796D7B21201A51690098D324 /* CategoryMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryMapper.swift; sourceTree = "<group>"; };
-		796D7B23201BDE3C0098D324 /* ItemListModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListModelView.swift; sourceTree = "<group>"; };
+		796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewEntity.swift; sourceTree = "<group>"; };
 		796D7B27201BE4B10098D324 /* AddCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCell.xib; sourceTree = "<group>"; };
 		7973DD861EF1AC7F0010A64F /* OutletService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletService.swift; sourceTree = SOURCE_ROOT; };
 		7973DD881EF1AF430010A64F /* OutletsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletsVC.swift; sourceTree = SOURCE_ROOT; };
@@ -849,7 +849,7 @@
 		79833B4120114354005C6CC5 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				796D7B23201BDE3C0098D324 /* ItemListModelView.swift */,
+				796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -1381,7 +1381,7 @@
 			files = (
 				790B7D7F20835D8C003DD560 /* ShoplistRouter.swift in Sources */,
 				790B7D8020835D8C003DD560 /* Outlet.swift in Sources */,
-				790B7D8120835D8C003DD560 /* ItemListModelView.swift in Sources */,
+				790B7D8120835D8C003DD560 /* ItemListViewEntity.swift in Sources */,
 				79C4EA5920DE09D6006866F9 /* OutletListAssembler.swift in Sources */,
 				790B7D8220835D8C003DD560 /* PriceBar.xcdatamodel in Sources */,
 				790B7D8320835D8C003DD560 /* ShoplistPresenterImpl.swift in Sources */,
@@ -1494,7 +1494,7 @@
 			files = (
 				790B7D512081C24B003DD560 /* ShoplistRouter.swift in Sources */,
 				793368671FFEAB3200E8E81A /* Outlet.swift in Sources */,
-				796D7B24201BDE3C0098D324 /* ItemListModelView.swift in Sources */,
+				796D7B24201BDE3C0098D324 /* ItemListViewEntity.swift in Sources */,
 				79C4EA5820DE09D6006866F9 /* OutletListAssembler.swift in Sources */,
 				79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */,
 				79DC99F02044B3F600D35D1C /* ShoplistPresenterImpl.swift in Sources */,

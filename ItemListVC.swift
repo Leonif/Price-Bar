@@ -11,8 +11,8 @@ import UIKit
 
 
 protocol ItemListView: BaseView {
-    func onFetchedData(items: [ItemListModelView])
-    func onFetchedNewBatch(items: [ItemListModelView])
+    func onFetchedData(items: [ItemListViewEntity])
+    func onFetchedNewBatch(items: [ItemListViewEntity])
     
 }
 
@@ -21,7 +21,7 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     @IBOutlet weak var tableView: UITableView!
     var outletId: String = ""
    
-    var router: ItemListRouter!
+//    var router: ItemListRouter!
     var presenter: ItemListPresenter!
 
 //    var data: ItemListRouterDataStorage!
@@ -54,11 +54,11 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     }
 
     
-    func onFetchedNewBatch(items: [ItemListModelView]) {
+    func onFetchedNewBatch(items: [ItemListViewEntity]) {
         self.adapter.addNewBatch(nextBatch: items)
     }
     
-    func onFetchedData(items: [ItemListModelView]) {
+    func onFetchedData(items: [ItemListViewEntity]) {
         self.adapter.updateDatasorce(sortedItems: items)
     }
     
@@ -158,6 +158,3 @@ extension ItemListVC: UISearchBarDelegate {
 
 
 
-extension ItemListVC {
-    
-}

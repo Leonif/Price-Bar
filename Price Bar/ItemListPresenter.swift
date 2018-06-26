@@ -36,10 +36,10 @@ class ItemListPresenterImpl: ItemListPresenter {
                 return
         }
         
-        let productAdjusted: [ItemListModelView] = products.compactMap {
+        let productAdjusted: [ItemListViewEntity] = products.compactMap {
             guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
             
-            return ItemListModelView(id: $0.id,
+            return ItemListViewEntity(id: $0.id,
                                      product: $0.name,
                                      brand: $0.brand,
                                      weightPerPiece: $0.weightPerPiece,
@@ -65,10 +65,10 @@ class ItemListPresenterImpl: ItemListPresenter {
         }
         
         
-        let productAdjusted: [ItemListModelView] = products.compactMap {
+        let productAdjusted: [ItemListViewEntity] = products.compactMap {
             guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
             
-            return ItemListModelView(id: $0.id,
+            return ItemListViewEntity(id: $0.id,
                                      product: $0.name,
                                      brand: $0.brand,
                                      weightPerPiece: $0.weightPerPiece,
@@ -95,10 +95,10 @@ class ItemListPresenterImpl: ItemListPresenter {
                 return
             }
             
-            let productAdjusted: [ItemListModelView] = products.compactMap {
+            let productAdjusted: [ItemListViewEntity] = products.compactMap {
                 guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
                 
-                return ItemListModelView(id: $0.id,
+                return ItemListViewEntity(id: $0.id,
                                          product: $0.name,
                                          brand: $0.brand,
                                          weightPerPiece: $0.weightPerPiece,

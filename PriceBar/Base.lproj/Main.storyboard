@@ -162,7 +162,7 @@
         <!--Item CardVC-->
         <scene sceneID="iuG-r1-ZlV">
             <objects>
-                <viewController id="gWa-gT-LpW" customClass="ItemCardVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ItemCardVC" id="gWa-gT-LpW" customClass="ItemCardVC" customModule="PriceBar_Dev" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Akg-tt-Zk9"/>
                         <viewControllerLayoutGuide type="bottom" id="UDK-Cd-IsD"/>

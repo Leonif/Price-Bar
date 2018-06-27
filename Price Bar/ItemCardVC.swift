@@ -40,7 +40,7 @@ class ItemCardVC: UIViewController, ItemCardView {
 
     var item: ShoplistItem?
     var barcode: String?
-    var productCard: ProductCardModelView!
+    var productCard: ProductCardViewEntity!
     
     
     @IBOutlet weak var itemName: UITextField!
@@ -227,13 +227,7 @@ class ItemCardVC: UIViewController, ItemCardView {
                                                       weightPerPiece: productCard.weightPerPiece,
                                                       categoryId: productCard.categoryId,
                                                       uomId: productCard.uomId)
-        if state == .editMode {
-            repository.update(dpProductCardModel)
-            delegate.productUpdated()
-        } else {
-            repository.save(new: dpProductCardModel)
-            delegate.add(new: productCard.productId)
-        }
+        self.presenter.onUpdateOrCreateProduct(product: dpProductCardModel)
     }
     
     private func saveStatistic() {

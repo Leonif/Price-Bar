@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ProductCardModelView {
+struct ProductCardViewEntity {
     var productId: String
     var productName: String
     var brand: String

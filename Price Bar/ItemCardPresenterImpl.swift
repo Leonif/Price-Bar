@@ -19,14 +19,24 @@ protocol ItemCardPresenter {
  
     func onCategoryPressed(currentCategory: String)
     func onUomPressed(currentUom: String)
+    func onUpdateOrCreateProduct(product: DPUpdateProductModel)
+    
 }
 
 class ItemCardPresenterImpl: ItemCardPresenter {
-    
     weak var view: ItemCardView!
     var repository: Repository!
     var router: ItemCardRouter!
     var pickerType: PickerType = .category
+    
+    
+    
+    func onUpdateOrCreateProduct(product: DPUpdateProductModel) {
+        // define is ths product exists by id
+        // if yeas - update
+        //else create
+    }
+    
     
     func onCategoryPressed(currentCategory: String) {
 
@@ -60,7 +70,6 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         
         self.pickerType = .uom
         
-        //load categories
         guard let dpUomList = repository.getUomList() else {
             fatalError("Category list is empty")
         }
@@ -81,13 +90,11 @@ class ItemCardPresenterImpl: ItemCardPresenter {
 extension ItemCardPresenterImpl: PickerControlDelegate {
     func choosen(id: Int32) {
         if pickerType == .category {
-            productCard.categoryId = id
-            let name = categories.filter { $0.id == id }.first?.name
-            self.categoryButton.setTitle(name, for: .normal)
+            guard let name = repository.getCategoryName(category: id) else { return }
+            self.view.onCategoryChoosen(name: name)
         } else {
-            productCard.uomId = id
-            let name = self.uoms.filter { $0.id == id }.first?.name
-            self.uomButton.setTitle(name, for: .normal)
+            guard let name = repository.getUomName(for: id) else { return }
+            self.view.onUomChoosen(name: name)
             
         }
     }

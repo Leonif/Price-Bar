@@ -49,7 +49,7 @@
 		790B7D9920835D8C003DD560 /* UomMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1C201906B40098D324 /* UomMapper.swift */; };
 		790B7D9A20835D8C003DD560 /* DPPriceStatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B874206C228700D80EA5 /* DPPriceStatisticModel.swift */; };
 		790B7D9D20835D8C003DD560 /* DPUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCE20149962009CBEF0 /* DPUomModel.swift */; };
-		790B7D9E20835D8C003DD560 /* ProductCardModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardModelView.swift */; };
+		790B7D9E20835D8C003DD560 /* ProductCardViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardViewEntity.swift */; };
 		790B7D9F20835D8C003DD560 /* UpdatePricePresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePricePresenterImpl.swift */; };
 		790B7DA020835D8C003DD560 /* UpdatePriceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D2D207AA590003DD560 /* UpdatePriceVC.swift */; };
 		790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F302016858300302AF9 /* OPOutletModel.swift */; };
@@ -175,7 +175,7 @@
 		79795CCB20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CC920DFDB790063319B /* ItemCardPresenterImpl.swift */; };
 		79795CD020E2A41F0063319B /* ItemCardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CCF20E2A41F0063319B /* ItemCardRouter.swift */; };
 		79795CD120E2A41F0063319B /* ItemCardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CCF20E2A41F0063319B /* ItemCardRouter.swift */; };
-		79833B35200D5002005C6CC5 /* ProductCardModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardModelView.swift */; };
+		79833B35200D5002005C6CC5 /* ProductCardViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardViewEntity.swift */; };
 		79833B37200D501E005C6CC5 /* DPProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B36200D501E005C6CC5 /* DPProductModel.swift */; };
 		79833B3A200E7E4B005C6CC5 /* CategoryModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */; };
 		79833B3D200E812D005C6CC5 /* PickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B3C200E812D005C6CC5 /* PickerControl.swift */; };
@@ -355,7 +355,7 @@
 		79795CC620DFD8CE0063319B /* ItemCardAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardAssembler.swift; sourceTree = "<group>"; };
 		79795CC920DFDB790063319B /* ItemCardPresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardPresenterImpl.swift; sourceTree = "<group>"; };
 		79795CCF20E2A41F0063319B /* ItemCardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardRouter.swift; sourceTree = "<group>"; };
-		79833B34200D5002005C6CC5 /* ProductCardModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardModelView.swift; sourceTree = "<group>"; };
+		79833B34200D5002005C6CC5 /* ProductCardViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardViewEntity.swift; sourceTree = "<group>"; };
 		79833B36200D501E005C6CC5 /* DPProductModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPProductModel.swift; sourceTree = "<group>"; };
 		79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryModelView.swift; sourceTree = "<group>"; };
 		79833B3C200E812D005C6CC5 /* PickerControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerControl.swift; sourceTree = "<group>"; };
@@ -816,7 +816,7 @@
 		79833B3B200E7E81005C6CC5 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				79833B34200D5002005C6CC5 /* ProductCardModelView.swift */,
+				79833B34200D5002005C6CC5 /* ProductCardViewEntity.swift */,
 				79833B39200E7E4B005C6CC5 /* CategoryModelView.swift */,
 				79833B4A20130F71005C6CC5 /* UomModelView.swift */,
 			);
@@ -1417,7 +1417,7 @@
 				790B7D9A20835D8C003DD560 /* DPPriceStatisticModel.swift in Sources */,
 				79795CD120E2A41F0063319B /* ItemCardRouter.swift in Sources */,
 				790B7D9D20835D8C003DD560 /* DPUomModel.swift in Sources */,
-				790B7D9E20835D8C003DD560 /* ProductCardModelView.swift in Sources */,
+				790B7D9E20835D8C003DD560 /* ProductCardViewEntity.swift in Sources */,
 				790B7D9F20835D8C003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
 				790B7DA020835D8C003DD560 /* UpdatePriceVC.swift in Sources */,
 				790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */,
@@ -1531,7 +1531,7 @@
 				79E9B875206C228700D80EA5 /* DPPriceStatisticModel.swift in Sources */,
 				79795CD020E2A41F0063319B /* ItemCardRouter.swift in Sources */,
 				79883BCF20149962009CBEF0 /* DPUomModel.swift in Sources */,
-				79833B35200D5002005C6CC5 /* ProductCardModelView.swift in Sources */,
+				79833B35200D5002005C6CC5 /* ProductCardViewEntity.swift in Sources */,
 				790B7D532081CB04003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
 				790B7D2F207AA590003DD560 /* UpdatePriceVC.swift in Sources */,
 				79D12F312016858300302AF9 /* OPOutletModel.swift in Sources */,

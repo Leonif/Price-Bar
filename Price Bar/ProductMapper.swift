@@ -39,7 +39,7 @@ class ProductMapper {
     
 
 
-    class func mapper(from newBarcode: String) -> ProductCardModelView {
+    class func mapper(from newBarcode: String) -> ProductCardViewEntity {
         let dataProvider = Repository()
 
         guard let category = dataProvider.defaultCategory else {
@@ -49,7 +49,7 @@ class ProductMapper {
             fatalError("default uom is not found")
         }
 
-        return ProductCardModelView(productId: newBarcode,
+        return ProductCardViewEntity(productId: newBarcode,
                                     productName: "",
                                     brand: "",
                                     weightPerPiece: "",
@@ -60,7 +60,7 @@ class ProductMapper {
                                     uomName: uom.name)
     }
 
-    class func mapper(for newItemName: String) -> ProductCardModelView {
+    class func mapper(for newItemName: String) -> ProductCardViewEntity {
         let dataProvider = Repository()
 
         guard let category = dataProvider.defaultCategory else {
@@ -71,7 +71,7 @@ class ProductMapper {
         }
 
         let newid = NSUUID().uuidString
-        return ProductCardModelView(productId: newid,
+        return ProductCardViewEntity(productId: newid,
                                     productName: newItemName.capitalized,
                                     brand: "",
                                     weightPerPiece: "",
@@ -82,8 +82,8 @@ class ProductMapper {
                                     uomName: uom.name)
     }
 
-    class func mapper(from item: ShoplistItem) -> ProductCardModelView {
-        return ProductCardModelView(productId: item.productId,
+    class func mapper(from item: ShoplistItem) -> ProductCardViewEntity {
+        return ProductCardViewEntity(productId: item.productId,
                                     productName: item.productName,
                                     brand: item.brand,
                                     weightPerPiece: item.weightPerPiece,

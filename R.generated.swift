@@ -1327,12 +1327,17 @@ struct _R: Rswift.Validatable {
     
     struct main: Rswift.StoryboardResourceType, Rswift.Validatable {
       let bundle = R.hostingBundle
+      let itemCardVC = StoryboardViewControllerResource<ItemCardVC>(identifier: "ItemCardVC")
       let itemListVC = StoryboardViewControllerResource<ItemListVC>(identifier: "ItemListVC")
       let name = "Main"
       let outletsVC = StoryboardViewControllerResource<OutletsVC>(identifier: "OutletsVC")
       let scannerController = StoryboardViewControllerResource<ScannerController>(identifier: "ScannerController")
       let shopListController = StoryboardViewControllerResource<ShopListController>(identifier: "ShopListController")
       let updatePriceVC = StoryboardViewControllerResource<UpdatePriceVC>(identifier: "UpdatePriceVC")
+      
+      func itemCardVC(_: Void = ()) -> ItemCardVC? {
+        return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: itemCardVC)
+      }
       
       func itemListVC(_: Void = ()) -> ItemListVC? {
         return UIKit.UIStoryboard(resource: self).instantiateViewController(withResource: itemListVC)
@@ -1362,6 +1367,7 @@ struct _R: Rswift.Validatable {
         if UIKit.UIImage(named: "down-arrow-square-button copy") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'down-arrow-square-button copy' is used in storyboard 'Main', but couldn't be loaded.") }
         if UIKit.UIImage(named: "search button") == nil { throw Rswift.ValidationError(description: "[R.swift] Image named 'search button' is used in storyboard 'Main', but couldn't be loaded.") }
         if _R.storyboard.main().outletsVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'outletsVC' could not be loaded from storyboard 'Main' as 'OutletsVC'.") }
+        if _R.storyboard.main().itemCardVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'itemCardVC' could not be loaded from storyboard 'Main' as 'ItemCardVC'.") }
         if _R.storyboard.main().itemListVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'itemListVC' could not be loaded from storyboard 'Main' as 'ItemListVC'.") }
         if _R.storyboard.main().shopListController() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'shopListController' could not be loaded from storyboard 'Main' as 'ShopListController'.") }
         if _R.storyboard.main().updatePriceVC() == nil { throw Rswift.ValidationError(description:"[R.swift] ViewController with identifier 'updatePriceVC' could not be loaded from storyboard 'Main' as 'UpdatePriceVC'.") }

@@ -101,7 +101,7 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
         }
         
         self.adapter.onGetNextBatch = { (offset, limit) in
-            self.presenter.onFetchNextBatch(offset: offset, limit: limit, for: self.outletId)
+            self.presenter.onFetchData(offset: offset, limit: limit, for: self.outletId)
         }
         
         

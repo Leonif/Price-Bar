@@ -35,6 +35,42 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         // define is ths product exists by id
         // if yeas - update
         //else create
+        
+        // save statistic
+    }
+    
+    private func saveStatistic() {
+        if let priceStr = itemPrice.text,
+            let price = priceStr.numberFormatting(),
+            price != 0.0 {
+            
+            guard productCard.productPrice != price  else {
+                alert(title: R.string.localizable.thank_you(),
+                      message: R.string.localizable.price_update_not_changed(), okAction: {
+                        self.close()
+                })
+                return
+            }
+            
+            let dpStatModel = DPPriceStatisticModel(outletId: outletId,
+                                                    productId: productCard.productId,
+                                                    price: price, date: Date())
+            repository.save(new: dpStatModel)
+            delegate.productUpdated()
+            self.close()
+            
+        } else {
+            alert(title: R.string.localizable.thank_you(),
+                  message: R.string.localizable.update_price_we_cant_update(), okAction: {
+                    self.close()
+            })
+        }
+    }
+    
+    private saveStatistic() {
+    
+    
+    
     }
     
     

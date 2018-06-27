@@ -14,12 +14,6 @@ protocol ItemCardVCDelegate: class {
 }
 
 
-enum PickerType {
-    case category, uom
-}
-
-
-
 enum CardState {
     case createMode, editMode
 }
@@ -27,21 +21,22 @@ enum CardState {
 
 
 protocol ItemCardView: BaseView {
-    func onPickerUpdated(currentIndex: Int, dataSource: [PickerData])
+    func onCategoryChoosen(name: String)
+    func onUomChoosen(name: String)
 }
 
 
 class ItemCardVC: UIViewController, ItemCardView {
     var presenter: ItemCardPresenter!
     var state: CardState!
-    var pickerAdapter:
+    var pickerAdapter: PickerControl!
     
     var categories: [CategoryModelView] = []
     var uoms: [UomModelView] = []
     var pickerType: PickerType?
     var outletId: String!
     var searchedItemName: String?
-//    weak var repository: Repository!
+
 
     var item: ShoplistItem?
     var barcode: String?
@@ -88,7 +83,7 @@ class ItemCardVC: UIViewController, ItemCardView {
 //            fatalError("Catgory list is empty")
 //        }
 //        self.uoms = uoms
-        self.cardOpenHandler()
+//        self.cardOpenHandler()
         
         self.setupKeyboardObserver()
     }
@@ -108,39 +103,39 @@ class ItemCardVC: UIViewController, ItemCardView {
     }
     
     
-    private func cardOpenHandler() {
-        if let item = item {
-            state = CardState.editMode
-            self.productCard = ProductMapper.mapper(from: item)
-            updateUI(for: productCard)
-            
-        }
-        
-        if let barcode = self.barcode {
-            state = CardState.createMode
-            print("New product")
-            self.productCard = ProductMapper.mapper(from: barcode)
-            updateUI(for: productCard)
-        }
-        
-        if let searchText = self.searchedItemName {
-            state = CardState.createMode
-            print("New product")
-            self.productCard = ProductMapper.mapper(for: searchText)
-            updateUI(for: productCard)
-            
-        }
-    }
+//    private func cardOpenHandler() {
+//        if let item = item {
+//            state = CardState.editMode
+//            self.productCard = ProductMapper.mapper(from: item)
+//            updateUI(for: productCard)
+//
+//        }
+//
+//        if let barcode = self.barcode {
+//            state = CardState.createMode
+//            print("New product")
+//            self.productCard = ProductMapper.mapper(from: barcode)
+//            updateUI(for: productCard)
+//        }
+//
+//        if let searchText = self.searchedItemName {
+//            state = CardState.createMode
+//            print("New product")
+//            self.productCard = ProductMapper.mapper(for: searchText)
+//            updateUI(for: productCard)
+//
+//        }
+//    }
     
-    func updateUI(for productCard: ProductCardModelView) {
-        itemName.text = productCard.productName
-        itemPrice.text = "\(productCard.productPrice)"
-        itemBrand.text = productCard.brand
-        itemWeight.text = productCard.weightPerPiece
-        
-        categoryButton.setTitle(productCard.categoryName, for: .normal)
-        uomButton.setTitle(productCard.uomName, for: .normal)
-    }
+//    func updateUI(for productCard: ProductCardModelView) {
+//        self.itemName.text = productCard.productName
+//        self.itemPrice.text = "\(productCard.productPrice)"
+//        self.itemBrand.text = productCard.brand
+//        self.itemWeight.text = productCard.weightPerPiece
+//
+//        self.categoryButton.setTitle(productCard.categoryName, for: .normal)
+//        self.uomButton.setTitle(productCard.uomName, for: .normal)
+//    }
     
     @IBAction func categoryPressed(_ sender: Any) {
         self.view.endEditing(true)
@@ -155,29 +150,19 @@ class ItemCardVC: UIViewController, ItemCardView {
     @IBAction func uomPressed(_ sender: Any) {
         self.view.endEditing(true)
         
+        guard let label = self.uomButton.titleLabel,
+            let currentUom = label.text  else { return }
         
-        
-        self.pickerType = PickerType.uom
-        var pickerData: [PickerData] = []
-        var curentIndex = 0
-        for (index, uom) in uoms.enumerated() {
-            if productCard.uomId == uom.id {
-                curentIndex = index
-            }
-            pickerData.append(PickerData(id: uom.id, name: uom.name))
-        }
-        
-        
-        
-        let picker = PickerControl(delegate: self,
-                                   dataSource: pickerData,
-                                   currentIndex: curentIndex)
-        self.present(picker, animated: true, completion: nil)
+        self.presenter.onUomPressed(currentUom: currentUom)
     }
     
+    func onUomChoosen(name: String) {
+        self.categoryButton.setTitle(name, for: .normal)
+    }
     
-    
-    
+    func onCategoryChoosen(name: String) {
+        self.categoryButton.setTitle(name, for: .normal)
+    }
     
     @objc
     func returnTextView(gesture: UIGestureRecognizer) {

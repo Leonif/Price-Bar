@@ -8,6 +8,13 @@
 
 import Foundation
 
+
+enum PickerType {
+    case category, uom
+}
+
+
+
 protocol ItemCardPresenter {
  
     func onCategoryPressed(currentCategory: String)
@@ -19,11 +26,14 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     weak var view: ItemCardView!
     var repository: Repository!
     var router: ItemCardRouter!
+    var pickerType: PickerType = .category
     
     func onCategoryPressed(currentCategory: String) {
 
         var pickerData: [PickerData] = []
         var curentIndex = 0
+        
+        self.pickerType = .category
         
         //load categories
         guard let dpCategoryList = repository.getCategoryList() else {
@@ -40,13 +50,15 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             pickerData.append(PickerData(id: category.id, name: category.name))
         }
         
-        self.view.onPickerUpdated(currentIndex: curentIndex, dataSource: pickerData)
+        self.router.openPickerController(presenter: self, currentIndex: curentIndex, dataSource: pickerData)
 
     }
     
     func onUomPressed(currentUom: String) {
         var pickerData: [PickerData] = []
         var curentIndex = 0
+        
+        self.pickerType = .uom
         
         //load categories
         guard let dpUomList = repository.getUomList() else {
@@ -60,7 +72,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             pickerData.append(PickerData(id: uom.id, name: uom.name))
         }
         
-        self.view.onPickerUpdated(currentIndex: curentIndex, dataSource: pickerData)
+        self.router.openPickerController(presenter: self, currentIndex: curentIndex, dataSource: pickerData)
     }
     
 }

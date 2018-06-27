@@ -11,20 +11,19 @@ import Foundation
 
 protocol ItemCardRouter: BaseRouter {
     
-    func openPickerController()
+    func openPickerController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData])
 }
 
 
 class ItemCardRouterImpl: ItemCardRouter {
     
+    weak var fromVC: ItemCardView!
     
-    func openPickerController() {
-        func onPickerUpdated(currentIndex: Int, dataSource: [PickerData]) {
-            let picker = PickerControl(delegate: self,
-                                       dataSource: dataSource,
-                                       currentIndex: currentIndex)
-            self.present(picker, animated: true, completion: nil)
-        }
+    func openPickerController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData]) {
+        
+        let picker = PickerControl(delegate: presenter, dataSource: dataSource, currentIndex: currentIndex) as! BaseView
+        
+        self.presentModule(fromModule: fromVC, toModule: picker)
     }
     
     

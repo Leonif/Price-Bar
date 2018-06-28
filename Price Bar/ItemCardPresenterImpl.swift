@@ -30,34 +30,81 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     var pickerType: PickerType = .category
     
     
+    private func getIdsForCategoryAndUom(categoryName: String, uomName: String, completion: @escaping (Int?, Int?, Error?) -> Void) {
+        self.repository.getCategoryId(for: categoryName) { (result) in
+            switch result {
+            case let .success(categoryId):
+                guard let categoryId = categoryId else {
+                    fatalError()
+                }
+                self.repository.getUomId(for: uomName, completion: { (result) in
+                    switch result {
+                    case let .success(uomId):
+                        guard let uomId = uomId else {
+                            fatalError()
+                        }
+                        completion(categoryId, uomId, nil)
+                    case let .failure(error):
+                        completion(categoryId, nil, error)
+                    }
+                })
+            case let .failure(error):
+                completion(nil, nil, error)
+            }
+        }
+    }
+    
+    
     
     func onUpdateOrCreateProduct(productCard: ProductCardViewEntity, for outletId: String) {
         guard !productCard.productName.isEmpty else {
             self.view.onError(with: R.string.localizable.empty_product_name())
         }
         
-        let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
-                                                      name: productCard.productName,
-                                                      brand: productCard.brand,
-                                                      weightPerPiece: productCard.weightPerPiece,
-                                                      categoryId: productCard.categoryId,
-                                                      uomId: productCard.uomId)
-        self.saveProduct(dpProductCardModel)
+        var productId = productCard.productId
+        
+        if productId.isEmpty {
+            productId = UUID().uuidString
+        }
         
         
         
-        let priceStatistic = DPPriceStatisticModel(outletId: outletId, productId: productCard, price: <#T##Double#>, date: <#T##Date#>)
+                let dpProductCardModel = DPUpdateProductModel(id: productId,
+                                                              name: productCard.productName,
+                                                              brand: productCard.brand,
+                                                              weightPerPiece: productCard.weightPerPiece,
+                                                              categoryId: Int32(categoryId),
+                    uomId: productCard.uomId)
+                
+                
+                
+                self.saveProduct(dpProductCardModel)
+                
+                
+                
+                let priceStatistic = DPPriceStatisticModel(outletId: outletId, productId: productCard, price: <#T##Double#>, date: <#T##Date#>)
+                
+                
+                
+                self.saveStatistic(statistic: <#T##DPPriceStatisticModel#>)
+                
+                
+                // define is ths product exists by id
+                // if yeas - update
+                //else create
+                
+                // save statistic
+                
+                
+                
+            case let .failure(error):
+                
+                
+                
+            }
+        }
         
         
-        
-        self.saveStatistic(statistic: <#T##DPPriceStatisticModel#>)
-        
-        
-        // define is ths product exists by id
-        // if yeas - update
-        //else create
-        
-        // save statistic
     }
     
     
@@ -131,9 +178,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             }
             pickerData.append(PickerData(id: category.id, name: category.name))
         }
-        
         self.router.openPickerController(presenter: self, currentIndex: curentIndex, dataSource: pickerData)
-
     }
     
     func onUomPressed(currentUom: String) {

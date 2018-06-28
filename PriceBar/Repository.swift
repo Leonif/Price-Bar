@@ -405,6 +405,33 @@ class Repository {
         }
         return cdModelList.map { CategoryMapper.mapper(from: $0) }
     }
+    
+    
+    func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, RepositoryError>) -> Void) {
+        FirebaseService.data.getCategoryId(for: categoryName) { (result) in
+            switch result {
+            case let .success(categoryId):
+                completion(ResultType.success(categoryId))
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+    }
+    func getUomId(for categoryName: String, completion: @escaping (ResultType<Int?, RepositoryError>) -> Void) {
+        FirebaseService.data.getUomId(for: categoryName) { (result) in
+            switch result {
+            case let .success(uomId):
+                completion(ResultType.success(uomId))
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+    }
+
+    
+    
+    
+    
 
     func mapper(from cdModel: CDCategoryModel) -> DPCategoryModel {
         return DPCategoryModel(id: cdModel.id, name: cdModel.name)

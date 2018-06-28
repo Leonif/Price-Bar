@@ -12,6 +12,7 @@ import Firebase
 enum FirebaseError: Error {
     case loginError(String)
     case syncError(String)
+    case dataIsNotFound(String)
 
 }
 
@@ -171,6 +172,57 @@ class FirebaseService {
             ] as [String: Any]
         refPriceStatistics.childByAutoId().setValue(priceStat)
     }
+    
+    
+    
+    
+    
+    func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, FirebaseError>)->Void) {
+        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
+                for snapCategory in snapCategories {
+                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String, Any> {
+                        guard let name = categoryDict["name"] as? String else { return }
+                        
+                        if name == categoryName {
+                            completion(ResultType.success(Int(id)))
+                        }
+                    }
+                }
+                completion(ResultType.success(nil))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, FirebaseError>)->Void) {
+        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                for snapUom in snapUoms {
+                    if let id = Int32(snapUom.key), let uomDict = snapUom.value as? Dictionary<String, Any> {
+                        guard let name = uomDict["name"] as? String else { return }
+                        
+                        if name == uomName {
+                            completion(ResultType.success(Int(id)))
+                        }
+                    }
+                }
+                completion(ResultType.success(nil))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 
 }
 

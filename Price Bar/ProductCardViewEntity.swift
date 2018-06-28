@@ -13,9 +13,9 @@ struct ProductCardViewEntity {
     var productName: String
     var brand: String
     var weightPerPiece: String
-    var categoryId: Int32
+//    var categoryId: Int32
     var categoryName: String
-    var productPrice: Double
-    var uomId: Int32
+    var productPrice: String
+//    var uomId: Int32
     var uomName: String
 }

@@ -19,7 +19,7 @@ protocol ItemCardPresenter {
  
     func onCategoryPressed(currentCategory: String)
     func onUomPressed(currentUom: String)
-    func onUpdateOrCreateProduct(product: DPUpdateProductModel)
+    func onUpdateOrCreateProduct(productCard: ProductCardViewEntity)
     
 }
 
@@ -31,7 +31,28 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     
     
     
-    func onUpdateOrCreateProduct(product: DPUpdateProductModel) {
+    func onUpdateOrCreateProduct(productCard: ProductCardViewEntity, for outletId: String) {
+        guard !productCard.productName.isEmpty else {
+            self.view.onError(with: R.string.localizable.empty_product_name())
+        }
+        
+        let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
+                                                      name: productCard.productName,
+                                                      brand: productCard.brand,
+                                                      weightPerPiece: productCard.weightPerPiece,
+                                                      categoryId: productCard.categoryId,
+                                                      uomId: productCard.uomId)
+        self.saveProduct(dpProductCardModel)
+        
+        
+        
+        let priceStatistic = DPPriceStatisticModel(outletId: outletId, productId: productCard, price: <#T##Double#>, date: <#T##Date#>)
+        
+        
+        
+        self.saveStatistic(statistic: <#T##DPPriceStatisticModel#>)
+        
+        
         // define is ths product exists by id
         // if yeas - update
         //else create
@@ -39,7 +60,22 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         // save statistic
     }
     
-    private func saveStatistic() {
+    
+    private func saveProduct(product: DPUpdateProductModel) {
+        self.repository.save(new: product)
+    }
+    
+    
+    
+    private func saveStatistic(statistic: DPPriceStatisticModel) {
+        
+        guard statistic.price != 0.0 else {
+            self.view.onError(with: R.string.localizable.price_update_not_changed())
+        }
+        
+        
+        
+        
         if let priceStr = itemPrice.text,
             let price = priceStr.numberFormatting(),
             price != 0.0 {

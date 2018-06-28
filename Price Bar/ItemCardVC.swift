@@ -14,11 +14,9 @@ protocol ItemCardVCDelegate: class {
 }
 
 
-enum CardState {
-    case createMode, editMode
-}
-
-
+//enum CardState {
+//    case createMode, editMode
+//}
 
 protocol ItemCardView: BaseView {
     func onCategoryChoosen(name: String)
@@ -28,8 +26,8 @@ protocol ItemCardView: BaseView {
 
 class ItemCardVC: UIViewController, ItemCardView {
     var presenter: ItemCardPresenter!
-    var state: CardState!
-    var pickerAdapter: PickerControl!
+//    var state: CardState!
+//    var pickerAdapter: PickerControl!
     
     var categories: [CategoryModelView] = []
     var uoms: [UomModelView] = []
@@ -37,10 +35,8 @@ class ItemCardVC: UIViewController, ItemCardView {
     var outletId: String!
     var searchedItemName: String?
 
-
-    var item: ShoplistItem?
-    var barcode: String?
-    var productCard: ProductCardViewEntity!
+    var productId: String?
+//    var productCard: ProductCardViewEntity!
     
     
     @IBOutlet weak var itemName: UITextField!
@@ -76,21 +72,9 @@ class ItemCardVC: UIViewController, ItemCardView {
             $0!.delegate = self
             self.addToolBar(textField: $0!)
         }
-        
-        
-        
-//        guard let uoms = repository.getUomList() else {
-//            fatalError("Catgory list is empty")
-//        }
-//        self.uoms = uoms
-//        self.cardOpenHandler()
-        
         self.setupKeyboardObserver()
     }
-    
-    
-    
-    
+
     func setupKeyboardObserver() {
         // Observe keyboard change
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
@@ -190,8 +174,6 @@ class ItemCardVC: UIViewController, ItemCardView {
         }
     }
     
-    
-    
     @IBAction func onCloseTap(_ sender: Any) {
         self.close()
     }
@@ -202,42 +184,19 @@ class ItemCardVC: UIViewController, ItemCardView {
     
     
     @IBAction func savePressed(_ sender: Any) {
+        let productCard = ProductCardViewEntity(productId: productId ?? "",
+                                                productName: itemName.text ?? "",
+                                                brand: itemBrand.text ?? "",
+                                                weightPerPiece: itemWeight.text ?? "",
+                                                categoryName: categoryButton.titleLabel?.text ?? "",
+                                                productPrice: itemPrice.text ?? "",
+                                                uomName: uomButton.titleLabel?.text ?? "")
         
-        guard
-            let name = itemName.text,
-            !name.isEmpty
-            else {
-                self.alert(message: R.string.localizable.empty_product_name())
-                return
-        }
-        self.saveProduct(with: name)
-       
+        self.presenter.onUpdateOrCreateProduct(productCard: productCard)
     }
     
-    private func saveProduct(with name: String) {
-        productCard.productName = name
-        productCard.brand = itemBrand.text ?? ""
-        productCard.weightPerPiece = itemWeight.text ?? ""
-        
-        
-        
-        let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
-                                                      name: productCard.productName,
-                                                      brand: productCard.brand,
-                                                      weightPerPiece: productCard.weightPerPiece,
-                                                      categoryId: productCard.categoryId,
-                                                      uomId: productCard.uomId)
-        self.presenter.onUpdateOrCreateProduct(product: dpProductCardModel)
-    }
-    
-    
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
         NotificationCenter.default.removeObserver(self)
     }
 }
-
-
-// MARK: Picker

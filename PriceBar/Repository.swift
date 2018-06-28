@@ -248,14 +248,14 @@ class Repository {
     }
 
     func save(new product: DPUpdateProductModel) {
-        let pr = CDProductModel(id: product.id,
-                                name: product.name,
-                                brand: product.brand,
-                                weightPerPiece: product.weightPerPiece,
-                                categoryId: product.categoryId,
-                                uomId: product.uomId)
-
-        CoreDataService.data.save(pr)
+//        let pr = CDProductModel(id: product.id,
+//                                name: product.name,
+//                                brand: product.brand,
+//                                weightPerPiece: product.weightPerPiece,
+//                                categoryId: product.categoryId,
+//                                uomId: product.uomId)
+//
+//        CoreDataService.data.save(pr)
         let fb = FBProductModel(id: product.id,
                                 name: product.name,
                                 brand: product.brand,

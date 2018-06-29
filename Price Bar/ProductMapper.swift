@@ -10,7 +10,7 @@ import Foundation
 
 class ProductMapper {
     
-    class func mapper(from product: DPProductModel, price: Double, outletId: String) -> ShoplistItem {
+    class func mapper(from product: DPProductEntity, price: Double, outletId: String) -> ShoplistItem {
 
         let repositoriy = Repository()
 
@@ -39,60 +39,60 @@ class ProductMapper {
     
 
 
-    class func mapper(from newBarcode: String) -> ProductCardViewEntity {
-        let dataProvider = Repository()
+//    class func mapper(from newBarcode: String) -> ProductCardEntity {
+//        let dataProvider = Repository()
+//
+//        guard let category = dataProvider.defaultCategory else {
+//            fatalError("default category is not found")
+//        }
+//        guard let uom = dataProvider.defaultUom else {
+//            fatalError("default uom is not found")
+//        }
+//
+//        return ProductCardEntity(productId: newBarcode,
+//                                    productName: "",
+//                                    brand: "",
+//                                    weightPerPiece: "",
+//                                    categoryId: category.id,
+//                                    categoryName: category.name,
+//                                    productPrice: 0.0,
+//                                    uomId: uom.id,
+//                                    uomName: uom.name)
+//    }
 
-        guard let category = dataProvider.defaultCategory else {
-            fatalError("default category is not found")
-        }
-        guard let uom = dataProvider.defaultUom else {
-            fatalError("default uom is not found")
-        }
+//    class func mapper(for newItemName: String) -> ProductCardEntity {
+//        let dataProvider = Repository()
+//
+//        guard let category = dataProvider.defaultCategory else {
+//            fatalError("default category is not found")
+//        }
+//        guard let uom = dataProvider.defaultUom else {
+//            fatalError("default uom is not found")
+//        }
+//
+//        let newid = NSUUID().uuidString
+//        return ProductCardEntity(productId: newid,
+//                                    productName: newItemName.capitalized,
+//                                    brand: "",
+//                                    weightPerPiece: "",
+//                                    categoryId: category.id,
+//                                    categoryName: category.name,
+//                                    productPrice: 0.0,
+//                                    uomId: uom.id,
+//                                    uomName: uom.name)
+//    }
 
-        return ProductCardViewEntity(productId: newBarcode,
-                                    productName: "",
-                                    brand: "",
-                                    weightPerPiece: "",
-                                    categoryId: category.id,
-                                    categoryName: category.name,
-                                    productPrice: 0.0,
-                                    uomId: uom.id,
-                                    uomName: uom.name)
-    }
-
-    class func mapper(for newItemName: String) -> ProductCardViewEntity {
-        let dataProvider = Repository()
-
-        guard let category = dataProvider.defaultCategory else {
-            fatalError("default category is not found")
-        }
-        guard let uom = dataProvider.defaultUom else {
-            fatalError("default uom is not found")
-        }
-
-        let newid = NSUUID().uuidString
-        return ProductCardViewEntity(productId: newid,
-                                    productName: newItemName.capitalized,
-                                    brand: "",
-                                    weightPerPiece: "",
-                                    categoryId: category.id,
-                                    categoryName: category.name,
-                                    productPrice: 0.0,
-                                    uomId: uom.id,
-                                    uomName: uom.name)
-    }
-
-    class func mapper(from item: ShoplistItem) -> ProductCardViewEntity {
-        return ProductCardViewEntity(productId: item.productId,
-                                    productName: item.productName,
-                                    brand: item.brand,
-                                    weightPerPiece: item.weightPerPiece,
-                                    categoryId: item.categoryId,
-                                    categoryName: item.productCategory,
-                                    productPrice: item.productPrice,
-                                    uomId: item.uomId,
-                                    uomName: item.productUom)
-    }
+//    class func mapper(from item: ShoplistItem) -> ProductCardEntity {
+//        return ProductCardEntity(productId: item.productId,
+//                                    productName: item.productName,
+//                                    brand: item.brand,
+//                                    weightPerPiece: item.weightPerPiece,
+//                                    categoryId: item.categoryId,
+//                                    categoryName: item.productCategory,
+//                                    productPrice: item.productPrice,
+//                                    uomId: item.uomId,
+//                                    uomName: item.productUom)
+//    }
     
     
     

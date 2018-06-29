@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DPProductModel {
+struct DPProductEntity {
     var id: String
     var name: String
     var brand: String
@@ -17,6 +17,7 @@ struct DPProductModel {
     var uomId: Int32
 }
 
+// FIXME: remove
 struct DPUpdateProductModel {
     var id: String
     var name: String

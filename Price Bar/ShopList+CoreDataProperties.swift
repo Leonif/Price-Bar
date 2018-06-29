@@ -2,7 +2,7 @@
 //  ShopList+CoreDataProperties.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 5/2/18.
+//  Created by Leonid Nifantyev on 6/28/18.
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 //
@@ -17,9 +17,7 @@ extension ShopList {
         return NSFetchRequest<ShopList>(entityName: "ShopList")
     }
 
-    @NSManaged public var checked: Bool
-    @NSManaged public var outletId: String?
     @NSManaged public var quantity: Double
-    @NSManaged public var toProduct: Product?
+    @NSManaged public var productId: String?
 
 }

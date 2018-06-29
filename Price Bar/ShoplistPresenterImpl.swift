@@ -95,7 +95,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         }
     }
     
-    private func addItemToShopList(_ product: DPProductModel, and outletId: String, completion: @escaping (ResultType<Bool, RepositoryError>)-> Void) {
+    private func addItemToShopList(_ product: DPProductEntity, and outletId: String, completion: @escaping (ResultType<Bool, RepositoryError>)-> Void) {
         
         repository.getPrice(for: product.id, and: outletId) { [weak self] (price) in
             guard let `self` = self else { return }

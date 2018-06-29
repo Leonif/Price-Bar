@@ -43,7 +43,7 @@ class ItemListPresenterImpl: ItemListPresenter {
     }
     
     
-    private func mergePricesWith(products: [DPProductModel], outletId: String) {
+    private func mergePricesWith(products: [DPProductEntity], outletId: String) {
         
         let productAdjusted: [ItemListViewEntity] = products.compactMap {
             guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }

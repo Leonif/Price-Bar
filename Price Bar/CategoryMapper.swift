@@ -18,13 +18,8 @@ class CategoryMapper {
         return DPCategoryModel(id: dpCategory.id, name: dpCategory.name)
     }
 
-    class func mapper(from category: Category) -> DPCategoryModel {
 
-        guard let categoryName = category.category else {
-            fatalError("Cant transform from Category to DpCategory")
-        }
-
-        return DPCategoryModel(id: category.id, name: categoryName)
-    }
+    
+    
 
 }

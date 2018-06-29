@@ -9,18 +9,18 @@
 import Foundation
 
 class ItemCardAssembler {
-    func assemble(for item: ShoplistItem, outletId: String) -> BaseView {
+    func assemble(for productId: String, outletId: String) -> BaseView {
         
         let repository = Repository()
         let presenter = ItemCardPresenterImpl()
         presenter.repository = repository
         
-        let view = ItemCardVC(nib: R.nib.itemCardVC)
+        let view =  R.storyboard.main.itemCardVC()!//ItemCardVC(nib: R.nib.itemCardVC)
         
         view.presenter = presenter
         presenter.view = view
         
-        view.item = item
+        view.productId = productId
         view.outletId = outletId
         
         return view

@@ -46,7 +46,7 @@ class ShoplistRouterImpl: ShoplistRouter {
     
     func openItemCard(for item: ShoplistItem, outletId: String) {
         
-        let module = ItemCardAssembler().assemble(for: item, outletId: outletId)
+        let module = ItemCardAssembler().assemble(for: item.productId, outletId: outletId)
         
         self.presentModule(fromModule: fromVC, toModule: module)
     }

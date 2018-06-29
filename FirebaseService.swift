@@ -196,6 +196,28 @@ class FirebaseService {
         }
     }
     
+    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, FirebaseError>)->Void) {
+        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
+                for snapCategory in snapCategories {
+                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String, Any> {
+                        guard let name = categoryDict["name"] as? String else { return }
+                        
+                        if id == categoryId {
+                            completion(ResultType.success(name))
+                        }
+                    }
+                }
+                completion(ResultType.success(nil))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    
+    
     
     func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
@@ -217,11 +239,50 @@ class FirebaseService {
     }
     
     
+    func getUomName(for uomid: Int32, completion: @escaping (ResultType<String?, FirebaseError>)->Void) {
+        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                for snapUom in snapUoms {
+                    if let id = Int32(snapUom.key), let uomDict = snapUom.value as? Dictionary<String, Any> {
+                        guard let name = uomDict["name"] as? String else { return }
+                        
+                        if id == uomid {
+                            completion(ResultType.success(name))
+                        }
+                    }
+                }
+                completion(ResultType.success(nil))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
     
     
+    func getUomList(completion: @escaping (ResultType<[FBUomModel]?, FirebaseError>)->Void) {
+        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                let fbUoms = FirebaseParser.parseUoms(from: snapUoms)
+                completion(ResultType.success(fbUoms))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
     
     
-    
+    func getCategoryList(completion: @escaping (ResultType<[FBItemCategory]?, FirebaseError>)->Void) {
+        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
+                let fbCategories:[FBItemCategory] = snapCategories.map { (snapCategory) in
+                    return FirebaseParser.parseCategory(from: snapCategory)
+                }
+                completion(ResultType.success(fbCategories))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
     
 
 }

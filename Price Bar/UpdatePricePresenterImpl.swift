@@ -41,7 +41,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
             else { return  }
         let dpStatModel = DPPriceStatisticModel(outletId: outletId,
                                                 productId: productId,
-                                                price: newPrice, date: Date())
+                                                newPrice: newPrice, oldPrice: oldPrice, date: Date())
         self.repository.save(new: dpStatModel)
         self.updatePriceOutput.saved()
     }

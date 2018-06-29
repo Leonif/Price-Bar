@@ -11,17 +11,17 @@ import Foundation
 
 class ItemListMappers {
     
-    func mapper(from dpModel: DPProductModel, with price: Double) -> ItemListViewEntity {
-        let dataProvider = Repository()
-        let categoryName = dataProvider.getCategoryName(category: dpModel.categoryId)
-        
-        return ItemListViewEntity(id: dpModel.id,
-                                 product: dpModel.name,
-                                 brand: dpModel.brand,
-                                 weightPerPiece: dpModel.weightPerPiece,
-                                 currentPrice: price,
-                                 categoryName: categoryName!)
-    }
+//    func mapper(from dpModel: DPProductEntity, with price: Double) -> ItemListViewEntity {
+//        let dataProvider = Repository()
+//        let categoryName = dataProvider.getCategoryName(category: dpModel.categoryId)
+//        
+//        return ItemListViewEntity(id: dpModel.id,
+//                                 product: dpModel.name,
+//                                 brand: dpModel.brand,
+//                                 weightPerPiece: dpModel.weightPerPiece,
+//                                 currentPrice: price,
+//                                 categoryName: categoryName!)
+//    }
     
     
     static func merge(products: [ItemListViewEntity], with prices: [ProductPrice]) -> [ItemListViewEntity] {

@@ -28,11 +28,11 @@ class StatisticMapper: Transforming {
 //    }
     
     
-    class func mapper(from model: CDStatisticModel) -> DPPriceStatisticModel {
-        return DPPriceStatisticModel(outletId: model.outletId,
-                                     productId: model.productId,
-                                     price: model.price,
-                                     date: model.date)
-        
-    }
+//    class func mapper(from model: CDStatisticModel) -> DPPriceStatisticModel {
+//        return DPPriceStatisticModel(outletId: model.outletId,
+//                                     productId: model.productId,
+//                                     price: model.price,
+//                                     date: model.date)
+    
+//    }
 }

@@ -8,14 +8,13 @@
 
 import Foundation
 
-struct ProductCardViewEntity {
+struct ProductCardEntity {
     var productId: String
     var productName: String
     var brand: String
     var weightPerPiece: String
-//    var categoryId: Int32
     var categoryName: String
-    var productPrice: String
-//    var uomId: Int32
+    var newPrice: String
+    var oldPrice: String
     var uomName: String
 }

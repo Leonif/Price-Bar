@@ -94,19 +94,19 @@ class Repository {
         return sum
     }
 
-    var defaultCategory: DPCategoryModel? {
-        guard let cd = CoreDataService.data.defaultCategory else {
-            return nil
-        }
-        return DPCategoryModel(id: cd.id, name: cd.name)
-    }
-
-    var defaultUom: DPUomModel? {
-        guard let cd = CoreDataService.data.defaultUom else {
-            return nil
-        }
-        return DPUomModel(id: cd.id, name: cd.name)
-    }
+//    var defaultCategory: DPCategoryModel? {
+//        guard let cd = CoreDataService.data.defaultCategory else {
+//            return nil
+//        }
+//        return DPCategoryModel(id: cd.id, name: cd.name)
+//    }
+//
+//    var defaultUom: DPUomModel? {
+//        guard let cd = CoreDataService.data.defaultUom else {
+//            return nil
+//        }
+//        return DPUomModel(id: cd.id, name: cd.name)
+//    }
 
     public func syncCloud(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         defer {  self.currentNext = 0  }
@@ -242,7 +242,7 @@ class Repository {
     
     func save(new statistic: DPPriceStatisticModel) {
         let fb = FBItemStatistic(productId: statistic.productId,
-                               price: statistic.price,
+                               price: statistic.newPrice,
                                outletId: statistic.outletId)
         FirebaseService.data.save(new: fb)
     }
@@ -296,14 +296,14 @@ class Repository {
     }
     
    ////////////////////////////// FIXME /////////////////////////////////
-    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[DPProductModel], RepositoryError>) -> Void) {
+    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void) {
         FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
             switch result {
             case let .success(products):
                 
                 let dpProducts = products.map { item in
                     
-                    return  DPProductModel(id: item.id,
+                    return  DPProductEntity(id: item.id,
                                            name: item.name,
                                            brand: item.brand,
                                            weightPerPiece: item.weightPerPiece,
@@ -363,14 +363,14 @@ class Repository {
     }
     
     // FIXME: get price just cloud
-    func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
-        let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
-        return object.map { StatisticMapper.mapper(from: $0) }
-    }
+//    func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
+//        let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
+//        return object.map { StatisticMapper.mapper(from: $0) }
+//    }
     
     
 
-    func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {
+    func filterItemList(contains text: String, for outletId: String) -> [DPProductEntity]? {
         return CoreDataService.data.filterItemList(contains: text, for: outletId)
     }
 
@@ -388,23 +388,60 @@ class Repository {
     }
 
     
-    func getUomName(for productId: String) -> String {
-        let product = CoreDataService.data.getProduct(by: productId)
-        
-        return product!.toUom!.uom!
-    }
+//    func getUomName(for productId: String) -> String {
+//        let product = CoreDataService.data.getProduct(by: productId)
+//        
+//        return product!.toUom!.uom!
+//    }
     
     
     func getProductName(for productId: String) -> String? {
         return CoreDataService.data.getProductName(for: productId)
     }
 
-    func getCategoryList() -> [DPCategoryModel]? {
-        guard let cdModelList = CoreDataService.data.getCategories() else {
-            fatalError("category list is empty")
+    func getCategoryList(completion: @escaping (ResultType<[DPCategoryModel]?, RepositoryError>) -> Void)  {
+        FirebaseService.data.getCategoryList { (result) in
+            switch result {
+            case let .success(categoryList):
+                guard let categoryList = categoryList else {
+                    completion (ResultType.success(nil))
+                    return
+                }
+                
+                let c: [DPCategoryModel] = categoryList.map { DPCategoryModel(id: $0.id, name: $0.name) }
+                completion(ResultType.success(c))
+
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
         }
-        return cdModelList.map { CategoryMapper.mapper(from: $0) }
     }
+    
+    
+    
+    func getUomList(completion: @escaping (ResultType<[UomModelView]?, RepositoryError>) -> Void)  {
+        
+        FirebaseService.data.getUomList { (result) in
+            switch result {
+            case let .success(uomList):
+                guard let uomList = uomList else {
+                    completion (ResultType.success(nil))
+                    return
+                }
+                
+                let c: [UomModelView] = uomList.map { UomMapper.mapper(from: $0)  }
+                completion(ResultType.success(c))
+                
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+
+        
+        
+        
+    }
+    
     
     
     func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, RepositoryError>) -> Void) {
@@ -417,8 +454,11 @@ class Repository {
             }
         }
     }
-    func getUomId(for categoryName: String, completion: @escaping (ResultType<Int?, RepositoryError>) -> Void) {
-        FirebaseService.data.getUomId(for: categoryName) { (result) in
+    
+    
+    
+    func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, RepositoryError>) -> Void) {
+        FirebaseService.data.getUomId(for: uomName) { (result) in
             switch result {
             case let .success(uomId):
                 completion(ResultType.success(uomId))
@@ -427,50 +467,65 @@ class Repository {
             }
         }
     }
+    
+    func getUomName(for uomId: Int32, completion: @escaping (ResultType<String?, RepositoryError>) -> Void) {
+        FirebaseService.data.getUomName(for: uomId) { (result) in
+            switch result {
+            case let .success(uomName):
+                completion(ResultType.success(uomName))
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+    }
+    
+    
+    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, RepositoryError>) -> Void) {
+        FirebaseService.data.getCategoryName(for: categoryId) { (result) in
+            switch result {
+            case let .success(categoryName):
+                completion(ResultType.success(categoryName))
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+    }
+    
 
-    
-    
-    
-    
 
     func mapper(from cdModel: CDCategoryModel) -> DPCategoryModel {
         return DPCategoryModel(id: cdModel.id, name: cdModel.name)
     }
 
-    func getUomList() -> [UomModelView]? {
-        guard let uoms = CoreDataService.data.getUomList() else {
-            return nil
-        }
-        return CoreDataParsers.parse(from: uoms)
-    }
-
-    func getUomName(for id: Int32) -> String? {
-        guard
-        let uom = CoreDataService.data.getUom(by: id),
-        let uomName = uom.uom
-        else {
-            fatalError("Uom is not available")
-        }
-        
-        return uomName
-    }
     
-    func getUom(for id: Int32) -> UomModelView? {
-        guard
-            let uom = CoreDataService.data.getUom(by: id) else {
-             fatalError("Uom is not available")
-                
-        }
-        return CoreDataParsers.parse(from: uom)
-    }
 
-    func getCategoryName(category id: Int32) -> String? {
-        guard let category = CoreDataService.data.getCategory(by: id),
-            let categoryName = category.category else {
-            return nil
-        }
-        return categoryName
-    }
+//    func getUomName(for id: Int32) -> String? {
+//        guard
+//        let uom = CoreDataService.data.getUom(by: id),
+//        let uomName = uom.uom
+//        else {
+//            fatalError("Uom is not available")
+//        }
+//
+//        return uomName
+//    }
+    
+//    func getUom(for id: Int32) -> UomModelView? {
+//        guard
+//            let uom = CoreDataService.data.getUom(by: id) else {
+//             fatalError("Uom is not available")
+//                
+//        }
+//        return CoreDataParsers.parse(from: uom)
+//    }
+
+//    func getCategoryName(category id: Int32) -> String? {
+//        guard let category = CoreDataService.data.getCategory(by: id),
+//            let categoryName = category.category else {
+//            return nil
+//        }
+//        return categoryName
+//    }
 
     func loadShopList() -> [ShoplistItem]?  {
         shoplist.removeAll()
@@ -502,23 +557,13 @@ class Repository {
 
 
 extension Repository {
-    func getItem(with barcode: String, and outletId: String, callback: @escaping (DPProductModel?) -> Void) {
-        if let cdModel = CoreDataService.data.getItem(by: barcode, and: outletId) {
-            let result = DPProductModel(id: cdModel.id,
-                                        name: cdModel.name,
-                                        brand: cdModel.brand,
-                                        weightPerPiece: cdModel.weightPerPiece,
-                                        categoryId: cdModel.categoryId,
-                                        uomId: cdModel.uomId)
-            callback(result)
-            
-        } else {
+    func getItem(with barcode: String, and outletId: String, callback: @escaping (DPProductEntity?) -> Void) {
             self.getProductFromCloud(with: barcode) { (item) in
                 guard let item = item else {
                     callback(nil)
                     return
                 }
-                let result = DPProductModel(id: item.id,
+                let result = DPProductEntity(id: item.id,
                                             name: item.name,
                                             brand: item.brand,
                                             weightPerPiece: item.weightPerPiece,
@@ -526,7 +571,7 @@ extension Repository {
                                             uomId: item.uomId)
                 callback(result)
             }
-        }
+        
     }
     
     

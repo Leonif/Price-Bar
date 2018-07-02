@@ -10,31 +10,46 @@ import Foundation
 
 class ProductMapper {
     
-    class func mapper(from product: DPProductEntity, price: Double, outletId: String) -> ShoplistItem {
-
-        let repositoriy = Repository()
-
-        guard
-            let categoryName = repositoriy.getCategoryName(category: product.categoryId),
-            let uom = repositoriy.getUom(for: product.uomId)
-            else {
-                fatalError("category or uom name doesnt exist")
-        }
-
-        return ShoplistItem(productId: product.id,
-                                   productName: product.name,
-                                   brand: product.brand,
-                                   weightPerPiece: product.weightPerPiece,
-                                   categoryId: product.categoryId,
-                                   productCategory: categoryName,
-                                   productPrice: price,
-                                   uomId: product.uomId,
-                                   productUom: uom.name,
-                                   quantity: 1.0, 
-                                   checked: false,
-                                   parameters: uom.parameters)
-
+    
+    
+    
+    
+    class func mapper(from item: FBProductModel) -> DPProductEntity {
+        
+        return DPProductEntity(id: item.id,
+                               name: item.name,
+                               brand: item.brand,
+                               weightPerPiece: item.weightPerPiece,
+                               categoryId: item.categoryId,
+                               uomId: item.uomId)
+        
     }
+    
+//    class func mapper(from product: DPProductEntity, price: Double, outletId: String) -> ShoplistItem {
+//
+//        let repositoriy = Repository()
+//
+//        guard
+//            let categoryName = repositoriy.getCategoryName(category: product.categoryId),
+//            let uom = repositoriy.getUom(for: product.uomId)
+//            else {
+//                fatalError("category or uom name doesnt exist")
+//        }
+//
+//        return ShoplistItem(productId: product.id,
+//                                   productName: product.name,
+//                                   brand: product.brand,
+//                                   weightPerPiece: product.weightPerPiece,
+//                                   categoryId: product.categoryId,
+//                                   productCategory: categoryName,
+//                                   productPrice: price,
+//                                   uomId: product.uomId,
+//                                   productUom: uom.name,
+//                                   quantity: 1.0,
+//                                   checked: false,
+//                                   parameters: uom.parameters)
+//
+//    }
 
     
 

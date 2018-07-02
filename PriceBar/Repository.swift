@@ -248,14 +248,6 @@ class Repository {
     }
 
     func save(new product: DPUpdateProductModel) {
-//        let pr = CDProductModel(id: product.id,
-//                                name: product.name,
-//                                brand: product.brand,
-//                                weightPerPiece: product.weightPerPiece,
-//                                categoryId: product.categoryId,
-//                                uomId: product.uomId)
-//
-//        CoreDataService.data.save(pr)
         let fb = FBProductModel(id: product.id,
                                 name: product.name,
                                 brand: product.brand,
@@ -300,16 +292,7 @@ class Repository {
         FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
             switch result {
             case let .success(products):
-                
-                let dpProducts = products.map { item in
-                    
-                    return  DPProductEntity(id: item.id,
-                                           name: item.name,
-                                           brand: item.brand,
-                                           weightPerPiece: item.weightPerPiece,
-                                           categoryId: item.categoryId,
-                                           uomId: item.uomId)
-                }
+                let dpProducts = products.map { ProductMapper.mapper(from: $0) }
                 completion(ResultType.success(dpProducts))
             case let .failure(error):
                 completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
@@ -370,8 +353,17 @@ class Repository {
     
     
 
-    func filterItemList(contains text: String, for outletId: String) -> [DPProductEntity]? {
-        return CoreDataService.data.filterItemList(contains: text, for: outletId)
+    func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void)  {
+
+        FirebaseService.data.getFiltredProductList(with: text) { (result) in
+            switch result {
+            case let .success(products):
+                let dpProducts = products.map { ProductMapper.mapper(from: $0) }
+                completion(ResultType.success(dpProducts))
+            case let .failure(error):
+                completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
+            }
+        }
     }
 
     
@@ -395,11 +387,33 @@ class Repository {
 //    }
     
     
-    func getProductName(for productId: String) -> String? {
-        return CoreDataService.data.getProductName(for: productId)
+    func getProductName(for productId: String, completion: @escaping (ResultType<String?, RepositoryError>)-> Void) {
+        FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
+            completion(ResultType.success(fbProductEntity?.fullName))
+        }
     }
+    
+    
+    func getProductEntity(for productId: String, completion: @escaping (ResultType<DPProductEntity, RepositoryError>)-> Void) {
+        FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
+            
+            guard let fbProductEntity = fbProductEntity else {
+                completion(ResultType.failure(RepositoryError.other(R.string.localizable.error_something_went_wrong())))
+            }
+            
+            
+            completion(ResultType.success(DPProductEntity(id: productId,
+                                                          name: fbProductEntity.name,
+                                                          brand: fbProductEntity.brand,
+                                                          weightPerPiece: fbProductEntity.weightPerPiece,
+                                                          categoryId: fbProductEntity.categoryId,
+                                                          uomId: fbProductEntity.uomId)))
+        }
+    }
+    
+    
 
-    func getCategoryList(completion: @escaping (ResultType<[DPCategoryModel]?, RepositoryError>) -> Void)  {
+    func getCategoryList(completion: @escaping (ResultType<[DPCategoryViewEntity]?, RepositoryError>) -> Void)  {
         FirebaseService.data.getCategoryList { (result) in
             switch result {
             case let .success(categoryList):
@@ -408,7 +422,7 @@ class Repository {
                     return
                 }
                 
-                let c: [DPCategoryModel] = categoryList.map { DPCategoryModel(id: $0.id, name: $0.name) }
+                let c: [DPCategoryViewEntity] = categoryList.map { DPCategoryViewEntity(id: $0.id, name: $0.name) }
                 completion(ResultType.success(c))
 
             case let .failure(error):
@@ -493,8 +507,8 @@ class Repository {
     
 
 
-    func mapper(from cdModel: CDCategoryModel) -> DPCategoryModel {
-        return DPCategoryModel(id: cdModel.id, name: cdModel.name)
+    func mapper(from cdModel: CDCategoryModel) -> DPCategoryViewEntity {
+        return DPCategoryViewEntity(id: cdModel.id, name: cdModel.name)
     }
 
     

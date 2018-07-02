@@ -27,12 +27,30 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     
     func onGetProductInfo(for productId: String, and outletId: String) {
         self.view.showLoading(with: "Получаем информацию о продукте")
-        return self.repository.getPrice(for: productId, and: outletId, callback: { (price) in
-            let uomName = self.repository.getUomName(for: productId)
-            let name = self.repository.getProductName(for: productId)!
-            self.view.hideLoading()
-            self.view.onGetProductInfo(price: price, name: name, uomName: uomName)
-        })
+        self.repository.getItem(with: productId, and: outletId) { (dpProductEntity) in
+            guard let dpProductEntity = dpProductEntity else {
+                self.view.hideLoading()
+                self.view.onError(with: R.string.localizable.error_something_went_wrong())
+                return
+            }
+            self.repository.getPrice(for: productId, and: outletId, callback: { (price) in
+                self.repository.getUomName(for: dpProductEntity.uomId, completion: { (result) in
+                    self.view.hideLoading()
+                    
+                    switch result {
+                    case let .success(uomName):
+                        guard let uomName = uomName else {
+                            self.view.onError(with: R.string.localizable.error_something_went_wrong())
+                            return
+                        }
+                        self.view.onGetProductInfo(price: price, name: dpProductEntity.name, uomName: uomName)
+                    case let .failure(error):
+                        self.view.onError(with: error.message)
+                    }
+                })
+                
+            })
+        }
     }
     
     func onSavePrice(for productId: String, for outletId: String, with newPrice: Double, and oldPrice: Double) {

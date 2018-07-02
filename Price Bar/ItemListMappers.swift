@@ -10,19 +10,26 @@ import Foundation
 
 
 class ItemListMappers {
-    
-//    func mapper(from dpModel: DPProductEntity, with price: Double) -> ItemListViewEntity {
-//        let dataProvider = Repository()
-//        let categoryName = dataProvider.getCategoryName(category: dpModel.categoryId)
-//        
-//        return ItemListViewEntity(id: dpModel.id,
-//                                 product: dpModel.name,
-//                                 brand: dpModel.brand,
-//                                 weightPerPiece: dpModel.weightPerPiece,
-//                                 currentPrice: price,
-//                                 categoryName: categoryName!)
-//    }
-    
+
+    static func merge(products: [ItemListViewEntity], with categories: [DPProductCategoryEntity]) -> [ItemListViewEntity] {
+        let productsWithCategories: [ItemListViewEntity] = products.compactMap { (product)  in
+            
+            
+            guard  let index = categories.index(where: { $0.productId == product.id }) else {
+                fatalError()
+            }
+            
+            return ItemListViewEntity(id: product.id,
+                                      product: product.product,
+                                      brand: product.brand,
+                                      weightPerPiece: product.weightPerPiece,
+                                      currentPrice: 0.0,
+                                      categoryName: categories[index].categoryName )
+            
+        }
+        return productsWithCategories
+    }
+
     
     static func merge(products: [ItemListViewEntity], with prices: [ProductPrice]) -> [ItemListViewEntity] {
         let productsWithPrices: [ItemListViewEntity] = products.compactMap { (product)  in
@@ -40,9 +47,7 @@ class ItemListMappers {
                                      categoryName: product.categoryName)
 
         }
-        
         return productsWithPrices
-        
     }
     
 }

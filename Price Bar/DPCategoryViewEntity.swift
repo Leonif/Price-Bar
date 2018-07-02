@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct DPCategoryModel {
+struct DPCategoryViewEntity {
     var id: Int32
     var name: String
+}
+
+struct DPProductCategoryEntity {
+    var productId: String
+    var categoryName: String
 }

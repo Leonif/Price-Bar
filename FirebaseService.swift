@@ -121,10 +121,6 @@ class FirebaseService {
         }
     }
 
-    
-    
-    
-
     func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->Void) {
         refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
@@ -146,12 +142,8 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-
-    
-    
     
     func saveOrUpdate(_ item: FBProductModel) {
-
         let good = [
             "barcode": item.id,
             "name": item.name,
@@ -304,6 +296,27 @@ extension FirebaseService {
             callback(goods.first)
         }
     }
+    
+    
+    
+    func getFiltredProductList(with searchedText: String, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+        self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapGoods = snapshot.value as? [String: Any] {
+                let goods = snapGoods.map { FirebaseParser.parse($0) }
+                completion(ResultType.success(goods))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
     func getPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
         self.refPriceStatistics.observeSingleEvent(of: .value) { (snapshot) in

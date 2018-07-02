@@ -35,7 +35,7 @@ class ItemListPresenterImpl: ItemListPresenter {
         self.repository.getShopItems(with: offset, limit: limit, for: outletId) { (result) in
             switch result {
             case let .success(products):
-                self.mergePricesWith(products: products, outletId: outletId)
+                self.mergePricesWithProducts(products, outletId: outletId)
             case let .failure(error):
                 self.view.onError(with: error.message)
             }
@@ -43,90 +43,94 @@ class ItemListPresenterImpl: ItemListPresenter {
     }
     
     
-    private func mergePricesWith(products: [DPProductEntity], outletId: String) {
+    
+    
+    
+    
+    private func mergePricesWithProducts(_ products: [DPProductEntity], outletId: String) {
+        var productAdjusted: [ItemListViewEntity] = []
         
-        let productAdjusted: [ItemListViewEntity] = products.compactMap {
-            guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
-            
-            return ItemListViewEntity(id: $0.id,
-                                      product: $0.name,
-                                      brand: $0.brand,
-                                      weightPerPiece: $0.weightPerPiece,
-                                      currentPrice: 0,
-                                      categoryName: categoryName)
+        let categoryDispatchGruop = DispatchGroup()
+        
+        for item in products {
+            categoryDispatchGruop.enter()
+            repository.getCategoryName(for: item.categoryId, completion: { (result) in
+                switch result {
+                case let .success(categoryName):
+                    
+                    guard let categoryName = categoryName else {
+                        self.view.onError(with: R.string.localizable.error_something_went_wrong())
+                        return
+                    }
+                    
+                    productAdjusted.append(ItemListViewEntity(id: item.id,
+                                                              product: item.name,
+                                                              brand: item.brand,
+                                                              weightPerPiece: item.weightPerPiece,
+                                                              currentPrice: 0,
+                                                              categoryName: categoryName))
+                    categoryDispatchGruop.leave()
+                case let .failure(error):
+                    self.view.onError(with: error.message)
+                    categoryDispatchGruop.leave()
+                }
+            })
         }
         
         
-        repository.getPricesFor(outletId: outletId, completion: { (prices) in
-            let productsWithPrices = ItemListMappers
-                .merge(products: productAdjusted, with: prices)
-                .sorted { $0.currentPrice > $1.currentPrice  }
-            
-            self.view.onFetchedData(items: productsWithPrices)
-        })
-        
-        
+        categoryDispatchGruop.notify(queue: .main) {
+            self.repository.getPricesFor(outletId: outletId, completion: { (prices) in
+                let productsWithPrices = ItemListMappers
+                    .merge(products: productAdjusted, with: prices)
+                    .sorted { $0.currentPrice > $1.currentPrice  }
+                
+                self.view.onFetchedData(items: productsWithPrices)
+            })
+        }
     }
-    
-    
-    // USE onFetchDATA
-//    func onFetchNextBatch(offset: Int, limit: Int,  for outletId: String) {
-//        guard
-//            let products = repository.getShopItems(with: offset, limit: limit, for: outletId) else {
-//                return
-//        }
-//
-//
-//        let productAdjusted: [ItemListViewEntity] = products.compactMap {
-//            guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
-//
-//            return ItemListViewEntity(id: $0.id,
-//                                     product: $0.name,
-//                                     brand: $0.brand,
-//                                     weightPerPiece: $0.weightPerPiece,
-//                                     currentPrice: 0,
-//                                     categoryName: categoryName)
-//        }
-//
-//
-//        repository.getPricesFor(outletId: outletId, completion: { (prices) in
-//            let productsWithPrices = ItemListMappers
-//                .merge(products: productAdjusted, with: prices)
-//                .sorted { $0.currentPrice > $1.currentPrice  }
-//
-//            self.view.onFetchedNewBatch(items: productsWithPrices)
-//        })
-//
-//    }
     
     
     func onFilterList(basedOn searchText: String, with outletId: String) {
         
         if  searchText.count >= 3 {
-            guard let products = repository.filterItemList(contains: searchText, for: outletId) else {
-                return
+//            guard let products = repository.//filterItemList(contains: searchText, for: outletId) else {
+//                return
+//            }
+            
+            repository.filterItemList(contains: searchText, for: outletId) { (result) in
+                switch result {
+                case let .success(products):
+                    let productAdjusted: [ItemListViewEntity] = products.compactMap {
+                        //guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
+                        
+                        
+                        
+                        
+                        
+                        
+                        return ItemListViewEntity(id: $0.id,
+                                                  product: $0.name,
+                                                  brand: $0.brand,
+                                                  weightPerPiece: $0.weightPerPiece,
+                                                  currentPrice: 0,
+                                                  categoryName: categoryName)
+                    }
+                    
+                    
+                    self.repository.getPricesFor(outletId: outletId, completion: { (prices) in
+                        let productsWithPrices = ItemListMappers
+                            .merge(products: productAdjusted, with: prices)
+                            .sorted { $0.currentPrice > $1.currentPrice  }
+                        
+                        self.view.onFetchedData(items: productsWithPrices)
+                        
+                    })
+                case let .failure(error):
+                    self.view.onError(with: error.message)
+                }
             }
             
-            let productAdjusted: [ItemListViewEntity] = products.compactMap {
-                guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
-                
-                return ItemListViewEntity(id: $0.id,
-                                         product: $0.name,
-                                         brand: $0.brand,
-                                         weightPerPiece: $0.weightPerPiece,
-                                         currentPrice: 0,
-                                         categoryName: categoryName)
-            }
             
-            
-            repository.getPricesFor(outletId: outletId, completion: { (prices) in
-                let productsWithPrices = ItemListMappers
-                    .merge(products: productAdjusted, with: prices)
-                    .sorted { $0.currentPrice > $1.currentPrice  }
-
-                self.view.onFetchedData(items: productsWithPrices)
-                
-            })
         }
     }
     
@@ -141,3 +145,48 @@ class ItemListPresenterImpl: ItemListPresenter {
     
     
 }
+
+// FIXME: move to interactor
+extension ItemListPresenterImpl {
+    
+    private func onGetItemWithPrice(for produtId: String, outletId: String, completion: @escaping (ItemListViewEntity) -> Void) {
+        
+        self.repository.getProductEntity(for: produtId) { (result) in
+            switch result {
+            case let .success(product):
+                self.repository.getCategoryName(for: product.categoryId, completion: { (result) in
+                    switch result {
+                    case let .success(categoryName):
+                        
+                        guard let categoryName = categoryName else {
+                            self.view.onError(with: R.string.localizable.error_something_went_wrong())
+                            return
+                        }
+                        let item = ItemListViewEntity(id: produtId,
+                                                      product: product.name,
+                                                      brand: product.brand,
+                                                      weightPerPiece: product.weightPerPiece,
+                                                      currentPrice: 0.0, categoryName: categoryName)
+                        completion(item)
+                    case let .failure(error):
+                        self.view.onError(with: error.message)
+                    }
+                })
+                
+            case let .failure(error):
+                self.view.onError(with: error.message)
+                
+                
+            }
+        }
+        
+        
+        
+        
+        
+        
+    }
+    
+}
+
+

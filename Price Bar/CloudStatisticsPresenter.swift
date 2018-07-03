@@ -18,7 +18,13 @@ class CloudStatisticsPresenterImpl: CloudStatisticsPresenter {
     weak var view: CloudStatisticsView!
     
     func onGetQuantityOfGood() {
-        let goodCout = self.repository.getQuantityOfProducts()
-        self.view.renderStatistic(goodQuantity: goodCout)
+        self.repository.getQuantityOfProducts { (result) in
+            switch result {
+            case let .success(count):
+                self.view.renderStatistic(goodQuantity: count)
+            case let .failure(error):
+                self.view.onError(with: error.message)
+            }
+        }
     }
 }

@@ -18,52 +18,6 @@ class CoreDataService {
     static let data = CoreDataService()
     var synced = false
 
-    var defaultCategory: CDCategoryModel? {
-        let defaultCategoryId: Int32 = 1
-        guard
-            let category = getCategory(by: defaultCategoryId),
-            let categoryName = category.category
-            else {
-                return nil
-        }
-        return CDCategoryModel(id: category.id, name: categoryName)
-    }
-
-//    var defaultUom: CDUomModel? {
-//        let defaultUomId: Int32 = 1
-//        guard let uom = getUom(by: defaultUomId) else {
-//            return nil
-//        }
-//
-//        return CoreDataParsers.parse(from: uom)
-//
-//    }
-//
-//    func save(new statistic: CDStatisticModel) {
-//        guard statistic.price != 0 else {
-//            return
-//        }
-//        do {
-//            let stat = Statistic(context: context)
-//            stat.outletId = statistic.outletId
-//            stat.price = statistic.price
-//            stat.date = statistic.date as NSDate
-//
-//            let productRequest = NSFetchRequest<Product>(entityName: "Product")
-//            productRequest.predicate = NSPredicate(format: "id == %@", statistic.productId)
-//            let productExist = try context.fetch(productRequest)
-//
-//            let prd = productExist.first
-//
-//            stat.toProduct = prd
-//            stat.price = statistic.price
-//            stat.outletId = statistic.outletId
-//            ad.saveContext()
-//        } catch {
-//            print("Products is not got from database")
-//        }
-//    }
-
     func saveToShopList(_ shopItem: ShoplistItem) {
         do {
             //find product in catalog
@@ -112,16 +66,16 @@ class CoreDataService {
     }
     
     
-    func getQuantityOfProducts() -> Int {
-        do {
-            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            let productList = try context.fetch(fetchRequest)
-            return productList.count
-        } catch {
-            print("Products is not got from database")
-        }
-        return 0
-    }
+//    func getQuantityOfProducts() -> Int {
+//        do {
+//            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+//            let productList = try context.fetch(fetchRequest)
+//            return productList.count
+//        } catch {
+//            print("Products is not got from database")
+//        }
+//        return 0
+//    }
 
     func loadShopList() -> [CDShoplistItem]? {
         var shopList: [CDShoplistItem] = []
@@ -130,37 +84,22 @@ class CoreDataService {
             let savedShopList = try context.fetch(shpLstRequest)
             
             shopList = savedShopList.map { shoplistItem in
-                if let product = shoplistItem.toProduct,
-                    let id = product.id,
-                    let name = product.name,
-                    let category = product.toCategory,
-                    let categoryName = category.category,
-                    let uom = product.toUom,
-                    let uomName = uom.uom,
-                    let uomParameters = uom.parameters {
-                    
-                        let brand = product.brand ?? ""
-                        let w = product.weightPerPiece ?? ""
-                        
-                        let quantity = shoplistItem.quantity
-                        let checked = shoplistItem.checked
-                    
-                        
-                        let params = UomMapper.transform(from: uomParameters)
-                        return CDShoplistItem(productId: id,
-                                                   productName: name,
-                                                   brand: brand,
-                                                   weightPerPiece: w,
-                                                   categoryId: category.id,
-                                                   productCategory: categoryName,
-                                                   uomId: uom.id,
-                                                   productUom: uomName,
-                                                   quantity: quantity, 
-                                                   checked: checked,
-                                                   parameters: params)
-                } else {
-                    fatalError("Database broken. Need to start sync again")
+                
+                guard let id = shoplistItem.productId else {
+                    fatalError()
                 }
+                
+                return CDShoplistItem(productId: id,
+                                      productName: "",
+                                      brand: "",
+                                      weightPerPiece: "",
+                                      categoryId: -1,
+                                      productCategory: "",
+                                      uomId: -1,
+                                      productUom: "",
+                                      quantity: shoplistItem.quantity,
+                                      checked: false,
+                                      parameters: [])
             }
         } catch {
             print("Products is not got from database")

@@ -233,9 +233,16 @@ class Repository {
     }
 
 
-    func getQuantityOfProducts() -> Int {
-        return CoreDataService.data.getQuantityOfProducts()
+    func getQuantityOfProducts(completion: @escaping (ResultType<Int, RepositoryError>) -> Void) {
         
+        FirebaseService.data.getProductCount { (result) in
+            switch result {
+            case let .success(count):
+                completion(ResultType.success(count))
+            case let .failure(error):
+                completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
+            }
+        }
     }
     
     

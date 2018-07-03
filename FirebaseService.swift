@@ -120,6 +120,17 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
+    
+    
+    func getProductCount(completion: @escaping (ResultType<Int, FirebaseError>)->Void) {
+        self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
+            completion(ResultType.success(snapshot.childrenCount))
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
 
     func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->Void) {
         refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in

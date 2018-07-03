@@ -21,13 +21,9 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     @IBOutlet weak var tableView: UITableView!
     var outletId: String = ""
    
-//    var router: ItemListRouter!
-    var presenter: ItemListPresenter!
 
-//    var data: ItemListRouterDataStorage!
+    var presenter: ItemListPresenter!
     var adapter: ItemListAdapter!
-    
-//    var shouldClose: Bool = false
     
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar(frame: CGRect.zero)
@@ -122,15 +118,6 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     override func viewDidAppear(_ animated: Bool) {
         self.searchBar.addToolBar()
     }
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        if shouldClose {
-//            self.close()
-//            shouldClose.toggle()
-//        } else {
-//            self.tableView.reloadData()
-//        }
-//    }
     
     @objc func close() {
         self.navigationController?.popViewController(animated: true)
@@ -145,16 +132,6 @@ extension ItemListVC: UISearchBarDelegate {
     }
 }
 
-//
-//extension ItemListVC: ItemCardVCDelegate {
-//    func productUpdated() {
-//        itemCardDelegate?.productUpdated()
-//    }
-//    func add(new productId: String) {
-//        shouldClose = true
-//        itemCardDelegate?.add(new: productId)
-//    }
-//}
 
 
 

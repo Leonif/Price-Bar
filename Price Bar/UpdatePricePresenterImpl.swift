@@ -33,7 +33,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
                 self.view.onError(with: R.string.localizable.error_something_went_wrong())
                 return
             }
-            self.repository.getPrice(for: productId, and: outletId, callback: { (price) in
+            self.repository.getPrice(for: productId, and: outletId, completion: { (price) in
                 self.repository.getUomName(for: dpProductEntity.uomId, completion: { (result) in
                     self.view.hideLoading()
                     
@@ -74,18 +74,16 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     func mergeOutletsWithPrices(productId: String, fbPriceStatistics: [ProductPrice]) {
         let outletService = OutletService()
         var statistic: [StatisticModel] = []
-        
-        let productName = repository.getProductName(for: productId)!
-        
+
         let dispatchGroup = DispatchGroup()
-        
+
         fbPriceStatistics.forEach { fbPriceStatistic in
             dispatchGroup.enter()
             outletService.getOutlet(with: fbPriceStatistic.outletId, completion: { (result) in
                 switch result {
                 case let .success(outlet):
                     statistic.append(StatisticModel(productId: fbPriceStatistic.productId,
-                                                    productName: productName,
+                                                    productName: fbPriceStatistic.productName,
                                                     outlet: outlet,
                                                     price: fbPriceStatistic.currentPrice,
                                                     date: fbPriceStatistic.date))
@@ -96,7 +94,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
                 }
             })
         }
-        
+
         dispatchGroup.notify(queue: .main) {
             self.view.hideLoading()
             statistic.sort(by: { $0.date > $1.date })

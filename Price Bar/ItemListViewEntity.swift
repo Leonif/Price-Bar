@@ -30,6 +30,7 @@ struct ItemListViewEntity {
 
 struct ProductPrice {
     var productId: String
+    var productName: String
     var currentPrice: Double
     var outletId: String
     var date: Date

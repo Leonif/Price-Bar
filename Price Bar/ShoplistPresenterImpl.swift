@@ -100,9 +100,16 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         repository.getPrice(for: product.id, and: outletId) { [weak self] (price) in
             guard let `self` = self else { return }
             
-            let shopListItem: ShoplistItem = ProductMapper.mapper(from: product, price: price, outletId: outletId)
+            //let shopListItem: ShoplistItem = ProductMapper.mapper(from: product, price: price, outletId: outletId)
             
-            let result = self.repository.saveToShopList(new: shopListItem)
+            let result = self.repository.saveToShopList(new: ShoplistItem(productId: product.id,
+                                                                          productName: product.name,
+                                                                          brand: product.brand,
+                                                                          weightPerPiece: product.weightPerPiece,
+                                                                          categoryId: product.categoryId, productCategory: "",
+                                                                          productPrice: price,
+                                                                          uomId: product.uomId,
+                                                                          productUom: "", quantity: 1.0))
             switch result {
             case let .failure(error):
                 completion(ResultType.failure(error))
@@ -113,7 +120,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func isProductHasPrice(for productId: String, in outletId: String) {
-        self.repository.getPrice(for: productId, and: outletId, callback: { [weak self] (price) in
+        self.repository.getPrice(for: productId, and: outletId, completion: { [weak self] (price) in
             self?.view.onIsProductHasPrice(isHasPrice: price > 0.0, barcode: productId)
         })
     }
@@ -133,7 +140,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         shoplistWithoutPrices.forEach {
             dispatchGroup.enter()
             guard let index = shoplistWithPrices.index(of: $0) else { fatalError() }
-            self.repository.getPrice(for: $0.productId, and: outletId, callback: { (price) in
+            self.repository.getPrice(for: $0.productId, and: outletId, completion: { (price) in
                 shoplistWithPrices[index].productPrice = price
                 dispatchGroup.leave()
             })
@@ -189,7 +196,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func onOpenUpdatePrice(for barcode: String, outletId: String) {
-        self.repository.getPrice(for: barcode, and: outletId, callback: { [weak self] (price) in
+        self.repository.getPrice(for: barcode, and: outletId, completion: { [weak self] (price) in
             guard let `self` = self else { return }
             self.router.openUpdatePrice(presenter: self, for: barcode, currentPrice: price, outletId: outletId)
         })

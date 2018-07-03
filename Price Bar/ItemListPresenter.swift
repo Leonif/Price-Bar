@@ -97,7 +97,7 @@ extension ItemListPresenterImpl {
                             self.view.onError(with: R.string.localizable.error_something_went_wrong())
                             return
                         }
-                        self.repository.getPrice(for: produtId, and: outletId, callback: { (price) in
+                        self.repository.getPrice(for: produtId, and: outletId, completion: { (price) in
                             let item = ItemListViewEntity(id: produtId,
                                                           product: product.name,
                                                           brand: product.brand,

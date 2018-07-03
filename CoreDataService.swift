@@ -18,38 +18,11 @@ class CoreDataService {
     static let data = CoreDataService()
     var synced = false
 
-    func saveToShopList(_ shopItem: ShoplistItem) {
-        do {
-            //find product in catalog
-//            let productRequest = NSFetchRequest<Product>(entityName: "Product")
-//            productRequest.predicate = NSPredicate(format: "id == %@", shopItem.productId)
-//            let productExist = try context.fetch(productRequest)
-
-            let shopProdRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
-            shopProdRequest.predicate = NSPredicate(format: "toProduct.id == %@", shopItem.productId)
-            let shoppedProduct = try context.fetch(shopProdRequest)
-
-            if shoppedProduct.isEmpty {
-                let shpLst = ShopList(context: context)
-//                shpLst.outlet_id = shopItem.outletId
-                shpLst.quantity = shopItem.quantity
-//                shpLst.checked = shopItem.checked
-//                shpLst.toProduct = productExist.first
-
-            } else {
-                //change parametrs
-                if let shpLst = shoppedProduct.first {
-//                    shpLst.outlet_id  = shopItem.outletId
-                    shpLst.quantity = shopItem.quantity
-//                    shpLst.checked = shopItem.checked
-//                    shpLst.toProduct = productExist.first
-                }
-            }
-            ad.saveContext()
-        } catch {
-           print("Products is not got from database")
-        }
-
+    func saveToShopList(_ shopItem: CDShoplistItem) {
+        let shpLst = ShopList(context: context)
+        shpLst.productId = shopItem.productId
+        shpLst.quantity = shopItem.quantity
+        ad.saveContext()
     }
 
     func removeFromShopList(with productId: String) {

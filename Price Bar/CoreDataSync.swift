@@ -116,16 +116,16 @@ extension CoreDataService {
     }
 
     func syncStatistics(completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
-        FirebaseService.data.syncStatistics { result in
-            switch result {
-            case let .success(statistics):
-                let cdStats = self.transform(from: statistics)
-                self.importNew(cdStats)
+//        FirebaseService.data.syncStatistics { result in
+//            switch result {
+//            case let .success(statistics):
+//                let cdStats = self.transform(from: statistics)
+//                self.importNew(cdStats)
                 completion(ResultType.success(true))
-            case let .failure(error):
-                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
-            }
-        }
+//            case let .failure(error):
+//                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
+//            }
+//        }
     }
 
     func transform(from stats: [FBItemStatistic]) -> [CDStatisticModel] {
@@ -146,12 +146,12 @@ extension CoreDataService {
                                 date: stat.date)
     }
 
-    public func importNew(_ statistics: [CDStatisticModel]) {
-        removeAll(from: "Statistic")
-        statistics.forEach { statistic in
-            self.save(new: statistic)
-        }
-    }
+//    public func importNew(_ statistics: [CDStatisticModel]) {
+//        removeAll(from: "Statistic")
+//        statistics.forEach { statistic in
+//            self.save(new: statistic)
+//        }
+//    }
 
     func removeAll(from entity: String) {
         let requestCategories = NSFetchRequest<NSFetchRequestResult>(entityName: entity)

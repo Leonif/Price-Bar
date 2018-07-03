@@ -168,10 +168,10 @@ class Repository {
     }
 
     private func saveShoplist() {
-        for item in shoplist {
-            CoreDataService.data.saveToShopList(item)
-        }
-        shoplist.removeAll()
+//        for item in shoplist {
+//            CoreDataService.data.saveToShopList(item)
+//        }
+//        shoplist.removeAll()
     }
 
     private func syncCategories(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
@@ -289,7 +289,7 @@ class Repository {
             return ResultType.failure(RepositoryError.shoplistAddedNewItem(R.string.localizable.common_already_in_list()))
         }
         shoplist.append(item)
-        CoreDataService.data.saveToShopList(item)
+        CoreDataService.data.saveToShopList(CDShoplistItem(productId: item.productId, quantity: item.quantity))
 
         return ResultType.success(true)
     }
@@ -312,7 +312,7 @@ class Repository {
     func getPricesFor(outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
         FirebaseService.data.getPrices(for: outletId, callback: { (statistics) in
             let prices = statistics.map {
-                return ProductPrice(productId: $0.productId,
+                return ProductPrice(productId: $0.productId, productName: "",
                                     currentPrice: $0.price,
                                     outletId: $0.outletId,
                                     date: $0.date)
@@ -325,7 +325,7 @@ class Repository {
         
         FirebaseService.data.getPricesFor(productId) { (statistics) in
             let prices = statistics.map {
-                return ProductPrice(productId: $0.productId,
+                return ProductPrice(productId: $0.productId, productName: "",
                                     currentPrice: $0.price,
                                     outletId: $0.outletId,
                                     date: $0.date)
@@ -334,31 +334,23 @@ class Repository {
         }
     }
     
-    func getPrice(for productId: String, and outletId: String, callback: @escaping (Double) -> Void) {
+    func getPrice(for productId: String, and outletId: String, completion: @escaping (Double) -> Void) {
         self.getPriceFromCloud(for: productId, and: outletId) { (price) in
             guard let price = price else {
-                callback(0)
+                completion(0)
                 return
             }
-            callback(price)
+            completion(price)
         }
     }
     
-    private func getPriceFromCloud(for productId: String, and outletId: String, callback: @escaping (Double?) -> Void) {
+    private func getPriceFromCloud(for productId: String, and outletId: String, completion: @escaping (Double?) -> Void) {
         
         FirebaseService.data.getPrice(with: productId, outletId: outletId) { (price) in
-            callback(price)
+            completion(price)
         }
         
     }
-    
-    // FIXME: get price just cloud
-//    func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
-//        let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
-//        return object.map { StatisticMapper.mapper(from: $0) }
-//    }
-    
-    
 
     func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void)  {
 
@@ -557,7 +549,7 @@ class Repository {
         
         let shoplistWithoutPrices: [ShoplistItem] = list.map { item in
             ShoplistItem(productId: item.productId,
-                         productName: item.productName,
+                         productName: "",
                          brand: item.brand,
                          weightPerPiece: item.weightPerPiece,
                          categoryId: item.categoryId,
@@ -566,7 +558,6 @@ class Repository {
                          uomId: item.uomId,
                          productUom: item.productUom,
                          quantity: item.quantity,
-                         checked: item.checked,
                          parameters: item.parameters) }
         
         

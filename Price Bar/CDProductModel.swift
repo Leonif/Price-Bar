@@ -19,15 +19,15 @@ struct CDProductModel {
 
 struct CDShoplistItem {
     var productId: String
-    var productName: String
-    var brand: String
-    var weightPerPiece: String
-    var categoryId: Int32
-    var productCategory: String
-    var uomId: Int32
-    var productUom: String
+//    var productName: String
+//    var brand: String
+//    var weightPerPiece: String
+//    var categoryId: Int32
+//    var productCategory: String
+//    var uomId: Int32
+//    var productUom: String
     var quantity: Double
-    var checked: Bool
+//    var checked: Bool
     
-    var parameters: [Parameter]
+//    var parameters: [Parameter]
 }

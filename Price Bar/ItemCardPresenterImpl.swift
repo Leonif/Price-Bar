@@ -55,7 +55,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                         return
                 }
                 
-                self.repository.getPrice(for: dpProduct.id, and: outletId, callback: { (price) in
+                self.repository.getPrice(for: dpProduct.id, and: outletId, completion: { (price) in
                     self.view.hideLoading()
                     let product = ProductCardEntity(productId: dpProduct.id,
                                                         productName: dpProduct.name,

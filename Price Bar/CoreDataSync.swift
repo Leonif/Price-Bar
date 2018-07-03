@@ -52,16 +52,17 @@ extension CoreDataService {
         }
     }
     func syncUoms(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
-        FirebaseService.data.syncUoms { result in
-            switch result {
-            case let .success(uoms):
-                let cdUoms = UomMapper.transform(from: uoms)
-                self.importNew(cdUoms)
-                completion(ResultType.success(true))
-            case let .failure(error):
-                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
-            }
-        }
+//        FirebaseService.data.syncUoms { result in
+//            switch result {
+//            case let .success(uoms):
+//                let cdUoms = UomMapper.transform(from: uoms)
+//                self.importNew(cdUoms)
+//                completion(ResultType.success(true))
+//            case let .failure(error):
+//                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
+//            }
+//        }
+        completion(ResultType.success(true))
     }
 
     public func importNew(_ uoms: [CDUomModel]) {

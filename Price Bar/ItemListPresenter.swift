@@ -17,7 +17,6 @@ protocol ItemListOutput {
 protocol ItemListPresenter {
     func onItemChoosen(productId: String)
     func onFetchData(offset: Int, limit: Int,  for outletId: String)
-//    func onFetchNextBatch(offset: Int, limit: Int,  for outletId: String)
     func onFilterList(basedOn searchText: String, with outletId: String)
     func onAddNewItem(suggestedName: String)
 }
@@ -30,12 +29,11 @@ class ItemListPresenterImpl: ItemListPresenter {
     var itemListOutput: ItemListOutput!
     var repository: Repository!
     
-    
     func onFetchData(offset: Int, limit: Int,  for outletId: String) {
         self.repository.getShopItems(with: offset, limit: limit, for: outletId) { (result) in
             switch result {
             case let .success(products):
-                self.mergePricesWithProducts(products, outletId: outletId)
+                self.getItemsWithPrices(for: products, outletId: outletId)
             case let .failure(error):
                 self.view.onError(with: error.message)
             }
@@ -43,97 +41,19 @@ class ItemListPresenterImpl: ItemListPresenter {
     }
     
     
-    
-    
-    
-    
-    private func mergePricesWithProducts(_ products: [DPProductEntity], outletId: String) {
-        var productAdjusted: [ItemListViewEntity] = []
-        
-        let categoryDispatchGruop = DispatchGroup()
-        
-        for item in products {
-            categoryDispatchGruop.enter()
-            repository.getCategoryName(for: item.categoryId, completion: { (result) in
-                switch result {
-                case let .success(categoryName):
-                    
-                    guard let categoryName = categoryName else {
-                        self.view.onError(with: R.string.localizable.error_something_went_wrong())
-                        return
-                    }
-                    
-                    productAdjusted.append(ItemListViewEntity(id: item.id,
-                                                              product: item.name,
-                                                              brand: item.brand,
-                                                              weightPerPiece: item.weightPerPiece,
-                                                              currentPrice: 0,
-                                                              categoryName: categoryName))
-                    categoryDispatchGruop.leave()
-                case let .failure(error):
-                    self.view.onError(with: error.message)
-                    categoryDispatchGruop.leave()
-                }
-            })
-        }
-        
-        
-        categoryDispatchGruop.notify(queue: .main) {
-            self.repository.getPricesFor(outletId: outletId, completion: { (prices) in
-                let productsWithPrices = ItemListMappers
-                    .merge(products: productAdjusted, with: prices)
-                    .sorted { $0.currentPrice > $1.currentPrice  }
-                
-                self.view.onFetchedData(items: productsWithPrices)
-            })
-        }
-    }
-    
-    
     func onFilterList(basedOn searchText: String, with outletId: String) {
-        
         if  searchText.count >= 3 {
-//            guard let products = repository.//filterItemList(contains: searchText, for: outletId) else {
-//                return
-//            }
-            
             repository.filterItemList(contains: searchText, for: outletId) { (result) in
                 switch result {
                 case let .success(products):
-                    let productAdjusted: [ItemListViewEntity] = products.compactMap {
-                        //guard let categoryName = repository.getCategoryName(category: $0.categoryId) else { return nil }
-                        
-                        
-                        
-                        
-                        
-                        
-                        return ItemListViewEntity(id: $0.id,
-                                                  product: $0.name,
-                                                  brand: $0.brand,
-                                                  weightPerPiece: $0.weightPerPiece,
-                                                  currentPrice: 0,
-                                                  categoryName: categoryName)
-                    }
-                    
-                    
-                    self.repository.getPricesFor(outletId: outletId, completion: { (prices) in
-                        let productsWithPrices = ItemListMappers
-                            .merge(products: productAdjusted, with: prices)
-                            .sorted { $0.currentPrice > $1.currentPrice  }
-                        
-                        self.view.onFetchedData(items: productsWithPrices)
-                        
-                    })
+                    self.getItemsWithPrices(for: products, outletId: outletId)
                 case let .failure(error):
                     self.view.onError(with: error.message)
                 }
             }
-            
-            
         }
     }
-    
+
     func onAddNewItem(suggestedName: String) {
         self.itemListOutput.addNewItem(suggestedName: suggestedName)
     }
@@ -146,11 +66,26 @@ class ItemListPresenterImpl: ItemListPresenter {
     
 }
 
-// FIXME: move to interactor
+// FIXME: move to Interactor/Use case
 extension ItemListPresenterImpl {
     
-    private func onGetItemWithPrice(for produtId: String, outletId: String, completion: @escaping (ItemListViewEntity) -> Void) {
+    private func getItemsWithPrices(for products: [DPProductEntity], outletId: String) {
+        var productAdjusted: [ItemListViewEntity] = []
+        let itemDispatchGroup = DispatchGroup()
+        for product in products {
+            itemDispatchGroup.enter()
+            self.getItemWithPrice(for: product.id, outletId: outletId, completion: { (itemListView) in
+                productAdjusted.append(itemListView)
+                itemDispatchGroup.leave()
+            })
+        }
         
+        itemDispatchGroup.notify(queue: .main) {
+            self.view.onFetchedData(items: productAdjusted)
+        }
+    }
+    
+    private func getItemWithPrice(for produtId: String, outletId: String, completion: @escaping (ItemListViewEntity) -> Void) {
         self.repository.getProductEntity(for: produtId) { (result) in
             switch result {
             case let .success(product):
@@ -162,12 +97,15 @@ extension ItemListPresenterImpl {
                             self.view.onError(with: R.string.localizable.error_something_went_wrong())
                             return
                         }
-                        let item = ItemListViewEntity(id: produtId,
-                                                      product: product.name,
-                                                      brand: product.brand,
-                                                      weightPerPiece: product.weightPerPiece,
-                                                      currentPrice: 0.0, categoryName: categoryName)
-                        completion(item)
+                        self.repository.getPrice(for: produtId, and: outletId, callback: { (price) in
+                            let item = ItemListViewEntity(id: produtId,
+                                                          product: product.name,
+                                                          brand: product.brand,
+                                                          weightPerPiece: product.weightPerPiece,
+                                                          currentPrice: price, categoryName: categoryName)
+                            completion(item)
+                        })
+                        
                     case let .failure(error):
                         self.view.onError(with: error.message)
                     }
@@ -175,18 +113,9 @@ extension ItemListPresenterImpl {
                 
             case let .failure(error):
                 self.view.onError(with: error.message)
-                
-                
             }
         }
-        
-        
-        
-        
-        
-        
     }
-    
 }
 
 

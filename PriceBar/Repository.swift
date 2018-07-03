@@ -399,6 +399,7 @@ class Repository {
             
             guard let fbProductEntity = fbProductEntity else {
                 completion(ResultType.failure(RepositoryError.other(R.string.localizable.error_something_went_wrong())))
+                return
             }
             
             

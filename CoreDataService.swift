@@ -80,7 +80,7 @@ class CoreDataService {
 //                shpLst.outlet_id = shopItem.outletId
                 shpLst.quantity = shopItem.quantity
 //                shpLst.checked = shopItem.checked
-                shpLst.toProduct = productExist.first
+//                shpLst.toProduct = productExist.first
 
             } else {
                 //change parametrs

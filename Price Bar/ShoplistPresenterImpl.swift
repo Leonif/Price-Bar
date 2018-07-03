@@ -100,22 +100,43 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         repository.getPrice(for: product.id, and: outletId) { [weak self] (price) in
             guard let `self` = self else { return }
             
+            
+            self.repository.getCategoryName(for: product.categoryId, completion: { (result) in
+                switch result {
+                case let .success(categoryName):
+                    
+                    guard let categoryName = categoryName else {
+                        completion(ResultType.failure(RepositoryError.other(R.string.localizable.error_something_went_wrong())))
+                        return
+                    }
+                    
+                    
+                    self.repository.getParametredUom(for: product.uomId, completion: { (fbUom) in
+                            let result = self.repository.saveToShopList(new: ShoplistItem(productId: product.id,
+                                                                                          productName: product.name,
+                                                                                          brand: product.brand,
+                                                                                          weightPerPiece: product.weightPerPiece,
+                                                                                          categoryId: product.categoryId,
+                                                                                          productCategory: categoryName,
+                                                                                          productPrice: price,
+                                                                                          uomId: product.uomId,
+                                                                                          productUom: fbUom.name, quantity: 1.0, parameters: fbUom.parameters))
+                            switch result {
+                            case let .failure(error):
+                                completion(ResultType.failure(error))
+                            case .success:
+                                completion(ResultType.success(true))
+                            }
+                    })
+                case let .failure(error):
+                    completion(ResultType.failure(error))
+                }
+            })
+            
+            
             //let shopListItem: ShoplistItem = ProductMapper.mapper(from: product, price: price, outletId: outletId)
             
-            let result = self.repository.saveToShopList(new: ShoplistItem(productId: product.id,
-                                                                          productName: product.name,
-                                                                          brand: product.brand,
-                                                                          weightPerPiece: product.weightPerPiece,
-                                                                          categoryId: product.categoryId, productCategory: "",
-                                                                          productPrice: price,
-                                                                          uomId: product.uomId,
-                                                                          productUom: "", quantity: 1.0))
-            switch result {
-            case let .failure(error):
-                completion(ResultType.failure(error))
-            case .success:
-                completion(ResultType.success(true))
-            }
+            
         }
     }
     
@@ -133,26 +154,26 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         
         self.view.showLoading(with: message)
         
-        guard let shoplistWithoutPrices = self.repository.loadShopList() else { fatalError() }
-        var shoplistWithPrices: [ShoplistItem] = shoplistWithoutPrices
-        
-        let dispatchGroup = DispatchGroup()
-        shoplistWithoutPrices.forEach {
-            dispatchGroup.enter()
-            guard let index = shoplistWithPrices.index(of: $0) else { fatalError() }
-            self.repository.getPrice(for: $0.productId, and: outletId, completion: { (price) in
-                shoplistWithPrices[index].productPrice = price
-                dispatchGroup.leave()
-            })
-        }
-        
-        dispatchGroup.notify(queue: .main) {
-            self.view.hideLoading()
-            self.repository.shoplist = shoplistWithPrices
-            self.updateShoplist()
-            if !self.isStatisticShown {
-                self.view.startIsCompleted()
-                self.isStatisticShown = true
+        self.repository.loadShopList { (shoplistWithoutPrices) in
+            var shoplistWithPrices: [ShoplistItem] = shoplistWithoutPrices
+            let dispatchGroup = DispatchGroup()
+            shoplistWithoutPrices.forEach {
+                dispatchGroup.enter()
+                guard let index = shoplistWithPrices.index(of: $0) else { fatalError() }
+                self.repository.getPrice(for: $0.productId, and: outletId, completion: { (price) in
+                    shoplistWithPrices[index].productPrice = price
+                    dispatchGroup.leave()
+                })
+            }
+            
+            dispatchGroup.notify(queue: .main) {
+                self.view.hideLoading()
+                self.repository.shoplist = shoplistWithPrices
+                self.updateShoplist()
+                if !self.isStatisticShown {
+                    self.view.startIsCompleted()
+                    self.isStatisticShown = true
+                }
             }
         }
     }

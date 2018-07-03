@@ -46,10 +46,10 @@ extension CoreDataService {
     }
 
     public func importNew(_ categories: [CDCategoryModel]) {
-        removeAll(from: "Category")
-        categories.forEach { category in
-            self.save(new: category)
-        }
+//        removeAll(from: "Category")
+//        categories.forEach { category in
+//            self.save(new: category)
+//        }
     }
     func syncUoms(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
 //        FirebaseService.data.syncUoms { result in
@@ -66,10 +66,10 @@ extension CoreDataService {
     }
 
     public func importNew(_ uoms: [CDUomModel]) {
-        removeAll(from: "Uom")
-        uoms.forEach { uom in
-            self.save(new: uom)
-        }
+//        removeAll(from: "Uom")
+//        uoms.forEach { uom in
+//            self.save(new: uom)
+//        }
     }
     func syncProducts(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
         FirebaseService.data.syncProducts { result in
@@ -105,13 +105,13 @@ extension CoreDataService {
     }
 
     public func importNew(_ products: [CDProductModel]) {
-        if !synced {
-            removeAll(from: "Product")
-            synced = true
-            products.forEach {
-                self.save(new: $0)
-            }
-        }
+//        if !synced {
+//            removeAll(from: "Product")
+//            synced = true
+//            products.forEach {
+//                self.save(new: $0)
+//            }
+//        }
 
     }
 

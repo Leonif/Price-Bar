@@ -124,7 +124,7 @@ class FirebaseService {
     
     func getProductCount(completion: @escaping (ResultType<Int, FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
-            completion(ResultType.success(snapshot.childrenCount))
+            completion(ResultType.success(Int(snapshot.childrenCount)))
         }) { error in
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
@@ -153,6 +153,21 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
+    
+    
+    func getParametredUom(for uomId: Int32, completion: @escaping (ResultType<FBUomModel, FirebaseError>)->Void) {
+        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                let uoms = FirebaseParser.parseUoms(from: snapUoms).filter { $0.id == uomId }
+                guard let uom = uoms.first else { fatalError() }
+                completion(ResultType.success(uom))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
     
     func saveOrUpdate(_ item: FBProductModel) {
         let good = [

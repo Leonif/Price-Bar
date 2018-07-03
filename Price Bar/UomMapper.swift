@@ -68,6 +68,20 @@ class UomMapper {
                            viewMultiplicator: parameter.viewMultiplicator)
         
     }
+    
+    
+//    class func mapper(from parameter: Parameter) -> CDParameter {
+//        
+//        
+//        return CDParameter(maxValue: parameter.maxValue,
+//                           step: parameter.step,
+//                           suffix: parameter.suffix,
+//                           viewMultiplicator: parameter.viewMultiplicator)
+//        
+//    }
+    
+    
+    
     class func transform(from parameterList: [Parameter]) -> [CDParameter] {
         
         return parameterList.map { parameter in

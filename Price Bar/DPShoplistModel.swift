@@ -34,7 +34,7 @@ struct ShoplistItem: Equatable {
     var parameters: [Parameter]
 }
 
-//func ==(lhs: ShoplistItem, rhs: ShoplistItem) -> Bool {
-//    return lhs.productId == rhs.productId// && lhs.productCategory == rhs.productCategory
-//}
+func ==(lhs: ShoplistItem, rhs: ShoplistItem) -> Bool {
+    return lhs.productId == rhs.productId// && lhs.productCategory == rhs.productCategory
+}
 

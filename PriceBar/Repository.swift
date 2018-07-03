@@ -265,14 +265,14 @@ class Repository {
     }
 
     func update(_ product: DPUpdateProductModel) {
-        let pr = CDProductModel(id: product.id,
-                                name: product.name,
-                                brand: product.brand,
-                                weightPerPiece: product.weightPerPiece,
-                              categoryId: product.categoryId,
-                              uomId: product.uomId)
-
-        CoreDataService.data.update(pr)
+//        let pr = CDProductModel(id: product.id,
+//                                name: product.name,
+//                                brand: product.brand,
+//                                weightPerPiece: product.weightPerPiece,
+//                              categoryId: product.categoryId,
+//                              uomId: product.uomId)
+//
+//        CoreDataService.data.update(pr)
 
         let fb = FBProductModel(id: product.id,
                                 name: product.name,
@@ -541,28 +541,77 @@ class Repository {
 //        return categoryName
 //    }
 
-    func loadShopList() -> [ShoplistItem]?  {
+    func loadShopList(completion: @escaping ([ShoplistItem]) -> Void)  {
         shoplist.removeAll()
-        guard let list = CoreDataService.data.loadShopList() else {
-            return nil
+        guard let savedShoplist = CoreDataService.data.loadShopList() else {
+            return
         }
         
-        let shoplistWithoutPrices: [ShoplistItem] = list.map { item in
-            ShoplistItem(productId: item.productId,
-                         productName: "",
-                         brand: item.brand,
-                         weightPerPiece: item.weightPerPiece,
-                         categoryId: item.categoryId,
-                         productCategory: item.productCategory,
-                         productPrice: 0.0,
-                         uomId: item.uomId,
-                         productUom: item.productUom,
-                         quantity: item.quantity,
-                         parameters: item.parameters) }
+        var shoplistWithZeroPrices: [ShoplistItem] = []
         
         
-        self.shoplist = shoplistWithoutPrices
-        return shoplistWithoutPrices
+        let shopItemGroup = DispatchGroup()
+        
+        
+        
+        for item in savedShoplist {
+            shopItemGroup.enter()
+            self.getProductInfo(for: item) { (shopItem) in
+                shoplistWithZeroPrices.append(shopItem)
+                shopItemGroup.leave()
+            }
+        }
+        
+        
+        shopItemGroup.notify(queue: .main) {
+            completion(shoplistWithZeroPrices)
+        }
+    }
+    
+    func getParametredUom(for uomId: Int32, completion: @escaping (FBUomModel) -> Void) {
+        FirebaseService.data.getParametredUom(for: uomId, completion: { (result) in
+            switch result {
+            case let .success(parametredUom):
+                
+                completion(parametredUom)
+                
+            case let .failure(error):
+                fatalError(error.localizedDescription)
+            }
+        })
+    }
+    
+    private func getProductInfo(for item: CDShoplistItem, completion: @escaping (ShoplistItem) -> Void) {
+        
+        self.getProductEntity(for: item.productId) { (result) in
+            switch result {
+            case let .success(productEntity):
+                
+                self.getParametredUom(for: productEntity.uomId, completion: { (parametredUom) in
+                    self.getCategoryName(for: productEntity.categoryId, completion: { (result) in
+                        switch result {
+                        case let .success(categoryName):
+                            guard let categoryName = categoryName else { fatalError()}
+                            completion(ShoplistItem(productId: item.productId,
+                                                    productName: productEntity.name,
+                                                    brand: productEntity.brand,
+                                                    weightPerPiece: productEntity.weightPerPiece,
+                                                    categoryId: productEntity.categoryId,
+                                                    productCategory: categoryName,
+                                                    productPrice: 0.0,
+                                                    uomId: productEntity.uomId,
+                                                    productUom: parametredUom.name,
+                                                    quantity: item.quantity,
+                                                    parameters: parametredUom.parameters))
+                        case let .failure(error):
+                            fatalError(error.localizedDescription)
+                        }
+                    })
+                })
+            case let .failure(error):
+                fatalError(error.localizedDescription)
+            }
+        }
     }
 }
 

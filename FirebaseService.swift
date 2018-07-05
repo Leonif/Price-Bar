@@ -223,6 +223,7 @@ class FirebaseService {
                         
                         if id == categoryId {
                             completion(ResultType.success(name))
+                            return
                         }
                     }
                 }

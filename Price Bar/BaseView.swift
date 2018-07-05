@@ -23,7 +23,10 @@ extension BaseView where Self: UIViewController {
     }
     
     func hideLoading() {
-        self.view.pb_stopActivityIndicator()
+        DispatchQueue.main.async {
+            self.view.pb_stopActivityIndicator()
+        }
+        
     }
     
     func onError(with message: String) {

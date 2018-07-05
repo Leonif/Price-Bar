@@ -11,7 +11,6 @@ import UIKit
 
 
 protocol ItemListView: BaseView {
-    func onFetchedData(items: [ItemListViewEntity])
     func onFetchedNewBatch(items: [ItemListViewEntity])
     
 }
@@ -54,22 +53,16 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
         self.adapter.addNewBatch(nextBatch: items)
     }
     
-    func onFetchedData(items: [ItemListViewEntity]) {
-        self.adapter.updateDatasorce(sortedItems: items)
-    }
-    
     private func setupAdapter() {
         
         self.tableView.delegate = adapter
         self.tableView.dataSource = adapter
         
+        
         self.tableView.register(AddCell.self)
         self.tableView.register(ItemListCell.self)
         
-        
-        self.adapter.onStartLoading = { [weak self] in
-            self?.view.pb_startActivityIndicator(with: R.string.localizable.common_loading())
-        }
+        self.adapter.tableView = tableView
         
         self.adapter.onAddNewItem = { [weak self] in
             guard let `self` = self else { return }
@@ -84,16 +77,8 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
             self?.presenter.onItemChoosen(productId: itemId)
         }
         
-        self.adapter.onStopLoading = { [weak self] in
-            self?.view.pb_stopActivityIndicator()
-        }
-        
         self.adapter.onError = { [weak self] errorString in
-            self?.alert(message: errorString)
-        }
-        
-        self.adapter.onGetData = { (offset, limit) in
-            self.presenter.onFetchData(offset: offset, limit: limit, for: self.outletId)
+            self?.onError(with: errorString)
         }
         
         self.adapter.onGetNextBatch = { (offset, limit) in

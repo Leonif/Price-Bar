@@ -30,7 +30,9 @@ class ItemListPresenterImpl: ItemListPresenter {
     var repository: Repository!
     
     func onFetchData(offset: Int, limit: Int,  for outletId: String) {
+        self.view.showLoading(with: "Получение списка товаров")
         self.repository.getShopItems(with: offset, limit: limit, for: outletId) { (result) in
+            self.view.hideLoading()
             switch result {
             case let .success(products):
                 self.getItemsWithPrices(for: products, outletId: outletId)
@@ -72,6 +74,9 @@ extension ItemListPresenterImpl {
     private func getItemsWithPrices(for products: [DPProductEntity], outletId: String) {
         var productAdjusted: [ItemListViewEntity] = []
         let itemDispatchGroup = DispatchGroup()
+        
+        self.view.showLoading(with: "Получение информации о товарах")
+        
         for product in products {
             itemDispatchGroup.enter()
             self.getItemWithPrice(for: product.id, outletId: outletId, completion: { (itemListView) in
@@ -81,7 +86,8 @@ extension ItemListPresenterImpl {
         }
         
         itemDispatchGroup.notify(queue: .main) {
-            self.view.onFetchedData(items: productAdjusted)
+            self.view.hideLoading()
+            self.view.onFetchedNewBatch(items: productAdjusted)
         }
     }
     
@@ -105,13 +111,13 @@ extension ItemListPresenterImpl {
                                                           currentPrice: price, categoryName: categoryName)
                             completion(item)
                         })
-                        
                     case let .failure(error):
+                        self.view.hideLoading()
                         self.view.onError(with: error.message)
                     }
                 })
-                
             case let .failure(error):
+                self.view.hideLoading()
                 self.view.onError(with: error.message)
             }
         }

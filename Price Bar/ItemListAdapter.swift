@@ -14,9 +14,6 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     
     var tableView: UITableView!
 
-    var outletId: String!
-    var repository: Repository!
-    
     var dataSource: [ItemListViewEntity] = []
     var filtredItemList: [ItemListViewEntity] = []
     var currentPageOffset: Int = 0
@@ -25,25 +22,20 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     
     var onAddNewItem: (() -> Void)? = nil
     var onItemChoosen: ((String) -> Void)? = nil
-    var onStartLoading: (() -> Void)? = nil
     
-    
-    var onGetData: ((Int, Int) -> Void)? = nil
+//    var onGetData: ((Int, Int) -> Void)? = nil
     var onGetNextBatch: ((Int, Int) -> Void)? = nil
-    
-    var onStopLoading: (() -> Void)? = nil
+
     var onError: ((String) -> Void)? = nil
     var limit = 40
     
     
     
     func loadItems() {
-        self.onStartLoading?()
-        self.onGetData?(currentPageOffset, limit)
+        self.onGetNextBatch?(currentPageOffset, limit)
     }
     
     func updateDatasorce(sortedItems: [ItemListViewEntity]) {
-        self.onStopLoading?()
         self.dataSource = sortedItems
         self.filtredItemList = sortedItems
         self.reload()
@@ -62,7 +54,7 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if filtredItemList.isEmpty {
-            let cellAdd: AddCell = self.tableView.dequeueReusableCell(for: indexPath)
+            let cellAdd: AddCell = tableView.dequeueReusableCell(for: indexPath)
             return cellAdd
         } else {
             let cell: ItemListCell = self.tableView.dequeueReusableCell(for: indexPath)
@@ -95,11 +87,11 @@ extension ItemListAdapter {
             self.isLoading = true
             self.currentPageOffset += self.limit
             self.onGetNextBatch?(self.currentPageOffset, self.limit)
-            self.isLoading.toggle()
         }
     }
     
     func addNewBatch(nextBatch: [ItemListViewEntity]) {
+        self.isLoading.toggle()
         var indexPaths = [IndexPath]()
         let currentCount: Int = filtredItemList.count
         

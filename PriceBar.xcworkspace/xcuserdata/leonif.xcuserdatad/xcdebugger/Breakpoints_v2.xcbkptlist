@@ -38,17 +38,65 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ItemListVC.swift"
-            timestampString = "552308494.556767"
+            filePath = "PriceBar/Repository.swift"
+            timestampString = "552377015.604899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "setupAdapter()"
+            startingLineNumber = "501"
+            endingLineNumber = "501"
+            landmarkName = "getCategoryName(for:completion:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PriceBar/Repository.swift"
+            timestampString = "552377082.070636"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "498"
+            endingLineNumber = "498"
+            landmarkName = "getCategoryName(for:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PriceBar_Prod.Repository.getCategoryName(for: Swift.Int32, completion: (PriceBar_Prod.ResultType&lt;Swift.Optional&lt;Swift.String&gt;, PriceBar_Prod.RepositoryError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "PriceBar Prod"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leonif/Price-Bar/PriceBar/Repository.swift"
+                  timestampString = "552377181.4289089"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "498"
+                  endingLineNumber = "498"
+                  offsetFromSymbolStart = "25">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (PriceBar_Prod.ResultType&lt;Swift.Optional&lt;Swift.String&gt;, PriceBar_Prod.FirebaseError&gt;) -&gt; () in PriceBar_Prod.Repository.getCategoryName(for: Swift.Int32, completion: (PriceBar_Prod.ResultType&lt;Swift.Optional&lt;Swift.String&gt;, PriceBar_Prod.RepositoryError&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "PriceBar Prod"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leonif/Price-Bar/PriceBar/Repository.swift"
+                  timestampString = "552377181.431486"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "499"
+                  endingLineNumber = "499"
+                  offsetFromSymbolStart = "90">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -57,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Price Bar/ItemListPresenter.swift"
-            timestampString = "552308550.568094"
+            filePath = "ItemListVC.swift"
+            timestampString = "552378839.602998"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "onFetchData(offset:limit:for:)"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "onFetchedNewBatch(items:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

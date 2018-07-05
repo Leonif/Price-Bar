@@ -72,6 +72,13 @@ class ItemListPresenterImpl: ItemListPresenter {
 extension ItemListPresenterImpl {
     
     private func getItemsWithPrices(for products: [DPProductEntity], outletId: String) {
+        
+        guard !products.isEmpty else {
+            self.view.onFetchedNewBatch(items: [])
+            return
+        }
+        
+        
         var productAdjusted: [ItemListViewEntity] = []
         let itemDispatchGroup = DispatchGroup()
         

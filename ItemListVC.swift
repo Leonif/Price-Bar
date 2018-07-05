@@ -50,14 +50,15 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
 
     
     func onFetchedNewBatch(items: [ItemListViewEntity]) {
+        guard !items.isEmpty else { return }
+        
         self.adapter.addNewBatch(nextBatch: items)
     }
     
     private func setupAdapter() {
         
-        self.tableView.delegate = adapter
-        self.tableView.dataSource = adapter
-        
+        self.tableView.delegate = self.adapter
+        self.tableView.dataSource = self.adapter
         
         self.tableView.register(AddCell.self)
         self.tableView.register(ItemListCell.self)
@@ -84,7 +85,6 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
         self.adapter.onGetNextBatch = { (offset, limit) in
             self.presenter.onFetchData(offset: offset, limit: limit, for: self.outletId)
         }
-        
         
         self.adapter.loadItems()
         

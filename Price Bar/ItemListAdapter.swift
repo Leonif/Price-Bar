@@ -22,8 +22,7 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     
     var onAddNewItem: (() -> Void)? = nil
     var onItemChoosen: ((String) -> Void)? = nil
-    
-//    var onGetData: ((Int, Int) -> Void)? = nil
+
     var onGetNextBatch: ((Int, Int) -> Void)? = nil
 
     var onError: ((String) -> Void)? = nil

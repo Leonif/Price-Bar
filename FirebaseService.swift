@@ -30,6 +30,9 @@ class FirebaseService {
     private var email = "good_getter@gmail.com"
     private var pwd = "123456"
 
+    var goodCurrentId: String?
+    
+    
     
     init() {
         refGoods = Database.database().reference().child("goods")
@@ -104,7 +107,7 @@ class FirebaseService {
     }
     
     
-    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+    func getProductList_OLD(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
                 let goods = snapGoods.map { FirebaseParser.parse($0) }
@@ -120,6 +123,39 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
+    
+    
+    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+        if pageOffset == 0 {
+            self.refGoods.queryOrderedByKey().queryLimited(toLast: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
+                if let snapGoods = snapshot.value as? [String: Any] {
+                    let goods = snapGoods.map { FirebaseParser.parse($0) }
+                    
+                    self.goodCurrentId = goods.last?.id
+                    completion(ResultType.success(goods))
+                }
+            }) { error in
+                completion(ResultType.failure(.syncError(error.localizedDescription)))
+            }
+        } else {
+            self.refGoods.queryOrderedByKey().queryEnding(atValue: self.goodCurrentId).queryLimited(toFirst: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
+                if let snapGoods = snapshot.value as? [String: Any] {
+                    let goods = snapGoods.map { FirebaseParser.parse($0) }
+                    if self.goodCurrentId != goods.last?.id {
+                        self.goodCurrentId = goods.last?.id
+                        completion(ResultType.success(goods))
+                    } else {
+                        completion(ResultType.success([]))
+                    }
+                    
+                }
+            }) { error in
+                completion(ResultType.failure(.syncError(error.localizedDescription)))
+            }
+        }
+    }
+    
+    
     
     
     func getProductCount(completion: @escaping (ResultType<Int, FirebaseError>)->Void) {

@@ -70,13 +70,13 @@ class FirebaseParser {
         return fbUom
     }
     
-    class func parseUoms(from fbModelList: [DataSnapshot]) -> [FBUomModel] {
+    class func transfromToFBUomModels(from fbModelList: [DataSnapshot]) -> [FBUomModel] {
         return fbModelList.map { snapUom in
             parseUom(from: snapUom)
         }
     }
     
-    class func parsePrice(_ snapGood: DataSnapshot) -> FBItemStatistic? {
+    class func parseToFBItemStatistic(from snapGood: DataSnapshot) -> FBItemStatistic? {
         guard let priceData = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Prices is not parsed")
         }
@@ -86,7 +86,7 @@ class FirebaseParser {
         return price
     }
     
-    class func parse(_ snapGood: (key: String, value: Any)) -> FBProductModel {
+    class func parseToFbProductModel(from snapGood: (key: String, value: Any)) -> FBProductModel {
         guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Product is not parsed")
         }
@@ -97,8 +97,6 @@ class FirebaseParser {
         
         let brand = goodDict["brand"] as? String ?? ""
         let weightPerPiece = goodDict["weight_per_piece"] as? String ?? ""
-        
-        
         
         let defaultCategoryid: Int32 = 1
         
@@ -111,9 +109,6 @@ class FirebaseParser {
         uomId = uomId == nil ? defaultUomid : uomId
         
         
-        
-        
-        
         return FBProductModel(id: id,
                               name: name,
                               brand: brand,
@@ -121,13 +116,4 @@ class FirebaseParser {
                               categoryId: catId!,
                               uomId: uomId!)
     }
-    
-//    class func transform(from snapGoods: [String: Any]) -> [FBProductModel] {
-//        return snapGoods.map { snap in
-//           parse(snap)
-//        }
-//    }
-    
-    
-    
 }

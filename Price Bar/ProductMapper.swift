@@ -10,18 +10,14 @@ import Foundation
 
 class ProductMapper {
     
-    
-    
-    
-    
-    class func mapper(from item: FBProductModel) -> DPProductEntity {
+    class func mapToDPProductEntity(from fBProductModel: FBProductModel) -> DPProductEntity {
         
-        return DPProductEntity(id: item.id,
-                               name: item.name,
-                               brand: item.brand,
-                               weightPerPiece: item.weightPerPiece,
-                               categoryId: item.categoryId,
-                               uomId: item.uomId)
+        return DPProductEntity(id: fBProductModel.id,
+                               name: fBProductModel.name,
+                               brand: fBProductModel.brand,
+                               weightPerPiece: fBProductModel.weightPerPiece,
+                               categoryId: fBProductModel.categoryId,
+                               uomId: fBProductModel.uomId)
         
     }
     

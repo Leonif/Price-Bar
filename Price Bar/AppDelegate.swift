@@ -25,10 +25,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         GMSPlacesClient.provideAPIKey("AIzaSyANoPgVD9zYXXOYrtjFPSfIltAdRNgtYs4")
         
+        let repository = Repository()
+        repository.firebaseLogin { (result) in
+            switch result {
+            case .success:
+                debugPrint("Firebase is login in successfully !!!")
+            case let .failure(error):
+                debugPrint("Firebase is loging with error \(error.message)")
+            }
+        }
+        
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let module = ShopListAssembler().assemble()
         self.window?.rootViewController = UINavigationController(rootViewController: module)
         self.window?.makeKeyAndVisible()
+        
+        
 
         return true
     }

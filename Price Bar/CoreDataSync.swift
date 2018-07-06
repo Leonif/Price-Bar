@@ -71,18 +71,18 @@ extension CoreDataService {
 //            self.save(new: uom)
 //        }
     }
-    func syncProducts(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
-        FirebaseService.data.syncProducts { result in
-            switch result {
-            case let .success(products):
-                let cdProducts = products.map { self.mapper(from: $0) }
-                self.importNew(cdProducts)
-                completion(ResultType.success(true))
-            case let .failure(error):
-                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
-            }
-        }
-    }
+//    func syncProducts(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
+//        FirebaseService.data.syncProducts { result in
+//            switch result {
+//            case let .success(products):
+//                let cdProducts = products.map { self.mapper(from: $0) }
+//                self.importNew(cdProducts)
+//                completion(ResultType.success(true))
+//            case let .failure(error):
+//                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
+//            }
+//        }
+//    }
 
 //    func transform(from fbProducts: [FBProductModel]) -> [CDProductModel] {
 //

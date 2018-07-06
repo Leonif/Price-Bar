@@ -10,7 +10,6 @@ import Foundation
 import GooglePlaces
 
 protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, ItemListOutput {
-    func startSyncronize()
     func isProductHasPrice(for productId: String, in outletId: String)
     func addToShoplist(with productId: String, and outletId: String)
     func updateCurrentOutlet()
@@ -30,18 +29,10 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
     
-    
     weak var view: ShoplistView!
     var router: ShoplistRouter!
-    private let repository: Repository!
+    var repository: Repository!
     var isStatisticShown: Bool = false
-    
-    init(repository: Repository) {
-        self.repository = repository
-        self.repository.onSyncProgress = { [weak self] (progress, max, text) in
-            self?.view.onSyncProgress(progress: Double(progress), max: Double(max), text: text)
-        }
-    }
     
     public func updateCurrentOutlet() {
         let outletService = OutletService()
@@ -61,19 +52,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         let dataSource = self.repository.shoplist
         self.view.onUpdatedShoplist(dataSource)
         self.view.onUpdatedTotal(self.repository.total)
-        
-        
-    }
-    
-    func startSyncronize() {
-        repository.syncCloud { [weak self] result in
-            switch result {
-            case let .failure(error):
-                self?.view.onSyncError(error: "\(error.message): \(error.localizedDescription)")
-            case .success:
-                self?.view.onUpdateCurrentOutlet()
-            }
-        }
     }
     
     func addToShoplist(with productId: String, and outletId: String) {
@@ -132,11 +110,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                     completion(ResultType.failure(error))
                 }
             })
-            
-            
-            //let shopListItem: ShoplistItem = ProductMapper.mapper(from: product, price: price, outletId: outletId)
-            
-            
         }
     }
     
@@ -222,8 +195,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self.router.openUpdatePrice(presenter: self, for: barcode, currentPrice: price, outletId: outletId)
         })
     }
-    
-    
     
     // MARK: delagates hadnling
     func choosen(outlet: Outlet) {

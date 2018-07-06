@@ -10,9 +10,9 @@ import UIKit
 
 protocol ShoplistView: BaseView {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
-    func onSyncProgress(progress: Double, max: Double, text: String)
-    func onUpdateCurrentOutlet()
-    func onSyncError(error: String)
+//    func onSyncProgress(progress: Double, max: Double, text: String)
+//    func onUpdateCurrentOutlet()
+//    func onSyncError(error: String)
     func onCurrentOutletUpdated(outlet: Outlet)
     func onError(error: String)
     func onSavePrice()
@@ -26,6 +26,8 @@ protocol ShoplistView: BaseView {
 }
 
 class ShopListController: UIViewController, ShoplistView {
+    
+    
     
     // MARK: IB Outlets
     @IBOutlet weak var shopTableView: UITableView!
@@ -44,7 +46,7 @@ class ShopListController: UIViewController, ShoplistView {
     // MARK: - Dependecy Injection properties
     var presenter: ShoplistPresenter!
     var adapter: ShopListAdapter!
-    var syncAnimator: SyncAnimator!
+//    var syncAnimator: SyncAnimator!
     
     private var buttonsHided: Bool = false
     
@@ -83,27 +85,14 @@ class ShopListController: UIViewController, ShoplistView {
         
         self.setupGestures()
         self.setupTotalView()
-        self.synchronizeData()
         self.setupAdapter()
-        
-        
+        self.presenter.updateCurrentOutlet()
     }
     
     // MARK: - Presenter events
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {
         if !isHasPrice {
             self.presenter.onOpenUpdatePrice(for: barcode, outletId: self.userOutlet.id)
-        }
-    }
-    
-    func onSyncProgress(progress: Double, max: Double, text: String) {
-        self.syncAnimator.syncHandle(for: Double(progress),
-                                     and: Double(max),
-                                     with: text)
-    }
-    func onUpdateCurrentOutlet() {
-        self.syncAnimator.stopProgress { [weak self] in
-            self?.presenter.updateCurrentOutlet()
         }
     }
     
@@ -125,12 +114,6 @@ class ShopListController: UIViewController, ShoplistView {
             self?.shopTableView.reloadData()
         }
         self.deleteButton.setEnable(!dataSource.isEmpty)
-    }
-    
-    func onSyncError(error: String) {
-        self.syncAnimator.stopProgress { [weak self] in
-            self?.presenter.onOpenIssueVC(with: error)
-        }
     }
     
     func onCurrentOutletUpdated(outlet: Outlet) {
@@ -229,11 +212,11 @@ class ShopListController: UIViewController, ShoplistView {
     }
     
     // MARK: - Syncing ...
-    func synchronizeData() {
-        self.buttonEnable(false)
-        self.presenter.startSyncronize()
-        self.syncAnimator.startProgress()
-    }
+//    func synchronizeData() {
+//        self.buttonEnable(false)
+////        self.presenter.startSyncronize()
+////        self.syncAnimator.startProgress()
+//    }
     
     private func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async { [weak self] in

@@ -94,142 +94,18 @@ class Repository {
         return sum
     }
 
-//    var defaultCategory: DPCategoryModel? {
-//        guard let cd = CoreDataService.data.defaultCategory else {
-//            return nil
-//        }
-//        return DPCategoryModel(id: cd.id, name: cd.name)
-//    }
-//
-//    var defaultUom: DPUomModel? {
-//        guard let cd = CoreDataService.data.defaultUom else {
-//            return nil
-//        }
-//        return DPUomModel(id: cd.id, name: cd.name)
-//    }
-
-    public func syncCloud(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        defer {  self.currentNext = 0  }
-        firebaseLogin(completion: completion)
-        self.onSyncNext = { [weak self] in
-            guard let `self` = self else { return  }
-            self.currentNext += 1
-            guard let type = SyncSteps(rawValue: self.currentNext) else { return  }
-            self.onSyncProgress?(self.currentNext, self.maxSyncSteps, type.text)
-            
-            switch type {
-            case .needSync:
-                if !self.needToSync() {
-                    self.currentNext = SyncSteps.statistic.rawValue
-                    completion(ResultType.success(true))
-                }
-                self.onSyncNext?()
-            case .categories:
-                self.syncCategories(completion: completion)
-            case .uoms:
-                self.syncUom(completion: completion)
-            case .products:
-                self.syncProducts(completion: completion)
-            case .statistic:
-                self.syncStatistics(completion: completion)
-            case .loadShoplist:
-                self.onSyncNext?()
-//                self.loadShoplist(completion: completion)
-            case .putBackShoplist:
-                self.saveShoplist()
-                self.onSyncNext?()
-            case .total: break
-            case .login: break
-            }
-        }
-    }
     
     func firebaseLogin(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         FirebaseService.data.loginToFirebase(completion: { result in
             switch result {
             case .success:
                 debugPrint("Firebase login success")
-                self.onSyncNext?()
+                completion(ResultType.success(true))
             case let .failure(error):
-                completion(self.syncHandle(error: error))
+                completion(ResultType.failure(.other(error.localizedDescription)))
                 return
             }
         })
-    }
-
-    func syncHandle(error: Error) -> ResultType<Bool, RepositoryError> {
-        UserDefaults.standard.set(0, forKey: "LaunchedTime")
-        return ResultType.failure(RepositoryError
-            .syncError("\(R.string.localizable.error_sync_stopped()) \(error.localizedDescription) "))
-    }
-
-    func needToSync() -> Bool {
-        return false
-    }
-
-    private func saveShoplist() {
-//        for item in shoplist {
-//            CoreDataService.data.saveToShopList(item)
-//        }
-//        shoplist.removeAll()
-    }
-
-    private func syncCategories(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        CoreDataService.data.syncCategories { [weak self] result in
-            guard let `self` = self else {
-                fatalError()
-            }
-            
-            switch result {
-            case .success:
-                self.onSyncNext?()
-            case let .failure(error):
-                completion(ResultType.failure(RepositoryError.syncError(error.localizedDescription)))
-            }
-        }
-    }
-
-    private func syncProducts(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        CoreDataService.data.syncProducts { [weak self] result in // get from firebase
-            guard let `self` = self else {
-                fatalError()
-            }
-            switch result {
-            case .success:
-                self.onSyncNext?()
-            case let .failure(error):
-                completion(ResultType.failure(.syncError(error.localizedDescription)))
-            }
-        }
-    }
-
-    private func syncStatistics(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        CoreDataService.data.syncStatistics { [weak self] result in // get from firebase
-            guard let `self` = self else {
-                fatalError()
-            }
-            switch result {
-            case .success:
-        self.onSyncNext?()
-        completion(ResultType.success(true))
-            case let .failure(error):
-                completion(ResultType.failure(.syncError(error.localizedDescription)))
-            }
-        }
-    }
-
-    private func syncUom(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        CoreDataService.data.syncUoms { [weak self] result in // get from firebase
-            guard let `self` = self else {
-                fatalError()
-            }
-            switch result {
-            case .success:
-                self.onSyncNext?()
-            case let .failure(error):
-                completion(ResultType.failure(.syncError(error.localizedDescription)))
-            }
-        }
     }
 
 
@@ -265,15 +141,6 @@ class Repository {
     }
 
     func update(_ product: DPUpdateProductModel) {
-//        let pr = CDProductModel(id: product.id,
-//                                name: product.name,
-//                                brand: product.brand,
-//                                weightPerPiece: product.weightPerPiece,
-//                              categoryId: product.categoryId,
-//                              uomId: product.uomId)
-//
-//        CoreDataService.data.update(pr)
-
         let fb = FBProductModel(id: product.id,
                                 name: product.name,
                                 brand: product.brand,
@@ -299,7 +166,7 @@ class Repository {
         FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
             switch result {
             case let .success(products):
-                let dpProducts = products.map { ProductMapper.mapper(from: $0) }
+                let dpProducts = products.map { ProductMapper.mapToDPProductEntity(from: $0) }
                 completion(ResultType.success(dpProducts))
             case let .failure(error):
                 completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
@@ -353,22 +220,19 @@ class Repository {
     }
 
     func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void)  {
-
         FirebaseService.data.getFiltredProductList(with: text) { (result) in
             switch result {
             case let .success(products):
-                let dpProducts = products.map { ProductMapper.mapper(from: $0) }
+                let dpProducts = products.map { ProductMapper.mapToDPProductEntity(from: $0) }
                 completion(ResultType.success(dpProducts))
             case let .failure(error):
                 completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
             }
         }
     }
-
     
     func remove(itemId: String) {
         self.shoplist = self.shoplist.filter { $0.productId != itemId }
-
         CoreDataService.data.removeFromShopList(with: itemId)
     }
 
@@ -377,13 +241,6 @@ class Repository {
         CoreDataService.data.removeAll(from: "ShopList")
 
     }
-
-    
-//    func getUomName(for productId: String) -> String {
-//        let product = CoreDataService.data.getProduct(by: productId)
-//        
-//        return product!.toUom!.uom!
-//    }
     
     
     func getProductName(for productId: String, completion: @escaping (ResultType<String?, RepositoryError>)-> Void) {

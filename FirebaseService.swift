@@ -95,22 +95,22 @@ class FirebaseService {
         }
     }
 
-    func syncProducts(completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
-        self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapGoods = snapshot.value as? [String: Any] {
-                let goods = snapGoods.map { FirebaseParser.parse($0) }
-                completion(ResultType.success(goods))
-            }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
-        }
-    }
+//    func syncProducts(completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+//        self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
+//            if let snapGoods = snapshot.value as? [String: Any] {
+//                let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
+//                completion(ResultType.success(goods))
+//            }
+//        }) { error in
+//            completion(ResultType.failure(.syncError(error.localizedDescription)))
+//        }
+//    }
     
     
     func getProductList_OLD(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
-                let goods = snapGoods.map { FirebaseParser.parse($0) }
+                let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
                 
                 let start = pageOffset
                 let end = pageOffset + limit
@@ -129,7 +129,7 @@ class FirebaseService {
         if pageOffset == 0 {
             self.refGoods.queryOrderedByKey().queryLimited(toLast: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
                 if let snapGoods = snapshot.value as? [String: Any] {
-                    let goods = snapGoods.map { FirebaseParser.parse($0) }
+                    let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
                     
                     self.goodCurrentId = goods.last?.id
                     completion(ResultType.success(goods))
@@ -140,7 +140,7 @@ class FirebaseService {
         } else {
             self.refGoods.queryOrderedByKey().queryEnding(atValue: self.goodCurrentId).queryLimited(toFirst: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
                 if let snapGoods = snapshot.value as? [String: Any] {
-                    let goods = snapGoods.map { FirebaseParser.parse($0) }
+                    let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
                     if self.goodCurrentId != goods.last?.id {
                         self.goodCurrentId = goods.last?.id
                         completion(ResultType.success(goods))
@@ -168,21 +168,21 @@ class FirebaseService {
     
     
 
-    func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->Void) {
-        refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                let itemStatistic = snapPrices.compactMap { FirebaseParser.parsePrice($0) }
-                completion(ResultType.success(itemStatistic))
-            }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
-        }
-    }
+//    func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->Void) {
+//        refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
+//            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+//                let itemStatistic = snapPrices.compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
+//                completion(ResultType.success(itemStatistic))
+//            }
+//        }) { error in
+//            completion(ResultType.failure(.syncError(error.localizedDescription)))
+//        }
+//    }
 
     func syncUoms(completion: @escaping (ResultType<[FBUomModel], FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                let uoms: [FBUomModel] = FirebaseParser.parseUoms(from: snapUoms)
+                let uoms: [FBUomModel] = FirebaseParser.transfromToFBUomModels(from: snapUoms)
                 completion(ResultType.success(uoms))
             }
         }) { error in
@@ -194,7 +194,7 @@ class FirebaseService {
     func getParametredUom(for uomId: Int32, completion: @escaping (ResultType<FBUomModel, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                let uoms = FirebaseParser.parseUoms(from: snapUoms).filter { $0.id == uomId }
+                let uoms = FirebaseParser.transfromToFBUomModels(from: snapUoms).filter { $0.id == uomId }
                 guard let uom = uoms.first else { fatalError() }
                 completion(ResultType.success(uom))
             }
@@ -202,8 +202,6 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-    
-    
     
     func saveOrUpdate(_ item: FBProductModel) {
         let good = [
@@ -227,10 +225,6 @@ class FirebaseService {
         refPriceStatistics.childByAutoId().setValue(priceStat)
     }
     
-    
-    
-    
-    
     func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, FirebaseError>)->Void) {
         self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
@@ -240,6 +234,7 @@ class FirebaseService {
                         
                         if name == categoryName {
                             completion(ResultType.success(Int(id)))
+                            return
                         }
                     }
                 }
@@ -270,10 +265,6 @@ class FirebaseService {
         }
     }
     
-    
-    
-    
-    
     func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
@@ -283,6 +274,7 @@ class FirebaseService {
                         
                         if name == uomName {
                             completion(ResultType.success(Int(id)))
+                            return
                         }
                     }
                 }
@@ -292,7 +284,6 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-    
     
     func getUomName(for uomid: Int32, completion: @escaping (ResultType<String?, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
@@ -317,7 +308,7 @@ class FirebaseService {
     func getUomList(completion: @escaping (ResultType<[FBUomModel]?, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                let fbUoms = FirebaseParser.parseUoms(from: snapUoms)
+                let fbUoms = FirebaseParser.transfromToFBUomModels(from: snapUoms)
                 completion(ResultType.success(fbUoms))
             }
         }) { error in
@@ -350,7 +341,7 @@ extension FirebaseService {
         self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
             guard let snap = snapshot.value as? [String: Any] else { fatalError() }
             
-            let goods = snap.map { FirebaseParser.parse($0) }.filter { $0.id == productId }
+            let goods = snap.map { FirebaseParser.parseToFbProductModel(from: $0) }.filter { $0.id == productId }
             
             guard !goods.isEmpty else {
                 callback(nil)
@@ -365,7 +356,7 @@ extension FirebaseService {
     func getFiltredProductList(with searchedText: String, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
-                let goods = snapGoods.map { FirebaseParser.parse($0) }
+                let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
                 completion(ResultType.success(goods))
             }
         }) { error in
@@ -385,7 +376,7 @@ extension FirebaseService {
         self.refPriceStatistics.observeSingleEvent(of: .value) { (snapshot) in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 let itemStatistics = snapPrices
-                    .compactMap { FirebaseParser.parsePrice($0) }
+                    .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
                     .filter { $0.outletId == outletId && $0.productId == productId }
                     .sorted { $0.date > $1.date }
                 
@@ -403,7 +394,7 @@ extension FirebaseService {
         refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 let itemStatistic = snapPrices
-                    .compactMap { FirebaseParser.parsePrice($0) }
+                    .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
                     .filter { $0.outletId == outletId }
                     .sorted { $0.date > $1.date }
                 
@@ -425,7 +416,7 @@ extension FirebaseService {
         refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 let itemStatistic = snapPrices
-                    .compactMap { FirebaseParser.parsePrice($0) }
+                    .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
                     .filter { $0.productId == productId }
                     .sorted { $0.date > $1.date }
                 

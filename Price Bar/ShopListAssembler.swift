@@ -18,7 +18,8 @@ class ShopListAssembler {
         let adapter = ShopListAdapter(parent: view)
         view.adapter = adapter
         
-        let presenter = ShoplistPresenterImpl(repository: repository)
+        let presenter = ShoplistPresenterImpl()
+        presenter.repository = repository
         presenter.view = view
         view.presenter = presenter
         
@@ -27,9 +28,6 @@ class ShopListAssembler {
         router.repository = repository
         
         presenter.router = router
-        
-        let syncAnimator = SyncAnimator(parent: view)
-        view.syncAnimator = syncAnimator
         
         return view
     }

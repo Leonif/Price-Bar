@@ -21,7 +21,7 @@ class FirebaseService {
     private var refGoods = Database.database().reference().child("goods")
     
     private var refPriceStatistics: DatabaseReference
-
+    
     
     private var refCategories: DatabaseReference? = nil
     private var refUoms: DatabaseReference? = nil
@@ -46,6 +46,7 @@ class FirebaseService {
         #endif
         
         refPriceStatistics = Database.database().reference().child(statistics)
+        
         
         refCategories = Database.database().reference().child("categories")
         refUoms = Database.database().reference().child("uoms")
@@ -78,22 +79,22 @@ class FirebaseService {
         })
     }
 
-    func syncCategories(completion: @escaping (ResultType<[FBItemCategory], FirebaseError>)->Void) {
-        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
-                var categories = [FBItemCategory]()
-                for snapCategory in snapCategories {
-                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String, Any> {
-                        let itemCategory = FBItemCategory(key:id, itemCategoryDict: categoryDict)
-                        categories.append(itemCategory)
-                    }
-                }
-                completion(ResultType.success(categories))
-            }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
-        }
-    }
+//    func syncCategories(completion: @escaping (ResultType<[FBItemCategory], FirebaseError>)->Void) {
+//        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
+//            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
+//                var categories = [FBItemCategory]()
+//                for snapCategory in snapCategories {
+//                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String, Any> {
+//                        let itemCategory = FBItemCategory(key:id, itemCategoryDict: categoryDict)
+//                        categories.append(itemCategory)
+//                    }
+//                }
+//                completion(ResultType.success(categories))
+//            }
+//        }) { error in
+//            completion(ResultType.failure(.syncError(error.localizedDescription)))
+//        }
+//    }
 
 //    func syncProducts(completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
 //        self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
@@ -106,7 +107,7 @@ class FirebaseService {
 //        }
 //    }
     
-    
+    @available(*, deprecated)
     func getProductList_OLD(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
@@ -182,16 +183,16 @@ class FirebaseService {
 //        }
 //    }
 
-    func syncUoms(completion: @escaping (ResultType<[FBUomModel], FirebaseError>)->Void) {
-        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                let uoms: [FBUomModel] = FirebaseParser.transfromToFBUomModels(from: snapUoms)
-                completion(ResultType.success(uoms))
-            }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
-        }
-    }
+//    func syncUoms(completion: @escaping (ResultType<[FBUomModel], FirebaseError>)->Void) {
+//        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
+//            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+//                let uoms: [FBUomModel] = FirebaseParser.transfromToFBUomModels(from: snapUoms)
+//                completion(ResultType.success(uoms))
+//            }
+//        }) { error in
+//            completion(ResultType.failure(.syncError(error.localizedDescription)))
+//        }
+//    }
     
     
     func getParametredUom(for uomId: Int32, completion: @escaping (ResultType<FBUomModel, FirebaseError>)->Void) {
@@ -216,16 +217,25 @@ class FirebaseService {
             "uom_id": item.uomId
         ] as [String: Any]
         refGoods.child(item.id).setValue(good)
+        
     }
 
     func save(new statistic: FBItemStatistic) {
+//        let priceStat = [
+//            "date": statistic.date.getString(format: "dd.MM.yyyy hh:mm:ss"),
+//            "product_id": statistic.productId,
+//            "outlet_id": statistic.outletId,
+//            "price": statistic.price
+//            ] as [String: Any]
+//        refPriceStatistics.childByAutoId().setValue(priceStat)
+        
         let priceStat = [
             "date": statistic.date.getString(format: "dd.MM.yyyy hh:mm:ss"),
-            "product_id": statistic.productId,
             "outlet_id": statistic.outletId,
             "price": statistic.price
             ] as [String: Any]
-        refPriceStatistics.childByAutoId().setValue(priceStat)
+        
+        refGoods.child(statistic.productId).child("prices").childByAutoId().setValue(priceStat)
     }
     
     func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, FirebaseError>)->Void) {
@@ -368,15 +378,8 @@ extension FirebaseService {
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    func getPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
+    @available(*, deprecated)
+    func getPriceOLD(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
         self.refPriceStatistics.observeSingleEvent(of: .value) { (snapshot) in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 let itemStatistics = snapPrices
@@ -394,29 +397,50 @@ extension FirebaseService {
     }
     
     
-    func getPrices(for outletId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
-        refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
+    func getPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
+        self.refGoods.child(productId).child("prices")
+            .observeSingleEvent(of: .value) { (snapshot) in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                let itemStatistic = snapPrices
+                let itemStatistics = snapPrices
                     .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
                     .filter { $0.outletId == outletId }
                     .sorted { $0.date > $1.date }
                 
-                var uniqArrray: [FBItemStatistic] = []
-                
-                itemStatistic.forEach { (item) in
-                    if !uniqArrray.contains(where: { $0.productId == item.productId }) {
-                        uniqArrray.append(item)
-                    }
+                guard let stat = itemStatistics.first else {
+                    callback(nil)
+                    return
                 }
-                callback(uniqArrray)
+                callback(stat.price)
             }
-        }) { error in
-            fatalError(error.localizedDescription)
         }
     }
     
-    func getPricesFor(_ productId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
+    
+    
+    
+//    func getPrices(for outletId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
+//        refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
+//            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+//                let itemStatistic = snapPrices
+//                    .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
+//                    .filter { $0.outletId == outletId }
+//                    .sorted { $0.date > $1.date }
+//                
+//                var uniqArrray: [FBItemStatistic] = []
+//                
+//                itemStatistic.forEach { (item) in
+//                    if !uniqArrray.contains(where: { $0.productId == item.productId }) {
+//                        uniqArrray.append(item)
+//                    }
+//                }
+//                callback(uniqArrray)
+//            }
+//        }) { error in
+//            fatalError(error.localizedDescription)
+//        }
+//    }
+    
+    func getPricesForOLD(_ productId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
         refPriceStatistics.observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
                 let itemStatistic = snapPrices
@@ -439,6 +463,28 @@ extension FirebaseService {
     }
     
     
+    func getPricesFor(_ productId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
+        refGoods.child(productId).child("prices")
+            .observeSingleEvent(of: .value, with: { snapshot in
+            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+                let itemStatistic = snapPrices
+                    .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
+//                    .filter { $0.productId == productId }
+                    .sorted { $0.date > $1.date }
+                
+                var uniqArray: [FBItemStatistic] = []
+
+                for item in itemStatistic {
+                    if !uniqArray.contains(where: { $0.outletId == item.outletId }) {
+                        uniqArray.append(item)
+                    }
+                }
+                callback(uniqArray)
+            }
+        }) { error in
+            fatalError(error.localizedDescription)
+        }
+    }
 }
 
 

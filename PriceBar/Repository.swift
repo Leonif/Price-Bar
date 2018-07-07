@@ -176,17 +176,17 @@ class Repository {
         
     }
     
-    func getPricesFor(outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
-        FirebaseService.data.getPrices(for: outletId, callback: { (statistics) in
-            let prices = statistics.map {
-                return ProductPrice(productId: $0.productId, productName: "",
-                                    currentPrice: $0.price,
-                                    outletId: $0.outletId,
-                                    date: $0.date)
-            }
-            completion(prices)
-        })
-    }
+//    func getPricesFor(outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
+//        FirebaseService.data.getPrices(for: outletId, callback: { (statistics) in
+//            let prices = statistics.map {
+//                return ProductPrice(productId: $0.productId, productName: "",
+//                                    currentPrice: $0.price,
+//                                    outletId: $0.outletId,
+//                                    date: $0.date)
+//            }
+//            completion(prices)
+//        })
+//    }
     
     func getPricesFor(productId: String, completion: @escaping ([ProductPrice]) -> Void) {
         
@@ -349,7 +349,6 @@ class Repository {
             }
         }
     }
-    
     
     func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, RepositoryError>) -> Void) {
         FirebaseService.data.getCategoryName(for: categoryId) { (result) in

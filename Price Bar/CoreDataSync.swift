@@ -11,20 +11,20 @@ import CoreData
 
 // MARK: Sync function
 extension CoreDataService {
-    func syncCategories(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
-        FirebaseService.data.syncCategories { result in
-            switch result {
-            case let .success(fbCategoryList):
-                let cdCategoryList = self.transform(from: fbCategoryList)
-                self.importNew(cdCategoryList)
-                completion(ResultType.success(true))
-            case let .failure(error):
-                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
-            }
-        }
-        
-        
-    }
+//    func syncCategories(_ completion: @escaping (ResultType<Bool, CoreDataErrors>)->Void) {
+//        FirebaseService.data.syncCategories { result in
+//            switch result {
+//            case let .success(fbCategoryList):
+//                let cdCategoryList = self.transform(from: fbCategoryList)
+//                self.importNew(cdCategoryList)
+//                completion(ResultType.success(true))
+//            case let .failure(error):
+//                completion(ResultType.failure(CoreDataErrors.error(error.localizedDescription)))
+//            }
+//        }
+//        
+//        
+//    }
         
     
         

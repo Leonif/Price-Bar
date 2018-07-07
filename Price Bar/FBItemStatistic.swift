@@ -15,7 +15,7 @@ struct FBItemStatistic {
     var date: Date
 
     init?(priceData: Dictionary<String, Any>) {
-        guard let productId = priceData["product_id"] as? String,
+        guard /*let productId = priceData["product_id"] as? String,*/
             let price = priceData["price"] as? Double,
             price != 0,
             let outletId = priceData["outlet_id"] as? String,
@@ -23,7 +23,7 @@ struct FBItemStatistic {
                 return nil
         }
 
-        self.productId = productId
+        self.productId = ""
         self.price = price
         self.outletId = outletId
         self.date = dateStr.toDate(with: "dd.MM.yyyy HH:mm:ss")!

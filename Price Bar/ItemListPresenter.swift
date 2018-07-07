@@ -99,25 +99,30 @@ extension ItemListPresenterImpl {
     }
     
     private func getItemWithPrice(for produtId: String, outletId: String, completion: @escaping (ItemListViewEntity) -> Void) {
+        
+        
+        
+        
+        
         self.repository.getProductEntity(for: produtId) { (result) in
             switch result {
             case let .success(product):
                 self.repository.getCategoryName(for: product.categoryId, completion: { (result) in
                     switch result {
                     case let .success(categoryName):
-                        
+
                         guard let categoryName = categoryName else {
                             self.view.onError(with: R.string.localizable.error_something_went_wrong())
                             return
                         }
-                        self.repository.getPrice(for: produtId, and: outletId, completion: { (price) in
+//                        self.repository.getPrice(for: produtId, and: outletId, completion: { (price) in
                             let item = ItemListViewEntity(id: produtId,
                                                           product: product.name,
                                                           brand: product.brand,
                                                           weightPerPiece: product.weightPerPiece,
-                                                          currentPrice: price, categoryName: categoryName)
+                                                          currentPrice: 0.0, categoryName: categoryName)
                             completion(item)
-                        })
+//                        })
                     case let .failure(error):
                         self.view.hideLoading()
                         self.view.onError(with: error.message)

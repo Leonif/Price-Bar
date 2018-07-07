@@ -28,7 +28,7 @@ class CoreDataService {
     func removeFromShopList(with productId: String) {
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
-            shpLstRequest.predicate = NSPredicate(format: "id == %@", productId)
+            shpLstRequest.predicate = NSPredicate(format: "productId == %@", productId)
             let productExist = try context.fetch(shpLstRequest)
 
             productExist.forEach { context.delete($0) }
@@ -37,18 +37,6 @@ class CoreDataService {
             print("Products is not got from database")
         }
     }
-    
-    
-//    func getQuantityOfProducts() -> Int {
-//        do {
-//            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-//            let productList = try context.fetch(fetchRequest)
-//            return productList.count
-//        } catch {
-//            print("Products is not got from database")
-//        }
-//        return 0
-//    }
 
     func loadShopList() -> [CDShoplistItem]? {
         var shopList: [CDShoplistItem] = []

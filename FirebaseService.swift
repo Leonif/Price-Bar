@@ -131,18 +131,21 @@ class FirebaseService {
                 if let snapGoods = snapshot.value as? [String: Any] {
                     let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
                     
-                    self.goodCurrentId = goods.last?.id
+                    goods.forEach { print("\($0.id) \($0.name)") }
+                    
+                    self.goodCurrentId = goods.first?.id
                     completion(ResultType.success(goods))
                 }
             }) { error in
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
         } else {
-            self.refGoods.queryOrderedByKey().queryEnding(atValue: self.goodCurrentId).queryLimited(toFirst: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
+            self.refGoods.queryOrderedByKey().queryEnding(atValue: self.goodCurrentId).queryLimited(toLast: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
                 if let snapGoods = snapshot.value as? [String: Any] {
                     let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
-                    if self.goodCurrentId != goods.last?.id {
-                        self.goodCurrentId = goods.last?.id
+                    if self.goodCurrentId != goods.first?.id {
+                        self.goodCurrentId = goods.first?.id
+                        goods.forEach { print("\($0.id) \($0.name)") }
                         completion(ResultType.success(goods))
                     } else {
                         completion(ResultType.success([]))

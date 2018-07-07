@@ -10,9 +10,6 @@ import UIKit
 
 protocol ShoplistView: BaseView {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
-//    func onSyncProgress(progress: Double, max: Double, text: String)
-//    func onUpdateCurrentOutlet()
-//    func onSyncError(error: String)
     func onCurrentOutletUpdated(outlet: Outlet)
     func onError(error: String)
     func onSavePrice()
@@ -46,7 +43,6 @@ class ShopListController: UIViewController, ShoplistView {
     // MARK: - Dependecy Injection properties
     var presenter: ShoplistPresenter!
     var adapter: ShopListAdapter!
-//    var syncAnimator: SyncAnimator!
     
     private var buttonsHided: Bool = false
     
@@ -212,12 +208,6 @@ class ShopListController: UIViewController, ShoplistView {
     }
     
     // MARK: - Syncing ...
-//    func synchronizeData() {
-//        self.buttonEnable(false)
-////        self.presenter.startSyncronize()
-////        self.syncAnimator.startProgress()
-//    }
-    
     private func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }

@@ -297,6 +297,7 @@ class FirebaseService {
                         
                         if id == uomid {
                             completion(ResultType.success(name))
+                            return
                         }
                     }
                 }

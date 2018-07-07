@@ -66,7 +66,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 case let .failure(error):
                     self.view.onError(error: error.message)
                 case .success:
-                    self.view.onAddedItemToShoplist(productId: productId)
+//                    self.view.onAddedItemToShoplist(productId: productId)
                     self.updateShoplist()
                 }
             })

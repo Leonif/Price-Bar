@@ -9,10 +9,6 @@ import Foundation
 import Firebase
 
 class FirebaseParser {
-    
-    
-    
-    
     class func parseCategory(from snapshot: DataSnapshot) -> FBItemCategory {
         guard let id = Int32(snapshot.key),
             let categoryDict = snapshot.value as? Dictionary<String, Any>,
@@ -20,20 +16,8 @@ class FirebaseParser {
                 fatalError("Category os not parsed")
         }
         let fbCategory = FBItemCategory(id: id, name: categoryName)
-        
-        
         return fbCategory
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     class func parseUom(from snapshot: DataSnapshot) -> FBUomModel {
         guard let id = Int32(snapshot.key),

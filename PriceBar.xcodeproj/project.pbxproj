@@ -80,7 +80,6 @@
 		790B7DBD20835D8C003DD560 /* ShopListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C31EE7085500470669 /* ShopListController.swift */; };
 		790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1F201A492E0098D324 /* ProductMapper.swift */; };
 		790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */; };
-		790B7DC020835D8C003DD560 /* CoreDataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */; };
 		790B7DC120835D8C003DD560 /* CDStatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B542013ECA6005C6CC5 /* CDStatisticModel.swift */; };
 		790B7DC220835D8C003DD560 /* GoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CA1F10004400752A68 /* GoodButton.swift */; };
 		790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */; };
@@ -207,7 +206,6 @@
 		799029882095F0F200085F72 /* ItemListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799029862095F0F200085F72 /* ItemListAdapter.swift */; };
 		79A2EB712002CD46008F7DAA /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB702002CD46008F7DAA /* LocationService.swift */; };
 		79A2EB732002D471008F7DAA /* ResultType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB722002D471008F7DAA /* ResultType.swift */; };
-		79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */; };
 		79A8B0C320DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A8B0C220DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift */; };
 		79A8B0C420DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A8B0C220DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift */; };
 		79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */; };
@@ -364,7 +362,6 @@
 		799A8A231F7423E20027EB59 /* PriceBarTests copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBarTests copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBarTests copy-Info.plist"; sourceTree = "<absolute>"; };
 		79A2EB702002CD46008F7DAA /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		79A2EB722002D471008F7DAA /* ResultType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultType.swift; sourceTree = "<group>"; };
-		79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSync.swift; sourceTree = "<group>"; };
 		79A8B0C220DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsAssembler.swift; sourceTree = "<group>"; };
 		79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = PriceBar.xcdatamodel; path = PriceBar.xcdatamodeld/PriceBar.xcdatamodel; sourceTree = SOURCE_ROOT; };
 		79AA0FF11EF6BF2500903133 /* CoreDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = SOURCE_ROOT; };
@@ -717,7 +714,6 @@
 				79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */,
 				79AA0FF11EF6BF2500903133 /* CoreDataService.swift */,
 				795EA8CC1F100C1500752A68 /* PriceHandling.swift */,
-				79A2EB7420094A9F008F7DAA /* CoreDataSync.swift */,
 				790F1008202266A20060E285 /* CoreDataParsers.swift */,
 			);
 			name = CoreDataProvider;
@@ -1420,7 +1416,6 @@
 				790B7DBD20835D8C003DD560 /* ShopListController.swift in Sources */,
 				790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */,
 				790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */,
-				790B7DC020835D8C003DD560 /* CoreDataSync.swift in Sources */,
 				790B7DC120835D8C003DD560 /* CDStatisticModel.swift in Sources */,
 				790B7DC220835D8C003DD560 /* GoodButton.swift in Sources */,
 				790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */,
@@ -1526,7 +1521,6 @@
 				792EE7C51EE7085500470669 /* ShopListController.swift in Sources */,
 				796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */,
 				79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */,
-				79A2EB7520094A9F008F7DAA /* CoreDataSync.swift in Sources */,
 				79833B552013ECA6005C6CC5 /* CDStatisticModel.swift in Sources */,
 				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,
 				79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */,

@@ -80,7 +80,7 @@ class FirebaseService {
     }
 
     
-    // FIXME: PAGINATION: WORKS WRONG !!!!
+    // FIXME: PAGINATION: WORKS WRONG !!!! ===========================================
     func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
         if pageOffset == 0 {
             self.refGoods.queryOrderedByKey().queryLimited(toLast: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
@@ -106,17 +106,13 @@ class FirebaseService {
                     } else {
                         completion(ResultType.success([]))
                     }
-                    
                 }
             }) { error in
                 completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
         }
     }
-    
-    
-    
-    
+    // ===============================================================================================
     func getProductCount(completion: @escaping (ResultType<Int, FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             completion(ResultType.success(Int(snapshot.childrenCount)))
@@ -266,14 +262,8 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
+
     
-
-}
-
-
-extension FirebaseService {
-    
-    // MARK: Work ==========================
     func getProduct(with productId: String, callback: @escaping (FBProductModel?) -> Void) {
         self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
             guard let snap = snapshot.value as? [String: Any] else { fatalError() }
@@ -288,12 +278,12 @@ extension FirebaseService {
         }
     }
     
-    
-    
     func getFiltredProductList(with searchedText: String, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
-                let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
+                let goods = snapGoods
+                    .map { FirebaseParser.parseToFbProductModel(from: $0) }
+                    .filter { $0.fullName.lowercased().range(of: searchedText.lowercased()) != nil }
                 completion(ResultType.success(goods))
             }
         }) { error in
@@ -302,8 +292,6 @@ extension FirebaseService {
     }
     
     func getPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
-        //self.refGoods.child(productId).child("prices")
-        
         self.refPriceStatistics.child(productId)
             .observeSingleEvent(of: .value) { (snapshot) in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
@@ -320,8 +308,6 @@ extension FirebaseService {
             }
         }
     }
-    
-    
     
     func getPricesFor(_ productId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
         self.refPriceStatistics.child(productId)

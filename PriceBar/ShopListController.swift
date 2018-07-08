@@ -17,6 +17,7 @@ protocol ShoplistView: BaseView {
     func onAddedItemToShoplist(productId: String)
     func onUpdatedTotal(_ total: Double)
     func onUpdatedShoplist(_ dataSource: [ShoplistItem])
+    func onQuantityChanged()
     
     func startIsCompleted()
     func updateUI()
@@ -123,6 +124,11 @@ class ShopListController: UIViewController, ShoplistView {
         }
         self.buttonEnable(true)
     }
+    
+    func onQuantityChanged() {
+        self.presenter.onReloadShoplist(for: userOutlet.id)
+    }
+    
     
     func onSavePrice() {
         self.presenter.onReloadShoplist(for: userOutlet.id)

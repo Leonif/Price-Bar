@@ -39,44 +39,44 @@ enum RepositoryError: Error {
 }
 
 class Repository {
-    enum SyncSteps: Int {
-        case
-        login,
-        loadShoplist,
-        needSync,
-        categories,
-        uoms,
-        products,
-        statistic,
-        putBackShoplist
-        
-        case total
-        
-        var text: String {
-            let start = R.string.localizable.common_loading()
-            switch self {
-            case .login:
-                return R.string.localizable.sync_process_connecting()
-            case .needSync:
-                return R.string.localizable.sync_process_start()
-            case .categories:
-                return R.string.localizable.sync_process_categories(start)
-            case .uoms:
-                return R.string.localizable.sync_process_uom(start)
-            case .products:
-                return R.string.localizable.sync_process_products(start)
-            case .statistic:
-                return R.string.localizable.sync_process_prices(start)
-            case .loadShoplist, .putBackShoplist:
-                return R.string.localizable.sync_process_shoplist(start)
-            default: return R.string.localizable.sync_process_all_is_done()
-            }
-        }
-    }
+//    enum SyncSteps: Int {
+//        case
+//        login,
+//        loadShoplist,
+//        needSync,
+//        categories,
+//        uoms,
+//        products,
+//        statistic,
+//        putBackShoplist
+//
+//        case total
+//
+//        var text: String {
+//            let start = R.string.localizable.common_loading()
+//            switch self {
+//            case .login:
+//                return R.string.localizable.sync_process_connecting()
+//            case .needSync:
+//                return R.string.localizable.sync_process_start()
+//            case .categories:
+//                return R.string.localizable.sync_process_categories(start)
+//            case .uoms:
+//                return R.string.localizable.sync_process_uom(start)
+//            case .products:
+//                return R.string.localizable.sync_process_products(start)
+//            case .statistic:
+//                return R.string.localizable.sync_process_prices(start)
+//            case .loadShoplist, .putBackShoplist:
+//                return R.string.localizable.sync_process_shoplist(start)
+//            default: return R.string.localizable.sync_process_all_is_done()
+//            }
+//        }
+//    }
     
-    var maxSyncSteps: Int {
-        return SyncSteps.total.rawValue
-    }
+//    var maxSyncSteps: Int {
+//        return SyncSteps.total.rawValue
+//    }
     
     // MARK: update events
     var onSyncProgress: ((Int, Int, String) -> Void)?
@@ -161,6 +161,13 @@ class Repository {
         return ResultType.success(true)
     }
     
+    
+    func changeShoplistItem( _ quantity: Double, for productId: String) {
+        CoreDataService.data.changeShoplistItem(quantity, for: productId)
+    }
+    
+    
+    
    ////////////////////////////// FIXME /////////////////////////////////
     func getShopItems(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void) {
         FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
@@ -210,6 +217,15 @@ class Repository {
             completion(price)
         }
     }
+    
+    
+    func getProductQuantity(productId: String) -> Double {
+        
+        return CoreDataService.data.getQuantityOfProduct(productId: productId)
+        
+        
+    }
+    
     
     private func getPriceFromCloud(for productId: String, and outletId: String, completion: @escaping (Double?) -> Void) {
         
@@ -307,10 +323,6 @@ class Repository {
                 completion(ResultType.failure(.other(error.localizedDescription)))
             }
         }
-
-        
-        
-        
     }
     
     
@@ -367,36 +379,6 @@ class Repository {
         return DPCategoryViewEntity(id: cdModel.id, name: cdModel.name)
     }
 
-    
-
-//    func getUomName(for id: Int32) -> String? {
-//        guard
-//        let uom = CoreDataService.data.getUom(by: id),
-//        let uomName = uom.uom
-//        else {
-//            fatalError("Uom is not available")
-//        }
-//
-//        return uomName
-//    }
-    
-//    func getUom(for id: Int32) -> UomModelView? {
-//        guard
-//            let uom = CoreDataService.data.getUom(by: id) else {
-//             fatalError("Uom is not available")
-//                
-//        }
-//        return CoreDataParsers.parse(from: uom)
-//    }
-
-//    func getCategoryName(category id: Int32) -> String? {
-//        guard let category = CoreDataService.data.getCategory(by: id),
-//            let categoryName = category.category else {
-//            return nil
-//        }
-//        return categoryName
-//    }
-
     func loadShopList(completion: @escaping ([ShoplistItem]) -> Void)  {
         shoplist.removeAll()
         guard let savedShoplist = CoreDataService.data.loadShopList() else {
@@ -407,8 +389,6 @@ class Repository {
         
         
         let shopItemGroup = DispatchGroup()
-        
-        
         
         for item in savedShoplist {
             shopItemGroup.enter()

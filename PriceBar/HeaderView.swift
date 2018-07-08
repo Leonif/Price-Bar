@@ -11,6 +11,4 @@ import UIKit
 class HeaderView: UIView {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var view: UIView!
-    
-    
 }

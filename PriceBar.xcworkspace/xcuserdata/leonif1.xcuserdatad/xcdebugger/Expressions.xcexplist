@@ -3,121 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #1 in ShoplistRouter.openStatistics(data:):ShoplistRouter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.loadShopList():ShopListController.swift">
+         contextName = "ShopItemCell.pickerView(UIPickerView, didSelectRow : Int, inComponent : Int) -&gt; ():ShopItemCell.swift">
          <PersistentStrings>
             <PersistentString
-               value = "dataProvider.shoplist">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #6 in ItemListVC.setupAdapter():ItemListVC.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.loadShopList(for:):CoreDataService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ItemListVC.viewWillAppear(_:):ItemListVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "shouldClose">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "FBItemStatistic.init(priceData:):FBItemStatistic.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.objectExchange(object : Any) -&gt; ():ShopListControllerExchange.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in FirebaseService.getPrices(for:callback:):FirebaseService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "FoursqareProvider.parseVenue(from:completion:):FoursqareProvider.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ItemListAdapter.tableView(_:numberOfRowsInSection:):ItemListAdapter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.viewDidAppear(_:):ShopListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.navigationItem.titleView.frame">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in FirebaseService.getPrice(with:outletId:callback:):FirebaseService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "$0">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShoplistPresenterImpl.addItemToShopList(_:and:completion:):ShoplistPresenterImpl.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "shopListItem">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.setupNavigation():ShopListController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.navigationItem.titleView">
-            </PersistentString>
-            <PersistentString
-               value = "navigationController">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.getCategoriesFromCoreData() -&gt; [ItemCategory]:CoreDataService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "initCategories.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ItemListAdapter.tableView(_:willDisplay:forRowAt:):ItemListAdapter.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.dataSource.count - 1">
-            </PersistentString>
-            <PersistentString
-               value = "self.limit">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ItemListVC.scrollViewDidScroll(UIScrollView) -&gt; ():ItemListVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "currentPageStep">
-            </PersistentString>
-            <PersistentString
-               value = "self.itemList">
-            </PersistentString>
-            <PersistentString
-               value = "filtredItemList">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ShoplistRouter.openStatistics():ShoplistRouter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "FirebaseService.parser(for:):FirebaseService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "goodDict[&quot;category_id&quot;]">
+               value = "pickerView.frame">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -133,61 +22,196 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListDataSource.tableView(_:cellForRowAt:):ShopListDataSource.swift">
-      </ContextState>
-      <ContextState
-         contextName = "QuantityPickerPopup2.pickerView(_:numberOfRowsInComponent:):QuantityPickerPopup2.swift">
+         contextName = "static FirebaseParser.parse(_:):FirebaseParser.swift">
          <PersistentStrings>
             <PersistentString
-               value = "weightItems[component].weight">
+               value = "brand">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListModel.getItem(index:):ShopListModel.swift">
+         contextName = "ShopListAdapter.dataSource.didset:ShopListAdapter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemCardNew.saveProduct(with:):ItemCardNew.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in UpdatePriceVC.viewDidLoad():UpdatePriceVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.viewDidLoad():ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Double.rounded(toPlaces:):NumberExtensions.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.sections[index.section]">
+               value = "(r * divisor).rounded() / divisor">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ItemListAdapter.updateDatasorce(sortedItems:):ItemListAdapter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopItemCell.setBorder(for:with:borderWidth:):ShopItemCell.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ItemListVC.tableView(_:cellForRowAt:):ItemListVC.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListAdapter.getRowsInSection(_:):ShopListAdapter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in ShoplistInteractor.getPriceStatistics(for:):ShoplistInteractor.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.(loadShopList(outletId : String) -&gt; ShopListModel?).(closure #1):CoreDataService.swift">
+         contextName = "OutletService.locationManager(_:didUpdateLocations:):OutletService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "$0.toProduct">
+               value = "locations.last?.coordinate">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CoreDataService.shopItem(parse:and:):CoreDataService.swift">
+         contextName = "DataProvider.sectionCount.getter:DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shoplist">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ItemCardNew.cardOpenHandler():ItemCardNew.swift">
+         contextName = "DataProvider.handleStatistics(result:completion:):DataProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static CoreDataParsers.parse(from:):CoreDataParsers.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.loadShopList(for:):ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CoreDataService.importNew(_:):CoreDataSync.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.syncCloud(completion:):DataProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShoplistPresenterImpl.onReloadShoplist(for:):ShoplistPresenterImpl.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.onCurrentOutletUpdated(outlet:):ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListAdapter.tableView(_:cellForRowAt:):ItemListAdapter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShoplistPresenterImpl.updateDataSource():ShoplistPresenterImpl.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.onUpdatedShoplist(_:):ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.tableView(_:didSelectRowAt:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "filtredItemList">
+            </PersistentString>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in DataProvider.syncCloud(completion:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.shoplist">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.tableView(UITableView, didSelectRowAt : IndexPath) -&gt; ():ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "delegate">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "ItemCardNew.saveProduct():ItemCardNew.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.handle(for : String) -&gt; ():ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopItemCell.awakeFromNib() -&gt; ():ShopItemCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "weightPicker.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FirebaseService.syncProducts(completion:):FirebaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CoreDataService.loadShopList(for:):CoreDataService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shoplistItem.toProduct">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListAdapter.reload():ShopListAdapter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FoursqareProvider.outletMapper(from:):FoursqareProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "venue[&quot;id&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShoplistPresenterImpl.addItemToShopList(_:and:completion:):ShoplistPresenterImpl.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopListItem">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShoplistRouter.openStatistics():ShoplistRouter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FirebaseService.getPrice(with:outletId:callback:):FirebaseService.swift">
       </ContextState>
       <ContextState
          contextName = "CoreDataService.setUom(for : ShopItem) -&gt; Uom?:CoreDataService.swift">
          <PersistentStrings>
             <PersistentString
                value = "uom.first.iterator">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.loadShopList(for:):CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup2.makeW(parameter:):QuantityPickerPopup2.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Repository.update(_:):Repository.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.tableView(_:cellForRowAt:):ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "QuantityModel.init(type:currentValue:):QuantityPickerPopup.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "wholeItem.double">
+            </PersistentString>
+            <PersistentString
+               value = "currentValue">
+            </PersistentString>
+            <PersistentString
+               value = "self.decimalItem">
+            </PersistentString>
+            <PersistentString
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -203,69 +227,91 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ItemCardNew.saveProduct(with:):ItemCardNew.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in OutletService.searchOutletList(with:completion:):OutletService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "error.errorDescription">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "LocationService.locationManager(_:didUpdateLocations:):LocationService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "coordsObtained">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Repository.getItem(with:and:):Repository.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListAssembler.assemble():ShopListAssembler.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListAdapter.tableView(_:numberOfRowsInSection:):ShopListAdapter.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "repository.rowsIn(section)">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "OutetListAdapter.tableView(_:cellForRowAt:):OutetListAdapter.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.tableView.dataSource">
-            </PersistentString>
-            <PersistentString
-               value = "self.tableView.delegate">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "ShopListController.itemChoosen(productId:):ShopListController.swift">
       </ContextState>
       <ContextState
-         contextName = "static FirebaseParser.parsePrice(_:):FirebaseParser.swift">
+         contextName = "ShoplistRouter.prepare(for:sender:data:):ShoplistRouter.swift">
       </ContextState>
       <ContextState
-         contextName = "UpdatePriceVC.updateStatistics(completin:):UpdatePriceVC.swift">
+         contextName = "ShopListDataSource.init(shopModel:):ShopListDataSource.swift">
       </ContextState>
       <ContextState
-         contextName = "ItemListVC.viewDidLoad():ItemListVC.swift">
+         contextName = "DataProvider.rowsIn(_:):DataProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sections.count">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "static CoreDataParsers.parse(from:):CoreDataParsers.swift">
+         contextName = "closure #2 in ItemListPresenter.getProductWithPrices(offset:limit:for:):ItemListPresenter.swift">
       </ContextState>
       <ContextState
-         contextName = "DataProvider.getUom(for:):DataProvider.swift">
+         contextName = "ShopListModel.change(ShopItem) -&gt; ():ShopListModel.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #1 in UpdatePriceVC.viewDidLoad():UpdatePriceVC.swift">
+         contextName = "ItemListVC.viewWillAppear(_:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shouldClose">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in UpdatePricePresenterImpl.onGetProductInfo(for:and:):UpdatePricePresenterImpl.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, minimumInteritemSpacingForSectionAt : Int) -&gt; CGFloat:CollectionFreeViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "spaceBetweenView">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.mapper(from:):CoreDataSync.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.saveToShopList(ShopItem) -&gt; ():CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "itemTableView">
+            </PersistentString>
+            <PersistentString
+               value = "itemList">
+            </PersistentString>
+            <PersistentString
+               value = "filtredItemList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopItemCell.setBorder(for:with:borderWidth:):ShopItemCell.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FoursqareProvider.loadOultets(userCoordinate:completion:):FoursqareProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.setupNavigation():ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.navigationItem.titleView">
+            </PersistentString>
+            <PersistentString
+               value = "navigationController">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.loadShopList():ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dataProvider.shoplist">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "QuantityPickerPopup2.choosen():QuantityPickerPopup2.swift">
@@ -282,49 +328,64 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
-               value = "shopList">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.tableView(_:cellForRowAt:):ShopListController.swift">
+         contextName = "closure #2 in ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
       </ContextState>
       <ContextState
-         contextName = "CoreDataService.getItem(by : String, and : String) -&gt; ShopItem?:CoreDataService.swift">
+         contextName = "Repository.getItem(with:and:):Repository.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopItemCell.awakeFromNib() -&gt; ():ShopItemCell.swift">
+         contextName = "closure #1 in FoursqareProvider.request&lt;A&gt;(url:completed:parseFunction:):FoursqareProvider.swift">
          <PersistentStrings>
             <PersistentString
-               value = "weightPicker.frame">
+               value = "parseData[&quot;response&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Repository.getItem(index:):Repository.swift">
+         contextName = "closure #1 in ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListAdapter.dataSource.didset:ShopListAdapter.swift">
+         contextName = "closure #1 in FirebaseService.getProductList(with:limit:completion:):FirebaseService.swift">
       </ContextState>
       <ContextState
-         contextName = "QuantityPickerPopup.viewDidLoad():QuantityPickerPopup.swift">
+         contextName = "closure #1 in closure #1 in OutletService.searchOutletList(with:completion:):OutletService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "currentModel.decimalItem">
-            </PersistentString>
-            <PersistentString
-               value = "weightPicker">
+               value = "error.errorDescription">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "Repository.getPricesStatisticByOutlet(for:):Repository.swift">
+         contextName = "ShopListController.selectOutlet():ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.saveShoplist():DataProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static FirebaseParser.parsePrice(_:):FirebaseParser.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShoplistRouter.openStatistics(data:):ShoplistRouter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.itemChoosen(productId:):ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListDataSource.tableView(_:commit:forRowAt:):ShopListDataSource.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.tableView(_:cellForRowAt:):ItemListVC.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in FoursqareProvider.parse(url:completed:):FoursqareProvider.swift">
@@ -335,42 +396,101 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():ShopListController.swift">
+         contextName = "FoursqareProvider.parseVenues(from:completion:):FoursqareProvider.swift">
          <PersistentStrings>
             <PersistentString
-               value = "shopList">
+               value = "resp">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FoursqareProvider.parseVenue(from:completion:):FoursqareProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CoreDataService.getPricesStatisticByOutlet(for:):PriceHandling.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "s.date">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in ItemListPresenterImpl.getItemWithPrice(for:outletId:completion:):ItemListPresenter.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #4 in ShopListController.viewDidLoad():ShopListController.swift">
       </ContextState>
       <ContextState
-         contextName = "Target.url.getter:FoursqareProvider.swift">
+         contextName = "FoursqareProvider.searchOutlet(with:userCoordinate:completion:):FoursqareProvider.swift">
          <PersistentStrings>
             <PersistentString
-               value = "&quot;\(Target.baseUrl)\(outletId)&amp;v=\(dateString)&quot;">
+               value = "Target.searhOutlet(text, userCoordinate).url">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in CoreDataService.loadShopList(for:):CoreDataService.swift">
+         contextName = "closure #3 in FirebaseService.getProductList(with:limit:completion:):FirebaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ShoplistPresenterImpl.onQuantityChanged(productId:):ShoplistPresenterImpl.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ComparisonStatisticsViewController.viewDidLoad():ComparisonStatisticsViewController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "shoplistItem.toProduct">
+               value = "self.view">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "CoreDataService.mapper(from:):CoreDataSync.swift">
+         contextName = "CoreDataService.update(_:):CoreDataService.swift">
       </ContextState>
       <ContextState
-         contextName = "OutletCell.layoutSubviews():OutletCell.swift">
+         contextName = "closure #2 in closure #1 in FirebaseService.getFiltredProductList(with:completion:):FirebaseService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.contentView.frame">
+               value = "$0.fullName.lowercased().range(of: searchedText)">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.handle(for : Outlet) -&gt; ():ShopListControllerExchange.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "launchedTimes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup2.numberOfComponents(in:):QuantityPickerPopup2.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FirebaseService.addGoodToCloud(ShopItem) -&gt; ():FirebaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListAdapter.tableView(_:numberOfRowsInSection:):ShopListAdapter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "repository.rowsIn(section)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListModel.append(ShopItem) -&gt; ():ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+            <PersistentString
+               value = "sections">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "Repository.getItem(index:):Repository.swift">
+      </ContextState>
+      <ContextState
+         contextName = "BaseStatisticsVC.init():BaseStatisticsVC.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListModel.change(_:):ShopListModel.swift">
@@ -384,16 +504,71 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListDataSource.tableView(_:commit:forRowAt:):ShopListDataSource.swift">
+         contextName = "ItemListAdapter.updateDatasorce(sortedItems:):ItemListAdapter.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListController.selectOutlet():ShopListController.swift">
+         contextName = "Repository.getPricesStatisticByOutlet(for:):Repository.swift">
       </ContextState>
       <ContextState
-         contextName = "DataProvider.handleStatistics(result:completion:):DataProvider.swift">
+         contextName = "closure #1 in OutletListInteractor.searchOutlet(with:):OutletListInteractor.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "error.errorDescription">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "UpdatePriceVC.viewDidLoad():UpdatePriceVC.swift">
+         contextName = "ItemListAdapter.tableView(_:willDisplay:forRowAt:):ItemListAdapter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.dataSource.count - 1">
+            </PersistentString>
+            <PersistentString
+               value = "self.limit">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShopListAdapter.dataSource.didset:ShopListAdapter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "sectionNames">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup.viewDidLoad():QuantityPickerPopup.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentModel.decimalItem">
+            </PersistentString>
+            <PersistentString
+               value = "weightPicker">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FirebaseService.parser(for:):FirebaseService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "goodDict[&quot;category_id&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.weightDemanded(cell:currentValue:):ShopListController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopItem.init(id:goodData:):ShopItem.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListAdapter.tableView(_:numberOfRowsInSection:):ItemListAdapter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemCardNew.cardOpenHandler():ItemCardNew.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.viewDidLoad() -&gt; ():ShopListController.swift">
@@ -407,13 +582,69 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "ShopListModel.getItem(index:):ShopListModel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.sections[index.section]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListAdapter.handleWeightDemanded(cell:):ShopListAdapter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.viewDidAppear(_:):ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "outletId">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.viewDidLoad():ItemListVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListDataSource.init(shopList:):ShopListDataSource.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.objectExchange(object : Any) -&gt; ():ShopListControllerExchange.swift">
+      </ContextState>
+      <ContextState
          contextName = "ShopListModel.(reloadDBFromCloud(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):ShopListModel.swift">
       </ContextState>
       <ContextState
-         contextName = "== infix(_:_:):ShoplistItemModel.swift">
+         contextName = "closure #1 in FirebaseService.getPrices(for:callback:):FirebaseService.swift">
       </ContextState>
       <ContextState
-         contextName = "BaseStatisticsVC.init():BaseStatisticsVC.swift">
+         contextName = "FBItemStatistic.init(priceData:):FBItemStatistic.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListDataSource.tableView(_:cellForRowAt:):ShopListDataSource.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListAdapter.tableView(_:didSelectRowAt:):ItemListAdapter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "static FirebaseParser.parseUom(from:):FirebaseParser.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "max">
+            </PersistentString>
+            <PersistentString
+               value = "snapshot.childSnapshot(forPath: &quot;parameters&quot;) as! Dictionary&lt;String, Any&gt;">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup2.pickerView(_:numberOfRowsInComponent:):QuantityPickerPopup2.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "weightItems[component].weight">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "FirebaseService.syncCategories(completion:):FirebaseService.swift">
@@ -424,29 +655,126 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.onUpdatedShoplist(_:):ShopListController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in CoreDataService.getPricesStatisticByOutlet(for:):PriceHandling.swift">
+         contextName = "QuantityPickerPopup2.configurePopup():QuantityPickerPopup2.swift">
          <PersistentStrings>
             <PersistentString
-               value = "s.date">
+               value = "weightItems">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ShopListAdapter.dataSource.didset:ShopListAdapter.swift">
+         contextName = "CoreDataService.save(new:):CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.getItem(index:):DataProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.tableView(_:numberOfRowsInSection:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sectionNames">
+               value = "filtredItemList">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "OutetListAdapter.tableView(_:cellForRowAt:):OutetListAdapter.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.tableView.dataSource">
+            </PersistentString>
+            <PersistentString
+               value = "self.tableView.delegate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DataProvider.getUom(for:):DataProvider.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemCardVC.initController() -&gt; ():ItemCardVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "categories">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.itemListPressed(_:):ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "userOutlet">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, sizeForItemAt : IndexPath) -&gt; CGSize:CollectionFreeViewCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self._viewCollection.frame.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "(null):(null)">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FirebaseService.getFiltredProductList(with:completion:):FirebaseService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "searchedText">
+            </PersistentString>
+            <PersistentString
+               value = "goods[0].fullName.range(of: &quot;c&#x43f;&#x430;&quot;) != nil">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "OutletCell.layoutSubviews():OutletCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.contentView.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListAdapter.getRowsInSection(_:):ShopListAdapter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in ShoplistInteractor.getPriceStatistics(for:):ShoplistInteractor.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListAssembler.assemble():ShopListAssembler.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.getCategoriesFromCoreData() -&gt; [ItemCategory]:CoreDataService.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "initCategories.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "== infix(_:_:):ShoplistItemModel.swift">
       </ContextState>
       <ContextState
          contextName = "ItemStatistic.init(productId:priceData:):ShopItem.swift">
          <PersistentStrings>
             <PersistentString
                value = "priceData[&quot;date&quot;] as String">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "UpdatePriceVC.viewDidLoad():UpdatePriceVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Target.url.getter:FoursqareProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "&quot;\(Target.baseUrl)\(outletId)&amp;v=\(dateString)&quot;">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -459,24 +787,46 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in DataProvider.syncCloud(completion:):DataProvider.swift">
+         contextName = "ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FirebaseService.save(new:):FirebaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CoreDataService.(loadShopList(outletId : String) -&gt; ShopListModel?).(closure #1):CoreDataService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.shoplist">
+               value = "$0.toProduct">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in CoreDataService.importNew(_:):CoreDataSync.swift">
-      </ContextState>
-      <ContextState
-         contextName = "FirebaseService.addGoodToCloud(ShopItem) -&gt; ():FirebaseService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListDataSource.init(shopModel:):ShopListDataSource.swift">
-      </ContextState>
-      <ContextState
          contextName = "FirebaseService.(loadUoms(uomList : ([ItemUom]) -&gt; ()) -&gt; ()).(closure #1):FirebaseService.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ItemListVC.scrollViewDidScroll(UIScrollView) -&gt; ():ItemListVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentPageStep">
+            </PersistentString>
+            <PersistentString
+               value = "self.itemList">
+            </PersistentString>
+            <PersistentString
+               value = "filtredItemList">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #6 in ItemListVC.setupAdapter():ItemListVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.prepare(for : UIStoryboardSegue, sender : Any?) -&gt; ():ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "shopList">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in ShopListController.synchronizeData():ShopListController.swift">
@@ -487,122 +837,27 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "DataProvider.syncCloud(completion:):DataProvider.swift">
+         contextName = "ItemCardPresenterImpl.choosen(id:):ItemCardPresenterImpl.swift">
       </ContextState>
       <ContextState
-         contextName = "ShopListController.itemListPressed(_:):ShopListController.swift">
+         contextName = "ItemCardRouterImpl.openPickerController(presenter:currentIndex:dataSource:):ItemCardRouter.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FirebaseService.getPrice(with:outletId:callback:):FirebaseService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "userOutlet">
+               value = "$0">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "QuantityPickerPopup2.makeW(parameter:):QuantityPickerPopup2.swift">
+         contextName = "closure #1 in ItemCardPresenterImpl.onCategoryPressed(currentCategory:):ItemCardPresenterImpl.swift">
       </ContextState>
       <ContextState
-         contextName = "ItemListVC.tableView(_:numberOfRowsInSection:):ItemListVC.swift">
+         contextName = "LocationService.locationManager(_:didUpdateLocations:):LocationService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "filtredItemList">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in FirebaseService.syncProducts(completion:):FirebaseService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.saveProduct(ShopItem) -&gt; ():CoreDataService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListDataSource.init(shopList:):ShopListDataSource.swift">
-      </ContextState>
-      <ContextState
-         contextName = "DataProvider.rowsIn(_:):DataProvider.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "sections.count">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CircleIndicator.justUpdate():CircleIndicatorView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListAdapter.tableView(_:didSelectRowAt:):ShopListAdapter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShoplistPresenterImpl.onReloadShoplist(for:):ShoplistPresenterImpl.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListAdapter.reload():ShopListAdapter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Double.rounded(toPlaces:):NumberExtensions.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "(r * divisor).rounded() / divisor">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShoplistPresenterImpl.updateDataSource():ShoplistPresenterImpl.swift">
-      </ContextState>
-      <ContextState
-         contextName = "static FirebaseParser.parse(_:):FirebaseParser.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "brand">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "DataProvider.getItem(index:):DataProvider.swift">
-      </ContextState>
-      <ContextState
-         contextName = "QuantityPickerPopup2.configurePopup():QuantityPickerPopup2.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "weightItems">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.weightDemanded(cell:currentValue:):ShopListController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ItemListAdapter.tableView(_:didSelectRowAt:):ItemListAdapter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "Repository.update(_:):Repository.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "itemList">
-            </PersistentString>
-            <PersistentString
-               value = "filtredItemList">
-            </PersistentString>
-            <PersistentString
-               value = "itemTableView">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in OutletListInteractor.searchOutlet(with:):OutletListInteractor.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "error.errorDescription">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "FoursqareProvider.outletMapper(from:):FoursqareProvider.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "venue[&quot;id&quot;]">
+               value = "coordsObtained">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -618,102 +873,13 @@
          contextName = "ShoplistPresenter.isProductHasPrice(for:in:):ShoplistPresenter.swift">
       </ContextState>
       <ContextState
-         contextName = "ItemListVC.tableView(_:didSelectRowAt:):ItemListVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "filtredItemList">
-            </PersistentString>
-            <PersistentString
-               value = "delegate">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "static FirebaseParser.parseToFBItemStatistic(from:):FirebaseParser.swift">
       </ContextState>
       <ContextState
-         contextName = "FoursqareProvider.parseVenues(from:completion:):FoursqareProvider.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "resp">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "ShopListAdapter.tableView(_:didSelectRowAt:):ShopListAdapter.swift">
       </ContextState>
       <ContextState
-         contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, sizeForItemAt : IndexPath) -&gt; CGSize:CollectionFreeViewCell.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self._viewCollection.frame.width">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.save(new:):CoreDataService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.onCurrentOutletUpdated(outlet:):ShopListController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopItemCell.pickerView(UIPickerView, didSelectRow : Int, inComponent : Int) -&gt; ():ShopItemCell.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "pickerView.frame">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "FoursqareProvider.searchOutlet(with:userCoordinate:completion:):FoursqareProvider.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "Target.searhOutlet(text, userCoordinate).url">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "QuantityPickerPopup2.numberOfComponents(in:):QuantityPickerPopup2.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ItemListVC.tableView(UITableView, didSelectRowAt : IndexPath) -&gt; ():ItemListVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "delegate">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.loadShopList(for:):ShopListControllerExchange.swift">
-      </ContextState>
-      <ContextState
-         contextName = "OutletService.locationManager(_:didUpdateLocations:):OutletService.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "locations.last?.coordinate">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.viewDidLoad():ShopListController.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ComparisonStatisticsViewController.viewDidLoad():ComparisonStatisticsViewController.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.view">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ItemListVC.viewDidAppear(_:):ItemListVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "outletId">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CollectionFreeViewCell.collectionView(UICollectionView, layout : UICollectionViewLayout, minimumInteritemSpacingForSectionAt : Int) -&gt; CGFloat:CollectionFreeViewCell.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "spaceBetweenView">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "closure #1 in FirebaseService.getPricesFor(_:callback:):FirebaseService.swift">
       </ContextState>
       <ContextState
          contextName = "FoursqareProvider.mapper(from:):FoursqareProvider.swift">
@@ -727,42 +893,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.handle(for : Outlet) -&gt; ():ShopListControllerExchange.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "launchedTimes">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "DataProvider.sectionCount.getter:DataProvider.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "shoplist">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "static FirebaseParser.parseUom(from:):FirebaseParser.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "max">
-            </PersistentString>
-            <PersistentString
-               value = "snapshot.childSnapshot(forPath: &quot;parameters&quot;) as! Dictionary&lt;String, Any&gt;">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in FoursqareProvider.request&lt;A&gt;(url:completed:parseFunction:):FoursqareProvider.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "parseData[&quot;response&quot;]">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "UpdatePriceVC.savePriceTapped(_:):UpdatePriceVC.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListController.hideButtons(gesture:):ShopListController.swift">
@@ -773,16 +904,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.(importGoodsFromFirebase(completion : () -&gt; ()) -&gt; ()).(closure #1).(closure #1):CoreDataService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in FoursqareProvider.loadOultets(userCoordinate:completion:):FoursqareProvider.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.update(_:):CoreDataService.swift">
+         contextName = "CoreDataService.shopItem(parse:and:):CoreDataService.swift">
       </ContextState>
       <ContextState
          contextName = "ShopListAdapter.tableView(_:cellForRowAt:):ShopListAdapter.swift">
@@ -796,76 +918,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
+         contextName = "UpdatePriceVC.updateStatistics(completin:):UpdatePriceVC.swift">
       </ContextState>
       <ContextState
-         contextName = "closure #2 in ItemListPresenter.getProductWithPrices(offset:limit:for:):ItemListPresenter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.handle(for : String) -&gt; ():ShopListControllerExchange.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopItem.init(id:goodData:):ShopItem.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListModel.change(ShopItem) -&gt; ():ShopListModel.swift">
-      </ContextState>
-      <ContextState
-         contextName = "UpdatePriceVC.savePriceTapped(_:):UpdatePriceVC.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataService.saveToShopList(ShopItem) -&gt; ():CoreDataService.swift">
-      </ContextState>
-      <ContextState
-         contextName = "QuantityModel.init(type:currentValue:):QuantityPickerPopup.swift">
+         contextName = "ShopListController.viewDidAppear(_:):ShopListController.swift">
          <PersistentStrings>
             <PersistentString
-               value = "wholeItem.double">
-            </PersistentString>
-            <PersistentString
-               value = "currentValue">
-            </PersistentString>
-            <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
-            </PersistentString>
-            <PersistentString
-               value = "self.decimalItem">
+               value = "self.navigationItem.titleView.frame">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "ShoplistRouter.prepare(for:sender:data:):ShoplistRouter.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ItemCardVC.initController() -&gt; ():ItemCardVC.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "categories">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in ShoplistInteractor.getPriceStatistics(for:completion:):ShoplistInteractor.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListModel.append(ShopItem) -&gt; ():ShopListModel.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "shopList">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "DataProvider.saveShoplist():DataProvider.swift">
-      </ContextState>
-      <ContextState
-         contextName = "(null):(null)">
-      </ContextState>
-      <ContextState
-         contextName = "ShopListController.itemChoosen(productId:):ShopListControllerExchange.swift">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

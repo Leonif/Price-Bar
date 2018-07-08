@@ -189,9 +189,23 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func onQuantityChanged(productId: String) {
         
+        var quantityEntity: QuantityModel = QuantityModel(parameters: [], currentValue: 0.0, answerDict: ["productId": productId])
         
+        let currentValue = self.repository.getProductQuantity(productId: productId)
+        quantityEntity.currentValue = currentValue
         
-        //self.router.openQuantityController(presenter: self, currentIndex: <#T##Int#>, dataSource: <#T##[PickerData]#>)
+        repository.getProductEntity(for: productId) { (result) in
+            switch result {
+            case let .success(product):
+                self.repository.getParametredUom(for: product.uomId) { (uomModel) in
+                    quantityEntity.parameters = uomModel.parameters
+                    self.router.openQuantityController(presenter: self, quantityEntity: quantityEntity)
+                }
+                
+            case let .failure(error):
+                self.view.onError(error: error.message)
+            }
+        }
     }
     
     
@@ -231,8 +245,13 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 }
 
 
-extension ShoplistPresenterImpl: PickerControlDelegate {
-    func choosen(id: Int32) {
+extension ShoplistPresenterImpl: QuantityPickerPopupDelegate {
+    func choosen(weight: Double, answer: [String : Any]) {
+        guard let productId = answer["productId"] as? String else {
+            return
+        }
+        repository.changeShoplistItem(weight, for: productId)
+        self.view.onQuantityChanged()
         
     }
 }

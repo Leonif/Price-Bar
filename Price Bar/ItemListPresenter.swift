@@ -35,20 +35,28 @@ class ItemListPresenterImpl: ItemListPresenter {
             self.view.hideLoading()
             switch result {
             case let .success(products):
-                self.getItemsWithPrices(for: products, outletId: outletId)
+                self.view.showLoading(with: R.string.localizable.getting_actual_price())
+                self.getItemsWithPrices(for: products, outletId: outletId, completion: { (itemsWithPrices) in
+                    self.view.hideLoading()
+                    self.view.onFetchedNewBatch(items: itemsWithPrices)
+                })
             case let .failure(error):
+                self.view.hideLoading()
                 self.view.onError(with: error.message)
             }
         }
     }
     
-    
     func onFilterList(basedOn searchText: String, with outletId: String) {
         if  searchText.count >= 3 {
+            self.view.showLoading(with: R.string.localizable.common_get_product_info())
             repository.filterItemList(contains: searchText, for: outletId) { (result) in
                 switch result {
                 case let .success(products):
-                    self.getItemsWithPrices(for: products, outletId: outletId)
+                    self.getItemsWithPrices(for: products, outletId: outletId, completion: { (itemsWithPrices) in
+                        self.view.hideLoading()
+                        self.view.onFiltredItems(items: itemsWithPrices)
+                    })
                 case let .failure(error):
                     self.view.onError(with: error.message)
                 }
@@ -71,7 +79,7 @@ class ItemListPresenterImpl: ItemListPresenter {
 // FIXME: move to Interactor/Use case
 extension ItemListPresenterImpl {
     
-    private func getItemsWithPrices(for products: [DPProductEntity], outletId: String) {
+    private func getItemsWithPrices(for products: [DPProductEntity], outletId: String, completion: @escaping ([ItemListViewEntity]) -> Void) {
         
         guard !products.isEmpty else {
             self.view.onFetchedNewBatch(items: [])
@@ -82,7 +90,7 @@ extension ItemListPresenterImpl {
         var productAdjusted: [ItemListViewEntity] = []
         let itemDispatchGroup = DispatchGroup()
         
-        self.view.showLoading(with: R.string.localizable.common_get_product_info())
+
         
         for product in products {
             itemDispatchGroup.enter()
@@ -93,8 +101,7 @@ extension ItemListPresenterImpl {
         }
         
         itemDispatchGroup.notify(queue: .main) {
-            self.view.hideLoading()
-            self.view.onFetchedNewBatch(items: productAdjusted)
+            completion(productAdjusted)
         }
     }
     

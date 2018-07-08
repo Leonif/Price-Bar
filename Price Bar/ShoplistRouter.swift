@@ -17,7 +17,7 @@ protocol ShoplistRouter: BaseRouter {
     func openScanner(presenter: ShoplistPresenter)
     func openItemList(for outletId: String, presenter: ShoplistPresenter)
     func openOutletList(presenter: ShoplistPresenter)
-    func openQuantityController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData])
+    func openQuantityController(presenter: QuantityPickerPopupDelegate, quantityEntity: QuantityModel)
 }
 
 
@@ -67,10 +67,8 @@ class ShoplistRouterImpl: ShoplistRouter {
         self.pushModule(fromModule: fromVC, toModule: module)
     }
     
-    func openQuantityController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData]) {
-        
-        let picker = PickerControl(delegate: presenter, dataSource: dataSource, currentIndex: currentIndex)
-        
+    func openQuantityController(presenter: QuantityPickerPopupDelegate, quantityEntity: QuantityModel) {
+        let picker = QuantityPickerPopup(delegate: presenter, model: quantityEntity)
         self.presentController(fromModule: fromVC, to: picker)
     }
 }

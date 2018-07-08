@@ -58,21 +58,6 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         return sectionNames[section]
     }
     
-    func getQuantity(for productId: String) -> Double {
-        let p = dataSource.filter { $0.productId == productId }
-        return p.first!.quantity
-    }
-    
-    // FIXME: move to presenter
-    func changeShoplistItem(_ quantity: Double, for productId: String) {
-        for (index, item) in dataSource.enumerated() {
-            if item.productId == productId {
-                dataSource[index].quantity = quantity
-            }
-        }
-        CoreDataService.data.changeShoplistItem(quantity, for: productId)
-    }
-    
     
     // FIXME: move to presenter
     func remove(item: ShoplistItem) {
@@ -193,10 +178,6 @@ extension ShopListAdapter: UITableViewDelegate {
         cell.cellView.layer.cornerRadius = 8.0
         PriceBarStyles.shadowAround.apply(to: cell.cellView)
         
-//        [cell.quantityButton, cell.priceView].forEach {
-//            PriceBarStyles.grayBorderedRounded.apply(to: $0)
-//        }
-        
         PriceBarStyles.grayBorderedRounded.apply(to: cell.quantityButton, cell.priceView)
         
         cell.priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
@@ -216,33 +197,6 @@ extension ShopListAdapter: UITableViewDelegate {
         
         cell.quantityButton.setTitle(btnTitle, for: .normal)
         cell.totalItem.text = String(format: "UAH\n%.2f", total)
-    }
-}
-
-// MARK: - Cell handlers
-extension ShopListAdapter {
-    func handleWeightDemanded(cell: ShopItemCell) {
-        guard let indexPath = self.tableView.indexPath(for: cell)  else {
-                fatalError("Not possible to find out type of item")
-        }
-        
-        let item = self.getItem(index: indexPath)
-        
-        let currentValue = self.getQuantity(for: item.productId)
-        let model = QuantityModel(parameters: item.parameters,
-                                  indexPath: indexPath,
-                                  currentValue: currentValue)
-        let pickerVC = QuantityPickerPopup(delegate: self, model: model)
-        self.vc.present(pickerVC, animated: true, completion: nil)
-    }
-}
-
-// MARK: - Quantity changing of item handler
-extension ShopListAdapter: QuantityPickerPopupDelegate {
-    func choosen(weight: Double, for indexPath: IndexPath) {
-        let item = self.getItem(index: indexPath)
-        self.changeShoplistItem(weight, for: item.productId)
-        self.tableView.reloadRows(at: [indexPath], with: .none)
     }
 }
 

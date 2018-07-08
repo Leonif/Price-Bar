@@ -15,7 +15,7 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
     var tableView: UITableView!
 
     var dataSource: [ItemListViewEntity] = []
-    var filtredItemList: [ItemListViewEntity] = []
+    var filtredItemList: [ItemListViewEntity] = [] 
     var currentPageOffset: Int = 0
     
     var isLoading = false
@@ -39,6 +39,9 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
         self.filtredItemList = sortedItems
         self.reload()
     }
+    
+    
+    
     
     func reload() {
         self.tableView.reloadData()

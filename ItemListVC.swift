@@ -12,6 +12,7 @@ import UIKit
 
 protocol ItemListView: BaseView {
     func onFetchedNewBatch(items: [ItemListViewEntity])
+    func onFiltredItems(items: [ItemListViewEntity])
     
 }
 
@@ -54,6 +55,14 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
         
         self.adapter.addNewBatch(nextBatch: items)
     }
+    
+    func onFiltredItems(items: [ItemListViewEntity]) {
+        guard !items.isEmpty else { return }
+        adapter.filtredItemList = items
+        adapter.reload()
+    }
+    
+    
     
     private func setupAdapter() {
         

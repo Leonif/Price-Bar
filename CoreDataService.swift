@@ -26,16 +26,43 @@ class CoreDataService {
     }
 
     func removeFromShopList(with productId: String) {
+        
+        guard let product = self.getProductFromShopList(with: productId) else {
+            fatalError()
+        }
+        
+        
+        context.delete(product)
+        ad.saveContext()
+        
+        
+//        do {
+//            let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+//            shpLstRequest.predicate = NSPredicate(format: "productId == %@", productId)
+//            let productExist = try context.fetch(shpLstRequest)
+//
+//            productExist.forEach { context.delete($0) }
+//            ad.saveContext()
+//        } catch {
+//            print("Products is not got from database")
+//        }
+    }
+    
+    
+    
+    private func getProductFromShopList(with productId: String) -> ShopList? {
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
             shpLstRequest.predicate = NSPredicate(format: "productId == %@", productId)
             let productExist = try context.fetch(shpLstRequest)
-
-            productExist.forEach { context.delete($0) }
-            ad.saveContext()
+            
+            return productExist.first
+            
         } catch {
             print("Products is not got from database")
         }
+        
+        return nil
     }
 
     func loadShopList() -> [CDShoplistItem]? {
@@ -59,6 +86,34 @@ class CoreDataService {
         return shopList
 
     }
+    
+    
+    
+    
+    
+    
+    func removeAll(from entity: String) {
+        let requestCategories = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: requestCategories)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            fatalError("\(entity) removing error")
+        }
+    }
+    
+    
+    func getQuantityOfProduct(productId: String) -> Double {
+        guard let product = self.getProductFromShopList(with: productId) else {
+            fatalError()
+        }
+        
+        return product.quantity
+    }
+    
+    
 }
 
 // MARK: Product
@@ -348,7 +403,7 @@ extension CoreDataService {
 //    }
 
     func changeShoplistItem(_ quantity: Double, for productId: String) {
-        guard let item = getShopItemInShopList(by: productId) else {
+        guard let item = self.getProductFromShopList(with: productId) else {
             fatalError("item is not found in shoplist")
         }
         item.quantity = quantity
@@ -356,20 +411,20 @@ extension CoreDataService {
         ad.saveContext()
     }
 
-    func getShopItemInShopList(by productId: String) -> ShopList? {
-
-        do {
-            let shopProdRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
-            shopProdRequest.predicate = NSPredicate(format: "toProduct.id == %@", productId)
-            let shoppedProduct = try context.fetch(shopProdRequest)
-            guard !shoppedProduct.isEmpty, let item = shoppedProduct.first else {
-                return nil
-            }
-            return item
-        } catch {
-            fatalError("shopitem is not found")
-        }
-        return nil
-    }
+//    func getShopItemInShopList(by productId: String) -> ShopList? {
+//
+//        do {
+//            let shopProdRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+//            shopProdRequest.predicate = NSPredicate(format: "productId == %@", productId)
+//            let shoppedProduct = try context.fetch(shopProdRequest)
+//            guard !shoppedProduct.isEmpty, let item = shoppedProduct.first else {
+//                return nil
+//            }
+//            return item
+//        } catch {
+//            fatalError("shopitem is not found")
+//        }
+//        return nil
+//    }
 }
 

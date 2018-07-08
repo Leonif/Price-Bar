@@ -21,9 +21,12 @@ class ItemCardRouterImpl: ItemCardRouter {
     
     func openPickerController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData]) {
         
-        let picker = PickerControl(delegate: presenter, dataSource: dataSource, currentIndex: currentIndex) as! BaseView
+        let picker = PickerControl(delegate: presenter, dataSource: dataSource, currentIndex: currentIndex)
         
-        self.presentModule(fromModule: fromVC, toModule: picker)
+        self.presentController(fromModule: fromVC, to: picker)
+        
+        
+        
     }
     
     

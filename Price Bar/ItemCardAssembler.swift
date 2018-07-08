@@ -13,12 +13,18 @@ class ItemCardAssembler {
         
         let repository = Repository()
         let presenter = ItemCardPresenterImpl()
+        let router = ItemCardRouterImpl()
+        
+        
         presenter.repository = repository
+        presenter.router = router
         
         let view =  R.storyboard.main.itemCardVC()!//ItemCardVC(nib: R.nib.itemCardVC)
         
         view.presenter = presenter
         presenter.view = view
+        
+        router.fromVC = view
         
         view.productId = productId
         view.outletId = outletId

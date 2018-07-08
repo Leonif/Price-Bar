@@ -19,6 +19,10 @@ struct PickerData {
 }
 
 class PickerControl: UIViewController {
+    func close() {
+        
+    }
+    
 
     var dataSource: [PickerData] = []
     var indexPath: IndexPath?

@@ -13,7 +13,7 @@ protocol ShoplistRouter: BaseRouter {
     func openStatistics()
     func openUpdatePrice(presenter: ShoplistPresenter, for productId: String, currentPrice: Double, outletId: String)
     func openIssue(with issue: String)
-    func openItemCard(for item: ShoplistItem, outletId: String)
+    func openItemCard(for productId: String, outletId: String)
     func openScanner(presenter: ShoplistPresenter)
     func openItemList(for outletId: String, presenter: ShoplistPresenter)
     func openOutletList(presenter: ShoplistPresenter)
@@ -44,9 +44,9 @@ class ShoplistRouterImpl: ShoplistRouter {
         }
     }
     
-    func openItemCard(for item: ShoplistItem, outletId: String) {
+    func openItemCard(for productId: String, outletId: String) {
         
-        let module = ItemCardAssembler().assemble(for: item.productId, outletId: outletId)
+        let module = ItemCardAssembler().assemble(for: productId, outletId: outletId)
         
         self.presentModule(fromModule: fromVC, toModule: module)
     }

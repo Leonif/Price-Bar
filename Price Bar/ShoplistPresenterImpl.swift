@@ -18,7 +18,7 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
     func onOpenUpdatePrice(for barcode: String, outletId: String)
     func onOpenIssueVC(with issue: String)
     func onOpenItemCard(for item: ShoplistItem, with outletId: String)
-    func onOpenNewItemCard(for productId: String)
+    func onOpenNewItemCard(for productId: String, outletId: String)
     func onOpenScanner()
     func onOpenItemList(for outletId: String)
     func onOpenOutletList()
@@ -29,7 +29,6 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
 }
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
-    
     weak var view: ShoplistView!
     var router: ShoplistRouter!
     var repository: Repository!
@@ -58,7 +57,10 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     func addToShoplist(with productId: String, and outletId: String) {
         self.view.showLoading(with: R.string.localizable.getting_actual_price())
         repository.getItem(with: productId, and: outletId) { [weak self] (product) in
-            guard let product = product else { fatalError() }
+            guard let product = product else {
+                self?.view.onProductIsNotFound(productId: productId)
+                return
+            }
             guard let `self` = self else { return }
             
             self.addItemToShopList(product, and: outletId, completion: { result in
@@ -163,7 +165,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func onOpenItemCard(for item: ShoplistItem, with outletId: String) {
-        self.router.openItemCard(for: item, outletId: outletId)
+        self.router.openItemCard(for: item.productId, outletId: outletId)
     }
     
     func onOpenScanner() {
@@ -178,8 +180,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.router.openOutletList(presenter: self)
     }
     
-    func onOpenNewItemCard(for productId: String) {
+    func onOpenNewItemCard(for productId: String, outletId: String) {
         //TODO: need to implement
+        self.router.openItemCard(for: productId, outletId: outletId)
     }
     
     func onCleanShopList() {

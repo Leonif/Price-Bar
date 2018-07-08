@@ -26,7 +26,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     var updatePriceOutput: UpdatePriceOutput!
     
     func onGetProductInfo(for productId: String, and outletId: String) {
-        self.view.showLoading(with: "Получаем информацию о продукте")
+        self.view.showLoading(with: R.string.localizable.common_get_product_info())
         self.repository.getItem(with: productId, and: outletId) { (dpProductEntity) in
             guard let dpProductEntity = dpProductEntity else {
                 self.view.hideLoading()
@@ -43,7 +43,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
                             self.view.onError(with: R.string.localizable.error_something_went_wrong())
                             return
                         }
-                        self.view.onGetProductInfo(price: price, name: dpProductEntity.name, uomName: uomName)
+                        self.view.onGetProductInfo(price: price, name: dpProductEntity.fullName, uomName: uomName)
                     case let .failure(error):
                         self.view.onError(with: error.message)
                     }

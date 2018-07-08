@@ -35,13 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let module = ShopListAssembler().assemble()
         self.window?.rootViewController = UINavigationController(rootViewController: module)
         self.window?.makeKeyAndVisible()
-        
-        
 
         return true
     }

@@ -139,7 +139,7 @@ class ShopListController: UIViewController, ShoplistView {
     }
     
     func onProductIsNotFound(productId: String) {
-        self.presenter.onOpenNewItemCard(for: productId)
+        self.presenter.onOpenNewItemCard(for: productId, outletId: userOutlet.id)
     }
     
     

@@ -15,6 +15,16 @@ struct DPProductEntity {
     var weightPerPiece: String
     var categoryId: Int32
     var uomId: Int32
+    
+    var fullName: String {
+        
+        let pr = "\(name)"
+        let br = brand.isEmpty ? "" : ", \(brand)"
+        let w = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
+        
+        return "\(pr)\(br)\(w)"
+    }
+    
 }
 
 // FIXME: remove

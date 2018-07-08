@@ -90,8 +90,6 @@ extension ItemListPresenterImpl {
         var productAdjusted: [ItemListViewEntity] = []
         let itemDispatchGroup = DispatchGroup()
         
-
-        
         for product in products {
             itemDispatchGroup.enter()
             self.getItemWithPrice(for: product.id, outletId: outletId, completion: { (itemListView) in

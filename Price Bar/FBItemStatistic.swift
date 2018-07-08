@@ -9,7 +9,7 @@
 import Foundation
 
 struct FBItemStatistic {
-    var productId: String
+//    var productId: String
     var price: Double
     var outletId: String
     var date: Date
@@ -23,14 +23,14 @@ struct FBItemStatistic {
                 return nil
         }
 
-        self.productId = ""
+//        self.productId = ""
         self.price = price
         self.outletId = outletId
         self.date = dateStr.toDate(with: "dd.MM.yyyy HH:mm:ss")!
     }
 
     init(productId: String, price: Double, outletId: String) {
-        self.productId = productId
+//        self.productId = productId
         self.price = price
         self.outletId = outletId
         self.date = Date()

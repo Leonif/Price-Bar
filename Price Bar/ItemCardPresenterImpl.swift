@@ -174,7 +174,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                                                        oldPrice: oldPrice,
                                                        date: Date())
             
-            self.saveStatistic(statistic: priceStatistic)
+            self.savePrice(for: productId, statistic: priceStatistic)
         }
     }
     
@@ -185,7 +185,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     
     
     
-    private func saveStatistic(statistic: DPPriceStatisticModel) {
+    private func savePrice(for productId: String, statistic: DPPriceStatisticModel) {
         
         guard statistic.newPrice != 0.0 else {
             self.view.onError(with: R.string.localizable.price_update_not_changed())
@@ -197,7 +197,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             return
         }
         
-        self.repository.save(new: statistic)
+        self.repository.savePrice(for: productId, statistic: statistic)
     }
     
     

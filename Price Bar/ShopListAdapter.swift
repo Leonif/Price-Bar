@@ -16,6 +16,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     var onCellDidSelected: ((ShoplistItem) -> Void)?
     var onCompareDidSelected: ((ShoplistItem) -> Void)?
     var onRemoveItem: ((String) -> Void)?
+    var onQuantityChange: ((String) -> Void)?
     
     var sectionNames: [String] = []
     var dataSource: [ShoplistItem] = [] {
@@ -136,7 +137,9 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         }
         
         cell.onWeightDemand = { [weak self] cell in
-            self?.handleWeightDemanded(cell: cell)
+            guard let `self` = self else { return }
+            let item = self.getItem(index: indexPath)
+            self.onQuantityChange?(item.productId)
         }
         cell.onCompareDemand = { [weak self] cell in
             guard let `self` = self else { return }
@@ -190,9 +193,12 @@ extension ShopListAdapter: UITableViewDelegate {
         cell.cellView.layer.cornerRadius = 8.0
         PriceBarStyles.shadowAround.apply(to: cell.cellView)
         
-        [cell.quantityButton, cell.priceView].forEach {
-            PriceBarStyles.grayBorderedRounded.apply(to: $0)
-        }
+//        [cell.quantityButton, cell.priceView].forEach {
+//            PriceBarStyles.grayBorderedRounded.apply(to: $0)
+//        }
+        
+        PriceBarStyles.grayBorderedRounded.apply(to: cell.quantityButton, cell.priceView)
+        
         cell.priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
         cell.nameItem.text = item.fullName
         cell.priceItem.text = String(format: "%.2f", item.productPrice)

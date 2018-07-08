@@ -128,23 +128,23 @@ extension CoreDataService {
 //        }
     }
 
-    func transform(from stats: [FBItemStatistic]) -> [CDStatisticModel] {
+//    func transform(from stats: [FBItemStatistic]) -> [CDStatisticModel] {
+//
+//        var cdStats: [CDStatisticModel] = []
+//
+//        for stat in stats {
+//            cdStats.append(mapper(from: stat))
+//        }
+//        return cdStats
+//    }
 
-        var cdStats: [CDStatisticModel] = []
-
-        for stat in stats {
-            cdStats.append(mapper(from: stat))
-        }
-        return cdStats
-    }
-
-    func mapper(from stat: FBItemStatistic) -> CDStatisticModel {
-
-        return CDStatisticModel(productId: stat.productId,
-                                price: stat.price,
-                                outletId: stat.outletId,
-                                date: stat.date)
-    }
+//    func mapper(from stat: FBItemStatistic) -> CDStatisticModel {
+//
+//        return CDStatisticModel(productId: stat.productId,
+//                                price: stat.price,
+//                                outletId: stat.outletId,
+//                                date: stat.date)
+//    }
 
 //    public func importNew(_ statistics: [CDStatisticModel]) {
 //        removeAll(from: "Statistic")

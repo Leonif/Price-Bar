@@ -17,11 +17,11 @@ protocol ShoplistRouter: BaseRouter {
     func openScanner(presenter: ShoplistPresenter)
     func openItemList(for outletId: String, presenter: ShoplistPresenter)
     func openOutletList(presenter: ShoplistPresenter)
+    func openQuantityController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData])
 }
 
 
 class ShoplistRouterImpl: ShoplistRouter {
-    
     
     weak var fromVC: ShoplistView!
     var repository: Repository!
@@ -66,6 +66,15 @@ class ShoplistRouterImpl: ShoplistRouter {
         let module = OutletListAssembler().assemble(outletListOutput: presenter)
         self.pushModule(fromModule: fromVC, toModule: module)
     }
+    
+    func openQuantityController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData]) {
+        
+        let picker = PickerControl(delegate: presenter, dataSource: dataSource, currentIndex: currentIndex)
+        
+        self.presentController(fromModule: fromVC, to: picker)
+    }
 }
+
+
 
 

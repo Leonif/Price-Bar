@@ -123,11 +123,11 @@ class Repository {
     
     
     
-    func save(new statistic: DPPriceStatisticModel) {
+    func savePrice(for productId: String, statistic: DPPriceStatisticModel) {
         let fb = FBItemStatistic(productId: statistic.productId,
                                price: statistic.newPrice,
                                outletId: statistic.outletId)
-        FirebaseService.data.save(new: fb)
+        FirebaseService.data.savePrice(for: productId, statistic: fb)
     }
 
     func save(new product: DPUpdateProductModel) {
@@ -192,7 +192,7 @@ class Repository {
         
         FirebaseService.data.getPricesFor(productId) { (statistics) in
             let prices = statistics.map {
-                return ProductPrice(productId: $0.productId, productName: "",
+                return ProductPrice(productId: productId, productName: "",
                                     currentPrice: $0.price,
                                     outletId: $0.outletId,
                                     date: $0.date)

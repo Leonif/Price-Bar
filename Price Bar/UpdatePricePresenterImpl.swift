@@ -60,7 +60,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
         let dpStatModel = DPPriceStatisticModel(outletId: outletId,
                                                 productId: productId,
                                                 newPrice: newPrice, oldPrice: oldPrice, date: Date())
-        self.repository.save(new: dpStatModel)
+        self.repository.savePrice(for: productId, statistic: dpStatModel)
         self.updatePriceOutput.saved()
     }
     

@@ -25,6 +25,7 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
     func onReloadShoplist(for outletId: String)
     func onCleanShopList()
     func onRemoveItem(productId: String)
+    func onQuantityChanged(productId: String)
 }
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
@@ -66,7 +67,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 case let .failure(error):
                     self.view.onError(error: error.message)
                 case .success:
-//                    self.view.onAddedItemToShoplist(productId: productId)
                     self.updateShoplist()
                 }
             })
@@ -118,6 +118,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self?.view.onIsProductHasPrice(isHasPrice: price > 0.0, barcode: productId)
         })
     }
+    
+    
+    
     
     
     func onReloadShoplist(for outletId: String) {
@@ -184,6 +187,14 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.updateShoplist()
     }
     
+    func onQuantityChanged(productId: String) {
+        
+        
+        
+        //self.router.openQuantityController(presenter: self, currentIndex: <#T##Int#>, dataSource: <#T##[PickerData]#>)
+    }
+    
+    
     func onRemoveItem(productId: String) {
         self.repository.remove(itemId: productId)
         self.updateShoplist()
@@ -217,4 +228,11 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         // TODO: open new Item card with suggested name product
     }
     
+}
+
+
+extension ShoplistPresenterImpl: PickerControlDelegate {
+    func choosen(id: Int32) {
+        
+    }
 }

@@ -160,6 +160,10 @@ class ShopListController: UIViewController, ShoplistView {
             self.presenter.onOpenItemCard(for: item, with: self.userOutlet.id)
         }
         
+        self.adapter.onQuantityChange = { [weak self] productId in
+            self?.presenter.onQuantityChanged(productId: productId)
+        }
+        
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
             self.presenter.onOpenUpdatePrice(for: item.productId, outletId: self.userOutlet.id)

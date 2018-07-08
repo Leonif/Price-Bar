@@ -319,7 +319,7 @@ struct R: Rswift.Validatable {
       fileprivate init() {}
     }
     
-    /// This `R.string.localizable` struct is generated, and contains static references to 48 localization keys.
+    /// This `R.string.localizable` struct is generated, and contains static references to 50 localization keys.
     struct localizable {
       /// en translation: %@ actual prices
       /// 
@@ -361,6 +361,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ru
       static let sync_process_start = Rswift.StringResource(key: "sync_process_start", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Category is not available %@
+      /// 
+      /// Locales: en, ru
+      static let common_category_is_absent = Rswift.StringResource(key: "common_category_is_absent", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
       /// en translation: Clean shop list? 🧐
       /// 
       /// Locales: en, ru
@@ -449,6 +453,10 @@ struct R: Rswift.Validatable {
       /// 
       /// Locales: en, ru
       static let shop_list_quantity = Rswift.StringResource(key: "shop_list_quantity", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
+      /// en translation: Retrieving product information
+      /// 
+      /// Locales: en, ru
+      static let common_get_product_info = Rswift.StringResource(key: "common_get_product_info", tableName: "Localizable", bundle: R.hostingBundle, locales: ["en", "ru"], comment: nil)
       /// en translation: Search for a store
       /// 
       /// Locales: en, ru
@@ -582,6 +590,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ru
       static func sync_process_start(_: Void = ()) -> String {
         return NSLocalizedString("sync_process_start", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Category is not available %@
+      /// 
+      /// Locales: en, ru
+      static func common_category_is_absent(_ value1: String) -> String {
+        return String(format: NSLocalizedString("common_category_is_absent", bundle: R.hostingBundle, comment: ""), locale: R.applicationLocale, value1)
       }
       
       /// en translation: Clean shop list? 🧐
@@ -736,6 +751,13 @@ struct R: Rswift.Validatable {
       /// Locales: en, ru
       static func shop_list_quantity(_: Void = ()) -> String {
         return NSLocalizedString("shop_list_quantity", bundle: R.hostingBundle, comment: "")
+      }
+      
+      /// en translation: Retrieving product information
+      /// 
+      /// Locales: en, ru
+      static func common_get_product_info(_: Void = ()) -> String {
+        return NSLocalizedString("common_get_product_info", bundle: R.hostingBundle, comment: "")
       }
       
       /// en translation: Search for a store

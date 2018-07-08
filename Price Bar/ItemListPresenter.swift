@@ -82,7 +82,7 @@ extension ItemListPresenterImpl {
         var productAdjusted: [ItemListViewEntity] = []
         let itemDispatchGroup = DispatchGroup()
         
-        self.view.showLoading(with: "Получение информации о товарах")
+        self.view.showLoading(with: R.string.localizable.common_get_product_info())
         
         for product in products {
             itemDispatchGroup.enter()
@@ -101,9 +101,6 @@ extension ItemListPresenterImpl {
     private func getItemWithPrice(for produtId: String, outletId: String, completion: @escaping (ItemListViewEntity) -> Void) {
         
         
-        
-        
-        
         self.repository.getProductEntity(for: produtId) { (result) in
             switch result {
             case let .success(product):
@@ -112,17 +109,17 @@ extension ItemListPresenterImpl {
                     case let .success(categoryName):
 
                         guard let categoryName = categoryName else {
-                            self.view.onError(with: R.string.localizable.error_something_went_wrong())
+                            self.view.onError(with: R.string.localizable.common_category_is_absent(product.name))
                             return
                         }
-//                        self.repository.getPrice(for: produtId, and: outletId, completion: { (price) in
+                        self.repository.getPrice(for: produtId, and: outletId, completion: { (price) in
                             let item = ItemListViewEntity(id: produtId,
                                                           product: product.name,
                                                           brand: product.brand,
                                                           weightPerPiece: product.weightPerPiece,
-                                                          currentPrice: 0.0, categoryName: categoryName)
+                                                          currentPrice: price, categoryName: categoryName)
                             completion(item)
-//                        })
+                        })
                     case let .failure(error):
                         self.view.hideLoading()
                         self.view.onError(with: error.message)

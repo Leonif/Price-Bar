@@ -113,7 +113,7 @@ class ItemCardVC: UIViewController, ItemCardView {
     }
     
     func onUomChoosen(name: String) {
-        self.categoryButton.setTitle(name, for: .normal)
+        self.uomButton.setTitle(name, for: .normal)
     }
     
     func onCategoryChoosen(name: String) {

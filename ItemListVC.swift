@@ -8,12 +8,9 @@
 
 import UIKit
 
-
-
 protocol ItemListView: BaseView {
     func onFetchedNewBatch(items: [ItemListViewEntity])
     func onFiltredItems(items: [ItemListViewEntity])
-    
 }
 
 class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
@@ -41,14 +38,12 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
         return b
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupAdapter()
         self.setupNavigation()
     }
-
     
     func onFetchedNewBatch(items: [ItemListViewEntity]) {
         guard !items.isEmpty else { return }
@@ -61,8 +56,6 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
         adapter.filtredItemList = items
         adapter.reload()
     }
-    
-    
     
     private func setupAdapter() {
         
@@ -116,7 +109,6 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     @objc func close() {
         self.navigationController?.popViewController(animated: true)
     }
-    
     
 }
 

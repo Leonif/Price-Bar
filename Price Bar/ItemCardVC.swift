@@ -73,8 +73,6 @@ class ItemCardVC: UIViewController, ItemCardView {
         
         // Add touch gesture for contentView
         self.contentView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(returnTextView(gesture:))))
-        
-        
     }
     
     func onCardInfoUpdated(productCard: ProductCardEntity) {
@@ -89,8 +87,6 @@ class ItemCardVC: UIViewController, ItemCardView {
         
         
         self.productCard = productCard
-        
-        
     }
     
     @IBAction func categoryPressed(_ sender: Any) {
@@ -156,7 +152,6 @@ class ItemCardVC: UIViewController, ItemCardView {
     
     
     @IBAction func savePressed(_ sender: Any) {
-        
         guard let oldPrice = self.productCard?.oldPrice else {
             self.onError(with: R.string.localizable.error_something_went_wrong())
             return

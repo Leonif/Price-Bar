@@ -10,13 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PriceBar/Repository.swift"
-            timestampString = "552554700.403134"
+            timestampString = "552842139.780671"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "501"
-            endingLineNumber = "501"
-            landmarkName = "Repository"
-            landmarkType = "3">
+            startingLineNumber = "485"
+            endingLineNumber = "485">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,13 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PriceBar/Repository.swift"
-            timestampString = "552554700.403208"
+            timestampString = "552842139.780726"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
-            landmarkName = "Repository"
-            landmarkType = "3">
+            startingLineNumber = "485"
+            endingLineNumber = "485">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -73,13 +69,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Price Bar/ItemCardPresenterImpl.swift"
-            timestampString = "552813362.319169"
+            filePath = "Price Bar/ItemCardVC.swift"
+            timestampString = "552842139.7807699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
-            landmarkName = "onGetCardInfo(productId:outletId:)"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
+            landmarkName = "close()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -90,60 +86,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Price Bar/ItemCardPresenterImpl.swift"
-            timestampString = "552813362.3192821"
+            timestampString = "552842139.7808141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "onGetCardInfo(productId:outletId:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;PriceBar_Dev.DPProductEntity&gt;) -&gt; () in PriceBar_Dev.ItemCardPresenterImpl.onGetCardInfo(productId: Swift.String, outletId: Swift.String) -&gt; ()"
-                  moduleName = "PriceBar Dev"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/leonif/Price-Bar/Price%20Bar/ItemCardPresenterImpl.swift"
-                  timestampString = "552813362.517318"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "356">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.String&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in closure #1 (Swift.Optional&lt;PriceBar_Dev.DPProductEntity&gt;) -&gt; () in PriceBar_Dev.ItemCardPresenterImpl.onGetCardInfo(productId: Swift.String, outletId: Swift.String) -&gt; ()"
-                  moduleName = "PriceBar Dev"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/leonif/Price-Bar/Price%20Bar/ItemCardPresenterImpl.swift"
-                  timestampString = "552813362.51904"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "39"
-                  endingLineNumber = "39"
-                  offsetFromSymbolStart = "96">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Price Bar/ItemCardPresenterImpl.swift"
-            timestampString = "552813362.319363"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
-            landmarkName = "onGetCardInfo(productId:outletId:)"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
+            landmarkName = "onUpdateOrCreateProduct(productCard:for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -154,12 +102,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Price Bar/ItemCardPresenterImpl.swift"
-            timestampString = "552813362.319438"
+            timestampString = "552842139.781305"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "54"
-            endingLineNumber = "54"
-            landmarkName = "onGetCardInfo(productId:outletId:)"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "onUpdateOrCreateProduct(productCard:for:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -13,6 +13,9 @@ enum PickerType {
     case category, uom
 }
 
+enum ItemCardError: Error {
+    case priceIsNotSaved(String)
+}
 
 
 protocol ItemCardPresenter {
@@ -32,7 +35,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     var oldPrice: Double = 0.0
     
     func onGetCardInfo(productId: String, outletId: String) {
-        self.view.showLoading(with: "Получаем информацию о товаре")
+        self.view.showLoading(with: R.string.localizable.common_get_product_info())
         repository.getItem(with: productId, and: outletId) { (dpProduct) in
             guard let dpProduct = dpProduct else {
                 self.combineGetForCategoryNamendUomName(categoryId: 1, uomId: 1, completion: { (categoryName, uomName, error) in
@@ -52,9 +55,6 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                         uomName: uomName ?? "")
                     
                     self.view.onCardInfoUpdated(productCard: product)
-                    
-                    
-                    
                 })
                 return
             }
@@ -89,11 +89,6 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             })
         }
     }
-    
-    
-    
-    
-    
     
     private func combineGetForCategoryNamendUomName(categoryId: Int32, uomId: Int32, completion: @escaping (String?, String?, Error?) -> Void) {
         self.repository.getCategoryName(for: categoryId) { (result) in
@@ -197,7 +192,16 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                                                        oldPrice: oldPrice,
                                                        date: Date())
             
-            self.savePrice(for: productId, statistic: priceStatistic)
+            //self.savePrice(for: productId, statistic: priceStatistic, completion: ())
+            self.savePrice(for: productId, statistic: priceStatistic, completion: { (result) in
+                switch result {
+                case let .failure(error):
+                    self.view.onError(with: error.localizedDescription)
+                case .success:
+                    self.view.close()
+                }
+            })
+            
         }
     }
     
@@ -208,18 +212,17 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     
     
     
-    private func savePrice(for productId: String, statistic: DPPriceStatisticModel) {
-        
+    private func savePrice(for productId: String, statistic: DPPriceStatisticModel, completion: (ResultType<Bool, ItemCardError>) -> Void) {
         guard statistic.newPrice != 0.0 else {
-            self.view.onError(with: R.string.localizable.price_update_not_changed())
+            completion(ResultType.failure(ItemCardError.priceIsNotSaved(R.string.localizable.price_update_not_changed())))
             return
         }
-        
         guard statistic.newPrice != statistic.oldPrice else {
-            self.view.onError(with: R.string.localizable.price_update_not_changed())
+            completion(ResultType.failure(ItemCardError.priceIsNotSaved(R.string.localizable.price_update_not_changed())))
             return
         }
         
+        completion(ResultType.success(true))
         self.repository.savePrice(for: productId, statistic: statistic)
     }
     

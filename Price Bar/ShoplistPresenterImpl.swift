@@ -121,10 +121,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         })
     }
     
-    
-    
-    
-    
     func onReloadShoplist(for outletId: String) {
         
         let loadingString = R.string.localizable.common_loading()
@@ -181,7 +177,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func onOpenNewItemCard(for productId: String, outletId: String) {
-        //TODO: need to implement
         self.router.openItemCard(for: productId, outletId: outletId)
     }
     

@@ -392,8 +392,11 @@ class Repository {
         
         for item in savedShoplist {
             shopItemGroup.enter()
-            self.getProductInfo(for: item) { (shopItem) in
-                shoplistWithZeroPrices.append(shopItem)
+            self.getProductInfo(for: item) { (shopItem, error)  in
+                
+                if error == nil {
+                    shoplistWithZeroPrices.append(shopItem!)
+                }
                 shopItemGroup.leave()
             }
         }
@@ -417,7 +420,7 @@ class Repository {
         })
     }
     
-    private func getProductInfo(for item: CDShoplistItem, completion: @escaping (ShoplistItem) -> Void) {
+    private func getProductInfo(for item: CDShoplistItem, completion: @escaping (ShoplistItem?, Error?) -> Void) {
         
         self.getProductEntity(for: item.productId) { (result) in
             switch result {
@@ -438,9 +441,9 @@ class Repository {
                                                     uomId: productEntity.uomId,
                                                     productUom: parametredUom.name,
                                                     quantity: item.quantity,
-                                                    parameters: parametredUom.parameters))
+                                                    parameters: parametredUom.parameters), nil)
                         case let .failure(error):
-                            fatalError(error.localizedDescription)
+                            completion(nil, error)
                         }
                     })
                 })

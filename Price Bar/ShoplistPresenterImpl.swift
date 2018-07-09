@@ -57,6 +57,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     func addToShoplist(with productId: String, and outletId: String) {
         self.view.showLoading(with: R.string.localizable.getting_actual_price())
         repository.getItem(with: productId, and: outletId) { [weak self] (product) in
+            self?.view.hideLoading()
             guard let product = product else {
                 self?.view.onProductIsNotFound(productId: productId)
                 return
@@ -64,7 +65,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             guard let `self` = self else { return }
             
             self.addItemToShopList(product, and: outletId, completion: { result in
-                self.view.hideLoading()
                 switch result {
                 case let .failure(error):
                     self.view.onError(error: error.message)

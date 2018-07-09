@@ -34,9 +34,28 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     func onGetCardInfo(productId: String, outletId: String) {
         self.view.showLoading(with: "Получаем информацию о товаре")
         repository.getItem(with: productId, and: outletId) { (dpProduct) in
-            
             guard let dpProduct = dpProduct else {
-                self.view.onError(with: R.string.localizable.error_something_went_wrong())
+                self.combineGetForCategoryNamendUomName(categoryId: 1, uomId: 1, completion: { (categoryName, uomName, error) in
+                    self.view.hideLoading()
+                    if let error = error {
+                        self.view.onError(with: error.localizedDescription)
+                        return
+                    }
+                    
+                    let product = ProductCardEntity(productId: productId,
+                                                    productName: "",
+                                                    brand: "",
+                                                    weightPerPiece: "",
+                                                    categoryName: categoryName ?? "",
+                                                    newPrice: "\(0.0)",
+                        oldPrice: "\(0.0)",
+                        uomName: uomName ?? "")
+                    
+                    self.view.onCardInfoUpdated(productCard: product)
+                    
+                    
+                    
+                })
                 return
             }
             
@@ -70,6 +89,10 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             })
         }
     }
+    
+    
+    
+    
     
     
     private func combineGetForCategoryNamendUomName(categoryId: Int32, uomId: Int32, completion: @escaping (String?, String?, Error?) -> Void) {

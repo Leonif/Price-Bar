@@ -8,11 +8,6 @@
 
 import UIKit
 
-protocol ItemCardVCDelegate: class {
-    func productUpdated()
-    func add(new productId: String)
-}
-
 protocol ItemCardView: BaseView {
     func onCategoryChoosen(name: String)
     func onUomChoosen(name: String)
@@ -41,8 +36,6 @@ class ItemCardVC: UIViewController, ItemCardView {
     var productCard: ProductCardEntity?
     
     @IBOutlet weak var constraintContentHeight: NSLayoutConstraint!
-    
-    weak var delegate: ItemCardVCDelegate!
     
     var activeField: UITextField!
     var lastOffset: CGPoint!

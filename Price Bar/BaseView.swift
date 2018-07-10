@@ -13,6 +13,7 @@ protocol BaseView: class {
     func showLoading(with text: String)
     func hideLoading()
     func onError(with message: String)
+    func onError(with message: String, completion: @escaping () -> Void)
     func close()
     
 }
@@ -29,4 +30,11 @@ extension BaseView where Self: UIViewController {
     func onError(with message: String) {
         self.alert(message: message)
     }
+    
+    func onError(with message: String, completion: @escaping () -> Void) {
+        self.alert(message: message, okAction: {
+            completion()
+        })
+    }
+    
 }

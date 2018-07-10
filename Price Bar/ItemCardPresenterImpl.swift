@@ -17,9 +17,12 @@ enum ItemCardError: Error {
     case priceIsNotSaved(String)
 }
 
+protocol ItemCardDelegate: class {
+    func savedItem(productId: String)
+}
+
 
 protocol ItemCardPresenter {
- 
     func onCategoryPressed(currentCategory: String)
     func onUomPressed(currentUom: String)
     func onUpdateOrCreateProduct(productCard: ProductCardEntity, for outletId: String)
@@ -33,6 +36,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     var router: ItemCardRouter!
     var pickerType: PickerType = .category
     var oldPrice: Double = 0.0
+    weak var delegate: ItemCardDelegate?
     
     func onGetCardInfo(productId: String, outletId: String) {
         self.view.showLoading(with: R.string.localizable.common_get_product_info())
@@ -192,13 +196,17 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                                                        oldPrice: oldPrice,
                                                        date: Date())
             
-            //self.savePrice(for: productId, statistic: priceStatistic, completion: ())
             self.savePrice(for: productId, statistic: priceStatistic, completion: { (result) in
                 switch result {
                 case let .failure(error):
-                    self.view.onError(with: error.localizedDescription)
+                    switch error {
+                    case .priceIsNotSaved:
+                        self.view.close()
+                        self.delegate?.savedItem(productId: productId)
+                    }
                 case .success:
                     self.view.close()
+                    self.delegate?.savedItem(productId: productId)
                 }
             })
             

@@ -290,15 +290,3 @@ extension ShopListController {
                        animations: { [weak self] in self?.view.layoutIfNeeded() })
     }
 }
-
-
-
-
-extension ShopListController: ItemCardVCDelegate {
-    func add(new productId: String) {
-        self.presenter.addToShoplist(with: productId, and: userOutlet.id)
-    }
-    func productUpdated() { // товар был отредактирован (цена/категория/ед измерения)
-        self.presenter?.onReloadShoplist(for: userOutlet.id)
-    }
-}

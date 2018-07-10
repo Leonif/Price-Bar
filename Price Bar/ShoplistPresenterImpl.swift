@@ -161,7 +161,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func onOpenItemCard(for item: ShoplistItem, with outletId: String) {
-        self.router.openItemCard(for: item.productId, outletId: outletId)
+        self.router.openItemCard(presenter: self, for: item.productId, outletId: outletId)
     }
     
     func onOpenScanner() {
@@ -177,7 +177,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func onOpenNewItemCard(for productId: String, outletId: String) {
-        self.router.openItemCard(for: productId, outletId: outletId)
+        self.router.openItemCard(presenter: self, for: productId, outletId: outletId)
     }
     
     func onCleanShopList() {
@@ -241,6 +241,15 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
 }
+
+
+
+extension ShoplistPresenterImpl: ItemCardDelegate {
+    func savedItem(productId: String) {
+        self.view.onAddedItemToShoplist(productId: productId)
+    }
+}
+
 
 
 extension ShoplistPresenterImpl: QuantityPickerPopupDelegate {

@@ -25,6 +25,7 @@ protocol ItemListPresenter {
 class ItemListPresenterImpl: ItemListPresenter {
     
     weak var view: ItemListView!
+    var filtering = false
     
     var itemListOutput: ItemListOutput!
     var repository: Repository!
@@ -48,16 +49,21 @@ class ItemListPresenterImpl: ItemListPresenter {
     }
     
     func onFilterList(basedOn searchText: String, with outletId: String) {
-        if  searchText.count >= 3 {
+        if  searchText.count >= 3 && !filtering {
+            filtering = true
             self.view.showLoading(with: R.string.localizable.common_get_product_info())
             repository.filterItemList(contains: searchText, for: outletId) { (result) in
+                self.view.hideLoading()
                 switch result {
                 case let .success(products):
+                    self.view.showLoading(with: R.string.localizable.getting_actual_price())
                     self.getItemsWithPrices(for: products, outletId: outletId, completion: { (itemsWithPrices) in
                         self.view.hideLoading()
                         self.view.onFiltredItems(items: itemsWithPrices)
+                        self.filtering.toggle()
                     })
                 case let .failure(error):
+                    self.view.hideLoading()
                     self.view.onError(with: error.message)
                 }
             }
@@ -82,7 +88,7 @@ extension ItemListPresenterImpl {
     private func getItemsWithPrices(for products: [DPProductEntity], outletId: String, completion: @escaping ([ItemListViewEntity]) -> Void) {
         
         guard !products.isEmpty else {
-            self.view.onFetchedNewBatch(items: [])
+            completion([])
             return
         }
         

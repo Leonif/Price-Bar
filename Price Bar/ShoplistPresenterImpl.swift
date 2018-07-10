@@ -238,6 +238,8 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func addNewItem(suggestedName: String) {
         // TODO: open new Item card with suggested name product
+        let productId = UUID().uuidString
+        self.view.onAddedItemToShoplist(productId: productId)
     }
     
 }

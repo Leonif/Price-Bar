@@ -52,7 +52,7 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     }
     
     func onFiltredItems(items: [ItemListViewEntity]) {
-        guard !items.isEmpty else { return }
+
         adapter.filtredItemList = items
         adapter.reload()
     }

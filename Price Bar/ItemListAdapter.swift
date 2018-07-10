@@ -109,6 +109,7 @@ extension ItemListAdapter {
         filtredItemList.append(contentsOf: nextBatch)
         self.dataSource.append(contentsOf: nextBatch)
         self.reload()
+        self.isLoading.toggle()
         
     }
 }

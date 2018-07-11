@@ -39,60 +39,51 @@ enum RepositoryError: Error {
 }
 
 class Repository {
-    enum SyncSteps: Int {
-        case
-        login,
-        loadShoplist,
-        needSync,
-        categories,
-        uoms,
-        products,
-        statistic,
-        putBackShoplist
-        
-        case total
-        
-        var text: String {
-            let start = R.string.localizable.common_loading()
-            switch self {
-            case .login:
-                return R.string.localizable.sync_process_connecting()
-            case .needSync:
-                return R.string.localizable.sync_process_start()
-            case .categories:
-                return R.string.localizable.sync_process_categories(start)
-            case .uoms:
-                return R.string.localizable.sync_process_uom(start)
-            case .products:
-                return R.string.localizable.sync_process_products(start)
-            case .statistic:
-                return R.string.localizable.sync_process_prices(start)
-            case .loadShoplist, .putBackShoplist:
-                return R.string.localizable.sync_process_shoplist(start)
-            default: return R.string.localizable.sync_process_all_is_done()
-            }
-        }
-    }
+//    enum SyncSteps: Int {
+//        case
+//        login,
+//        loadShoplist,
+//        needSync,
+//        categories,
+//        uoms,
+//        products,
+//        statistic,
+//        putBackShoplist
+//
+//        case total
+//
+//        var text: String {
+//            let start = R.string.localizable.common_loading()
+//            switch self {
+//            case .login:
+//                return R.string.localizable.sync_process_connecting()
+//            case .needSync:
+//                return R.string.localizable.sync_process_start()
+//            case .categories:
+//                return R.string.localizable.sync_process_categories(start)
+//            case .uoms:
+//                return R.string.localizable.sync_process_uom(start)
+//            case .products:
+//                return R.string.localizable.sync_process_products(start)
+//            case .statistic:
+//                return R.string.localizable.sync_process_prices(start)
+//            case .loadShoplist, .putBackShoplist:
+//                return R.string.localizable.sync_process_shoplist(start)
+//            default: return R.string.localizable.sync_process_all_is_done()
+//            }
+//        }
+//    }
     
-    var maxSyncSteps: Int {
-        return SyncSteps.total.rawValue
-    }
+//    var maxSyncSteps: Int {
+//        return SyncSteps.total.rawValue
+//    }
     
     // MARK: update events
-    var onUpdateShoplist: ActionClousure?
     var onSyncProgress: ((Int, Int, String) -> Void)?
     var onSyncNext: (() -> Void)?
     var currentNext: Int = 0
 
-    var sections = [String]()
-    var shoplist: [DPShoplistItemModel] = [] {
-        didSet {
-            DispatchQueue.main.async { [weak self] in
-                self?.onUpdateShoplist?()
-            }
-        }
-    }
-
+    var shoplist: [ShoplistItem] = []
     
     var itemsCount: Int {
         return shoplist.count
@@ -103,202 +94,43 @@ class Repository {
         return sum
     }
 
-    var defaultCategory: DPCategoryModel? {
-        guard let cd = CoreDataService.data.defaultCategory else {
-            return nil
-        }
-        return DPCategoryModel(id: cd.id, name: cd.name)
-    }
-
-    var defaultUom: DPUomModel? {
-        guard let cd = CoreDataService.data.defaultUom else {
-            return nil
-        }
-        return DPUomModel(id: cd.id, name: cd.name)
-    }
-
-    public func syncCloud(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        defer {  self.currentNext = 0  }
-        firebaseLogin(completion: completion)
-        self.onSyncNext = { [weak self] in
-            guard let `self` = self else { return  }
-            self.currentNext += 1
-            guard let type = SyncSteps(rawValue: self.currentNext) else { return  }
-            self.onSyncProgress?(self.currentNext, self.maxSyncSteps, type.text)
-            
-            switch type {
-            case .needSync:
-                if !self.needToSync() {
-                    self.currentNext = SyncSteps.statistic.rawValue
-                    completion(ResultType.success(true))
-                }
-                self.onSyncNext?()
-            case .categories:
-                self.syncCategories(completion: completion)
-            case .uoms:
-                self.syncUom(completion: completion)
-            case .products:
-                self.syncProducts(completion: completion)
-            case .statistic:
-                self.syncStatistics(completion: completion)
-            case .loadShoplist:
-                self.loadShoplist(completion: completion)
-            case .putBackShoplist:
-                self.saveShoplist()
-                self.onSyncNext?()
-            case .total: break
-            case .login: break
-            }
-        }
-    }
     
     func firebaseLogin(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         FirebaseService.data.loginToFirebase(completion: { result in
             switch result {
             case .success:
                 debugPrint("Firebase login success")
-                self.onSyncNext?()
+                completion(ResultType.success(true))
             case let .failure(error):
-                completion(self.syncHandle(error: error))
+                completion(ResultType.failure(.other(error.localizedDescription)))
                 return
             }
         })
     }
-    
-    func loadShoplist(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        let outletId: String? = nil
-        guard let shp = CoreDataService.data.loadShopList(for: outletId) else {
-            completion(ResultType.failure(RepositoryError.syncError(R.string.localizable.error_something_went_wrong())))
-            return
-        }
-        self.shoplist = shp
-        debugPrint("Function: \(#function), line: \(#line)")
-        self.onSyncNext?()
-    }
 
-    func syncHandle(error: Error) -> ResultType<Bool, RepositoryError> {
-        UserDefaults.standard.set(0, forKey: "LaunchedTime")
-        return ResultType.failure(RepositoryError
-            .syncError("\(R.string.localizable.error_sync_stopped()) \(error.localizedDescription) "))
-    }
 
-    func needToSync() -> Bool {
-//        return true
+    func getQuantityOfProducts(completion: @escaping (ResultType<Int, RepositoryError>) -> Void) {
         
-        var times = UserDefaults.standard.integer(forKey: "LaunchedTime")
-        switch times {
-        case 0:
-            times += 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return true
-        case 10:
-            times = 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return true
-        default:
-            times += 1
-            UserDefaults.standard.set(times, forKey: "LaunchedTime")
-            return false
-        }
-    }
-
-    private func saveShoplist() {
-        for item in shoplist {
-            CoreDataService.data.saveToShopList(item)
-        }
-        shoplist.removeAll()
-    }
-
-    private func syncCategories(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        CoreDataService.data.syncCategories { [weak self] result in
-            guard let `self` = self else {
-                fatalError()
-            }
-            
+        FirebaseService.data.getProductCount { (result) in
             switch result {
-            case .success:
-                self.onSyncNext?()
+            case let .success(count):
+                completion(ResultType.success(count))
             case let .failure(error):
-                completion(ResultType.failure(RepositoryError.syncError(error.localizedDescription)))
+                completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
             }
         }
-    }
-
-    private func syncProducts(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        CoreDataService.data.syncProducts { [weak self] result in // get from firebase
-            guard let `self` = self else {
-                fatalError()
-            }
-            switch result {
-            case .success:
-                self.onSyncNext?()
-            case let .failure(error):
-                completion(ResultType.failure(.syncError(error.localizedDescription)))
-            }
-        }
-    }
-
-    private func syncStatistics(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        CoreDataService.data.syncStatistics { [weak self] result in // get from firebase
-            guard let `self` = self else {
-                fatalError()
-            }
-            switch result {
-            case .success:
-                self.onSyncNext?()
-                completion(ResultType.success(true))
-            case let .failure(error):
-                completion(ResultType.failure(.syncError(error.localizedDescription)))
-            }
-        }
-    }
-
-    private func syncUom(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
-        CoreDataService.data.syncUoms { [weak self] result in // get from firebase
-            guard let `self` = self else {
-                fatalError()
-            }
-            switch result {
-            case .success:
-                self.onSyncNext?()
-            case let .failure(error):
-                completion(ResultType.failure(.syncError(error.localizedDescription)))
-            }
-        }
-    }
-
-
-    func getQuantityOfProducts() -> Int {
-        
-        return CoreDataService.data.getQuantityOfProducts()
-        
     }
     
     
     
-    func save(new statistic: DPPriceStatisticModel) {
-        let cd = CDStatisticModel(productId: statistic.productId,
-                                  price: statistic.price,
-                                  outletId: statistic.outletId,
-                                  date: statistic.date)
-
-        CoreDataService.data.save(new: cd)
-
+    func savePrice(for productId: String, statistic: DPPriceStatisticModel) {
         let fb = FBItemStatistic(productId: statistic.productId,
-                               price: statistic.price,
+                               price: statistic.newPrice,
                                outletId: statistic.outletId)
-        FirebaseService.data.save(new: fb)
+        FirebaseService.data.savePrice(for: productId, statistic: fb)
     }
 
     func save(new product: DPUpdateProductModel) {
-        let pr = CDProductModel(id: product.id,
-                                name: product.name,
-                                brand: product.brand,
-                                weightPerPiece: product.weightPerPiece,
-                                categoryId: product.categoryId,
-                                uomId: product.uomId)
-
-        CoreDataService.data.save(pr)
         let fb = FBProductModel(id: product.id,
                                 name: product.name,
                                 brand: product.brand,
@@ -309,15 +141,6 @@ class Repository {
     }
 
     func update(_ product: DPUpdateProductModel) {
-        let pr = CDProductModel(id: product.id,
-                                name: product.name,
-                                brand: product.brand,
-                                weightPerPiece: product.weightPerPiece,
-                              categoryId: product.categoryId,
-                              uomId: product.uomId)
-
-        CoreDataService.data.update(pr)
-
         let fb = FBProductModel(id: product.id,
                                 name: product.name,
                                 brand: product.brand,
@@ -327,198 +150,307 @@ class Repository {
         FirebaseService.data.saveOrUpdate(fb)
     }
 
-    func saveToShopList(new item: DPShoplistItemModel) -> ResultType<Bool, RepositoryError> {
+    func saveToShopList(new item: ShoplistItem) -> ResultType<Bool, RepositoryError> {
 
         if let _ = shoplist.index(of: item) {
             return ResultType.failure(RepositoryError.shoplistAddedNewItem(R.string.localizable.common_already_in_list()))
         }
-
         shoplist.append(item)
-        addSection(for: item)
-        CoreDataService.data.saveToShopList(item)
+        CoreDataService.data.saveToShopList(CDShoplistItem(productId: item.productId, quantity: item.quantity))
 
         return ResultType.success(true)
     }
-
-    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String) -> [DPProductModel]? {
-        return CoreDataService.data.getProductList(for: outletId, offset: pageOffset, limit: limit)
+    
+    
+    func changeShoplistItem( _ quantity: Double, for productId: String) {
+        CoreDataService.data.changeShoplistItem(quantity, for: productId)
     }
-
-    func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {
-        return CoreDataService.data.filterItemList(contains: text, for: outletId)
-    }
-
-    // FIXME: get price from just cloud
-//    func pricesUpdate(by outletId: String) {
-//        for (index, item) in shoplist.enumerated() {
-//            let price = CoreDataService.data.getPrice(for: item.productId, and:outletId)
-//            shoplist[index].productPrice = price
-//        }
-//    }
-
-    func remove(item: DPShoplistItemModel) {
-        guard let index = shoplist.index(of: item) else {
-            fatalError("item doesnt exist")
-        }
-        shoplist.remove(at: index)
-        removeSection(with: item.productCategory)
-        CoreDataService.data.removeFromShopList(with: item.productId)
-    }
-
-    func removeSection(with name: String) {
-        guard let index = sections.index(of: name) else {
-            return
-        }
-
-        for item in shoplist {
-            if item.productCategory == name {
-                debugPrint("section \(name) can't be removed cause contains some items")
-                return
+    
+    
+    
+   ////////////////////////////// FIXME /////////////////////////////////
+    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void) {
+        FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
+            switch result {
+            case let .success(products):
+                let dpProducts = products.map { ProductMapper.mapToDPProductEntity(from: $0) }
+                completion(ResultType.success(dpProducts))
+            case let .failure(error):
+                completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
             }
         }
-        sections.remove(at: index)
+        
+        
+    }
+    
+//    func getPricesFor(outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
+//        FirebaseService.data.getPrices(for: outletId, callback: { (statistics) in
+//            let prices = statistics.map {
+//                return ProductPrice(productId: $0.productId, productName: "",
+//                                    currentPrice: $0.price,
+//                                    outletId: $0.outletId,
+//                                    date: $0.date)
+//            }
+//            completion(prices)
+//        })
+//    }
+    
+    func getPricesFor(productId: String, completion: @escaping ([ProductPrice]) -> Void) {
+        
+        FirebaseService.data.getPricesFor(productId) { (statistics) in
+            let prices = statistics.map {
+                return ProductPrice(productId: productId, productName: "",
+                                    currentPrice: $0.price,
+                                    outletId: $0.outletId,
+                                    date: $0.date)
+            }
+            completion(prices)
+        }
+    }
+    
+    func getPrice(for productId: String, and outletId: String, completion: @escaping (Double) -> Void) {
+        self.getPriceFromCloud(for: productId, and: outletId) { (price) in
+            guard let price = price else {
+                completion(0)
+                return
+            }
+            completion(price)
+        }
+    }
+    
+    
+    func getProductQuantity(productId: String) -> Double {
+        
+        return CoreDataService.data.getQuantityOfProduct(productId: productId)
+        
+        
+    }
+    
+    
+    private func getPriceFromCloud(for productId: String, and outletId: String, completion: @escaping (Double?) -> Void) {
+        
+        FirebaseService.data.getPrice(with: productId, outletId: outletId) { (price) in
+            completion(price)
+        }
+        
+    }
+
+    func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void)  {
+        FirebaseService.data.getFiltredProductList(with: text) { (result) in
+            switch result {
+            case let .success(products):
+                let dpProducts = products.map { ProductMapper.mapToDPProductEntity(from: $0) }
+                completion(ResultType.success(dpProducts))
+            case let .failure(error):
+                completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
+            }
+        }
+    }
+    
+    func remove(itemId: String) {
+        self.shoplist = self.shoplist.filter { $0.productId != itemId }
+        CoreDataService.data.removeFromShopList(with: itemId)
     }
 
     func clearShoplist() {
         shoplist.removeAll()
-        sections.removeAll()
         CoreDataService.data.removeAll(from: "ShopList")
 
     }
+    
+    
+    func getProductName(for productId: String, completion: @escaping (ResultType<String?, RepositoryError>)-> Void) {
+        FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
+            completion(ResultType.success(fbProductEntity?.fullName))
+        }
+    }
+    
+    
+    func getProductEntity(for productId: String, completion: @escaping (ResultType<DPProductEntity, RepositoryError>)-> Void) {
+        FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
+            
+            guard let fbProductEntity = fbProductEntity else {
+                completion(ResultType.failure(RepositoryError.other(R.string.localizable.error_something_went_wrong())))
+                return
+            }
+            
+            
+            completion(ResultType.success(DPProductEntity(id: productId,
+                                                          name: fbProductEntity.name,
+                                                          brand: fbProductEntity.brand,
+                                                          weightPerPiece: fbProductEntity.weightPerPiece,
+                                                          categoryId: fbProductEntity.categoryId,
+                                                          uomId: fbProductEntity.uomId)))
+        }
+    }
+    
+    
 
-    func changeShoplistItem(_ quantity: Double, for productId: String) {
-        for (index, item) in shoplist.enumerated() {
-            if item.productId == productId {
-               shoplist[index].quantity = quantity
+    func getCategoryList(completion: @escaping (ResultType<[DPCategoryViewEntity]?, RepositoryError>) -> Void)  {
+        FirebaseService.data.getCategoryList { (result) in
+            switch result {
+            case let .success(categoryList):
+                guard let categoryList = categoryList else {
+                    completion (ResultType.success(nil))
+                    return
+                }
+                
+                let c: [DPCategoryViewEntity] = categoryList.map { DPCategoryViewEntity(id: $0.id, name: $0.name) }
+                completion(ResultType.success(c))
+
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
             }
         }
-        CoreDataService.data.changeShoplistItem(quantity, for: productId)
-    }
-
-    func getItem(index: IndexPath) -> DPShoplistItemModel? {
-        let sec = index.section
-        let indexInSec = index.row
-
-        let productListInsection = shoplist.filter { $0.productCategory == sections[sec] }
-        guard !productListInsection.isEmpty else {
-            return nil
-        }
-        return productListInsection[indexInSec]
     }
     
     
-    func getQuantity(for productId: String) -> Double? {
-        let p = shoplist.filter { $0.productId == productId }
-        return p.first?.quantity
-    }
-
-    func getItem(with barcode: String, and outletId: String) -> DPProductModel? {
-        guard let cdModel = CoreDataService.data.getItem(by: barcode, and: outletId) else {
-            return nil
-        }
-
-        return DPProductModel(id: cdModel.id,
-                              name: cdModel.name,
-                              brand: cdModel.brand,
-                              weightPerPiece: cdModel.weightPerPiece,
-                              categoryId: cdModel.categoryId,
-                              uomId: cdModel.uomId)
-
-    }
-
     
-    func getUomName(for productId: String) -> String {
-        let product = CoreDataService.data.getProduct(by: productId)
+    func getUomList(completion: @escaping (ResultType<[UomModelView]?, RepositoryError>) -> Void)  {
         
-        return product!.toUom!.uom!
-    }
-    
-    
-    func getProductName(for productId: String) -> String? {
-        return CoreDataService.data.getProductName(for: productId)
-    }
-
-    func getCategoryList() -> [DPCategoryModel]? {
-        guard let cdModelList = CoreDataService.data.getCategories() else {
-            fatalError("category list is empty")
-        }
-        return cdModelList.map { CategoryMapper.mapper(from: $0) }
-    }
-
-    func mapper(from cdModel: CDCategoryModel) -> DPCategoryModel {
-        return DPCategoryModel(id: cdModel.id, name: cdModel.name)
-    }
-
-    func getUomList() -> [UomModelView]? {
-        guard let uoms = CoreDataService.data.getUomList() else {
-            return nil
-        }
-        return CoreDataParsers.parse(from: uoms)
-    }
-
-    func getUomName(for id: Int32) -> String? {
-        guard
-        let uom = CoreDataService.data.getUom(by: id),
-        let uomName = uom.uom
-        else {
-            fatalError("Uom is not available")
-        }
-        
-        return uomName
-    }
-    
-    func getUom(for id: Int32) -> UomModelView? {
-        guard
-            let uom = CoreDataService.data.getUom(by: id) else {
-             fatalError("Uom is not available")
+        FirebaseService.data.getUomList { (result) in
+            switch result {
+            case let .success(uomList):
+                guard let uomList = uomList else {
+                    completion (ResultType.success(nil))
+                    return
+                }
                 
+                let c: [UomModelView] = uomList.map { UomMapper.mapper(from: $0)  }
+                completion(ResultType.success(c))
+                
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
         }
-        return CoreDataParsers.parse(from: uom)
+    }
+    
+    
+    
+    func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, RepositoryError>) -> Void) {
+        FirebaseService.data.getCategoryId(for: categoryName) { (result) in
+            switch result {
+            case let .success(categoryId):
+                completion(ResultType.success(categoryId))
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+    }
+    
+    
+    
+    func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, RepositoryError>) -> Void) {
+        FirebaseService.data.getUomId(for: uomName) { (result) in
+            switch result {
+            case let .success(uomId):
+                completion(ResultType.success(uomId))
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+    }
+    
+    func getUomName(for uomId: Int32, completion: @escaping (ResultType<String?, RepositoryError>) -> Void) {
+        FirebaseService.data.getUomName(for: uomId) { (result) in
+            switch result {
+            case let .success(uomName):
+                completion(ResultType.success(uomName))
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+    }
+    
+    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, RepositoryError>) -> Void) {
+        FirebaseService.data.getCategoryName(for: categoryId) { (result) in
+            switch result {
+            case let .success(categoryName):
+                completion(ResultType.success(categoryName))
+            case let .failure(error):
+                completion(ResultType.failure(.other(error.localizedDescription)))
+            }
+        }
+    }
+    
+
+
+    func mapper(from cdModel: CDCategoryModel) -> DPCategoryViewEntity {
+        return DPCategoryViewEntity(id: cdModel.id, name: cdModel.name)
     }
 
-    func getCategoryName(category id: Int32) -> String? {
-        guard let category = CoreDataService.data.getCategory(by: id),
-            let categoryName = category.category else {
-            return nil
-        }
-        return categoryName
-    }
-
-    func loadShopList(for outletId: String) {
+    func loadShopList(completion: @escaping ([ShoplistItem]) -> Void)  {
         shoplist.removeAll()
-        sections.removeAll()
-        guard let list = CoreDataService.data.loadShopList(for: outletId) else {
+        guard let savedShoplist = CoreDataService.data.loadShopList() else {
             return
         }
-        list.forEach { item in
-            self.shoplist.append(item)
-            addSection(for: item)
-        }
-    }
-
-    private func addSection(for item: DPShoplistItemModel) {
-        if !sections.contains(item.productCategory) {
-            sections.append(item.productCategory)
-        }
-    }
-
-    func rowsIn(_ section: Int) -> Int {
-        let count = shoplist.reduce(0) { (result, item) in
-            result + (item.productCategory == sections[section] ? 1 : 0)
-        }
-        return count
-    }
-
-    var sectionCount: Int {
-        return sections.count
-    }
-
-    func headerString(for section: Int) -> String {
-        guard !sections.isEmpty else {
-            return "No section"
+        
+        var shoplistWithZeroPrices: [ShoplistItem] = []
+        
+        
+        let shopItemGroup = DispatchGroup()
+        
+        for item in savedShoplist {
+            shopItemGroup.enter()
+            self.getProductInfo(for: item) { (shopItem, error)  in
+                
+                if error == nil {
+                    shoplistWithZeroPrices.append(shopItem!)
+                }
+                shopItemGroup.leave()
+            }
         }
         
-        return sections[section]
+        
+        shopItemGroup.notify(queue: .main) {
+            completion(shoplistWithZeroPrices)
+        }
+    }
+    
+    func getParametredUom(for uomId: Int32, completion: @escaping (FBUomModel) -> Void) {
+        FirebaseService.data.getParametredUom(for: uomId, completion: { (result) in
+            switch result {
+            case let .success(parametredUom):
+                
+                completion(parametredUom)
+                
+            case let .failure(error):
+                fatalError(error.localizedDescription)
+            }
+        })
+    }
+    
+    private func getProductInfo(for item: CDShoplistItem, completion: @escaping (ShoplistItem?, Error?) -> Void) {
+        
+        self.getProductEntity(for: item.productId) { (result) in
+            switch result {
+            case let .success(productEntity):
+                
+                self.getParametredUom(for: productEntity.uomId, completion: { (parametredUom) in
+                    self.getCategoryName(for: productEntity.categoryId, completion: { (result) in
+                        switch result {
+                        case let .success(categoryName):
+                            guard let categoryName = categoryName else { fatalError()}
+                            completion(ShoplistItem(productId: item.productId,
+                                                    productName: productEntity.name,
+                                                    brand: productEntity.brand,
+                                                    weightPerPiece: productEntity.weightPerPiece,
+                                                    categoryId: productEntity.categoryId,
+                                                    productCategory: categoryName,
+                                                    productPrice: 0.0,
+                                                    uomId: productEntity.uomId,
+                                                    productUom: parametredUom.name,
+                                                    quantity: item.quantity,
+                                                    parameters: parametredUom.parameters), nil)
+                        case let .failure(error):
+                            completion(nil, error)
+                        }
+                    })
+                })
+            case let .failure(error):
+                fatalError(error.localizedDescription)
+            }
+        }
     }
 }
 
@@ -526,28 +458,27 @@ class Repository {
 
 
 extension Repository {
-
-    // FIXME: get price just cloud
-    func getPrice(for productId: String, and outletId: String) -> Double {
-        return CoreDataService.data.getPrice(for: productId, and: outletId)
-    }
-
-//    func getMinPrice(for productId: String, and outletId: String) -> Double {
-//        return CoreDataService.data.getMinPrice(for: productId, and: outletId)
-//
-//    }
-    
-    // FIXME: get price just cloud
-    func getPricesStatisticByOutlet(for productId: String) -> [DPPriceStatisticModel] {
-        
-        let object = CoreDataService.data.getPricesStatisticByOutlet(for: productId)
-        
-        return object.map { StatisticMapper.mapper(from: $0) }
-        
+    func getItem(with barcode: String, and outletId: String, callback: @escaping (DPProductEntity?) -> Void) {
+            self.getProductFromCloud(with: barcode) { (item) in
+                guard let item = item else {
+                    callback(nil)
+                    return
+                }
+                let result = DPProductEntity(id: item.id,
+                                            name: item.name,
+                                            brand: item.brand,
+                                            weightPerPiece: item.weightPerPiece,
+                                            categoryId: item.categoryId,
+                                            uomId: item.uomId)
+                callback(result)
+            }
         
     }
     
     
-    
-
+    private func getProductFromCloud(with productId: String, callback: @escaping (FBProductModel?) -> Void) {
+        FirebaseService.data.getProduct(with: productId) { (item) in
+            callback(item)
+        }
+    }
 }

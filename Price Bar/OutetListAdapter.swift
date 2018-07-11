@@ -10,38 +10,21 @@ import Foundation
 import UIKit
 
 class OutetListAdapter: NSObject, UITableViewDataSource, UITableViewDelegate {
-    var tableView: UITableView!
-    var outlets: [Outlet] = [] {
-        didSet {
-            DispatchQueue.main.async { self.reload()  }
-        }
-    }
+    
+    var outlets: [Outlet] = []
     
     public var onDidSelect: ((Outlet) -> Void)?
     public var onError: ((String) -> Void)?
     
-    init(tableView: UITableView) {
-        super.init()
-        
-        self.tableView = tableView
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        
-        // For registering nib files
-        tableView.register(R.nib.outletCellView(), forCellReuseIdentifier: "OutletCell")
-    }
     
-    func reload() {
-        self.tableView.reloadData()
-    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.getRowsIn(section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OutletCell", for: indexPath) as! OutletCell
+        let cell: OutletCell = tableView.dequeueReusableCell(for: indexPath)
         let object = self.getOutlet(from: indexPath)
         
         cell.bind(outlet: object)

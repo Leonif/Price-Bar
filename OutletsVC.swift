@@ -9,13 +9,16 @@
 import UIKit
 import CoreLocation
 
-protocol OutletVCDelegate {
-    func choosen(outlet: Outlet)
+
+protocol OutletListView: BaseView {
+    func onOutletListFetched(_ outlets: [Outlet])
 }
 
-class OutletsVC: UIViewController, UIGestureRecognizerDelegate {
+class OutletsVC: UIViewController, OutletListView, UIGestureRecognizerDelegate {
     var adapter: OutetListAdapter!
-    var interactor: OutletListInteractor!
+    var presenter: OutletListPresenter!
+    @IBOutlet weak var tableView: UITableView!
+    
     
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar(frame: CGRect.zero)
@@ -33,23 +36,27 @@ class OutletsVC: UIViewController, UIGestureRecognizerDelegate {
         return b
     }()
 
-    var delegate: OutletVCDelegate!
-    @IBOutlet weak var outletTableView: UITableView!
+//    var delegate: OutletVCDelegate!
+//    @IBOutlet weak var outletTableView: UITableView!
 
-    @IBOutlet weak var warningLocationView: UIView!
+//    @IBOutlet weak var warningLocationView: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.adapter = OutetListAdapter(tableView: self.outletTableView)
+        self.tableView.delegate = self.adapter
+        self.tableView.dataSource = self.adapter
+        
+        // For registering nib files
+        tableView.register(OutletCell.self)
+        
         self.adapter.onDidSelect = { [weak self] outlet in
-            self?.delegate.choosen(outlet: outlet)
+            self?.presenter.onChoosen(outlet: outlet)
             self?.close()
         }
         
         self.setupNavigation()
-        
-        self.setupInteractor()
+        self.presenter.onGetOutletList()
         
     }
     
@@ -63,43 +70,26 @@ class OutletsVC: UIViewController, UIGestureRecognizerDelegate {
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
-    @objc func setBackIndicatorImage() {
+    func onOutletListFetched(_ outlets: [Outlet]) {
+        self.adapter.outlets = outlets
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
         
-    }
-    
-    func setupInteractor() {
-        self.interactor = OutletListInteractor()
-        self.view.pb_startActivityIndicator(with: R.string.localizable.outlet_loading())
-
-        self.interactor.getOutletList()
-        self.interactor.onOutletListFetched = { [weak self] outlets in
-            self?.adapter.outlets = outlets.map { OutletMapper.mapper(from: $0) }
-        }
-        self.interactor.onFetchingCompleted = { [weak self] in
-            self?.view.pb_stopActivityIndicator()
-        }
-        self.interactor.onFetchingError = { [weak self] errorMessage in
-            DispatchQueue.main.async {
-                self?.alert(message: errorMessage)
-            }
-        }
     }
 
     @objc
     func close() {
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
 
 
 extension OutletsVC: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let text = searchBar.text else { return }
-        
         self.view.endEditing(true)
-        
-        self.interactor.searchOutlet(with: text)
+        self.presenter.onSearchOutlet(with: text)
     }
 }
 

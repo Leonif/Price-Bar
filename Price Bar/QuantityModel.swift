@@ -10,6 +10,7 @@ import Foundation
 
 struct QuantityModel {
     var parameters: [Parameter]
-    var indexPath: IndexPath
+//    var indexPath: IndexPath
     var currentValue: Double
+    var answerDict: [String: Any]
 }

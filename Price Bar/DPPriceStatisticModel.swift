@@ -11,6 +11,7 @@ import Foundation
 struct DPPriceStatisticModel {
     var outletId: String
     var productId: String
-    var price: Double
+    var newPrice: Double
+    var oldPrice: Double
     var date: Date
 }

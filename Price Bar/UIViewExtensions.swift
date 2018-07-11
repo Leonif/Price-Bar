@@ -200,23 +200,10 @@ extension UIView {
 
 
 extension UIButton {
-    
     func setEnable(_ enable: Bool) {
-        self.isUserInteractionEnabled = enable
-        self.alpha = enable ? 1 : 0.5
+        DispatchQueue.main.async {
+            self.isUserInteractionEnabled = enable
+            self.alpha = enable ? 1 : 0.5
+        }
     }
 }
-
-//extension UIView {
-////    func castShadow() {
-////        self.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1).cgColor
-////        self.layer.shadowOpacity = 0.8
-////        self.layer.shadowRadius = 5.0
-////        self.layer.shadowOffset = CGSize(width: 1.0, height: 1.0)
-////    }
-//
-//    func roundingEdges() {
-//        self.layer.cornerRadius = self.frame.height / 2
-//    }
-//
-//}

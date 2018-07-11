@@ -9,6 +9,16 @@ import Foundation
 import Firebase
 
 class FirebaseParser {
+    class func parseCategory(from snapshot: DataSnapshot) -> FBItemCategory {
+        guard let id = Int32(snapshot.key),
+            let categoryDict = snapshot.value as? Dictionary<String, Any>,
+            let categoryName = categoryDict["name"] as? String else {
+                fatalError("Category os not parsed")
+        }
+        let fbCategory = FBItemCategory(id: id, name: categoryName)
+        return fbCategory
+    }
+    
     class func parseUom(from snapshot: DataSnapshot) -> FBUomModel {
         guard let id = Int32(snapshot.key),
             let uomDict = snapshot.value as? Dictionary<String, Any>,
@@ -44,14 +54,23 @@ class FirebaseParser {
         return fbUom
     }
     
-    class func parseUoms(from fbModelList: [DataSnapshot]) -> [FBUomModel] {
+    class func transfromToFBUomModels(from fbModelList: [DataSnapshot]) -> [FBUomModel] {
         return fbModelList.map { snapUom in
             parseUom(from: snapUom)
         }
     }
     
+    class func parseToFBItemStatistic(from snapGood: DataSnapshot) -> FBItemStatistic? {
+        guard let priceData = snapGood.value as? Dictionary<String, Any> else {
+            fatalError("Prices is not parsed")
+        }
+        
+        guard let price = FBItemStatistic(priceData: priceData) else { return nil }
+        
+        return price
+    }
     
-    class func parse(_ snapGood: (key: String, value: Any)) -> FBProductModel {
+    class func parseToFbProductModel(from snapGood: (key: String, value: Any)) -> FBProductModel {
         guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Product is not parsed")
         }
@@ -63,8 +82,6 @@ class FirebaseParser {
         let brand = goodDict["brand"] as? String ?? ""
         let weightPerPiece = goodDict["weight_per_piece"] as? String ?? ""
         
-        
-        
         let defaultCategoryid: Int32 = 1
         
         var catId = goodDict["category_id"] as? Int32
@@ -74,6 +91,7 @@ class FirebaseParser {
         
         var uomId = goodDict["uom_id"] as? Int32
         uomId = uomId == nil ? defaultUomid : uomId
+        
         
         return FBProductModel(id: id,
                               name: name,

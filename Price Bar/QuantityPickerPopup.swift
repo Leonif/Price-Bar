@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 
 protocol QuantityPickerPopupDelegate {
-    func choosen(weight: Double, for indexPath: IndexPath)
+//    func choosen(weight: Double, for indexPath: IndexPath)
+    func choosen(weight: Double, answer: [String: Any])
 }
 
 
@@ -69,7 +70,7 @@ class QuantityPickerPopup: UIViewController {
             let weightIndex = weightPicker.selectedRow(inComponent:component)
             value += weightItems[component].weight[weightIndex]
         }
-        delegate?.choosen(weight: value, for: self.currentModel.indexPath)
+        delegate?.choosen(weight: value, answer: self.currentModel.answerDict)
         self.view.antiObscure {
             self.dismiss(animated: true, completion: nil)
         }

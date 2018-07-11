@@ -18,151 +18,66 @@ class CoreDataService {
     static let data = CoreDataService()
     var synced = false
 
-    var defaultCategory: CDCategoryModel? {
-        let defaultCategoryId: Int32 = 1
-        guard
-            let category = getCategory(by: defaultCategoryId),
-            let categoryName = category.category
-            else {
-                return nil
-        }
-        return CDCategoryModel(id: category.id, name: categoryName)
-    }
-
-    var defaultUom: CDUomModel? {
-        let defaultUomId: Int32 = 1
-        guard let uom = getUom(by: defaultUomId) else {
-            return nil
-        }
-        
-        return CoreDataParsers.parse(from: uom)
-        
-    }
-
-    func save(new statistic: CDStatisticModel) {
-        guard statistic.price != 0 else {
-            return
-        }
-        do {
-            let stat = Statistic(context: context)
-            stat.outletId = statistic.outletId
-            stat.price = statistic.price
-            stat.date = statistic.date as NSDate
-
-            let productRequest = NSFetchRequest<Product>(entityName: "Product")
-            productRequest.predicate = NSPredicate(format: "id == %@", statistic.productId)
-            let productExist = try context.fetch(productRequest)
-
-            let prd = productExist.first
-
-            stat.toProduct = prd
-            stat.price = statistic.price
-            stat.outletId = statistic.outletId
-            ad.saveContext()
-        } catch {
-            print("Products is not got from database")
-        }
-    }
-
-    func saveToShopList(_ shopItem: DPShoplistItemModel) {
-        do {
-            //find product in catalog
-            let productRequest = NSFetchRequest<Product>(entityName: "Product")
-            productRequest.predicate = NSPredicate(format: "id == %@", shopItem.productId)
-            let productExist = try context.fetch(productRequest)
-
-            let shopProdRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
-            shopProdRequest.predicate = NSPredicate(format: "toProduct.id == %@", shopItem.productId)
-            let shoppedProduct = try context.fetch(shopProdRequest)
-
-            if shoppedProduct.isEmpty {
-                let shpLst = ShopList(context: context)
-                //shpLst.outlet_id = shopItem.outletId
-                shpLst.quantity = shopItem.quantity
-                shpLst.checked = shopItem.checked
-                shpLst.toProduct = productExist.first
-
-            } else {
-                //change parametrs
-                if let shpLst = shoppedProduct.first {
-                    //shpLst.outlet_id = shopItem.outletId
-                    shpLst.quantity = shopItem.quantity
-                    shpLst.checked = shopItem.checked
-                    shpLst.toProduct = productExist.first
-                }
-            }
-            ad.saveContext()
-        } catch {
-           print("Products is not got from database")
-        }
-
+    func saveToShopList(_ shopItem: CDShoplistItem) {
+        let shpLst = ShopList(context: context)
+        shpLst.productId = shopItem.productId
+        shpLst.quantity = shopItem.quantity
+        ad.saveContext()
     }
 
     func removeFromShopList(with productId: String) {
+        
+        guard let product = self.getProductFromShopList(with: productId) else {
+            fatalError()
+        }
+        
+        
+        context.delete(product)
+        ad.saveContext()
+        
+        
+//        do {
+//            let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+//            shpLstRequest.predicate = NSPredicate(format: "productId == %@", productId)
+//            let productExist = try context.fetch(shpLstRequest)
+//
+//            productExist.forEach { context.delete($0) }
+//            ad.saveContext()
+//        } catch {
+//            print("Products is not got from database")
+//        }
+    }
+    
+    
+    
+    private func getProductFromShopList(with productId: String) -> ShopList? {
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
-            shpLstRequest.predicate = NSPredicate(format: "toProduct.id == %@", productId)
+            shpLstRequest.predicate = NSPredicate(format: "productId == %@", productId)
             let productExist = try context.fetch(shpLstRequest)
-
-            productExist.forEach { context.delete($0) }
-            ad.saveContext()
+            
+            return productExist.first
+            
         } catch {
             print("Products is not got from database")
         }
-    }
-    
-    
-    func getQuantityOfProducts() -> Int {
-        do {
-            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            let productList = try context.fetch(fetchRequest)
-            return productList.count
-        } catch {
-            print("Products is not got from database")
-        }
-        return 0
+        
+        return nil
     }
 
-    func loadShopList(for outletId: String?) -> [DPShoplistItemModel]? {
-        var shopList: [DPShoplistItemModel] = []
+    func loadShopList() -> [CDShoplistItem]? {
+        var shopList: [CDShoplistItem] = []
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
             let savedShopList = try context.fetch(shpLstRequest)
-            
+
             shopList = savedShopList.map { shoplistItem in
-                if let product = shoplistItem.toProduct,
-                    let id = product.id,
-                    let name = product.name,
-                    let category = product.toCategory,
-                    let categoryName = category.category,
-                    let uom = product.toUom,
-                    let uomName = uom.uom,
-                    let uomParameters = uom.parameters {
-                    
-                        let brand = product.brand ?? ""
-                        let w = product.weightPerPiece ?? ""
-                        
-                        let quantity = shoplistItem.quantity
-                        let checked = shoplistItem.checked
-                        
-                        let price = outletId != nil ? getPrice(for: id, and: outletId!) : 0.0
-                        
-                        let params = UomMapper.transform(from: uomParameters)
-                        return DPShoplistItemModel(productId: id,
-                                                   productName: name,
-                                                   brand: brand,
-                                                   weightPerPiece: w,
-                                                   categoryId: category.id,
-                                                   productCategory: categoryName,
-                                                   productPrice: price,
-                                                   uomId: uom.id,
-                                                   productUom: uomName,
-                                                   quantity: quantity,
-                                                   checked: checked,
-                                                   parameters: params)
-                } else {
-                    fatalError("Database broken. Need to start sync again")
+
+                guard let id = shoplistItem.productId else {
+                    fatalError()
                 }
+
+                return CDShoplistItem(productId: id, quantity: shoplistItem.quantity)
             }
         } catch {
             print("Products is not got from database")
@@ -171,297 +86,324 @@ class CoreDataService {
         return shopList
 
     }
+    
+    
+    
+    
+    
+    
+    func removeAll(from entity: String) {
+        let requestCategories = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: requestCategories)
+        
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+        } catch {
+            fatalError("\(entity) removing error")
+        }
+    }
+    
+    
+    func getQuantityOfProduct(productId: String) -> Double {
+        guard let product = self.getProductFromShopList(with: productId) else {
+            fatalError()
+        }
+        
+        return product.quantity
+    }
+    
+    
 }
 
 // MARK: Product
 extension CoreDataService {
-    func filterItemList(contains text: String, for outletId: String) -> [DPProductModel]? {
-        var shopItems = [DPProductModel]()
-        do {
-            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            
-            let condition = "name CONTAINS[cd] %@ OR brand CONTAINS[cd] %@ OR weightPerPiece CONTAINS[cd] %@"
-            fetchRequest.predicate = NSPredicate(format: condition, text, text, text)
-            let productList = try context.fetch(fetchRequest)
-            
-            shopItems = productList.compactMap { productMapper(from: $0) }
-            return shopItems
-        } catch {
-            print("Products is not got from database")
-        }
-        return nil
+//    func filterItemList(contains text: String, for outletId: String) -> [DPProductEntity]? {
+//        var shopItems = [DPProductEntity]()
+//        do {
+//            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+//
+//            let condition = "name CONTAINS[cd] %@ OR brand CONTAINS[cd] %@ OR weightPerPiece CONTAINS[cd] %@"
+//            fetchRequest.predicate = NSPredicate(format: condition, text, text, text)
+//            let productList = try context.fetch(fetchRequest)
+//
+//            shopItems = productList.compactMap { productMapper(from: $0) }
+//            return shopItems
+//        } catch {
+//            print("Products is not got from database")
+//        }
+//        return nil
+//
+//    }
+//
+//    func productMapper(from product: Product) -> DPProductEntity? {
+//        guard let id = product.id,
+//            let name = product.name,
+//            let category = product.toCategory,
+//            let uom = product.toUom
+//            else {
+//                return nil
+//        }
+//
+//        let brand = product.brand ?? ""
+//        let weightPerPiece = product.weightPerPiece ?? ""
+//
+//        return DPProductEntity(id: id,
+//                              name: name,
+//                              brand: brand,
+//                              weightPerPiece: weightPerPiece,
+//                              categoryId: category.id,
+//                              uomId: uom.id)
+//
+//    }
 
-    }
+//    func getProductList(for outletId: String, offset: Int, limit: Int) -> [DPProductEntity]? {
+//        var shopItems = [DPProductEntity]()
+//        do {
+//            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+//            fetchRequest.fetchLimit = limit
+//            fetchRequest.fetchOffset = offset
+//            let productList = try context.fetch(fetchRequest)
+//            shopItems = productList.compactMap { self.productMapper(from: $0) }
+//
+//            return shopItems.isEmpty ? nil : shopItems
+//        } catch {
+//            print("Products is not got from database")
+//        }
+//        return nil
+//    }
+//    func getItemList(for outletId: String) -> [DPProductEntity]? {
+//        var shopItems = [DPProductEntity]()
+//        do {
+//            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+//            let productExist = try context.fetch(fetchRequest)
+//            if !productExist.isEmpty {
+//                shopItems = productExist.compactMap { productMapper(from: $0) }
+//                return shopItems
+//            }
+//        } catch {
+//            print("Products is not got from database")
+//        }
+//        return nil
+//    }
 
-    func productMapper(from product: Product) -> DPProductModel? {
-        guard let id = product.id,
-            let name = product.name,
-            let category = product.toCategory,
-            let uom = product.toUom
-            else {
-                return nil
-        }
-        
-        let brand = product.brand ?? ""
-        let weightPerPiece = product.weightPerPiece ?? ""
-        
-        return DPProductModel(id: id,
-                              name: name,
-                              brand: brand,
-                              weightPerPiece: weightPerPiece,
-                              categoryId: category.id,
-                              uomId: uom.id)
-
-    }
-
-    func getProductList(for outletId: String, offset: Int, limit: Int) -> [DPProductModel]? {
-        var shopItems = [DPProductModel]()
-        do {
-            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            fetchRequest.fetchLimit = limit
-            fetchRequest.fetchOffset = offset
-            let productList = try context.fetch(fetchRequest)
-            shopItems = productList.compactMap { self.productMapper(from: $0) }
-            
-            return shopItems.isEmpty ? nil : shopItems
-        } catch {
-            print("Products is not got from database")
-        }
-        return nil
-    }
-    func getItemList(for outletId: String) -> [DPProductModel]? {
-        var shopItems = [DPProductModel]()
-        do {
-            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            let productExist = try context.fetch(fetchRequest)
-            if !productExist.isEmpty {
-                shopItems = productExist.compactMap { productMapper(from: $0) }
-                return shopItems
-            }
-        } catch {
-            print("Products is not got from database")
-        }
-        return nil
-    }
-
-    func getItem(by barcode: String, and outletId: String) -> CDProductModel? {
-        do {
-            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            fetchRequest.predicate = NSPredicate(format: "id == %@", barcode)
-            let productList = try context.fetch(fetchRequest)
-            if !productList.isEmpty {
-                if let prd = productList.first {
-                    if let id = prd.id,
-                        let name = prd.name,
-                        let prodUom = prd.toUom,
-                        let prodCat = prd.toCategory {
-                        
-                        let brand = prd.brand ?? ""
-                        let weightPerPiece = prd.weightPerPiece ?? ""
-
-                        let item = CDProductModel(id: id,
-                                                  name: name,
-                                                  brand: brand,
-                                                  weightPerPiece: weightPerPiece,
-                                                  categoryId: prodCat.id,
-                                                  uomId: prodUom.id)
-                        return item
-                    }
-                }
-            }
-        } catch {
-            print("Products is not got from database")
-            return nil
-        }
-        return nil
-    }
+//    func getItem(by barcode: String, and outletId: String) -> CDProductModel? {
+//        do {
+//            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+//            fetchRequest.predicate = NSPredicate(format: "id == %@", barcode)
+//            let productList = try context.fetch(fetchRequest)
+//            if !productList.isEmpty {
+//                if let prd = productList.first {
+//                    if let id = prd.id,
+//                        let name = prd.name,
+//                        let prodUom = prd.toUom,
+//                        let prodCat = prd.toCategory {
+//
+//                        let brand = prd.brand ?? ""
+//                        let weightPerPiece = prd.weightPerPiece ?? ""
+//
+//                        let item = CDProductModel(id: id,
+//                                                  name: name,
+//                                                  brand: brand,
+//                                                  weightPerPiece: weightPerPiece,
+//                                                  categoryId: prodCat.id,
+//                                                  uomId: prodUom.id)
+//                        return item
+//                    }
+//                }
+//            }
+//        } catch {
+//            print("Products is not got from database")
+//            return nil
+//        }
+//        return nil
+//    }
     
-    func getProductName(for productId: String) -> String? {
-        do {
-            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            fetchRequest.predicate = NSPredicate(format: "id == %@", productId)
-            let productList = try context.fetch(fetchRequest)
-            guard  !productList.isEmpty else  { return nil }
-            guard let prd = productList.first, let name = prd.name  else { return nil }
-            
-            return name
-        } catch {
-            print("Products is not got from database")
-            return nil
-        }
-    }
+//    func getProductName(for productId: String) -> String? {
+//        do {
+//            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+//            fetchRequest.predicate = NSPredicate(format: "id == %@", productId)
+//            let productList = try context.fetch(fetchRequest)
+//            guard  !productList.isEmpty else  { return nil }
+//            guard let prd = productList.first, let name = prd.name  else { return nil }
+//            
+//            return name
+//        } catch {
+//            print("Products is not got from database")
+//            return nil
+//        }
+//    }
     
 
-    func save(_ item: CDProductModel) {
-        let product = Product(context: context)
-        product.id = item.id
-        product.name = item.name
-        product.brand = item.brand
-        product.weightPerPiece = item.weightPerPiece
-        
-        let uom = getUom(by: item.uomId)
-        product.toUom = uom
-        let category = getCategory(by: item.categoryId)
-        product.toCategory = category
+//    func save(_ item: CDProductModel) {
+//        let product = Product(context: context)
+//        product.id = item.id
+//        product.name = item.name
+//        product.brand = item.brand
+//        product.weightPerPiece = item.weightPerPiece
+//
+//        let uom = getUom(by: item.uomId)
+//        product.toUom = uom
+//        let category = getCategory(by: item.categoryId)
+//        product.toCategory = category
+//
+//        ad.saveContext()
+//    }
 
-        ad.saveContext()
-    }
-
-    func update(_ item: CDProductModel) {
-
-        guard let product = getProduct(by: item.id) else {
-            fatalError("Product is not found!!!")
-        }
-        product.name = item.name
-        product.brand = item.brand
-        product.weightPerPiece = item.weightPerPiece
-
-        let category = getCategory(by: item.categoryId)
-        product.toCategory = category
-
-        let uom = getUom(by: item.uomId)
-        product.toUom = uom
-
-        ad.saveContext()
-    }
+//    func update(_ item: CDProductModel) {
+//
+//        guard let product = getProduct(by: item.id) else {
+//            fatalError("Product is not found!!!")
+//        }
+//        product.name = item.name
+//        product.brand = item.brand
+//        product.weightPerPiece = item.weightPerPiece
+//
+//        let category = getCategory(by: item.categoryId)
+//        product.toCategory = category
+//
+//        let uom = getUom(by: item.uomId)
+//        product.toUom = uom
+//
+//        ad.saveContext()
+//    }
 
 }
 
 // MARK: Categories
 extension CoreDataService {
-    func getCategories() -> [CDCategoryModel]? {
-        var categoryList: [CDCategoryModel] = []
-        do {
-            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
-            let categories = try context.fetch(fetchRequest)
+//    func getCategories() -> [CDCategoryModel]? {
+//        var categoryList: [CDCategoryModel] = []
+//        do {
+//            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+//            let categories = try context.fetch(fetchRequest)
+//
+//            guard !categories.isEmpty else {
+//                return nil
+//            }
+//            for category in categories {
+//                if let categoryName = category.category {
+//                    categoryList.append(CDCategoryModel(id: category.id,
+//                                                      name: categoryName))
+//                } else {
+//                    fatalError("No name of category !!!!")
+//                }
+//            }
+//        } catch {
+//            print("Categories are not got from database")
+//        }
+//        return categoryList
+//    }
 
-            guard !categories.isEmpty else {
-                return nil
-            }
-            for category in categories {
-                if let categoryName = category.category {
-                    categoryList.append(CDCategoryModel(id: category.id,
-                                                      name: categoryName))
-                } else {
-                    fatalError("No name of category !!!!")
-                }
-            }
-        } catch {
-            print("Categories are not got from database")
-        }
-        return categoryList
-    }
+//    func save(new category: CDCategoryModel) {
+//        if let cat = getCategory(by: category.id) {
+//            cat.category = category.name
+//        } else {
+//            let cat = Category(context: context)
+//            cat.id = category.id
+//            cat.category = category.name
+//        }
+//        ad.saveContext()
+//    }
 
-    func save(new category: CDCategoryModel) {
-        if let cat = getCategory(by: category.id) {
-            cat.category = category.name
-        } else {
-            let cat = Category(context: context)
-            cat.id = category.id
-            cat.category = category.name
-        }
-        ad.saveContext()
-    }
+//    func save(new uom: CDUomModel) {
+//
+//        let u = Uom(context: context)
+//        u.id = uom.id
+//        u.uom = uom.name
+//        u.parameters = UomMapper.transform(from: uom.parameters)
+//
+//        ad.saveContext()
+//    }
 
-    func save(new uom: CDUomModel) {
+//    func save(new product: CDProductModel) {
+//        let prod = Product(context: context)
+//        prod.id = product.id
+//        prod.name = product.name
+//        prod.brand = product.brand
+//        prod.weightPerPiece = product.weightPerPiece
+//        guard
+//            let category = getCategory(by: product.categoryId) else {
+//            fatalError("Category is not found")
+//        }
+//        prod.toCategory = category
+//
+//        guard
+//            let uom = getUom(by: product.uomId) else {
+//            fatalError("Uom is not found")
+//        }
+//        prod.toUom = uom
+//
+//        ad.saveContext()
+//    }
 
-        let u = Uom(context: context)
-        u.id = uom.id
-        u.uom = uom.name
-        u.parameters = UomMapper.transform(from: uom.parameters)
+//    func getCategory(by id: Int32) -> Category? {
+//        do {
+//            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
+//            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+//            let categories = try context.fetch(fetchRequest)
+//
+//            guard !categories.isEmpty, let category = categories.first else {
+//                return nil
+//            }
+//            return category
+//        } catch {
+//            fatalError("category is not got from database")
+//        }
+//
+//        return nil
+//    }
+//
+//    func getUom(by id: Int32) -> Uom? {
+//        do {
+//            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
+//            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
+//            let uoms = try context.fetch(fetchRequest)
+//
+//            guard !uoms.isEmpty, let uom = uoms.first else {
+//                return nil
+//            }
+//            return uom
+//        } catch {
+//            fatalError("uom is not got from database")
+//        }
+//        return nil
+//    }
 
-        ad.saveContext()
-    }
-
-    func save(new product: CDProductModel) {
-        let prod = Product(context: context)
-        prod.id = product.id
-        prod.name = product.name
-        prod.brand = product.brand
-        prod.weightPerPiece = product.weightPerPiece
-        guard
-            let category = getCategory(by: product.categoryId) else {
-            fatalError("Category is not found")
-        }
-        prod.toCategory = category
-
-        guard
-            let uom = getUom(by: product.uomId) else {
-            fatalError("Uom is not found")
-        }
-        prod.toUom = uom
-
-        ad.saveContext()
-    }
-
-    func getCategory(by id: Int32) -> Category? {
-        do {
-            let fetchRequest = NSFetchRequest<Category>(entityName: "Category")
-            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
-            let categories = try context.fetch(fetchRequest)
-
-            guard !categories.isEmpty, let category = categories.first else {
-                return nil
-            }
-            return category
-        } catch {
-            fatalError("category is not got from database")
-        }
-
-        return nil
-    }
-
-    func getUom(by id: Int32) -> Uom? {
-        do {
-            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
-            fetchRequest.predicate = NSPredicate(format: "id == %d", id)
-            let uoms = try context.fetch(fetchRequest)
-
-            guard !uoms.isEmpty, let uom = uoms.first else {
-                return nil
-            }
-            return uom
-        } catch {
-            fatalError("uom is not got from database")
-        }
-        return nil
-    }
-
-    func getUomList() -> [Uom]? {
-        do {
-            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
-            let uoms = try context.fetch(fetchRequest)
-
-            guard !uoms.isEmpty else {
-                return nil
-            }
-            return uoms
-        } catch {
-            fatalError("uom is not got from database")
-        }
-        return nil
-    }
+//    func getUomList() -> [Uom]? {
+//        do {
+//            let fetchRequest = NSFetchRequest<Uom>(entityName: "Uom")
+//            let uoms = try context.fetch(fetchRequest)
+//
+//            guard !uoms.isEmpty else {
+//                return nil
+//            }
+//            return uoms
+//        } catch {
+//            fatalError("uom is not got from database")
+//        }
+//        return nil
+//    }
 
 
-    func getProduct(by id: String) -> Product? {
-        do {
-            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
-            fetchRequest.predicate = NSPredicate(format: "id == %@", id)
-            let products = try context.fetch(fetchRequest)
-
-            guard !products.isEmpty, let product = products.first else {
-                return nil
-            }
-            return product
-        } catch {
-            fatalError("uom is not got from database")
-        }
-        return nil
-    }
+//    func getProduct(by id: String) -> Product? {
+//        do {
+//            let fetchRequest = NSFetchRequest<Product>(entityName: "Product")
+//            fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+//            let products = try context.fetch(fetchRequest)
+//
+//            guard !products.isEmpty, let product = products.first else {
+//                return nil
+//            }
+//            return product
+//        } catch {
+//            fatalError("uom is not got from database")
+//        }
+//        return nil
+//    }
 
     func changeShoplistItem(_ quantity: Double, for productId: String) {
-
-        guard let item = getShopItemInShopList(by: productId) else {
+        guard let item = self.getProductFromShopList(with: productId) else {
             fatalError("item is not found in shoplist")
         }
         item.quantity = quantity
@@ -469,20 +411,20 @@ extension CoreDataService {
         ad.saveContext()
     }
 
-    func getShopItemInShopList(by productId: String) -> ShopList? {
-
-        do {
-            let shopProdRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
-            shopProdRequest.predicate = NSPredicate(format: "toProduct.id == %@", productId)
-            let shoppedProduct = try context.fetch(shopProdRequest)
-            guard !shoppedProduct.isEmpty, let item = shoppedProduct.first else {
-                return nil
-            }
-            return item
-        } catch {
-            fatalError("shopitem is not found")
-        }
-        return nil
-    }
+//    func getShopItemInShopList(by productId: String) -> ShopList? {
+//
+//        do {
+//            let shopProdRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
+//            shopProdRequest.predicate = NSPredicate(format: "productId == %@", productId)
+//            let shoppedProduct = try context.fetch(shopProdRequest)
+//            guard !shoppedProduct.isEmpty, let item = shoppedProduct.first else {
+//                return nil
+//            }
+//            return item
+//        } catch {
+//            fatalError("shopitem is not found")
+//        }
+//        return nil
+//    }
 }
 

@@ -8,12 +8,7 @@
 
 import Foundation
 
-
-
-
-
-
-struct DPShoplistItemModel: Equatable {
+struct ShoplistItem: Equatable {
     var productId: String
     var productName: String
     var brand: String
@@ -24,21 +19,22 @@ struct DPShoplistItemModel: Equatable {
     var uomId: Int32
     var productUom: String
     var quantity: Double
-    var checked: Bool
+//    var checked: Bool
     
     
     var fullName: String {
-        
+
         let pr = "\(productName)"
         let br = brand.isEmpty ? "" : ", \(brand)"
         let w = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
-        
+
         return "\(pr)\(br)\(w)"
     }
-    
+//
     var parameters: [Parameter]
 }
 
-func ==(lhs: DPShoplistItemModel, rhs: DPShoplistItemModel) -> Bool {
+func ==(lhs: ShoplistItem, rhs: ShoplistItem) -> Bool {
     return lhs.productId == rhs.productId// && lhs.productCategory == rhs.productCategory
 }
+

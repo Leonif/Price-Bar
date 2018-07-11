@@ -15,4 +15,9 @@ struct FBProductModel {
     var weightPerPiece: String
     var categoryId: Int32
     var uomId: Int32
+    
+    var fullName: String {
+        return "\(name), \(brand), \(weightPerPiece)"
+    }
+    
 }

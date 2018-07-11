@@ -45,3 +45,6 @@
 "empty_product_name" = "Fill out the product name 👿 !!!";
 "no_gps_access" = "We can not find stores near you. You restricted monitoring your position. Enable in the settings to use the program 😢";
 "try_again" = "Try again";
+"getting_actual_price" = "Getting the current price";
+"common_get_product_info" = "Retrieving product information";
+"common_category_is_absent" = "Category is not available %@";

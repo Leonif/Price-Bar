@@ -10,46 +10,95 @@ import Foundation
 import UIKit
 
 class ShopListAdapter: NSObject, UITableViewDataSource {
-    var repository: Repository!
     var tableView: UITableView!
-    
     var vc: UIViewController!
     
-    var onCellDidSelected: ((DPShoplistItemModel) -> Void)?
-    var onCompareDidSelected: ((DPShoplistItemModel) -> Void)?
-    private var onWeightDemand: ((ShopItemCell) -> Void)?
-
-    init(parent: UIViewController,  tableView: UITableView, repository: Repository) {
-        super.init()
-        
-        self.vc = parent
-        self.tableView = tableView
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.repository = repository
-        
-        tableView.register(ShopItemCell.self)
-        
+    var onCellDidSelected: ((ShoplistItem) -> Void)?
+    var onCompareDidSelected: ((ShoplistItem) -> Void)?
+    var onRemoveItem: ((String) -> Void)?
+    var onQuantityChange: ((String) -> Void)?
+    
+    var sectionNames: [String] = []
+    var dataSource: [ShoplistItem] = [] {
+        didSet {
+            self.sectionNames = []
+            dataSource.forEach { item in
+                if !sectionNames.contains(item.productCategory) {
+                    sectionNames.append(item.productCategory)
+                }
+            }
+        }
     }
     
-    func reload() {
-        self.tableView.reloadData()
+    private var onWeightDemand: ((ShopItemCell) -> Void)?
+    init(parent: UIViewController) {
+        super.init()
+        self.vc = parent
     }
+    
+    func getRowsInSection(_ section: Int) -> Int {
+        let count = self.dataSource.reduce(0) { (result, item) in
+            result + (item.productCategory == sectionNames[section] ? 1 : 0)
+        }
+        return count
+    }
+    
+    func getItem(index: IndexPath) -> ShoplistItem {
+        let sec = index.section
+        let indexInSec = index.row
+        let productListInsection = self.dataSource.filter { $0.productCategory == sectionNames[sec] }
+        return productListInsection[indexInSec]
+    }
+    
+    func headerString(for section: Int) -> String {
+        guard !sectionNames.isEmpty else {
+            return "No section"
+        }
+        
+        return sectionNames[section]
+    }
+    
+    
+    // FIXME: move to presenter
+    func remove(item: ShoplistItem) {
+        guard let index = self.dataSource.index(of: item) else {
+            fatalError("item doesnt exist")
+        }
+        self.dataSource.remove(at: index)
+        self.removeSection(with: item.productCategory)
+        self.onRemoveItem?(item.productId)
+    }
+    
+    // FIXME: move to presenter
+    func removeSection(with name: String) {
+        guard let index = sectionNames.index(of: name) else {
+            return
+        }
+        
+        for item in self.dataSource {
+            if item.productCategory == name {
+                debugPrint("section \(name) can't be removed cause contains some items")
+                return
+            }
+        }
+        self.sectionNames.remove(at: index)
+    }
+    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repository.rowsIn(section)
+        return self.getRowsInSection(section)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ShopItemCell = tableView.dequeueReusableCell(for: indexPath)
-        let shp = self.repository.getItem(index: indexPath)!
+        let shp = self.getItem(index: indexPath)
 
         self.configure(cell, shp)
         
         
-        let isFirstAndLastCell = indexPath.row == 0 && indexPath.row == self.repository.rowsIn(indexPath.section) - 1
+        let isFirstAndLastCell = indexPath.row == 0 && indexPath.row == self.getRowsInSection(indexPath.section) - 1
         let isFirstCell = indexPath.row == 0
-        let isLastCell = indexPath.row == self.repository.rowsIn(indexPath.section) - 1
+        let isLastCell = indexPath.row == self.getRowsInSection(indexPath.section) - 1
         
         let wide: CGFloat = 16
         let thin: CGFloat = 8
@@ -73,11 +122,13 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         }
         
         cell.onWeightDemand = { [weak self] cell in
-            self?.handleWeightDemanded(cell: cell)
+            guard let `self` = self else { return }
+            let item = self.getItem(index: indexPath)
+            self.onQuantityChange?(item.productId)
         }
         cell.onCompareDemand = { [weak self] cell in
             guard let `self` = self else { return }
-            let item = self.repository.getItem(index: indexPath)!
+            let item = self.getItem(index: indexPath)
             self.onCompareDidSelected?(item)
         }
         
@@ -85,20 +136,19 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        return repository.sectionCount
+        return sectionNames.count
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if let item = repository.getItem(index: indexPath) {
-                tableView.update {
-                    let itemCountWasInSection = repository.rowsIn(indexPath.section)
-                    repository.remove(item: item)
-                    tableView.deleteRows(at: [indexPath], with: .fade)
-                    if itemCountWasInSection == 1 {
-                        let indexSet = IndexSet(integer: indexPath.section)
-                        tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
-                    }
+            let item = self.getItem(index: indexPath)
+            tableView.update {
+                let itemCountWasInSection = self.getRowsInSection(indexPath.section)
+                self.remove(item: item)
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                if itemCountWasInSection == 1 {
+                    let indexSet = IndexSet(integer: indexPath.section)
+                    tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
                 }
             }
         }
@@ -109,28 +159,27 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 // MARK: -  Delegate
 extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item = self.repository.getItem(index: indexPath)!
+        let item = self.getItem(index: indexPath)
         self.onCellDidSelected?(item)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)!.first as! HeaderView
         
         PriceBarStyles.grayBorderedRounded.apply(to: headerView.view)
-        headerView.categoryLabel.text = repository.headerString(for: section)
+        headerView.categoryLabel.text = self.headerString(for: section)
 
         return headerView
     }
     
     
-    func configure(_ cell: ShopItemCell, _ item: DPShoplistItemModel) {
+    func configure(_ cell: ShopItemCell, _ item: ShoplistItem) {
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
         cell.cellView.layer.cornerRadius = 8.0
         PriceBarStyles.shadowAround.apply(to: cell.cellView)
         
-        [cell.quantityButton, cell.priceView].forEach {
-            PriceBarStyles.grayBorderedRounded.apply(to: $0)
-        }
+        PriceBarStyles.grayBorderedRounded.apply(to: cell.quantityButton, cell.priceView)
+        
         cell.priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
         cell.nameItem.text = item.fullName
         cell.priceItem.text = String(format: "%.2f", item.productPrice)
@@ -148,39 +197,6 @@ extension ShopListAdapter: UITableViewDelegate {
         
         cell.quantityButton.setTitle(btnTitle, for: .normal)
         cell.totalItem.text = String(format: "UAH\n%.2f", total)
-    }
-    
-    
-}
-
-
-
-// MARK: - Cell handlers
-extension ShopListAdapter {
-    func handleWeightDemanded(cell: ShopItemCell) {
-        guard
-            let indexPath = self.tableView.indexPath(for: cell),
-            let item = repository.getItem(index: indexPath) else {
-                fatalError("Not possible to find out type of item")
-        }
-        
-        let currentValue = repository.getQuantity(for: item.productId)!
-        let model = QuantityModel(parameters: item.parameters,
-                                  indexPath: indexPath,
-                                  currentValue: currentValue)
-        let pickerVC = QuantityPickerPopup(delegate: self, model: model)
-        self.vc.present(pickerVC, animated: true, completion: nil)
-    }
-}
-
-// MARK: - Quantity changing of item handler
-extension ShopListAdapter: QuantityPickerPopupDelegate {
-    func choosen(weight: Double, for indexPath: IndexPath) {
-        guard let item = self.repository.getItem(index: indexPath) else {
-            return
-        }
-        repository.changeShoplistItem(weight, for: item.productId)
-        self.tableView.reloadRows(at: [indexPath], with: .none)
     }
 }
 

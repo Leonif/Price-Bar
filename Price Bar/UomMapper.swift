@@ -9,6 +9,21 @@
 import Foundation
 
 class UomMapper {
+    
+    class func mapper(from fbModel: FBUomModel) -> UomModelView {
+        return UomModelView(id: fbModel.id,
+                          name: fbModel.name,
+                          parameters: fbModel.parameters)
+    }
+    
+    class func transform(from fbModelList: [FBUomModel]) -> [UomModelView] {
+        return fbModelList.map { fbUom in
+            mapper(from: fbUom)
+        }
+    }
+    
+    
+    
     class func mapper(from fbModel: FBUomModel) -> CDUomModel {
         return CDUomModel(id: fbModel.id,
                           name: fbModel.name,
@@ -22,8 +37,6 @@ class UomMapper {
     }
     
     class func mapper(from cdModel: CDParameter) -> Parameter {
-        
-        
         let maxValue = cdModel.maxValue
         let step = cdModel.step
         let suffix = cdModel.suffix
@@ -55,6 +68,20 @@ class UomMapper {
                            viewMultiplicator: parameter.viewMultiplicator)
         
     }
+    
+    
+//    class func mapper(from parameter: Parameter) -> CDParameter {
+//        
+//        
+//        return CDParameter(maxValue: parameter.maxValue,
+//                           step: parameter.step,
+//                           suffix: parameter.suffix,
+//                           viewMultiplicator: parameter.viewMultiplicator)
+//        
+//    }
+    
+    
+    
     class func transform(from parameterList: [Parameter]) -> [CDParameter] {
         
         return parameterList.map { parameter in

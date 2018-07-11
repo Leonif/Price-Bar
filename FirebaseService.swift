@@ -9,28 +9,30 @@
 import Foundation
 import Firebase
 
-//let DB_FIRBASE = Database.database().reference()
-
 enum FirebaseError: Error {
     case loginError(String)
     case syncError(String)
+    case dataIsNotFound(String)
 
 }
 
 class FirebaseService {
     static let data = FirebaseService()
-    var refGoods = Database.database().reference().child("goods")
+    private var refGoods = Database.database().reference().child("goods")
     
-    var refPriceStatistics: DatabaseReference? = nil
+    private var refPriceStatistics: DatabaseReference
+    
+    
+    private var refCategories: DatabaseReference? = nil
+    private var refUoms: DatabaseReference? = nil
+    private var refUomsParams: DatabaseReference? = nil
+    
+    private var email = "good_getter@gmail.com"
+    private var pwd = "123456"
 
+    var goodCurrentId: String?
     
-    var refCategories: DatabaseReference? = nil
-    var refUoms: DatabaseReference? = nil
-    var refUomsParams: DatabaseReference? = nil
     
-    var email = "good_getter@gmail.com"
-    var pwd = "123456"
-
     
     init() {
         refGoods = Database.database().reference().child("goods")
@@ -44,6 +46,7 @@ class FirebaseService {
         #endif
         
         refPriceStatistics = Database.database().reference().child(statistics)
+        
         
         refCategories = Database.database().reference().child("categories")
         refUoms = Database.database().reference().child("uoms")
@@ -76,66 +79,62 @@ class FirebaseService {
         })
     }
 
-    func syncCategories(completion: @escaping (ResultType<[FBItemCategory], FirebaseError>)->Void) {
-        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
-                var categories = [FBItemCategory]()
-                for snapCategory in snapCategories {
-                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String, Any> {
-                        let itemCategory = FBItemCategory(key:id, itemCategoryDict: categoryDict)
-                        categories.append(itemCategory)
+    
+    // FIXME: PAGINATION: WORKS WRONG !!!! ===========================================
+    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+        if pageOffset == 0 {
+            self.refGoods.queryOrderedByKey().queryLimited(toLast: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
+                if let snapGoods = snapshot.value as? [String: Any] {
+                    let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
+                    
+                    goods.forEach { print("\($0.id) \($0.name)") }
+                    
+                    self.goodCurrentId = goods.first?.id
+                    completion(ResultType.success(goods))
+                }
+            }) { error in
+                completion(ResultType.failure(.syncError(error.localizedDescription)))
+            }
+        } else {
+            self.refGoods.queryOrderedByKey().queryEnding(atValue: self.goodCurrentId).queryLimited(toLast: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
+                if let snapGoods = snapshot.value as? [String: Any] {
+                    let goods = snapGoods.map { FirebaseParser.parseToFbProductModel(from: $0) }
+                    if self.goodCurrentId != goods.first?.id {
+                        self.goodCurrentId = goods.first?.id
+                        goods.forEach { print("\($0.id) \($0.name)") }
+                        completion(ResultType.success(goods))
+                    } else {
+                        completion(ResultType.success([]))
                     }
                 }
-                completion(ResultType.success(categories))
+            }) { error in
+                completion(ResultType.failure(.syncError(error.localizedDescription)))
             }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-
-    func syncProducts(completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+    // ===============================================================================================
+    func getProductCount(completion: @escaping (ResultType<Int, FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapGoods = snapshot.value as? [String: Any] {
-                let goods = snapGoods.map { FirebaseParser.parse($0) }//FirebaseParser.transform(from: snapGoods)
-                completion(ResultType.success(goods))
-            }
+            completion(ResultType.success(Int(snapshot.childrenCount)))
         }) { error in
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-
-    func syncStatistics(completion: @escaping (ResultType<[FBItemStatistic], FirebaseError>)->Void) {
-        refPriceStatistics?.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                var itemStatistic = [FBItemStatistic]()
-                for snapPrice in snapPrices {
-                    if let priceDict = snapPrice.value as? Dictionary<String, Any> {
-                        if let statistic = FBItemStatistic(priceData: priceDict) {
-                            itemStatistic.append(statistic)
-                        }
-
-                    }
-                }
-                completion(ResultType.success(itemStatistic))
-            }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
-        }
-    }
-
-    func syncUoms(completion: @escaping (ResultType<[FBUomModel], FirebaseError>)->Void) {
+    
+    
+    func getParametredUom(for uomId: Int32, completion: @escaping (ResultType<FBUomModel, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                let uoms: [FBUomModel] = FirebaseParser.parseUoms(from: snapUoms)
-                completion(ResultType.success(uoms))
+                let uoms = FirebaseParser.transfromToFBUomModels(from: snapUoms).filter { $0.id == uomId }
+                guard let uom = uoms.first else { fatalError() }
+                completion(ResultType.success(uom))
             }
         }) { error in
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-
+    
     func saveOrUpdate(_ item: FBProductModel) {
-
         let good = [
             "barcode": item.id,
             "name": item.name,
@@ -145,16 +144,199 @@ class FirebaseService {
             "uom_id": item.uomId
         ] as [String: Any]
         refGoods.child(item.id).setValue(good)
+        
     }
 
-    func save(new statistic: FBItemStatistic) {
+    func savePrice(for productId: String, statistic: FBItemStatistic) {
         let priceStat = [
             "date": statistic.date.getString(format: "dd.MM.yyyy hh:mm:ss"),
-            "product_id": statistic.productId,
             "outlet_id": statistic.outletId,
             "price": statistic.price
             ] as [String: Any]
-        refPriceStatistics?.childByAutoId().setValue(priceStat)
+        
+        refPriceStatistics.child(productId).childByAutoId().setValue(priceStat)
+    }
+    
+    func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, FirebaseError>)->Void) {
+        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
+                for snapCategory in snapCategories {
+                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String, Any> {
+                        guard let name = categoryDict["name"] as? String else { return }
+                        
+                        if name == categoryName {
+                            completion(ResultType.success(Int(id)))
+                            return
+                        }
+                    }
+                }
+                completion(ResultType.success(nil))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, FirebaseError>)->Void) {
+        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
+                for snapCategory in snapCategories {
+                    if let id = Int32(snapCategory.key), let categoryDict = snapCategory.value as? Dictionary<String, Any> {
+                        guard let name = categoryDict["name"] as? String else { return }
+                        
+                        if id == categoryId {
+                            completion(ResultType.success(name))
+                            return
+                        }
+                    }
+                }
+                completion(ResultType.success(nil))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, FirebaseError>)->Void) {
+        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                for snapUom in snapUoms {
+                    if let id = Int32(snapUom.key), let uomDict = snapUom.value as? Dictionary<String, Any> {
+                        guard let name = uomDict["name"] as? String else { return }
+                        
+                        if name == uomName {
+                            completion(ResultType.success(Int(id)))
+                            return
+                        }
+                    }
+                }
+                completion(ResultType.success(nil))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    func getUomName(for uomid: Int32, completion: @escaping (ResultType<String?, FirebaseError>)->Void) {
+        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                for snapUom in snapUoms {
+                    if let id = Int32(snapUom.key), let uomDict = snapUom.value as? Dictionary<String, Any> {
+                        guard let name = uomDict["name"] as? String else { return }
+                        
+                        if id == uomid {
+                            completion(ResultType.success(name))
+                            return
+                        }
+                    }
+                }
+                completion(ResultType.success(nil))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    func getUomList(completion: @escaping (ResultType<[FBUomModel]?, FirebaseError>)->Void) {
+        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
+                let fbUoms = FirebaseParser.transfromToFBUomModels(from: snapUoms)
+                completion(ResultType.success(fbUoms))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    
+    func getCategoryList(completion: @escaping (ResultType<[FBItemCategory]?, FirebaseError>)->Void) {
+        self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
+                let fbCategories:[FBItemCategory] = snapCategories.map { (snapCategory) in
+                    return FirebaseParser.parseCategory(from: snapCategory)
+                }
+                completion(ResultType.success(fbCategories))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
     }
 
+    
+    func getProduct(with productId: String, callback: @escaping (FBProductModel?) -> Void) {
+        self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
+            guard let snap = snapshot.value as? [String: Any] else { fatalError() }
+            
+            let goods = snap.map { FirebaseParser.parseToFbProductModel(from: $0) }.filter { $0.id == productId }
+            
+            guard !goods.isEmpty else {
+                callback(nil)
+                return
+            }
+            callback(goods.first)
+        }
+    }
+    
+    func getFiltredProductList(with searchedText: String, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+        self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
+            if let snapGoods = snapshot.value as? [String: Any] {
+                let goods = snapGoods
+                    .map { FirebaseParser.parseToFbProductModel(from: $0) }
+                    .filter { $0.fullName.lowercased().range(of: searchedText.lowercased()) != nil }
+                completion(ResultType.success(goods))
+            }
+        }) { error in
+            completion(ResultType.failure(.syncError(error.localizedDescription)))
+        }
+    }
+    
+    func getPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
+        self.refPriceStatistics.child(productId)
+            .observeSingleEvent(of: .value) { (snapshot) in
+            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+                let itemStatistics = snapPrices
+                    .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
+                    .filter { $0.outletId == outletId }
+                    .sorted { $0.date > $1.date }
+                
+                guard let stat = itemStatistics.first else {
+                    callback(nil)
+                    return
+                }
+                callback(stat.price)
+            }
+        }
+    }
+    
+    func getPricesFor(_ productId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
+        self.refPriceStatistics.child(productId)
+            .observeSingleEvent(of: .value, with: { snapshot in
+            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
+                let itemStatistic = snapPrices
+                    .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
+                    .sorted { $0.date > $1.date }
+                
+                var uniqArray: [FBItemStatistic] = []
+
+                for item in itemStatistic {
+                    if !uniqArray.contains(where: { $0.outletId == item.outletId }) {
+                        uniqArray.append(item)
+                    }
+                }
+                callback(uniqArray)
+            }
+        }) { error in
+            fatalError(error.localizedDescription)
+        }
+    }
 }
+
+
+
+
+
+
+
+
+

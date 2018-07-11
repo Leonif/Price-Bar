@@ -9,31 +9,27 @@
 import Foundation
 
 struct FBItemStatistic {
-    var productId: String
     var price: Double
     var outletId: String
     var date: Date
 
     init?(priceData: Dictionary<String, Any>) {
-        guard let productId = priceData["product_id"] as? String,
+        guard
             let price = priceData["price"] as? Double,
             price != 0,
             let outletId = priceData["outlet_id"] as? String,
             let dateStr = priceData["date"] as? String  else {
                 return nil
         }
-
-        self.productId = productId
         self.price = price
         self.outletId = outletId
         self.date = dateStr.toDate(with: "dd.MM.yyyy HH:mm:ss")!
     }
 
     init(productId: String, price: Double, outletId: String) {
-        self.productId = productId
         self.price = price
         self.outletId = outletId
         self.date = Date()
     }
-
 }
+

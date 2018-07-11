@@ -10,101 +10,100 @@ import Foundation
 
 class ProductMapper {
     
-    class func mapper(from product: DPProductModel, and outletId: String) -> DPShoplistItemModel {
-
-        let dataProvider = Repository()
-
-        guard
-            let categoryName = dataProvider.getCategoryName(category: product.categoryId),
-            let uom = dataProvider.getUom(for: product.uomId)
-            else {
-                fatalError("category or uom name doesnt exist")
-        }
-        let price = dataProvider.getPrice(for: product.id, and: outletId)
-
-        return DPShoplistItemModel(productId: product.id,
-                                   productName: product.name,
-                                   brand: product.brand,
-                                   weightPerPiece: product.weightPerPiece,
-                                   categoryId: product.categoryId,
-                                   productCategory: categoryName,
-                                   productPrice: price,
-                                   uomId: product.uomId,
-                                   productUom: uom.name,
-                                   quantity: 1.0,
-                                   checked: false,
-                                   parameters: uom.parameters)
-
+    class func mapToDPProductEntity(from fBProductModel: FBProductModel) -> DPProductEntity {
+        
+        return DPProductEntity(id: fBProductModel.id,
+                               name: fBProductModel.name,
+                               brand: fBProductModel.brand,
+                               weightPerPiece: fBProductModel.weightPerPiece,
+                               categoryId: fBProductModel.categoryId,
+                               uomId: fBProductModel.uomId)
+        
     }
+    
+//    class func mapper(from product: DPProductEntity, price: Double, outletId: String) -> ShoplistItem {
+//
+//        let repositoriy = Repository()
+//
+//        guard
+//            let categoryName = repositoriy.getCategoryName(category: product.categoryId),
+//            let uom = repositoriy.getUom(for: product.uomId)
+//            else {
+//                fatalError("category or uom name doesnt exist")
+//        }
+//
+//        return ShoplistItem(productId: product.id,
+//                                   productName: product.name,
+//                                   brand: product.brand,
+//                                   weightPerPiece: product.weightPerPiece,
+//                                   categoryId: product.categoryId,
+//                                   productCategory: categoryName,
+//                                   productPrice: price,
+//                                   uomId: product.uomId,
+//                                   productUom: uom.name,
+//                                   quantity: 1.0,
+//                                   checked: false,
+//                                   parameters: uom.parameters)
+//
+//    }
 
-    class func mapper(from dpModel: DPProductModel, for outletId: String) -> ItemListModelView {
-        let dataProvider = Repository()
-        let price = dataProvider.getPrice(for: dpModel.id, and: outletId)
-        let categoryName = dataProvider.getCategoryName(category: dpModel.categoryId)
-
-        return ItemListModelView(id: dpModel.id,
-                                 product: dpModel.name,
-                                 brand: dpModel.brand,
-                                 weightPerPiece: dpModel.weightPerPiece,
-                                 currentPrice: price,
-                                 categoryName: categoryName!)
-    }
+    
 
 
-    class func mapper(from newBarcode: String) -> ProductCardModelView {
-        let dataProvider = Repository()
+//    class func mapper(from newBarcode: String) -> ProductCardEntity {
+//        let dataProvider = Repository()
+//
+//        guard let category = dataProvider.defaultCategory else {
+//            fatalError("default category is not found")
+//        }
+//        guard let uom = dataProvider.defaultUom else {
+//            fatalError("default uom is not found")
+//        }
+//
+//        return ProductCardEntity(productId: newBarcode,
+//                                    productName: "",
+//                                    brand: "",
+//                                    weightPerPiece: "",
+//                                    categoryId: category.id,
+//                                    categoryName: category.name,
+//                                    productPrice: 0.0,
+//                                    uomId: uom.id,
+//                                    uomName: uom.name)
+//    }
 
-        guard let category = dataProvider.defaultCategory else {
-            fatalError("default category is not found")
-        }
-        guard let uom = dataProvider.defaultUom else {
-            fatalError("default uom is not found")
-        }
+//    class func mapper(for newItemName: String) -> ProductCardEntity {
+//        let dataProvider = Repository()
+//
+//        guard let category = dataProvider.defaultCategory else {
+//            fatalError("default category is not found")
+//        }
+//        guard let uom = dataProvider.defaultUom else {
+//            fatalError("default uom is not found")
+//        }
+//
+//        let newid = NSUUID().uuidString
+//        return ProductCardEntity(productId: newid,
+//                                    productName: newItemName.capitalized,
+//                                    brand: "",
+//                                    weightPerPiece: "",
+//                                    categoryId: category.id,
+//                                    categoryName: category.name,
+//                                    productPrice: 0.0,
+//                                    uomId: uom.id,
+//                                    uomName: uom.name)
+//    }
 
-        return ProductCardModelView(productId: newBarcode,
-                                    productName: "",
-                                    brand: "",
-                                    weightPerPiece: "",
-                                    categoryId: category.id,
-                                    categoryName: category.name,
-                                    productPrice: 0.0,
-                                    uomId: uom.id,
-                                    uomName: uom.name)
-    }
-
-    class func mapper(for newItemName: String) -> ProductCardModelView {
-        let dataProvider = Repository()
-
-        guard let category = dataProvider.defaultCategory else {
-            fatalError("default category is not found")
-        }
-        guard let uom = dataProvider.defaultUom else {
-            fatalError("default uom is not found")
-        }
-
-        let newid = NSUUID().uuidString
-        return ProductCardModelView(productId: newid,
-                                    productName: newItemName.capitalized,
-                                    brand: "",
-                                    weightPerPiece: "",
-                                    categoryId: category.id,
-                                    categoryName: category.name,
-                                    productPrice: 0.0,
-                                    uomId: uom.id,
-                                    uomName: uom.name)
-    }
-
-    class func mapper(from item: DPShoplistItemModel) -> ProductCardModelView {
-        return ProductCardModelView(productId: item.productId,
-                                    productName: item.productName,
-                                    brand: item.brand,
-                                    weightPerPiece: item.weightPerPiece,
-                                    categoryId: item.categoryId,
-                                    categoryName: item.productCategory,
-                                    productPrice: item.productPrice,
-                                    uomId: item.uomId,
-                                    uomName: item.productUom)
-    }
+//    class func mapper(from item: ShoplistItem) -> ProductCardEntity {
+//        return ProductCardEntity(productId: item.productId,
+//                                    productName: item.productName,
+//                                    brand: item.brand,
+//                                    weightPerPiece: item.weightPerPiece,
+//                                    categoryId: item.categoryId,
+//                                    categoryName: item.productCategory,
+//                                    productPrice: item.productPrice,
+//                                    uomId: item.uomId,
+//                                    uomName: item.productUom)
+//    }
     
     
     

@@ -9,134 +9,71 @@
 import Foundation
 import UIKit
 
-
-struct DataStorage {
-    var repository: Repository
-    var vc: UIViewController
-    var outlet: Outlet?
-}
-
-protocol IssueRoute {
-    func onTryAgain()
-}
-
-extension IssueRoute where Self: UIViewController {
-    func openIssueVC(issue: String) {
-        let vc = IssueVC(nib: R.nib.issueVC)
-        vc.issueMessage = issue
-        vc.onTryAgain = {
-            self.onTryAgain()
-        }
-        self.present(vc, animated: true)
-    }
+protocol ShoplistRouter: BaseRouter {
+    func openStatistics()
+    func openUpdatePrice(presenter: ShoplistPresenter, for productId: String, currentPrice: Double, outletId: String)
+    func openIssue(with issue: String)
+    func openItemCard(presenter: ItemCardDelegate, for productId: String, outletId: String)
+    func openScanner(presenter: ShoplistPresenter)
+    func openItemList(for outletId: String, presenter: ShoplistPresenter)
+    func openOutletList(presenter: ShoplistPresenter)
+    func openQuantityController(presenter: QuantityPickerPopupDelegate, quantityEntity: QuantityModel)
 }
 
 
-
-
-
-
-protocol ItemCardRoute {
-}
-
-extension ItemCardRoute where Self: UIViewController {
-    func openItemCard(for item: DPShoplistItemModel, data: DataStorage) {
-        let vc = ItemCardNew(nib: R.nib.itemCardNew)
-        vc.item = item
-        vc.delegate = data.vc as! ItemCardVCDelegate
-        vc.repository = data.repository
-        vc.outletId = data.outlet?.id
-        
-        self.present(vc, animated: true)
+class ShoplistRouterImpl: ShoplistRouter {
+    
+    weak var fromVC: ShoplistView!
+    var repository: Repository!
+    
+    func openStatistics() {
+        let module = CloudStatisticsAssembler().assemble()
+        self.presentModule(fromModule: fromVC, toModule: module)
     }
     
-    func openScannedNewItemCard(for barcode: String, data: DataStorage) {
-        let vc = ItemCardNew(nib: R.nib.itemCardNew)
-        vc.barcode = barcode
-        vc.item = nil
-        vc.delegate = data.vc as! ItemCardVCDelegate
-        vc.repository = data.repository
-        vc.outletId = data.outlet?.id
-        self.present(vc, animated: true)
-    }
-}
-
-
-protocol ItemListRoute {
-    var data: DataStorage! { get }
-}
-
-
-extension ItemListRoute where Self: UIViewController {
-    func openItemList(for outletId: String) {
-        let vc = R.storyboard.main.itemListVC()!
-        vc.delegate = self as? ItemListVCDelegate
-        vc.outletId = outletId
-        vc.itemCardDelegate = self as? ItemCardVCDelegate
-        vc.repository = data.repository
-        self.navigationController?.pushViewController(vc, animated: true)
+    func openUpdatePrice(presenter: ShoplistPresenter, for productId: String, currentPrice: Double, outletId: String) {
+        let module = UpdatePriceAssembler().assemble(productId: productId, outletId: outletId, updatePriceOutput: presenter)
+        self.presentModule(fromModule: fromVC, toModule: module)
     }
     
-}
-
-
-protocol UpdatePriceRoute {
-    func onSavePrice()
-}
-
-extension UpdatePriceRoute where Self: UIViewController {
-    func openUpdatePrice(for productId: String, currentPrice: Double = 0.0,  data: DataStorage) {
-        let vc = UpdatePriceVC(nib: R.nib.updatePriceVC)
-        vc.productId = productId
-        vc.price = currentPrice
-        vc.data = data
-        vc.onSavePrice = { [weak self] in
-            self?.onSavePrice()
+    func openIssue(with issue: String) {
+        func openIssueVC(issue: String) {
+            let vc = IssueVC(nib: R.nib.issueVC)
+            vc.issueMessage = issue
+            self.presentModule(fromModule: fromVC, toModule: vc as! BaseView)
         }
-        self.present(vc, animated: true)
     }
-}
-
-
-protocol StatisticsRoute {
-    var data: DataStorage! { get }
-}
-
-extension StatisticsRoute where Self: UIViewController {
-    func openStatistics(data: DataStorage) {
-        let statVC = BaseStatisticsVC()
-        statVC.modalPresentationStyle = .overCurrentContext
-        statVC.repository = self.data.repository
+    
+    func openItemCard(presenter: ItemCardDelegate, for productId: String, outletId: String) {
         
-        DispatchQueue.main.async {
-            self.present(statVC, animated: true)
-        }
+        let module = ItemCardAssembler().assemble(itemCardDelegate: presenter, for: productId, outletId: outletId)
+        
+        
+        self.presentModule(fromModule: fromVC, toModule: module)
+    }
+    
+    func openScanner(presenter: ShoplistPresenter) {
+        let module = ScannerAssembler().assemble(scannerOutput: presenter)
+        self.pushModule(fromModule: fromVC, toModule: module)
+    }
+    
+    func openItemList(for outletId: String, presenter: ShoplistPresenter) {
+        let module = ItemListAssembler().assemble(for: outletId, itemListOutput: presenter)
+        self.pushModule(fromModule: fromVC, toModule: module)
+    }
+    
+    
+    func openOutletList(presenter: ShoplistPresenter) {
+        let module = OutletListAssembler().assemble(outletListOutput: presenter)
+        self.pushModule(fromModule: fromVC, toModule: module)
+    }
+    
+    func openQuantityController(presenter: QuantityPickerPopupDelegate, quantityEntity: QuantityModel) {
+        let picker = QuantityPickerPopup(delegate: presenter, model: quantityEntity)
+        self.presentController(fromModule: fromVC, to: picker)
     }
 }
 
-protocol ScannerRoute {
-}
 
-
-extension ScannerRoute where Self: UIViewController {
-    func openScanner() {
-        let vc = R.storyboard.main.scannerController()!
-        vc.delegate = self as! ScannerDelegate
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-
-protocol OutletListRoute {
-}
-
-
-extension OutletListRoute where Self: UIViewController {
-    func openOutletLst() {
-        let vc = R.storyboard.main.outletsVC()!
-        vc.delegate = self as? OutletVCDelegate
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-}
 
 

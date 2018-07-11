@@ -8,24 +8,19 @@
 
 import UIKit
 
-protocol ItemListVCDelegate: class {
-    func itemChoosen(productId: String)
+protocol ItemListView: BaseView {
+    func onFetchedNewBatch(items: [ItemListViewEntity])
+    func onFiltredItems(items: [ItemListViewEntity])
 }
 
-class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
+class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     
     @IBOutlet weak var tableView: UITableView!
     var outletId: String = ""
    
-    var router: ItemListRouter!
-    var data: ItemListRouterDataStorage!
+
+    var presenter: ItemListPresenter!
     var adapter: ItemListAdapter!
-    
-    var shouldClose: Bool = false
-    
-    weak var repository: Repository!
-    weak var delegate: ItemListVCDelegate?
-    weak var itemCardDelegate: ItemCardVCDelegate?
     
     lazy var searchBar: UISearchBar = {
         let s = UISearchBar(frame: CGRect.zero)
@@ -43,45 +38,55 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
         return b
     }()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.router = ItemListRouter()
-        self.data = ItemListRouterDataStorage(repository: repository, vc: self, outletId: outletId)
-        
         self.setupAdapter()
         self.setupNavigation()
-        
     }
+    
+    func onFetchedNewBatch(items: [ItemListViewEntity]) {
+        guard !items.isEmpty else { return }
+        
+        self.adapter.addNewBatch(nextBatch: items)
+    }
+    
+    func onFiltredItems(items: [ItemListViewEntity]) {
 
+        adapter.filtredItemList = items
+        adapter.reload()
+    }
     
     private func setupAdapter() {
-        self.adapter = ItemListAdapter(tableView: self.tableView,
-                                       repository: self.repository,
-                                       outletId: outletId)
         
-//        self.adapter.onStartLoading = { [weak self] in
-//            self?.view.pb_startActivityIndicator(with: R.string.localizable.common_loading())
-//        }
+        self.tableView.delegate = self.adapter
+        self.tableView.dataSource = self.adapter
+        
+        self.tableView.register(AddCell.self)
+        self.tableView.register(ItemListCell.self)
+        
+        self.adapter.tableView = tableView
         
         self.adapter.onAddNewItem = { [weak self] in
             guard let `self` = self else { return }
-            self.router.openItemCard(for: self.searchBar.text!, data: self.data)
+            guard let suggestedName = self.searchBar.text else { return }
+            
+            self.presenter.onAddNewItem(suggestedName: suggestedName)
+            self.close()
+            
         }
         self.adapter.onItemChoosen = { [weak self] itemId in
             self?.close()
-            self?.delegate?.itemChoosen(productId: itemId)
+            self?.presenter.onItemChoosen(productId: itemId)
         }
-        
-//        self.adapter.onStopLoading = { [weak self] in
-//            self?.view.pb_stopActivityIndicator()
-//        }
         
         self.adapter.onError = { [weak self] errorString in
-            self?.alert(message: errorString)
+            self?.onError(with: errorString)
         }
         
+        self.adapter.onGetNextBatch = { (offset, limit) in
+            self.presenter.onFetchData(offset: offset, limit: limit, for: self.outletId)
+        }
         
         self.adapter.loadItems()
         
@@ -100,38 +105,19 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         self.searchBar.addToolBar()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        if shouldClose {
-            self.close()
-            shouldClose.toggle()
-        } else {
-            self.tableView.reloadData()
-        }
+    
+    @objc func close() {
+        self.navigationController?.popViewController(animated: true)
     }
+    
 }
 
 extension ItemListVC: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.adapter.updateResults(searchText: searchText)
-    }
-}
-
-
-extension ItemListVC: ItemCardVCDelegate {
-    func productUpdated() {
-        itemCardDelegate?.productUpdated()
-    }
-    func add(new productId: String) {
-        shouldClose = true
-        itemCardDelegate?.add(new: productId)
+        self.presenter.onFilterList(basedOn: searchText, with: outletId)
     }
 }
 
 
 
-extension ItemListVC {
-    @objc func close() {
-        self.navigationController?.popViewController(animated: true)
-    }
-}
+

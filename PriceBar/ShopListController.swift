@@ -190,6 +190,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.deleteButton)
         
         self.navigationItem.titleView = self.navigationView
+        navigationController?.navigationBar.barTintColor = Color.feijoaGreen
         navigationController!.navigationBar.shadowImage = UIImage()
     }
     
@@ -245,8 +246,7 @@ class ShopListController: UIViewController, ShoplistView {
     func close() {
         
     }
-    
-    
+
     @objc
     func cleanShoplist() {
         self.alert(message: R.string.localizable.shoplist_clean(), okAction: { [weak self] in

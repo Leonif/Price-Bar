@@ -81,7 +81,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             guard let `self` = self else { return }
             
             
-            self.repository.getCategoryName(for: product.categoryId, completion: { (result) in
+            self.repository.getCategoryName(for: product.categoryId, completion: { [weak self] (result) in
                 switch result {
                 case let .success(categoryName):
                     
@@ -90,23 +90,27 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                         return
                     }
                     
+                   
                     
-                    self.repository.getParametredUom(for: product.uomId, completion: { (fbUom) in
-                            let result = self.repository.saveToShopList(new: ShoplistItem(productId: product.id,
-                                                                                          productName: product.name,
-                                                                                          brand: product.brand,
-                                                                                          weightPerPiece: product.weightPerPiece,
-                                                                                          categoryId: product.categoryId,
-                                                                                          productCategory: categoryName,
-                                                                                          productPrice: price,
-                                                                                          uomId: product.uomId,
-                                                                                          productUom: fbUom.name, quantity: 1.0, parameters: fbUom.parameters))
-                            switch result {
-                            case let .failure(error):
-                                completion(ResultType.failure(error))
-                            case .success:
-                                completion(ResultType.success(true))
-                            }
+                    self?.repository.getParametredUom(for: product.uomId, completion: { [weak self] (fbUom) in
+                        
+                        guard let `self` = self else { return }
+                        
+                        let result = self.repository.saveToShopList(new: ShoplistItem(productId: product.id,
+                                                                                      productName: product.name,
+                                                                                      brand: product.brand,
+                                                                                      weightPerPiece: product.weightPerPiece,
+                                                                                      categoryId: product.categoryId,
+                                                                                      productCategory: categoryName,
+                                                                                      productPrice: price,
+                                                                                      uomId: product.uomId,
+                                                                                      productUom: fbUom.name, quantity: 1.0, parameters: fbUom.parameters))
+                        switch result {
+                        case let .failure(error):
+                            completion(ResultType.failure(error))
+                        case .success:
+                            completion(ResultType.success(true))
+                        }
                     })
                 case let .failure(error):
                     completion(ResultType.failure(error))
@@ -237,11 +241,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func addNewItem(suggestedName: String) {
-        // TODO: open new Item card with suggested name product
         let productId = UUID().uuidString
         self.view.onAddedItemToShoplist(productId: productId)
     }
-    
 }
 
 

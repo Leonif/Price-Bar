@@ -16,17 +16,40 @@ protocol ScannerView: BaseView {
 }
 
 
-class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegate, ScannerView {
-//    var delegate: ScannerDelegate!
-    
+class ScannerController: UIViewController, UIGestureRecognizerDelegate, AVCaptureMetadataOutputObjectsDelegate, ScannerView {
     var presenter: ScannerPresenter!
     var scannerAdapter: ScannerAdapter!
+    @IBOutlet weak var bottomNavigationView: UIView!
+    
+    
+    let backButton: UIButton = {
+        let b = UIButton(frame: CGRect.zero)
+        let icon = R.image.backButton()
+        b.setImage(icon, for: .normal)
+        b.imageView?.contentMode = .scaleAspectFit
+        
+        return b
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.setupNavigation()
         self.presenter.onCheckAccess()
+        self.view.bringSubview(toFront: bottomNavigationView)
+
     }
+    
+    
+    private func setupNavigation() {
+        self.backButton.addTarget(self, action: #selector(self.close), for: .touchUpInside)
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.backButton)
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        
+    }
+    
+    
     
     func onCameraAccessChecked() {
         
@@ -40,10 +63,12 @@ class ScannerController: UIViewController, AVCaptureMetadataOutputObjectsDelegat
         }
         
         self.scannerAdapter.viewForCammera = self.view
-        self.scannerAdapter.configure(frame: view.layer.bounds)
+        
+        let bounds = view.layer.bounds
+        self.scannerAdapter.configure(frame: bounds)
     }
     
-    
+    @objc
     func close() {
         self.navigationController?.popViewController(animated: true)
     }

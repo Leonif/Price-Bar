@@ -100,7 +100,7 @@ class ShopListController: UIViewController, ShoplistView {
     
     func onUpdatedTotal(_ total: Double) {
         DispatchQueue.main.async { [weak self] in
-            self?.totalLabel.text = "\(R.string.localizable.common_total()) \(total)"
+            self?.totalLabel.text = "\(R.string.localizable.common_total()) \(String(format: "%.2f", total))"
         }
     }
     

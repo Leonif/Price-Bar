@@ -28,7 +28,9 @@ extension BaseView where Self: UIViewController {
     }
     
     func onError(with message: String) {
-        self.alert(message: message)
+        DispatchQueue.main.async {
+            self.alert(message: message)
+        }
     }
     
     func onError(with message: String, completion: @escaping () -> Void) {

@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PriceBar/Repository.swift"
-            timestampString = "552842139.780671"
+            timestampString = "553071613.220691"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485">
+            startingLineNumber = "486"
+            endingLineNumber = "486">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -24,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "PriceBar/Repository.swift"
-            timestampString = "552842139.780726"
+            timestampString = "553071613.221132"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "485"
-            endingLineNumber = "485">
+            startingLineNumber = "486"
+            endingLineNumber = "486">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -108,6 +108,102 @@
             startingLineNumber = "66"
             endingLineNumber = "66"
             landmarkName = "onFilterList(basedOn:with:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PriceBar/ShopListController.swift"
+            timestampString = "553071192.294979"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
+            landmarkName = "onError(error:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "PriceBar/ShopListController.swift"
+            timestampString = "553071192.295295"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "buttonEnable(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "PriceBar_Dev.ShopListController.(buttonEnable in _644B9EAE525473AE4A3C5794CFAEE3FF)(Swift.Bool) -&gt; ()"
+                  moduleName = "PriceBar Dev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leonif/Price-Bar/PriceBar/ShopListController.swift"
+                  timestampString = "553071613.383976"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "223"
+                  endingLineNumber = "223"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in PriceBar_Dev.ShopListController.(buttonEnable in _644B9EAE525473AE4A3C5794CFAEE3FF)(Swift.Bool) -&gt; ()"
+                  moduleName = "PriceBar Dev"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leonif/Price-Bar/PriceBar/ShopListController.swift"
+                  timestampString = "553071613.385608"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "223"
+                  endingLineNumber = "223"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Price Bar/ShoplistPresenterImpl.swift"
+            timestampString = "553071613.221506"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
+            landmarkName = "choosen(outlet:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Price Bar/ShoplistPresenterImpl.swift"
+            timestampString = "553071613.22156"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "addToShoplist(with:and:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

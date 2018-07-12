@@ -17,7 +17,8 @@ enum SectionInfo {
 
 enum RepositoryError: Error {
     case syncError(String)
-    case shoplistAddedNewItem(String)
+//    case shoplistAddedNewItem(String)
+    case alreadyAdded(String)
     case productIsNotFound(String)
     case statisticError(String)
     case other(String)
@@ -26,7 +27,7 @@ enum RepositoryError: Error {
         switch self {
         case .syncError:
             return R.string.localizable.error_sync_stopped()
-        case .shoplistAddedNewItem:
+        case .alreadyAdded:
             return R.string.localizable.common_already_in_list()
         case .productIsNotFound:
             return R.string.localizable.error_product_is_not_found()
@@ -153,7 +154,7 @@ class Repository {
     func saveToShopList(new item: ShoplistItem) -> ResultType<Bool, RepositoryError> {
 
         if let _ = shoplist.index(of: item) {
-            return ResultType.failure(RepositoryError.shoplistAddedNewItem(R.string.localizable.common_already_in_list()))
+            return ResultType.failure(RepositoryError.alreadyAdded(R.string.localizable.common_already_in_list()))
         }
         shoplist.append(item)
         CoreDataService.data.saveToShopList(CDShoplistItem(productId: item.productId, quantity: item.quantity))

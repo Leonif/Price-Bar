@@ -67,7 +67,10 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self.addItemToShopList(product, and: outletId, completion: { result in
                 switch result {
                 case let .failure(error):
-                    self.view.onError(error: error.message)
+                    switch error {
+                    case .alreadyAdded: break
+                    default: self.view.onError(error: error.message)
+                    }
                 case .success:
                     self.updateShoplist()
                 }

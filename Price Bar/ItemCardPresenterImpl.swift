@@ -15,6 +15,18 @@ enum PickerType {
 
 enum ItemCardError: Error {
     case priceIsNotSaved(String)
+    case other(String)
+    
+    var errorDescription: String {
+        // TODO: localize it
+        switch self {
+        case .priceIsNotSaved:
+            return "Price is not saved"
+        default:
+            return R.string.localizable.error_something_went_wrong()
+        }
+    }
+    
 }
 
 protocol ItemCardDelegate: class {
@@ -146,12 +158,11 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             self.view.onError(with: R.string.localizable.empty_product_name())
             return
         }
+//        var productId = productCard.productId
         
-        var productId = productCard.productId
-        
-        if productId.isEmpty {
-            productId = UUID().uuidString
-        }
+//        if productId.isEmpty {
+//            productId = UUID().uuidString
+//        }
         
         self.combineGetForCategoryIdAndUomId(categoryName: productCard.categoryName, uomName: productCard.uomName) { (categoryId, uomId, error) in
             if let error = error {
@@ -165,7 +176,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                     return
             }
             
-            let dpProductCardModel = DPUpdateProductModel(id: productId,
+            let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
                                                           name: productCard.productName,
                                                           brand: productCard.brand,
                                                           weightPerPiece: productCard.weightPerPiece,
@@ -185,22 +196,24 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             }
             
             let priceStatistic = DPPriceStatisticModel(outletId: outletId,
-                                                       productId: productId,
+                                                       productId: productCard.productId,
                                                        newPrice: newPrice,
                                                        oldPrice: oldPrice,
                                                        date: Date())
             
-            self.savePrice(for: productId, statistic: priceStatistic, completion: { (result) in
+            self.savePrice(for: productCard.productId, statistic: priceStatistic, completion: { (result) in
                 switch result {
                 case let .failure(error):
                     switch error {
                     case .priceIsNotSaved:
                         self.view.close()
-                        self.delegate?.savedItem(productId: productId)
+                        self.delegate?.savedItem(productId: productCard.productId)
+                    default:
+                        self.view.onError(with: error.errorDescription)
                     }
                 case .success:
                     self.view.close()
-                    self.delegate?.savedItem(productId: productId)
+                    self.delegate?.savedItem(productId: productCard.productId)
                 }
             })
             

@@ -53,7 +53,6 @@ class OutletListPresenterImpl: OutletListPresenter {
     }
     
     func onSearchOutlet(with text: String) {
-        
         self.outletService.searchOutletList(with: text) { [weak self] result in
             guard let `self` = self else { return }
             switch result {

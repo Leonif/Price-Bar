@@ -30,6 +30,7 @@ class ScannerPresenterImpl: ScannerPresenter {
     func onCheckAccess() {
         let authStatus = AVCaptureDevice.authorizationStatus(for: AVMediaType.video)
         if  authStatus == AVAuthorizationStatus.denied {
+            // TODO: localize it
             self.view.onError(with: "You deined camera access")
             
         } else {

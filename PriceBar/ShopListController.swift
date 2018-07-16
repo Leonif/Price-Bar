@@ -11,6 +11,7 @@ import UIKit
 protocol ShoplistView: BaseView {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
     func onCurrentOutletUpdated(outlet: Outlet)
+    
     func onError(error: String)
     func onSavePrice()
     func onProductIsNotFound(productId: String)
@@ -19,8 +20,9 @@ protocol ShoplistView: BaseView {
     func onUpdatedShoplist(_ dataSource: [ShoplistItem])
     func onQuantityChanged()
     
+    
     func startIsCompleted()
-    func updateUI()
+//    func updateUI()
 }
 
 class ShopListController: UIViewController, ShoplistView {
@@ -64,7 +66,7 @@ class ShopListController: UIViewController, ShoplistView {
         return b
     }()
     
-    var userOutlet: Outlet!
+//    var userOutlet: Outlet!
     
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
@@ -89,13 +91,15 @@ class ShopListController: UIViewController, ShoplistView {
     // MARK: - Presenter events
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {
         if !isHasPrice {
-            self.presenter.onOpenUpdatePrice(for: barcode, outletId: self.userOutlet.id)
+            self.presenter.onOpenUpdatePrice(for: barcode)
         }
     }
     
+    
+    
     func onAddedItemToShoplist(productId: String) {
-        self.presenter.isProductHasPrice(for: productId, in: self.userOutlet.id)
-        self.presenter.addToShoplist(with: productId, and: userOutlet.id)
+        self.presenter.isProductHasPrice(for: productId)
+        self.presenter.addToShoplist(with: productId)
     }
     
     func onUpdatedTotal(_ total: Double) {
@@ -103,7 +107,6 @@ class ShopListController: UIViewController, ShoplistView {
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(String(format: "%.2f", total))"
         }
     }
-    
     
     func onUpdatedShoplist(_ dataSource: [ShoplistItem]) {
         self.adapter.dataSource = dataSource
@@ -115,23 +118,24 @@ class ShopListController: UIViewController, ShoplistView {
     
     func onCurrentOutletUpdated(outlet: Outlet) {
         self.view.pb_stopActivityIndicator()
-        self.presenter.onReloadShoplist(for: outlet.id)
         
-        self.userOutlet = outlet
         DispatchQueue.main.async { [weak self] in
-            self?.navigationView.outletName.text = self?.userOutlet.name
-            self?.navigationView.outletAddress.text = self?.userOutlet.address
+            self?.navigationView.outletName.text = outlet.name
+            self?.navigationView.outletAddress.text = outlet.address
         }
         self.buttonEnable(true)
+        self.presenter.onReloadShoplist()
+        
+        
     }
     
     func onQuantityChanged() {
-        self.presenter.onReloadShoplist(for: userOutlet.id)
+        self.presenter.onReloadShoplist()
     }
     
     
     func onSavePrice() {
-        self.presenter.onReloadShoplist(for: userOutlet.id)
+        self.presenter.onReloadShoplist()
     }
 
     func startIsCompleted() {
@@ -139,7 +143,7 @@ class ShopListController: UIViewController, ShoplistView {
     }
     
     func onProductIsNotFound(productId: String) {
-        self.presenter.onOpenNewItemCard(for: productId, outletId: userOutlet.id)
+        self.presenter.onOpenNewItemCard(for: productId)
     }
     
     
@@ -163,7 +167,7 @@ class ShopListController: UIViewController, ShoplistView {
         
         self.adapter.onCellDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-            self.presenter.onOpenItemCard(for: item, with: self.userOutlet.id)
+            self.presenter.onOpenItemCard(for: item)
         }
         
         self.adapter.onQuantityChange = { [weak self] productId in
@@ -172,7 +176,7 @@ class ShopListController: UIViewController, ShoplistView {
         
         self.adapter.onCompareDidSelected = { [weak self] item in
             guard let `self` = self else { return }
-            self.presenter.onOpenUpdatePrice(for: item.productId, outletId: self.userOutlet.id)
+            self.presenter.onOpenUpdatePrice(for: item.productId)
         }
         self.adapter.onRemoveItem = { [weak self] itemId in
             guard let `self` = self else { return }
@@ -209,14 +213,14 @@ class ShopListController: UIViewController, ShoplistView {
     }
     
     // MARK: - UI
-    func updateUI() {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self else { return }
-            self.navigationView.outletName.text = self.userOutlet.name
-            self.navigationView.outletAddress.text = self.userOutlet.address
-            self.shopTableView.reloadData()
-        }
-    }
+//    func updateUI() {
+//        DispatchQueue.main.async { [weak self] in
+//            guard let `self` = self else { return }
+//            self.navigationView.outletName.text = self.userOutlet.name
+//            self.navigationView.outletAddress.text = self.userOutlet.address
+//            self.shopTableView.reloadData()
+//        }
+//    }
     
     // MARK: - Syncing ...
     private func buttonEnable(_ enable: Bool) {
@@ -236,7 +240,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.presenter.onOpenOutletList()
     }
     @IBAction func itemListPressed(_ sender: Any) {
-        self.presenter.onOpenItemList(for: userOutlet.id)
+        self.presenter.onOpenItemList()
     }
     
     @IBAction func cleanShopList(_ sender: GoodButton) {
@@ -260,9 +264,9 @@ class ShopListController: UIViewController, ShoplistView {
 extension ShopListController {
     @objc
     func hideButtons(gesture: UIGestureRecognizer) {
-        guard userOutlet != nil else {
-            return
-        }
+//        guard userOutlet != nil else {
+//            return
+//        }
         guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {
             return
         }

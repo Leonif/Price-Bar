@@ -21,13 +21,11 @@ protocol ItemCardDelegate: class {
     func savedItem(productId: String)
 }
 
-
 protocol ItemCardPresenter {
     func onCategoryPressed(currentCategory: String)
     func onUomPressed(currentUom: String)
     func onUpdateOrCreateProduct(productCard: ProductCardEntity, for outletId: String)
     func onGetCardInfo(productId: String, outletId: String)
-    
 }
 
 class ItemCardPresenterImpl: ItemCardPresenter {
@@ -57,7 +55,6 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                                                     newPrice: "\(0.0)",
                         oldPrice: "\(0.0)",
                         uomName: uomName ?? "")
-                    
                     self.view.onCardInfoUpdated(productCard: product)
                 })
                 return
@@ -117,9 +114,6 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             }
         }
     }
-    
-    
-    
     
     private func combineGetForCategoryIdAndUomId(categoryName: String, uomName: String, completion: @escaping (Int?, Int?, Error?) -> Void) {
         self.repository.getCategoryId(for: categoryName) { (result) in
@@ -218,8 +212,6 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         self.repository.save(new: product)
     }
     
-    
-    
     private func savePrice(for productId: String, statistic: DPPriceStatisticModel, completion: (ResultType<Bool, ItemCardError>) -> Void) {
         guard statistic.newPrice != 0.0 else {
             completion(ResultType.failure(ItemCardError.priceIsNotSaved(R.string.localizable.price_update_not_changed())))
@@ -234,25 +226,24 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         self.repository.savePrice(for: productId, statistic: statistic)
     }
     
-    
-    
-    
     func onCategoryPressed(currentCategory: String) {
-
         var pickerData: [PickerData] = []
         var curentIndex = 0
         
         self.pickerType = .category
         
-        //load categories
-        repository.getCategoryList { (result) in
+        // TODO: localize it
+        self.view.showLoading(with: "Получаем список категорий")
+        repository.getCategoryList { [weak self] (result) in
+            guard let `self` = self else { return }
+            self.view.hideLoading()
             switch result {
             case let .success(dpCategoryList):
                 guard let dpCategoryList = dpCategoryList else {
+                    // TODO: localize it
                     self.view.onError(with: "Cloud category list is empty")
                     return
                 }
-                
                 let categories = dpCategoryList.map { CategoryMapper.mapper(from: $0) }
                 for (index, category) in categories.enumerated() {
                     if category.name == currentCategory {
@@ -272,11 +263,16 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         var curentIndex = 0
         
         self.pickerType = .uom
-        
-        repository.getUomList { (result) in
+        // TODO: localize it
+        self.view.showLoading(with: "Получаем список ед.измерений")
+        repository.getUomList { [weak self] (result) in
+            guard let `self` = self else { return }
+            
+            self.view.hideLoading()
             switch result {
             case let .success(dpUomList):
                 guard let dpUomList = dpUomList else {
+                    // TODO: localize it
                     self.view.onError(with: "Cloud category list is empty")
                     return
                 }

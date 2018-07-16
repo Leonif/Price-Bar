@@ -10,19 +10,19 @@ import Foundation
 import GooglePlaces
 
 protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, ItemListOutput {
-    func isProductHasPrice(for productId: String, in outletId: String)
-    func addToShoplist(with productId: String, and outletId: String)
+    func isProductHasPrice(for productId: String)
+    func addToShoplist(with productId: String)
     func updateCurrentOutlet()
     
     func onOpenStatistics()
-    func onOpenUpdatePrice(for barcode: String, outletId: String)
+    func onOpenUpdatePrice(for barcode: String)
     func onOpenIssueVC(with issue: String)
-    func onOpenItemCard(for item: ShoplistItem, with outletId: String)
-    func onOpenNewItemCard(for productId: String, outletId: String)
+    func onOpenItemCard(for item: ShoplistItem)
+    func onOpenNewItemCard(for productId: String)
     func onOpenScanner()
-    func onOpenItemList(for outletId: String)
+    func onOpenItemList()
     func onOpenOutletList()
-    func onReloadShoplist(for outletId: String)
+    func onReloadShoplist()
     func onCleanShopList()
     func onRemoveItem(productId: String)
     func onQuantityChanged(productId: String)
@@ -33,30 +33,31 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     var router: ShoplistRouter!
     var repository: Repository!
     var isStatisticShown: Bool = false
+    var userOutlet: Outlet!
+    
     
     public func updateCurrentOutlet() {
         let outletService = OutletService()
         outletService.nearestOutlet { result in
             switch result {
             case let .success(outlet):
-                let outlet = OutletMapper.mapper(from: outlet)
-                self.view.onCurrentOutletUpdated(outlet: outlet)
-                self.updateShoplist()
+                self.userOutlet = OutletMapper.mapper(from: outlet)
+                self.view.onCurrentOutletUpdated(outlet: self.userOutlet)
             case let .failure(error):
                 self.view.onError(error: error.errorDescription)
             }
         }
     }
     
-    private func updateShoplist() {
-        let dataSource = self.repository.shoplist
-        self.view.onUpdatedShoplist(dataSource)
-        self.view.onUpdatedTotal(self.repository.total)
+    private func updateShoplist(shoplist: [ShoplistItem]) {
+        self.view.onUpdatedShoplist(shoplist)
+        let sum = shoplist.reduce(0) { $0 + ($1.productPrice * $1.quantity) }
+        self.view.onUpdatedTotal(sum)
     }
     
-    func addToShoplist(with productId: String, and outletId: String) {
+    func addToShoplist(with productId: String) {
         self.view.showLoading(with: R.string.localizable.getting_actual_price())
-        repository.getItem(with: productId, and: outletId) { [weak self] (product) in
+        repository.getItem(with: productId, and: self.userOutlet.id) { [weak self] (product) in
             self?.view.hideLoading()
             guard let product = product else {
                 self?.view.onProductIsNotFound(productId: productId)
@@ -64,7 +65,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
             guard let `self` = self else { return }
             
-            self.addItemToShopList(product, and: outletId, completion: { result in
+            self.addItemToShopList(product, completion: { result in
                 switch result {
                 case let .failure(error):
                     switch error {
@@ -72,15 +73,15 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                     default: self.view.onError(error: error.message)
                     }
                 case .success:
-                    self.updateShoplist()
+                    self.onReloadShoplist()
                 }
             })
         }
     }
     
-    private func addItemToShopList(_ product: DPProductEntity, and outletId: String, completion: @escaping (ResultType<Bool, RepositoryError>)-> Void) {
+    private func addItemToShopList(_ product: DPProductEntity, completion: @escaping (ResultType<Bool, RepositoryError>)-> Void) {
         
-        repository.getPrice(for: product.id, and: outletId) { [weak self] (price) in
+        repository.getPrice(for: product.id, and: self.userOutlet.id) { [weak self] (price) in
             guard let `self` = self else { return }
             
             
@@ -96,23 +97,25 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                    
                     
                     self?.repository.getParametredUom(for: product.uomId, completion: { [weak self] (fbUom) in
-                        
                         guard let `self` = self else { return }
+                        let newItem = ShoplistItem(productId: product.id,
+                                                  productName: product.name,
+                                                  brand: product.brand,
+                                                  weightPerPiece: product.weightPerPiece,
+                                                  categoryId: product.categoryId,
+                                                  productCategory: categoryName,
+                                                  productPrice: price,
+                                                  uomId: product.uomId,
+                                                  productUom: fbUom.name, quantity: 1.0, parameters: fbUom.parameters)
                         
-                        let result = self.repository.saveToShopList(new: ShoplistItem(productId: product.id,
-                                                                                      productName: product.name,
-                                                                                      brand: product.brand,
-                                                                                      weightPerPiece: product.weightPerPiece,
-                                                                                      categoryId: product.categoryId,
-                                                                                      productCategory: categoryName,
-                                                                                      productPrice: price,
-                                                                                      uomId: product.uomId,
-                                                                                      productUom: fbUom.name, quantity: 1.0, parameters: fbUom.parameters))
-                        switch result {
-                        case let .failure(error):
-                            completion(ResultType.failure(error))
-                        case .success:
-                            completion(ResultType.success(true))
+                        
+                        self.repository.saveToShopList(new: newItem) { (result) in
+                            switch result {
+                            case let .failure(error):
+                                completion(ResultType.failure(error))
+                            case .success:
+                                completion(ResultType.success(true))
+                            }
                         }
                     })
                 case let .failure(error):
@@ -122,39 +125,26 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         }
     }
     
-    func isProductHasPrice(for productId: String, in outletId: String) {
-        self.repository.getPrice(for: productId, and: outletId, completion: { [weak self] (price) in
+    func isProductHasPrice(for productId: String) {
+        self.repository.getPrice(for: productId, and: self.userOutlet.id, completion: { [weak self] (price) in
             self?.view.onIsProductHasPrice(isHasPrice: price > 0.0, barcode: productId)
         })
     }
     
-    func onReloadShoplist(for outletId: String) {
-        
+    
+    
+    
+    func onReloadShoplist() {
         let loadingString = R.string.localizable.common_loading()
         let message = R.string.localizable.sync_process_prices(loadingString)
-        
         self.view.showLoading(with: message)
         
-        self.repository.loadShopList { (shoplistWithoutPrices) in
-            var shoplistWithPrices: [ShoplistItem] = shoplistWithoutPrices
-            let dispatchGroup = DispatchGroup()
-            shoplistWithoutPrices.forEach {
-                dispatchGroup.enter()
-                guard let index = shoplistWithPrices.index(of: $0) else { fatalError() }
-                self.repository.getPrice(for: $0.productId, and: outletId, completion: { (price) in
-                    shoplistWithPrices[index].productPrice = price
-                    dispatchGroup.leave()
-                })
-            }
-            
-            dispatchGroup.notify(queue: .main) {
-                self.view.hideLoading()
-                self.repository.shoplist = shoplistWithPrices
-                self.updateShoplist()
-                if !self.isStatisticShown {
-                    self.view.startIsCompleted()
-                    self.isStatisticShown = true
-                }
+        self.repository.loadShopList(for: self.userOutlet.id) { (shoplistWithPrices) in
+            self.view.hideLoading()
+            self.updateShoplist(shoplist: shoplistWithPrices)
+            if !self.isStatisticShown {
+                self.view.startIsCompleted()
+                self.isStatisticShown = true
             }
         }
     }
@@ -167,29 +157,29 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.router.openIssue(with: issue)
     }
     
-    func onOpenItemCard(for item: ShoplistItem, with outletId: String) {
-        self.router.openItemCard(presenter: self, for: item.productId, outletId: outletId)
+    func onOpenItemCard(for item: ShoplistItem) {
+        self.router.openItemCard(presenter: self, for: item.productId, outletId: self.userOutlet.id)
     }
     
     func onOpenScanner() {
         self.router.openScanner(presenter: self)
     }
     
-    func onOpenItemList(for outletId: String) {
-        self.router.openItemList(for: outletId, presenter: self)
+    func onOpenItemList() {
+        self.router.openItemList(for: self.userOutlet.id, presenter: self)
     }
     
     func onOpenOutletList() {
         self.router.openOutletList(presenter: self)
     }
     
-    func onOpenNewItemCard(for productId: String, outletId: String) {
-        self.router.openItemCard(presenter: self, for: productId, outletId: outletId)
+    func onOpenNewItemCard(for productId: String) {
+        self.router.openItemCard(presenter: self, for: productId, outletId: self.userOutlet.id)
     }
     
     func onCleanShopList() {
         self.repository.clearShoplist()
-        self.updateShoplist()
+        self.onReloadShoplist()
     }
     
     func onQuantityChanged(productId: String) {
@@ -216,18 +206,20 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func onRemoveItem(productId: String) {
         self.repository.remove(itemId: productId)
-        self.updateShoplist()
+        
+        self.onReloadShoplist()
     }
     
-    func onOpenUpdatePrice(for barcode: String, outletId: String) {
-        self.repository.getPrice(for: barcode, and: outletId, completion: { [weak self] (price) in
+    func onOpenUpdatePrice(for barcode: String) {
+        self.repository.getPrice(for: barcode, and: userOutlet.id, completion: { [weak self] (price) in
             guard let `self` = self else { return }
-            self.router.openUpdatePrice(presenter: self, for: barcode, currentPrice: price, outletId: outletId)
+            self.router.openUpdatePrice(presenter: self, for: barcode, currentPrice: price, outletId: self.userOutlet.id)
         })
     }
     
     // MARK: delagates hadnling
     func choosen(outlet: Outlet) {
+        self.userOutlet = outlet
         self.view.onCurrentOutletUpdated(outlet: outlet)
     }
     
@@ -249,11 +241,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
 }
 
-
-
 extension ShoplistPresenterImpl: ItemCardDelegate {
     func savedItem(productId: String) {
-        self.view.onAddedItemToShoplist(productId: productId)
+        self.onReloadShoplist()
     }
 }
 

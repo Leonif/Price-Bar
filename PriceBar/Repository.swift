@@ -17,7 +17,6 @@ enum SectionInfo {
 
 enum RepositoryError: Error {
     case syncError(String)
-//    case shoplistAddedNewItem(String)
     case alreadyAdded(String)
     case productIsNotFound(String)
     case statisticError(String)
@@ -40,62 +39,11 @@ enum RepositoryError: Error {
 }
 
 class Repository {
-//    enum SyncSteps: Int {
-//        case
-//        login,
-//        loadShoplist,
-//        needSync,
-//        categories,
-//        uoms,
-//        products,
-//        statistic,
-//        putBackShoplist
-//
-//        case total
-//
-//        var text: String {
-//            let start = R.string.localizable.common_loading()
-//            switch self {
-//            case .login:
-//                return R.string.localizable.sync_process_connecting()
-//            case .needSync:
-//                return R.string.localizable.sync_process_start()
-//            case .categories:
-//                return R.string.localizable.sync_process_categories(start)
-//            case .uoms:
-//                return R.string.localizable.sync_process_uom(start)
-//            case .products:
-//                return R.string.localizable.sync_process_products(start)
-//            case .statistic:
-//                return R.string.localizable.sync_process_prices(start)
-//            case .loadShoplist, .putBackShoplist:
-//                return R.string.localizable.sync_process_shoplist(start)
-//            default: return R.string.localizable.sync_process_all_is_done()
-//            }
-//        }
-//    }
-    
-//    var maxSyncSteps: Int {
-//        return SyncSteps.total.rawValue
-//    }
-    
     // MARK: update events
     var onSyncProgress: ((Int, Int, String) -> Void)?
     var onSyncNext: (() -> Void)?
     var currentNext: Int = 0
 
-    var shoplist: [ShoplistItem] = []
-    
-    var itemsCount: Int {
-        return shoplist.count
-    }
-    
-    var total: Double {
-        let sum = shoplist.reduce(0) { $0 + ($1.productPrice * $1.quantity) }
-        return sum
-    }
-
-    
     func firebaseLogin(completion: @escaping (ResultType<Bool, RepositoryError>)->Void) {
         FirebaseService.data.loginToFirebase(completion: { result in
             switch result {
@@ -109,9 +57,7 @@ class Repository {
         })
     }
 
-
     func getQuantityOfProducts(completion: @escaping (ResultType<Int, RepositoryError>) -> Void) {
-        
         FirebaseService.data.getProductCount { (result) in
             switch result {
             case let .success(count):
@@ -121,8 +67,6 @@ class Repository {
             }
         }
     }
-    
-    
     
     func savePrice(for productId: String, statistic: DPPriceStatisticModel) {
         let fb = FBItemStatistic(productId: statistic.productId,
@@ -151,23 +95,19 @@ class Repository {
         FirebaseService.data.saveOrUpdate(fb)
     }
 
-    func saveToShopList(new item: ShoplistItem) -> ResultType<Bool, RepositoryError> {
-
-        if let _ = shoplist.index(of: item) {
-            return ResultType.failure(RepositoryError.alreadyAdded(R.string.localizable.common_already_in_list()))
+    func saveToShopList(new item: ShoplistItem, completion: @escaping (ResultType<Bool, RepositoryError>) -> Void) {
+        guard let shoplist = CoreDataService.data.loadShopList() else { fatalError() }
+        if shoplist.contains(where: { $0.productId == item.productId }) {
+            completion(ResultType.failure(RepositoryError.alreadyAdded(R.string.localizable.common_already_in_list())))
+            return
         }
-        shoplist.append(item)
         CoreDataService.data.saveToShopList(CDShoplistItem(productId: item.productId, quantity: item.quantity))
-
-        return ResultType.success(true)
+        completion(ResultType.success(true))
     }
-    
     
     func changeShoplistItem( _ quantity: Double, for productId: String) {
         CoreDataService.data.changeShoplistItem(quantity, for: productId)
     }
-    
-    
     
    ////////////////////////////// FIXME /////////////////////////////////
     func getShopItems(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void) {
@@ -180,24 +120,9 @@ class Repository {
                 completion(ResultType.failure(RepositoryError.other(error.localizedDescription)))
             }
         }
-        
-        
     }
     
-//    func getPricesFor(outletId: String, completion: @escaping ([ProductPrice]) -> Void) {
-//        FirebaseService.data.getPrices(for: outletId, callback: { (statistics) in
-//            let prices = statistics.map {
-//                return ProductPrice(productId: $0.productId, productName: "",
-//                                    currentPrice: $0.price,
-//                                    outletId: $0.outletId,
-//                                    date: $0.date)
-//            }
-//            completion(prices)
-//        })
-//    }
-    
     func getPricesFor(productId: String, completion: @escaping ([ProductPrice]) -> Void) {
-        
         FirebaseService.data.getPricesFor(productId) { (statistics) in
             let prices = statistics.map {
                 return ProductPrice(productId: productId, productName: "",
@@ -219,21 +144,14 @@ class Repository {
         }
     }
     
-    
     func getProductQuantity(productId: String) -> Double {
-        
         return CoreDataService.data.getQuantityOfProduct(productId: productId)
-        
-        
     }
     
-    
     private func getPriceFromCloud(for productId: String, and outletId: String, completion: @escaping (Double?) -> Void) {
-        
         FirebaseService.data.getPrice(with: productId, outletId: outletId) { (price) in
             completion(price)
         }
-        
     }
 
     func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void)  {
@@ -249,14 +167,11 @@ class Repository {
     }
     
     func remove(itemId: String) {
-        self.shoplist = self.shoplist.filter { $0.productId != itemId }
         CoreDataService.data.removeFromShopList(with: itemId)
     }
 
     func clearShoplist() {
-        shoplist.removeAll()
         CoreDataService.data.removeAll(from: "ShopList")
-
     }
     
     
@@ -266,7 +181,6 @@ class Repository {
         }
     }
     
-    
     func getProductEntity(for productId: String, completion: @escaping (ResultType<DPProductEntity, RepositoryError>)-> Void) {
         FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
             
@@ -274,8 +188,6 @@ class Repository {
                 completion(ResultType.failure(RepositoryError.other(R.string.localizable.error_something_went_wrong())))
                 return
             }
-            
-            
             completion(ResultType.success(DPProductEntity(id: productId,
                                                           name: fbProductEntity.name,
                                                           brand: fbProductEntity.brand,
@@ -284,8 +196,6 @@ class Repository {
                                                           uomId: fbProductEntity.uomId)))
         }
     }
-    
-    
 
     func getCategoryList(completion: @escaping (ResultType<[DPCategoryViewEntity]?, RepositoryError>) -> Void)  {
         FirebaseService.data.getCategoryList { (result) in
@@ -305,8 +215,6 @@ class Repository {
         }
     }
     
-    
-    
     func getUomList(completion: @escaping (ResultType<[UomModelView]?, RepositoryError>) -> Void)  {
         
         FirebaseService.data.getUomList { (result) in
@@ -316,7 +224,6 @@ class Repository {
                     completion (ResultType.success(nil))
                     return
                 }
-                
                 let c: [UomModelView] = uomList.map { UomMapper.mapper(from: $0)  }
                 completion(ResultType.success(c))
                 
@@ -338,8 +245,6 @@ class Repository {
             }
         }
     }
-    
-    
     
     func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, RepositoryError>) -> Void) {
         FirebaseService.data.getUomId(for: uomName) { (result) in
@@ -373,38 +278,37 @@ class Repository {
             }
         }
     }
-    
-
 
     func mapper(from cdModel: CDCategoryModel) -> DPCategoryViewEntity {
         return DPCategoryViewEntity(id: cdModel.id, name: cdModel.name)
     }
 
-    func loadShopList(completion: @escaping ([ShoplistItem]) -> Void)  {
-        shoplist.removeAll()
-        guard let savedShoplist = CoreDataService.data.loadShopList() else {
+    func loadShopList(for outletId: String?, completion: @escaping ([ShoplistItem]) -> Void)  {
+        guard let savedShoplistWithoutPrices = CoreDataService.data.loadShopList() else {
             return
         }
-        
-        var shoplistWithZeroPrices: [ShoplistItem] = []
-        
-        
+        var shoplistWithPrices: [ShoplistItem] = []
         let shopItemGroup = DispatchGroup()
-        
-        for item in savedShoplist {
+        for item in savedShoplistWithoutPrices {
             shopItemGroup.enter()
             self.getProductInfo(for: item) { (shopItem, error)  in
-                
                 if error == nil {
-                    shoplistWithZeroPrices.append(shopItem!)
+                    if let outletId = outletId {
+                        self.getPrice(for: item.productId, and: outletId, completion: { (price) in
+                            var mutableShopItem = shopItem
+                            mutableShopItem?.productPrice = price
+                            shoplistWithPrices.append(mutableShopItem!)
+                            shopItemGroup.leave()
+                        })
+                    } else {
+                        shoplistWithPrices.append(shopItem!)
+                        shopItemGroup.leave()
+                    }
                 }
-                shopItemGroup.leave()
             }
         }
-        
-        
         shopItemGroup.notify(queue: .main) {
-            completion(shoplistWithZeroPrices)
+            completion(shoplistWithPrices)
         }
     }
     

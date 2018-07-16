@@ -60,7 +60,7 @@ class OutletListPresenterImpl: OutletListPresenter {
             case let .success(opOutlets):
                 self.updateOutletList(opOutlets: opOutlets)
             case let .failure(error):
-                self.view.onError(with: error.localizedDescription)
+                self.view.onError(with: error.errorDescription)
             }
         }
     }

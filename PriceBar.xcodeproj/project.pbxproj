@@ -247,6 +247,8 @@
 		79E9B883206FC26200D80EA5 /* Target.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B882206FC26200D80EA5 /* Target.swift */; };
 		79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */; };
 		79F68452206801D200257F00 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
+		BF97908520FDC5CD003E91C0 /* GetProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97908420FDC5CD003E91C0 /* GetProductDetails.swift */; };
+		BF97908620FDC5CD003E91C0 /* GetProductDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF97908420FDC5CD003E91C0 /* GetProductDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -401,6 +403,7 @@
 		80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9EB852996EC991AE11B2C6F4 /* Pods-PriceBar Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Dev/Pods-PriceBar Dev.release.xcconfig"; sourceTree = "<group>"; };
 		BEE33A43573E234B1965CC53 /* Pods-PriceBar Dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Dev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Dev/Pods-PriceBar Dev.debug.xcconfig"; sourceTree = "<group>"; };
+		BF97908420FDC5CD003E91C0 /* GetProductDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetProductDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -513,6 +516,7 @@
 		790BC9E71F8831FB00CA9519 /* ShopListFlow */ = {
 			isa = PBXGroup;
 			children = (
+				BF97908320FDC58C003E91C0 /* UseCases */,
 				79449A9A20D3F73400E28C68 /* ShopListAssembler.swift */,
 				790B7D502081C24B003DD560 /* ShoplistRouter.swift */,
 				79DC99F12044B40000D35D1C /* Presenter */,
@@ -1003,6 +1007,14 @@
 			name = Presenter;
 			sourceTree = "<group>";
 		};
+		BF97908320FDC58C003E91C0 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				BF97908420FDC5CD003E91C0 /* GetProductDetails.swift */,
+			);
+			name = UseCases;
+			sourceTree = "<group>";
+		};
 		EFCFC6F2C247C1D3BDF643A8 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -1381,6 +1393,7 @@
 				790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */,
 				790B7DA220835D8C003DD560 /* String+Extension.swift in Sources */,
 				79C4EA4D20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
+				BF97908620FDC5CD003E91C0 /* GetProductDetails.swift in Sources */,
 				79795CD720E51FF80063319B /* ShopList+CoreDataProperties.swift in Sources */,
 				79C4EA5F20DF028C006866F9 /* ScannerPresenterImpl.swift in Sources */,
 				79C4EA5520DD7B52006866F9 /* BaseView.swift in Sources */,
@@ -1486,6 +1499,7 @@
 				79D12F312016858300302AF9 /* OPOutletModel.swift in Sources */,
 				790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */,
 				79C4EA4C20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
+				BF97908520FDC5CD003E91C0 /* GetProductDetails.swift in Sources */,
 				79795CD620E51FF80063319B /* ShopList+CoreDataProperties.swift in Sources */,
 				79C4EA5E20DF028C006866F9 /* ScannerPresenterImpl.swift in Sources */,
 				79C4EA5420DD7B52006866F9 /* BaseView.swift in Sources */,

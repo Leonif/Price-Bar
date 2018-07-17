@@ -14,7 +14,7 @@ protocol ShoplistView: BaseView {
     
     func onError(error: String)
     func onSavePrice()
-    func onProductIsNotFound(productId: String)
+//    func onProductIsNotFound(productId: String)
     func onAddedItemToShoplist(productId: String)
     func onUpdatedTotal(_ total: Double)
     func onUpdatedShoplist(_ dataSource: [ShoplistItem])
@@ -142,9 +142,9 @@ class ShopListController: UIViewController, ShoplistView {
         self.presenter.onOpenStatistics()
     }
     
-    func onProductIsNotFound(productId: String) {
-        self.presenter.onOpenNewItemCard(for: productId)
-    }
+//    func onProductIsNotFound(productId: String) {
+//        self.presenter.onOpenNewItemCard(for: productId)
+//    }
     
     
     func onError(error: String) {

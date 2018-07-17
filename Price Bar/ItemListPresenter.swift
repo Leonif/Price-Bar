@@ -43,7 +43,7 @@ class ItemListPresenterImpl: ItemListPresenter {
                 })
             case let .failure(error):
                 self.view.hideLoading()
-                self.view.onError(with: error.message)
+                self.view.onError(with: error.errorDescription)
             }
         }
     }
@@ -64,7 +64,7 @@ class ItemListPresenterImpl: ItemListPresenter {
                     })
                 case let .failure(error):
                     self.view.hideLoading()
-                    self.view.onError(with: error.message)
+                    self.view.onError(with: error.errorDescription)
                 }
             }
         }
@@ -133,12 +133,12 @@ extension ItemListPresenterImpl {
                         })
                     case let .failure(error):
                         self.view.hideLoading()
-                        self.view.onError(with: error.message)
+                        self.view.onError(with: error.errorDescription)
                     }
                 })
             case let .failure(error):
                 self.view.hideLoading()
-                self.view.onError(with: error.message)
+                self.view.onError(with: error.errorDescription)
             }
         }
     }

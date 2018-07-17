@@ -13,7 +13,6 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
     func isProductHasPrice(for productId: String)
     func addToShoplist(with productId: String)
     func updateCurrentOutlet()
-    
     func onOpenStatistics()
     func onOpenUpdatePrice(for barcode: String)
     func onOpenIssueVC(with issue: String)
@@ -31,9 +30,14 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
     weak var view: ShoplistView!
     var router: ShoplistRouter!
+    
+    //FIXME: move to UseCase
     var repository: Repository!
+    
+    
     var isStatisticShown: Bool = false
     var userOutlet: Outlet!
+    var getProductDetailProvider: GetProductDetailsProvider!
     
     
     public func updateCurrentOutlet() {
@@ -55,12 +59,17 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.view.onUpdatedTotal(sum)
     }
     
+    func addNewItemProduct(with name: String) {
+        let productId = UUID().uuidString
+        self.addToShoplist(with: productId)
+    }
+    
     func addToShoplist(with productId: String) {
         self.view.showLoading(with: R.string.localizable.getting_actual_price())
-        repository.getItem(with: productId, and: self.userOutlet.id) { [weak self] (product) in
+        repository.getItem(with: productId) { [weak self] (product) in
             self?.view.hideLoading()
             guard let product = product else {
-                self?.view.onProductIsNotFound(productId: productId)
+                self?.onOpenNewItemCard(for: productId)
                 return
             }
             guard let `self` = self else { return }
@@ -70,7 +79,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 case let .failure(error):
                     switch error {
                     case .alreadyAdded: break
-                    default: self.view.onError(error: error.message)
+                    default: self.view.onError(error: error.errorDescription)
                     }
                 case .success:
                     self.onReloadShoplist()
@@ -80,48 +89,20 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     private func addItemToShopList(_ product: DPProductEntity, completion: @escaping (ResultType<Bool, RepositoryError>)-> Void) {
-        
-        repository.getPrice(for: product.id, and: self.userOutlet.id) { [weak self] (price) in
-            guard let `self` = self else { return }
-            
-            
-            self.repository.getCategoryName(for: product.categoryId, completion: { [weak self] (result) in
-                switch result {
-                case let .success(categoryName):
-                    
-                    guard let categoryName = categoryName else {
-                        completion(ResultType.failure(RepositoryError.other(R.string.localizable.error_something_went_wrong())))
-                        return
+        self.getProductDetailProvider.getProductDetail(productId: product.id, outletId: self.userOutlet.id) { (result) in
+            switch result {
+            case let .success(shoplistItem):
+                self.repository.saveToShopList(new: shoplistItem) { (result) in
+                    switch result {
+                    case let .failure(error):
+                        completion(ResultType.failure(error))
+                    case .success:
+                        completion(ResultType.success(true))
                     }
-                    
-                   
-                    
-                    self?.repository.getParametredUom(for: product.uomId, completion: { [weak self] (fbUom) in
-                        guard let `self` = self else { return }
-                        let newItem = ShoplistItem(productId: product.id,
-                                                  productName: product.name,
-                                                  brand: product.brand,
-                                                  weightPerPiece: product.weightPerPiece,
-                                                  categoryId: product.categoryId,
-                                                  productCategory: categoryName,
-                                                  productPrice: price,
-                                                  uomId: product.uomId,
-                                                  productUom: fbUom.name, quantity: 1.0, parameters: fbUom.parameters)
-                        
-                        
-                        self.repository.saveToShopList(new: newItem) { (result) in
-                            switch result {
-                            case let .failure(error):
-                                completion(ResultType.failure(error))
-                            case .success:
-                                completion(ResultType.success(true))
-                            }
-                        }
-                    })
-                case let .failure(error):
-                    completion(ResultType.failure(error))
                 }
-            })
+            case let .failure(error):
+                completion(ResultType.failure(error))
+            }
         }
     }
     
@@ -198,7 +179,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 }
                 
             case let .failure(error):
-                self.view.onError(error: error.message)
+                self.view.onError(error: error.errorDescription)
             }
         }
     }
@@ -236,13 +217,13 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func addNewItem(suggestedName: String) {
-        let productId = UUID().uuidString
-        self.view.onAddedItemToShoplist(productId: productId)
+        self.addNewItemProduct(with: suggestedName)
     }
 }
 
 extension ShoplistPresenterImpl: ItemCardDelegate {
     func savedItem(productId: String) {
+        self.addToShoplist(with: productId)
         self.onReloadShoplist()
     }
 }
@@ -254,7 +235,7 @@ extension ShoplistPresenterImpl: QuantityPickerPopupDelegate {
         guard let productId = answer["productId"] as? String else {
             return
         }
-        repository.changeShoplistItem(weight, for: productId)
+        self.repository.changeShoplistItem(weight, for: productId)
         self.view.onQuantityChanged()
         
     }

@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             case .success:
                 debugPrint("Firebase is login in successfully !!!")
             case let .failure(error):
-                debugPrint("Firebase is loging with error \(error.message)")
+                debugPrint("Firebase is loging with error \(error.errorDescription)")
             }
         }
         

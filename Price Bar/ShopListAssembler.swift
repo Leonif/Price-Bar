@@ -20,6 +20,7 @@ class ShopListAssembler {
         
         let presenter = ShoplistPresenterImpl()
         presenter.repository = repository
+        presenter.getProductDetailProvider = GetProductDetailsProvider(repository: repository)
         presenter.view = view
         view.presenter = presenter
         

@@ -50,7 +50,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     
     func onGetCardInfo(productId: String, outletId: String) {
         self.view.showLoading(with: R.string.localizable.common_get_product_info())
-        repository.getItem(with: productId, and: outletId) { (dpProduct) in
+        repository.getItem(with: productId) { (dpProduct) in
             guard let dpProduct = dpProduct else {
                 self.combineGetForCategoryNamendUomName(categoryId: 1, uomId: 1, completion: { (categoryName, uomName, error) in
                     self.view.hideLoading()
@@ -266,7 +266,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                 }
                 self.router.openPickerController(presenter: self, currentIndex: curentIndex, dataSource: pickerData)
             case let .failure(error):
-                self.view.onError(with: error.message)
+                self.view.onError(with: error.errorDescription)
             }
         }
     }
@@ -298,7 +298,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                 
                 self.router.openPickerController(presenter: self, currentIndex: curentIndex, dataSource: pickerData)
             case let .failure(error):
-                self.view.onError(with: error.message)
+                self.view.onError(with: error.errorDescription)
             }
         }
     }
@@ -317,7 +317,7 @@ extension ItemCardPresenterImpl: PickerControlDelegate {
                     }
                     self.view.onCategoryChoosen(name: name)
                 case let .failure(error):
-                    self.view.onError(with: error.message)
+                    self.view.onError(with: error.errorDescription)
                 }
             }
         } else {
@@ -330,7 +330,7 @@ extension ItemCardPresenterImpl: PickerControlDelegate {
                     }
                     self.view.onUomChoosen(name: name)
                 case let .failure(error):
-                    self.view.onError(with: error.message)
+                    self.view.onError(with: error.errorDescription)
                 }
             }
             

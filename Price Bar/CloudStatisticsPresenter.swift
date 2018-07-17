@@ -23,7 +23,7 @@ class CloudStatisticsPresenterImpl: CloudStatisticsPresenter {
             case let .success(count):
                 self.view.renderStatistic(goodQuantity: count)
             case let .failure(error):
-                self.view.onError(with: error.message)
+                self.view.onError(with: error.errorDescription)
             }
         }
     }

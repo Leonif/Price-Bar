@@ -22,7 +22,7 @@ enum RepositoryError: Error {
     case statisticError(String)
     case other(String)
 
-    var message: String {
+    var errorDescription: String {
         switch self {
         case .syncError:
             return R.string.localizable.error_sync_stopped()
@@ -363,7 +363,7 @@ class Repository {
 
 
 extension Repository {
-    func getItem(with barcode: String, and outletId: String, callback: @escaping (DPProductEntity?) -> Void) {
+    func getItem(with barcode: String, callback: @escaping (DPProductEntity?) -> Void) {
             self.getProductFromCloud(with: barcode) { (item) in
                 guard let item = item else {
                     callback(nil)

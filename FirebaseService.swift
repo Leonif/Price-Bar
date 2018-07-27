@@ -309,6 +309,11 @@ class FirebaseService {
         }
     }
     
+    
+    func getCountry(for productId: String, completion: @escaping (String?) -> Void) {
+        completion("Ukraine")
+    }
+    
     func getPricesFor(_ productId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
         self.refPriceStatistics.child(productId)
             .observeSingleEvent(of: .value, with: { snapshot in

@@ -10,6 +10,7 @@ import Foundation
 
 struct ShoplistItem: Equatable {
     var productId: String
+    var country: String
     var productName: String
     var brand: String
     var weightPerPiece: String
@@ -19,7 +20,6 @@ struct ShoplistItem: Equatable {
     var uomId: Int32
     var productUom: String
     var quantity: Double
-//    var checked: Bool
     
     
     var fullName: String {
@@ -30,11 +30,11 @@ struct ShoplistItem: Equatable {
 
         return "\(pr)\(br)\(w)"
     }
-//
+
     var parameters: [Parameter]
 }
 
 func ==(lhs: ShoplistItem, rhs: ShoplistItem) -> Bool {
-    return lhs.productId == rhs.productId// && lhs.productCategory == rhs.productCategory
+    return lhs.productId == rhs.productId
 }
 

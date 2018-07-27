@@ -144,6 +144,19 @@ class Repository {
         }
     }
     
+    
+    func getCountry(for productId: String, completion: @escaping (String?) -> Void) {
+        self.getCountryFromCloud(for: productId) { (country) in
+            guard let country = country else {
+                completion(nil)
+                return
+            }
+            completion(country)
+        }
+    }
+    
+    
+    
     func getProductQuantity(productId: String) -> Double {
         return CoreDataService.data.getQuantityOfProduct(productId: productId)
     }
@@ -153,6 +166,14 @@ class Repository {
             completion(price)
         }
     }
+    
+    private func getCountryFromCloud(for productId: String, completion: @escaping (String?) -> Void) {
+        FirebaseService.data.getCountry(for: productId) { (country) in
+            completion(country)
+        }
+    }
+    
+    
 
     func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], RepositoryError>) -> Void)  {
         FirebaseService.data.getFiltredProductList(with: text) { (result) in
@@ -336,7 +357,7 @@ class Repository {
                         switch result {
                         case let .success(categoryName):
                             guard let categoryName = categoryName else { fatalError()}
-                            completion(ShoplistItem(productId: item.productId,
+                            completion(ShoplistItem(productId: item.productId, country: <#String#>,
                                                     productName: productEntity.name,
                                                     brand: productEntity.brand,
                                                     weightPerPiece: productEntity.weightPerPiece,

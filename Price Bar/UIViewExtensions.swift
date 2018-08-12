@@ -87,7 +87,9 @@ extension UIView {
     private var activityBackgroundTag: Int { return 999997 }
 
     public func pb_startActivityIndicator(with title: String) {
-        startCustomActivityIndicator(with: title, location: self.center)
+        DispatchQueue.main.async {
+            self.startCustomActivityIndicator(with: title, location: self.center)
+        }
     }
     func pb_stopActivityIndicator() {
         DispatchQueue.main.async {

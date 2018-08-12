@@ -10,20 +10,19 @@ import Foundation
 
 
 class OutletListAssembler {
-    
-    
     func assemble(outletListOutput: OutletListOutput) -> BaseView {
         let view = R.storyboard.main.outletsVC()!
 
         let adapter = OutetListAdapter()
         view.adapter = adapter
-        
-        
         let presenter = OutletListPresenterImpl()
         
-        presenter.outletService = OutletService()
-        presenter.outletListOutput = outletListOutput
+        let outletModel = FoursqareOutletModelImpl()
+        presenter.outletModel = outletModel
         
+        presenter.outletListOutput = outletListOutput
+        let locationModel = LocationService()
+        presenter.locationModel = locationModel
         presenter.view = view
         view.presenter = presenter
         

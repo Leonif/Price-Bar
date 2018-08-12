@@ -18,7 +18,10 @@ class ShopListAssembler {
         let adapter = ShopListAdapter(parent: view)
         view.adapter = adapter
         
+        
         let presenter = ShoplistPresenterImpl()
+        let locationModel = LocationService()
+        presenter.locationModel = locationModel
         presenter.repository = repository
         presenter.getProductDetailProvider = GetProductDetailsProvider(repository: repository)
         presenter.view = view
@@ -29,6 +32,10 @@ class ShopListAssembler {
         router.repository = repository
         
         presenter.router = router
+        
+        let outletModel = FoursqareOutletModelImpl()
+        presenter.outletModel = outletModel
+        
         
         return view
     }

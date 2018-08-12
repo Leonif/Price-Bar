@@ -25,7 +25,9 @@ protocol OutletListPresenter {
 class OutletListPresenterImpl: OutletListPresenter {
     weak var view: OutletListView!
     var outletListOutput: OutletListOutput!
-    var outletService: OutletService!
+    var outletModel: OutletModel!
+    var locationModel: LocationService!
+    var currentCoords: (lat: Double, lon: Double) = (0.0, 0.0)
     
     private func updateOutletList(opOutlets: [OPOutletModel]) {
         let outlets = opOutlets.map { OutletMapper.mapper(from: $0) }
@@ -33,9 +35,16 @@ class OutletListPresenterImpl: OutletListPresenter {
         
     }
     
+    
+    init() {
+        self.subscribeOnGeoPosition()
+        self.locationModel.getCoords()
+        
+    }
+    
     func onGetOutletList() {
         self.view.showLoading(with: R.string.localizable.outlet_loading())
-        self.outletService?.outletList(completion: { [weak self] result in
+        self.outletModel?.outletList(nearby: self.currentCoords, completion: { [weak self] result in
             self?.view.hideLoading()
             guard let `self` = self else { return }
             switch result {
@@ -47,13 +56,31 @@ class OutletListPresenterImpl: OutletListPresenter {
         })
     }
     
+    func subscribeOnGeoPosition() {
+        self.locationModel.onCoordinatesUpdated = { [weak self] coordinates in
+            self?.currentCoords = coordinates
+        }
+        
+        self.locationModel.onError = { [weak self] errorMessage in
+            self?.view.onError(with: errorMessage)
+        }
+        
+        self.locationModel.onStatusChanged = { [weak self] isAllowed in
+            if isAllowed {
+                self?.locationModel.getCoords()
+            } else {
+                self?.view.onError(with: "Geo position is not availabel")
+            }
+        }
+        
+    }
 
     func onChoosen(outlet: Outlet) {
         self.outletListOutput.choosen(outlet: outlet)
     }
     
     func onSearchOutlet(with text: String) {
-        self.outletService.searchOutletList(with: text) { [weak self] result in
+        self.outletModel.searchOutletList(with: text, nearby: self.currentCoords) { [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case let .success(opOutlets):
@@ -63,5 +90,8 @@ class OutletListPresenterImpl: OutletListPresenter {
             }
         }
     }
+    
+    
+    
     
 }

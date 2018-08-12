@@ -25,6 +25,20 @@ struct DPProductEntity {
         return "\(pr)\(br)\(w)"
     }
     
+    init(id: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0) {
+        self.id = id
+        self.name = name
+        self.brand = brand
+        self.weightPerPiece = weightPerPiece
+        self.categoryId = categoryId
+        self.uomId = uomId
+    }
+    
+    
+    
+    
+    
+    
 }
 
 // FIXME: remove

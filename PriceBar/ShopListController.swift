@@ -11,24 +11,20 @@ import UIKit
 protocol ShoplistView: BaseView {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
     func onCurrentOutletUpdated(outlet: Outlet)
-    
     func onError(error: String)
     func onSavePrice()
-//    func onProductIsNotFound(productId: String)
     func onAddedItemToShoplist(productId: String)
     func onUpdatedTotal(_ total: Double)
     func onUpdatedShoplist(_ dataSource: [ShoplistItem])
     func onQuantityChanged()
-    
-    
     func startIsCompleted()
-//    func updateUI()
+    func geoPositiongGot()
+    
+
 }
 
 class ShopListController: UIViewController, ShoplistView {
-    
-    
-    
+
     // MARK: IB Outlets
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
@@ -42,8 +38,7 @@ class ShopListController: UIViewController, ShoplistView {
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
     
     var navigationView: NavigationView!
-    
-    // MARK: - Dependecy Injection properties
+
     var presenter: ShoplistPresenter!
     var adapter: ShopListAdapter!
     
@@ -66,8 +61,6 @@ class ShopListController: UIViewController, ShoplistView {
         return b
     }()
     
-//    var userOutlet: Outlet!
-    
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -76,6 +69,9 @@ class ShopListController: UIViewController, ShoplistView {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.presenter.viewDidLoadTrigger()
+        
         // MARK: - Setup UI
         self.setupNavigation()
         
@@ -85,8 +81,13 @@ class ShopListController: UIViewController, ShoplistView {
         self.setupGestures()
         self.setupTotalView()
         self.setupAdapter()
+        
+    }
+    
+    func geoPositiongGot() {
         self.presenter.updateCurrentOutlet()
     }
+    
     
     // MARK: - Presenter events
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {
@@ -94,7 +95,6 @@ class ShopListController: UIViewController, ShoplistView {
             self.presenter.onOpenUpdatePrice(for: barcode)
         }
     }
-    
     
     
     func onAddedItemToShoplist(productId: String) {
@@ -142,13 +142,8 @@ class ShopListController: UIViewController, ShoplistView {
         self.presenter.onOpenStatistics()
     }
     
-//    func onProductIsNotFound(productId: String) {
-//        self.presenter.onOpenNewItemCard(for: productId)
-//    }
-    
-    
     func onError(error: String) {
-        self.presenter.onOpenIssueVC(with: error)
+        self.presenter.openIssueVC(with: error)
         self.buttonEnable(false)
     }
     
@@ -211,16 +206,6 @@ class ShopListController: UIViewController, ShoplistView {
         leftSwipe.direction = .left
         wholeViewArea.addGestureRecognizer(leftSwipe)
     }
-    
-    // MARK: - UI
-//    func updateUI() {
-//        DispatchQueue.main.async { [weak self] in
-//            guard let `self` = self else { return }
-//            self.navigationView.outletName.text = self.userOutlet.name
-//            self.navigationView.outletAddress.text = self.userOutlet.address
-//            self.shopTableView.reloadData()
-//        }
-//    }
     
     // MARK: - Syncing ...
     private func buttonEnable(_ enable: Bool) {

@@ -70,7 +70,7 @@
 		790B7DB320835D8C003DD560 /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102902055778900C83706 /* CircleIndicatorView.swift */; };
 		790B7DB420835D8C003DD560 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */; };
 		790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F322016ED2A00302AF9 /* OutletMapper.swift */; };
-		790B7DB620835D8C003DD560 /* OutletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletService.swift */; };
+		790B7DB620835D8C003DD560 /* OutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletModel.swift */; };
 		790B7DB720835D8C003DD560 /* FBItemStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79883BCA20147E2D009CBEF0 /* FBItemStatistic.swift */; };
 		790B7DB820835D8C003DD560 /* UomModelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B4A20130F71005C6CC5 /* UomModelView.swift */; };
 		790B7DB920835D8C003DD560 /* FQOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2C201683F600302AF9 /* FQOutletModel.swift */; };
@@ -152,6 +152,10 @@
 		795EA8CD1F100C1500752A68 /* PriceHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CC1F100C1500752A68 /* PriceHandling.swift */; };
 		795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8D21F102AAB00752A68 /* FirebaseService.swift */; };
 		795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */; };
+		795EED4B21202BC30052B4A5 /* FoursqareOUtletModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EED4A21202BC30052B4A5 /* FoursqareOUtletModelImpl.swift */; };
+		795EED4C21202BC30052B4A5 /* FoursqareOUtletModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EED4A21202BC30052B4A5 /* FoursqareOUtletModelImpl.swift */; };
+		795EED4E21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */; };
+		795EED4F21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */; };
 		796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
 		796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		796D7B1B201905800098D324 /* FBUomModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1A201905800098D324 /* FBUomModel.swift */; };
@@ -160,7 +164,7 @@
 		796D7B22201A51690098D324 /* CategoryMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B21201A51690098D324 /* CategoryMapper.swift */; };
 		796D7B24201BDE3C0098D324 /* ItemListViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */; };
 		796D7B28201BE4B10098D324 /* AddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 796D7B27201BE4B10098D324 /* AddCell.xib */; };
-		7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletService.swift */; };
+		7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD861EF1AC7F0010A64F /* OutletModel.swift */; };
 		7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		7973DD8B1EF1B16C0010A64F /* OutletCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD8A1EF1B16C0010A64F /* OutletCell.swift */; };
 		7975D63620714224003A6288 /* UIColors+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975D63520714224003A6288 /* UIColors+Extensions.swift */; };
@@ -321,6 +325,8 @@
 		795EA8CC1F100C1500752A68 /* PriceHandling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceHandling.swift; sourceTree = SOURCE_ROOT; };
 		795EA8D21F102AAB00752A68 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = SOURCE_ROOT; };
 		795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		795EED4A21202BC30052B4A5 /* FoursqareOUtletModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareOUtletModelImpl.swift; sourceTree = "<group>"; };
+		795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesOutletModelImpl.swift; sourceTree = "<group>"; };
 		796C73A01F727F4A00F26C90 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		796C73A11F727F4A00F26C90 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		796D7B1A201905800098D324 /* FBUomModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FBUomModel.swift; sourceTree = "<group>"; };
@@ -329,7 +335,7 @@
 		796D7B21201A51690098D324 /* CategoryMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryMapper.swift; sourceTree = "<group>"; };
 		796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListViewEntity.swift; sourceTree = "<group>"; };
 		796D7B27201BE4B10098D324 /* AddCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddCell.xib; sourceTree = "<group>"; };
-		7973DD861EF1AC7F0010A64F /* OutletService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletService.swift; sourceTree = SOURCE_ROOT; };
+		7973DD861EF1AC7F0010A64F /* OutletModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletModel.swift; sourceTree = SOURCE_ROOT; };
 		7973DD881EF1AF430010A64F /* OutletsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletsVC.swift; sourceTree = SOURCE_ROOT; };
 		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
 		7975D63520714224003A6288 /* UIColors+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColors+Extensions.swift"; sourceTree = "<group>"; };
@@ -855,7 +861,9 @@
 			isa = PBXGroup;
 			children = (
 				79D12F342016EF7F00302AF9 /* Entities */,
-				7973DD861EF1AC7F0010A64F /* OutletService.swift */,
+				7973DD861EF1AC7F0010A64F /* OutletModel.swift */,
+				795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */,
+				795EED4A21202BC30052B4A5 /* FoursqareOUtletModelImpl.swift */,
 			);
 			name = OutletProvider;
 			sourceTree = "<group>";
@@ -1390,6 +1398,7 @@
 				790B7D9E20835D8C003DD560 /* ProductCardEntity.swift in Sources */,
 				790B7D9F20835D8C003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
 				790B7DA020835D8C003DD560 /* UpdatePriceVC.swift in Sources */,
+				795EED4F21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift in Sources */,
 				790B7DA120835D8C003DD560 /* OPOutletModel.swift in Sources */,
 				790B7DA220835D8C003DD560 /* String+Extension.swift in Sources */,
 				79C4EA4D20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
@@ -1416,7 +1425,7 @@
 				790B7DB420835D8C003DD560 /* UITableView+Extensions.swift in Sources */,
 				79C4EA5020DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */,
 				790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */,
-				790B7DB620835D8C003DD560 /* OutletService.swift in Sources */,
+				790B7DB620835D8C003DD560 /* OutletModel.swift in Sources */,
 				790B7DB720835D8C003DD560 /* FBItemStatistic.swift in Sources */,
 				792091C720D25A98002CC251 /* ItemListMappers.swift in Sources */,
 				790B7DB820835D8C003DD560 /* UomModelView.swift in Sources */,
@@ -1437,6 +1446,7 @@
 				790B7DC620835D8C003DD560 /* GoodTextField.swift in Sources */,
 				790B7DC720835D8C003DD560 /* DPProductEntity.swift in Sources */,
 				790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */,
+				795EED4C21202BC30052B4A5 /* FoursqareOUtletModelImpl.swift in Sources */,
 				790B7DC920835D8C003DD560 /* QuantityPickerPopup.swift in Sources */,
 				790B7DCA20835D8C003DD560 /* QuantityModel.swift in Sources */,
 				790B7DCB20835D8C003DD560 /* NavigationView.swift in Sources */,
@@ -1496,6 +1506,7 @@
 				79833B35200D5002005C6CC5 /* ProductCardEntity.swift in Sources */,
 				790B7D532081CB04003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
 				790B7D2F207AA590003DD560 /* UpdatePriceVC.swift in Sources */,
+				795EED4E21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift in Sources */,
 				79D12F312016858300302AF9 /* OPOutletModel.swift in Sources */,
 				790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */,
 				79C4EA4C20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
@@ -1522,7 +1533,7 @@
 				790B7D36207FDA09003DD560 /* UITableView+Extensions.swift in Sources */,
 				79C4EA4F20DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */,
 				79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */,
-				7973DD871EF1AC7F0010A64F /* OutletService.swift in Sources */,
+				7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */,
 				79883BCB20147E2D009CBEF0 /* FBItemStatistic.swift in Sources */,
 				792091C620D25A98002CC251 /* ItemListMappers.swift in Sources */,
 				79833B4B20130F71005C6CC5 /* UomModelView.swift in Sources */,
@@ -1543,6 +1554,7 @@
 				795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */,
 				79833B37200D501E005C6CC5 /* DPProductEntity.swift in Sources */,
 				790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */,
+				795EED4B21202BC30052B4A5 /* FoursqareOUtletModelImpl.swift in Sources */,
 				790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */,
 				7933686D20012F1A00E8E81A /* QuantityModel.swift in Sources */,
 				790B7D09207902EF003DD560 /* NavigationView.swift in Sources */,

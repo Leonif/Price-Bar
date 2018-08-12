@@ -15,7 +15,7 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
     func updateCurrentOutlet()
     func onOpenStatistics()
     func onOpenUpdatePrice(for barcode: String)
-    func onOpenIssueVC(with issue: String)
+    func openIssueVC(with issue: String)
     func onOpenItemCard(for item: ShoplistItem)
     func onOpenNewItemCard(for productId: String)
     func onOpenScanner()
@@ -25,11 +25,17 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
     func onCleanShopList()
     func onRemoveItem(productId: String)
     func onQuantityChanged(productId: String)
+    
+    func viewDidLoadTrigger()
 }
 
 public final class ShoplistPresenterImpl: ShoplistPresenter {
     weak var view: ShoplistView!
     var router: ShoplistRouter!
+    var outletModel: OutletModel!
+    var locationModel: LocationService!
+    var currentCoords: (lat: Double, lon: Double)?
+    
     
     //FIXME: move to UseCase
     var repository: Repository!
@@ -39,10 +45,17 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     var userOutlet: Outlet!
     var getProductDetailProvider: GetProductDetailsProvider!
     
+    func viewDidLoadTrigger() {
+        self.subscribeOnLocationModel()
+        self.locationModel.getCoords()
+    }
+    
     
     public func updateCurrentOutlet() {
-        let outletService = OutletService()
-        outletService.nearestOutlet { result in
+        guard let coordinates = self.currentCoords else { return }
+        self.outletModel.nearestOutlet(nearby: coordinates) { [weak self] result in
+            guard let `self` = self else { return }
+            
             switch result {
             case let .success(outlet):
                 self.userOutlet = OutletMapper.mapper(from: outlet)
@@ -52,6 +65,25 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
         }
     }
+    
+    
+    func subscribeOnLocationModel() {
+        self.locationModel.onCoordinatesUpdated = { [weak self] coordinates in
+            self?.currentCoords = coordinates
+            self?.view.geoPositiongGot()
+        }
+        self.locationModel.onError = { [weak self] errorMessage in
+            self?.view.onError(error: errorMessage)
+        }
+        self.locationModel.onStatusChanged = { [weak self] isGeoPositiongAllowed in
+            if isGeoPositiongAllowed {
+                self?.locationModel.getCoords()
+            } else {
+                self?.view.onError(with: "Geo position is not availabel")
+            }
+        }
+    }
+    
     
     private func updateShoplist(shoplist: [ShoplistItem]) {
         self.view.onUpdatedShoplist(shoplist)
@@ -134,7 +166,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.router.openStatistics()
     }
     
-    func onOpenIssueVC(with issue: String) {
+    func openIssueVC(with issue: String) {
         self.router.openIssue(with: issue)
     }
     

@@ -20,6 +20,7 @@ struct ShoplistItem: Equatable {
     var uomId: Int32
     var productUom: String
     var quantity: Double
+    var parameters: [Parameter]
     
     
     var fullName: String {
@@ -30,8 +31,28 @@ struct ShoplistItem: Equatable {
 
         return "\(pr)\(br)\(w)"
     }
+    
+    init(productId: String = "", country: String = "",
+         productName: String = "", brand: String = "", weightPerPiece:String = "",
+         categoryId: Int32 = -1, productCategory:String = "",
+         productPrice: Double = -1.0, uomId: Int32 = -1,
+         productUom:String = "", quantity: Double = -1.0, parameters: [Parameter] = []) {
+        self.productId = productId
+        self.country = country
+        self.productName = productName
+        self.brand = brand
+        self.weightPerPiece = weightPerPiece
+        self.categoryId = categoryId
+        self.productCategory = productCategory
+        self.productPrice = productPrice
+        self.uomId = uomId
+        self.productUom = productUom
+        self.quantity = quantity
+        self.parameters = parameters
+    }
+    
 
-    var parameters: [Parameter]
+    
 }
 
 func ==(lhs: ShoplistItem, rhs: ShoplistItem) -> Bool {

@@ -24,9 +24,16 @@ enum LocationServiceError: Error {
     }
 }
 
-class LocationService: NSObject {
+class LocationService: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
-    var coordinatesResult: ((ResultType<CLLocationCoordinate2D, LocationServiceError>) -> Void)?
+    var onCoordinatesUpdated: (((lat: Double, lon: Double)) -> Void)?
+    var onError: ((String) -> Void)?
+    var onStatusChanged: ((Bool)-> Void)?
+    
+    
+    var isLocationSent: Bool = false
+    var isStatusSent: Bool = false
+    var accessStatus: CLAuthorizationStatus = .denied
 
     override init() {
         super.init()
@@ -34,55 +41,48 @@ class LocationService: NSObject {
     }
 
     private func startReceivingLocationChanges() {
-        if !CLLocationManager.locationServicesEnabled() {
-            self.coordinatesResult?(ResultType.failure(.servicesIsNotAvailable("Location services is not available.")))
-        }
-        // Configure and start the service.
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.distanceFilter = 100.0  // In meters.
         locationManager.startUpdatingLocation()
     }
 
-    private func stopLocationUpdating() {
-        locationManager.stopUpdatingLocation()
-    }
-
-    public func getCoords(completion: @escaping (ResultType<CLLocationCoordinate2D, LocationServiceError>)->Void) {
-        self.coordinatesResult = completion
-        let status: CLAuthorizationStatus = getAuthStatus()
-        handle(status)
-    }
-
-    private func getAuthStatus() -> CLAuthorizationStatus {
-        return CLLocationManager.authorizationStatus()
-    }
-
-    private func handle(_ status: CLAuthorizationStatus) {
-        switch status {
-        case .authorizedWhenInUse:
-            startReceivingLocationChanges()
-        case .denied:
-            self.coordinatesResult?(ResultType
-                .failure(
-                    .notAuthorizedAccess(R.string.localizable.no_gps_access())))
-        default:
-            print(status)
-            locationManager.requestWhenInUseAuthorization()
+    public func getCoords() {
+        self.accessStatus = CLLocationManager.authorizationStatus()
+        switch self.accessStatus {
+        case .authorizedWhenInUse, .authorizedAlways:
+            self.startReceivingLocationChanges()
+        case .denied, .restricted:
+            self.isStatusSent = true
+            self.isLocationSent = true
+            self.locationManager.stopUpdatingLocation()
+            self.onError?(R.string.localizable.no_gps_access())
+        case .notDetermined:
+            self.locationManager.requestWhenInUseAuthorization()
         }
     }
-}
-
-extension LocationService: CLLocationManagerDelegate {
+    
+    
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        handle(status)
+//        self.isStatusSent = false
+        
+        guard !self.isLocationSent else { return }
+        switch status {
+        case .authorizedAlways, .authorizedWhenInUse:
+            self.onStatusChanged?(true)
+        default:
+            self.onStatusChanged?(false)
+        }
+        self.isStatusSent = true
     }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        stopLocationUpdating()
+        guard !self.isLocationSent else { return }
+        locationManager.stopUpdatingLocation()
+        self.isLocationSent = true
         if let  userCoord = locations.last?.coordinate {
-            coordinatesResult?(ResultType.success(userCoord))
+            self.onCoordinatesUpdated?((userCoord.latitude, userCoord.longitude))
         } else {
-            self.coordinatesResult?(ResultType.failure(.servicesIsNotAvailable("Coorddinate is not gotton")))
+//            self.onError?("Coorddinate is not gotton")
         }
     }
 }

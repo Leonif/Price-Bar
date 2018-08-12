@@ -39,7 +39,6 @@ class IssueVC: UIViewController {
         PriceBarStyles.grayBorderedRounded.apply(to: self.tryButton)
         self.tryButton.setTitle(R.string.localizable.try_again(), for: .normal)
         
-        
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.light)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
         blurEffectView.frame = self.view.bounds

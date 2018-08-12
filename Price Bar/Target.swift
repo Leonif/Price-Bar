@@ -17,9 +17,9 @@ enum Target {
     static let dateString = Date().getString(format: "yyyyMMdd")
     
     
-    case byCategory([String], CLLocationCoordinate2D)
+    case byCategory([String], (lat: Double, lon: Double))
     case getOutleyById(String)
-    case searhOutlet(String, CLLocationCoordinate2D)
+    case searhOutlet(String, (lat: Double, lon: Double))
     
     
 }
@@ -37,12 +37,10 @@ extension Target {
         var url = ""
         switch self {
         case let .byCategory(categoriesArray, location):
-            let lat = location.latitude
-            let lng = location.longitude
+            let lat = location.lat
+            let lng = location.lon
             let categories = categoriesArray.joined(separator: ",")
             let locationSearch = "ll=\(lat),\(lng)&radius=\(1000)"
-//            let categorySearch = "search?categoryId=\(categories)"
-            
             let intent = "intent=checkin"
             
             url = "\(Target.baseUrl)search?categoryId=\(categories)&\(locationSearch)&\(intent)&\(options)"
@@ -50,8 +48,8 @@ extension Target {
         case let .getOutleyById(outletId):
             url = "\(Target.baseUrl)\(outletId)?\(Target.credential)&v=\(Target.dateString)"
         case let .searhOutlet(text, location):
-            let lat = location.latitude
-            let lng = location.longitude
+            let lat = location.lat
+            let lng = location.lon
             
             let locationSearch = "ll=\(lat),\(lng)&radius=\(1000)"
             

@@ -310,25 +310,44 @@ class Repository {
         }
         var shoplistWithPrices: [ShoplistItem] = []
         let shopItemGroup = DispatchGroup()
+        let shopItemsWithPricesGroup = DispatchGroup()
+        
         for item in savedShoplistWithoutPrices {
+            var shopListItem = ShoplistItem()
+            shopItemsWithPricesGroup.enter()
             shopItemGroup.enter()
             self.getProductInfo(for: item) { (shopItem, error)  in
-                if error == nil {
-                    if let outletId = outletId {
-                        self.getPrice(for: item.productId, and: outletId, completion: { (price) in
-                            var mutableShopItem = shopItem
-                            mutableShopItem?.productPrice = price
-                            shoplistWithPrices.append(mutableShopItem!)
-                            shopItemGroup.leave()
-                        })
-                    } else {
-                        shoplistWithPrices.append(shopItem!)
-                        shopItemGroup.leave()
-                    }
-                }
+                shopListItem.productId = shopItem?.productId ?? ""
+                shopListItem.country = shopItem?.country ?? ""
+                shopListItem.productName = shopItem?.productName ?? ""
+                shopListItem.brand = shopItem?.brand ?? ""
+                shopListItem.weightPerPiece = shopItem?.weightPerPiece ?? ""
+                shopListItem.categoryId = shopItem?.categoryId ?? -1
+                shopListItem.productCategory = shopItem?.productCategory ?? ""
+                //                shopListItem.productPrice = productPrice
+                shopListItem.uomId = shopItem?.uomId ?? -1
+                shopListItem.productUom = shopItem?.productUom ?? ""
+                //                shopListItem.quantity = quantity
+                shopListItem.parameters = shopItem?.parameters ?? []
+                shopItemGroup.leave()
+            }
+            if let outletId = outletId {
+                shopItemGroup.enter()
+                self.getPrice(for: item.productId, and: outletId, completion: { (price) in
+                    shopListItem.productPrice = price
+                    shopItemGroup.leave()
+                })
+            } else {
+                shopListItem.productPrice = 0.0
+                shopItemGroup.leave()
+            }
+            shopItemGroup.notify(queue: .main) {
+                shopListItem.quantity = item.quantity
+                shoplistWithPrices.append(shopListItem)
+                shopItemsWithPricesGroup.leave()
             }
         }
-        shopItemGroup.notify(queue: .main) {
+        shopItemsWithPricesGroup.notify(queue: .main) {
             completion(shoplistWithPrices)
         }
     }
@@ -347,34 +366,44 @@ class Repository {
     }
     
     private func getProductInfo(for item: CDShoplistItem, completion: @escaping (ShoplistItem?, Error?) -> Void) {
+        var shopListItem = ShoplistItem()
         
-        self.getProductEntity(for: item.productId) { (result) in
+        self.getProductEntity(for: item.productId) { [weak self] (result) in
+            guard let `self` = self else { return }
             switch result {
             case let .success(productEntity):
+                shopListItem.productId = productEntity.id
+                shopListItem.productName =  productEntity.name
+                shopListItem.brand = productEntity.brand
+                shopListItem.weightPerPiece = productEntity.weightPerPiece
+                shopListItem.categoryId = productEntity.categoryId
+                shopListItem.uomId = productEntity.uomId
                 
+                let additionaInfoGroup = DispatchGroup()
+                additionaInfoGroup.enter()
                 self.getParametredUom(for: productEntity.uomId, completion: { (parametredUom) in
-                    self.getCategoryName(for: productEntity.categoryId, completion: { (result) in
-                        switch result {
-                        case let .success(categoryName):
-                            guard let categoryName = categoryName else { fatalError()}
-                            completion(ShoplistItem(productId: item.productId, country: <#String#>,
-                                                    productName: productEntity.name,
-                                                    brand: productEntity.brand,
-                                                    weightPerPiece: productEntity.weightPerPiece,
-                                                    categoryId: productEntity.categoryId,
-                                                    productCategory: categoryName,
-                                                    productPrice: 0.0,
-                                                    uomId: productEntity.uomId,
-                                                    productUom: parametredUom.name,
-                                                    quantity: item.quantity,
-                                                    parameters: parametredUom.parameters), nil)
-                        case let .failure(error):
-                            completion(nil, error)
-                        }
-                    })
+                    shopListItem.productUom = parametredUom.name
+                    shopListItem.parameters = parametredUom.parameters
+                    additionaInfoGroup.leave()
                 })
+                
+                additionaInfoGroup.enter()
+                self.getCategoryName(for: productEntity.categoryId, completion: { (result) in
+                    switch result {
+                    case let .success(categoryName):
+                        shopListItem.productCategory = categoryName ?? "No category"
+                        additionaInfoGroup.leave()
+                    case let .failure(error):
+                        completion(nil, error)
+                    }
+                })
+                
+                additionaInfoGroup.notify(queue: .main) {
+                    completion(shopListItem, nil)
+                }
+                
             case let .failure(error):
-                fatalError(error.localizedDescription)
+                completion(nil, error)
             }
         }
     }

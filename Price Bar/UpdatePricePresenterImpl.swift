@@ -72,7 +72,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     }
     
     func mergeOutletsWithPrices(productId: String, fbPriceStatistics: [ProductPrice]) {
-        let outletService = OutletService()
+        let outletService = FoursqareOutletModelImpl()
         var statistic: [StatisticModel] = []
 
         let dispatchGroup = DispatchGroup()

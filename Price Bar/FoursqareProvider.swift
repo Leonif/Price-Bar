@@ -7,8 +7,6 @@
 //
 
 import Foundation
-import CoreLocation
-
 
 typealias ForsqareResult<T> = (ResultType<T, FoursqareProviderError>)->Void
 typealias DictionaryType = [String: Any]
@@ -48,7 +46,7 @@ class FoursqareProvider {
         }
     }
     
-    func loadOultets(userCoordinate: CLLocationCoordinate2D, completion: @escaping ForsqareOutletList) {
+    func loadOultets(userCoordinate: (lat: Double, lon: Double), completion: @escaping ForsqareOutletList) {
         
         let foodAndDrinkShop = "4bf58dd8d48988d1f9941735"
         let convenienceStore = "4d954b0ea243a5684a65b473"
@@ -60,9 +58,7 @@ class FoursqareProvider {
     }
     
     
-    func searchOutlet(with text: String, userCoordinate: CLLocationCoordinate2D, completion: @escaping ForsqareOutletList) {
-        
-        
+    func searchOutlet(with text: String, userCoordinate: (lat: Double, lon: Double), completion: @escaping ForsqareOutletList) {
         let rr = Target.searhOutlet(text, userCoordinate).url.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
         
         let url = URL(string: rr)!

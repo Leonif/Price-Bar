@@ -12,11 +12,11 @@ class ItemListAssembler {
     
     func assemble(for outletId: String, itemListOutput: ItemListOutput) -> BaseView {
         
-        let repository = Repository()
+        let productModel = ProductModel()
         
         let presenter = ItemListPresenterImpl()
         presenter.itemListOutput = itemListOutput
-        presenter.repository = repository
+        presenter.productModel = productModel
         
         let adapter = ItemListAdapter()
         

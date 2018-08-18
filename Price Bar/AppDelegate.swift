@@ -25,8 +25,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Fabric.with([Crashlytics.self])
         GMSPlacesClient.provideAPIKey("AIzaSyANoPgVD9zYXXOYrtjFPSfIltAdRNgtYs4")
         
-        let repository = Repository()
-        repository.firebaseLogin { (result) in
+        let productModel = ProductModel()
+        productModel.firebaseLogin { (result) in
             switch result {
             case .success:
                 debugPrint("Firebase is login in successfully !!!")

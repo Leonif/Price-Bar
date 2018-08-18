@@ -9,7 +9,7 @@
 import Foundation
 
 class FoursqareOutletModelImpl: NSObject, OutletModel {
-    var locationService: LocationService!
+    var locationService: LocationModel!
     var foursquareProvider: FoursqareProvider!
     
 //    var singleOutletCompletion: ((ResultType<OPOutletModel, OutletModelError>) -> Void)?
@@ -17,7 +17,7 @@ class FoursqareOutletModelImpl: NSObject, OutletModel {
     
     override init() {
         super.init()
-        self.locationService = LocationService()
+        self.locationService = LocationModel()
         self.foursquareProvider = FoursqareProvider()
         
     }

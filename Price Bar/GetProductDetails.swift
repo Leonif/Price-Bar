@@ -10,13 +10,13 @@ import Foundation
 
 class GetProductDetailsProvider {
     
-    let repository: Repository!
+    let productModel: ProductModel!
     
-    init(repository: Repository) {
-        self.repository = repository
+    init(productModel: ProductModel) {
+        self.productModel = productModel
     }
     
-    func getProductDetail(productId: String, outletId: String, completion: @escaping (ResultType<ShoplistItem, RepositoryError>) -> Void) {
+    func getProductDetail(productId: String, outletId: String, completion: @escaping (ResultType<ShoplistItem, ProductModelError>) -> Void) {
         
         let productInfo = DispatchGroup()
         var productEntity: DPProductEntity!
@@ -26,14 +26,14 @@ class GetProductDetailsProvider {
         var price: Double!
         
         productInfo.enter()
-        self.repository.getItem(with: productId, callback: { (entity) in
+        self.productModel.getItem(with: productId, callback: { (entity) in
             productEntity = entity
             let uomAndCategoryGroup = DispatchGroup()
             
             guard let entity = entity else { fatalError() }
             
             uomAndCategoryGroup.enter()
-            self.repository.getCategoryName(for: entity.categoryId) { (result) in
+            self.productModel.getCategoryName(for: entity.categoryId) { (result) in
                 switch result {
                 case let .success(name):
                     categoryName = name
@@ -44,7 +44,7 @@ class GetProductDetailsProvider {
             }
 
             uomAndCategoryGroup.enter()
-            self.repository.getParametredUom(for: entity.uomId) { (entity) in
+            self.productModel.getParametredUom(for: entity.uomId) { (entity) in
                 parametredUom = entity
                 uomAndCategoryGroup.leave()
             }
@@ -55,13 +55,13 @@ class GetProductDetailsProvider {
         })
 
         productInfo.enter()
-        self.repository.getPrice(for: productId, and: outletId) { (value) in
+        self.productModel.getPrice(for: productId, and: outletId) { (value) in
             price = value
             productInfo.leave()
         }
         
         productInfo.enter()
-        self.repository.getCountry(for: productId) { (value) in
+        self.productModel.getCountry(for: productId) { (value) in
             country = value
             productInfo.leave()
         }

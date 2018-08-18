@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-enum LocationServiceError: Error {
+enum LocationModelError: Error {
     case notAuthorizedAccess(String)
     case servicesIsNotAvailable(String)
     case other(String)
@@ -24,10 +24,10 @@ enum LocationServiceError: Error {
     }
 }
 
-class LocationService: NSObject, CLLocationManagerDelegate {
+class LocationModel: NSObject, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     var onCoordinatesUpdated: (((lat: Double, lon: Double)) -> Void)?
-    var onError: ((String) -> Void)?
+    var onError: ((LocationModelError) -> Void)?
     var onStatusChanged: ((Bool)-> Void)?
     
     
@@ -55,7 +55,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
             self.isStatusSent = true
             self.isLocationSent = true
             self.locationManager.stopUpdatingLocation()
-            self.onError?(R.string.localizable.no_gps_access())
+            self.onError?(LocationModelError.servicesIsNotAvailable(R.string.localizable.no_gps_access()))
         case .notDetermined:
             self.locationManager.requestWhenInUseAuthorization()
         }
@@ -63,9 +63,11 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-//        self.isStatusSent = false
+//        guard !self.isLocationSent else { return }
         
-        guard !self.isLocationSent else { return }
+        
+        
+        
         switch status {
         case .authorizedAlways, .authorizedWhenInUse:
             self.onStatusChanged?(true)
@@ -76,7 +78,7 @@ class LocationService: NSObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard !self.isLocationSent else { return }
+//        guard !self.isLocationSent else { return }
         locationManager.stopUpdatingLocation()
         self.isLocationSent = true
         if let  userCoord = locations.last?.coordinate {

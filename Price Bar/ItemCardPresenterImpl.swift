@@ -42,7 +42,7 @@ protocol ItemCardPresenter {
 
 class ItemCardPresenterImpl: ItemCardPresenter {
     weak var view: ItemCardView!
-    var repository: Repository!
+    var productModel: ProductModel!
     var router: ItemCardRouter!
     var pickerType: PickerType = .category
     var oldPrice: Double = 0.0
@@ -50,7 +50,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     
     func onGetCardInfo(productId: String, outletId: String) {
         self.view.showLoading(with: R.string.localizable.common_get_product_info())
-        repository.getItem(with: productId) { (dpProduct) in
+        productModel.getItem(with: productId) { (dpProduct) in
             guard let dpProduct = dpProduct else {
                 self.combineGetForCategoryNamendUomName(categoryId: 1, uomId: 1, completion: { (categoryName, uomName, error) in
                     self.view.hideLoading()
@@ -87,7 +87,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                         return
                 }
                 
-                self.repository.getPrice(for: dpProduct.id, and: outletId, completion: { (price) in
+                self.productModel.getPrice(for: dpProduct.id, and: outletId, completion: { (price) in
                     self.view.hideLoading()
                     let product = ProductCardEntity(productId: dpProduct.id,
                                                         productName: dpProduct.name,
@@ -104,13 +104,13 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     }
     
     private func combineGetForCategoryNamendUomName(categoryId: Int32, uomId: Int32, completion: @escaping (String?, String?, Error?) -> Void) {
-        self.repository.getCategoryName(for: categoryId) { (result) in
+        self.productModel.getCategoryName(for: categoryId) { (result) in
             switch result {
             case let .success(categoryName):
                 guard let categoryName = categoryName else {
                     fatalError()
                 }
-                self.repository.getUomName(for: uomId, completion: { (result) in
+                self.productModel.getUomName(for: uomId, completion: { (result) in
                     switch result {
                     case let .success(uomName):
                         guard let uomName = uomName else {
@@ -128,13 +128,13 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     }
     
     private func combineGetForCategoryIdAndUomId(categoryName: String, uomName: String, completion: @escaping (Int?, Int?, Error?) -> Void) {
-        self.repository.getCategoryId(for: categoryName) { (result) in
+        self.productModel.getCategoryId(for: categoryName) { (result) in
             switch result {
             case let .success(categoryId):
                 guard let categoryId = categoryId else {
                     fatalError()
                 }
-                self.repository.getUomId(for: uomName, completion: { (result) in
+                self.productModel.getUomId(for: uomName, completion: { (result) in
                     switch result {
                     case let .success(uomId):
                         guard let uomId = uomId else {
@@ -222,7 +222,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     
     
     private func saveProduct(product: DPUpdateProductModel) {
-        self.repository.save(new: product)
+        self.productModel.save(new: product)
     }
     
     private func savePrice(for productId: String, statistic: DPPriceStatisticModel, completion: (ResultType<Bool, ItemCardError>) -> Void) {
@@ -236,7 +236,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         }
         
         completion(ResultType.success(true))
-        self.repository.savePrice(for: productId, statistic: statistic)
+        self.productModel.savePrice(for: productId, statistic: statistic)
     }
     
     func onCategoryPressed(currentCategory: String) {
@@ -247,7 +247,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         
         // TODO: localize it
         self.view.showLoading(with: "Получаем список категорий")
-        repository.getCategoryList { [weak self] (result) in
+        productModel.getCategoryList { [weak self] (result) in
             guard let `self` = self else { return }
             self.view.hideLoading()
             switch result {
@@ -278,7 +278,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         self.pickerType = .uom
         // TODO: localize it
         self.view.showLoading(with: "Получаем список ед.измерений")
-        repository.getUomList { [weak self] (result) in
+        productModel.getUomList { [weak self] (result) in
             guard let `self` = self else { return }
             
             self.view.hideLoading()
@@ -308,7 +308,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
 extension ItemCardPresenterImpl: PickerControlDelegate {
     func choosen(id: Int32) {
         if pickerType == .category {
-            self.repository.getCategoryName(for: id) { (result) in
+            self.productModel.getCategoryName(for: id) { (result) in
                 switch result {
                 case let .success(name):
                     guard let name = name else {
@@ -321,7 +321,7 @@ extension ItemCardPresenterImpl: PickerControlDelegate {
                 }
             }
         } else {
-            self.repository.getUomName(for: id) { (result) in
+            self.productModel.getUomName(for: id) { (result) in
                 switch result {
                 case let .success(name):
                     guard let name = name else {

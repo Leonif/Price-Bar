@@ -12,9 +12,6 @@ protocol OutletListOutput {
     func choosen(outlet: Outlet)
 }
 
-
-
-
 protocol OutletListPresenter {
     func onGetOutletList()
     func onSearchOutlet(with text: String)
@@ -26,7 +23,7 @@ class OutletListPresenterImpl: OutletListPresenter {
     weak var view: OutletListView!
     var outletListOutput: OutletListOutput!
     var outletModel: OutletModel!
-    var locationModel: LocationService!
+    var locationModel: LocationModel!
     var currentCoords: (lat: Double, lon: Double) = (0.0, 0.0)
     
     private func updateOutletList(opOutlets: [OPOutletModel]) {
@@ -61,8 +58,8 @@ class OutletListPresenterImpl: OutletListPresenter {
             self?.currentCoords = coordinates
         }
         
-        self.locationModel.onError = { [weak self] errorMessage in
-            self?.view.onError(with: errorMessage)
+        self.locationModel.onError = { [weak self] error in
+            self?.view.onError(with: error.errorDescription)
         }
         
         self.locationModel.onStatusChanged = { [weak self] isAllowed in

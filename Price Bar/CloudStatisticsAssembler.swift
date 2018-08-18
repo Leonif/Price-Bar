@@ -14,9 +14,9 @@ class CloudStatisticsAssembler {
         let view = CloudStatisticsVC()
         view.modalPresentationStyle = .overCurrentContext
         
-        let repository = Repository()
+        let productModel = ProductModel()
         let presenter = CloudStatisticsPresenterImpl()
-        presenter.repository = repository
+        presenter.productModel = productModel
         
         presenter.view = view
         view.presenter = presenter

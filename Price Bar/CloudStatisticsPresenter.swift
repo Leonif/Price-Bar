@@ -14,11 +14,11 @@ protocol CloudStatisticsPresenter {
 
 
 class CloudStatisticsPresenterImpl: CloudStatisticsPresenter {
-    var repository: Repository!
+    var productModel: ProductModel!
     weak var view: CloudStatisticsView!
     
     func onGetQuantityOfGood() {
-        self.repository.getQuantityOfProducts { (result) in
+        self.productModel.getQuantityOfProducts { (result) in
             switch result {
             case let .success(count):
                 self.view.renderStatistic(goodQuantity: count)

@@ -21,7 +21,7 @@ class OutletListAssembler {
         presenter.outletModel = outletModel
         
         presenter.outletListOutput = outletListOutput
-        let locationModel = LocationService()
+        let locationModel = LocationModel()
         presenter.locationModel = locationModel
         presenter.view = view
         view.presenter = presenter

@@ -11,7 +11,7 @@ import UIKit
 protocol ShoplistView: BaseView {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
     func onCurrentOutletUpdated(outlet: Outlet)
-    func onError(error: String)
+    func onIssue(error: String)
     func onSavePrice()
     func onAddedItemToShoplist(productId: String)
     func onUpdatedTotal(_ total: Double)
@@ -19,8 +19,6 @@ protocol ShoplistView: BaseView {
     func onQuantityChanged()
     func startIsCompleted()
     func geoPositiongGot()
-    
-
 }
 
 class ShopListController: UIViewController, ShoplistView {
@@ -81,7 +79,6 @@ class ShopListController: UIViewController, ShoplistView {
         self.setupGestures()
         self.setupTotalView()
         self.setupAdapter()
-        
     }
     
     func geoPositiongGot() {
@@ -118,15 +115,12 @@ class ShopListController: UIViewController, ShoplistView {
     
     func onCurrentOutletUpdated(outlet: Outlet) {
         self.view.pb_stopActivityIndicator()
-        
         DispatchQueue.main.async { [weak self] in
             self?.navigationView.outletName.text = outlet.name
             self?.navigationView.outletAddress.text = outlet.address
         }
         self.buttonEnable(true)
         self.presenter.onReloadShoplist()
-        
-        
     }
     
     func onQuantityChanged() {
@@ -142,7 +136,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.presenter.onOpenStatistics()
     }
     
-    func onError(error: String) {
+    func onIssue(error: String) {
         self.presenter.openIssueVC(with: error)
         self.buttonEnable(false)
     }
@@ -249,9 +243,6 @@ class ShopListController: UIViewController, ShoplistView {
 extension ShopListController {
     @objc
     func hideButtons(gesture: UIGestureRecognizer) {
-//        guard userOutlet != nil else {
-//            return
-//        }
         guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {
             return
         }

@@ -21,20 +21,20 @@ protocol UpdatePricePresenter {
 
 public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     
-    var repository: Repository!
+    var productModel: ProductModel!
     weak var view: UpdatePriceView!
     var updatePriceOutput: UpdatePriceOutput!
     
     func onGetProductInfo(for productId: String, and outletId: String) {
         self.view.showLoading(with: R.string.localizable.common_get_product_info())
-        self.repository.getItem(with: productId) { (dpProductEntity) in
+        self.productModel.getItem(with: productId) { (dpProductEntity) in
             guard let dpProductEntity = dpProductEntity else {
                 self.view.hideLoading()
                 self.view.onError(with: R.string.localizable.error_something_went_wrong())
                 return
             }
-            self.repository.getPrice(for: productId, and: outletId, completion: { (price) in
-                self.repository.getUomName(for: dpProductEntity.uomId, completion: { (result) in
+            self.productModel.getPrice(for: productId, and: outletId, completion: { (price) in
+                self.productModel.getUomName(for: dpProductEntity.uomId, completion: { (result) in
                     self.view.hideLoading()
                     
                     switch result {
@@ -60,13 +60,13 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
         let dpStatModel = DPPriceStatisticModel(outletId: outletId,
                                                 productId: productId,
                                                 newPrice: newPrice, oldPrice: oldPrice, date: Date())
-        self.repository.savePrice(for: productId, statistic: dpStatModel)
+        self.productModel.savePrice(for: productId, statistic: dpStatModel)
         self.updatePriceOutput.saved()
     }
     
     func onGetPriceStatistics(for productId: String) {
         self.view.showLoading(with: "Получаем актуальные цены в других магазинах")
-        self.repository.getPricesFor(productId: productId) { (prices) in
+        self.productModel.getPricesFor(productId: productId) { (prices) in
             self.mergeOutletsWithPrices(productId: productId, fbPriceStatistics: prices)
         }
     }

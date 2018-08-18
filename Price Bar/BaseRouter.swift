@@ -20,6 +20,11 @@ extension BaseRouter {
         (fromModule as! UIViewController).present(controller, animated: true)
     }
     
+    func presentModule(fromModule: BaseView, toModule: UIViewController) {
+        (fromModule as! UIViewController).present(toModule, animated: true)
+    }
+    
+    
     func presentModule(fromModule: BaseView, toModule: BaseView) {
         (fromModule as! UIViewController).present(toModule as! UIViewController, animated: true)
     }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -20,8 +20,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IssueVC" customModule="PriceBar_Dev" customModuleProvider="target">
             <connections>
+                <outlet property="issueButton" destination="3Cq-C9-iuZ" id="Ooq-Ru-lnE"/>
                 <outlet property="issueLabel" destination="44a-TH-jEJ" id="Xvz-eQ-U2g"/>
-                <outlet property="tryButton" destination="3Cq-C9-iuZ" id="bRG-wD-s7q"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -53,7 +53,7 @@
                                 <color key="titleColor" red="0.2901960784" green="0.2901960784" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
-                                <action selector="tryAgainTappedWithSender:" destination="-1" eventType="touchUpInside" id="TXz-ev-4gF"/>
+                                <action selector="issueButtonTappedWithSender:" destination="-1" eventType="touchUpInside" id="AfD-HU-QPi"/>
                             </connections>
                         </button>
                     </subviews>

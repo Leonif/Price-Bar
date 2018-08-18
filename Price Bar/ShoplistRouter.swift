@@ -22,9 +22,7 @@ protocol ShoplistRouter: BaseRouter {
 
 
 class ShoplistRouterImpl: ShoplistRouter {
-    
     weak var fromVC: ShoplistView!
-    var repository: Repository!
     
     func openStatistics() {
         let module = CloudStatisticsAssembler().assemble()
@@ -37,18 +35,13 @@ class ShoplistRouterImpl: ShoplistRouter {
     }
     
     func openIssue(with issue: String) {
-        func openIssueVC(issue: String) {
-            let vc = IssueVC(nib: R.nib.issueVC)
-            vc.issueMessage = issue
-            self.presentModule(fromModule: fromVC, toModule: vc as! BaseView)
-        }
+        let vc = IssueVC(nib: R.nib.issueVC)
+        vc.issueMessage = issue
+        self.presentModule(fromModule: fromVC, toModule: vc)
     }
     
     func openItemCard(presenter: ItemCardDelegate, for productId: String, outletId: String) {
-        
         let module = ItemCardAssembler().assemble(itemCardDelegate: presenter, for: productId, outletId: outletId)
-        
-        
         self.presentModule(fromModule: fromVC, toModule: module)
     }
     

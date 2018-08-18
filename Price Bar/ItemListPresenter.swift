@@ -28,11 +28,11 @@ class ItemListPresenterImpl: ItemListPresenter {
     var filtering = false
     
     var itemListOutput: ItemListOutput!
-    var repository: Repository!
+    var productModel: ProductModel!
     
     func onFetchData(offset: Int, limit: Int,  for outletId: String) {
         self.view.showLoading(with: "Получение списка товаров")
-        self.repository.getShopItems(with: offset, limit: limit, for: outletId) { (result) in
+        self.productModel.getShopItems(with: offset, limit: limit, for: outletId) { (result) in
             self.view.hideLoading()
             switch result {
             case let .success(products):
@@ -52,7 +52,7 @@ class ItemListPresenterImpl: ItemListPresenter {
         if  searchText.count >= 3 && !filtering {
             filtering = true
             self.view.showLoading(with: R.string.localizable.common_get_product_info())
-            repository.filterItemList(contains: searchText, for: outletId) { (result) in
+            productModel.filterItemList(contains: searchText, for: outletId) { (result) in
                 self.view.hideLoading()
                 switch result {
                 case let .success(products):
@@ -112,10 +112,10 @@ extension ItemListPresenterImpl {
     private func getItemWithPrice(for produtId: String, outletId: String, completion: @escaping (ItemListViewEntity) -> Void) {
         
         
-        self.repository.getProductEntity(for: produtId) { (result) in
+        self.productModel.getProductEntity(for: produtId) { (result) in
             switch result {
             case let .success(product):
-                self.repository.getCategoryName(for: product.categoryId, completion: { (result) in
+                self.productModel.getCategoryName(for: product.categoryId, completion: { (result) in
                     switch result {
                     case let .success(categoryName):
 
@@ -123,7 +123,7 @@ extension ItemListPresenterImpl {
                             self.view.onError(with: R.string.localizable.common_category_is_absent(product.name))
                             return
                         }
-                        self.repository.getPrice(for: produtId, and: outletId, completion: { (price) in
+                        self.productModel.getPrice(for: produtId, and: outletId, completion: { (price) in
                             let item = ItemListViewEntity(id: produtId,
                                                           product: product.name,
                                                           brand: product.brand,

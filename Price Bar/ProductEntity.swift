@@ -1,8 +1,8 @@
 //
-//  FBProductModel.swift
+//  ProductEntity.swift
 //  PriceBar
 //
-//  Created by Leonid Nifantyev on 1/21/18.
+//  Created by Leonid Nifantyev on 1/15/18.
 //  Copyright © 2018 LionLife. All rights reserved.
 //
 
@@ -17,7 +17,20 @@ struct ProductEntity {
     var uomId: Int32
     
     var fullName: String {
-        return "\(name), \(brand), \(weightPerPiece)"
+        
+        let pr = "\(name)"
+        let br = brand.isEmpty ? "" : ", \(brand)"
+        let w = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
+        
+        return "\(pr)\(br)\(w)"
     }
     
+    init(id: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0) {
+        self.id = id
+        self.name = name
+        self.brand = brand
+        self.weightPerPiece = weightPerPiece
+        self.categoryId = categoryId
+        self.uomId = uomId
+    }
 }

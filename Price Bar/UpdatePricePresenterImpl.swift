@@ -57,7 +57,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
         defer { self.view.close() }
         guard newPrice != oldPrice && newPrice != 0
             else { return  }
-        let dpStatModel = DPPriceStatisticModel(outletId: outletId,
+        let dpStatModel = PriceStatisticViewItem(outletId: outletId,
                                                 productId: productId,
                                                 newPrice: newPrice, oldPrice: oldPrice, date: Date())
         self.productModel.savePrice(for: productId, statistic: dpStatModel)

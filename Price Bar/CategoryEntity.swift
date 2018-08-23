@@ -8,23 +8,7 @@
 
 import Foundation
 
-class CategoryEntity {
+struct CategoryEntity {
     var id: Int32 = 0
     var name = ""
-    
-    init() {
-        
-    }
-    
-    init(key: Int32, itemCategoryDict: Dictionary<String, Any>) {
-        if let name = itemCategoryDict["name"] as? String {
-            self.id = key
-            self.name = name
-        }
-    }
-    
-    init(id: Int32, name: String) {
-        self.id = id
-        self.name = name
-    }
 }

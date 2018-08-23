@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct DPPriceStatisticModel {
+struct PriceStatisticViewItem {
     var outletId: String
     var productId: String
     var newPrice: Double

@@ -17,7 +17,7 @@ protocol ItemCardView: BaseView {
 
 class ItemCardVC: UIViewController, ItemCardView {
     var presenter: ItemCardPresenter!
-    var categories: [CategoryModelView] = []
+    var categories: [CategoryViewItem] = []
     var uoms: [UomViewItem] = []
     var pickerType: PickerType?
     var outletId: String!

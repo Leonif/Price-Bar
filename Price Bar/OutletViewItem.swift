@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Outlet {
+public struct OutletViewItem {
     var id: String
     var name: String
     var address: String

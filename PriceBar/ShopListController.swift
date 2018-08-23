@@ -10,7 +10,7 @@ import UIKit
 
 protocol ShoplistView: BaseView {
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
-    func onCurrentOutletUpdated(outlet: Outlet)
+    func onCurrentOutletUpdated(outlet: OutletViewItem)
     func onIssue(error: String)
     func onSavePrice()
     func onAddedItemToShoplist(productId: String)
@@ -111,7 +111,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.deleteButton.setEnable(!dataSource.isEmpty)
     }
     
-    func onCurrentOutletUpdated(outlet: Outlet) {
+    func onCurrentOutletUpdated(outlet: OutletViewItem) {
         self.view.pb_stopActivityIndicator()
         DispatchQueue.main.async { [weak self] in
             self?.navigationView.outletName.text = outlet.name

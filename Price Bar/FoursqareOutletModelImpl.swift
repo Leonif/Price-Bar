@@ -19,9 +19,9 @@ class FoursqareOutletModelImpl: OutletModel {
     func searchOutletList(with text: String, nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType) {
         self.searchOutletListFromProvider(with: text, for: coordinates, completion: { (result) in
             switch result {
-            case let .success(fqoutlets):
+            case let .success(outlets):
                 
-                let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
+//                let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
                 
                 completion(ResultType.success(outlets))
                 
@@ -36,7 +36,7 @@ class FoursqareOutletModelImpl: OutletModel {
         foursquareProvider.getOutlet(with: outletId) { (result) in
             switch result {
             case let .success(fqoutlet):
-                completion(ResultType.success(OutletMapper.mapper(from: fqoutlet)))
+                completion(ResultType.success(fqoutlet))
             case let .failure(error):
                 completion(ResultType.failure(.other(error.errorDescription)))
             }
@@ -48,7 +48,7 @@ class FoursqareOutletModelImpl: OutletModel {
             switch result {
             case let .success(fqoutlets):
                 if let fqoutlet = fqoutlets.first {
-                    completion(ResultType.success(OutletMapper.mapper(from: fqoutlet)))
+                    completion(ResultType.success(fqoutlet))
                 }
             case let .failure(error):
                 completion(ResultType.failure(.other(error.errorDescription)))
@@ -56,13 +56,10 @@ class FoursqareOutletModelImpl: OutletModel {
         })
     }
     
-    
-    
     func outletListNearBy(coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType) {
         self.outletListFromProvider(for: coordinates, completion: { result in
             switch result {
-            case let .success(fqoutlets):
-                let outlets = fqoutlets.map { OutletMapper.mapper(from: $0) }
+            case let .success(outlets):
                 completion(ResultType.success(outlets))
             case let .failure(error):
                 completion(ResultType.failure(.other(error.errorDescription)))
@@ -84,7 +81,7 @@ class FoursqareOutletModelImpl: OutletModel {
     }
     
     private func outletListFromProvider(for coords: (lat: Double, lon: Double),
-                                        completion: @escaping (ResultType<[FQOutletModel], FoursqareProviderError>) -> Void) {
+                                        completion: @escaping (ResultType<[OutletEntity], FoursqareProviderError>) -> Void) {
         
         self.foursquareProvider.loadOultets(userCoordinate: coords, completion: { result in
             switch result {

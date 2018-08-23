@@ -85,7 +85,7 @@ class ItemListPresenterImpl: ItemListPresenter {
 // FIXME: move to Interactor/Use case
 extension ItemListPresenterImpl {
     
-    private func getItemsWithPrices(for products: [DPProductEntity], outletId: String, completion: @escaping ([ItemListViewEntity]) -> Void) {
+    private func getItemsWithPrices(for products: [ProductEntity], outletId: String, completion: @escaping ([ItemListViewEntity]) -> Void) {
         
         guard !products.isEmpty else {
             completion([])

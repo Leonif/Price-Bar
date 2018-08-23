@@ -9,12 +9,12 @@
 import Foundation
 
 protocol OutletListOutput {
-    func choosen(outlet: Outlet)
+    func choosen(outlet: OutletViewItem)
 }
 
 protocol OutletListPresenter {
     func onSearchOutlet(with text: String)
-    func onChoosen(outlet: Outlet)
+    func onChoosen(outlet: OutletViewItem)
     func viewDidLoadTrigger()
 }
 
@@ -62,7 +62,7 @@ class OutletListPresenterImpl: OutletListPresenter {
         })
     }
 
-    func onChoosen(outlet: Outlet) {
+    func onChoosen(outlet: OutletViewItem) {
         self.outletListOutput.choosen(outlet: outlet)
     }
     

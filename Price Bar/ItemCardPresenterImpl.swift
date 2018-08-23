@@ -176,7 +176,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                     return
             }
             
-            let dpProductCardModel = DPUpdateProductModel(id: productCard.productId,
+            let dpProductCardModel = ProductEntity(id: productCard.productId,
                                                           name: productCard.productName,
                                                           brand: productCard.brand,
                                                           weightPerPiece: productCard.weightPerPiece,
@@ -195,7 +195,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                 return
             }
             
-            let priceStatistic = DPPriceStatisticModel(outletId: outletId,
+            let priceStatistic = PriceStatisticViewItem(outletId: outletId,
                                                        productId: productCard.productId,
                                                        newPrice: newPrice,
                                                        oldPrice: oldPrice,
@@ -221,11 +221,11 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     }
     
     
-    private func saveProduct(product: DPUpdateProductModel) {
+    private func saveProduct(product: ProductEntity) {
         self.productModel.save(new: product)
     }
     
-    private func savePrice(for productId: String, statistic: DPPriceStatisticModel, completion: (ResultType<Bool, ItemCardError>) -> Void) {
+    private func savePrice(for productId: String, statistic: PriceStatisticViewItem, completion: (ResultType<Bool, ItemCardError>) -> Void) {
         guard statistic.newPrice != 0.0 else {
             completion(ResultType.failure(ItemCardError.priceIsNotSaved(R.string.localizable.price_update_not_changed())))
             return
@@ -257,7 +257,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                     self.view.onError(with: "Cloud category list is empty")
                     return
                 }
-                let categories = dpCategoryList.map { CategoryMapper.mapper(from: $0) }
+                let categories = dpCategoryList.map { CategoryMapper.transform(input: $0) }
                 for (index, category) in categories.enumerated() {
                     if category.name == currentCategory {
                         curentIndex = index

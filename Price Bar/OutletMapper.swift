@@ -9,22 +9,11 @@
 import Foundation
 
 class OutletMapper {
-
-    class func mapper(from outlet: FQOutletModel) -> OutletEntity {
-
-        return OutletEntity(id: outlet.id,
-                             name: outlet.name,
-                             address: outlet.address, distance: outlet.distance)
-
-    }
-
-    class func mapper(from outlet: OutletEntity) -> Outlet {
-
-        return Outlet(id: outlet.id,
+    class func mapper(from outlet: OutletEntity) -> OutletViewItem {
+        return OutletViewItem(id: outlet.id,
                       name: outlet.name,
                       address: outlet.address,
                       distance: outlet.distance)
-
     }
 
 }

@@ -23,7 +23,7 @@ class OutletCell: UITableViewCell, NibLoadableReusable {
     }
     
     
-    func bind(outlet: Outlet) {
+    func bind(outlet: OutletViewItem) {
         
         if outlet.distance > 600 {
             //cell.distanceView.backgroundColor = UIColor.lightGray

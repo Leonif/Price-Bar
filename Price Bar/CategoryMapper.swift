@@ -9,17 +9,7 @@
 import Foundation
 
 class CategoryMapper {
-
-    class func mapper(from dpCategory: DPCategoryViewEntity) -> CategoryModelView {
-        return CategoryModelView(id: dpCategory.id, name: dpCategory.name)
+    class func transform(input: CategoryEntity) -> CategoryViewItem {
+        return CategoryViewItem(id: input.id, name: input.name)
     }
-
-//    class func mapper(from dpCategory: CDCategoryModel) -> DPCategoryViewEntity {
-//        return DPCategoryViewEntity(id: dpCategory.id, name: dpCategory.name)
-//    }
-
-
-    
-    
-
 }

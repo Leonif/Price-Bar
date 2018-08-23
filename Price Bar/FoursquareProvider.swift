@@ -11,8 +11,8 @@ import Foundation
 typealias ForsqareResult<T> = (ResultType<T, FoursqareProviderError>)->Void
 typealias DictionaryType = [String: Any]
 
-typealias ForsqareOutletList = (ResultType<[FQOutletModel], FoursqareProviderError>)->Void
-typealias ForsqareSingleOutlet = (ResultType<FQOutletModel, FoursqareProviderError>)->Void
+typealias ForsqareOutletList = (ResultType<[OutletEntity], FoursqareProviderError>)->Void
+typealias ForsqareSingleOutlet = (ResultType<OutletEntity, FoursqareProviderError>)->Void
 
 
 class FoursquareProvider {
@@ -107,7 +107,7 @@ class FoursquareProvider {
             return
         }
 
-        var outlets: [FQOutletModel] = []
+        var outlets: [OutletEntity] = []
 
         guard let venues = resp["venues"] as? [DictionaryType] else {
             self.handleParseError(completed: completion)
@@ -129,8 +129,8 @@ class FoursquareProvider {
     }
     
     // MARK: - Mappers
-    private func outletMapperWithDistance(from venue: DictionaryType) -> FQOutletModel? {
-        var outletWithDistance: FQOutletModel
+    private func outletMapperWithDistance(from venue: DictionaryType) -> OutletEntity? {
+        var outletWithDistance: OutletEntity
         
         guard let outletModel = self.outletMapper(from: venue) else {
             return nil
@@ -147,7 +147,7 @@ class FoursquareProvider {
     }
     
     
-    private func outletMapper(from venue: DictionaryType) -> FQOutletModel? {
+    private func outletMapper(from venue: DictionaryType) -> OutletEntity? {
         guard
             let id = venue["id"] as? String,
             let name = venue["name"] as? String,
@@ -155,7 +155,7 @@ class FoursquareProvider {
             let add = loc["address"] as? String else {
                 return nil
         }
-        return FQOutletModel(id: id,
+        return OutletEntity(id: id,
                              name: name,
                              address: add,
                              distance: 0)

@@ -11,9 +11,9 @@ import UIKit
 
 class OutetListAdapter: NSObject, UITableViewDataSource, UITableViewDelegate {
     
-    var outlets: [Outlet] = []
+    var outlets: [OutletViewItem] = []
     
-    public var onDidSelect: ((Outlet) -> Void)?
+    public var onDidSelect: ((OutletViewItem) -> Void)?
     public var onError: ((String) -> Void)?
     
     
@@ -50,7 +50,7 @@ extension OutetListAdapter {
         return outlets.count
     }
 
-    func getOutlet(from indexPath: IndexPath) -> Outlet {
+    func getOutlet(from indexPath: IndexPath) -> OutletViewItem {
         return outlets[indexPath.row]
     }
     

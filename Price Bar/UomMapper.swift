@@ -9,16 +9,9 @@
 import Foundation
 
 class UomMapper {
-    
-    class func mapper(from fbModel: UomEntity) -> UomViewItem {
-        return UomViewItem(id: fbModel.id,
-                          name: fbModel.name,
-                          parameters: fbModel.parameters)
-    }
-    
-    class func transform(from fbModelList: [UomEntity]) -> [UomViewItem] {
-        return fbModelList.map { fbUom in
-            mapper(from: fbUom)
-        }
+    class func transform(input: UomEntity) -> UomViewItem {
+        return UomViewItem(id: input.id,
+                          name: input.name,
+                          parameters: input.parameters)
     }
 }

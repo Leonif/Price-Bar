@@ -40,17 +40,17 @@ protocol ProductModel {
     func loadShopList(for outletId: String?, completion: @escaping ([ShoplistViewItem]) -> Void)
     
     func getQuantityOfProducts(completion: @escaping (ResultType<Int, ProductModelError>) -> Void)
-    func getItem(with barcode: String, callback: @escaping (DPProductEntity?) -> Void)
+    func getItem(with barcode: String, callback: @escaping (ProductEntity?) -> Void)
     func getPrice(for productId: String, and outletId: String, completion: @escaping (Double) -> Void)
     
-    func getProductEntity(for productId: String, completion: @escaping (ResultType<DPProductEntity, ProductModelError>)-> Void)
-    func save(new product: DPUpdateProductModel)
+    func getProductEntity(for productId: String, completion: @escaping (ResultType<ProductEntity, ProductModelError>)-> Void)
+    func save(new product: ProductEntity)
     func getParametredUom(for uomId: Int32, completion: @escaping (UomEntity) -> Void)
-    func savePrice(for productId: String, statistic: DPPriceStatisticModel)
+    func savePrice(for productId: String, statistic: PriceStatisticViewItem)
     
     func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, ProductModelError>) -> Void)
     func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, ProductModelError>) -> Void)
-    func getCategoryList(completion: @escaping (ResultType<[DPCategoryViewEntity]?, ProductModelError>) -> Void)
+    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity]?, ProductModelError>) -> Void)
 
     func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, ProductModelError>) -> Void)
     func getUomName(for uomId: Int32, completion: @escaping (ResultType<String?, ProductModelError>) -> Void)
@@ -61,7 +61,7 @@ class ProductModelImpl: ProductModel {
     func getProductDetail(productId: String, outletId: String, completion: @escaping (ResultType<ShoplistViewItem, ProductModelError>) -> Void) {
         
         let productInfo = DispatchGroup()
-        var productEntity: DPProductEntity!
+        var productEntity: ProductEntity!
         var categoryName: String!
         var country: String!
         var parametredUom: UomEntity!
@@ -136,14 +136,14 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func savePrice(for productId: String, statistic: DPPriceStatisticModel) {
+    func savePrice(for productId: String, statistic: PriceStatisticViewItem) {
         let fb = StatisticItemEntity(productId: statistic.productId,
                                price: statistic.newPrice,
                                outletId: statistic.outletId)
         FirebaseService.data.savePrice(for: productId, statistic: fb)
     }
 
-    func save(new product: DPUpdateProductModel) {
+    func save(new product: ProductEntity) {
         let fb = ProductEntity(id: product.id,
                                 name: product.name,
                                 brand: product.brand,
@@ -153,7 +153,7 @@ class ProductModelImpl: ProductModel {
         FirebaseService.data.saveOrUpdate(fb)
     }
 
-    func update(_ product: DPUpdateProductModel) {
+    func update(_ product: ProductEntity) {
         let fb = ProductEntity(id: product.id,
                                 name: product.name,
                                 brand: product.brand,
@@ -164,11 +164,11 @@ class ProductModelImpl: ProductModel {
     }
     
    ////////////////////////////// FIXME /////////////////////////////////
-    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], ProductModelError>) -> Void) {
+    func getShopItems(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[ProductEntity], ProductModelError>) -> Void) {
         FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
             switch result {
             case let .success(products):
-                let dpProducts = products.map { ProductMapper.transformToDPProductEntity(from: $0) }
+                let dpProducts = products.map { ProductMapper.transform(input: $0) }
                 completion(ResultType.success(dpProducts))
             case let .failure(error):
                 completion(ResultType.failure(ProductModelError.other(error.localizedDescription)))
@@ -223,11 +223,11 @@ class ProductModelImpl: ProductModel {
     
     
 
-    func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[DPProductEntity], ProductModelError>) -> Void)  {
+    func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[ProductEntity], ProductModelError>) -> Void)  {
         FirebaseService.data.getFiltredProductList(with: text) { (result) in
             switch result {
             case let .success(products):
-                let dpProducts = products.map { ProductMapper.transformToDPProductEntity(from: $0) }
+                let dpProducts = products.map { ProductMapper.transform(input: $0) }
                 completion(ResultType.success(dpProducts))
             case let .failure(error):
                 completion(ResultType.failure(ProductModelError.other(error.localizedDescription)))
@@ -241,14 +241,14 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getProductEntity(for productId: String, completion: @escaping (ResultType<DPProductEntity, ProductModelError>)-> Void) {
+    func getProductEntity(for productId: String, completion: @escaping (ResultType<ProductEntity, ProductModelError>)-> Void) {
         FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
             
             guard let fbProductEntity = fbProductEntity else {
                 completion(ResultType.failure(ProductModelError.other(R.string.localizable.error_something_went_wrong())))
                 return
             }
-            completion(ResultType.success(DPProductEntity(id: productId,
+            completion(ResultType.success(ProductEntity(id: productId,
                                                           name: fbProductEntity.name,
                                                           brand: fbProductEntity.brand,
                                                           weightPerPiece: fbProductEntity.weightPerPiece,
@@ -257,7 +257,7 @@ class ProductModelImpl: ProductModel {
         }
     }
 
-    func getCategoryList(completion: @escaping (ResultType<[DPCategoryViewEntity]?, ProductModelError>) -> Void)  {
+    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity]?, ProductModelError>) -> Void)  {
         FirebaseService.data.getCategoryList { (result) in
             switch result {
             case let .success(categoryList):
@@ -266,7 +266,7 @@ class ProductModelImpl: ProductModel {
                     return
                 }
                 
-                let c: [DPCategoryViewEntity] = categoryList.map { DPCategoryViewEntity(id: $0.id, name: $0.name) }
+                let c: [CategoryEntity] = categoryList.map { CategoryEntity(id: $0.id, name: $0.name) }
                 completion(ResultType.success(c))
 
             case let .failure(error):
@@ -283,7 +283,7 @@ class ProductModelImpl: ProductModel {
                     completion (ResultType.success(nil))
                     return
                 }
-                let c: [UomViewItem] = uomList.map { UomMapper.mapper(from: $0)  }
+                let c: [UomViewItem] = uomList.map { UomMapper.transform(input: $0)  }
                 completion(ResultType.success(c))
                 
             case let .failure(error):
@@ -443,13 +443,13 @@ class ProductModelImpl: ProductModel {
             }
         }
     }
-    func getItem(with barcode: String, callback: @escaping (DPProductEntity?) -> Void) {
+    func getItem(with barcode: String, callback: @escaping (ProductEntity?) -> Void) {
         self.getProductFromCloud(with: barcode) { (item) in
             guard let item = item else {
                 callback(nil)
                 return
             }
-            let result = DPProductEntity(id: item.id,
+            let result = ProductEntity(id: item.id,
                                          name: item.name,
                                          brand: item.brand,
                                          weightPerPiece: item.weightPerPiece,
@@ -457,9 +457,7 @@ class ProductModelImpl: ProductModel {
                                          uomId: item.uomId)
             callback(result)
         }
-        
     }
-    
     
     private func getProductFromCloud(with productId: String, callback: @escaping (ProductEntity?) -> Void) {
         FirebaseService.data.getProduct(with: productId) { (item) in

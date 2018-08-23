@@ -11,7 +11,7 @@ import CoreLocation
 
 
 protocol OutletListView: BaseView {
-    func onOutletListFetched(_ outlets: [Outlet])
+    func onOutletListFetched(_ outlets: [OutletViewItem])
 }
 
 class OutletsVC: UIViewController, OutletListView, UIGestureRecognizerDelegate {
@@ -65,7 +65,7 @@ class OutletsVC: UIViewController, OutletListView, UIGestureRecognizerDelegate {
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
-    func onOutletListFetched(_ outlets: [Outlet]) {
+    func onOutletListFetched(_ outlets: [OutletViewItem]) {
         self.adapter.outlets = outlets
         DispatchQueue.main.async {
             self.tableView.reloadData()

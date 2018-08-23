@@ -36,7 +36,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     var productModel: ProductModel!
     var shoplistModel: ShoplistModel!
     var isStatisticShown: Bool = false
-    var userOutlet: Outlet!
+    var userOutlet: OutletViewItem!
     var locationService: LocationService!
     var coordinates: (lat: Double, lon: Double)?
     
@@ -105,7 +105,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         }
     }
     
-    private func addItemToShopList(_ product: DPProductEntity, completion: @escaping (ResultType<Bool, ProductModelError>)-> Void) {
+    private func addItemToShopList(_ product: ProductEntity, completion: @escaping (ResultType<Bool, ProductModelError>)-> Void) {
         self.productModel.getProductDetail(productId: product.id, outletId: self.userOutlet.id) { [weak self] (result) in
             
             guard let `self` = self else { return }
@@ -219,7 +219,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     // MARK: delagates hadnling
-    func choosen(outlet: Outlet) {
+    func choosen(outlet: OutletViewItem) {
         self.userOutlet = outlet
         self.view.onCurrentOutletUpdated(outlet: outlet)
     }

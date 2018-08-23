@@ -14,7 +14,7 @@ protocol CloudStatisticsPresenter {
 
 
 class CloudStatisticsPresenterImpl: CloudStatisticsPresenter {
-    var productModel: ProductModel!
+    var productModel: ProductModelImpl!
     weak var view: CloudStatisticsView!
     
     func onGetQuantityOfGood() {

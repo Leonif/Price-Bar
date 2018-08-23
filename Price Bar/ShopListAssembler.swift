@@ -13,26 +13,28 @@ import UIKit
 class ShopListAssembler {
     func assemble() -> UIViewController {
         let view = R.storyboard.main.shopListController()!
-
-        let productModel = ProductModel()
+        
         let adapter = ShopListAdapter(parent: view)
         view.adapter = adapter
         
-        
         let presenter = ShoplistPresenterImpl()
-        let locationModel = LocationModel()
-        presenter.locationModel = locationModel
+        let productModel = ProductModelImpl()
+        let shoplistModel = ShoplistModelImpl()
         presenter.productModel = productModel
-        presenter.getProductDetailProvider = GetProductDetailsProvider(productModel: productModel)
+        presenter.shoplistModel = shoplistModel
         presenter.view = view
+        
+        
         view.presenter = presenter
         
         let router = ShoplistRouterImpl()
         router.fromVC = view
         
         presenter.router = router
-        
-        let outletModel = FoursqareOutletModelImpl()
+        let locationService = LocationServiceImpl()
+        presenter.locationService = locationService
+        let foursquareProvider = FoursquareProvider()
+        let outletModel = FoursqareOutletModelImpl(foursquareProvider)
         presenter.outletModel = outletModel
         
         

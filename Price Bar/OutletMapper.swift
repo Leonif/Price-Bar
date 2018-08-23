@@ -10,15 +10,15 @@ import Foundation
 
 class OutletMapper {
 
-    class func mapper(from outlet: FQOutletModel) -> OPOutletModel {
+    class func mapper(from outlet: FQOutletModel) -> OutletEntity {
 
-        return OPOutletModel(id: outlet.id,
+        return OutletEntity(id: outlet.id,
                              name: outlet.name,
                              address: outlet.address, distance: outlet.distance)
 
     }
 
-    class func mapper(from outlet: OPOutletModel) -> Outlet {
+    class func mapper(from outlet: OutletEntity) -> Outlet {
 
         return Outlet(id: outlet.id,
                       name: outlet.name,

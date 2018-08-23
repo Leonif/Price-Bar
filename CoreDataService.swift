@@ -18,7 +18,7 @@ class CoreDataService {
     static let data = CoreDataService()
     var synced = false
 
-    func saveToShopList(_ shopItem: CDShoplistItem) {
+    func saveToShopList(_ shopItem: ShoplistItemEntity) {
         let shpLst = ShopList(context: context)
         shpLst.productId = shopItem.productId
         shpLst.quantity = shopItem.quantity
@@ -65,8 +65,8 @@ class CoreDataService {
         return nil
     }
 
-    func loadShopList() -> [CDShoplistItem]? {
-        var shopList: [CDShoplistItem] = []
+    func loadShopList() -> [ShoplistItemEntity]? {
+        var shopList: [ShoplistItemEntity] = []
         do {
             let shpLstRequest = NSFetchRequest<ShopList>(entityName: "ShopList")
             let savedShopList = try context.fetch(shpLstRequest)
@@ -77,7 +77,7 @@ class CoreDataService {
                     fatalError()
                 }
 
-                return CDShoplistItem(productId: id, quantity: shoplistItem.quantity)
+                return ShoplistItemEntity(productId: id, quantity: shoplistItem.quantity)
             }
         } catch {
             print("Products is not got from database")

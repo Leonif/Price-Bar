@@ -36,11 +36,6 @@ class OutletsVC: UIViewController, OutletListView, UIGestureRecognizerDelegate {
         return b
     }()
 
-//    var delegate: OutletVCDelegate!
-//    @IBOutlet weak var outletTableView: UITableView!
-
-//    @IBOutlet weak var warningLocationView: UIView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -56,7 +51,7 @@ class OutletsVC: UIViewController, OutletListView, UIGestureRecognizerDelegate {
         }
         
         self.setupNavigation()
-        self.presenter.onGetOutletList()
+        self.presenter.viewDidLoadTrigger()
         
     }
     

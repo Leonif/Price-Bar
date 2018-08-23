@@ -8,19 +8,13 @@
 
 import Foundation
 
-class FoursqareOutletModelImpl: NSObject, OutletModel {
-    var locationService: LocationModel!
-    var foursquareProvider: FoursqareProvider!
+class FoursqareOutletModelImpl: OutletModel {
+    var foursquareProvider: FoursquareProvider!
     
-//    var singleOutletCompletion: ((ResultType<OPOutletModel, OutletModelError>) -> Void)?
-//    var outletListCompletion: ((ResultType<[OPOutletModel], OutletModelError>) -> Void)?
-    
-    override init() {
-        super.init()
-        self.locationService = LocationModel()
-        self.foursquareProvider = FoursqareProvider()
-        
+    init(_ foursquareProvider: FoursquareProvider) {
+        self.foursquareProvider = foursquareProvider
     }
+    
     
     func searchOutletList(with text: String, nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType) {
         self.searchOutletListFromProvider(with: text, for: coordinates, completion: { (result) in
@@ -38,7 +32,7 @@ class FoursqareOutletModelImpl: NSObject, OutletModel {
     }
     
     func getOutlet(with outletId: String, completion: @escaping OutletResultType) {
-        let foursquareProvider = FoursqareProvider()
+        let foursquareProvider = FoursquareProvider()
         foursquareProvider.getOutlet(with: outletId) { (result) in
             switch result {
             case let .success(fqoutlet):
@@ -49,7 +43,7 @@ class FoursqareOutletModelImpl: NSObject, OutletModel {
         }
     }
     
-    func nearestOutlet(nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletResultType) {
+    func nearestOutletNearBy(coordinates: (lat: Double, lon: Double), completion: @escaping OutletResultType) {
         self.outletListFromProvider(for: coordinates, completion: { result in
             switch result {
             case let .success(fqoutlets):
@@ -64,7 +58,7 @@ class FoursqareOutletModelImpl: NSObject, OutletModel {
     
     
     
-    func outletList(nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType) {
+    func outletListNearBy(coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType) {
         self.outletListFromProvider(for: coordinates, completion: { result in
             switch result {
             case let .success(fqoutlets):

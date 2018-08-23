@@ -1,5 +1,5 @@
 //
-//  UomModel.swift
+//  ShoplistItemEntity.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 1/20/18.
@@ -8,8 +8,7 @@
 
 import Foundation
 
-struct UomModelView {
-    var id: Int32
-    var name: String
-    var parameters: [Parameter]
+struct ShoplistItemEntity {
+    var productId: String
+    var quantity: Double
 }

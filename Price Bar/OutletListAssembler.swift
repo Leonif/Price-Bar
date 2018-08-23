@@ -16,13 +16,13 @@ class OutletListAssembler {
         let adapter = OutetListAdapter()
         view.adapter = adapter
         let presenter = OutletListPresenterImpl()
-        
-        let outletModel = FoursqareOutletModelImpl()
+        let locationService = LocationServiceImpl()
+        presenter.locationService = locationService
+        let foursquareProvider = FoursquareProvider()
+        let outletModel = FoursqareOutletModelImpl(foursquareProvider)
         presenter.outletModel = outletModel
         
         presenter.outletListOutput = outletListOutput
-        let locationModel = LocationModel()
-        presenter.locationModel = locationModel
         presenter.view = view
         view.presenter = presenter
         

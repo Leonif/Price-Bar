@@ -15,10 +15,9 @@ protocol ShoplistView: BaseView {
     func onSavePrice()
     func onAddedItemToShoplist(productId: String)
     func onUpdatedTotal(_ total: Double)
-    func onUpdatedShoplist(_ dataSource: [ShoplistItem])
+    func onUpdatedShoplist(_ dataSource: [ShoplistViewItem])
     func onQuantityChanged()
     func startIsCompleted()
-    func geoPositiongGot()
 }
 
 class ShopListController: UIViewController, ShoplistView {
@@ -79,11 +78,10 @@ class ShopListController: UIViewController, ShoplistView {
         self.setupGestures()
         self.setupTotalView()
         self.setupAdapter()
+        
     }
     
-    func geoPositiongGot() {
-        self.presenter.updateCurrentOutlet()
-    }
+    
     
     
     // MARK: - Presenter events
@@ -105,7 +103,7 @@ class ShopListController: UIViewController, ShoplistView {
         }
     }
     
-    func onUpdatedShoplist(_ dataSource: [ShoplistItem]) {
+    func onUpdatedShoplist(_ dataSource: [ShoplistViewItem]) {
         self.adapter.dataSource = dataSource
         DispatchQueue.main.async { [weak self] in
             self?.shopTableView.reloadData()

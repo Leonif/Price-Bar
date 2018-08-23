@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FBProductModel {
+struct ProductEntity {
     var id: String
     var name: String
     var brand: String

@@ -10,7 +10,7 @@ import Foundation
 
 class ProductMapper {
     
-    class func transformToDPProductEntity(from fBProductModel: FBProductModel) -> DPProductEntity {
+    class func transformToDPProductEntity(from fBProductModel: ProductEntity) -> DPProductEntity {
         return DPProductEntity(id: fBProductModel.id,
                                name: fBProductModel.name,
                                brand: fBProductModel.brand,

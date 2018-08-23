@@ -1,5 +1,5 @@
 //
-//  OPOutletModel.swift
+//  OutletEntity.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 1/22/18.
@@ -8,11 +8,9 @@
 
 import Foundation
 
-struct OPOutletModel {
-
+struct OutletEntity {
     var id: String
     var name: String
     var address: String
     var distance: Double
-
 }

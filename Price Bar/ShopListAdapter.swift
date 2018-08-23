@@ -13,13 +13,13 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     var tableView: UITableView!
     var vc: UIViewController!
     
-    var onCellDidSelected: ((ShoplistItem) -> Void)?
-    var onCompareDidSelected: ((ShoplistItem) -> Void)?
+    var onCellDidSelected: ((ShoplistViewItem) -> Void)?
+    var onCompareDidSelected: ((ShoplistViewItem) -> Void)?
     var onRemoveItem: ((String) -> Void)?
     var onQuantityChange: ((String) -> Void)?
     
     var sectionNames: [String] = []
-    var dataSource: [ShoplistItem] = [] {
+    var dataSource: [ShoplistViewItem] = [] {
         didSet {
             self.sectionNames = []
             dataSource.forEach { item in
@@ -43,7 +43,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         return count
     }
     
-    func getItem(index: IndexPath) -> ShoplistItem {
+    func getItem(index: IndexPath) -> ShoplistViewItem {
         let sec = index.section
         let indexInSec = index.row
         let productListInsection = self.dataSource.filter { $0.productCategory == sectionNames[sec] }
@@ -60,7 +60,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     
     
     // FIXME: move to presenter
-    func remove(item: ShoplistItem) {
+    func remove(item: ShoplistViewItem) {
         guard let index = self.dataSource.index(of: item) else {
             fatalError("item doesnt exist")
         }
@@ -172,7 +172,7 @@ extension ShopListAdapter: UITableViewDelegate {
     }
     
     
-    func configure(_ cell: ShopItemCell, _ item: ShoplistItem) {
+    func configure(_ cell: ShopItemCell, _ item: ShoplistViewItem) {
         cell.selectionStyle = .none
         cell.backgroundColor = .clear
         cell.cellView.layer.cornerRadius = 8.0

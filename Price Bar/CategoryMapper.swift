@@ -14,9 +14,9 @@ class CategoryMapper {
         return CategoryModelView(id: dpCategory.id, name: dpCategory.name)
     }
 
-    class func mapper(from dpCategory: CDCategoryModel) -> DPCategoryViewEntity {
-        return DPCategoryViewEntity(id: dpCategory.id, name: dpCategory.name)
-    }
+//    class func mapper(from dpCategory: CDCategoryModel) -> DPCategoryViewEntity {
+//        return DPCategoryViewEntity(id: dpCategory.id, name: dpCategory.name)
+//    }
 
 
     

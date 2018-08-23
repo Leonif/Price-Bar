@@ -9,18 +9,15 @@
 import Foundation
 import CoreLocation
 
-typealias OutletResultType = (ResultType<OPOutletModel, OutletModelError>) -> Void
-typealias OutletListResultType = (ResultType<[OPOutletModel], OutletModelError>) -> Void
-
+typealias OutletResultType = (ResultType<OutletEntity, OutletModelError>) -> Void
+typealias OutletListResultType = (ResultType<[OutletEntity], OutletModelError>) -> Void
 
 protocol OutletModel {
-    
     func searchOutletList(with text: String, nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType)
     func getOutlet(with outletId: String, completion: @escaping OutletResultType)
-    func nearestOutlet(nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletResultType)
-    func outletList(nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType)
+    func nearestOutletNearBy(coordinates: (lat: Double, lon: Double), completion: @escaping OutletResultType)
+    func outletListNearBy(coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType)
 }
-
 
 public enum OutletModelError: Error {
     case outletNotFound(String)

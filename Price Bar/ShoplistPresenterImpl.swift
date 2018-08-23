@@ -12,11 +12,10 @@ import GooglePlaces
 protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, ItemListOutput {
     func isProductHasPrice(for productId: String)
     func addToShoplist(with productId: String)
-    func updateCurrentOutlet()
     func onOpenStatistics()
     func onOpenUpdatePrice(for barcode: String)
     func openIssueVC(with issue: String)
-    func onOpenItemCard(for item: ShoplistItem)
+    func onOpenItemCard(for item: ShoplistViewItem)
     func onOpenNewItemCard(for productId: String)
     func onOpenScanner()
     func onOpenItemList()
@@ -33,27 +32,32 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     weak var view: ShoplistView!
     var router: ShoplistRouter!
     var outletModel: OutletModel!
-    var locationModel: LocationModel!
-    var currentCoords: (lat: Double, lon: Double)?
-    
-    
-    //FIXME: move to UseCase
+
     var productModel: ProductModel!
-    
-    
+    var shoplistModel: ShoplistModel!
     var isStatisticShown: Bool = false
     var userOutlet: Outlet!
-    var getProductDetailProvider: GetProductDetailsProvider!
+    var locationService: LocationService!
+    var coordinates: (lat: Double, lon: Double)?
     
     func viewDidLoadTrigger() {
-        self.subscribeOnLocationModel()
-        self.locationModel.getCoords()
+        locationService.getCoords()
+        locationService.onStatusChanged = { [weak self] isAvalaible in
+            if !isAvalaible {
+                self?.view.onIssue(error: R.string.localizable.no_gps_access())
+            } else {
+                self?.locationService.getCoords()
+            }
+        }
+        locationService.onCoordinatesUpdated = { [weak self] coordinates  in
+            self?.coordinates = coordinates
+            self?.updateCurrentOutlet()
+        }
     }
     
-    
-    public func updateCurrentOutlet() {
-        guard let coordinates = self.currentCoords else { return }
-        self.outletModel.nearestOutlet(nearby: coordinates) { [weak self] result in
+    private func updateCurrentOutlet() {
+        guard let coordinates = self.coordinates else { return }
+        self.outletModel.nearestOutletNearBy(coordinates: coordinates) { [weak self] result in
             guard let `self` = self else { return }
             
             switch result {
@@ -66,30 +70,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         }
     }
     
-    
-    func subscribeOnLocationModel() {
-        self.locationModel.onCoordinatesUpdated = { [weak self] coordinates in
-            self?.currentCoords = coordinates
-            self?.view.geoPositiongGot()
-        }
-        self.locationModel.onError = { [weak self] error in
-            switch error {
-            case let .servicesIsNotAvailable(mesage):
-                self?.view.onIssue(error: mesage)
-            case .other(let message), .notAuthorizedAccess(let message):
-                self?.view.onError(with: message)
-            }
-        }
-        self.locationModel.onStatusChanged = { [weak self] isGeoPositiongAllowed in
-            if isGeoPositiongAllowed {
-                self?.locationModel.getCoords()
-            } else {
-                self?.view.onIssue(error: "Geo position is not availabel")
-            }
-        }
-    }
-    
-    private func updateShoplist(shoplist: [ShoplistItem]) {
+    private func updateShoplist(shoplist: [ShoplistViewItem]) {
         self.view.onUpdatedShoplist(shoplist)
         let sum = shoplist.reduce(0) { $0 + ($1.productPrice * $1.quantity) }
         self.view.onUpdatedTotal(sum)
@@ -125,13 +106,13 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     private func addItemToShopList(_ product: DPProductEntity, completion: @escaping (ResultType<Bool, ProductModelError>)-> Void) {
-        self.getProductDetailProvider.getProductDetail(productId: product.id, outletId: self.userOutlet.id) { [weak self] (result) in
+        self.productModel.getProductDetail(productId: product.id, outletId: self.userOutlet.id) { [weak self] (result) in
             
             guard let `self` = self else { return }
             
             switch result {
             case let .success(shoplistItem):
-                self.productModel.saveToShopList(new: shoplistItem) { (result) in
+                self.shoplistModel.saveToShopList(new: shoplistItem) { (result) in
                     switch result {
                     case let .failure(error):
                         completion(ResultType.failure(error))
@@ -174,7 +155,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.router.openIssue(with: issue)
     }
     
-    func onOpenItemCard(for item: ShoplistItem) {
+    func onOpenItemCard(for item: ShoplistViewItem) {
         self.router.openItemCard(presenter: self, for: item.productId, outletId: self.userOutlet.id)
     }
     
@@ -195,7 +176,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func onCleanShopList() {
-        self.productModel.clearShoplist()
+        self.shoplistModel.clearShoplist()
         self.onReloadShoplist()
     }
     
@@ -203,7 +184,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         
         var quantityEntity: QuantityModel = QuantityModel(parameters: [], currentValue: 0.0, answerDict: ["productId": productId])
         
-        let currentValue = self.productModel.getProductQuantity(productId: productId)
+        let currentValue = self.shoplistModel.getProductQuantity(productId: productId)
         quantityEntity.currentValue = currentValue
         
         productModel.getProductEntity(for: productId) { [weak self] (result) in
@@ -225,7 +206,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     
     func onRemoveItem(productId: String) {
-        self.productModel.remove(itemId: productId)
+        self.shoplistModel.remove(itemId: productId)
         
         self.onReloadShoplist()
     }
@@ -274,7 +255,7 @@ extension ShoplistPresenterImpl: QuantityPickerPopupDelegate {
         guard let productId = answer["productId"] as? String else {
             return
         }
-        self.productModel.changeShoplistItem(weight, for: productId)
+        self.shoplistModel.changeShoplistItem(weight, for: productId)
         self.view.onQuantityChanged()
         
     }

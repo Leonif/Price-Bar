@@ -13,9 +13,9 @@ protocol OutletListOutput {
 }
 
 protocol OutletListPresenter {
-    func onGetOutletList()
     func onSearchOutlet(with text: String)
     func onChoosen(outlet: Outlet)
+    func viewDidLoadTrigger()
 }
 
 
@@ -23,25 +23,34 @@ class OutletListPresenterImpl: OutletListPresenter {
     weak var view: OutletListView!
     var outletListOutput: OutletListOutput!
     var outletModel: OutletModel!
-    var locationModel: LocationModel!
-    var currentCoords: (lat: Double, lon: Double) = (0.0, 0.0)
+    var locationService: LocationService!
+    var coordinates: (lat: Double, lon: Double)?
     
-    private func updateOutletList(opOutlets: [OPOutletModel]) {
+    private func updateOutletList(opOutlets: [OutletEntity]) {
         let outlets = opOutlets.map { OutletMapper.mapper(from: $0) }
         self.view.onOutletListFetched(outlets)
-        
     }
     
-    
-    init() {
-        self.subscribeOnGeoPosition()
-        self.locationModel.getCoords()
+    func viewDidLoadTrigger() {
+        locationService.getCoords() // FIXME: remove duplication
+        locationService.onStatusChanged = { [weak self] isAvalaible in
+            if !isAvalaible {
+                self?.view.onError(with: R.string.localizable.no_gps_access())
+            } else {
+                self?.locationService.getCoords() // FIXME: remove duplication
+            }
+        }
         
+        locationService.onCoordinatesUpdated = { [weak self] coordinates  in
+            self?.coordinates = coordinates
+            self?.onGetOutletList()
+        }
     }
     
-    func onGetOutletList() {
+    private func onGetOutletList() {
+        guard let coordinates = self.coordinates else { return }
         self.view.showLoading(with: R.string.localizable.outlet_loading())
-        self.outletModel?.outletList(nearby: self.currentCoords, completion: { [weak self] result in
+        self.outletModel?.outletListNearBy(coordinates: coordinates, completion: { [weak self] result in
             self?.view.hideLoading()
             guard let `self` = self else { return }
             switch result {
@@ -52,32 +61,14 @@ class OutletListPresenterImpl: OutletListPresenter {
             }
         })
     }
-    
-    func subscribeOnGeoPosition() {
-        self.locationModel.onCoordinatesUpdated = { [weak self] coordinates in
-            self?.currentCoords = coordinates
-        }
-        
-        self.locationModel.onError = { [weak self] error in
-            self?.view.onError(with: error.errorDescription)
-        }
-        
-        self.locationModel.onStatusChanged = { [weak self] isAllowed in
-            if isAllowed {
-                self?.locationModel.getCoords()
-            } else {
-                self?.view.onError(with: "Geo position is not availabel")
-            }
-        }
-        
-    }
 
     func onChoosen(outlet: Outlet) {
         self.outletListOutput.choosen(outlet: outlet)
     }
     
     func onSearchOutlet(with text: String) {
-        self.outletModel.searchOutletList(with: text, nearby: self.currentCoords) { [weak self] result in
+        guard let coordinates = self.coordinates else { return }
+        self.outletModel.searchOutletList(with: text, nearby: coordinates) {  [weak self] result in
             guard let `self` = self else { return }
             switch result {
             case let .success(opOutlets):
@@ -87,8 +78,4 @@ class OutletListPresenterImpl: OutletListPresenter {
             }
         }
     }
-    
-    
-    
-    
 }

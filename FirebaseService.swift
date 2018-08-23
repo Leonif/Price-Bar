@@ -81,7 +81,7 @@ class FirebaseService {
 
     
     // FIXME: PAGINATION: WORKS WRONG !!!! ===========================================
-    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[ProductEntity], FirebaseError>)->Void) {
         if pageOffset == 0 {
             self.refGoods.queryOrderedByKey().queryLimited(toLast: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
                 if let snapGoods = snapshot.value as? [String: Any] {
@@ -122,7 +122,7 @@ class FirebaseService {
     }
     
     
-    func getParametredUom(for uomId: Int32, completion: @escaping (ResultType<FBUomModel, FirebaseError>)->Void) {
+    func getParametredUom(for uomId: Int32, completion: @escaping (ResultType<UomEntity, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 let uoms = FirebaseParser.transfromToFBUomModels(from: snapUoms).filter { $0.id == uomId }
@@ -134,7 +134,7 @@ class FirebaseService {
         }
     }
     
-    func saveOrUpdate(_ item: FBProductModel) {
+    func saveOrUpdate(_ item: ProductEntity) {
         let good = [
             "barcode": item.id,
             "name": item.name,
@@ -147,7 +147,7 @@ class FirebaseService {
         
     }
 
-    func savePrice(for productId: String, statistic: FBItemStatistic) {
+    func savePrice(for productId: String, statistic: StatisticItemEntity) {
         let priceStat = [
             "date": statistic.date.getString(format: "dd.MM.yyyy hh:mm:ss"),
             "outlet_id": statistic.outletId,
@@ -238,7 +238,7 @@ class FirebaseService {
     }
     
     
-    func getUomList(completion: @escaping (ResultType<[FBUomModel]?, FirebaseError>)->Void) {
+    func getUomList(completion: @escaping (ResultType<[UomEntity]?, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 let fbUoms = FirebaseParser.transfromToFBUomModels(from: snapUoms)
@@ -250,10 +250,10 @@ class FirebaseService {
     }
     
     
-    func getCategoryList(completion: @escaping (ResultType<[FBItemCategory]?, FirebaseError>)->Void) {
+    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity]?, FirebaseError>)->Void) {
         self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
-                let fbCategories:[FBItemCategory] = snapCategories.map { (snapCategory) in
+                let fbCategories:[CategoryEntity] = snapCategories.map { (snapCategory) in
                     return FirebaseParser.parseCategory(from: snapCategory)
                 }
                 completion(ResultType.success(fbCategories))
@@ -264,7 +264,7 @@ class FirebaseService {
     }
 
     
-    func getProduct(with productId: String, callback: @escaping (FBProductModel?) -> Void) {
+    func getProduct(with productId: String, callback: @escaping (ProductEntity?) -> Void) {
         self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
             guard let snap = snapshot.value as? [String: Any] else { fatalError() }
             
@@ -278,7 +278,7 @@ class FirebaseService {
         }
     }
     
-    func getFiltredProductList(with searchedText: String, completion: @escaping (ResultType<[FBProductModel], FirebaseError>)->Void) {
+    func getFiltredProductList(with searchedText: String, completion: @escaping (ResultType<[ProductEntity], FirebaseError>)->Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
                 let goods = snapGoods
@@ -314,7 +314,7 @@ class FirebaseService {
         completion("Ukraine")
     }
     
-    func getPricesFor(_ productId: String, callback: @escaping ([FBItemStatistic]) -> Void) {
+    func getPricesFor(_ productId: String, callback: @escaping ([StatisticItemEntity]) -> Void) {
         self.refPriceStatistics.child(productId)
             .observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
@@ -322,7 +322,7 @@ class FirebaseService {
                     .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
                     .sorted { $0.date > $1.date }
                 
-                var uniqArray: [FBItemStatistic] = []
+                var uniqArray: [StatisticItemEntity] = []
 
                 for item in itemStatistic {
                     if !uniqArray.contains(where: { $0.outletId == item.outletId }) {

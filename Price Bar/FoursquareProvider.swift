@@ -15,7 +15,7 @@ typealias ForsqareOutletList = (ResultType<[FQOutletModel], FoursqareProviderErr
 typealias ForsqareSingleOutlet = (ResultType<FQOutletModel, FoursqareProviderError>)->Void
 
 
-class FoursqareProvider {
+class FoursquareProvider {
     private func request<T>(url: URL,
                             completed: @escaping ForsqareResult<T>,
                             parseFunction: @escaping (DictionaryType, ForsqareResult<T>)->()) {

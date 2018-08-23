@@ -28,7 +28,7 @@ class ItemListPresenterImpl: ItemListPresenter {
     var filtering = false
     
     var itemListOutput: ItemListOutput!
-    var productModel: ProductModel!
+    var productModel: ProductModelImpl!
     
     func onFetchData(offset: Int, limit: Int,  for outletId: String) {
         self.view.showLoading(with: "Получение списка товаров")

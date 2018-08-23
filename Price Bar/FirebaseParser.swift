@@ -9,23 +9,23 @@ import Foundation
 import Firebase
 
 class FirebaseParser {
-    class func parseCategory(from snapshot: DataSnapshot) -> FBItemCategory {
+    class func parseCategory(from snapshot: DataSnapshot) -> CategoryEntity {
         guard let id = Int32(snapshot.key),
             let categoryDict = snapshot.value as? Dictionary<String, Any>,
             let categoryName = categoryDict["name"] as? String else {
                 fatalError("Category os not parsed")
         }
-        let fbCategory = FBItemCategory(id: id, name: categoryName)
+        let fbCategory = CategoryEntity(id: id, name: categoryName)
         return fbCategory
     }
     
-    class func parseUom(from snapshot: DataSnapshot) -> FBUomModel {
+    class func parseUom(from snapshot: DataSnapshot) -> UomEntity {
         guard let id = Int32(snapshot.key),
             let uomDict = snapshot.value as? Dictionary<String, Any>,
             let uomName = uomDict["name"] as? String else {
                 fatalError("Category os not parsed")
         }
-        var fbUom = FBUomModel(id: id,
+        var fbUom = UomEntity(id: id,
                                name: uomName, iterator: 0.0,
                                koefficients: [],
                                suffixes: [],
@@ -54,23 +54,23 @@ class FirebaseParser {
         return fbUom
     }
     
-    class func transfromToFBUomModels(from fbModelList: [DataSnapshot]) -> [FBUomModel] {
+    class func transfromToFBUomModels(from fbModelList: [DataSnapshot]) -> [UomEntity] {
         return fbModelList.map { snapUom in
             parseUom(from: snapUom)
         }
     }
     
-    class func parseToFBItemStatistic(from snapGood: DataSnapshot) -> FBItemStatistic? {
+    class func parseToFBItemStatistic(from snapGood: DataSnapshot) -> StatisticItemEntity? {
         guard let priceData = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Prices is not parsed")
         }
         
-        guard let price = FBItemStatistic(priceData: priceData) else { return nil }
+        guard let price = StatisticItemEntity(priceData: priceData) else { return nil }
         
         return price
     }
     
-    class func parseToFbProductModel(from snapGood: (key: String, value: Any)) -> FBProductModel {
+    class func parseToFbProductModel(from snapGood: (key: String, value: Any)) -> ProductEntity {
         guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Product is not parsed")
         }
@@ -93,7 +93,7 @@ class FirebaseParser {
         uomId = uomId == nil ? defaultUomid : uomId
         
         
-        return FBProductModel(id: id,
+        return ProductEntity(id: id,
                               name: name,
                               brand: brand,
                               weightPerPiece: weightPerPiece,

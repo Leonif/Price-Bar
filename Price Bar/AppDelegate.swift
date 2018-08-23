@@ -18,22 +18,27 @@ import GooglePlaces
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+    
+    
+    
+    func appStart() {
         FirebaseApp.configure()
         Fabric.with([Crashlytics.self])
         GMSPlacesClient.provideAPIKey("AIzaSyANoPgVD9zYXXOYrtjFPSfIltAdRNgtYs4")
         
-        let productModel = ProductModel()
-        productModel.firebaseLogin { (result) in
+        FirebaseService.data.loginToFirebase(completion: { result in
             switch result {
             case .success:
-                debugPrint("Firebase is login in successfully !!!")
+                debugPrint("Firebase login success")
             case let .failure(error):
-                debugPrint("Firebase is loging with error \(error.errorDescription)")
+                debugPrint("Firebase is loging with error \(error.localizedDescription)")
             }
-        }
+        })
+    }
+
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        self.appStart()
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let module = ShopListAssembler().assemble()

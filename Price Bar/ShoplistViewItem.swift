@@ -1,5 +1,5 @@
 //
-//  DPShoplistItemModel.swift
+//  ShoplistViewItem.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 1/20/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ShoplistItem: Equatable {
+struct ShoplistViewItem: Equatable {
     var productId: String
     var country: String
     var productName: String
@@ -24,7 +24,6 @@ struct ShoplistItem: Equatable {
     
     
     var fullName: String {
-
         let pr = "\(productName)"
         let br = brand.isEmpty ? "" : ", \(brand)"
         let w = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
@@ -50,12 +49,9 @@ struct ShoplistItem: Equatable {
         self.quantity = quantity
         self.parameters = parameters
     }
-    
-
-    
 }
 
-func ==(lhs: ShoplistItem, rhs: ShoplistItem) -> Bool {
+func ==(lhs: ShoplistViewItem, rhs: ShoplistViewItem) -> Bool {
     return lhs.productId == rhs.productId
 }
 

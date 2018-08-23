@@ -1,5 +1,5 @@
 //
-//  FBItemStatistic.swift
+//  FBItemStatisticEntity.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 1/21/18.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct FBItemStatistic {
+struct StatisticItemEntity {
     var price: Double
     var outletId: String
     var date: Date

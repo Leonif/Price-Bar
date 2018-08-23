@@ -12,7 +12,7 @@ public struct StatisticModel {
     var productId: String = ""
     var productName: String = ""
     
-    var outlet: OPOutletModel
+    var outlet: OutletEntity
     var price: Double
     var date: Date
 }

@@ -21,7 +21,7 @@ protocol UpdatePricePresenter {
 
 public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     
-    var productModel: ProductModel!
+    var productModel: ProductModelImpl!
     weak var view: UpdatePriceView!
     var updatePriceOutput: UpdatePriceOutput!
     
@@ -72,7 +72,8 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
     }
     
     func mergeOutletsWithPrices(productId: String, fbPriceStatistics: [ProductPrice]) {
-        let outletService = FoursqareOutletModelImpl()
+        let foursquareProvider = FoursquareProvider()
+        let outletService = FoursqareOutletModelImpl(foursquareProvider)
         var statistic: [StatisticModel] = []
 
         let dispatchGroup = DispatchGroup()

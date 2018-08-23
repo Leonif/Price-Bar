@@ -11,7 +11,7 @@ import Foundation
 class ItemCardAssembler {
     func assemble(itemCardDelegate: ItemCardDelegate, for productId: String, outletId: String) -> BaseView {
         
-        let productModel = ProductModel()
+        let productModel = ProductModelImpl()
         let presenter = ItemCardPresenterImpl()
         let router = ItemCardRouterImpl()
         

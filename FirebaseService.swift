@@ -147,7 +147,7 @@ class FirebaseService {
         
     }
 
-    func savePrice(for productId: String, statistic: StatisticItemEntity) {
+    func savePrice(for productId: String, statistic: PriceItemEntity) {
         let priceStat = [
             "date": statistic.date.getString(format: "dd.MM.yyyy hh:mm:ss"),
             "outlet_id": statistic.outletId,
@@ -291,7 +291,7 @@ class FirebaseService {
         }
     }
     
-    func getPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
+    func getLastPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
         self.refPriceStatistics.child(productId)
             .observeSingleEvent(of: .value) { (snapshot) in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
@@ -314,7 +314,7 @@ class FirebaseService {
         completion("Ukraine")
     }
     
-    func getPricesFor(_ productId: String, callback: @escaping ([StatisticItemEntity]) -> Void) {
+    func getPricesFor(_ productId: String, callback: @escaping ([PriceItemEntity]) -> Void) {
         self.refPriceStatistics.child(productId)
             .observeSingleEvent(of: .value, with: { snapshot in
             if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
@@ -322,7 +322,7 @@ class FirebaseService {
                     .compactMap { FirebaseParser.parseToFBItemStatistic(from: $0) }
                     .sorted { $0.date > $1.date }
                 
-                var uniqArray: [StatisticItemEntity] = []
+                var uniqArray: [PriceItemEntity] = []
 
                 for item in itemStatistic {
                     if !uniqArray.contains(where: { $0.outletId == item.outletId }) {

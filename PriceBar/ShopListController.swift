@@ -78,11 +78,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.setupGestures()
         self.setupTotalView()
         self.setupAdapter()
-        
     }
-    
-    
-    
     
     // MARK: - Presenter events
     func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {

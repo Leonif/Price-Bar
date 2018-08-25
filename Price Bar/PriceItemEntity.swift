@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct StatisticItemEntity {
+struct PriceItemEntity {
+    var productId: String
     var price: Double
     var outletId: String
     var date: Date
@@ -27,6 +28,7 @@ struct StatisticItemEntity {
     }
 
     init(productId: String, price: Double, outletId: String) {
+        self.productId = productId
         self.price = price
         self.outletId = outletId
         self.date = Date()

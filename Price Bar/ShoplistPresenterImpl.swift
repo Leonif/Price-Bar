@@ -135,17 +135,76 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     func onReloadShoplist() {
         let loadingString = R.string.localizable.common_loading()
         let message = R.string.localizable.sync_process_prices(loadingString)
-        self.view.showLoading(with: message)
+        var productEntities: [String: ProductEntity] = [:]
+        var prices: [String: Double] = [:]
+        var shoplistViewItems: [ShoplistViewItem] = []
         
-        self.productModel.loadShopList(for: self.userOutlet.id) { (shoplistWithPrices) in
-            self.view.hideLoading()
-            self.updateShoplist(shoplist: shoplistWithPrices)
-            if !self.isStatisticShown {
-                self.view.startIsCompleted()
-                self.isStatisticShown = true
+        
+        
+        self.view.showLoading(with: message)
+        self.shoplistModel.loadShopList { (items) in
+            let ids = items.map { $0.productId }
+            let shoplistInfoGroup = DispatchGroup()
+            shoplistInfoGroup.enter()
+            self.productModel.getProductList(for: ids, completion: { (entities) in
+                for entity in entities {
+                    productEntities[entity.id] = entity
+                }
+                shoplistInfoGroup.leave()
+            })
+            shoplistInfoGroup.enter()
+            self.productModel.getPriceList(for: ids, and: userOutlet.id, completion: { (values) in
+                prices = values
+                shoplistInfoGroup.leave()
+            })
+            shoplistInfoGroup.notify(queue: .main) {
+                self.mergeArrays(from: productEntities, prices: prices, shoplistItems: items, outletId: self.userOutlet.id, completion: { (shoplistViewItems) in
+                    self.view.hideLoading()
+                    self.updateShoplist(shoplist: shoplistViewItems)
+                    if !self.isStatisticShown {
+                        self.view.startIsCompleted()
+                        self.isStatisticShown = true
+                    }
+                })
             }
         }
     }
+    
+    
+    
+    
+    
+    private func mergeArrays(from productEntities: [String: ProductEntity],
+                                prices: [String: Double] = [:],
+                                shoplistItems: [ShoplistItemEntity],
+                                outletId: String?, completion: @escaping ([ShoplistViewItem]) -> Void)  {
+        
+        
+        var shopItems: [ShoplistViewItem] = []
+        
+        for item in shoplistItems {
+            guard let productEntity = productEntities[item.productId] else { continue }
+            let shopItem = ShoplistViewItem(productId: item.id,
+                                            country: productEntity.country,
+                                            productName: productEntity.country,
+                                            brand: productEntity.brand,
+                                            weightPerPiece: productEntity.weightPerPiece,
+                                            categoryId: productEntity.categoryId,
+                                            productCategory: productEntity.,
+                productPrice: prices[id],
+                uomId: productEntity.uomId,
+                productUom: ,
+                quantity: item.quantity,
+                parameters: productEntity)
+            
+            
+            shopItems.append(shopItem)
+            
+        }
+        completion(shopItems)
+    }
+    
+    
     
     func onOpenStatistics() {
         self.router.openStatistics()

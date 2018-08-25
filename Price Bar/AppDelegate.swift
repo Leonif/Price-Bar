@@ -19,8 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    
-    
     func appStart() {
         FirebaseApp.configure()
         Fabric.with([Crashlytics.self])

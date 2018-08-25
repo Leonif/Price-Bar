@@ -60,12 +60,12 @@ class FirebaseParser {
         }
     }
     
-    class func parseToFBItemStatistic(from snapGood: DataSnapshot) -> StatisticItemEntity? {
+    class func parseToFBItemStatistic(from snapGood: DataSnapshot) -> PriceItemEntity? {
         guard let priceData = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Prices is not parsed")
         }
         
-        guard let price = StatisticItemEntity(priceData: priceData) else { return nil }
+        guard let price = PriceItemEntity(priceData: priceData) else { return nil }
         
         return price
     }

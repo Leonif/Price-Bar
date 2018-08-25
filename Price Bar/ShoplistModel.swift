@@ -14,6 +14,7 @@ protocol ShoplistModel {
     func remove(itemId: String)
     func changeShoplistItem( _ quantity: Double, for productId: String)
     func saveToShopList(new item: ShoplistViewItem, completion: @escaping (ResultType<Bool, ProductModelError>) -> Void)
+    func loadShopList(completion: ([ShoplistItemEntity]) -> Void)
 }
 
 class ShoplistModelImpl: ShoplistModel {
@@ -38,6 +39,13 @@ class ShoplistModelImpl: ShoplistModel {
         }
         CoreDataService.data.saveToShopList(ShoplistItemEntity(productId: item.productId, quantity: item.quantity))
         completion(ResultType.success(true))
+    }
+
+    func loadShopList(completion: ([ShoplistItemEntity]) -> Void) {
+        guard let items = CoreDataService.data.loadShopList() else {
+            return
+        }
+        completion(items)
     }
 }
 

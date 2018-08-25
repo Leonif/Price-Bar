@@ -78,6 +78,9 @@
          contextName = "ShopListController.loadShopList(for:):ShopListControllerExchange.swift">
       </ContextState>
       <ContextState
+         contextName = "ShopListAdapter.configure(_:_:):ShopListAdapter.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in CoreDataService.importNew(_:):CoreDataSync.swift">
       </ContextState>
       <ContextState
@@ -208,10 +211,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -278,13 +281,13 @@
          contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
-               value = "itemTableView">
+               value = "filtredItemList">
             </PersistentString>
             <PersistentString
                value = "itemList">
             </PersistentString>
             <PersistentString
-               value = "filtredItemList">
+               value = "itemTableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -328,13 +331,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
+               value = "sections">
+            </PersistentString>
+            <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
                value = "item.itemCategory.name">
-            </PersistentString>
-            <PersistentString
-               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -396,12 +399,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FoursqareProvider.parseVenues(from:completion:):FoursqareProvider.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "resp">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "closure #1 in closure #1 in closure #1 in ItemListPresenterImpl.getItemWithPrice(for:outletId:completion:):ItemListPresenter.swift">
       </ContextState>
       <ContextState
          contextName = "FoursqareProvider.parseVenue(from:completion:):FoursqareProvider.swift">
@@ -415,7 +413,12 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in ItemListPresenterImpl.getItemWithPrice(for:outletId:completion:):ItemListPresenter.swift">
+         contextName = "FoursqareProvider.parseVenues(from:completion:):FoursqareProvider.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "resp">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #1 in closure #4 in ShopListController.viewDidLoad():ShopListController.swift">
@@ -458,6 +461,14 @@
          <PersistentStrings>
             <PersistentString
                value = "launchedTimes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShopListController.onUpdatedTotal(_:):ShopListController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "dataSource">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -724,10 +735,10 @@
          contextName = "closure #1 in FirebaseService.getFiltredProductList(with:completion:):FirebaseService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "searchedText">
+               value = "goods[0].fullName.range(of: &quot;c&#x43f;&#x430;&quot;) != nil">
             </PersistentString>
             <PersistentString
-               value = "goods[0].fullName.range(of: &quot;c&#x43f;&#x430;&quot;) != nil">
+               value = "searchedText">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -755,6 +766,9 @@
                value = "initCategories.count">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ShoplistPresenterImpl.addItemToShopList(_:completion:):ShoplistPresenterImpl.swift">
       </ContextState>
       <ContextState
          contextName = "== infix(_:_:):ShoplistItemModel.swift">

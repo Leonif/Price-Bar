@@ -12,25 +12,26 @@ struct ProductEntity {
     var id: String
     var name: String
     var brand: String
+    var country: String
     var weightPerPiece: String
     var categoryId: Int32
     var uomId: Int32
     
     var fullName: String {
-        
         let pr = "\(name)"
         let br = brand.isEmpty ? "" : ", \(brand)"
         let w = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
         
-        return "\(pr)\(br)\(w)"
+        return "\(pr)\(br)\(w)\(country)"
     }
     
-    init(id: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0) {
+    init(id: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0, country: String = "") {
         self.id = id
         self.name = name
         self.brand = brand
         self.weightPerPiece = weightPerPiece
         self.categoryId = categoryId
         self.uomId = uomId
+        self.country = country
     }
 }

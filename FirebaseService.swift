@@ -177,7 +177,7 @@ class FirebaseService {
         }
     }
     
-    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, FirebaseError>)->Void) {
+    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String, FirebaseError>)->Void) {
         self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 for snapCategory in snapCategories {
@@ -190,7 +190,7 @@ class FirebaseService {
                         }
                     }
                 }
-                completion(ResultType.success(nil))
+                completion(ResultType.failure(.syncError("No name")))
             }
         }) { error in
             completion(ResultType.failure(.syncError(error.localizedDescription)))
@@ -217,7 +217,7 @@ class FirebaseService {
         }
     }
     
-    func getUomName(for uomid: Int32, completion: @escaping (ResultType<String?, FirebaseError>)->Void) {
+    func getUomName(for uomid: Int32, completion: @escaping (ResultType<String, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 for snapUom in snapUoms {
@@ -230,7 +230,7 @@ class FirebaseService {
                         }
                     }
                 }
-                completion(ResultType.success(nil))
+                completion(ResultType.failure(.syncError("No name")))
             }
         }) { error in
             completion(ResultType.failure(.syncError(error.localizedDescription)))

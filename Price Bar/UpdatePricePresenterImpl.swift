@@ -39,10 +39,6 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
                     
                     switch result {
                     case let .success(uomName):
-                        guard let uomName = uomName else {
-                            self.view.onError(with: R.string.localizable.error_something_went_wrong())
-                            return
-                        }
                         self.view.onGetProductInfo(price: price, name: dpProductEntity.fullName, uomName: uomName)
                     case let .failure(error):
                         self.view.onError(with: error.errorDescription)

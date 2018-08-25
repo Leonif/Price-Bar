@@ -128,7 +128,12 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     func isProductHasPrice(for productId: String) {
         self.productModel.getPrice(for: productId, and: self.userOutlet.id, completion: { [weak self] (price) in
-            self?.view.onIsProductHasPrice(isHasPrice: price > 0.0, barcode: productId)
+//            self?.view.onIsProductHasPrice(isHasPrice: price > 0.0, barcode: productId)
+            
+            let isHasPrice = price > 0.0
+            if !isHasPrice {
+                self?.onOpenUpdatePrice(for: productId)
+            }
         })
     }
     
@@ -137,19 +142,19 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         let message = R.string.localizable.sync_process_prices(loadingString)
         var productEntities: [String: ProductEntity] = [:]
         var prices: [String: Double] = [:]
-        var shoplistViewItems: [ShoplistViewItem] = []
-        
-        
         
         self.view.showLoading(with: message)
+        
+        
         self.shoplistModel.loadShopList { (items) in
+            
+            guard !items.isEmpty else { return }
+            
             let ids = items.map { $0.productId }
             let shoplistInfoGroup = DispatchGroup()
             shoplistInfoGroup.enter()
             self.productModel.getProductList(for: ids, completion: { (entities) in
-                for entity in entities {
-                    productEntities[entity.id] = entity
-                }
+                productEntities = entities
                 shoplistInfoGroup.leave()
             })
             shoplistInfoGroup.enter()
@@ -158,7 +163,10 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 shoplistInfoGroup.leave()
             })
             shoplistInfoGroup.notify(queue: .main) {
-                self.mergeArrays(from: productEntities, prices: prices, shoplistItems: items, outletId: self.userOutlet.id, completion: { (shoplistViewItems) in
+                self.mergeArrays(from: productEntities,
+                                 prices: prices,
+                                 shoplistItems: items,
+                                 outletId: self.userOutlet.id, completion: { (shoplistViewItems) in
                     self.view.hideLoading()
                     self.updateShoplist(shoplist: shoplistViewItems)
                     if !self.isStatisticShown {
@@ -170,38 +178,70 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         }
     }
     
-    
-    
-    
-    
     private func mergeArrays(from productEntities: [String: ProductEntity],
                                 prices: [String: Double] = [:],
                                 shoplistItems: [ShoplistItemEntity],
                                 outletId: String?, completion: @escaping ([ShoplistViewItem]) -> Void)  {
-        
-        
         var shopItems: [ShoplistViewItem] = []
         
+        
+        let shoplistItemsGroup = DispatchGroup()
         for item in shoplistItems {
+            shoplistItemsGroup.enter()
             guard let productEntity = productEntities[item.productId] else { continue }
-            let shopItem = ShoplistViewItem(productId: item.id,
-                                            country: productEntity.country,
-                                            productName: productEntity.country,
-                                            brand: productEntity.brand,
-                                            weightPerPiece: productEntity.weightPerPiece,
-                                            categoryId: productEntity.categoryId,
-                                            productCategory: productEntity.,
-                productPrice: prices[id],
-                uomId: productEntity.uomId,
-                productUom: ,
-                quantity: item.quantity,
-                parameters: productEntity)
+            guard let price = prices[item.productId] else { continue }
+            
+            var categoryName: String = ""
+            var uomEntity: UomEntity = UomEntity()
+            var country: String = "No country"
+            
+            let otherInfoGroup = DispatchGroup()
+            otherInfoGroup.enter()
+            productModel.getCategoryName(for: productEntity.categoryId) { (result) in
+                switch result {
+                case let .success(name):
+                    categoryName = name
+                case let .failure(error):
+                    fatalError(error.errorDescription)
+                }
+                otherInfoGroup.leave()
+            }
+
+            otherInfoGroup.enter()
+            productModel.getParametredUom(for: productEntity.uomId) { (entity) in
+                uomEntity = entity
+                otherInfoGroup.leave()
+            }
+            
+            otherInfoGroup.enter()
+            productModel.getCountry(for: productEntity.id) { (value) in
+                country = value ?? "No info"
+                otherInfoGroup.leave()
+            }
             
             
-            shopItems.append(shopItem)
-            
+            otherInfoGroup.notify(queue: .main) {
+                let shopItem = ShoplistViewItem(productId: item.productId,
+                                                country: country,
+                                                productName: productEntity.name,
+                                                brand: productEntity.brand,
+                                                weightPerPiece: productEntity.weightPerPiece,
+                                                categoryId: productEntity.categoryId,
+                                                productCategory: categoryName,
+                                                productPrice: price,
+                                                uomId: productEntity.uomId,
+                                                productUom: uomEntity.name,
+                                                quantity: item.quantity,
+                                                parameters: uomEntity.parameters)
+                
+                
+                shopItems.append(shopItem)
+                shoplistItemsGroup.leave()
+            }
         }
-        completion(shopItems)
+        shoplistItemsGroup.notify(queue: .main) {
+            completion(shopItems)
+        }
     }
     
     
@@ -277,6 +317,12 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         })
     }
     
+    private func onAddedItemToShoplist(productId: String) {
+        self.isProductHasPrice(for: productId)
+        self.addToShoplist(with: productId)
+    }
+    
+    
     // MARK: delagates hadnling
     func choosen(outlet: OutletViewItem) {
         self.userOutlet = outlet
@@ -288,11 +334,11 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     func scanned(barcode: String) {
-        self.view.onAddedItemToShoplist(productId: barcode)
+        self.onAddedItemToShoplist(productId: barcode)
     }
     
     func itemChoosen(productId: String) {
-        self.view.onAddedItemToShoplist(productId: productId)
+        self.onAddedItemToShoplist(productId: productId)
     }
     
     func addNewItem(suggestedName: String) {

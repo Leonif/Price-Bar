@@ -14,10 +14,8 @@ protocol ItemListView: BaseView {
 }
 
 class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
-    
     @IBOutlet weak var tableView: UITableView!
     var outletId: String = ""
-   
 
     var presenter: ItemListPresenter!
     var adapter: ItemListAdapter!
@@ -89,7 +87,6 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
         }
         
         self.adapter.loadItems()
-        
     }
     
     private func setupNavigation() {

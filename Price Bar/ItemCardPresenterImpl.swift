@@ -107,15 +107,9 @@ class ItemCardPresenterImpl: ItemCardPresenter {
         self.productModel.getCategoryName(for: categoryId) { (result) in
             switch result {
             case let .success(categoryName):
-                guard let categoryName = categoryName else {
-                    fatalError()
-                }
                 self.productModel.getUomName(for: uomId, completion: { (result) in
                     switch result {
                     case let .success(uomName):
-                        guard let uomName = uomName else {
-                            fatalError()
-                        }
                         completion(categoryName, uomName, nil)
                     case let .failure(error):
                         completion(categoryName, nil, error)
@@ -311,10 +305,6 @@ extension ItemCardPresenterImpl: PickerControlDelegate {
             self.productModel.getCategoryName(for: id) { (result) in
                 switch result {
                 case let .success(name):
-                    guard let name = name else {
-                        self.view.onError(with: R.string.localizable.error_something_went_wrong())
-                        return
-                    }
                     self.view.onCategoryChoosen(name: name)
                 case let .failure(error):
                     self.view.onError(with: error.errorDescription)
@@ -324,10 +314,6 @@ extension ItemCardPresenterImpl: PickerControlDelegate {
             self.productModel.getUomName(for: id) { (result) in
                 switch result {
                 case let .success(name):
-                    guard let name = name else {
-                        self.view.onError(with: R.string.localizable.error_something_went_wrong())
-                        return
-                    }
                     self.view.onUomChoosen(name: name)
                 case let .failure(error):
                     self.view.onError(with: error.errorDescription)

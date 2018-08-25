@@ -9,11 +9,9 @@
 import UIKit
 
 protocol ShoplistView: BaseView {
-    func onIsProductHasPrice(isHasPrice: Bool, barcode: String)
     func onCurrentOutletUpdated(outlet: OutletViewItem)
     func onIssue(error: String)
     func onSavePrice()
-    func onAddedItemToShoplist(productId: String)
     func onUpdatedTotal(_ total: Double)
     func onUpdatedShoplist(_ dataSource: [ShoplistViewItem])
     func onQuantityChanged()
@@ -81,18 +79,6 @@ class ShopListController: UIViewController, ShoplistView {
     }
     
     // MARK: - Presenter events
-    func onIsProductHasPrice(isHasPrice: Bool, barcode: String) {
-        if !isHasPrice {
-            self.presenter.onOpenUpdatePrice(for: barcode)
-        }
-    }
-    
-    
-    func onAddedItemToShoplist(productId: String) {
-        self.presenter.isProductHasPrice(for: productId)
-        self.presenter.addToShoplist(with: productId)
-    }
-    
     func onUpdatedTotal(_ total: Double) {
         DispatchQueue.main.async { [weak self] in
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(String(format: "%.2f", total))"
@@ -199,7 +185,8 @@ class ShopListController: UIViewController, ShoplistView {
     private func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
-            [self.scanButton, self.itemListButton, self.storeButton].forEach { $0.setEnable(enable) }
+            let buttons = [self.scanButton, self.itemListButton, self.storeButton]
+            buttons.forEach { $0!.setEnable(enable) }
         }
     }
 

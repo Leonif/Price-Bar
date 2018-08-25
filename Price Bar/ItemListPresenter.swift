@@ -86,7 +86,6 @@ class ItemListPresenterImpl: ItemListPresenter {
 extension ItemListPresenterImpl {
     
     private func getItemsWithPrices(for products: [ProductEntity], outletId: String, completion: @escaping ([ItemListViewEntity]) -> Void) {
-        
         guard !products.isEmpty else {
             completion([])
             return
@@ -111,18 +110,12 @@ extension ItemListPresenterImpl {
     
     private func getItemWithPrice(for produtId: String, outletId: String, completion: @escaping (ItemListViewEntity) -> Void) {
         
-        
         self.productModel.getProductEntity(for: produtId) { (result) in
             switch result {
             case let .success(product):
                 self.productModel.getCategoryName(for: product.categoryId, completion: { (result) in
                     switch result {
                     case let .success(categoryName):
-
-                        guard let categoryName = categoryName else {
-                            self.view.onError(with: R.string.localizable.common_category_is_absent(product.name))
-                            return
-                        }
                         self.productModel.getPrice(for: produtId, and: outletId, completion: { (price) in
                             let item = ItemListViewEntity(id: produtId,
                                                           product: product.name,

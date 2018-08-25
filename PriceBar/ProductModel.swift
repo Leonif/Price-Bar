@@ -12,10 +12,9 @@ import UIKit
 
 protocol ProductModel {
     func getProductDetail(productId: String, outletId: String, completion: @escaping (ResultType<ShoplistViewItem, ProductModelError>) -> Void)
+    func getCountry(for productId: String, completion: @escaping (String?) -> Void)
     
-    // FIXME: move to right place
-    //func loadShopList2(for outletId: String?, completion: @escaping ([ShoplistViewItem]) -> Void)
-    func getProductList(for ids: [String], completion: (([ProductEntity]) -> Void))
+    func getProductList(for ids: [String], completion: @escaping (([String: ProductEntity]) -> Void))
     
     func getQuantityOfProducts(completion: @escaping (ResultType<Int, ProductModelError>) -> Void)
     func getItem(with barcode: String, callback: @escaping (ProductEntity?) -> Void)
@@ -30,32 +29,36 @@ protocol ProductModel {
     
     
     func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, ProductModelError>) -> Void)
-    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, ProductModelError>) -> Void)
+    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String, ProductModelError>) -> Void)
     func getCategoryList(completion: @escaping (ResultType<[CategoryEntity]?, ProductModelError>) -> Void)
 
     func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, ProductModelError>) -> Void)
-    func getUomName(for uomId: Int32, completion: @escaping (ResultType<String?, ProductModelError>) -> Void)
+    func getUomName(for uomId: Int32, completion: @escaping (ResultType<String, ProductModelError>) -> Void)
     func getUomList(completion: @escaping (ResultType<[UomViewItem]?, ProductModelError>) -> Void)
 }
 
 class ProductModelImpl: ProductModel {
     
-    func getProductList(for ids: [String], completion: (([ProductEntity]) -> Void)) {
-        
-        var productEntities: [ProductEntity] = []
-        
+    func getProductList(for ids: [String], completion: @escaping (([String: ProductEntity]) -> Void)) {
+        var productEntities: [String: ProductEntity] = [:]
+        let entityGroup = DispatchGroup()
         for id in ids {
+            entityGroup.enter()
             self.getProductEntity(for: id, completion: { result in
                 switch result {
                 case let .success(entity):
-                    productEntities.append(entity)
+                    productEntities[id] = entity
+                    entityGroup.leave()
                 case let .failure(error):
                     fatalError(error.errorDescription)
                 }
-                
             })
+            
         }
-        completion(productEntities)
+        
+        entityGroup.notify(queue: .main) {
+            completion(productEntities)
+        }
     }
     
     
@@ -202,12 +205,22 @@ class ProductModelImpl: ProductModel {
     
     func getPriceList(for ids: [String], and outletId: String, completion: @escaping ([String: Double]) -> Void) {
         var prices: [String: Double] = [:]
+        
+        let priceGroup = DispatchGroup()
+        
+        
         for id in ids {
+            priceGroup.enter()
             self.getPrice(for: id, and: outletId) { (price) in
                 prices[id] = price
+                priceGroup.leave()
             }
         }
-        completion(prices)
+        
+        priceGroup.notify(queue: .main) {
+            completion(prices)
+        }
+        
     }
     
     
@@ -255,7 +268,6 @@ class ProductModelImpl: ProductModel {
     
     func getProductEntity(for productId: String, completion: @escaping (ResultType<ProductEntity, ProductModelError>)-> Void) {
         FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
-            
             guard let fbProductEntity = fbProductEntity else {
                 completion(ResultType.failure(ProductModelError.other(R.string.localizable.error_something_went_wrong())))
                 return
@@ -265,8 +277,7 @@ class ProductModelImpl: ProductModel {
                                                           brand: fbProductEntity.brand,
                                                           weightPerPiece: fbProductEntity.weightPerPiece,
                                                           categoryId: fbProductEntity.categoryId,
-                                                          uomId: fbProductEntity.uomId,
-                                                          country: fbProductEntity.country)))
+                                                          uomId: fbProductEntity.uomId)))
         }
     }
 
@@ -330,7 +341,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getUomName(for uomId: Int32, completion: @escaping (ResultType<String?, ProductModelError>) -> Void) {
+    func getUomName(for uomId: Int32, completion: @escaping (ResultType<String, ProductModelError>) -> Void) {
         FirebaseService.data.getUomName(for: uomId) { (result) in
             switch result {
             case let .success(uomName):
@@ -345,7 +356,7 @@ class ProductModelImpl: ProductModel {
     
     
     
-    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String?, ProductModelError>) -> Void) {
+    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String, ProductModelError>) -> Void) {
         FirebaseService.data.getCategoryName(for: categoryId) { (result) in
             switch result {
             case let .success(categoryName):
@@ -425,8 +436,7 @@ class ProductModelImpl: ProductModel {
                                          brand: item.brand,
                                          weightPerPiece: item.weightPerPiece,
                                          categoryId: item.categoryId,
-                                         uomId: item.uomId,
-                                         country: item.country)
+                                         uomId: item.uomId)
             callback(result)
         }
     }

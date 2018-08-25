@@ -28,7 +28,7 @@ struct ShoplistViewItem: Equatable {
         let br = brand.isEmpty ? "" : ", \(brand)"
         let w = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
 
-        return "\(pr)\(br)\(w)"
+        return "\(pr)\(br)\(w) - \(country)"
     }
     
     init(productId: String = "", country: String = "",

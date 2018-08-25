@@ -16,6 +16,23 @@ struct UomEntity {
     var koefficients: [Double]
     var suffixes: [String]
     var parameters: [Parameter]
+    
+    init(id: Int32 = -1,
+         name: String = "No name",
+         iterator: Double = -1,
+         koefficients: [Double] = [],
+         suffixes: [String] = [],
+         parameters: [Parameter] = []) {
+        
+        self.id = id
+        self.name = name
+        self.iterator = iterator
+        self.koefficients = koefficients
+        self.suffixes = suffixes
+        self.parameters = parameters
+    }
+    
+    
 }
 
 struct Parameter {

@@ -25,6 +25,7 @@ struct PriceItemEntity {
         self.price = price
         self.outletId = outletId
         self.date = dateStr.toDate(with: "dd.MM.yyyy HH:mm:ss")!
+        self.productId = "?????"
     }
 
     init(productId: String, price: Double, outletId: String) {

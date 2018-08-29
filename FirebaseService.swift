@@ -26,6 +26,7 @@ class FirebaseService {
     private var refCategories: DatabaseReference? = nil
     private var refUoms: DatabaseReference? = nil
     private var refUomsParams: DatabaseReference? = nil
+    private var refBarcodeInfo: DatabaseReference? = nil
     
     private var email = "good_getter@gmail.com"
     private var pwd = "123456"
@@ -51,6 +52,7 @@ class FirebaseService {
         refCategories = Database.database().reference().child("categories")
         refUoms = Database.database().reference().child("uoms")
         refUomsParams = Database.database().reference().child("uoms").child("parameters")
+        refBarcodeInfo = Database.database().reference().child("barcode_info")
         
         email = "good_getter@gmail.com"
         pwd = "123456"
@@ -311,7 +313,36 @@ class FirebaseService {
     
     
     func getCountry(for productId: String, completion: @escaping (String?) -> Void) {
-        completion("Ukraine")
+        var country = "Not defined"
+        guard let countryCode = Int(productId.prefix(3)) else {
+            completion(country)
+            return
+        }
+        
+        var isFound = false
+        
+        self.refBarcodeInfo?.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let barcodeInfo = snapshot.children.allObjects as? [DataSnapshot] {
+                
+                for conditions in barcodeInfo {
+                    if let conditions = conditions.value as? [String: Any] {
+                        let lowerBound = conditions["lower_bound"] as! String
+                        let upperBound = conditions["upper_bound"] as! String
+                        
+                        let min = Int(lowerBound)!
+                        let max = Int(upperBound)!
+                        let codeAdjusted = Int(productId.prefix(upperBound.count))!
+                        
+                        if min <= codeAdjusted && codeAdjusted <= max {
+                            isFound = true
+                            country = conditions["country"] as! String
+                            break
+                        }
+                    }
+                }
+                completion(isFound ? country : "\(countryCode)")
+            }
+        })
     }
     
     func getPricesFor(_ productId: String, callback: @escaping ([PriceItemEntity]) -> Void) {

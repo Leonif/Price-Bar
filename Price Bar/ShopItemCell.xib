@@ -98,7 +98,7 @@
                                         <constraint firstItem="Abn-oN-J1M" firstAttribute="centerX" secondItem="vcA-HX-h56" secondAttribute="centerX" id="ZdD-mn-alo"/>
                                     </constraints>
                                 </view>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqd-s5-rFY">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Конфеты Choco Crazy " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqd-s5-rFY">
                                     <rect key="frame" x="16" y="8" width="291" height="20"/>
                                     <fontDescription key="fontDescription" name="RobagaRounded-Bold" family="Robaga Rounded" pointSize="14"/>
                                     <color key="textColor" red="0.29019607843137252" green="0.29019607843137252" blue="0.29019607843137252" alpha="1" colorSpace="calibratedRGB"/>

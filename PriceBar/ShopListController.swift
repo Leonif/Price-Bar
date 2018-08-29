@@ -11,10 +11,10 @@ import UIKit
 protocol ShoplistView: BaseView {
     func onCurrentOutletUpdated(outlet: OutletViewItem)
     func onIssue(error: String)
-    func onSavePrice()
+//    func onSavePrice()
     func onUpdatedTotal(_ total: Double)
     func onUpdatedShoplist(_ dataSource: [ShoplistViewItem])
-    func onQuantityChanged()
+//    func onQuantityChanged()
     func startIsCompleted()
 }
 
@@ -84,7 +84,6 @@ class ShopListController: UIViewController, ShoplistView {
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(String(format: "%.2f", total))"
         }
     }
-    
     func onUpdatedShoplist(_ dataSource: [ShoplistViewItem]) {
         self.adapter.dataSource = dataSource
         DispatchQueue.main.async { [weak self] in
@@ -100,17 +99,17 @@ class ShopListController: UIViewController, ShoplistView {
             self?.navigationView.outletAddress.text = outlet.address
         }
         self.buttonEnable(true)
-        self.presenter.onReloadShoplist()
+//        self.presenter.onReloadShoplist()
     }
     
-    func onQuantityChanged() {
-        self.presenter.onReloadShoplist()
-    }
+//    func onQuantityChanged() {
+//        self.presenter.onReloadShoplist()
+//    }
     
     
-    func onSavePrice() {
-        self.presenter.onReloadShoplist()
-    }
+//    func onSavePrice() {
+////        self.presenter.onReloadShoplist()
+//    }
 
     func startIsCompleted() {
         self.presenter.onOpenStatistics()
@@ -207,9 +206,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.cleanShoplist()
     }
     
-    func close() {
-        
-    }
+    func close() {  }
 
     @objc
     func cleanShoplist() {

@@ -20,7 +20,7 @@ struct ShoplistViewItem: Equatable {
     var uomId: Int32
     var productUom: String
     var quantity: Double
-    var parameters: [Parameter]
+    var parameters: [ParameterEntity]
     
     
     var fullName: String {
@@ -35,7 +35,7 @@ struct ShoplistViewItem: Equatable {
          productName: String = "", brand: String = "", weightPerPiece:String = "",
          categoryId: Int32 = -1, productCategory:String = "",
          productPrice: Double = -1.0, uomId: Int32 = -1,
-         productUom:String = "", quantity: Double = -1.0, parameters: [Parameter] = []) {
+         productUom:String = "", quantity: Double = -1.0, parameters: [ParameterEntity] = []) {
         self.productId = productId
         self.country = country
         self.productName = productName

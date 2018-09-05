@@ -11,5 +11,5 @@ import Foundation
 struct UomViewItem {
     var id: Int32
     var name: String
-    var parameters: [Parameter]
+    var parameters: [ParameterEntity]
 }

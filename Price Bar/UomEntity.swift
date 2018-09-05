@@ -15,14 +15,14 @@ struct UomEntity {
     var iterator: Double
     var koefficients: [Double]
     var suffixes: [String]
-    var parameters: [Parameter]
+    var parameters: [ParameterEntity]
     
     init(id: Int32 = -1,
          name: String = "No name",
          iterator: Double = -1,
          koefficients: [Double] = [],
          suffixes: [String] = [],
-         parameters: [Parameter] = []) {
+         parameters: [ParameterEntity] = []) {
         
         self.id = id
         self.name = name
@@ -35,10 +35,11 @@ struct UomEntity {
     
 }
 
-struct Parameter {
+struct ParameterEntity {
     var maxValue: Int
     var step: Double
     var suffix: String
     var viewMultiplicator: Double
+    var divider: Double
 }
 

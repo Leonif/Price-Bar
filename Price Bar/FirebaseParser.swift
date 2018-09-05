@@ -43,11 +43,14 @@ class FirebaseParser {
                     fatalError("Uom koefficinets parse error")
                 }
                 
+                let divider = paramDict["divider"] as? Double ?? 1.0
+                
                 fbUom.parameters.append(
-                    Parameter(maxValue: maxValue,
+                    ParameterEntity(maxValue: maxValue,
                               step: step,
                               suffix: suffix,
-                              viewMultiplicator: viewMultiplicator)
+                              viewMultiplicator: viewMultiplicator,
+                              divider: divider)
                 )
             }
         }

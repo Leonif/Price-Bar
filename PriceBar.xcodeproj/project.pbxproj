@@ -75,7 +75,7 @@
 		790B7DC720835D8C003DD560 /* ProductEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B36200D501E005C6CC5 /* ProductEntity.swift */; };
 		790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */; };
 		790B7DC920835D8C003DD560 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
-		790B7DCA20835D8C003DD560 /* QuantityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityModel.swift */; };
+		790B7DCA20835D8C003DD560 /* QuantityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityEntity.swift */; };
 		790B7DCB20835D8C003DD560 /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D08207902EF003DD560 /* NavigationView.swift */; };
 		790B7DCC20835D8C003DD560 /* UIColors+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7975D63520714224003A6288 /* UIColors+Extensions.swift */; };
 		790B7DCD20835D8C003DD560 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
@@ -128,7 +128,7 @@
 		793368641FFE260F00E8E81A /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368631FFE260F00E8E81A /* UIViewExtensions.swift */; };
 		793368671FFEAB3200E8E81A /* OutletViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* OutletViewItem.swift */; };
 		793368691FFF6F5600E8E81A /* ShopListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368681FFF6F5600E8E81A /* ShopListAdapter.swift */; };
-		7933686D20012F1A00E8E81A /* QuantityModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityModel.swift */; };
+		7933686D20012F1A00E8E81A /* QuantityEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7933686C20012F1A00E8E81A /* QuantityEntity.swift */; };
 		79388B231F532176008FD415 /* PriceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79388B221F532176008FD415 /* PriceBarTests.swift */; };
 		79449A9820D280B200E28C68 /* ItemListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79449A9720D280B200E28C68 /* ItemListPresenter.swift */; };
 		79449A9920D280B200E28C68 /* ItemListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79449A9720D280B200E28C68 /* ItemListPresenter.swift */; };
@@ -287,7 +287,7 @@
 		793368631FFE260F00E8E81A /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		793368661FFEAB3200E8E81A /* OutletViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletViewItem.swift; sourceTree = "<group>"; };
 		793368681FFF6F5600E8E81A /* ShopListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListAdapter.swift; sourceTree = "<group>"; };
-		7933686C20012F1A00E8E81A /* QuantityModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityModel.swift; sourceTree = "<group>"; };
+		7933686C20012F1A00E8E81A /* QuantityEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityEntity.swift; sourceTree = "<group>"; };
 		79388B201F532175008FD415 /* PriceBarTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PriceBarTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		79388B221F532176008FD415 /* PriceBarTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceBarTests.swift; sourceTree = "<group>"; };
 		79388B241F532176008FD415 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -557,7 +557,7 @@
 		790BC9EF1F88342100CA9519 /* Entities */ = {
 			isa = PBXGroup;
 			children = (
-				7933686C20012F1A00E8E81A /* QuantityModel.swift */,
+				7933686C20012F1A00E8E81A /* QuantityEntity.swift */,
 				794658A120697E45007B4397 /* StatisticModel.swift */,
 			);
 			name = Entities;
@@ -1388,7 +1388,7 @@
 				790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */,
 				795EED4C21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */,
 				790B7DC920835D8C003DD560 /* QuantityPickerPopup.swift in Sources */,
-				790B7DCA20835D8C003DD560 /* QuantityModel.swift in Sources */,
+				790B7DCA20835D8C003DD560 /* QuantityEntity.swift in Sources */,
 				790B7DCB20835D8C003DD560 /* NavigationView.swift in Sources */,
 				790B7DCC20835D8C003DD560 /* UIColors+Extensions.swift in Sources */,
 				790B7DCD20835D8C003DD560 /* ItemListCell.swift in Sources */,
@@ -1484,7 +1484,7 @@
 				790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */,
 				795EED4B21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */,
 				790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */,
-				7933686D20012F1A00E8E81A /* QuantityModel.swift in Sources */,
+				7933686D20012F1A00E8E81A /* QuantityEntity.swift in Sources */,
 				790B7D09207902EF003DD560 /* NavigationView.swift in Sources */,
 				7975D63620714224003A6288 /* UIColors+Extensions.swift in Sources */,
 				79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */,

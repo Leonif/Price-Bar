@@ -8,9 +8,8 @@
 
 import Foundation
 
-struct QuantityModel {
-    var parameters: [Parameter]
-//    var indexPath: IndexPath
+struct QuantityEntity {
+    var parameters: [ParameterEntity]
     var currentValue: Double
     var answerDict: [String: Any]
 }

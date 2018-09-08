@@ -314,6 +314,12 @@ class FirebaseService {
     
     func getCountry(for productId: String, completion: @escaping (String?) -> Void) {
         var country = "Not defined"
+        
+        guard !productId.contains("-") else {
+            completion(country)
+            return
+        }
+        
         guard let countryCode = Int(productId.prefix(3)) else {
             completion(country)
             return

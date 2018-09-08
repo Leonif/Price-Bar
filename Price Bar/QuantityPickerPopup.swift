@@ -108,7 +108,7 @@ class QuantityPickerPopup: UIViewController {
         str = str.replacingOccurrences(of: ".", with: "")
         var maxDivider = 1
         for (index, character) in str.enumerated().reversed() {
-            let extractedFigure = Int(String(character))! * (index == 0 ? 1 : Int(maxDivider))
+            let extractedFigure = (Int(String(character)) ?? 0) * (index == 0 ? 1 : Int(maxDivider))
             for (i, value) in weightViewItems[index].viewWeight.enumerated().reversed() {
                 if extractedFigure == value  {
                     searchingIndexes.append(i)

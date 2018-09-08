@@ -289,7 +289,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     // TODO: refactoring .....
     func onQuantityChanged(productId: String) {
         
-        var quantityModel: QuantityEntity = QuantityEntity(parameters: [], currentValue: 0.0, answerDict: ["productId": productId])
+        var quantityModel: QuantityEntity = QuantityEntity(parameters: [],
+                                                           currentValue: 0.0,
+                                                           answerDict: ["productId": productId])
         
         let currentValue = self.shoplistModel.getProductQuantity(productId: productId)
         quantityModel.currentValue = currentValue

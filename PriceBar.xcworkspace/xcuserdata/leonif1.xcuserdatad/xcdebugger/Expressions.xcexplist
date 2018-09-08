@@ -30,6 +30,14 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "QuantityPickerPopup.foundCurrentIndexes2(for:):QuantityPickerPopup.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "weightViewItems[index]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "ShopListAdapter.dataSource.didset:ShopListAdapter.swift">
       </ContextState>
       <ContextState
@@ -211,10 +219,10 @@
                value = "currentValue">
             </PersistentString>
             <PersistentString
-               value = "String(format:&quot;%.3f&quot;, currentValue)">
+               value = "self.decimalItem">
             </PersistentString>
             <PersistentString
-               value = "self.decimalItem">
+               value = "String(format:&quot;%.3f&quot;, currentValue)">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -281,13 +289,13 @@
          contextName = "ItemListVC.scrollViewDidScroll(_:):ItemListVC.swift">
          <PersistentStrings>
             <PersistentString
+               value = "itemTableView">
+            </PersistentString>
+            <PersistentString
                value = "filtredItemList">
             </PersistentString>
             <PersistentString
                value = "itemList">
-            </PersistentString>
-            <PersistentString
-               value = "itemTableView">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -331,13 +339,13 @@
          contextName = "ShopListModel.append(item : ShopItem) -&gt; ():ShopListModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "sections">
+               value = "item.itemCategory.name">
             </PersistentString>
             <PersistentString
                value = "shopList">
             </PersistentString>
             <PersistentString
-               value = "item.itemCategory.name">
+               value = "sections">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -377,6 +385,9 @@
       </ContextState>
       <ContextState
          contextName = "static FirebaseParser.parsePrice(_:):FirebaseParser.swift">
+      </ContextState>
+      <ContextState
+         contextName = "QuantityPickerPopup.selectCurrentValue():QuantityPickerPopup.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in ShoplistRouter.openStatistics(data:):ShoplistRouter.swift">
@@ -457,18 +468,18 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "ShopListController.handle(for : Outlet) -&gt; ():ShopListControllerExchange.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "launchedTimes">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #1 in ShopListController.onUpdatedTotal(_:):ShopListController.swift">
          <PersistentStrings>
             <PersistentString
                value = "dataSource">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ShopListController.handle(for : Outlet) -&gt; ():ShopListControllerExchange.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "launchedTimes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -735,10 +746,10 @@
          contextName = "closure #1 in FirebaseService.getFiltredProductList(with:completion:):FirebaseService.swift">
          <PersistentStrings>
             <PersistentString
-               value = "goods[0].fullName.range(of: &quot;c&#x43f;&#x430;&quot;) != nil">
+               value = "searchedText">
             </PersistentString>
             <PersistentString
-               value = "searchedText">
+               value = "goods[0].fullName.range(of: &quot;c&#x43f;&#x430;&quot;) != nil">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

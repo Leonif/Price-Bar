@@ -13,7 +13,6 @@ enum BorderSide {
     case left, right, top, bottom
 }
 
-
 class ShopItemCell: UITableViewCell, NibLoadableReusable {
     @IBOutlet weak var nameItem: UILabel!
     @IBOutlet weak var priceItem: UILabel!
@@ -25,7 +24,6 @@ class ShopItemCell: UITableViewCell, NibLoadableReusable {
     @IBOutlet weak var cellView: UIView!
     @IBOutlet weak var topConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
-    
     
     @IBOutlet weak var categoryView: UIView!
     @IBOutlet weak var topView: UIView!
@@ -52,6 +50,44 @@ class ShopItemCell: UITableViewCell, NibLoadableReusable {
         self.leftView.isHidden = false
         self.rightView.isHidden = false
     }
+    
+    
+    
+    
+    
+    func configure(_ item: ShoplistViewItem) {
+        selectionStyle = .none
+        backgroundColor = .clear
+        cellView.layer.cornerRadius = 8.0
+        PriceBarStyles.shadowAround.apply(to: cellView)
+        
+        PriceBarStyles.grayBorderedRounded.apply(to: quantityButton, priceView)
+        
+        priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
+        nameItem.text = item.fullName
+        priceItem.text = String(format: "%.2f", item.productPrice)
+        uomLabel.text = item.productUom
+        self.updateWeight(item.quantity,
+                          item.parameters.count - 1,
+                          item.parameters.first?.suffix ?? "",
+                          item.productPrice)
+    }
+    
+    func updateWeight(_ weight: Double, _ signs: Int, _ suffix: String,_ price: Double) {
+        
+        let total = weight * price
+        
+        let btnTitle = String(format:"%@ %.\(signs)f %@", R.string.localizable.shop_list_quantity(), weight, suffix)
+        
+        quantityButton.setTitle(btnTitle, for: .normal)
+        totalItem.text = String(format: "UAH\n%.2f", total)
+    }
+    
+    
+    
+    
+    
+    
     
     @objc
     func onCompareHandler() {

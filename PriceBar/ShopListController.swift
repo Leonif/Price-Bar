@@ -99,17 +99,7 @@ class ShopListController: UIViewController, ShoplistView {
             self?.navigationView.outletAddress.text = outlet.address
         }
         self.buttonEnable(true)
-//        self.presenter.onReloadShoplist()
     }
-    
-//    func onQuantityChanged() {
-//        self.presenter.onReloadShoplist()
-//    }
-    
-    
-//    func onSavePrice() {
-////        self.presenter.onReloadShoplist()
-//    }
 
     func startIsCompleted() {
         self.presenter.onOpenStatistics()

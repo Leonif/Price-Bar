@@ -1,6 +1,0 @@
-framework module Pods_PriceBarTests {
-  umbrella header "Pods-PriceBarTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -83,7 +83,6 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         }
         self.sectionNames.remove(at: index)
     }
-    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.getRowsInSection(section)
@@ -93,8 +92,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         let cell: ShopItemCell = tableView.dequeueReusableCell(for: indexPath)
         let shp = self.getItem(index: indexPath)
 
-        self.configure(cell, shp)
-        
+        cell.configure(shp)
         
         let isFirstAndLastCell = indexPath.row == 0 && indexPath.row == self.getRowsInSection(indexPath.section) - 1
         let isFirstCell = indexPath.row == 0
@@ -169,34 +167,6 @@ extension ShopListAdapter: UITableViewDelegate {
         headerView.categoryLabel.text = self.headerString(for: section)
 
         return headerView
-    }
-    
-    
-    func configure(_ cell: ShopItemCell, _ item: ShoplistViewItem) {
-        cell.selectionStyle = .none
-        cell.backgroundColor = .clear
-        cell.cellView.layer.cornerRadius = 8.0
-        PriceBarStyles.shadowAround.apply(to: cell.cellView)
-        
-        PriceBarStyles.grayBorderedRounded.apply(to: cell.quantityButton, cell.priceView)
-        
-        cell.priceView.backgroundColor = item.productPrice == 0.0 ? Color.petiteOrchid : Color.jaggedIce
-        cell.nameItem.text = item.fullName
-        cell.priceItem.text = String(format: "%.2f", item.productPrice)
-        cell.uomLabel.text = item.productUom
-        
-        self.updateWeight(for: cell, item.quantity, item.productPrice)
-    }
-    
-    
-    func updateWeight(for cell: ShopItemCell, _ weight: Double, _ price: Double) {
-        
-        let total = weight * price
-        
-        let btnTitle = String(format:"%@ %.2f", R.string.localizable.shop_list_quantity(), weight)
-        
-        cell.quantityButton.setTitle(btnTitle, for: .normal)
-        cell.totalItem.text = String(format: "UAH\n%.2f", total)
     }
 }
 

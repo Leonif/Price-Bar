@@ -13,7 +13,6 @@ protocol QuantityPickerPopupDelegate {
     func choosen(weight: Double, answer: [String: Any])
 }
 
-
 struct WeightViewItem {
     var rawWeights: [Double]
     var viewWeight: [Int]
@@ -22,7 +21,7 @@ struct WeightViewItem {
 }
 
 class QuantityPickerPopup: UIViewController {
-    var weightViewItems = [WeightViewItem]()
+    var weightViewItems: [WeightViewItem] = []
     var indexPath: IndexPath?
     var delegate: QuantityPickerPopupDelegate?
     var quantityEntity: QuantityEntity!
@@ -64,7 +63,6 @@ class QuantityPickerPopup: UIViewController {
         //self.configurePopup()
     }
     
-    
     // TODO: refactor here divide on coefficient
     @objc func choosen() {
         var value: Double = 0.0
@@ -98,27 +96,28 @@ class QuantityPickerPopup: UIViewController {
         let rawWeightArray: [Double] = stridedWeightsArray.map { $0 / parameter.divider }
         let viewWeightsArray: [Int] = stridedWeightsArray.map { Int($0) }
         
-        
         return WeightViewItem(rawWeights: rawWeightArray,
                               viewWeight: viewWeightsArray,
                               suff: parameter.suffix,
                               divider: parameter.divider)
     }
     
-    func foundCurrentIndexes(for searchingValue: Double) -> [Int] {
+    func transformIntoIndexes(from searchingValue: Double) -> [Int] {
         var searchingIndexes: [Int] = []
-        var searchingValue: Double = searchingValue
-        for w in weightViewItems {
-            for (index, v1) in w.rawWeights.enumerated() {
-                if v1 > searchingValue {
-                    let foundIndex = index - 1
-                    searchingIndexes.append(foundIndex)
-                    searchingValue -= w.rawWeights[foundIndex]
+        var str = String(format: "%.\(self.weightViewItems.count - 1)f", searchingValue)
+        str = str.replacingOccurrences(of: ".", with: "")
+        var maxDivider = 1
+        for (index, character) in str.enumerated().reversed() {
+            let extractedFigure = Int(String(character))! * (index == 0 ? 1 : Int(maxDivider))
+            for (i, value) in weightViewItems[index].viewWeight.enumerated().reversed() {
+                if extractedFigure == value  {
+                    searchingIndexes.append(i)
+                    maxDivider *= 10
                     break
                 }
             }
         }
-        return searchingIndexes
+        return searchingIndexes.reversed()
     }
     
     override func viewDidLoad() {
@@ -128,7 +127,7 @@ class QuantityPickerPopup: UIViewController {
     }
     
     func selectCurrentValue() {
-        let indexes = foundCurrentIndexes(for: quantityEntity.currentValue)
+        let indexes = transformIntoIndexes(from: quantityEntity.currentValue)
         
         guard !indexes.isEmpty else { return  }
         
@@ -166,7 +165,6 @@ class QuantityPickerPopup: UIViewController {
         super.viewDidAppear(animated)
         self.view.obscure()
     }
-    
 }
 
 extension QuantityPickerPopup: UIPickerViewDataSource, UIPickerViewDelegate {
@@ -184,6 +182,5 @@ extension QuantityPickerPopup: UIPickerViewDataSource, UIPickerViewDelegate {
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return weightViewItems[component].rawWeights.count
-        
     }
 }

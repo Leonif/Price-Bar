@@ -315,11 +315,11 @@ class FirebaseService {
     func getCountry(for productId: String, completion: @escaping (String?) -> Void) {
         var country = "Not defined"
         
-        guard !productId.contains("-") else {
+        guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: productId)) else {
             completion(country)
             return
         }
-        
+
         guard let countryCode = Int(productId.prefix(3)) else {
             completion(country)
             return
@@ -337,9 +337,8 @@ class FirebaseService {
                         
                         let min = Int(lowerBound)!
                         let max = Int(upperBound)!
-                        let codeAdjusted = Int(productId.prefix(upperBound.count))!
                         
-                        if min <= codeAdjusted && codeAdjusted <= max {
+                        if min <= countryCode && countryCode <= max {
                             isFound = true
                             country = conditions["country"] as! String
                             break

@@ -296,9 +296,11 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         let currentValue = self.shoplistModel.getProductQuantity(productId: productId)
         quantityModel.currentValue = currentValue
         
+        
+        view.showLoading(with: R.string.localizable.common_loading())
         productModel.getProductEntity(for: productId) { [weak self] (result) in
-            
             guard let `self` = self else { return }
+            self.view.hideLoading()
             switch result {
             case let .success(product):
                 self.productModel.getParametredUom(for: product.uomId) { [weak self] (uomEntity) in

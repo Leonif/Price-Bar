@@ -325,6 +325,8 @@ class FirebaseService {
             return
         }
         
+        let mutableProductId = productId.dropFirst(contains: "0")
+        
         var isFound = false
         
         self.refBarcodeInfo?.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -338,7 +340,9 @@ class FirebaseService {
                         let min = Int(lowerBound)!
                         let max = Int(upperBound)!
                         
-                        if min <= countryCode && countryCode <= max {
+                        let codeAdjusted = Int(mutableProductId.prefix(lowerBound.count))!
+                        
+                        if min <= codeAdjusted && codeAdjusted <= max {
                             isFound = true
                             country = conditions["country"] as! String
                             break

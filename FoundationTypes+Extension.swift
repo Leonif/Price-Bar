@@ -9,17 +9,18 @@
 import Foundation
 import UIKit
 
-//extension UITextField {
-//    func animateViewMoving (up: Bool, moveValue: CGFloat, view: UIView) {
-//        let movementDuration: TimeInterval = 0.3
-//        let movement: CGFloat = (up ? -moveValue : moveValue)
-//        UIView.beginAnimations("animateView", context: nil)
-//        UIView.setAnimationBeginsFromCurrentState(true)
-//        UIView.setAnimationDuration(movementDuration)
-//        view.frame = view.frame.offsetBy(dx: 0, dy: movement)
-//        UIView.commitAnimations()
-//    }
-//}
+
+extension String {
+    func dropFirst(contains: Character) -> String {
+        var mutable = self
+        for d in self {
+            if d == contains { mutable = String(self.dropFirst()) }
+            else { break }
+        }
+        return mutable
+    }
+}
+
 
 extension Date {
 

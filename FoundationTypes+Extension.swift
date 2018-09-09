@@ -11,6 +11,11 @@ import UIKit
 
 
 extension String {
+    
+    enum CharacterType {
+        case digit, none
+    }
+    
     func dropFirst(contains: Character) -> String {
         var mutable = self
         for d in self {
@@ -18,6 +23,15 @@ extension String {
             else { break }
         }
         return mutable
+    }
+    
+    func isContains(type: CharacterType) -> Bool {
+        switch type {
+        case .digit:
+            return CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: self))
+        default:
+            return false
+        }
     }
 }
 

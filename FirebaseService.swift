@@ -311,16 +311,10 @@ class FirebaseService {
         }
     }
     
-    
     func getCountry(for productId: String, completion: @escaping (String?) -> Void) {
-        var country = "Not defined"
+        var country = "manually inserted"
         
-        guard CharacterSet.decimalDigits.isSuperset(of: CharacterSet(charactersIn: productId)) else {
-            completion(country)
-            return
-        }
-
-        guard let countryCode = Int(productId.prefix(3)) else {
+        guard productId.isContains(type: .digit) else {
             completion(country)
             return
         }
@@ -337,10 +331,13 @@ class FirebaseService {
                         let lowerBound = conditions["lower_bound"] as! String
                         let upperBound = conditions["upper_bound"] as! String
                         
-                        let min = Int(lowerBound)!
-                        let max = Int(upperBound)!
+                        guard let min = Int(lowerBound), let max = Int(upperBound) else {
+                            break
+                        }
                         
-                        let codeAdjusted = Int(mutableProductId.prefix(lowerBound.count))!
+                        guard let codeAdjusted = Int(mutableProductId.prefix(lowerBound.count)) else {
+                            break
+                        }
                         
                         if min <= codeAdjusted && codeAdjusted <= max {
                             isFound = true
@@ -349,7 +346,8 @@ class FirebaseService {
                         }
                     }
                 }
-                completion(isFound ? country : "\(countryCode)")
+                let countryCode = String(productId.prefix(3))
+                completion(isFound ? country : "not found: \(countryCode)")
             }
         })
     }

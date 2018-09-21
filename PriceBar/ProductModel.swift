@@ -30,7 +30,7 @@ protocol ProductModel {
     
     func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, ProductModelError>) -> Void)
     func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String, ProductModelError>) -> Void)
-    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity]?, ProductModelError>) -> Void)
+    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity], ProductModelError>) -> Void)
 
     func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, ProductModelError>) -> Void)
     func getUomName(for uomId: Int32, completion: @escaping (ResultType<String, ProductModelError>) -> Void)
@@ -261,12 +261,12 @@ class ProductModelImpl: ProductModel {
         }
     }
 
-    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity]?, ProductModelError>) -> Void)  {
+    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity], ProductModelError>) -> Void)  {
         FirebaseService.data.getCategoryList { (result) in
             switch result {
             case let .success(categoryList):
                 guard let categoryList = categoryList else {
-                    completion (ResultType.success(nil))
+                    completion (ResultType.success([]))
                     return
                 }
                 

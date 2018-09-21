@@ -11,10 +11,8 @@ import UIKit
 protocol ShoplistView: BaseView {
     func onCurrentOutletUpdated(outlet: OutletViewItem)
     func onIssue(error: String)
-//    func onSavePrice()
     func onUpdatedTotal(_ total: Double)
-    func onUpdatedShoplist(_ dataSource: [ShoplistViewItem])
-//    func onQuantityChanged()
+    func onUpdatedShoplist(_ dataSource: [ShoplistDataSource])
     func startIsCompleted()
 }
 
@@ -28,7 +26,7 @@ class ShopListController: UIViewController, ShoplistView {
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var itemListButton: UIButton!
     @IBOutlet weak var rightButtonViewArea: UIView!
-    @IBOutlet var wholeViewArea: UIView!
+    @IBOutlet weak var wholeViewArea: UIView!
     @IBOutlet weak var buttonsView: UIView!
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
     
@@ -69,10 +67,10 @@ class ShopListController: UIViewController, ShoplistView {
         
         // MARK: - Setup UI
         self.setupNavigation()
+        grayBorderedRoundedWithShadow(self.buttonsView)
         
-        PriceBarStyles.grayBorderedRounded.apply(to: self.buttonsView)
-        PriceBarStyles.shadowAround.apply(to: self.buttonsView)
-        
+//        PriceBarStyles.grayBorderedRounded.apply(to: self.buttonsView)
+//        PriceBarStyles.shadowAround.apply(to: self.buttonsView)
         self.setupGestures()
         self.setupTotalView()
         self.setupAdapter()
@@ -84,7 +82,7 @@ class ShopListController: UIViewController, ShoplistView {
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(String(format: "%.2f", total))"
         }
     }
-    func onUpdatedShoplist(_ dataSource: [ShoplistViewItem]) {
+    func onUpdatedShoplist(_ dataSource: [ShoplistDataSource]) {
         self.adapter.dataSource = dataSource
         DispatchQueue.main.async { [weak self] in
             self?.shopTableView.reloadData()
@@ -99,6 +97,7 @@ class ShopListController: UIViewController, ShoplistView {
             self?.navigationView.outletAddress.text = outlet.address
         }
         self.buttonEnable(true)
+        
     }
 
     func startIsCompleted() {

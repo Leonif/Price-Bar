@@ -31,6 +31,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     weak var view: ShoplistView!
     var router: ShoplistRouter!
     var outletModel: OutletModel!
+    var mapper: ShoplistMapper!
 
     var productModel: ProductModel!
     var shoplistModel: ShoplistModel!
@@ -72,9 +73,19 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     }
     
     private func updateShoplist(shoplist: [ShoplistViewItem]) {
-        self.view.onUpdatedShoplist(shoplist)
-        let sum = shoplist.reduce(0) { $0 + ($1.productPrice * $1.quantity) }
-        self.view.onUpdatedTotal(sum)
+        productModel.getCategoryList { [weak self] (result) in
+            switch result {
+            case let .success(categoryList):
+                let list: [String] = categoryList.map { CategoryMapper.transform(input: $0) }
+                let formattedShoplist = self?.mapper.transform(input: shoplist, categoryList: list)
+                self?.view.onUpdatedShoplist(formattedShoplist!)
+                let sum = shoplist.reduce(0) { $0 + ($1.productPrice * $1.quantity) }
+                self?.view.onUpdatedTotal(sum)
+            case let .failure(error):
+                self?.view.onError(with: error.errorDescription)
+                
+            }
+        }
     }
     
     func addNewItemProduct(with name: String) {
@@ -288,7 +299,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     
     // TODO: refactoring .....
     func onQuantityChanged(productId: String) {
-        
         var quantityModel: QuantityEntity = QuantityEntity(parameters: [],
                                                            currentValue: 0.0,
                                                            answerDict: ["productId": productId])
@@ -341,7 +351,6 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.view.onCurrentOutletUpdated(outlet: outlet)
         self.onReloadShoplist()
     }
-    
     
     func saved() {
         self.onReloadShoplist()

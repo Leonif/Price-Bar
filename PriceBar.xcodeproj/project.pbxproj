@@ -171,6 +171,10 @@
 		79795CD520E51FF80063319B /* ShopList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CD220E51FF80063319B /* ShopList+CoreDataClass.swift */; };
 		79795CD620E51FF80063319B /* ShopList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CD320E51FF80063319B /* ShopList+CoreDataProperties.swift */; };
 		79795CD720E51FF80063319B /* ShopList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CD320E51FF80063319B /* ShopList+CoreDataProperties.swift */; };
+		7983252721501BA500D57CC7 /* ShoplistMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983252621501BA500D57CC7 /* ShoplistMapper.swift */; };
+		7983252821501BA500D57CC7 /* ShoplistMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983252621501BA500D57CC7 /* ShoplistMapper.swift */; };
+		7983252A2150239200D57CC7 /* ShoplistDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798325292150239200D57CC7 /* ShoplistDataSource.swift */; };
+		7983252B2150239200D57CC7 /* ShoplistDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798325292150239200D57CC7 /* ShoplistDataSource.swift */; };
 		79833B35200D5002005C6CC5 /* ProductCardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardEntity.swift */; };
 		79833B37200D501E005C6CC5 /* ProductEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B36200D501E005C6CC5 /* ProductEntity.swift */; };
 		79833B3A200E7E4B005C6CC5 /* CategoryViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B39200E7E4B005C6CC5 /* CategoryViewItem.swift */; };
@@ -214,6 +218,8 @@
 		79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F322016ED2A00302AF9 /* OutletMapper.swift */; };
 		79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A001EFECC4800337DA3 /* ItemListVC.swift */; };
 		79D26A031EFECD5700337DA3 /* ItemListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D26A021EFECD5700337DA3 /* ItemListCell.swift */; };
+		79D5F3592155226E00D746C5 /* FlexibleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5F3582155226E00D746C5 /* FlexibleStyle.swift */; };
+		79D5F35A2155226E00D746C5 /* FlexibleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5F3582155226E00D746C5 /* FlexibleStyle.swift */; };
 		79D8E5E7209854BD00C182DA /* IssueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D8E5E5209854BD00C182DA /* IssueVC.swift */; };
 		79D8E5E8209854BD00C182DA /* IssueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D8E5E5209854BD00C182DA /* IssueVC.swift */; };
 		79D8E5E9209854BD00C182DA /* IssueVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D8E5E6209854BD00C182DA /* IssueVC.xib */; };
@@ -324,6 +330,8 @@
 		79795CCF20E2A41F0063319B /* ItemCardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardRouter.swift; sourceTree = "<group>"; };
 		79795CD220E51FF80063319B /* ShopList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataClass.swift"; sourceTree = "<group>"; };
 		79795CD320E51FF80063319B /* ShopList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		7983252621501BA500D57CC7 /* ShoplistMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistMapper.swift; sourceTree = "<group>"; };
+		798325292150239200D57CC7 /* ShoplistDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistDataSource.swift; sourceTree = "<group>"; };
 		79833B34200D5002005C6CC5 /* ProductCardEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardEntity.swift; sourceTree = "<group>"; };
 		79833B36200D501E005C6CC5 /* ProductEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntity.swift; sourceTree = "<group>"; };
 		79833B39200E7E4B005C6CC5 /* CategoryViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewItem.swift; sourceTree = "<group>"; };
@@ -355,6 +363,7 @@
 		79D12F322016ED2A00302AF9 /* OutletMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletMapper.swift; sourceTree = "<group>"; };
 		79D26A001EFECC4800337DA3 /* ItemListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListVC.swift; sourceTree = SOURCE_ROOT; };
 		79D26A021EFECD5700337DA3 /* ItemListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemListCell.swift; sourceTree = SOURCE_ROOT; };
+		79D5F3582155226E00D746C5 /* FlexibleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleStyle.swift; sourceTree = "<group>"; };
 		79D8E5E5209854BD00C182DA /* IssueVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueVC.swift; sourceTree = "<group>"; };
 		79D8E5E6209854BD00C182DA /* IssueVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueVC.xib; sourceTree = "<group>"; };
 		79DC99E320433DAC00D35D1C /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ../PriceBar/ru.lproj/Main.strings; sourceTree = "<group>"; };
@@ -554,6 +563,7 @@
 			isa = PBXGroup;
 			children = (
 				793368681FFF6F5600E8E81A /* ShopListAdapter.swift */,
+				798325292150239200D57CC7 /* ShoplistDataSource.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
 				790B7D0A207902F5003DD560 /* NavigationBarView */,
 				790B7D0B20790310003DD560 /* Cell */,
@@ -757,6 +767,7 @@
 			children = (
 				7975D63520714224003A6288 /* UIColors+Extensions.swift */,
 				790B7D2B207A6000003DD560 /* Styles.swift */,
+				79D5F3582155226E00D746C5 /* FlexibleStyle.swift */,
 			);
 			name = Styles;
 			sourceTree = "<group>";
@@ -943,6 +954,7 @@
 			isa = PBXGroup;
 			children = (
 				79DC99EF2044B3F600D35D1C /* ShoplistPresenterImpl.swift */,
+				7983252621501BA500D57CC7 /* ShoplistMapper.swift */,
 			);
 			name = Presenter;
 			sourceTree = "<group>";
@@ -1335,6 +1347,7 @@
 				790B7D8820835D8C003DD560 /* ScannerController.swift in Sources */,
 				790B7D8B20835D8C003DD560 /* AppDelegate.swift in Sources */,
 				790B7D8D20835D8C003DD560 /* CountingLabel.swift in Sources */,
+				7983252821501BA500D57CC7 /* ShoplistMapper.swift in Sources */,
 				790B7D8E20835D8C003DD560 /* ItemCardVC.swift in Sources */,
 				79795CCB20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */,
 				790B7D8F20835D8C003DD560 /* FirebaseParser.swift in Sources */,
@@ -1347,6 +1360,7 @@
 				790B7D9820835D8C003DD560 /* StatisticModel.swift in Sources */,
 				790B7D9920835D8C003DD560 /* UomMapper.swift in Sources */,
 				790B7D9A20835D8C003DD560 /* PriceStatisticViewItem.swift in Sources */,
+				7983252B2150239200D57CC7 /* ShoplistDataSource.swift in Sources */,
 				79795CD120E2A41F0063319B /* ItemCardRouter.swift in Sources */,
 				792132F7212F4D5C0044908C /* ShoplistModel.swift in Sources */,
 				792132F3212877540044908C /* LocationService.swift in Sources */,
@@ -1360,6 +1374,7 @@
 				79C4EA5F20DF028C006866F9 /* ScannerPresenterImpl.swift in Sources */,
 				79C4EA5520DD7B52006866F9 /* BaseView.swift in Sources */,
 				790B7DA320835D8C003DD560 /* CategoryViewItem.swift in Sources */,
+				79D5F35A2155226E00D746C5 /* FlexibleStyle.swift in Sources */,
 				790B7DA420835D8C003DD560 /* UomEntity.swift in Sources */,
 				790B7DA620835D8C003DD560 /* UIViewExtensions.swift in Sources */,
 				790B7DA820835D8C003DD560 /* ItemListVC.swift in Sources */,
@@ -1431,6 +1446,7 @@
 				79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */,
 				792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */,
 				792102952055A02000C83706 /* CountingLabel.swift in Sources */,
+				7983252721501BA500D57CC7 /* ShoplistMapper.swift in Sources */,
 				790B7D79208327E1003DD560 /* ItemCardVC.swift in Sources */,
 				79795CCA20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */,
 				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
@@ -1443,6 +1459,7 @@
 				794658A220697E45007B4397 /* StatisticModel.swift in Sources */,
 				796D7B1D201906B40098D324 /* UomMapper.swift in Sources */,
 				79E9B875206C228700D80EA5 /* PriceStatisticViewItem.swift in Sources */,
+				7983252A2150239200D57CC7 /* ShoplistDataSource.swift in Sources */,
 				79795CD020E2A41F0063319B /* ItemCardRouter.swift in Sources */,
 				792132F6212F4D5C0044908C /* ShoplistModel.swift in Sources */,
 				792132F2212877540044908C /* LocationService.swift in Sources */,
@@ -1456,6 +1473,7 @@
 				79C4EA5E20DF028C006866F9 /* ScannerPresenterImpl.swift in Sources */,
 				79C4EA5420DD7B52006866F9 /* BaseView.swift in Sources */,
 				79833B3A200E7E4B005C6CC5 /* CategoryViewItem.swift in Sources */,
+				79D5F3592155226E00D746C5 /* FlexibleStyle.swift in Sources */,
 				796D7B1B201905800098D324 /* UomEntity.swift in Sources */,
 				793368641FFE260F00E8E81A /* UIViewExtensions.swift in Sources */,
 				79D26A011EFECC4800337DA3 /* ItemListVC.swift in Sources */,

@@ -68,9 +68,6 @@ class ShopListController: UIViewController, ShoplistView {
         // MARK: - Setup UI
         self.setupNavigation()
         grayBorderedRoundedWithShadow(self.buttonsView)
-        
-//        PriceBarStyles.grayBorderedRounded.apply(to: self.buttonsView)
-//        PriceBarStyles.shadowAround.apply(to: self.buttonsView)
         self.setupGestures()
         self.setupTotalView()
         self.setupAdapter()
@@ -83,7 +80,7 @@ class ShopListController: UIViewController, ShoplistView {
         }
     }
     func onUpdatedShoplist(_ dataSource: [ShoplistDataSource]) {
-        self.adapter.dataSource = dataSource
+        self.adapter.dataSourceManager.update(dataSource: dataSource)
         DispatchQueue.main.async { [weak self] in
             self?.shopTableView.reloadData()
         }
@@ -115,12 +112,14 @@ class ShopListController: UIViewController, ShoplistView {
         self.shopTableView.dataSource = self.adapter
         
         self.shopTableView.register(ShopItemCell.self)
+        self.shopTableView.register(HeaderView.self)
         
         self.shopTableView.estimatedRowHeight = UITableViewAutomaticDimension
         self.shopTableView.rowHeight = UITableViewAutomaticDimension
         
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
+        self.adapter.tableView = self.shopTableView
         
         self.adapter.onCellDidSelected = { [weak self] item in
             guard let `self` = self else { return }

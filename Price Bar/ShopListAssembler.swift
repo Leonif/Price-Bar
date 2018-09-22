@@ -15,6 +15,7 @@ class ShopListAssembler {
         let view = R.storyboard.main.shopListController()!
         
         let adapter = ShopListAdapter()
+        adapter.dataSourceManager = ShoplistDatasourceManager()
         view.adapter = adapter
         
         let presenter = ShoplistPresenterImpl()

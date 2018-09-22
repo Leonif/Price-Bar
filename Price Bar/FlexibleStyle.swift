@@ -25,7 +25,6 @@ func <+ <Type: UIView>(lhs: @escaping Style<Type>, rhs:  @escaping Style<Type>) 
     }
 }
 
-
 func cornerRadius(_ radius: CGFloat) -> (UIView) -> Void {
     return { $0.layer.cornerRadius = radius }
 }
@@ -46,7 +45,6 @@ func shadowOpacity(_ shadowOpacity: Float) -> (UIView) -> Void {
     return { $0.layer.shadowOpacity = shadowOpacity }
 }
 
-
 func shadowRadius(_ shadowRadius: CGFloat) -> (UIView) -> Void {
     return { $0.layer.shadowRadius = shadowRadius }
 }
@@ -55,10 +53,8 @@ func shadowOffset(_ shadowOffset: CGSize) -> (UIView) -> Void {
     return { $0.layer.shadowOffset = shadowOffset }
 }
 
-
-
 let usualCornerRadius = cornerRadius(8)
-let usualBorderWidth = cornerRadius(2)
+let usualBorderWidth = borderWidth(2)
 let dustyGrayBorder = borderColor(Color.dustyGray)
 
 
@@ -70,5 +66,5 @@ let usualShadowOffset = shadowOffset(CGSize(width: 1.0, height: 1.0))
 let usualShadow = usualShadowColor <+ usualShadowOpacity <+ usualShadowRadius <+ usualShadowOffset
 
 // MARK: Style presets
-let grayBorderedRounded = usualCornerRadius <+ dustyGrayBorder <+ dustyGrayBorder
+let grayBorderedRounded = usualCornerRadius <+ usualBorderWidth <+ dustyGrayBorder
 let grayBorderedRoundedWithShadow = grayBorderedRounded <+ usualShadow

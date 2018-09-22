@@ -35,7 +35,12 @@ extension ReusableView where Self: UITableViewHeaderFooterView {
     }
 }
 
-
+extension NibLoadableView where Self: UITableViewHeaderFooterView {
+    
+    static var nibName: String {
+        return NSStringFromClass(self).components(separatedBy: ".").last!
+    }
+}
 
 extension NibLoadableView where Self: UITableViewCell {
     
@@ -62,6 +67,14 @@ extension UITableView {
         let nib = UINib(nibName: T.nibName, bundle: bundle)
         self.register(nib, forCellReuseIdentifier: T.reuseIdentifier)
     }
+    
+    
+    func register<T: UITableViewHeaderFooterView>(_: T.Type) where T: ReusableView, T: NibLoadableView {
+        let bundle = Bundle(for: T.self)
+        let nib = UINib(nibName: T.nibName, bundle: bundle)
+        self.register(nib, forHeaderFooterViewReuseIdentifier: T.reuseIdentifier)
+    }
+    
     
     func dequeueReusableCell<T: UITableViewCell>(for indexPath: IndexPath) -> T where T: ReusableView {
         guard let cell = self.dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {

@@ -70,5 +70,5 @@ let usualShadowOffset = shadowOffset(CGSize(width: 1.0, height: 1.0))
 let usualShadow = usualShadowColor <+ usualShadowOpacity <+ usualShadowRadius <+ usualShadowOffset
 
 // MARK: Style presets
-let grayBorderedRounded = usualCornerRadius <+ usualBorderColor <+ dustyGrayBorder
+let grayBorderedRounded = usualCornerRadius <+ dustyGrayBorder <+ dustyGrayBorder
 let grayBorderedRoundedWithShadow = grayBorderedRounded <+ usualShadow

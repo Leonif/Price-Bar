@@ -240,6 +240,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		7923C1B7215556E600201A52 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 792EE7781EE48CD500470669 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 790B7D7B20835D8C003DD560;
+			remoteInfo = "PriceBar Dev";
+		};
 		79388B251F532176008FD415 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 792EE7781EE48CD500470669 /* Project object */;
@@ -1066,6 +1073,7 @@
 			);
 			dependencies = (
 				79388B261F532176008FD415 /* PBXTargetDependency */,
+				7923C1B8215556E600201A52 /* PBXTargetDependency */,
 			);
 			name = PriceBarTests;
 			productName = PriceBarTests;
@@ -1096,7 +1104,6 @@
 						DevelopmentTeam = 379294YDPQ;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
-						TestTargetID = 792EE77F1EE48CD500470669;
 					};
 				};
 			};
@@ -1246,10 +1253,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
+				"${SRCROOT}/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"\n";
 		};
 		790B7DF020835D8C003DD560 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1285,10 +1293,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
+				"${SRCROOT}/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"\n";
 		};
 		B6C4C3A94B7785377B5846F0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1538,6 +1547,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		7923C1B8215556E600201A52 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 790B7D7B20835D8C003DD560 /* PriceBar Dev */;
+			targetProxy = 7923C1B7215556E600201A52 /* PBXContainerItemProxy */;
+		};
 		79388B261F532176008FD415 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 792EE77F1EE48CD500470669 /* PriceBar Prod */;
@@ -1789,7 +1803,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 379294YDPQ;
 				INFOPLIST_FILE = PriceBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1797,7 +1810,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PriceBar.app/PriceBar";
 			};
 			name = Debug;
 		};
@@ -1805,7 +1817,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3995BAA816BFE91FEAB6DC7C /* Pods-PriceBarTests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				DEVELOPMENT_TEAM = 379294YDPQ;
 				INFOPLIST_FILE = PriceBarTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1813,7 +1824,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PriceBar.app/PriceBar";
 			};
 			name = Release;
 		};

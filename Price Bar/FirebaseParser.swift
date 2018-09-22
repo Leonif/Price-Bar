@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 
 class FirebaseParser {
-    class func parseCategory(from snapshot: DataSnapshot) -> CategoryEntity {
+    class func parse(from snapshot: DataSnapshot) -> CategoryEntity {
         guard let id = Int32(snapshot.key),
             let categoryDict = snapshot.value as? Dictionary<String, Any>,
             let categoryName = categoryDict["name"] as? String else {
@@ -19,7 +19,7 @@ class FirebaseParser {
         return fbCategory
     }
     
-    class func parseUom(from snapshot: DataSnapshot) -> UomEntity {
+    class func parse(from snapshot: DataSnapshot) -> UomEntity {
         guard let id = Int32(snapshot.key),
             let uomDict = snapshot.value as? Dictionary<String, Any>,
             let uomName = uomDict["name"] as? String else {
@@ -57,13 +57,11 @@ class FirebaseParser {
         return fbUom
     }
     
-    class func transfromToFBUomModels(from fbModelList: [DataSnapshot]) -> [UomEntity] {
-        return fbModelList.map { snapUom in
-            parseUom(from: snapUom)
-        }
+    class func parse(from snapShots: [DataSnapshot]) -> [UomEntity] {
+        return snapShots.map { parse(from: $0) }
     }
     
-    class func parseToFBItemStatistic(from snapGood: DataSnapshot) -> PriceItemEntity? {
+    class func parse(from snapGood: DataSnapshot) -> PriceItemEntity? {
         guard let priceData = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Prices is not parsed")
         }
@@ -73,7 +71,7 @@ class FirebaseParser {
         return price
     }
     
-    class func parseToFbProductModel(from snapGood: (key: String, value: Any)) -> ProductEntity {
+    class func parse(from snapGood: (key: String, value: Any)) -> ProductEntity {
         guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Product is not parsed")
         }

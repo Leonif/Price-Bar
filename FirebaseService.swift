@@ -13,7 +13,6 @@ enum FirebaseError: Error {
     case loginError(String)
     case syncError(String)
     case dataIsNotFound(String)
-
 }
 
 class FirebaseService {
@@ -21,7 +20,6 @@ class FirebaseService {
     private var refGoods = Database.database().reference().child("goods")
     
     private var refPriceStatistics: DatabaseReference
-    
     
     private var refCategories: DatabaseReference? = nil
     private var refUoms: DatabaseReference? = nil
@@ -32,8 +30,6 @@ class FirebaseService {
     private var pwd = "123456"
 
     var goodCurrentId: String?
-    
-    
     
     init() {
         refGoods = Database.database().reference().child("goods")
@@ -58,8 +54,6 @@ class FirebaseService {
         pwd = "123456"
     }
     
-    
-    
     func loginToFirebase(completion: @escaping (ResultType<Bool, FirebaseError>)->Void) {
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
             if error != nil {
@@ -80,7 +74,6 @@ class FirebaseService {
             print("Email authorization is successful!")
         })
     }
-
     
     // FIXME: PAGINATION: WORKS WRONG !!!! ===========================================
     func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (ResultType<[ProductEntity], FirebaseError>)->Void) {
@@ -119,7 +112,6 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-    
     
     func getParametredUom(for uomId: Int32, completion: @escaping (ResultType<UomEntity, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
@@ -236,7 +228,6 @@ class FirebaseService {
         }
     }
     
-    
     func getUomList(completion: @escaping (ResultType<[UomEntity]?, FirebaseError>)->Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
@@ -247,7 +238,6 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-    
     
     func getCategoryList(completion: @escaping (ResultType<[CategoryEntity]?, FirebaseError>)->Void) {
         self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
@@ -261,7 +251,6 @@ class FirebaseService {
             completion(ResultType.failure(.syncError(error.localizedDescription)))
         }
     }
-
     
     func getProduct(with productId: String, callback: @escaping (ProductEntity?) -> Void) {
         self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
@@ -371,12 +360,3 @@ class FirebaseService {
         }
     }
 }
-
-
-
-
-
-
-
-
-

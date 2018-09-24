@@ -11,10 +11,8 @@ import UIKit
 protocol ShoplistView: BaseView {
     func onCurrentOutletUpdated(outlet: OutletViewItem)
     func onIssue(error: String)
-//    func onSavePrice()
     func onUpdatedTotal(_ total: Double)
-    func onUpdatedShoplist(_ dataSource: [ShoplistViewItem])
-//    func onQuantityChanged()
+    func onUpdatedShoplist(_ dataSource: [ShoplistDataSource])
     func startIsCompleted()
 }
 
@@ -28,7 +26,7 @@ class ShopListController: UIViewController, ShoplistView {
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var itemListButton: UIButton!
     @IBOutlet weak var rightButtonViewArea: UIView!
-    @IBOutlet var wholeViewArea: UIView!
+    @IBOutlet weak var wholeViewArea: UIView!
     @IBOutlet weak var buttonsView: UIView!
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
     
@@ -69,10 +67,7 @@ class ShopListController: UIViewController, ShoplistView {
         
         // MARK: - Setup UI
         self.setupNavigation()
-        
-        PriceBarStyles.grayBorderedRounded.apply(to: self.buttonsView)
-        PriceBarStyles.shadowAround.apply(to: self.buttonsView)
-        
+        grayBorderedRoundedWithShadow(self.buttonsView)
         self.setupGestures()
         self.setupTotalView()
         self.setupAdapter()
@@ -85,8 +80,8 @@ class ShopListController: UIViewController, ShoplistView {
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(String(format: "%.2f", total))"
         }
     }
-    func onUpdatedShoplist(_ dataSource: [ShoplistViewItem]) {
-        self.adapter.dataSource = dataSource
+    func onUpdatedShoplist(_ dataSource: [ShoplistDataSource]) {
+        self.adapter.dataSourceManager.update(dataSource: dataSource)
         DispatchQueue.main.async { [weak self] in
             self?.shopTableView.reloadData()
         }
@@ -100,6 +95,7 @@ class ShopListController: UIViewController, ShoplistView {
             self?.navigationView.outletAddress.text = outlet.address
         }
         self.buttonEnable(true)
+        
     }
 
     func startIsCompleted() {
@@ -117,12 +113,14 @@ class ShopListController: UIViewController, ShoplistView {
         self.shopTableView.dataSource = self.adapter
         
         self.shopTableView.register(ShopItemCell.self)
+        self.shopTableView.register(HeaderView.self)
         
         self.shopTableView.estimatedRowHeight = UITableViewAutomaticDimension
         self.shopTableView.rowHeight = UITableViewAutomaticDimension
         
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
+        self.adapter.tableView = self.shopTableView
         
 
     }

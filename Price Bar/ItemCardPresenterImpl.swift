@@ -246,12 +246,12 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             self.view.hideLoading()
             switch result {
             case let .success(dpCategoryList):
-                guard let dpCategoryList = dpCategoryList else {
+                guard !dpCategoryList.isEmpty else {
                     // TODO: localize it
                     self.view.onError(with: "Cloud category list is empty")
                     return
                 }
-                let categories = dpCategoryList.map { CategoryMapper.transform(input: $0) }
+                let categories: [CategoryViewItem] = dpCategoryList.map { CategoryMapper.transform(input: $0) }
                 for (index, category) in categories.enumerated() {
                     if category.name == currentCategory {
                         curentIndex = index

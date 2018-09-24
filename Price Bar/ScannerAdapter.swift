@@ -57,10 +57,6 @@ class ScannerAdapter: NSObject, AVCaptureMetadataOutputObjectsDelegate  {
             videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
             videoPreviewLayer?.frame = frame
             viewForCammera.layer.addSublayer(videoPreviewLayer!)
-            
-            // Start video capture.
-            captureSession?.startRunning()
-            
         } catch {
             // If any error occurs, simply print it out and don't continue any more.
             self.onError(error.localizedDescription)
@@ -69,24 +65,26 @@ class ScannerAdapter: NSObject, AVCaptureMetadataOutputObjectsDelegate  {
     }
     
     
+    func startScaning() {
+        // Start video capture.
+        captureSession?.startRunning()
+    }
+    
+    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // Get the metadata object.
-        guard let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject else {
+        guard let metadataObj = metadataObjects.first as? AVMetadataMachineReadableCodeObject else {
             self.onError("metadataObjects is not available")
             return
         }
         
         if supportedCodeTypes.contains(metadataObj.type) {
-            // If the found metadata is equal to the QR code metadata then update the status label's text and set the bounds
-//            let barCodeObject = videoPreviewLayer?.transformedMetadataObject(for: metadataObj)
-//            qrCodeFrameView?.frame = barCodeObject!.bounds
-            
-            if let code = metadataObj.stringValue {
-                captureSession?.stopRunning()
-                
+            captureSession?.stopRunning()
+            if let code = metadataObj.stringValue, code.isContains(type: .digit) {
                 self.onCodeTaken(code)
             } else {
-                self.onError("Code is not taken")
+                self.onError("Try again, you scanned \(metadataObj.type.rawValue) barcode is not taken")
+//                captureSession?.startRunning()
             }
         }
     }

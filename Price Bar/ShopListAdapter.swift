@@ -9,15 +9,18 @@
 import Foundation
 import UIKit
 
+enum ShopListAdapterEvent {
+  case onCellDidSelected(ShoplistViewItem)
+  case onCompareDidSelected(ShoplistViewItem)
+  case onRemoveItem(String)
+  case onQuantityChange(String)
+}
+
 class ShopListAdapter: NSObject, UITableViewDataSource {
     var tableView: UITableView!
     var vc: UIViewController!
-    
-    var onCellDidSelected: ((ShoplistViewItem) -> Void)?
-    var onCompareDidSelected: ((ShoplistViewItem) -> Void)?
-    var onRemoveItem: ((String) -> Void)?
-    var onQuantityChange: ((String) -> Void)?
-    
+    var eventHandler: EventHandler<ShopListAdapterEvent>?
+
     var sectionNames: [String] = []
     var dataSource: [ShoplistViewItem] = [] {
         didSet {
@@ -66,7 +69,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         }
         self.dataSource.remove(at: index)
         self.removeSection(with: item.productCategory)
-        self.onRemoveItem?(item.productId)
+        self.eventHandler?(.onRemoveItem(item.productId))
     }
     
     // FIXME: move to presenter
@@ -122,12 +125,12 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         cell.onWeightDemand = { [weak self] cell in
             guard let `self` = self else { return }
             let item = self.getItem(index: indexPath)
-            self.onQuantityChange?(item.productId)
+            self.eventHandler?(.onQuantityChange(item.productId))
         }
         cell.onCompareDemand = { [weak self] cell in
             guard let `self` = self else { return }
             let item = self.getItem(index: indexPath)
-            self.onCompareDidSelected?(item)
+            self.eventHandler?(.onCompareDidSelected(item))
         }
         
         return cell
@@ -158,7 +161,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item = self.getItem(index: indexPath)
-        self.onCellDidSelected?(item)
+        self.eventHandler?(.onCellDidSelected(item))
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = Bundle.main.loadNibNamed("HeaderView", owner: self, options: nil)!.first as! HeaderView

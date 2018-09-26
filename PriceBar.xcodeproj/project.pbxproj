@@ -117,6 +117,12 @@
 		792132F7212F4D5C0044908C /* ShoplistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792132F5212F4D5C0044908C /* ShoplistModel.swift */; };
 		792132F9212F5C290044908C /* CategoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792132F8212F5C290044908C /* CategoryEntity.swift */; };
 		792132FA212F5C290044908C /* CategoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792132F8212F5C290044908C /* CategoryEntity.swift */; };
+		79276738215ACA380088098C /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79276736215ACA380088098C /* NoteCell.swift */; };
+		79276739215ACA380088098C /* NoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79276736215ACA380088098C /* NoteCell.swift */; };
+		7927673A215ACA380088098C /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79276737215ACA380088098C /* NoteCell.xib */; };
+		7927673B215ACA380088098C /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79276737215ACA380088098C /* NoteCell.xib */; };
+		7927673F215BF4360088098C /* NoteViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7927673E215BF4360088098C /* NoteViewItem.swift */; };
+		79276740215BF4360088098C /* NoteViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7927673E215BF4360088098C /* NoteViewItem.swift */; };
 		792EE7AD1EE7075200470669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7AC1EE7075200470669 /* Assets.xcassets */; };
 		792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B01EE707E700470669 /* LaunchScreen.storyboard */; };
 		792EE7B51EE707E700470669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B21EE707E700470669 /* Main.storyboard */; };
@@ -289,6 +295,9 @@
 		792132F1212877540044908C /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		792132F5212F4D5C0044908C /* ShoplistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistModel.swift; sourceTree = "<group>"; };
 		792132F8212F5C290044908C /* CategoryEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryEntity.swift; sourceTree = "<group>"; };
+		79276736215ACA380088098C /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
+		79276737215ACA380088098C /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
+		7927673E215BF4360088098C /* NoteViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewItem.swift; sourceTree = "<group>"; };
 		792EE7801EE48CD500470669 /* PriceBar Prod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PriceBar Prod.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		792EE7AC1EE7075200470669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PriceBar/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		792EE7AE1EE7076600470669 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PriceBar/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -452,8 +461,8 @@
 		790B7D0B20790310003DD560 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
-				79F68451206801D200257F00 /* ShopItemCell.xib */,
+				7927673C215ACA400088098C /* ShoppedItemCell */,
+				7927673D215ACA630088098C /* NoteCell */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -572,7 +581,6 @@
 				793368681FFF6F5600E8E81A /* ShopListAdapter.swift */,
 				798325292150239200D57CC7 /* ShoplistDataSource.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
-				790B7D0A207902F5003DD560 /* NavigationBarView */,
 				790B7D0B20790310003DD560 /* Cell */,
 				790B7D0C20790319003DD560 /* Header */,
 			);
@@ -616,6 +624,7 @@
 		792132ED212862380044908C /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				790B7D0A207902F5003DD560 /* NavigationBarView */,
 				790B7D4F2081C219003DD560 /* UserStory */,
 			);
 			name = PresentationLayer;
@@ -631,6 +640,24 @@
 				792132F5212F4D5C0044908C /* ShoplistModel.swift */,
 			);
 			name = ModelLayer;
+			sourceTree = "<group>";
+		};
+		7927673C215ACA400088098C /* ShoppedItemCell */ = {
+			isa = PBXGroup;
+			children = (
+				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
+				79F68451206801D200257F00 /* ShopItemCell.xib */,
+			);
+			name = ShoppedItemCell;
+			sourceTree = "<group>";
+		};
+		7927673D215ACA630088098C /* NoteCell */ = {
+			isa = PBXGroup;
+			children = (
+				79276736215ACA380088098C /* NoteCell.swift */,
+				79276737215ACA380088098C /* NoteCell.xib */,
+			);
+			name = NoteCell;
 			sourceTree = "<group>";
 		};
 		792EE7771EE48CD500470669 = {
@@ -785,6 +812,7 @@
 				79833B36200D501E005C6CC5 /* ProductEntity.swift */,
 				79E9B874206C228700D80EA5 /* PriceStatisticViewItem.swift */,
 				79833B4F2013AC49005C6CC5 /* ShoplistViewItem.swift */,
+				7927673E215BF4360088098C /* NoteViewItem.swift */,
 			);
 			name = Entities;
 			sourceTree = "<group>";
@@ -1148,6 +1176,7 @@
 				790B7DE920835D8C003DD560 /* OutletCell.xib in Resources */,
 				790B7DEA20835D8C003DD560 /* Localizable.strings in Resources */,
 				7990297D2087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */,
+				7927673B215ACA380088098C /* NoteCell.xib in Resources */,
 				790B7DEB20835D8C003DD560 /* AddCell.xib in Resources */,
 				799029802094B24D00085F72 /* ItemListCell.xib in Resources */,
 				790B7DEC20835D8C003DD560 /* Assets.xcassets in Resources */,
@@ -1174,6 +1203,7 @@
 				79E9B87E206ED8ED00D80EA5 /* OutletCell.xib in Resources */,
 				79DC99EB204345AC00D35D1C /* Localizable.strings in Resources */,
 				7990297C2087D4EA00085F72 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */,
+				7927673A215ACA380088098C /* NoteCell.xib in Resources */,
 				796D7B28201BE4B10098D324 /* AddCell.xib in Resources */,
 				7990297F2094B24D00085F72 /* ItemListCell.xib in Resources */,
 				792EE7AD1EE7075200470669 /* Assets.xcassets in Resources */,
@@ -1357,9 +1387,11 @@
 				790B7D8B20835D8C003DD560 /* AppDelegate.swift in Sources */,
 				790B7D8D20835D8C003DD560 /* CountingLabel.swift in Sources */,
 				7983252821501BA500D57CC7 /* ShoplistMapper.swift in Sources */,
+				79276739215ACA380088098C /* NoteCell.swift in Sources */,
 				790B7D8E20835D8C003DD560 /* ItemCardVC.swift in Sources */,
 				79795CCB20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */,
 				790B7D8F20835D8C003DD560 /* FirebaseParser.swift in Sources */,
+				79276740215BF4360088098C /* NoteViewItem.swift in Sources */,
 				790B7D9020835D8C003DD560 /* Target.swift in Sources */,
 				790B7D9120835D8C003DD560 /* R.generated.swift in Sources */,
 				790B7D9220835D8C003DD560 /* ProductModel.swift in Sources */,
@@ -1456,9 +1488,11 @@
 				792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */,
 				792102952055A02000C83706 /* CountingLabel.swift in Sources */,
 				7983252721501BA500D57CC7 /* ShoplistMapper.swift in Sources */,
+				79276738215ACA380088098C /* NoteCell.swift in Sources */,
 				790B7D79208327E1003DD560 /* ItemCardVC.swift in Sources */,
 				79795CCA20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */,
 				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
+				7927673F215BF4360088098C /* NoteViewItem.swift in Sources */,
 				79E9B883206FC26200D80EA5 /* Target.swift in Sources */,
 				7975D63C20715062003A6288 /* R.generated.swift in Sources */,
 				792EE7B91EE7080400470669 /* ProductModel.swift in Sources */,

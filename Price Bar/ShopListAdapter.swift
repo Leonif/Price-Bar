@@ -22,7 +22,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     private var onWeightDemand: ((ShopItemCell) -> Void)?
     
     func remove(indexPath: IndexPath) {
-        let item: ShoplistViewItem = dataSourceManager.getItem(for: indexPath)
+        let item: ShoplistViewItem = dataSourceManager.getItem(for: indexPath)!
         self.onRemoveItem?(item.productId)
         self.dataSourceManager.removeElement(with: indexPath)
         self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -37,51 +37,38 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: ShopItemCell = tableView.dequeueReusableCell(for: indexPath)
-        let shp: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
-
-        cell.configure(shp)
         
-        let elementsInSection = dataSourceManager.getElementsCount(for: indexPath.section)
         
-        let isFirstAndLastCell = indexPath.row == 0 && indexPath.row ==
-            elementsInSection - 1
-        let isFirstCell = indexPath.row == 0
-        let isLastCell = indexPath.row ==  elementsInSection - 1
         
-        let wide: CGFloat = 16
-        let thin: CGFloat = 8
-        
-        if  isFirstAndLastCell {
-            cell.topConstraint.constant = wide
-            cell.bottomConstraint.constant = wide
-        } else if isFirstCell {
-            cell.bottomView.isHidden = true
-            cell.topConstraint.constant = wide
-            cell.bottomConstraint.constant = thin
-        } else if isLastCell  {
-            cell.topView.isHidden = true
-            cell.topConstraint.constant = thin
-            cell.bottomConstraint.constant = wide
-        } else {
-            cell.topView.isHidden = true
-            cell.bottomView.isHidden = true
-            cell.topConstraint.constant = thin
-            cell.bottomConstraint.constant = thin
+        if let shp: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath) {
+            let cell: ShopItemCell = tableView.dequeueReusableCell(for: indexPath)
+            
+            cell.configure(shp)
+            
+            let elementsInSection = dataSourceManager.getElementsCount(for: indexPath.section)
+            
+            cell.configureBorder(for: indexPath, elementsInSection: elementsInSection)
+            
+            
+            cell.onWeightDemand = { [weak self] cell in
+                guard let `self` = self else { return }
+                let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)!
+                self.onQuantityChange?(item.productId)
+            }
+            cell.onCompareDemand = { [weak self] cell in
+                guard let `self` = self else { return }
+                let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)!
+                self.onCompareDidSelected?(item)
+            }
+            
+            return cell
+        } else if let note: NoteViewItem = self.dataSourceManager.getItem(for: indexPath) {
+            let cell: NoteCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.configure(note: note.note)
+            return cell
         }
         
-        cell.onWeightDemand = { [weak self] cell in
-            guard let `self` = self else { return }
-            let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
-            self.onQuantityChange?(item.productId)
-        }
-        cell.onCompareDemand = { [weak self] cell in
-            guard let `self` = self else { return }
-            let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
-            self.onCompareDidSelected?(item)
-        }
-        
-        return cell
+        return UITableViewCell()
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,7 +85,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 // MARK: -  Delegate
 extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
+        let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)!
         self.onCellDidSelected?(item)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

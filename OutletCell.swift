@@ -24,13 +24,6 @@ class OutletCell: UITableViewCell, NibLoadableReusable {
     
     
     func bind(outlet: OutletViewItem) {
-        
-        if outlet.distance > 600 {
-            //cell.distanceView.backgroundColor = UIColor.lightGray
-        } else {
-            //cell.distanceView.backgroundColor = Color.neonCarrot
-        }
-        
         self.outletName.text = outlet.name
         let km = R.string.localizable.outlet_list_km("\(Int(outlet.distance/1000))")
         let m = R.string.localizable.outlet_list_m("\(Int(outlet.distance))")

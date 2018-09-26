@@ -112,6 +112,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.shopTableView.dataSource = self.adapter
         
         self.shopTableView.register(ShopItemCell.self)
+        self.shopTableView.register(NoteCell.self)
         self.shopTableView.register(HeaderView.self)
         
         self.shopTableView.estimatedRowHeight = UITableViewAutomaticDimension

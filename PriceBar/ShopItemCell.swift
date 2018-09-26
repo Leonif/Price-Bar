@@ -73,6 +73,34 @@ class ShopItemCell: UITableViewCell, NibLoadableReusable {
                           item.productPrice)
     }
     
+    func configureBorder(for indexPath: IndexPath, elementsInSection: Int) {
+        let isFirstAndLastCell = indexPath.row == 0 && indexPath.row ==
+            elementsInSection - 1
+        let isFirstCell = indexPath.row == 0
+        let isLastCell = indexPath.row ==  elementsInSection - 1
+        
+        let wide: CGFloat = 16
+        let thin: CGFloat = 8
+        
+        if  isFirstAndLastCell {
+            self.topConstraint.constant = wide
+            self.bottomConstraint.constant = wide
+        } else if isFirstCell {
+            self.bottomView.isHidden = true
+            self.topConstraint.constant = wide
+            self.bottomConstraint.constant = thin
+        } else if isLastCell  {
+            self.topView.isHidden = true
+            self.topConstraint.constant = thin
+            self.bottomConstraint.constant = wide
+        } else {
+            self.topView.isHidden = true
+            self.bottomView.isHidden = true
+            self.topConstraint.constant = thin
+            self.bottomConstraint.constant = thin
+        }
+    }
+    
     func updateWeight(_ weight: Double, _ signs: Int, _ suffix: String,_ price: Double) {
         
         let total = weight * price

@@ -21,6 +21,10 @@ class ShoplistMapper {
                 output.append(.products(title: category, elements: items))
             }
         }
+        
+        
+        output.append(.notes(title: "Список покупок", elements: [NoteViewItem(note: "Картошка")]))
+        
         return output
     }
 }

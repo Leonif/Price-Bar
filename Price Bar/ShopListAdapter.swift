@@ -9,13 +9,17 @@
 import Foundation
 import UIKit
 
+enum ShopListAdapterEvent {
+  case onCellDidSelected(ShoplistViewItem)
+  case onCompareDidSelected(ShoplistViewItem)
+  case onRemoveItem(String)
+  case onQuantityChange(String)
+}
+
 class ShopListAdapter: NSObject, UITableViewDataSource {
     var tableView: UITableView!
     
-    var onCellDidSelected: ((ShoplistViewItem) -> Void)?
-    var onCompareDidSelected: ((ShoplistViewItem) -> Void)?
-    var onRemoveItem: ((String) -> Void)?
-    var onQuantityChange: ((String) -> Void)?
+    var eventHandler: EventHandler<ShopListAdapterEvent>?
 
     var dataSourceManager: ShoplistDatasourceManager!
     
@@ -23,7 +27,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     
     func remove(indexPath: IndexPath) {
         let item: ShoplistViewItem = dataSourceManager.getItem(for: indexPath)
-        self.onRemoveItem?(item.productId)
+        self.eventHandler?(.onRemoveItem(item.productId))
         self.dataSourceManager.removeElement(with: indexPath)
         self.tableView.deleteRows(at: [indexPath], with: .fade)
         
@@ -73,12 +77,12 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         cell.onWeightDemand = { [weak self] cell in
             guard let `self` = self else { return }
             let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
-            self.onQuantityChange?(item.productId)
+            self.eventHandler?(.onQuantityChange(item.productId))
         }
         cell.onCompareDemand = { [weak self] cell in
             guard let `self` = self else { return }
             let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
-            self.onCompareDidSelected?(item)
+            self.eventHandler?(.onCompareDidSelected(item))
         }
         
         return cell
@@ -99,7 +103,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
-        self.onCellDidSelected?(item)
+        self.eventHandler?(.onCellDidSelected(item))
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView: HeaderView = tableView.dequeueReusableHeaderFooterView()

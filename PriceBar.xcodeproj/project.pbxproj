@@ -237,6 +237,8 @@
 		79EC96422131530400F8EC69 /* ProductModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EC96412131530400F8EC69 /* ProductModelError.swift */; };
 		79F68452206801D200257F00 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
 		96F5B5B6B44C62471AD354E1 /* libPods-PriceBarTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D90B94812515395544C18FC5 /* libPods-PriceBarTests.a */; };
+		9F494C482158FE23002438E9 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F494C472158FE23002438E9 /* EventHandler.swift */; };
+		9F494C492158FE23002438E9 /* EventHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F494C472158FE23002438E9 /* EventHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,6 +394,7 @@
 		79F68451206801D200257F00 /* ShopItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShopItemCell.xib; sourceTree = "<group>"; };
 		80E09CA58DC91A4F8BFB54D4 /* Pods-PriceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBarTests/Pods-PriceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9EB852996EC991AE11B2C6F4 /* Pods-PriceBar Dev.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Dev.release.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Dev/Pods-PriceBar Dev.release.xcconfig"; sourceTree = "<group>"; };
+		9F494C472158FE23002438E9 /* EventHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventHandler.swift; sourceTree = "<group>"; };
 		BEE33A43573E234B1965CC53 /* Pods-PriceBar Dev.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PriceBar Dev.debug.xcconfig"; path = "Pods/Target Support Files/Pods-PriceBar Dev/Pods-PriceBar Dev.debug.xcconfig"; sourceTree = "<group>"; };
 		D90B94812515395544C18FC5 /* libPods-PriceBarTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PriceBarTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -752,7 +755,7 @@
 				79C4EA4B20DD0A2C006866F9 /* BaseRouter.swift */,
 				79C4EA5320DD7B52006866F9 /* BaseView.swift */,
 				79D8E5EB209854C700C182DA /* IssueVC */,
-				79833B432011440C005C6CC5 /* Reusable Tools */,
+				79833B432011440C005C6CC5 /* Types */,
 				7975D633207141FB003A6288 /* Styles */,
 				790B7D31207BBC28003DD560 /* WeightPicker */,
 				79210296205C69B400C83706 /* CloudStatisticFlow */,
@@ -829,15 +832,16 @@
 			name = Entities;
 			sourceTree = "<group>";
 		};
-		79833B432011440C005C6CC5 /* Reusable Tools */ = {
+		79833B432011440C005C6CC5 /* Types */ = {
 			isa = PBXGroup;
 			children = (
 				795EA8C91F0FFFF200752A68 /* CustomObjects */,
 				792EE79D1EE5069300470669 /* Extensions */,
 				79A2EB722002D471008F7DAA /* ResultType.swift */,
 				79833B3C200E812D005C6CC5 /* PickerControl.swift */,
+				9F494C472158FE23002438E9 /* EventHandler.swift */,
 			);
-			name = "Reusable Tools";
+			name = Types;
 			sourceTree = "<group>";
 		};
 		79833B4420114442005C6CC5 /* OutletProvider */ = {
@@ -1394,6 +1398,7 @@
 				79795CD520E51FF80063319B /* ShopList+CoreDataClass.swift in Sources */,
 				790B7DB120835D8C003DD560 /* Styles.swift in Sources */,
 				790B7DB220835D8C003DD560 /* ShopItemCell.swift in Sources */,
+				9F494C492158FE23002438E9 /* EventHandler.swift in Sources */,
 				799029882095F0F200085F72 /* ItemListAdapter.swift in Sources */,
 				790B7DB320835D8C003DD560 /* CircleIndicatorView.swift in Sources */,
 				790B7DB420835D8C003DD560 /* UITableView+Extensions.swift in Sources */,
@@ -1493,6 +1498,7 @@
 				79795CD420E51FF80063319B /* ShopList+CoreDataClass.swift in Sources */,
 				790B7D2C207A6000003DD560 /* Styles.swift in Sources */,
 				792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */,
+				9F494C482158FE23002438E9 /* EventHandler.swift in Sources */,
 				799029872095F0F200085F72 /* ItemListAdapter.swift in Sources */,
 				792102912055778900C83706 /* CircleIndicatorView.swift in Sources */,
 				790B7D36207FDA09003DD560 /* UITableView+Extensions.swift in Sources */,

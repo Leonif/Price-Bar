@@ -71,6 +71,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.setupGestures()
         self.setupTotalView()
         self.setupAdapter()
+        self.adapterBinding()
     }
     
     // MARK: - Presenter events
@@ -121,23 +122,24 @@ class ShopListController: UIViewController, ShoplistView {
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         self.adapter.tableView = self.shopTableView
         
-        self.adapter.onCellDidSelected = { [weak self] item in
-            guard let `self` = self else { return }
-            self.presenter.onOpenItemCard(for: item)
+
+    }
+  
+  
+    func adapterBinding() {
+      self.adapter.eventHandler = { [weak self] (event) in
+        guard let `self` = self else { return }
+        switch event {
+        case let .onCellDidSelected(item):
+          self.presenter.onOpenItemCard(for: item)
+        case let .onCompareDidSelected(item):
+          self.presenter.onOpenUpdatePrice(for: item.productId)
+        case let.onRemoveItem(itemId):
+          self.presenter.onRemoveItem(productId: itemId)
+        case let .onQuantityChange(productId):
+          self.presenter.onQuantityChanged(productId: productId)
         }
-        
-        self.adapter.onQuantityChange = { [weak self] productId in
-            self?.presenter.onQuantityChanged(productId: productId)
-        }
-        
-        self.adapter.onCompareDidSelected = { [weak self] item in
-            guard let `self` = self else { return }
-            self.presenter.onOpenUpdatePrice(for: item.productId)
-        }
-        self.adapter.onRemoveItem = { [weak self] itemId in
-            guard let `self` = self else { return }
-            self.presenter.onRemoveItem(productId: itemId)
-        }
+      }
     }
     
     // MARK: - Setup functions

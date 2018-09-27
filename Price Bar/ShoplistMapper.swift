@@ -14,6 +14,9 @@ class ShoplistMapper {
     
     func transform(input: [ShoplistViewItem], categoryList: [String]) -> [ShoplistDataSource] {
         var output: [ShoplistDataSource] = []
+        
+        output.append(.notes(title: "Список покупок", elements: [NoteViewItem(note: "Картошка")]))
+        
         for category in categoryList {
             let items = input.filter { $0.productCategory == category }
             
@@ -23,7 +26,7 @@ class ShoplistMapper {
         }
         
         
-        output.append(.notes(title: "Список покупок", elements: [NoteViewItem(note: "Картошка")]))
+        
         
         return output
     }

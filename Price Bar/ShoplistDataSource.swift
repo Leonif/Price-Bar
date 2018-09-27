@@ -43,11 +43,7 @@ class ShoplistDatasourceManager {
     func getItem<T>(for indexPath: IndexPath) -> T? {
         return self.dataSource[indexPath.section].getItem(for: indexPath.row)
     }
-    
-//    func getItem<T>(indexPath: IndexPath) -> T {
-//        return dataSource[indexPath.section].getItem(for: indexPath.row)
-//    }
-    
+
     func removeElement(with indexPath: IndexPath) {
         dataSource[indexPath.section].remove(index: indexPath.row)
         self.remove(indexPath.section)
@@ -76,8 +72,9 @@ enum ShoplistDataSource {
     
     func getHeaderTitle() -> String {
         switch self {
-        case let .products(data): return data.title
-        case let .notes(data):    return data.title
+        case let .products(title, _),
+             let .notes(title, _):
+            return title
         }
     }
     

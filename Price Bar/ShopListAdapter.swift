@@ -26,7 +26,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     private var onWeightDemand: ((ShopItemCell) -> Void)?
     
     func remove(indexPath: IndexPath) {
-        let item: ShoplistViewItem = dataSourceManager.getItem(for: indexPath)
+        let item: ShoplistViewItem = dataSourceManager.getItem(for: indexPath)!
         self.eventHandler?(.onRemoveItem(item.productId))
         self.dataSourceManager.removeElement(with: indexPath)
         self.tableView.deleteRows(at: [indexPath], with: .fade)
@@ -41,18 +41,14 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        
-        
         if let shp: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath) {
             let cell: ShopItemCell = tableView.dequeueReusableCell(for: indexPath)
             
             cell.configure(shp)
             
             let elementsInSection = dataSourceManager.getElementsCount(for: indexPath.section)
-            
-            cell.configureBorder(for: indexPath, elementsInSection: elementsInSection)
-            
+            cell.configureBorder(for: indexPath,
+                                 elementsInSection: elementsInSection)
             
             cell.onWeightDemand = { [weak self] cell in
                 guard let `self` = self else { return }
@@ -89,7 +85,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 // MARK: -  Delegate
 extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
+        let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)!
         self.eventHandler?(.onCellDidSelected(item))
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

@@ -29,6 +29,8 @@ class ShopListController: UIViewController, ShoplistView {
     @IBOutlet weak var wholeViewArea: UIView!
     @IBOutlet weak var buttonsView: UIView!
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
+    @IBOutlet weak var leftTotalConstrait: NSLayoutConstraint!
+    var animator: SwipeAnimator!
     
     var navigationView: NavigationView!
 
@@ -68,7 +70,7 @@ class ShopListController: UIViewController, ShoplistView {
         // MARK: - Setup UI
         self.setupNavigation()
         grayBorderedRoundedWithShadow(self.buttonsView)
-        self.setupGestures()
+        self.setupAnimator()
         self.setupTotalView()
         self.setupAdapter()
         self.adapterBinding()
@@ -95,7 +97,6 @@ class ShopListController: UIViewController, ShoplistView {
             self?.navigationView.outletAddress.text = outlet.address
         }
         self.buttonEnable(true)
-        
     }
 
     func startIsCompleted() {
@@ -107,8 +108,15 @@ class ShopListController: UIViewController, ShoplistView {
         self.buttonEnable(false)
     }
     
+    func setupAnimator() {
+        animator = SwipeAnimator(swipeViewArea: wholeViewArea)
+        animator.appendAnimated(constraints: [leftTotalConstrait, rightButtonConstrait])
+        animator.onAnimated = { hide in
+            [self.scanButton, self.itemListButton].forEach { $0.setEnable(hide) }
+        }
+    }
+    
     func setupAdapter() {
-        
         self.shopTableView.delegate = self.adapter
         self.shopTableView.dataSource = self.adapter
         
@@ -122,10 +130,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         self.adapter.tableView = self.shopTableView
-        
-
     }
-  
   
     func adapterBinding() {
       self.adapter.eventHandler = { [weak self] (event) in
@@ -161,16 +166,6 @@ class ShopListController: UIViewController, ShoplistView {
         PriceBarStyles.grayBorderedRounded.apply(to: self.totalView)
     }
     
-    func setupGestures() {
-        let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
-        rightSwipe.direction = .right
-        wholeViewArea.addGestureRecognizer(rightSwipe)
-        
-        let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
-        leftSwipe.direction = .left
-        wholeViewArea.addGestureRecognizer(leftSwipe)
-    }
-    
     // MARK: - Syncing ...
     private func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async { [weak self] in
@@ -201,41 +196,10 @@ class ShopListController: UIViewController, ShoplistView {
 
     @objc
     func cleanShoplist() {
-        self.alert(message: R.string.localizable.shoplist_clean(), okAction: { [weak self] in
-            guard let `self` = self else { return }
-            self.presenter.onCleanShopList()
+        self.alert(message: R.string.localizable.shoplist_clean(),
+                   okAction: { [weak self] in
+                    guard let `self` = self else { return }
+                    self.presenter.onCleanShopList()
             }, cancelAction: {})
-    }
-}
-
-// FIXME: - move to Animator
-extension ShopListController {
-    @objc
-    func hideButtons(gesture: UIGestureRecognizer) {
-        guard let swipeGesture = gesture as? UISwipeGestureRecognizer else {
-            return
-        }
-        switch swipeGesture.direction {
-        case .right:
-            self.shiftButton(hide: buttonsHided)
-        case .left:
-            self.shiftButton(hide: buttonsHided)
-        default:
-            print("other swipes")
-        }
-    }
-    
-    func shiftButton(hide: Bool) {
-        let shiftOfDirection: CGFloat = hide ? -1 : 1
-        buttonsHided.toggle()
-        [scanButton, itemListButton].forEach { $0.setEnable(hide) }
-        let newConst: CGFloat = rightButtonConstrait.constant - shiftOfDirection * 100
-        self.rightButtonConstrait.constant = newConst
-        UIView.animate(withDuration: 0.3,
-                       delay: 0,
-                       usingSpringWithDamping: 0.5,
-                       initialSpringVelocity: 0.5,
-                       options: .curveEaseIn,
-                       animations: { [weak self] in self?.view.layoutIfNeeded() })
     }
 }

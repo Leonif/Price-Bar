@@ -123,6 +123,8 @@
 		7927673B215ACA380088098C /* NoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79276737215ACA380088098C /* NoteCell.xib */; };
 		7927673F215BF4360088098C /* NoteViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7927673E215BF4360088098C /* NoteViewItem.swift */; };
 		79276740215BF4360088098C /* NoteViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7927673E215BF4360088098C /* NoteViewItem.swift */; };
+		79276742215D57750088098C /* SwipeAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79276741215D57750088098C /* SwipeAnimator.swift */; };
+		79276743215D57750088098C /* SwipeAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79276741215D57750088098C /* SwipeAnimator.swift */; };
 		792EE7AD1EE7075200470669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7AC1EE7075200470669 /* Assets.xcassets */; };
 		792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B01EE707E700470669 /* LaunchScreen.storyboard */; };
 		792EE7B51EE707E700470669 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B21EE707E700470669 /* Main.storyboard */; };
@@ -300,6 +302,7 @@
 		79276736215ACA380088098C /* NoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteCell.swift; sourceTree = "<group>"; };
 		79276737215ACA380088098C /* NoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoteCell.xib; sourceTree = "<group>"; };
 		7927673E215BF4360088098C /* NoteViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteViewItem.swift; sourceTree = "<group>"; };
+		79276741215D57750088098C /* SwipeAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAnimator.swift; sourceTree = "<group>"; };
 		792EE7801EE48CD500470669 /* PriceBar Prod.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PriceBar Prod.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		792EE7AC1EE7075200470669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PriceBar/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		792EE7AE1EE7076600470669 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PriceBar/Info.plist; sourceTree = SOURCE_ROOT; };
@@ -522,6 +525,7 @@
 		790BC9E71F8831FB00CA9519 /* ShopListFlow */ = {
 			isa = PBXGroup;
 			children = (
+				7983252621501BA500D57CC7 /* ShoplistMapper.swift */,
 				79449A9A20D3F73400E28C68 /* ShopListAssembler.swift */,
 				790B7D502081C24B003DD560 /* ShoplistRouter.swift */,
 				79DC99F12044B40000D35D1C /* Presenter */,
@@ -584,6 +588,7 @@
 				793368681FFF6F5600E8E81A /* ShopListAdapter.swift */,
 				798325292150239200D57CC7 /* ShoplistDataSource.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
+				79276741215D57750088098C /* SwipeAnimator.swift */,
 				790B7D0B20790310003DD560 /* Cell */,
 				790B7D0C20790319003DD560 /* Header */,
 			);
@@ -993,7 +998,6 @@
 			isa = PBXGroup;
 			children = (
 				79DC99EF2044B3F600D35D1C /* ShoplistPresenterImpl.swift */,
-				7983252621501BA500D57CC7 /* ShoplistMapper.swift */,
 			);
 			name = Presenter;
 			sourceTree = "<group>";
@@ -1457,6 +1461,7 @@
 				790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */,
 				795EED4C21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */,
 				790B7DC920835D8C003DD560 /* QuantityPickerPopup.swift in Sources */,
+				79276743215D57750088098C /* SwipeAnimator.swift in Sources */,
 				790B7DCA20835D8C003DD560 /* QuantityEntity.swift in Sources */,
 				790B7DCB20835D8C003DD560 /* NavigationView.swift in Sources */,
 				790B7DCC20835D8C003DD560 /* UIColors+Extensions.swift in Sources */,
@@ -1559,6 +1564,7 @@
 				790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */,
 				795EED4B21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */,
 				790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */,
+				79276742215D57750088098C /* SwipeAnimator.swift in Sources */,
 				7933686D20012F1A00E8E81A /* QuantityEntity.swift in Sources */,
 				790B7D09207902EF003DD560 /* NavigationView.swift in Sources */,
 				7975D63620714224003A6288 /* UIColors+Extensions.swift in Sources */,

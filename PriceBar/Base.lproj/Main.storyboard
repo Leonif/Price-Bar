@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -50,7 +49,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDL-yZ-UMV">
-                                                <rect key="frame" x="25" y="32" width="30" height="30"/>
+                                                <rect key="frame" x="25" y="32.5" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="30" id="OLV-jQ-sdF"/>
                                                     <constraint firstAttribute="height" constant="30" id="UNS-T3-zH2"/>
@@ -307,7 +306,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N6h-gF-wGz">
-                                                <rect key="frame" x="25" y="32" width="30" height="30"/>
+                                                <rect key="frame" x="25" y="32.5" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="4XB-Ic-MID"/>
                                                     <constraint firstAttribute="width" constant="30" id="sex-jb-HAj"/>
@@ -490,6 +489,7 @@
                     <connections>
                         <outlet property="buttonsView" destination="61o-de-Tit" id="hHW-YS-ZI2"/>
                         <outlet property="itemListButton" destination="bBr-mn-h0O" id="iDV-wN-Ve3"/>
+                        <outlet property="leftTotalConstrait" destination="idk-nW-Ovk" id="98N-lG-k4v"/>
                         <outlet property="rightButtonConstrait" destination="ltQ-ly-3bW" id="caQ-st-w3f"/>
                         <outlet property="rightButtonViewArea" destination="61o-de-Tit" id="a7Y-8K-Prg"/>
                         <outlet property="scanButton" destination="S1v-Mz-DlY" id="rup-3O-csY"/>
@@ -501,7 +501,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-810" y="360"/>
+            <point key="canvasLocation" x="-810.39999999999998" y="359.37031484257875"/>
         </scene>
         <!--Наведиите камеру на штрих-код-->
         <scene sceneID="TnZ-Zg-dgi">

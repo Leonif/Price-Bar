@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 protocol LocalStoreService {
     func saveToShopList(_ shopItem: ShoplistItemEntity)
     func removeFromShopList(with productId: String)

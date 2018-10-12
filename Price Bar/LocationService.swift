@@ -9,12 +9,9 @@
 import Foundation
 import MapKit
 
-
 enum LocationServiceError: Error {
     case servicesIsNotAvailable(String)
 }
-
-
 
 protocol LocationService {
     var onCoordinatesUpdated: (((lat: Double, lon: Double)) -> Void)? { get set }
@@ -22,7 +19,6 @@ protocol LocationService {
     var onStatusChanged: ((Bool)-> Void)? { get set }
     func getCoords()
 }
-
 
 class LocationServiceImpl: NSObject, CLLocationManagerDelegate, LocationService {
    
@@ -40,7 +36,6 @@ class LocationServiceImpl: NSObject, CLLocationManagerDelegate, LocationService 
         super.init()
         locationManager.delegate = self
     }
-    
     
     public func getCoords() {
         self.accessStatus = CLLocationManager.authorizationStatus()

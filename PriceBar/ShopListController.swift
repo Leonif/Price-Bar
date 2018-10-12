@@ -16,6 +16,8 @@ protocol ShoplistView: BaseView {
     func startIsCompleted()
 }
 
+
+
 class ShopListController: UIViewController, ShoplistView {
 
     // MARK: IB Outlets

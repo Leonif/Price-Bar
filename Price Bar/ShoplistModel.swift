@@ -18,31 +18,39 @@ protocol ShoplistModel {
 }
 
 class ShoplistModelImpl: ShoplistModel {
+    
+    private var localStoreService: LocalStoreService!
+    
+    init(localStoreService: LocalStoreService) {
+        self.localStoreService = localStoreService
+    }
+    
     func clearShoplist() {
-        CoreDataService.data.removeAll(from: "ShopList")
+        self.localStoreService.removeAll(from: "ShopList")
     }
     func getProductQuantity(productId: String) -> Double {
-        return CoreDataService.data.getQuantityOfProduct(productId: productId)
+        return self.localStoreService.getQuantityOfProduct(productId: productId)
     }
     func remove(itemId: String) {
-        CoreDataService.data.removeFromShopList(with: itemId)
+        self.localStoreService.removeFromShopList(with: itemId)
     }
     func changeShoplistItem( _ quantity: Double, for productId: String) {
-        CoreDataService.data.changeShoplistItem(quantity, for: productId)
+        localStoreService.changeShoplistItem(quantity, for: productId)
     }
     
     func saveToShopList(new item: ShoplistViewItem, completion: @escaping (ResultType<Bool, ProductModelError>) -> Void) {
-        guard let shoplist = CoreDataService.data.loadShopList() else { fatalError() }
+        guard let shoplist = self.localStoreService.loadShopList() else { fatalError() }
+        
         if shoplist.contains(where: { $0.productId == item.productId }) {
             completion(ResultType.failure(ProductModelError.alreadyAdded(R.string.localizable.common_already_in_list())))
             return
         }
-        CoreDataService.data.saveToShopList(ShoplistItemEntity(productId: item.productId, quantity: item.quantity))
+        self.localStoreService.saveToShopList(ShoplistItemEntity(productId: item.productId, quantity: item.quantity))
         completion(ResultType.success(true))
     }
 
     func loadShopList(completion: ([ShoplistItemEntity]) -> Void) {
-        guard let items = CoreDataService.data.loadShopList() else {
+        guard let items = self.localStoreService.loadShopList() else {
             return
         }
         completion(items)

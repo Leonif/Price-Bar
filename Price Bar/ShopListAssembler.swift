@@ -20,7 +20,8 @@ class ShopListAssembler {
         
         let presenter = ShoplistPresenterImpl()
         let productModel = ProductModelImpl()
-        let shoplistModel = ShoplistModelImpl()
+        let localStoreService = CoreDataServiceImpl()
+        let shoplistModel = ShoplistModelImpl(localStoreService: localStoreService)
         let mapper = ShoplistMapper()
         
         presenter.productModel = productModel

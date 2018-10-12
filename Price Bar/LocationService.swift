@@ -12,8 +12,6 @@ import MapKit
 
 enum LocationServiceError: Error {
     case servicesIsNotAvailable(String)
-    
-    
 }
 
 
@@ -22,7 +20,6 @@ protocol LocationService {
     var onCoordinatesUpdated: (((lat: Double, lon: Double)) -> Void)? { get set }
     var onError: ((LocationServiceError) -> Void)? { get set }
     var onStatusChanged: ((Bool)-> Void)? { get set }
-    
     func getCoords()
 }
 

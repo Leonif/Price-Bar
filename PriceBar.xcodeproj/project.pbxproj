@@ -92,7 +92,6 @@
 		790B7DDF20835D8C003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */; };
 		790B7DE020835D8C003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D49207FF707003DD560 /* YanoneKaffeesatz-Bold.ttf */; };
 		790B7DE120835D8C003DD560 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */; };
-		790B7DE220835D8C003DD560 /* robaga-rounded.regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */; };
 		790B7DE320835D8C003DD560 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B01EE707E700470669 /* LaunchScreen.storyboard */; };
 		790B7DE420835D8C003DD560 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B61EE707F000470669 /* HeaderView.xib */; };
 		790B7DE520835D8C003DD560 /* PriceStatisticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B870206C17F800D80EA5 /* PriceStatisticCell.xib */; };
@@ -105,7 +104,6 @@
 		790B7DEC20835D8C003DD560 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7AC1EE7075200470669 /* Assets.xcassets */; };
 		790B7DEE20835D8C003DD560 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B21EE707E700470669 /* Main.storyboard */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
-		79142FFB2072DB69003293D5 /* robaga-rounded.regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */; };
 		791430002072DE9E003293D5 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */; };
 		792102912055778900C83706 /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102902055778900C83706 /* CircleIndicatorView.swift */; };
 		7921029320557D0E00C83706 /* CloudStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* CloudStatisticsVC.swift */; };
@@ -285,7 +283,6 @@
 		790B7DF520835D8C003DD560 /* PriceBar Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PriceBar Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		790B7DF620835D8D003DD560 /* PriceBar copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBar copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBar copy-Info.plist"; sourceTree = "<absolute>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
-		79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "robaga-rounded.regular.otf"; path = "../robaga-rounded.regular.otf"; sourceTree = "<group>"; };
 		79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Robaga Rounded Bold.otf"; sourceTree = "<group>"; };
 		792102902055778900C83706 /* CircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleIndicatorView.swift; sourceTree = "<group>"; };
 		7921029220557D0E00C83706 /* CloudStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsVC.swift; sourceTree = "<group>"; };
@@ -300,8 +297,8 @@
 		792EE7B31EE707E700470669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PriceBar/Base.lproj/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		792EE7B61EE707F000470669 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderView.xib; path = PriceBar/HeaderView.xib; sourceTree = SOURCE_ROOT; };
 		792EE7B81EE7080400470669 /* ProductModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductModel.swift; path = PriceBar/ProductModel.swift; sourceTree = SOURCE_ROOT; };
-		792EE7BA1EE7080F00470669 /* ShopItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopItemCell.swift; path = PriceBar/ShopItemCell.swift; sourceTree = SOURCE_ROOT; };
-		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "Price Bar/AppDelegate.swift"; sourceTree = SOURCE_ROOT; };
+		792EE7BA1EE7080F00470669 /* ShopItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopItemCell.swift; path = PriceBar/PresentationLayer/UserStory/ShopListFlow/View/Cell/ShopItemCell.swift; sourceTree = SOURCE_ROOT; };
+		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PriceBar/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C31EE7085500470669 /* ShopListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListController.swift; path = PriceBar/ShopListController.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
 		793368631FFE260F00E8E81A /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
@@ -334,7 +331,7 @@
 		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
 		7975D63520714224003A6288 /* UIColors+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColors+Extensions.swift"; sourceTree = "<group>"; };
 		7975D63B20715062003A6288 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
-		7976A6F920219AD20031CC79 /* FirebaseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseParser.swift; sourceTree = "<group>"; };
+		7976A6F920219AD20031CC79 /* FirebaseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseParser.swift; path = FoursqareProvider/FirebaseParser.swift; sourceTree = "<group>"; };
 		79795CC320DF6E4D0063319B /* ItemListAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListAssembler.swift; sourceTree = "<group>"; };
 		79795CC620DFD8CE0063319B /* ItemCardAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardAssembler.swift; sourceTree = "<group>"; };
 		79795CC920DFDB790063319B /* ItemCardPresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardPresenterImpl.swift; sourceTree = "<group>"; };
@@ -452,7 +449,7 @@
 				790B7D06207901F8003DD560 /* navigationView.xib */,
 				790B7D08207902EF003DD560 /* NavigationView.swift */,
 			);
-			name = NavigationBarView;
+			path = NavigationBarView;
 			sourceTree = "<group>";
 		};
 		790B7D0B20790310003DD560 /* Cell */ = {
@@ -461,7 +458,7 @@
 				792EE7BA1EE7080F00470669 /* ShopItemCell.swift */,
 				79F68451206801D200257F00 /* ShopItemCell.xib */,
 			);
-			name = Cell;
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		790B7D0C20790319003DD560 /* Header */ = {
@@ -501,7 +498,7 @@
 				790BC9E91F88326E00CA9519 /* OutletFlow */,
 				792EE7B01EE707E700470669 /* LaunchScreen.storyboard */,
 			);
-			name = UserStory;
+			path = UserStory;
 			sourceTree = "<group>";
 		};
 		790B7D542081CB16003DD560 /* View */ = {
@@ -522,7 +519,7 @@
 				790BC9EF1F88342100CA9519 /* Entities */,
 				790BC9EE1F88341200CA9519 /* View */,
 			);
-			name = ShopListFlow;
+			path = ShopListFlow;
 			sourceTree = "<group>";
 		};
 		790BC9E81F88322400CA9519 /* Services */ = {
@@ -535,7 +532,7 @@
 				79D12F2E201683FD00302AF9 /* FoursqareProvider */,
 				790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */,
 			);
-			name = Services;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		790BC9E91F88326E00CA9519 /* OutletFlow */ = {
@@ -569,7 +566,7 @@
 				792EE7AC1EE7075200470669 /* Assets.xcassets */,
 				7975D63B20715062003A6288 /* R.generated.swift */,
 			);
-			name = "Supported Files";
+			path = "Supported Files";
 			sourceTree = "<group>";
 		};
 		790BC9EE1F88341200CA9519 /* View */ = {
@@ -582,7 +579,7 @@
 				790B7D0B20790310003DD560 /* Cell */,
 				790B7D0C20790319003DD560 /* Header */,
 			);
-			name = View;
+			path = View;
 			sourceTree = "<group>";
 		};
 		790BC9EF1F88342100CA9519 /* Entities */ = {
@@ -591,7 +588,7 @@
 				7933686C20012F1A00E8E81A /* QuantityEntity.swift */,
 				794658A120697E45007B4397 /* StatisticModel.swift */,
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		79142FFC2072DD83003293D5 /* Fonts */ = {
@@ -604,9 +601,8 @@
 				790B7D4A207FF707003DD560 /* YanoneKaffeesatz-Light.ttf */,
 				790B7D4B207FF708003DD560 /* YanoneKaffeesatz-Regular.ttf */,
 				79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */,
-				79142FFA2072DB69003293D5 /* robaga-rounded.regular.otf */,
 			);
-			name = Fonts;
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		79210296205C69B400C83706 /* CloudStatisticFlow */ = {
@@ -624,7 +620,7 @@
 			children = (
 				790B7D4F2081C219003DD560 /* UserStory */,
 			);
-			name = PresentationLayer;
+			path = PresentationLayer;
 			sourceTree = "<group>";
 		};
 		792132F421287BB60044908C /* ModelLayer */ = {
@@ -636,7 +632,7 @@
 				79EC96432131531600F8EC69 /* ProductModel */,
 				792132F5212F4D5C0044908C /* ShoplistModel.swift */,
 			);
-			name = ModelLayer;
+			path = ModelLayer;
 			sourceTree = "<group>";
 		};
 		792EE7771EE48CD500470669 = {
@@ -673,8 +669,7 @@
 				790BC9E81F88322400CA9519 /* Services */,
 				790BC9EB1F88334800CA9519 /* Supported Files */,
 			);
-			name = PriceBar;
-			path = "Price Bar";
+			path = PriceBar;
 			sourceTree = "<group>";
 		};
 		792EE79D1EE5069300470669 /* Extensions */ = {
@@ -729,7 +724,7 @@
 				79833B512013E73D005C6CC5 /* Entities */,
 				79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodel */,
 			);
-			name = LocalStoreService;
+			path = LocalStoreService;
 			sourceTree = "<group>";
 		};
 		795EA8D11F102A9200752A68 /* FirebaseProvider */ = {
@@ -739,7 +734,7 @@
 				795EA8D21F102AAB00752A68 /* FirebaseService.swift */,
 				7976A6F920219AD20031CC79 /* FirebaseParser.swift */,
 			);
-			name = FirebaseProvider;
+			path = FirebaseProvider;
 			sourceTree = "<group>";
 		};
 		796D7B1E201A485E0098D324 /* Mappers */ = {
@@ -793,7 +788,7 @@
 				79E9B874206C228700D80EA5 /* PriceStatisticViewItem.swift */,
 				79833B4F2013AC49005C6CC5 /* ShoplistViewItem.swift */,
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		79833B3B200E7E81005C6CC5 /* Entities */ = {
@@ -873,7 +868,7 @@
 				79883BCA20147E2D009CBEF0 /* PriceItemEntity.swift */,
 				792132F8212F5C290044908C /* CategoryEntity.swift */,
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		79833B512013E73D005C6CC5 /* Entities */ = {
@@ -929,7 +924,7 @@
 				79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */,
 				79E9B882206FC26200D80EA5 /* Target.swift */,
 			);
-			name = FoursqareProvider;
+			path = FoursqareProvider;
 			sourceTree = "<group>";
 		};
 		79D12F2F2016841300302AF9 /* Entities */ = {
@@ -937,7 +932,7 @@
 			children = (
 				79D12F2C201683F600302AF9 /* FQOutletModel.swift */,
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		79D12F342016EF7F00302AF9 /* Entities */ = {
@@ -962,7 +957,7 @@
 				79142FFC2072DD83003293D5 /* Fonts */,
 				79DC99ED204345AC00D35D1C /* Localizable.strings */,
 			);
-			name = Sources;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		79DC99F12044B40000D35D1C /* Presenter */ = {
@@ -971,7 +966,7 @@
 				79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */,
 				7983252621501BA500D57CC7 /* ShoplistMapper.swift */,
 			);
-			name = Presenter;
+			path = Presenter;
 			sourceTree = "<group>";
 		};
 		79E9B878206ED80900D80EA5 /* View */ = {
@@ -1144,7 +1139,6 @@
 				790B7DDF20835D8C003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */,
 				790B7DE020835D8C003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */,
 				790B7DE120835D8C003DD560 /* Robaga Rounded Bold.otf in Resources */,
-				790B7DE220835D8C003DD560 /* robaga-rounded.regular.otf in Resources */,
 				790B7DE320835D8C003DD560 /* LaunchScreen.storyboard in Resources */,
 				7990297B2087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */,
 				790B7DE420835D8C003DD560 /* HeaderView.xib in Resources */,
@@ -1170,7 +1164,6 @@
 				790B7D4E207FFCE6003DD560 /* YanoneKaffeesatz-Regular.ttf in Resources */,
 				790B7D4D207FFCDD003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */,
 				791430002072DE9E003293D5 /* Robaga Rounded Bold.otf in Resources */,
-				79142FFB2072DB69003293D5 /* robaga-rounded.regular.otf in Resources */,
 				792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */,
 				7990297A2087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */,
 				792EE7B71EE707F000470669 /* HeaderView.xib in Resources */,

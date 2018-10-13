@@ -554,7 +554,7 @@
 				79833B4120114354005C6CC5 /* Entities */,
 				79833B3F2011433B005C6CC5 /* View */,
 			);
-			name = ItemListFlow;
+			path = ItemListFlow;
 			sourceTree = "<group>";
 		};
 		790BC9EB1F88334800CA9519 /* Supported Files */ = {

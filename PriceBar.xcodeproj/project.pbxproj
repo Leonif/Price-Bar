@@ -314,7 +314,7 @@
 		795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FoundationTypes+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodTextField.swift; sourceTree = SOURCE_ROOT; };
 		795EA8CA1F10004400752A68 /* GoodButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoodButton.swift; sourceTree = SOURCE_ROOT; };
-		795EA8D21F102AAB00752A68 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = SOURCE_ROOT; };
+		795EA8D21F102AAB00752A68 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseService.swift; path = PriceBar/Services/FirebaseProvider/FirebaseService.swift; sourceTree = SOURCE_ROOT; };
 		795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		795EED4A21202BC30052B4A5 /* FoursqareOutletModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareOutletModelImpl.swift; sourceTree = "<group>"; };
 		795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesOutletModelImpl.swift; sourceTree = "<group>"; };
@@ -331,7 +331,7 @@
 		7973DD8A1EF1B16C0010A64F /* OutletCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutletCell.swift; sourceTree = SOURCE_ROOT; };
 		7975D63520714224003A6288 /* UIColors+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColors+Extensions.swift"; sourceTree = "<group>"; };
 		7975D63B20715062003A6288 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = R.generated.swift; path = ../R.generated.swift; sourceTree = "<group>"; };
-		7976A6F920219AD20031CC79 /* FirebaseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FirebaseParser.swift; path = FoursqareProvider/FirebaseParser.swift; sourceTree = "<group>"; };
+		7976A6F920219AD20031CC79 /* FirebaseParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseParser.swift; sourceTree = "<group>"; };
 		79795CC320DF6E4D0063319B /* ItemListAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListAssembler.swift; sourceTree = "<group>"; };
 		79795CC620DFD8CE0063319B /* ItemCardAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardAssembler.swift; sourceTree = "<group>"; };
 		79795CC920DFDB790063319B /* ItemCardPresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardPresenterImpl.swift; sourceTree = "<group>"; };
@@ -828,7 +828,7 @@
 			children = (
 				796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */,
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		79833B432011440C005C6CC5 /* Types */ = {
@@ -846,11 +846,10 @@
 		79833B4420114442005C6CC5 /* OutletProvider */ = {
 			isa = PBXGroup;
 			children = (
-				79D12F342016EF7F00302AF9 /* Entities */,
 				795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */,
 				795EED4A21202BC30052B4A5 /* FoursqareOutletModelImpl.swift */,
 			);
-			name = OutletProvider;
+			path = OutletProvider;
 			sourceTree = "<group>";
 		};
 		79833B4520114456005C6CC5 /* LocationProvider */ = {
@@ -858,7 +857,7 @@
 			children = (
 				792132F1212877540044908C /* LocationService.swift */,
 			);
-			name = LocationProvider;
+			path = LocationProvider;
 			sourceTree = "<group>";
 		};
 		79833B4920130F32005C6CC5 /* Entities */ = {
@@ -876,7 +875,7 @@
 			children = (
 				79833B522013E872005C6CC5 /* ShoplistItemEntity.swift */,
 			);
-			name = Entities;
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		799029842095EDA400085F72 /* ItemListCell */ = {
@@ -903,7 +902,7 @@
 				79795CD220E51FF80063319B /* ShopList+CoreDataClass.swift */,
 				79795CD320E51FF80063319B /* ShopList+CoreDataProperties.swift */,
 			);
-			name = gen;
+			path = gen;
 			sourceTree = "<group>";
 		};
 		79C4EA5620DD8084006866F9 /* adapter */ = {
@@ -933,13 +932,6 @@
 				79D12F2C201683F600302AF9 /* FQOutletModel.swift */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		79D12F342016EF7F00302AF9 /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Entities;
 			sourceTree = "<group>";
 		};
 		79D8E5EB209854C700C182DA /* IssueVC */ = {

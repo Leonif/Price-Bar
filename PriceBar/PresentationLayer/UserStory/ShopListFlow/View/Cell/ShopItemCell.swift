@@ -98,3 +98,7 @@ class ShopItemCell: UITableViewCell, NibLoadableReusable {
         self.onWeightDemand?(self)
     }
 }
+
+
+
+

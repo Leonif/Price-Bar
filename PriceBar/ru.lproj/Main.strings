@@ -1,0 +1,48 @@
+
+/* Class = "UILabel"; text = "Статистика цен"; ObjectID = "3EO-34-3PP"; */
+"3EO-34-3PP.text" = "Статистика цен";
+
+/* Class = "UITextField"; placeholder = "100 г"; ObjectID = "6vj-HT-noF"; */
+"6vj-HT-noF.placeholder" = "100 г";
+
+/* Class = "UIViewController"; title = "Список товаров"; ObjectID = "Aph-JN-BT7"; */
+"Aph-JN-BT7.title" = "Список товаров";
+
+/* Class = "UIViewController"; title = "Торговые точки"; ObjectID = "CgW-nK-NrY"; */
+"CgW-nK-NrY.title" = "Торговые точки";
+
+/* Class = "UIButton"; normalTitle = "Сохранить"; ObjectID = "O6i-Tb-4bv"; */
+"O6i-Tb-4bv.normalTitle" = "Сохранить";
+
+/* Class = "UIButton"; normalTitle = "Неопредленно"; ObjectID = "ZPK-Cd-Pd5"; */
+"ZPK-Cd-Pd5.normalTitle" = "Неопредленно";
+
+/* Class = "UILabel"; text = "Loading ..."; ObjectID = "j1K-kf-qDA"; */
+"j1K-kf-qDA.text" = "Loading ...";
+
+/* Class = "UITextField"; text = "0.0"; ObjectID = "jge-D7-Rtk"; */
+"jge-D7-Rtk.text" = "0.0";
+
+/* Class = "UILabel"; text = "Loading ..."; ObjectID = "mnd-wS-7LD"; */
+"mnd-wS-7LD.text" = "Loading ...";
+
+/* Class = "UILabel"; text = "Карточка товара"; ObjectID = "mtG-mv-fEt"; */
+"mtG-mv-fEt.text" = "Карточка товара";
+
+/* Class = "UIButton"; normalTitle = "Сохранить"; ObjectID = "q3B-XL-0Vp"; */
+"q3B-XL-0Vp.normalTitle" = "Сохранить";
+
+/* Class = "UIViewController"; title = "Наведиите камеру на штрих-код"; ObjectID = "rA1-Ob-kOe"; */
+"rA1-Ob-kOe.title" = "Наведиите камеру на штрих-код";
+
+/* Class = "UIButton"; normalTitle = "за 1 шт"; ObjectID = "ud4-J4-NXs"; */
+"ud4-J4-NXs.normalTitle" = "за 1 шт";
+
+/* Class = "UITextField"; placeholder = "Бренд"; ObjectID = "yKi-8m-zMD"; */
+"yKi-8m-zMD.placeholder" = "Бренд";
+
+/* Class = "UILabel"; text = "Итого: 0.00"; ObjectID = "yUL-id-lem"; */
+"yUL-id-lem.text" = "Итого: 0.00";
+
+/* Class = "UITextField"; placeholder = "Название товара"; ObjectID = "yqT-oJ-raM"; */
+"yqT-oJ-raM.placeholder" = "Название товара";

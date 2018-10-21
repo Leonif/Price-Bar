@@ -106,7 +106,6 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     @objc func close() {
         self.navigationController?.popViewController(animated: true)
     }
-    
 }
 
 extension ItemListVC: UISearchBarDelegate {

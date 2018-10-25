@@ -7,6 +7,7 @@
 "common_good_news" = "Good news: Products uploaded!!!🤘, but:";
 "sync_process" = "Loading products and prices from the cloud, please wait ...";
 "common_total" = "Total:";
+"common_clear" = "Clear";
 "shoplist_clean" = "Clean shop list? 🧐";
 "shop_list_quantity" = "Qty:";
 "outlet_loading" = "Loading outlets";

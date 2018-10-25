@@ -92,7 +92,6 @@
 		790B7DE020835D8C003DD560 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D49207FF707003DD560 /* YanoneKaffeesatz-Bold.ttf */; };
 		790B7DE120835D8C003DD560 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */; };
 		790B7DE320835D8C003DD560 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B01EE707E700470669 /* LaunchScreen.storyboard */; };
-		790B7DE420835D8C003DD560 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B61EE707F000470669 /* HeaderView.xib */; };
 		790B7DE620835D8C003DD560 /* ShopItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79F68451206801D200257F00 /* ShopItemCell.xib */; };
 		790B7DE720835D8C003DD560 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */; };
 		790B7DE820835D8C003DD560 /* navigationView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 790B7D06207901F8003DD560 /* navigationView.xib */; };
@@ -112,7 +111,6 @@
 		792132FA212F5C290044908C /* CategoryEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792132F8212F5C290044908C /* CategoryEntity.swift */; };
 		792EE7AD1EE7075200470669 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7AC1EE7075200470669 /* Assets.xcassets */; };
 		792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B01EE707E700470669 /* LaunchScreen.storyboard */; };
-		792EE7B71EE707F000470669 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 792EE7B61EE707F000470669 /* HeaderView.xib */; };
 		792EE7B91EE7080400470669 /* ProductModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7B81EE7080400470669 /* ProductModel.swift */; };
 		792EE7BB1EE7080F00470669 /* ShopItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7BA1EE7080F00470669 /* ShopItemCell.swift */; };
 		792EE7C41EE7085500470669 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C21EE7085500470669 /* AppDelegate.swift */; };
@@ -128,6 +126,8 @@
 		79449A9B20D3F73400E28C68 /* ShopListAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79449A9A20D3F73400E28C68 /* ShopListAssembler.swift */; };
 		79449A9C20D3F73400E28C68 /* ShopListAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79449A9A20D3F73400E28C68 /* ShopListAssembler.swift */; };
 		794658A220697E45007B4397 /* StatisticModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 794658A120697E45007B4397 /* StatisticModel.swift */; };
+		79486D9C2182558F0036ADDC /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79486D9B2182558F0036ADDC /* HeaderView.xib */; };
+		79486D9D2182558F0036ADDC /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79486D9B2182558F0036ADDC /* HeaderView.xib */; };
 		795EA8C61F0EC58F00752A68 /* FoundationTypes+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */; };
 		795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
 		795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CA1F10004400752A68 /* GoodButton.swift */; };
@@ -294,12 +294,11 @@
 		792EE7AC1EE7075200470669 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PriceBar/Assets.xcassets; sourceTree = SOURCE_ROOT; };
 		792EE7AE1EE7076600470669 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PriceBar/Info.plist; sourceTree = SOURCE_ROOT; };
 		792EE7B11EE707E700470669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PriceBar/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
-		792EE7B61EE707F000470669 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderView.xib; path = PriceBar/HeaderView.xib; sourceTree = SOURCE_ROOT; };
 		792EE7B81EE7080400470669 /* ProductModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductModel.swift; path = PriceBar/ModelLayer/ProductModel/ProductModel.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BA1EE7080F00470669 /* ShopItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopItemCell.swift; path = PriceBar/PresentationLayer/UserStory/ShopListFlow/View/Cell/ShopItemCell.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "PriceBar/Supported Files/AppDelegate.swift"; sourceTree = SOURCE_ROOT; };
-		792EE7C31EE7085500470669 /* ShopListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListController.swift; path = PriceBar/ShopListController.swift; sourceTree = SOURCE_ROOT; };
-		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/HeaderView.swift; sourceTree = SOURCE_ROOT; };
+		792EE7C31EE7085500470669 /* ShopListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListController.swift; path = PriceBar/PresentationLayer/UserStory/ShopListFlow/View/ShopListController.swift; sourceTree = SOURCE_ROOT; };
+		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/PresentationLayer/UserStory/ShopListFlow/View/Header/HeaderView.swift; sourceTree = SOURCE_ROOT; };
 		793368631FFE260F00E8E81A /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		793368661FFEAB3200E8E81A /* OutletViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletViewItem.swift; sourceTree = "<group>"; };
 		793368681FFF6F5600E8E81A /* ShopListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListAdapter.swift; sourceTree = "<group>"; };
@@ -310,6 +309,7 @@
 		79449A9720D280B200E28C68 /* ItemListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemListPresenter.swift; sourceTree = "<group>"; };
 		79449A9A20D3F73400E28C68 /* ShopListAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListAssembler.swift; sourceTree = "<group>"; };
 		794658A120697E45007B4397 /* StatisticModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticModel.swift; sourceTree = "<group>"; };
+		79486D9B2182558F0036ADDC /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
 		795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FoundationTypes+Extension.swift"; path = "PriceBar/PresentationLayer/Common/Extensions/FoundationTypes+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoodTextField.swift; path = PriceBar/PresentationLayer/Common/CustomControls/GoodTextField.swift; sourceTree = SOURCE_ROOT; };
 		795EA8CA1F10004400752A68 /* GoodButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoodButton.swift; path = PriceBar/PresentationLayer/Common/CustomControls/GoodButton.swift; sourceTree = SOURCE_ROOT; };
@@ -464,10 +464,10 @@
 		790B7D0C20790319003DD560 /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				79486D9B2182558F0036ADDC /* HeaderView.xib */,
 				792EE7C61EE7087200470669 /* HeaderView.swift */,
-				792EE7B61EE707F000470669 /* HeaderView.xib */,
 			);
-			name = Header;
+			path = Header;
 			sourceTree = "<group>";
 		};
 		790B7D31207BBC28003DD560 /* WeightPicker */ = {
@@ -685,8 +685,7 @@
 				790B7D3B207FEAE5003DD560 /* String+Extension.swift */,
 				7975D63520714224003A6288 /* UIColors+Extensions.swift */,
 			);
-			name = Extensions;
-			path = PresentationLayer/Common/Extensions;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		79388B211F532176008FD415 /* PriceBarTests */ = {
@@ -720,8 +719,7 @@
 				79833B3C200E812D005C6CC5 /* PickerControl.swift */,
 				790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */,
 			);
-			name = CustomControls;
-			path = PresentationLayer/Common/CustomControls;
+			path = CustomControls;
 			sourceTree = "<group>";
 		};
 		795EA8CE1F100C1C00752A68 /* LocalStoreService */ = {
@@ -770,8 +768,7 @@
 				7975D633207141FB003A6288 /* Styles */,
 				790B7D31207BBC28003DD560 /* WeightPicker */,
 			);
-			name = Common;
-			path = ..;
+			path = Common;
 			sourceTree = "<group>";
 		};
 		7975D63220713D48003A6288 /* View */ = {
@@ -978,6 +975,7 @@
 				79D8E5E6209854BD00C182DA /* IssueVC.xib */,
 			);
 			name = IssueVC;
+			path = ../UserStory/IssueVC;
 			sourceTree = "<group>";
 		};
 		79DC99E020433A9200D35D1C /* Sources */ = {
@@ -1170,7 +1168,6 @@
 				790B7DE120835D8C003DD560 /* Robaga Rounded Bold.otf in Resources */,
 				790B7DE320835D8C003DD560 /* LaunchScreen.storyboard in Resources */,
 				7990297B2087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */,
-				790B7DE420835D8C003DD560 /* HeaderView.xib in Resources */,
 				79BF1C2021767040002B0CBD /* Main.storyboard in Resources */,
 				79D8E5EA209854BD00C182DA /* IssueVC.xib in Resources */,
 				790B7DE620835D8C003DD560 /* ShopItemCell.xib in Resources */,
@@ -1181,6 +1178,7 @@
 				79BF1C4B217C7617002B0CBD /* Localizable.strings in Resources */,
 				790B7DEB20835D8C003DD560 /* AddCell.xib in Resources */,
 				79BF1C42217C6CE7002B0CBD /* PriceStatisticCell.xib in Resources */,
+				79486D9D2182558F0036ADDC /* HeaderView.xib in Resources */,
 				799029802094B24D00085F72 /* ItemListCell.xib in Resources */,
 				790B7DEC20835D8C003DD560 /* Assets.xcassets in Resources */,
 			);
@@ -1195,7 +1193,6 @@
 				791430002072DE9E003293D5 /* Robaga Rounded Bold.otf in Resources */,
 				792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */,
 				7990297A2087D4EA00085F72 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */,
-				792EE7B71EE707F000470669 /* HeaderView.xib in Resources */,
 				79BF1C1F21767040002B0CBD /* Main.storyboard in Resources */,
 				79D8E5E9209854BD00C182DA /* IssueVC.xib in Resources */,
 				79F68452206801D200257F00 /* ShopItemCell.xib in Resources */,
@@ -1206,6 +1203,7 @@
 				79BF1C4A217C7617002B0CBD /* Localizable.strings in Resources */,
 				796D7B28201BE4B10098D324 /* AddCell.xib in Resources */,
 				79BF1C41217C6CE7002B0CBD /* PriceStatisticCell.xib in Resources */,
+				79486D9C2182558F0036ADDC /* HeaderView.xib in Resources */,
 				7990297F2094B24D00085F72 /* ItemListCell.xib in Resources */,
 				792EE7AD1EE7075200470669 /* Assets.xcassets in Resources */,
 			);
@@ -1323,11 +1321,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
-				"${SRCROOT}/R.generated.swift",
+				"${SRCROOT}/PriceBar/Supported Files/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/PriceBar\"\n";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/PriceBar/Supported Files/\"\n";
 		};
 		B6C4C3A94B7785377B5846F0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

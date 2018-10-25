@@ -10,7 +10,6 @@
 import Foundation
 import CoreData
 
-
 extension ShopList {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ShopList> {

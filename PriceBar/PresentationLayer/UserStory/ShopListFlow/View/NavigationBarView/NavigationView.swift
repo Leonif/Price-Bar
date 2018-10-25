@@ -12,5 +12,5 @@ class NavigationView: UIView {
 
     @IBOutlet weak var outletName: UILabel!
     @IBOutlet weak var outletAddress: UILabel!
-    
+
 }

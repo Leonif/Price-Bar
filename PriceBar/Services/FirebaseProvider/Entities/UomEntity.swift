@@ -16,14 +16,14 @@ struct UomEntity {
     var koefficients: [Double]
     var suffixes: [String]
     var parameters: [ParameterEntity]
-    
+
     init(id: Int32 = -1,
          name: String = "No name",
          iterator: Double = -1,
          koefficients: [Double] = [],
          suffixes: [String] = [],
          parameters: [ParameterEntity] = []) {
-        
+
         self.id = id
         self.name = name
         self.iterator = iterator
@@ -31,8 +31,7 @@ struct UomEntity {
         self.suffixes = suffixes
         self.parameters = parameters
     }
-    
-    
+
 }
 
 struct ParameterEntity {
@@ -42,4 +41,3 @@ struct ParameterEntity {
     var viewMultiplicator: Double
     var divider: Double
 }
-

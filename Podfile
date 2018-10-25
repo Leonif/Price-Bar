@@ -8,6 +8,7 @@ def project_pods
     pod 'Firebase/Auth'
     pod 'R.swift'
     pod 'GooglePlaces'
+    pod 'SwiftLint'
 end
 
 target 'PriceBar Prod' do

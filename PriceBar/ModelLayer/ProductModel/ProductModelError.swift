@@ -14,7 +14,7 @@ enum ProductModelError: Error {
     case productIsNotFound(String)
     case statisticError(String)
     case other(String)
-    
+
     var errorDescription: String {
         switch self {
         case .syncError:

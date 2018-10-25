@@ -8,24 +8,21 @@
 
 import Foundation
 
-
-
 class ScannerAssembler {
-    
+
     func assemble(scannerOutput: ScannerOutput) -> BaseView {
-        
+
         let presenter = ScannerPresenterImpl()
         let view = R.storyboard.main.scannerController()!
         let scannerAdapter = ScannerAdapter()
-        
+
         view.presenter = presenter
         view.scannerAdapter = scannerAdapter
-        
-        
+
         presenter.view = view
         presenter.scannerOutput = scannerOutput
-        
+
         return view
-        
+
     }
 }

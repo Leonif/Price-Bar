@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol UpdatePriceOutput {
     func saved()
 }
@@ -20,11 +19,11 @@ protocol UpdatePricePresenter {
 }
 
 public final class UpdatePricePresenterImpl: UpdatePricePresenter {
-    
+
     var productModel: ProductModelImpl!
     weak var view: UpdatePriceView!
     var updatePriceOutput: UpdatePriceOutput!
-    
+
     func onGetProductInfo(for productId: String, and outletId: String) {
         self.view.showLoading(with: R.string.localizable.common_get_product_info())
         self.productModel.getItem(with: productId) { (dpProductEntity) in
@@ -36,7 +35,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
             self.productModel.getPrice(for: productId, and: outletId, completion: { (price) in
                 self.productModel.getUomName(for: dpProductEntity.uomId, completion: { (result) in
                     self.view.hideLoading()
-                    
+
                     switch result {
                     case let .success(uomName):
                         self.view.onGetProductInfo(price: price, name: dpProductEntity.fullName, uomName: uomName)
@@ -44,11 +43,11 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
                         self.view.onError(with: error.errorDescription)
                     }
                 })
-                
+
             })
         }
     }
-    
+
     func onSavePrice(for productId: String, for outletId: String, with newPrice: Double, and oldPrice: Double) {
         defer { self.view.close() }
         guard newPrice != oldPrice && newPrice != 0
@@ -59,14 +58,14 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
         self.productModel.savePrice(for: productId, statistic: dpStatModel)
         self.updatePriceOutput.saved()
     }
-    
+
     func onGetPriceStatistics(for productId: String) {
         self.view.showLoading(with: "Получаем актуальные цены в других магазинах")
         self.productModel.getPricesFor(productId: productId) { (prices) in
             self.mergeOutletsWithPrices(productId: productId, fbPriceStatistics: prices)
         }
     }
-    
+
     func mergeOutletsWithPrices(productId: String, fbPriceStatistics: [ProductPrice]) {
         let foursquareProvider = FoursquareProvider()
         let outletService = FoursqareOutletModelImpl(foursquareProvider)

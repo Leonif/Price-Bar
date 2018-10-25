@@ -25,7 +25,7 @@ class QuantityPickerPopup: UIViewController {
     var indexPath: IndexPath?
     var delegate: QuantityPickerPopupDelegate?
     var quantityEntity: QuantityEntity!
-    
+
     let weightPicker: UIPickerView = {
         let picker = UIPickerView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
         picker.backgroundColor = .white
@@ -33,7 +33,7 @@ class QuantityPickerPopup: UIViewController {
         picker.showsSelectionIndicator = true
         return picker
     }()
-    
+
     let toolbar: UIToolbar = {
         let tlbr = UIToolbar()
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelSelection))
@@ -43,13 +43,13 @@ class QuantityPickerPopup: UIViewController {
         tlbr.isUserInteractionEnabled = true
         return tlbr
     }()
-    
+
     let containerView = UIView()
-    
+
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
     }
-    
+
     convenience init(delegate: QuantityPickerPopupDelegate, model: QuantityEntity) {
         self.init()
         self.delegate = delegate
@@ -57,12 +57,12 @@ class QuantityPickerPopup: UIViewController {
         self.configurePopup()
         self.modalPresentationStyle = .overCurrentContext
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //self.configurePopup()
     }
-    
+
     // TODO: refactor here divide on coefficient
     @objc func choosen() {
         var value: Double = 0.0
@@ -75,33 +75,33 @@ class QuantityPickerPopup: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
+
     @objc func cancelSelection() {
         self.view.antiObscure {
             self.dismiss(animated: true, completion: nil)
         }
     }
-    
+
     func configurePopup() {
         weightPicker.delegate = self
         for par in quantityEntity.parameters {
-            let w = makeWeightViewItem(parameter: par)
-            weightViewItems.append(w)
+            let weightViewItem = makeWeightViewItem(parameter: par)
+            weightViewItems.append(weightViewItem)
         }
     }
-    
-    func makeWeightViewItem(parameter: ParameterEntity) -> WeightViewItem  {
+
+    func makeWeightViewItem(parameter: ParameterEntity) -> WeightViewItem {
         let stridedWeightsArray = stride(from: 0, to: Double(parameter.maxValue), by: parameter.step)
 
         let rawWeightArray: [Double] = stridedWeightsArray.map { $0 / parameter.divider }
         let viewWeightsArray: [Int] = stridedWeightsArray.map { Int($0) }
-        
+
         return WeightViewItem(rawWeights: rawWeightArray,
                               viewWeight: viewWeightsArray,
                               suff: parameter.suffix,
                               divider: parameter.divider)
     }
-    
+
     func transformIntoIndexes(from searchingValue: Double) -> [Int] {
         var searchingIndexes: [Int] = []
         var str = String(format: "%.\(self.weightViewItems.count - 1)f", searchingValue)
@@ -109,9 +109,9 @@ class QuantityPickerPopup: UIViewController {
         var maxDivider = 1
         for (index, character) in str.enumerated().reversed() {
             let extractedFigure = (Int(String(character)) ?? 0) * (index == 0 ? 1 : Int(maxDivider))
-            for (i, value) in weightViewItems[index].viewWeight.enumerated().reversed() {
-                if extractedFigure == value  {
-                    searchingIndexes.append(i)
+            for (index, value) in weightViewItems[index].viewWeight.enumerated().reversed() {
+                if extractedFigure == value {
+                    searchingIndexes.append(index)
                     maxDivider *= 10
                     break
                 }
@@ -119,32 +119,32 @@ class QuantityPickerPopup: UIViewController {
         }
         return searchingIndexes.reversed()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
         selectCurrentValue()
     }
-    
+
     func selectCurrentValue() {
         let indexes = transformIntoIndexes(from: quantityEntity.currentValue)
-        
+
         guard !indexes.isEmpty else { return  }
-        
+
         for comp in 0..<weightPicker.numberOfComponents {
             weightPicker.selectRow(indexes[comp], inComponent: comp, animated: true)
         }
     }
-    
+
     private func setupConstraints() {
         containerView.translatesAutoresizingMaskIntoConstraints = false
         toolbar.translatesAutoresizingMaskIntoConstraints = false
         weightPicker.translatesAutoresizingMaskIntoConstraints = false
-        
+
         view.addSubview(containerView)
         containerView.addSubview(toolbar)
         containerView.addSubview(weightPicker)
-        
+
         NSLayoutConstraint.activate([
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -160,7 +160,7 @@ class QuantityPickerPopup: UIViewController {
             weightPicker.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
         ])
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.view.obscure()
@@ -169,17 +169,17 @@ class QuantityPickerPopup: UIViewController {
 
 extension QuantityPickerPopup: UIPickerViewDataSource, UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        let w = weightViewItems[component].viewWeight[row]
+
+        let weightViewItem = weightViewItems[component].viewWeight[row]
         let suff = weightViewItems[component].suff
-        
-        return "\(w) \(suff)"
+
+        return "\(weightViewItem) \(suff)"
     }
-    
+
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return weightViewItems.count
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return weightViewItems[component].rawWeights.count
     }

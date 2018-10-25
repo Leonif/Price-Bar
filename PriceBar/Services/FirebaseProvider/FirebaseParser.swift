@@ -18,7 +18,7 @@ class FirebaseParser {
         let fbCategory = CategoryEntity(id: id, name: categoryName)
         return fbCategory
     }
-    
+
     class func parse(from snapshot: DataSnapshot) -> UomEntity {
         guard let id = Int32(snapshot.key),
             let uomDict = snapshot.value as? Dictionary<String, Any>,
@@ -30,7 +30,7 @@ class FirebaseParser {
                                koefficients: [],
                                suffixes: [],
                                parameters: [])
-        
+
         if let parameters = snapshot.childSnapshot(forPath: "parameters2").children.allObjects as? [DataSnapshot] {
             for par in parameters {
                 guard
@@ -42,9 +42,9 @@ class FirebaseParser {
                 else {
                     fatalError("Uom koefficinets parse error")
                 }
-                
+
                 let divider = paramDict["divider"] as? Double ?? 1.0
-                
+
                 fbUom.parameters.append(
                     ParameterEntity(maxValue: maxValue,
                               step: step,
@@ -56,21 +56,21 @@ class FirebaseParser {
         }
         return fbUom
     }
-    
+
     class func parse(from snapShots: [DataSnapshot]) -> [UomEntity] {
         return snapShots.map { parse(from: $0) }
     }
-    
+
     class func parse(from snapGood: DataSnapshot) -> PriceItemEntity? {
         guard let priceData = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Prices is not parsed")
         }
-        
+
         guard let price = PriceItemEntity(priceData: priceData) else { return nil }
-        
+
         return price
     }
-    
+
     class func parse(from snapGood: (key: String, value: Any)) -> ProductEntity {
         guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Product is not parsed")
@@ -79,21 +79,20 @@ class FirebaseParser {
         guard let name = goodDict["name"] as? String else {
             fatalError("Product is not parsed")
         }
-        
+
         let brand = goodDict["brand"] as? String ?? ""
         let weightPerPiece = goodDict["weight_per_piece"] as? String ?? ""
-        
+
         let defaultCategoryid: Int32 = 1
-        
+
         var catId = goodDict["category_id"] as? Int32
         catId = catId == nil ? defaultCategoryid : catId
-        
+
         let defaultUomid: Int32 = 1
-        
+
         var uomId = goodDict["uom_id"] as? Int32
         uomId = uomId == nil ? defaultUomid : uomId
-        
-        
+
         return ProductEntity(id: id,
                               name: name,
                               brand: brand,

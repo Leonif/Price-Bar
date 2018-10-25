@@ -18,13 +18,13 @@ protocol ShoplistModel {
 }
 
 class ShoplistModelImpl: ShoplistModel {
-    
+
     private var localStoreService: LocalStoreService!
-    
+
     init(localStoreService: LocalStoreService) {
         self.localStoreService = localStoreService
     }
-    
+
     func clearShoplist() {
         self.localStoreService.removeAll(from: "ShopList")
     }
@@ -37,10 +37,10 @@ class ShoplistModelImpl: ShoplistModel {
     func changeShoplistItem( _ quantity: Double, for productId: String) {
         localStoreService.changeShoplistItem(quantity, for: productId)
     }
-    
+
     func saveToShopList(new item: ShoplistViewItem, completion: @escaping (ResultType<Bool, ProductModelError>) -> Void) {
         guard let shoplist = self.localStoreService.loadShopList() else { fatalError() }
-        
+
         if shoplist.contains(where: { $0.productId == item.productId }) {
             completion(ResultType.failure(ProductModelError.alreadyAdded(R.string.localizable.common_already_in_list())))
             return
@@ -56,4 +56,3 @@ class ShoplistModelImpl: ShoplistModel {
         completion(items)
     }
 }
-

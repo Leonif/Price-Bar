@@ -19,7 +19,6 @@ extension UITableView {
     }
 }
 
-
 extension UIViewController {
     func alert(title: String = R.string.localizable.common_wow(),
                message: String,
@@ -42,7 +41,6 @@ extension UIViewController {
     }
 }
 
-
 extension UIViewController: UITextFieldDelegate {
     func addToolBar(textField: UITextField) {
         let toolBar = UIToolbar()
@@ -53,33 +51,23 @@ extension UIViewController: UITextFieldDelegate {
         let cancelButton = UIBarButtonItem(title: R.string.localizable.common_next(), style: .plain, target: self, action: #selector(cancelPressed))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        
-        
+
         toolBar.isUserInteractionEnabled = true
         toolBar.sizeToFit()
-        
+
         textField.delegate = self
         textField.inputAccessoryView = toolBar
     }
-    
+
     @objc func donePressed() {
         view.endEditing(true)
     }
-    
+
     @objc func cancelPressed() {
         view.endEditing(true) // or do something
     }
-    
-    
-    
+
 }
-
-
-
-
-
-
-
 
 // Activity Indicator
 extension UIView {
@@ -96,8 +84,8 @@ extension UIView {
             guard let window = UIApplication.shared.keyWindow else { return }
             let views = window.subviews
             UIView.animate(withDuration: 0.8, animations: {
-                for v in views {
-                    if let activityIndicator = v.subviews.filter({ $0.tag == self.activityIndicatorTag }).first as? UIActivityIndicatorView {
+                for view in views {
+                    if let activityIndicator = view.subviews.filter({ $0.tag == self.activityIndicatorTag }).first as? UIActivityIndicatorView {
                         guard let superV = activityIndicator.superview else {
                             fatalError("superview if indicator is not found")
                         }
@@ -188,7 +176,7 @@ extension UIView {
         })
     }
 
-    func antiObscure(completion: @escaping ()->Void) {
+    func antiObscure(completion: @escaping () -> Void) {
         guard let window = UIApplication.shared.keyWindow else { return }
         self.backgroundColor = UIColor.black.withAlphaComponent(0.7)
         window.addSubview(self)
@@ -199,7 +187,6 @@ extension UIView {
         }
     }
 }
-
 
 extension UIButton {
     func setEnable(_ enable: Bool) {

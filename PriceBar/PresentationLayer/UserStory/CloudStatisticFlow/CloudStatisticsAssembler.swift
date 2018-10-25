@@ -13,14 +13,14 @@ class CloudStatisticsAssembler {
     func assemble() -> BaseView {
         let view = CloudStatisticsVC()
         view.modalPresentationStyle = .overCurrentContext
-        
+
         let productModel = ProductModelImpl()
         let presenter = CloudStatisticsPresenterImpl()
         presenter.productModel = productModel
-        
+
         presenter.view = view
         view.presenter = presenter
-        
+
         return view
     }
 }

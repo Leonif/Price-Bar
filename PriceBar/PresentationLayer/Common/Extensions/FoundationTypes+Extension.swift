@@ -9,22 +9,20 @@
 import Foundation
 import UIKit
 
-
 extension String {
-    
+
     enum CharacterType {
         case digit, none
     }
-    
+
     func dropFirst(contains: Character) -> String {
         var mutable = self
-        for d in self {
-            if d == contains { mutable = String(self.dropFirst()) }
-            else { break }
+        for droppedCharacter in self {
+            if droppedCharacter == contains { mutable = String(self.dropFirst()) } else { break }
         }
         return mutable
     }
-    
+
     func isContains(type: CharacterType) -> Bool {
         switch type {
         case .digit:
@@ -34,7 +32,6 @@ extension String {
         }
     }
 }
-
 
 extension Date {
 
@@ -53,7 +50,6 @@ extension Date {
     }
 }
 
-
 extension Bool {
     mutating func toggle() {
         self = !self
@@ -65,7 +61,7 @@ extension UISearchBar {
         guard let tf = (value(forKey: "searchField") as? UITextField) else { fatalError() }
         return tf
     }
-    
+
     func addToolBar() {
         //Add done button to numeric pad keyboard
         let toolbarDone = UIToolbar.init()
@@ -74,11 +70,11 @@ extension UISearchBar {
                                         target: self, action: nil)
         let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
                                               target: self, action: #selector(numDonePressed))
-        
+
         toolbarDone.items = [flex, barBtnDone] // You can even add cancel button too
         self.inputAccessoryView = toolbarDone
     }
-    
+
     @objc
     func numDonePressed() {
         self.resignFirstResponder()

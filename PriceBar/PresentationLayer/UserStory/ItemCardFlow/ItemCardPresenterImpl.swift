@@ -16,7 +16,7 @@ enum PickerType {
 enum ItemCardError: Error {
     case priceIsNotSaved(String)
     case other(String)
-    
+
     var errorDescription: String {
         // TODO: localize it
         switch self {
@@ -26,7 +26,7 @@ enum ItemCardError: Error {
             return R.string.localizable.error_something_went_wrong()
         }
     }
-    
+
 }
 
 protocol ItemCardDelegate: class {
@@ -47,7 +47,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
     var pickerType: PickerType = .category
     var oldPrice: Double = 0.0
     weak var delegate: ItemCardDelegate?
-    
+
     func onGetCardInfo(productId: String, outletId: String) {
         self.view.showLoading(with: R.string.localizable.common_get_product_info())
         productModel.getItem(with: productId) { (dpProduct) in
@@ -58,7 +58,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                         self.view.onError(with: error.localizedDescription)
                         return
                     }
-                    
+
                     let product = ProductCardEntity(productId: productId,
                                                     productName: "",
                                                     brand: "",
@@ -71,14 +71,14 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                 })
                 return
             }
-            
+
             self.combineGetForCategoryNamendUomName(categoryId: dpProduct.categoryId, uomId: dpProduct.uomId, completion: { (categoryName, uomName, error) in
                 if let error = error {
                     self.view.hideLoading()
                     self.view.onError(with: error.localizedDescription)
                     return
                 }
-                
+
                 guard
                     let categoryName = categoryName,
                     let uomName = uomName else {
@@ -86,7 +86,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                         self.view.onError(with: R.string.localizable.error_something_went_wrong())
                         return
                 }
-                
+
                 self.productModel.getPrice(for: dpProduct.id, and: outletId, completion: { (price) in
                     self.view.hideLoading()
                     let product = ProductCardEntity(productId: dpProduct.id,
@@ -102,7 +102,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             })
         }
     }
-    
+
     private func combineGetForCategoryNamendUomName(categoryId: Int32, uomId: Int32, completion: @escaping (String?, String?, Error?) -> Void) {
         self.productModel.getCategoryName(for: categoryId) { (result) in
             switch result {
@@ -120,7 +120,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             }
         }
     }
-    
+
     private func combineGetForCategoryIdAndUomId(categoryName: String, uomName: String, completion: @escaping (Int?, Int?, Error?) -> Void) {
         self.productModel.getCategoryId(for: categoryName) { (result) in
             switch result {
@@ -144,20 +144,20 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             }
         }
     }
-    
-    
-    
+
+
+
     func onUpdateOrCreateProduct(productCard: ProductCardEntity, for outletId: String) {
         guard !productCard.productName.isEmpty else {
             self.view.onError(with: R.string.localizable.empty_product_name())
             return
         }
 //        var productId = productCard.productId
-        
+
 //        if productId.isEmpty {
 //            productId = UUID().uuidString
 //        }
-        
+
         self.combineGetForCategoryIdAndUomId(categoryName: productCard.categoryName, uomName: productCard.uomName) { (categoryId, uomId, error) in
             if let error = error {
                 self.view.onError(with: error.localizedDescription)
@@ -169,32 +169,32 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                     self.view.onError(with: R.string.localizable.error_something_went_wrong())
                     return
             }
-            
+
             let dpProductCardModel = ProductEntity(id: productCard.productId,
                                                           name: productCard.productName,
                                                           brand: productCard.brand,
                                                           weightPerPiece: productCard.weightPerPiece,
                                                           categoryId: Int32(categoryId),
                                                           uomId: Int32(uomId))
-            
+
             self.saveProduct(product: dpProductCardModel)
-            
+
             guard let newPrice = productCard.newPrice.numberFormatting() else {
                 self.view.onError(with: "Price is not save")
                 return
             }
-            
+
             guard let oldPrice = productCard.oldPrice.numberFormatting() else {
                 self.view.onError(with: "Price is not save")
                 return
             }
-            
+
             let priceStatistic = PriceStatisticViewItem(outletId: outletId,
                                                        productId: productCard.productId,
                                                        newPrice: newPrice,
                                                        oldPrice: oldPrice,
                                                        date: Date())
-            
+
             self.savePrice(for: productCard.productId, statistic: priceStatistic, completion: { (result) in
                 switch result {
                 case let .failure(error):
@@ -210,15 +210,15 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                     self.delegate?.savedItem(productId: productCard.productId)
                 }
             })
-            
+
         }
     }
-    
-    
+
+
     private func saveProduct(product: ProductEntity) {
         self.productModel.save(new: product)
     }
-    
+
     private func savePrice(for productId: String, statistic: PriceStatisticViewItem, completion: (ResultType<Bool, ItemCardError>) -> Void) {
         guard statistic.newPrice != 0.0 else {
             completion(ResultType.failure(ItemCardError.priceIsNotSaved(R.string.localizable.price_update_not_changed())))
@@ -228,17 +228,17 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             completion(ResultType.failure(ItemCardError.priceIsNotSaved(R.string.localizable.price_update_not_changed())))
             return
         }
-        
+
         completion(ResultType.success(true))
         self.productModel.savePrice(for: productId, statistic: statistic)
     }
-    
+
     func onCategoryPressed(currentCategory: String) {
         var pickerData: [PickerData] = []
         var curentIndex = 0
-        
+
         self.pickerType = .category
-        
+
         // TODO: localize it
         self.view.showLoading(with: "Получаем список категорий")
         productModel.getCategoryList { [weak self] (result) in
@@ -264,17 +264,17 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             }
         }
     }
-    
+
     func onUomPressed(currentUom: String) {
         var pickerData: [PickerData] = []
         var curentIndex = 0
-        
+
         self.pickerType = .uom
         // TODO: localize it
         self.view.showLoading(with: "Получаем список ед.измерений")
         productModel.getUomList { [weak self] (result) in
             guard let `self` = self else { return }
-            
+
             self.view.hideLoading()
             switch result {
             case let .success(dpUomList):
@@ -289,7 +289,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                     }
                     pickerData.append(PickerData(id: uom.id, name: uom.name))
                 }
-                
+
                 self.router.openPickerController(presenter: self, currentIndex: curentIndex, dataSource: pickerData)
             case let .failure(error):
                 self.view.onError(with: error.errorDescription)
@@ -319,7 +319,7 @@ extension ItemCardPresenterImpl: PickerControlDelegate {
                     self.view.onError(with: error.errorDescription)
                 }
             }
-            
+
         }
     }
 }

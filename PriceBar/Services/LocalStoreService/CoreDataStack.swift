@@ -15,11 +15,11 @@ enum CoreDataErrors: Error {
 
 class CoreDataStack {
     private var modelName: String
-    
+
     init(modelName: String) {
         self.modelName = modelName
     }
-    
+
     private lazy var storeContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: self.modelName)
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -29,15 +29,14 @@ class CoreDataStack {
         })
         return container
     }()
-    
-    
+
     lazy var managedContext: NSManagedObjectContext = {
         return self.storeContainer.viewContext
     }()
-    
+
     func saveContext () {
         guard self.managedContext.hasChanges else { return }
-        
+
         do {
             try self.managedContext.save()
         } catch {
@@ -45,5 +44,5 @@ class CoreDataStack {
             debugPrint("Unresolved error \(error), \(error.userInfo)")
         }
     }
-    
+
 }

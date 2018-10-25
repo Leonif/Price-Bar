@@ -10,13 +10,13 @@ import Foundation
 
 enum FoursqareProviderError: Error {
     case foursqareDoesntResponce(String)
-    
+
     case wrongURL(String)
     case parseError(String)
     case noOutlets(String)
-    
+
     case other(String)
-    
+
     var errorDescription: String {
         switch self {
         case let .foursqareDoesntResponce(description),

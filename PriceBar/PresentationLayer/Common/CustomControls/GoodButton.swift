@@ -22,11 +22,9 @@ class GoodButton: UIButton {
 
     func configure() {
 //        self.castShadow()
-        
+
 //        self.roundingEdges()
     }
-    
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()

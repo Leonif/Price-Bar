@@ -9,23 +9,22 @@
 import Foundation
 import UIKit
 
-
 class UpdatePriceAssembler {
-    
+
     func assemble(productId: String, outletId: String, updatePriceOutput: UpdatePriceOutput) -> BaseView {
         let productModel = ProductModelImpl()
-        
+
         let presenter = UpdatePricePresenterImpl()
         presenter.productModel = productModel
         presenter.updatePriceOutput = updatePriceOutput
-        
+
         let vc = R.storyboard.main.updatePriceVC()!
         vc.productId = productId
         vc.presenter = presenter
         vc.outletId = outletId
-        
+
         presenter.view = vc
-        
+
         return vc
     }
 }

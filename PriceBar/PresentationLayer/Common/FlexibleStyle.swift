@@ -13,7 +13,6 @@ precedencegroup Composition {
     associativity: left
 }
 
-
 infix operator <+: Composition
 
 typealias Style<Type: UIView> = (Type) -> Void
@@ -56,7 +55,6 @@ func shadowOffset(_ shadowOffset: CGSize) -> (UIView) -> Void {
 let usualCornerRadius = cornerRadius(8)
 let usualBorderWidth = borderWidth(2)
 let dustyGrayBorder = borderColor(Color.dustyGray)
-
 
 let usualShadowColor = shadowColor(UIColor.black)
 let usualShadowOpacity = shadowOpacity(0.8)

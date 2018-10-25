@@ -22,38 +22,38 @@ class ShopListController: UIViewController, ShoplistView {
     @IBOutlet weak var shopTableView: UITableView!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var totalView: UIView!
-    
+
     @IBOutlet weak var scanButton: UIButton!
     @IBOutlet weak var itemListButton: UIButton!
     @IBOutlet weak var rightButtonViewArea: UIView!
     @IBOutlet weak var wholeViewArea: UIView!
     @IBOutlet weak var buttonsView: UIView!
     @IBOutlet weak var rightButtonConstrait: NSLayoutConstraint!
-    
+
     var navigationView: NavigationView!
 
     var presenter: ShoplistPresenter!
     var adapter: ShopListAdapter!
-    
-    private var buttonsHided: Bool = false
-    
-    private let storeButton: UIButton = {
-        let b = UIButton(frame: CGRect.zero)
-        let icon = R.image.storeButton()
-        b.setImage(icon, for: .normal)
-        b.imageView?.contentMode = .scaleAspectFit
 
-        return b
+    private var buttonsHided: Bool = false
+
+    private let storeButton: UIButton = {
+        let button = UIButton(frame: CGRect.zero)
+        let icon = R.image.storeButton()
+        button.setImage(icon, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+
+        return button
     }()
-    
+
     private let deleteButton: UIButton = {
-        let b = UIButton(frame: CGRect.zero)
-        b.setImage(R.image.deleteButton(), for: .normal)
-        b.imageView?.contentMode = .scaleAspectFit
-        
-        return b
+        let button = UIButton(frame: CGRect.zero)
+        button.setImage(R.image.deleteButton(), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+
+        return button
     }()
-    
+
     // MARK: - Lifecycle
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -62,9 +62,9 @@ class ShopListController: UIViewController, ShoplistView {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.presenter.viewDidLoadTrigger()
-        
+
         // MARK: - Setup UI
         self.setupNavigation()
         grayBorderedRoundedWithShadow(self.buttonsView)
@@ -73,7 +73,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.setupAdapter()
         self.adapterBinding()
     }
-    
+
     // MARK: - Presenter events
     func onUpdatedTotal(_ total: Double) {
         DispatchQueue.main.async { [weak self] in
@@ -87,7 +87,7 @@ class ShopListController: UIViewController, ShoplistView {
         }
         self.deleteButton.setEnable(!dataSource.isEmpty)
     }
-    
+
     func onCurrentOutletUpdated(outlet: OutletViewItem) {
         self.view.pb_stopActivityIndicator()
         DispatchQueue.main.async { [weak self] in
@@ -95,37 +95,35 @@ class ShopListController: UIViewController, ShoplistView {
             self?.navigationView.outletAddress.text = outlet.address
         }
         self.buttonEnable(true)
-        
+
     }
 
     func startIsCompleted() {
         self.presenter.onOpenStatistics()
     }
-    
+
     func onIssue(error: String) {
         self.presenter.openIssueVC(with: error)
         self.buttonEnable(false)
     }
-    
+
     func setupAdapter() {
-        
+
         self.shopTableView.delegate = self.adapter
         self.shopTableView.dataSource = self.adapter
-        
+
         self.shopTableView.register(ShopItemCell.self)
         self.shopTableView.register(HeaderView.self)
-        
+
         self.shopTableView.estimatedRowHeight = UITableViewAutomaticDimension
         self.shopTableView.rowHeight = UITableViewAutomaticDimension
-        
+
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         self.shopTableView.estimatedSectionHeaderHeight = UITableViewAutomaticDimension
         self.adapter.tableView = self.shopTableView
-        
 
     }
-  
-  
+
     func adapterBinding() {
       self.adapter.eventHandler = { [weak self] (event) in
         guard let `self` = self else { return }
@@ -141,35 +139,35 @@ class ShopListController: UIViewController, ShoplistView {
         }
       }
     }
-    
+
     // MARK: - Setup functions
     func setupNavigation() {
         self.navigationView = R.nib.navigationView.firstView(owner: self)
         self.storeButton.addTarget(self, action: #selector(self.selectOutlet), for: .touchUpInside)
         self.deleteButton.addTarget(self, action: #selector(self.cleanShoplist), for: .touchUpInside)
-        
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: self.storeButton)
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: self.deleteButton)
-        
+
         self.navigationItem.titleView = self.navigationView
         navigationController?.navigationBar.barTintColor = Color.feijoaGreen
         navigationController!.navigationBar.shadowImage = UIImage()
     }
-    
+
     func setupTotalView() {
         PriceBarStyles.grayBorderedRounded.apply(to: self.totalView)
     }
-    
+
     func setupGestures() {
         let rightSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         rightSwipe.direction = .right
         wholeViewArea.addGestureRecognizer(rightSwipe)
-        
+
         let leftSwipe = UISwipeGestureRecognizer(target: self, action: #selector(hideButtons))
         leftSwipe.direction = .left
         wholeViewArea.addGestureRecognizer(leftSwipe)
     }
-    
+
     // MARK: - Syncing ...
     private func buttonEnable(_ enable: Bool) {
         DispatchQueue.main.async { [weak self] in
@@ -183,7 +181,7 @@ class ShopListController: UIViewController, ShoplistView {
     @IBAction func scanItemPressed(_ sender: Any) {
         self.presenter.onOpenScanner()
      }
-    
+
     @objc
     func selectOutlet() {
         self.presenter.onOpenOutletList()
@@ -191,11 +189,11 @@ class ShopListController: UIViewController, ShoplistView {
     @IBAction func itemListPressed(_ sender: Any) {
         self.presenter.onOpenItemList()
     }
-    
+
     @IBAction func cleanShopList(_ sender: GoodButton) {
         self.cleanShoplist()
     }
-    
+
     func close() {  }
 
     @objc
@@ -223,7 +221,7 @@ extension ShopListController {
             print("other swipes")
         }
     }
-    
+
     func shiftButton(hide: Bool) {
         let shiftOfDirection: CGFloat = hide ? -1 : 1
         buttonsHided.toggle()

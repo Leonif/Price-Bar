@@ -9,7 +9,7 @@
 import Foundation
 
 class ProductMapper {
-    
+
     class func transform(input: ProductEntity) -> ProductEntity {
         return ProductEntity(id: input.id,
                                name: input.name,
@@ -17,6 +17,6 @@ class ProductMapper {
                                weightPerPiece: input.weightPerPiece,
                                categoryId: input.categoryId,
                                uomId: input.uomId)
-        
+
     }
 }

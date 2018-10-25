@@ -10,16 +10,15 @@ import Foundation
 import AVFoundation
 import UIKit
 
-class ScannerAdapter: NSObject, AVCaptureMetadataOutputObjectsDelegate  {
-    
+class ScannerAdapter: NSObject, AVCaptureMetadataOutputObjectsDelegate {
+
     var onCodeTaken: ((String) -> Void) = {_ in }
     var onError: ((String) -> Void) = { _ in }
 
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var viewForCammera: UIView!
-    
-    
+
     let supportedCodeTypes = [AVMetadataObject.ObjectType.upce,
                               AVMetadataObject.ObjectType.code39,
                               AVMetadataObject.ObjectType.code39Mod43,
@@ -30,28 +29,28 @@ class ScannerAdapter: NSObject, AVCaptureMetadataOutputObjectsDelegate  {
                               AVMetadataObject.ObjectType.aztec,
                               AVMetadataObject.ObjectType.pdf417,
                               AVMetadataObject.ObjectType.qr]
-    
+
     func configure(frame: CGRect) {
         let captureDevice = AVCaptureDevice.default(for: AVMediaType.video)
-        
+
         do {
             // Get an instance of the AVCaptureDeviceInput class using the previous device object.
             let input = try AVCaptureDeviceInput(device: captureDevice!)
-            
+
             // Initialize the captureSession object.
             captureSession = AVCaptureSession()
-            
+
             // Set the input device on the capture session.
             captureSession?.addInput(input)
-            
+
             // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
             let captureMetadataOutput = AVCaptureMetadataOutput()
             captureSession?.addOutput(captureMetadataOutput)
-            
+
             // Set delegate and use the default dispatch queue to execute the call back
             captureMetadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
             captureMetadataOutput.metadataObjectTypes = supportedCodeTypes
-            
+
             // Initialize the video preview layer and add it as a sublayer to the viewPreview view's layer.
             videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
             videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
@@ -63,21 +62,19 @@ class ScannerAdapter: NSObject, AVCaptureMetadataOutputObjectsDelegate  {
             return
         }
     }
-    
-    
+
     func startScaning() {
         // Start video capture.
         captureSession?.startRunning()
     }
-    
-    
+
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         // Get the metadata object.
         guard let metadataObj = metadataObjects.first as? AVMetadataMachineReadableCodeObject else {
             self.onError("metadataObjects is not available")
             return
         }
-        
+
         if supportedCodeTypes.contains(metadataObj.type) {
             captureSession?.stopRunning()
             if let code = metadataObj.stringValue, code.isContains(type: .digit) {
@@ -88,5 +85,5 @@ class ScannerAdapter: NSObject, AVCaptureMetadataOutputObjectsDelegate  {
             }
         }
     }
-    
+
 }

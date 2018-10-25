@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class OutletListAssembler {
     func assemble(outletListOutput: OutletListOutput) -> BaseView {
         let view = R.storyboard.main.outletsVC()!
@@ -21,12 +20,12 @@ class OutletListAssembler {
         let foursquareProvider = FoursquareProvider()
         let outletModel = FoursqareOutletModelImpl(foursquareProvider)
         presenter.outletModel = outletModel
-        
+
         presenter.outletListOutput = outletListOutput
         presenter.view = view
         view.presenter = presenter
-        
+
         return view
     }
-    
+
 }

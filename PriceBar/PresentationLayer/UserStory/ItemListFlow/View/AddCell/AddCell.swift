@@ -11,14 +11,13 @@ import UIKit
 
 class AddCell: UITableViewCell, NibLoadableReusable {
     @IBOutlet weak var cellView: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
 
         self.backgroundColor = .clear
         PriceBarStyles.blueBorderedRounded.apply(to: self.cellView)
-        
+
     }
-    
-    
+
 }

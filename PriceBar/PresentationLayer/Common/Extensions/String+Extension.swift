@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 extension String {
 
     func numberFormatting() -> Double? {
@@ -16,7 +15,7 @@ extension String {
         formatter.decimalSeparator = "."
         if let number = formatter.number(from: self) {
             return Double(truncating: number)
-        } else  {
+        } else {
             formatter.decimalSeparator = ","
             if let number = formatter.number(from: self) {
                 return Double(truncating: number)
@@ -24,9 +23,8 @@ extension String {
         }
         return nil
     }
-    
-}
 
+}
 
 extension String {
     // types of format sting
@@ -34,9 +32,9 @@ extension String {
     private var currentTimeZone: TimeZone {
         return TimeZone.current
     }
-    
+
     func toDate(with format: String) -> Date? {
-        
+
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = currentTimeZone
@@ -48,4 +46,3 @@ extension String {
         return Double(self)!
     }
 }
-

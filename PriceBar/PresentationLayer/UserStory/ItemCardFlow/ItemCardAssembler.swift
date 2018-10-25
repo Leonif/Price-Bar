@@ -10,27 +10,26 @@ import Foundation
 
 class ItemCardAssembler {
     func assemble(itemCardDelegate: ItemCardDelegate, for productId: String, outletId: String) -> BaseView {
-        
+
         let productModel = ProductModelImpl()
         let presenter = ItemCardPresenterImpl()
         let router = ItemCardRouterImpl()
-        
+
         presenter.productModel = productModel
         presenter.router = router
         presenter.delegate = itemCardDelegate
-        
+
         let view =  R.storyboard.main.itemCardVC()!
-        
-        
+
         view.presenter = presenter
         presenter.view = view
-        
+
         router.fromVC = view
-        
+
         view.productId = productId
         view.outletId = outletId
-        
+
         return view
-        
+
     }
 }

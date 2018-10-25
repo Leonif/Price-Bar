@@ -12,11 +12,10 @@ protocol CloudStatisticsPresenter {
     func onGetQuantityOfGood()
 }
 
-
 class CloudStatisticsPresenterImpl: CloudStatisticsPresenter {
     var productModel: ProductModelImpl!
     weak var view: CloudStatisticsView!
-    
+
     func onGetQuantityOfGood() {
         self.productModel.getQuantityOfProducts { (result) in
             switch result {

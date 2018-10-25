@@ -11,13 +11,13 @@ import UIKit
 class HeaderView: UITableViewHeaderFooterView, NibLoadableReusable {
     @IBOutlet weak var categoryLabel: UILabel!
     @IBOutlet weak var view: UIView!
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         grayBorderedRounded(self.view)
     }
-    
+
     func configure(with text: String) {
         self.categoryLabel.text = text
     }

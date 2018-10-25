@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 protocol ItemListOutput {
     func itemChoosen(productId: String)
     func addNewItem(suggestedName: String)
@@ -16,20 +15,20 @@ protocol ItemListOutput {
 
 protocol ItemListPresenter {
     func onItemChoosen(productId: String)
-    func onFetchData(offset: Int, limit: Int,  for outletId: String)
+    func onFetchData(offset: Int, limit: Int, for outletId: String)
     func onFilterList(basedOn searchText: String, with outletId: String)
     func onAddNewItem(suggestedName: String)
 }
 
 class ItemListPresenterImpl: ItemListPresenter {
-    
+
     weak var view: ItemListView!
     var filtering = false
-    
+
     var itemListOutput: ItemListOutput!
     var productModel: ProductModelImpl!
-    
-    func onFetchData(offset: Int, limit: Int,  for outletId: String) {
+
+    func onFetchData(offset: Int, limit: Int, for outletId: String) {
         self.view.showLoading(with: "Получение списка товаров")
         self.productModel.getProductList(with: offset, limit: limit, for: outletId) { [weak self] (result) in
             self?.view.hideLoading()
@@ -40,7 +39,7 @@ class ItemListPresenterImpl: ItemListPresenter {
                 self.getItemsWithPrices(for: products, outletId: outletId, completion: { [weak self] (itemsWithPrices) in
                     self?.view.hideLoading()
                     guard let `self` = self else { return }
-                    
+
                     self.view.onFetchedNewBatch(items: itemsWithPrices)
                 })
             case let .failure(error):
@@ -48,7 +47,7 @@ class ItemListPresenterImpl: ItemListPresenter {
             }
         }
     }
-    
+
     func onFilterList(basedOn searchText: String, with outletId: String) {
         if  searchText.count >= 3 && !filtering {
             filtering = true
@@ -59,9 +58,9 @@ class ItemListPresenterImpl: ItemListPresenter {
                 case let .success(products):
                     self.getItemsWithPrices(for: products, outletId: outletId, completion: { [weak self] (itemsWithPrices) in
                         self?.view.hideLoading()
-                        
+
                         guard let `self` = self else { return }
-                        
+
                         self.view.onFiltredItems(items: itemsWithPrices)
                         self.filtering.toggle()
                     })
@@ -75,7 +74,7 @@ class ItemListPresenterImpl: ItemListPresenter {
     func onAddNewItem(suggestedName: String) {
         self.itemListOutput.addNewItem(suggestedName: suggestedName)
     }
-    
+
     func onItemChoosen(productId: String) {
         self.itemListOutput.itemChoosen(productId: productId)
     }
@@ -88,10 +87,10 @@ extension ItemListPresenterImpl {
             completion([])
             return
         }
-        
+
         var productAdjusted: [ItemListViewEntity] = []
         let itemDispatchGroup = DispatchGroup()
-        
+
         for product in products {
             itemDispatchGroup.enter()
             self.getItemWithPrice(for: product.id, outletId: outletId, completion: { (itemListView) in
@@ -99,16 +98,16 @@ extension ItemListPresenterImpl {
                 itemDispatchGroup.leave()
             })
         }
-        
+
         itemDispatchGroup.notify(queue: .main) {
             completion(productAdjusted)
         }
     }
-    
+
     private func getItemWithPrice(for produtId: String, outletId: String, completion: @escaping (ItemListViewEntity) -> Void) {
-        
+
         self.productModel.getProductEntity(for: produtId) { [weak self] (result) in
-           
+
             guard let `self` = self else { return }
             switch result {
             case let .success(product):
@@ -136,5 +135,3 @@ extension ItemListPresenterImpl {
         }
     }
 }
-
-

@@ -8,26 +8,21 @@
 
 import Foundation
 
-
 protocol ItemCardRouter: BaseRouter {
-    
+
     func openPickerController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData])
 }
 
-
 class ItemCardRouterImpl: ItemCardRouter {
-    
+
     weak var fromVC: ItemCardView!
-    
+
     func openPickerController(presenter: PickerControlDelegate, currentIndex: Int, dataSource: [PickerData]) {
-        
+
         let picker = PickerControl(delegate: presenter, dataSource: dataSource, currentIndex: currentIndex)
-        
+
         self.presentController(fromModule: fromVC, to: picker)
-        
-        
-        
+
     }
-    
-    
+
 }

@@ -9,51 +9,45 @@
 import Foundation
 import UIKit
 
-
 class ItemListAdapter: NSObject, UITableViewDataSource {
-    
+
     var tableView: UITableView!
 
     var dataSource: [ItemListViewEntity] = []
-    var filtredItemList: [ItemListViewEntity] = [] 
+    var filtredItemList: [ItemListViewEntity] = []
     var currentPageOffset: Int = 0
-    
+
     var isLoading = false
-    
-    var onAddNewItem: (() -> Void)? = nil
-    var onItemChoosen: ((String) -> Void)? = nil
 
-    var onGetNextBatch: ((Int, Int) -> Void)? = nil
+    var onAddNewItem: (() -> Void)?
+    var onItemChoosen: ((String) -> Void)?
 
-    var onError: ((String) -> Void)? = nil
+    var onGetNextBatch: ((Int, Int) -> Void)?
+
+    var onError: ((String) -> Void)?
     var limit = 40
-    
-    
-    
+
     func loadItems() {
         self.onGetNextBatch?(currentPageOffset, limit)
     }
-    
+
     func updateDatasorce(sortedItems: [ItemListViewEntity]) {
         self.dataSource = sortedItems
         self.filtredItemList = sortedItems
         self.reload()
     }
-    
-    
-    
-    
+
     func reload() {
         self.tableView.reloadData()
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.isLoading {
             return filtredItemList.count
         }
         return filtredItemList.isEmpty ? 1 : filtredItemList.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if filtredItemList.isEmpty {
             let cellAdd: AddCell = tableView.dequeueReusableCell(for: indexPath)
@@ -65,12 +59,11 @@ class ItemListAdapter: NSObject, UITableViewDataSource {
             return cell
         }
     }
-    
-    
+
 }
 
 extension ItemListAdapter: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if filtredItemList.isEmpty {
             self.onAddNewItem?()
@@ -81,9 +74,8 @@ extension ItemListAdapter: UITableViewDelegate {
     }
 }
 
-
 extension ItemListAdapter {
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == self.dataSource.count - 1 {
             self.isLoading = true
@@ -91,26 +83,25 @@ extension ItemListAdapter {
             self.onGetNextBatch?(self.currentPageOffset, self.limit)
         }
     }
-    
+
     func addNewBatch(nextBatch: [ItemListViewEntity]) {
         self.isLoading.toggle()
         var indexPaths = [IndexPath]()
         let currentCount: Int = filtredItemList.count
-        
-        for i in 0..<nextBatch.count {
-            indexPaths.append(IndexPath(row: currentCount + i, section: 0))
+
+        for index in 0..<nextBatch.count {
+            indexPaths.append(IndexPath(row: currentCount + index, section: 0))
         }
-        
+
         if filtredItemList.isEmpty {
             self.tableView.deleteRows(at: [IndexPath(row: 0, section: 0)], with: .fade)
         }
-        
+
         // do the insertion
         filtredItemList.append(contentsOf: nextBatch)
         self.dataSource.append(contentsOf: nextBatch)
         self.reload()
         self.isLoading.toggle()
-        
+
     }
 }
-

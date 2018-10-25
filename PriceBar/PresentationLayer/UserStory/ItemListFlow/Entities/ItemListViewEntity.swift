@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 struct ItemListViewEntity {
     var id: String
     var product: String
@@ -16,17 +15,16 @@ struct ItemListViewEntity {
     var weightPerPiece: String
     var currentPrice: Double
     var categoryName: String
-    
+
     var fullName: String {
-        
+
         let pr = "\(product)"
         let br = brand.isEmpty ? "" : ", \(brand)"
-        let w = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
-        
-        return "\(pr)\(br)\(w)"
+        let weightToShow = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
+
+        return "\(pr)\(br)\(weightToShow)"
     }
 }
-
 
 struct ProductPrice {
     var productId: String
@@ -35,8 +33,3 @@ struct ProductPrice {
     var outletId: String
     var date: Date
 }
-
-
-
-
-

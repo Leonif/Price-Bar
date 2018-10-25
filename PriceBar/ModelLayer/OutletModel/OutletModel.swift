@@ -39,7 +39,3 @@ public enum OutletModelError: Error {
         }
     }
 }
-
-
-
-

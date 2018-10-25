@@ -296,7 +296,7 @@
 		792EE7B11EE707E700470669 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PriceBar/Base.lproj/LaunchScreen.storyboard; sourceTree = SOURCE_ROOT; };
 		792EE7B81EE7080400470669 /* ProductModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProductModel.swift; path = PriceBar/ModelLayer/ProductModel/ProductModel.swift; sourceTree = SOURCE_ROOT; };
 		792EE7BA1EE7080F00470669 /* ShopItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopItemCell.swift; path = PriceBar/PresentationLayer/UserStory/ShopListFlow/View/Cell/ShopItemCell.swift; sourceTree = SOURCE_ROOT; };
-		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = "PriceBar/Supported Files/AppDelegate.swift"; sourceTree = SOURCE_ROOT; };
+		792EE7C21EE7085500470669 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = PriceBar/SupportedFiles/AppDelegate.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C31EE7085500470669 /* ShopListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShopListController.swift; path = PriceBar/PresentationLayer/UserStory/ShopListFlow/View/ShopListController.swift; sourceTree = SOURCE_ROOT; };
 		792EE7C61EE7087200470669 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HeaderView.swift; path = PriceBar/PresentationLayer/UserStory/ShopListFlow/View/Header/HeaderView.swift; sourceTree = SOURCE_ROOT; };
 		793368631FFE260F00E8E81A /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
@@ -561,7 +561,7 @@
 			path = ItemListFlow;
 			sourceTree = "<group>";
 		};
-		790BC9EB1F88334800CA9519 /* Supported Files */ = {
+		790BC9EB1F88334800CA9519 /* SupportedFiles */ = {
 			isa = PBXGroup;
 			children = (
 				792EE7C21EE7085500470669 /* AppDelegate.swift */,
@@ -572,7 +572,7 @@
 				792EE7AC1EE7075200470669 /* Assets.xcassets */,
 				7975D63B20715062003A6288 /* R.generated.swift */,
 			);
-			path = "Supported Files";
+			path = SupportedFiles;
 			sourceTree = "<group>";
 		};
 		790BC9EE1F88341200CA9519 /* View */ = {
@@ -671,7 +671,7 @@
 				792132F421287BB60044908C /* ModelLayer */,
 				792132ED212862380044908C /* PresentationLayer */,
 				790BC9E81F88322400CA9519 /* Services */,
-				790BC9EB1F88334800CA9519 /* Supported Files */,
+				790BC9EB1F88334800CA9519 /* SupportedFiles */,
 			);
 			path = PriceBar;
 			sourceTree = "<group>";
@@ -1060,6 +1060,7 @@
 				790B7DDD20835D8C003DD560 /* Resources */,
 				790B7DF020835D8C003DD560 /* ShellScript */,
 				5ABFF4EE53B1D775DE865756 /* [CP] Copy Pods Resources */,
+				79486DA021825C100036ADDC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1079,6 +1080,7 @@
 				792EE77C1EE48CD500470669 /* Sources */,
 				792EE77D1EE48CD500470669 /* Frameworks */,
 				792EE77E1EE48CD500470669 /* Resources */,
+				79486D9F218259290036ADDC /* ShellScript */,
 				796C739F1F727F1900F26C90 /* ShellScript */,
 				D8423C2F8802495C1B27230F /* [CP] Copy Pods Resources */,
 			);
@@ -1281,11 +1283,11 @@
 			inputPaths = (
 			);
 			outputPaths = (
-				"${SRCROOT}/R.generated.swift",
+				"${SRCROOT}/PriceBar/Supported Files/R.generated.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT\"\n";
+			shellScript = "\"$PODS_ROOT/R.swift/rswift\" generate \"$SRCROOT/PriceBar/Supported Files/\"\n";
 		};
 		790B7DF020835D8C003DD560 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1299,6 +1301,40 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 3287543ca2d6f916e2ec45e6e040f6e55ae30e18 ee74ce186ccf4521acaec8ba8bd26362fae8392848857d1c23e639ff4e6afa6f\n";
+		};
+		79486D9F218259290036ADDC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+		};
+		79486DA021825C100036ADDC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		796C739F1F727F1900F26C90 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

@@ -13,21 +13,20 @@ class ItemListCell: UITableViewCell, NibLoadableReusable {
     @IBOutlet weak var itemCategoryLabel: UILabel!
     @IBOutlet weak var itemPriceLabel: UILabel!
     @IBOutlet weak var backView: UIView!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         PriceBarStyles.grayBorderedRounded.apply(to: self.backView)
         self.backgroundColor = .clear
-        
+
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
         self.itemPriceLabel.textColor = Color.havelockBlue
-        
+
     }
 
     func configureCell(_ item: ItemListViewEntity) {
@@ -38,7 +37,7 @@ class ItemListCell: UITableViewCell, NibLoadableReusable {
             self.itemPriceLabel.text = "No price"
             self.itemPriceLabel.textColor = Color.petiteOrchid
         }
-        
+
     }
 
 }

@@ -35,4 +35,3 @@ struct PriceItemEntity {
         self.date = Date()
     }
 }
-

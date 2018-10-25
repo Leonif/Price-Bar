@@ -18,19 +18,19 @@ enum ShopListAdapterEvent {
 
 class ShopListAdapter: NSObject, UITableViewDataSource {
     var tableView: UITableView!
-    
+
     var eventHandler: EventHandler<ShopListAdapterEvent>?
 
     var dataSourceManager: ShoplistDatasourceManager!
-    
+
     private var onWeightDemand: ((ShopItemCell) -> Void)?
-    
+
     func remove(indexPath: IndexPath) {
         let item: ShoplistViewItem = dataSourceManager.getItem(for: indexPath)
         self.eventHandler?(.onRemoveItem(item.productId))
         self.dataSourceManager.removeElement(with: indexPath)
         self.tableView.deleteRows(at: [indexPath], with: .fade)
-        
+
         if !self.dataSourceManager.isExists(indexPath.section) {
             let indexSet = IndexSet(integer: indexPath.section)
             self.tableView.deleteSections(indexSet, with: UITableViewRowAnimation.automatic)
@@ -45,17 +45,17 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         let shp: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
 
         cell.configure(shp)
-        
+
         let elementsInSection = dataSourceManager.getElementsCount(for: indexPath.section)
-        
+
         let isFirstAndLastCell = indexPath.row == 0 && indexPath.row ==
             elementsInSection - 1
         let isFirstCell = indexPath.row == 0
         let isLastCell = indexPath.row ==  elementsInSection - 1
-        
+
         let wide: CGFloat = 16
         let thin: CGFloat = 8
-        
+
         if  isFirstAndLastCell {
             cell.topConstraint.constant = wide
             cell.bottomConstraint.constant = wide
@@ -63,7 +63,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
             cell.bottomView.isHidden = true
             cell.topConstraint.constant = wide
             cell.bottomConstraint.constant = thin
-        } else if isLastCell  {
+        } else if isLastCell {
             cell.topView.isHidden = true
             cell.topConstraint.constant = thin
             cell.bottomConstraint.constant = wide
@@ -73,7 +73,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
             cell.topConstraint.constant = thin
             cell.bottomConstraint.constant = thin
         }
-        
+
         cell.onWeightDemand = { [weak self] cell in
             guard let `self` = self else { return }
             let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
@@ -84,7 +84,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
             let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
             self.eventHandler?(.onCompareDidSelected(item))
         }
-        
+
         return cell
     }
 
@@ -99,7 +99,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     }
 }
 
-// MARK: -  Delegate
+// MARK: - Delegate
 extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath)
@@ -107,7 +107,7 @@ extension ShopListAdapter: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView: HeaderView = tableView.dequeueReusableHeaderFooterView()
-        
+
         let title = self.dataSourceManager.getHeaderTitle(for: section)
         headerView.configure(with: title)
 

@@ -23,7 +23,7 @@ protocol ShoplistPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
     func onCleanShopList()
     func onRemoveItem(productId: String)
     func onQuantityChanged(productId: String)
-    
+
     func viewDidLoadTrigger()
 }
 
@@ -39,7 +39,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
     var userOutlet: OutletViewItem?
     var locationService: LocationService!
     var coordinates: (lat: Double, lon: Double)?
-    
+
     func viewDidLoadTrigger() {
         locationService.getCoords()
         locationService.onStatusChanged = { [weak self] isAvalaible in
@@ -54,12 +54,12 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self?.updateCurrentOutlet()
         }
     }
-    
+
     private func updateCurrentOutlet() {
         guard let coordinates = self.coordinates else { return }
         self.outletModel.nearestOutletNearBy(coordinates: coordinates) { [weak self] result in
             guard let `self` = self else { return }
-            
+
             switch result {
             case let .success(outlet):
                 self.userOutlet = OutletMapper.mapper(from: outlet)
@@ -71,7 +71,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
         }
     }
-    
+
     private func updateShoplist(shoplist: [ShoplistViewItem]) {
         productModel.getCategoryList { [weak self] (result) in
             switch result {
@@ -83,16 +83,16 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 self?.view.onUpdatedTotal(sum)
             case let .failure(error):
                 self?.view.onError(with: error.errorDescription)
-                
+
             }
         }
     }
-    
+
     func addNewItemProduct(with name: String) {
         let productId = UUID().uuidString
         self.addToShoplist(with: productId)
     }
-    
+
     func addToShoplist(with productId: String) {
         self.view.showLoading(with: R.string.localizable.getting_actual_price())
         productModel.getItem(with: productId) { [weak self] (product) in
@@ -102,7 +102,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 return
             }
             guard let `self` = self else { return }
-            
+
             self.addItemToShopList(product, completion: { result in
                 switch result {
                 case let .failure(error):
@@ -116,13 +116,13 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             })
         }
     }
-    
-    private func addItemToShopList(_ product: ProductEntity, completion: @escaping (ResultType<Bool, ProductModelError>)-> Void) {
-        
+
+    private func addItemToShopList(_ product: ProductEntity, completion: @escaping (ResultType<Bool, ProductModelError>) -> Void) {
+
         guard let userOutlet = self.userOutlet else { return }
-        
+
         self.productModel.getProductDetail(productId: product.id, outletId: userOutlet.id) { [weak self] (result) in
-            
+
             guard let `self` = self else { return }
             switch result {
             case let .success(shoplistItem):
@@ -139,7 +139,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
         }
     }
-    
+
     private func isProductHasPrice(for productId: String) {
         guard let userOutlet = self.userOutlet else { return }
         self.productModel.getPrice(for: productId, and: userOutlet.id, completion: { [weak self] (price) in
@@ -149,15 +149,15 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
         })
     }
-    
+
     func onReloadShoplist() {
         let loadingString = R.string.localizable.common_loading()
         let message = R.string.localizable.sync_process_prices(loadingString)
         var productEntities: [String: ProductEntity] = [:]
         var prices: [String: Double] = [:]
-        
+
         guard let userOutlet = self.userOutlet else { return }
-        
+
         self.shoplistModel.loadShopList { [weak self] (items) in
             guard let `self` = self else { return }
             guard !items.isEmpty else {
@@ -165,7 +165,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 return
             }
             self.view.showLoading(with: message)
-            
+
             let ids = items.map { $0.productId }
             let shoplistInfoGroup = DispatchGroup()
             shoplistInfoGroup.enter()
@@ -183,9 +183,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                                  prices: prices,
                                  shoplistItems: items,
                                  outletId: userOutlet.id, completion: { [weak self] (shoplistViewItems) in
-                                    
+
                                     guard let `self` = self else { return }
-                                    
+
                                     self.view.hideLoading()
                                     self.updateShoplist(shoplist: shoplistViewItems)
                                     if !self.isStatisticShown {
@@ -196,24 +196,24 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
         }
     }
-    
+
     private func mergeArrays(from productEntities: [String: ProductEntity],
                                 prices: [String: Double] = [:],
                                 shoplistItems: [ShoplistItemEntity],
-                                outletId: String?, completion: @escaping ([ShoplistViewItem]) -> Void)  {
+                                outletId: String?, completion: @escaping ([ShoplistViewItem]) -> Void) {
         var shopItems: [ShoplistViewItem] = []
-        
+
         let shoplistItemsGroup = DispatchGroup()
 
         for item in shoplistItems {
             shoplistItemsGroup.enter()
             guard let productEntity = productEntities[item.productId] else { continue }
             guard let price = prices[item.productId] else { continue }
-            
+
             var categoryName: String = ""
             var uomEntity: UomEntity = UomEntity()
             var country: String = "No country"
-            
+
             let otherInfoGroup = DispatchGroup()
             otherInfoGroup.enter()
             productModel.getCategoryName(for: productEntity.categoryId) { (result) in
@@ -230,13 +230,13 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 uomEntity = entity
                 otherInfoGroup.leave()
             }
-            
+
             otherInfoGroup.enter()
             productModel.getCountry(for: productEntity.id) { (value) in
                 country = value ?? "No info"
                 otherInfoGroup.leave()
             }
-            
+
             otherInfoGroup.notify(queue: .main) {
                 let shopItem = ShoplistViewItem(productId: item.productId,
                                                 country: country,
@@ -250,7 +250,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                                                 productUom: uomEntity.name,
                                                 quantity: item.quantity,
                                                 parameters: uomEntity.parameters)
-                
+
                 shopItems.append(shopItem)
                 shoplistItemsGroup.leave()
             }
@@ -260,53 +260,52 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self.view.hideLoading()
         }
     }
-    
+
     func onOpenStatistics() {
         self.router.openStatistics()
     }
-    
+
     func openIssueVC(with issue: String) {
         self.router.openIssue(with: issue)
     }
-    
+
     func onOpenItemCard(for item: ShoplistViewItem) {
         guard let userOutlet = self.userOutlet else { return }
         self.router.openItemCard(presenter: self, for: item.productId, outletId: userOutlet.id)
     }
-    
+
     func onOpenScanner() {
         self.router.openScanner(presenter: self)
     }
-    
+
     func onOpenItemList() {
         guard let userOutlet = self.userOutlet else { return }
         self.router.openItemList(for: userOutlet.id, presenter: self)
     }
-    
+
     func onOpenOutletList() {
         self.router.openOutletList(presenter: self)
     }
-    
+
     func onOpenNewItemCard(for productId: String) {
         guard let userOutlet = self.userOutlet else { return }
         self.router.openItemCard(presenter: self, for: productId, outletId: userOutlet.id)
     }
-    
+
     func onCleanShopList() {
         self.shoplistModel.clearShoplist()
         self.updateShoplist(shoplist: [])
     }
-    
+
     // TODO: refactoring .....
     func onQuantityChanged(productId: String) {
         var quantityModel: QuantityEntity = QuantityEntity(parameters: [],
                                                            currentValue: 0.0,
                                                            answerDict: ["productId": productId])
-        
+
         let currentValue = self.shoplistModel.getProductQuantity(productId: productId)
         quantityModel.currentValue = currentValue
-        
-        
+
         view.showLoading(with: R.string.localizable.common_loading())
         productModel.getProductEntity(for: productId) { [weak self] (result) in
             guard let `self` = self else { return }
@@ -315,22 +314,22 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             case let .success(product):
                 self.productModel.getParametredUom(for: product.uomId) { [weak self] (uomEntity) in
                     guard let `self` = self else { return }
-                    
+
                     quantityModel.parameters = uomEntity.parameters
                     self.router.openQuantityController(presenter: self, quantityEntity: quantityModel)
                 }
-                
+
             case let .failure(error):
                 self.view.onError(with: error.errorDescription)
             }
         }
     }
-    
+
     func onRemoveItem(productId: String) {
         self.shoplistModel.remove(itemId: productId)
         self.onReloadShoplist()
     }
-    
+
     func onOpenUpdatePrice(for barcode: String) {
         guard let userOutlet = self.userOutlet else { return }
         self.productModel.getPrice(for: barcode, and: userOutlet.id, completion: { [weak self] (price) in
@@ -338,37 +337,35 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self.router.openUpdatePrice(presenter: self, for: barcode, currentPrice: price, outletId: userOutlet.id)
         })
     }
-    
+
     private func onAddedItemToShoplist(productId: String) {
         self.isProductHasPrice(for: productId)
         self.addToShoplist(with: productId)
     }
-    
-    
+
     // MARK: delagates hadnling
     func choosen(outlet: OutletViewItem) {
         self.userOutlet = outlet
         self.view.onCurrentOutletUpdated(outlet: outlet)
         self.onReloadShoplist()
     }
-    
+
     func saved() {
         self.onReloadShoplist()
     }
-    
+
     func scanned(barcode: String) {
         self.onAddedItemToShoplist(productId: barcode)
     }
-    
+
     func itemChoosen(productId: String) {
         self.onAddedItemToShoplist(productId: productId)
     }
-    
+
     func addNewItem(suggestedName: String) {
         self.addNewItemProduct(with: suggestedName)
     }
 }
-
 
 extension ShoplistPresenterImpl: ItemCardDelegate {
     func savedItem(productId: String) {
@@ -377,10 +374,8 @@ extension ShoplistPresenterImpl: ItemCardDelegate {
     }
 }
 
-
-
 extension ShoplistPresenterImpl: QuantityPickerPopupDelegate {
-    func choosen(weight: Double, answer: [String : Any]) {
+    func choosen(weight: Double, answer: [String: Any]) {
         guard let productId = answer["productId"] as? String else {
             return
         }

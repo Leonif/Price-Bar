@@ -14,15 +14,13 @@ class PriceStatisticCell: UITableViewCell, NibLoadableReusable {
     @IBOutlet weak var priceInfo: UILabel!
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var backView: UIView!
-    
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+
         self.backgroundColor = .clear
         PriceBarStyles.grayBorderedRounded.apply(to: self.backView)
-        
+
     }
-    
-    
+
 }

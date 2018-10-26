@@ -9,7 +9,7 @@
 import Foundation
 
 public struct OutletViewItem {
-    var id: String
+    var outletId: String
     var name: String
     var address: String
     var distance: Double

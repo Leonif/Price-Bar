@@ -121,7 +121,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 
         guard let userOutlet = self.userOutlet else { return }
 
-        self.productModel.getProductDetail(productId: product.id, outletId: userOutlet.id) { [weak self] (result) in
+        self.productModel.getProductDetail(productId: product.productId, outletId: userOutlet.outletId) { [weak self] (result) in
 
             guard let `self` = self else { return }
             switch result {
@@ -142,7 +142,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 
     private func isProductHasPrice(for productId: String) {
         guard let userOutlet = self.userOutlet else { return }
-        self.productModel.getPrice(for: productId, and: userOutlet.id, completion: { [weak self] (price) in
+        self.productModel.getPrice(for: productId, and: userOutlet.outletId, completion: { [weak self] (price) in
             let isHasPrice = price > 0.0
             if !isHasPrice {
                 self?.onOpenUpdatePrice(for: productId)
@@ -174,7 +174,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 shoplistInfoGroup.leave()
             })
             shoplistInfoGroup.enter()
-            self.productModel.getPriceList(for: ids, and: userOutlet.id, completion: { (values) in
+            self.productModel.getPriceList(for: ids, and: userOutlet.outletId, completion: { (values) in
                 prices = values
                 shoplistInfoGroup.leave()
             })
@@ -182,7 +182,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 self.mergeArrays(from: productEntities,
                                  prices: prices,
                                  shoplistItems: items,
-                                 outletId: userOutlet.id, completion: { [weak self] (shoplistViewItems) in
+                                 outletId: userOutlet.outletId, completion: { [weak self] (shoplistViewItems) in
 
                                     guard let `self` = self else { return }
 
@@ -232,7 +232,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
 
             otherInfoGroup.enter()
-            productModel.getCountry(for: productEntity.id) { (value) in
+            productModel.getCountry(for: productEntity.productId) { (value) in
                 country = value ?? "No info"
                 otherInfoGroup.leave()
             }
@@ -271,7 +271,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 
     func onOpenItemCard(for item: ShoplistViewItem) {
         guard let userOutlet = self.userOutlet else { return }
-        self.router.openItemCard(presenter: self, for: item.productId, outletId: userOutlet.id)
+        self.router.openItemCard(presenter: self, for: item.productId, outletId: userOutlet.outletId)
     }
 
     func onOpenScanner() {
@@ -280,7 +280,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 
     func onOpenItemList() {
         guard let userOutlet = self.userOutlet else { return }
-        self.router.openItemList(for: userOutlet.id, presenter: self)
+        self.router.openItemList(for: userOutlet.outletId, presenter: self)
     }
 
     func onOpenOutletList() {
@@ -289,7 +289,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 
     func onOpenNewItemCard(for productId: String) {
         guard let userOutlet = self.userOutlet else { return }
-        self.router.openItemCard(presenter: self, for: productId, outletId: userOutlet.id)
+        self.router.openItemCard(presenter: self, for: productId, outletId: userOutlet.outletId)
     }
 
     func onCleanShopList() {
@@ -332,9 +332,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 
     func onOpenUpdatePrice(for barcode: String) {
         guard let userOutlet = self.userOutlet else { return }
-        self.productModel.getPrice(for: barcode, and: userOutlet.id, completion: { [weak self] (price) in
+        self.productModel.getPrice(for: barcode, and: userOutlet.outletId, completion: { [weak self] (price) in
             guard let `self` = self else { return }
-            self.router.openUpdatePrice(presenter: self, for: barcode, currentPrice: price, outletId: userOutlet.id)
+            self.router.openUpdatePrice(presenter: self, for: barcode, currentPrice: price, outletId: userOutlet.outletId)
         })
     }
 

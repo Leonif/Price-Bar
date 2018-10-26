@@ -30,10 +30,13 @@ class OutletCell: UITableViewCell, NibLoadableReusable {
         }
 
         self.outletName.text = outlet.name
-        let km = R.string.localizable.outlet_list_km("\(Int(outlet.distance/1000))")
+        let kmValue = Int(outlet.distance/1000)
+        let kmCaption = R.string
+            .localizable
+            .outlet_list_km("\(kmValue)")
         let metres = R.string.localizable.outlet_list_m("\(Int(outlet.distance))")
 
-        let distance = outlet.distance > 1000 ? km : metres
+        let distance = outlet.distance > 1000 ? kmCaption : metres
 
         self.distanceLabel.text = distance
         self.outletAddress.text = outlet.address

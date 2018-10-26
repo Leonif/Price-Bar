@@ -1065,6 +1065,7 @@
 				790B7DF020835D8C003DD560 /* ShellScript */,
 				5ABFF4EE53B1D775DE865756 /* [CP] Copy Pods Resources */,
 				79486DA021825C100036ADDC /* ShellScript */,
+				7913222E21839D9300779FA0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1306,6 +1307,23 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run 3287543ca2d6f916e2ec45e6e040f6e55ae30e18 ee74ce186ccf4521acaec8ba8bd26362fae8392848857d1c23e639ff4e6afa6f\n";
 		};
+		7913222E21839D9300779FA0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
 		79486D9F218259290036ADDC /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
@@ -1338,7 +1356,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
+			shellScript = "#\"${PODS_ROOT}/SwiftLint/swiftlint\"\n";
 		};
 		796C739F1F727F1900F26C90 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;

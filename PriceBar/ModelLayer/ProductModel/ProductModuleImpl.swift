@@ -9,31 +9,27 @@
 import Foundation
 
 class ProductModelImpl: ProductModel {
-    
     func getProductInfoList(for ids: [String], completion: @escaping (([String: ProductEntity]) -> Void)) {
         var productEntities: [String: ProductEntity] = [:]
         let entityGroup = DispatchGroup()
-        for id in ids {
+        for productId in ids {
             entityGroup.enter()
-            self.getProductEntity(for: id, completion: { result in
+            self.getProductEntity(for: productId, completion: { result in
                 switch result {
                 case let .success(entity):
-                    productEntities[id] = entity
+                    productEntities[productId] = entity
                     entityGroup.leave()
                 case let .failure(error):
                     fatalError(error.errorDescription)
                 }
             })
-            
         }
-        
         entityGroup.notify(queue: .main) {
             completion(productEntities)
         }
     }
     
     func getProductDetail(productId: String, outletId: String, completion: @escaping (ResultType<ShoplistViewItem, ProductModelError>) -> Void) {
-        
         let productInfo = DispatchGroup()
         var productEntity: ProductEntity!
         var categoryName: String!
@@ -82,7 +78,7 @@ class ProductModelImpl: ProductModel {
         }
         
         productInfo.notify(queue: .main) {
-            let newItem = ShoplistViewItem(productId: productEntity.id, country: country,
+            let newItem = ShoplistViewItem(productId: productEntity.productId, country: country,
                                            productName: productEntity.name,
                                            brand: productEntity.brand,
                                            weightPerPiece: productEntity.weightPerPiece,
@@ -117,7 +113,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func save(new product: ProductEntity) {
-        let entity = ProductEntity(id: product.id,
+        let entity = ProductEntity(productId: product.productId,
                                    name: product.name,
                                    brand: product.brand,
                                    weightPerPiece: product.weightPerPiece,
@@ -127,7 +123,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func update(_ product: ProductEntity) {
-        let entity = ProductEntity(id: product.id,
+        let entity = ProductEntity(productId: product.productId,
                                    name: product.name,
                                    brand: product.brand,
                                    weightPerPiece: product.weightPerPiece,
@@ -155,7 +151,7 @@ class ProductModelImpl: ProductModel {
                 return ProductPrice(productId: productId, productName: "",
                                     currentPrice: $0.price,
                                     outletId: $0.outletId,
-                                    date: $0.date)
+                                    date: $0.date!)
             }
             completion(prices)
         }
@@ -220,10 +216,13 @@ class ProductModelImpl: ProductModel {
     func getProductEntity(for productId: String, completion: @escaping (ResultType<ProductEntity, ProductModelError>) -> Void) {
         FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
             guard let fbProductEntity = fbProductEntity else {
-                completion(ResultType.failure(ProductModelError.other(R.string.localizable.error_something_went_wrong())))
+                
+                let message = R.string.localizable.error_something_went_wrong()
+                
+                completion(ResultType.failure(ProductModelError.other(message)))
                 return
             }
-            completion(ResultType.success(ProductEntity(id: productId,
+            completion(ResultType.success(ProductEntity(productId: productId,
                                                         name: fbProductEntity.name,
                                                         brand: fbProductEntity.brand,
                                                         weightPerPiece: fbProductEntity.weightPerPiece,
@@ -330,7 +329,7 @@ class ProductModelImpl: ProductModel {
                 callback(nil)
                 return
             }
-            let result = ProductEntity(id: item.id,
+            let result = ProductEntity(productId: item.productId,
                                        name: item.name,
                                        brand: item.brand,
                                        weightPerPiece: item.weightPerPiece,

@@ -87,9 +87,9 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                         return
                 }
 
-                self.productModel.getPrice(for: dpProduct.id, and: outletId, completion: { (price) in
+                self.productModel.getPrice(for: dpProduct.productId, and: outletId, completion: { (price) in
                     self.view.hideLoading()
-                    let product = ProductCardEntity(productId: dpProduct.id,
+                    let product = ProductCardEntity(productId: dpProduct.productId,
                                                         productName: dpProduct.name,
                                                         brand: dpProduct.brand,
                                                         weightPerPiece: dpProduct.weightPerPiece,
@@ -170,7 +170,7 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                     return
             }
 
-            let dpProductCardModel = ProductEntity(id: productCard.productId,
+            let dpProductCardModel = ProductEntity(productId: productCard.productId,
                                                           name: productCard.productName,
                                                           brand: productCard.brand,
                                                           weightPerPiece: productCard.weightPerPiece,

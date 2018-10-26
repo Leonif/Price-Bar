@@ -75,7 +75,7 @@ class FirebaseParser {
         guard let goodDict = snapGood.value as? Dictionary<String, Any> else {
             fatalError("Product is not parsed")
         }
-        let id = snapGood.key
+        let productId = snapGood.key
         guard let name = goodDict["name"] as? String else {
             fatalError("Product is not parsed")
         }
@@ -93,7 +93,7 @@ class FirebaseParser {
         var uomId = goodDict["uom_id"] as? Int32
         uomId = uomId == nil ? defaultUomid : uomId
 
-        return ProductEntity(id: id,
+        return ProductEntity(productId: productId,
                               name: name,
                               brand: brand,
                               weightPerPiece: weightPerPiece,

@@ -23,11 +23,11 @@ struct ShoplistViewItem: Equatable {
     var parameters: [ParameterEntity]
 
     var fullName: String {
-        let pr = "\(productName)"
-        let br = brand.isEmpty ? "" : ", \(brand)"
+        let name = "\(productName)"
+        let brandToShow = brand.isEmpty ? "" : ", \(brand)"
         let weightToShow = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
 
-        return "\(pr)\(br)\(weightToShow) - \(country)"
+        return "\(name)\(brandToShow)\(weightToShow) - \(country)"
     }
 
     init(productId: String = "", country: String = "",
@@ -50,6 +50,6 @@ struct ShoplistViewItem: Equatable {
     }
 }
 
-func ==(lhs: ShoplistViewItem, rhs: ShoplistViewItem) -> Bool {
+func == (lhs: ShoplistViewItem, rhs: ShoplistViewItem) -> Bool {
     return lhs.productId == rhs.productId
 }

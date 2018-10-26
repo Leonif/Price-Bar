@@ -9,7 +9,7 @@
 import Foundation
 
 struct ProductEntity {
-    var id: String
+    var productId: String
     var name: String
     var brand: String
     var weightPerPiece: String
@@ -24,8 +24,8 @@ struct ProductEntity {
         return "\(pr)\(br)\(weightToShow)"
     }
 
-    init(id: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0) {
-        self.id = id
+    init(productId: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0) {
+        self.productId = productId
         self.name = name
         self.brand = brand
         self.weightPerPiece = weightPerPiece

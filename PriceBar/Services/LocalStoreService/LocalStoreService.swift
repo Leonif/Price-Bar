@@ -60,11 +60,11 @@ class CoreDataServiceImpl: LocalStoreService {
 
             shopList = savedShopList.map { shoplistItem in
 
-                guard let id = shoplistItem.productId else {
+                guard let productId = shoplistItem.productId else {
                     fatalError()
                 }
 
-                return ShoplistItemEntity(productId: id, quantity: shoplistItem.quantity)
+                return ShoplistItemEntity(productId: productId, quantity: shoplistItem.quantity)
             }
         } catch {
             print("Products is not got from database")

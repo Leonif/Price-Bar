@@ -13,7 +13,8 @@ typealias OutletResultType = (ResultType<OutletEntity, OutletModelError>) -> Voi
 typealias OutletListResultType = (ResultType<[OutletEntity], OutletModelError>) -> Void
 
 protocol OutletModel {
-    func searchOutletList(with text: String, nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType)
+    func searchOutletList(with text: String,
+                          nearby coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType)
     func getOutlet(with outletId: String, completion: @escaping OutletResultType)
     func nearestOutletNearBy(coordinates: (lat: Double, lon: Double), completion: @escaping OutletResultType)
     func outletListNearBy(coordinates: (lat: Double, lon: Double), completion: @escaping OutletListResultType)

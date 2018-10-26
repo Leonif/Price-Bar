@@ -10,7 +10,7 @@ import Foundation
 
 class OutletMapper {
     class func mapper(from outlet: OutletEntity) -> OutletViewItem {
-        return OutletViewItem(id: outlet.id,
+        return OutletViewItem(outletId: outlet.id,
                       name: outlet.name,
                       address: outlet.address,
                       distance: outlet.distance)

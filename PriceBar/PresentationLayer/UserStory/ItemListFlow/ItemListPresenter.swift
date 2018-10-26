@@ -93,7 +93,7 @@ extension ItemListPresenterImpl {
 
         for product in products {
             itemDispatchGroup.enter()
-            self.getItemWithPrice(for: product.id, outletId: outletId, completion: { (itemListView) in
+            self.getItemWithPrice(for: product.productId, outletId: outletId, completion: { (itemListView) in
                 productAdjusted.append(itemListView)
                 itemDispatchGroup.leave()
             })

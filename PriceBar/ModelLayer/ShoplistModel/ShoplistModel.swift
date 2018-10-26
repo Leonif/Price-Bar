@@ -38,11 +38,16 @@ class ShoplistModelImpl: ShoplistModel {
         localStoreService.changeShoplistItem(quantity, for: productId)
     }
 
-    func saveToShopList(new item: ShoplistViewItem, completion: @escaping (ResultType<Bool, ProductModelError>) -> Void) {
+    func saveToShopList(new item: ShoplistViewItem,
+                        completion: @escaping (ResultType<Bool, ProductModelError>) -> Void) {
         guard let shoplist = self.localStoreService.loadShopList() else { fatalError() }
 
         if shoplist.contains(where: { $0.productId == item.productId }) {
-            completion(ResultType.failure(ProductModelError.alreadyAdded(R.string.localizable.common_already_in_list())))
+            let errorMessage = R.string.localizable.common_already_in_list()
+            let result: ResultType<Bool, ProductModelError> = ResultType
+                .failure(ProductModelError
+                    .alreadyAdded(errorMessage))
+            completion(result)
             return
         }
         self.localStoreService.saveToShopList(ShoplistItemEntity(productId: item.productId, quantity: item.quantity))

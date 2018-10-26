@@ -40,13 +40,13 @@ class ShoplistDatasourceManager {
         return self.dataSource[section].getElementCount()
     }
 
-    func getItem<T>(for indexPath: IndexPath) -> T {
+    func getItem<T>(for indexPath: IndexPath) -> T? {
         return self.dataSource[indexPath.section].getItem(for: indexPath.row)
     }
 
-    func getItem<T>(indexPath: IndexPath) -> T {
-        return dataSource[indexPath.section].getItem(for: indexPath.row)
-    }
+//    func getItem<T>(indexPath: IndexPath) -> T {
+//        return dataSource[indexPath.section].getItem(for: indexPath.row)
+//    }
 
     func removeElement(with indexPath: IndexPath) {
         dataSource[indexPath.section].remove(index: indexPath.row)
@@ -64,10 +64,12 @@ enum ShoplistDataSource {
     case products(title: String, elements: [ShoplistViewItem])
     case notes(title: String, elements: [Int])
 
-    func getItem<T>(for index: Int) -> T {
+    func getItem<T>(for index: Int) -> T? {
         switch self {
-        case let .products(data): return data.elements[index] as! T
-        case let .notes(data):    return data.elements[index] as! T
+        case let .products(data):
+            return data.elements[index] as? T
+        case let .notes(data):
+            return data.elements[index] as? T
         }
     }
 

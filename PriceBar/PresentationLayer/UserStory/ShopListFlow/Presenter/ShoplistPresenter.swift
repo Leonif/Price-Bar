@@ -216,7 +216,9 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 
             let otherInfoGroup = DispatchGroup()
             otherInfoGroup.enter()
-            productModel.getCategoryName(for: productEntity.categoryId!) { (result) in
+            
+            let categoryId = productEntity.categoryId ?? 1
+            productModel.getCategoryName(for: categoryId) { (result) in
                 switch result {
                 case let .success(name):
                     categoryName = name
@@ -226,7 +228,10 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 otherInfoGroup.leave()
             }
             otherInfoGroup.enter()
-            productModel.getParametredUom(for: productEntity.uomId!) { (entity) in
+            
+            let uomId = productEntity.uomId ?? 1
+            
+            productModel.getParametredUom(for: uomId) { (entity) in
                 uomEntity = entity
                 otherInfoGroup.leave()
             }
@@ -238,15 +243,21 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             }
 
             otherInfoGroup.notify(queue: .main) {
+                
+                let brand = productEntity.brand ?? ""
+                let weightPerPiece = productEntity.weightPerPiece ?? ""
+                let categoryId = productEntity.categoryId ?? 1
+                let uomId = productEntity.uomId ?? 1
+                
                 let shopItem = ShoplistViewItem(productId: item.productId,
                                                 country: country,
                                                 productName: productEntity.name,
-                                                brand: productEntity.brand!,
-                                                weightPerPiece: productEntity.weightPerPiece!,
-                                                categoryId: productEntity.categoryId!,
+                                                brand: brand,
+                                                weightPerPiece: weightPerPiece,
+                                                categoryId: categoryId,
                                                 productCategory: categoryName,
                                                 productPrice: price,
-                                                uomId: productEntity.uomId!,
+                                                uomId: uomId,
                                                 productUom: uomEntity.name,
                                                 quantity: item.quantity,
                                                 parameters: uomEntity.parameters as! [ParameterEntity])

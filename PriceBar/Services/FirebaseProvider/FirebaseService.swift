@@ -247,17 +247,22 @@ class FirebaseService {
     }
 
     func getProduct(with productId: String, callback: @escaping (ProductEntity?) -> Void) {
-        self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
-            guard let snap = snapshot.value as? [String: Any] else { fatalError() }
-
-            let goods = snap.map { FirebaseParser.parse(from: $0) }.filter { $0.productId == productId }
-
-            guard !goods.isEmpty else {
-                callback(nil)
-                return
-            }
-            callback(goods.first)
+        self.refGoods.child(productId).makeObjectRequest { (product: ProductEntity ) in
+            callback(product)
         }
+//        
+//        
+//        self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
+//            guard let snap = snapshot.value as? [String: Any] else { fatalError() }
+//
+//            let goods = snap.map { FirebaseParser.parse(from: $0) }.filter { $0.productId == productId }
+//
+//            guard !goods.isEmpty else {
+//                callback(nil)
+//                return
+//            }
+//            callback(goods.first)
+//        }
     }
 
     func getFiltredProductList(with searchedText: String, completion: @escaping (FirebaseResult<[ProductEntity]>) -> Void) {

@@ -46,12 +46,12 @@ struct ProductEntity: Decodable {
         return "\(pr)\(brandToShow)\(weightToShow)"
     }
 
-    init(productId: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0) {
-        self.productId = productId
-        self.name = name
-        self.brand = brand
-        self.weightPerPiece = weightPerPiece
-        self.categoryId = categoryId
-        self.uomId = uomId
-    }
+//    init(productId: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0) {
+//        self.productId = productId
+//        self.name = name
+//        self.brand = brand
+//        self.weightPerPiece = weightPerPiece
+//        self.categoryId = categoryId
+//        self.uomId = uomId
+//    }
 }

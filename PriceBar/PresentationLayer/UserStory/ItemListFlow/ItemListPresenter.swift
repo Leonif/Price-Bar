@@ -116,10 +116,14 @@ extension ItemListPresenterImpl {
                     switch result {
                     case let .success(categoryName):
                         self.productModel.getPrice(for: produtId, and: outletId, completion: { (price) in
+                            
+                            let brand = product.brand ?? ""
+                            let weightPerPiece = product.weightPerPiece ?? ""
+                            
                             let item = ItemListViewEntity(id: produtId,
                                                           product: product.name,
-                                                          brand: product.brand!,
-                                                          weightPerPiece: product.weightPerPiece!,
+                                                          brand: brand,
+                                                          weightPerPiece: weightPerPiece,
                                                           currentPrice: price, categoryName: categoryName)
                             completion(item)
                         })

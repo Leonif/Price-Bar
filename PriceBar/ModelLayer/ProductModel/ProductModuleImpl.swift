@@ -82,12 +82,12 @@ class ProductModelImpl: ProductModel {
         productInfo.notify(queue: .main) {
             let newItem = ShoplistViewItem(productId: productEntity.productId, country: country,
                                            productName: productEntity.name,
-                                           brand: productEntity.brand!,
-                                           weightPerPiece: productEntity.weightPerPiece!,
-                                           categoryId: productEntity.categoryId!,
+                                           brand: productEntity.brand ?? "",
+                                           weightPerPiece: productEntity.weightPerPiece ?? "",
+                                           categoryId: productEntity.categoryId ?? 1,
                                            productCategory: categoryName,
                                            productPrice: price,
-                                           uomId: productEntity.uomId!,
+                                           uomId: productEntity.uomId ?? 1,
                                            productUom: parametredUom.name,
                                            quantity: 1.0,
                                            parameters: parametredUom!.parameters as! [ParameterEntity])
@@ -218,18 +218,11 @@ class ProductModelImpl: ProductModel {
     func getProductEntity(for productId: String, completion: @escaping (ProductModelResult<ProductEntity>) -> Void) {
         FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
             guard let fbProductEntity = fbProductEntity else {
-                
                 let message = R.string.localizable.error_something_went_wrong()
-                
                 completion(ResultType.failure(ProductModelError.other(message)))
                 return
             }
-            completion(ResultType.success(ProductEntity(productId: productId,
-                                                        name: fbProductEntity.name,
-                                                        brand: fbProductEntity.brand!,
-                                                        weightPerPiece: fbProductEntity.weightPerPiece!,
-                                                        categoryId: fbProductEntity.categoryId!,
-                                                        uomId: fbProductEntity.uomId!)))
+            completion(ResultType.success(fbProductEntity))
         }
     }
     
@@ -327,17 +320,17 @@ class ProductModelImpl: ProductModel {
     
     func getItem(with barcode: String, callback: @escaping (ProductEntity?) -> Void) {
         self.getProductFromCloud(with: barcode) { (item) in
-            guard let item = item else {
-                callback(nil)
-                return
-            }
-            let result = ProductEntity(productId: item.productId,
-                                       name: item.name,
-                                       brand: item.brand!,
-                                       weightPerPiece: item.weightPerPiece!,
-                                       categoryId: item.categoryId!,
-                                       uomId: item.uomId!)
-            callback(result)
+//            guard let item = item else {
+//                callback(nil)
+//                return
+//            }
+//            let result = ProductEntity(productId: item.productId,
+//                                       name: item.name,
+//                                       brand: item.brand ?? "",
+//                                       weightPerPiece: item.weightPerPiece ?? "",
+//                                       categoryId: item.categoryId ?? 1,
+//                                       uomId: item.uomId ?? 1)
+            callback(item)
         }
     }
     

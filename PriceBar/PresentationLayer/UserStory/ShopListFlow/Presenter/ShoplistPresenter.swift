@@ -249,7 +249,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                                                 uomId: productEntity.uomId,
                                                 productUom: uomEntity.name,
                                                 quantity: item.quantity,
-                                                parameters: uomEntity.parameters)
+                                                parameters: uomEntity.parameters as! [ParameterEntity])
 
                 shopItems.append(shopItem)
                 shoplistItemsGroup.leave()
@@ -315,7 +315,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 self.productModel.getParametredUom(for: product.uomId) { [weak self] (uomEntity) in
                     guard let `self` = self else { return }
 
-                    quantityModel.parameters = uomEntity.parameters
+                    quantityModel.parameters = uomEntity.parameters as! [ParameterEntity]
                     self.router.openQuantityController(presenter: self, quantityEntity: quantityModel)
                 }
 

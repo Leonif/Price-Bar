@@ -69,10 +69,8 @@
 		790B7DBD20835D8C003DD560 /* ShopListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792EE7C31EE7085500470669 /* ShopListController.swift */; };
 		790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1F201A492E0098D324 /* ProductMapper.swift */; };
 		790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B884206FC58600D80EA5 /* FoursqareProviderError.swift */; };
-		790B7DC220835D8C003DD560 /* GoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CA1F10004400752A68 /* GoodButton.swift */; };
 		790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */; };
 		790B7DC420835D8C003DD560 /* GooglePlacesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */; };
-		790B7DC620835D8C003DD560 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
 		790B7DC720835D8C003DD560 /* ProductEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B36200D501E005C6CC5 /* ProductEntity.swift */; };
 		790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */; };
 		790B7DC920835D8C003DD560 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
@@ -131,8 +129,6 @@
 		79486D9C2182558F0036ADDC /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79486D9B2182558F0036ADDC /* HeaderView.xib */; };
 		79486D9D2182558F0036ADDC /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79486D9B2182558F0036ADDC /* HeaderView.xib */; };
 		795EA8C61F0EC58F00752A68 /* FoundationTypes+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */; };
-		795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */; };
-		795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8CA1F10004400752A68 /* GoodButton.swift */; };
 		795EA8D31F102AAB00752A68 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EA8D21F102AAB00752A68 /* FirebaseService.swift */; };
 		795EA8D51F102C0D00752A68 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */; };
 		795EED4B21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EED4A21202BC30052B4A5 /* FoursqareOutletModelImpl.swift */; };
@@ -313,9 +309,7 @@
 		79449A9A20D3F73400E28C68 /* ShopListAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListAssembler.swift; sourceTree = "<group>"; };
 		794658A120697E45007B4397 /* StatisticModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticModel.swift; sourceTree = "<group>"; };
 		79486D9B2182558F0036ADDC /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
-		795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FoundationTypes+Extension.swift"; path = "PriceBar/PresentationLayer/Common/Extensions/FoundationTypes+Extension.swift"; sourceTree = SOURCE_ROOT; };
-		795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoodTextField.swift; path = PriceBar/PresentationLayer/Common/CustomControls/GoodTextField.swift; sourceTree = SOURCE_ROOT; };
-		795EA8CA1F10004400752A68 /* GoodButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GoodButton.swift; path = PriceBar/PresentationLayer/Common/CustomControls/GoodButton.swift; sourceTree = SOURCE_ROOT; };
+		795EA8C51F0EC58F00752A68 /* FoundationTypes+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "FoundationTypes+Extension.swift"; path = "PriceBar/Common/Extensions/FoundationTypes+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		795EA8D21F102AAB00752A68 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseService.swift; path = PriceBar/Services/FirebaseProvider/FirebaseService.swift; sourceTree = SOURCE_ROOT; };
 		795EA8D41F102C0D00752A68 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		795EED4A21202BC30052B4A5 /* FoursqareOutletModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareOutletModelImpl.swift; sourceTree = "<group>"; };
@@ -494,7 +488,7 @@
 		790B7D4F2081C219003DD560 /* UserStory */ = {
 			isa = PBXGroup;
 			children = (
-				79BF1C1D21767040002B0CBD /* Main.storyboard */,
+				79D8E5EB209854C700C182DA /* IssueVC */,
 				79210296205C69B400C83706 /* CloudStatisticFlow */,
 				790B7D32207BBC3B003DD560 /* UpdatePriceAndStatistics */,
 				790BC9E71F8831FB00CA9519 /* ShopListFlow */,
@@ -502,6 +496,7 @@
 				794CEAC71F8A6BA8003B517A /* ItemCardFlow */,
 				79833B3E201142F5005C6CC5 /* ScannerFlow */,
 				790BC9E91F88326E00CA9519 /* OutletFlow */,
+				79BF1C1D21767040002B0CBD /* Main.storyboard */,
 				792EE7B01EE707E700470669 /* LaunchScreen.storyboard */,
 			);
 			path = UserStory;
@@ -627,7 +622,6 @@
 		792132ED212862380044908C /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				7975D63120713D24003A6288 /* Common */,
 				790B7D4F2081C219003DD560 /* UserStory */,
 			);
 			path = PresentationLayer;
@@ -671,6 +665,7 @@
 		792EE7821EE48CD500470669 /* PriceBar */ = {
 			isa = PBXGroup;
 			children = (
+				7975D63120713D24003A6288 /* Common */,
 				792132F421287BB60044908C /* ModelLayer */,
 				792132ED212862380044908C /* PresentationLayer */,
 				790BC9E81F88322400CA9519 /* Services */,
@@ -716,8 +711,6 @@
 			isa = PBXGroup;
 			children = (
 				792102902055778900C83706 /* CircleIndicatorView.swift */,
-				795EA8CA1F10004400752A68 /* GoodButton.swift */,
-				795EA8C71F0FFF7A00752A68 /* GoodTextField.swift */,
 				792102942055A02000C83706 /* CountingLabel.swift */,
 				79833B3C200E812D005C6CC5 /* PickerControl.swift */,
 				790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */,
@@ -767,7 +760,6 @@
 				9F494C472158FE23002438E9 /* EventHandler.swift */,
 				79C4EA4B20DD0A2C006866F9 /* BaseRouter.swift */,
 				79C4EA5320DD7B52006866F9 /* BaseView.swift */,
-				79D8E5EB209854C700C182DA /* IssueVC */,
 				7975D633207141FB003A6288 /* Styles */,
 				790B7D31207BBC28003DD560 /* WeightPicker */,
 			);
@@ -977,8 +969,7 @@
 				79D8E5E5209854BD00C182DA /* IssueVC.swift */,
 				79D8E5E6209854BD00C182DA /* IssueVC.xib */,
 			);
-			name = IssueVC;
-			path = ../UserStory/IssueVC;
+			path = IssueVC;
 			sourceTree = "<group>";
 		};
 		79DC99E020433A9200D35D1C /* Sources */ = {
@@ -1500,11 +1491,9 @@
 				790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */,
 				790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */,
 				7913222D2182C38400779FA0 /* ProductModuleImpl.swift in Sources */,
-				790B7DC220835D8C003DD560 /* GoodButton.swift in Sources */,
 				790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */,
 				790B7DC420835D8C003DD560 /* GooglePlacesProvider.swift in Sources */,
 				79C4EA6220DF075B006866F9 /* ScannerAdapter.swift in Sources */,
-				790B7DC620835D8C003DD560 /* GoodTextField.swift in Sources */,
 				790B7DC720835D8C003DD560 /* ProductEntity.swift in Sources */,
 				790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */,
 				795EED4C21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */,
@@ -1602,11 +1591,9 @@
 				796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */,
 				79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */,
 				7913222C2182C38400779FA0 /* ProductModuleImpl.swift in Sources */,
-				795EA8CB1F10004400752A68 /* GoodButton.swift in Sources */,
 				79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */,
 				790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */,
 				79C4EA6120DF075B006866F9 /* ScannerAdapter.swift in Sources */,
-				795EA8C81F0FFF7A00752A68 /* GoodTextField.swift in Sources */,
 				79833B37200D501E005C6CC5 /* ProductEntity.swift in Sources */,
 				790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */,
 				795EED4B21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */,

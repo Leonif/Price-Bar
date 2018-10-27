@@ -216,27 +216,13 @@ class FirebaseService {
         }
     }
 
-    func getUomName(for uomid: Int32, completion: @escaping (ResultType<String, FirebaseError>) -> Void) {
-        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                for snapUom in snapUoms {
-                    if let id = Int32(snapUom.key), let uomDict = snapUom.value as? Dictionary<String, Any> {
-                        guard let name = uomDict["name"] as? String else { return }
-
-                        if id == uomid {
-                            completion(ResultType.success(name))
-                            return
-                        }
-                    }
-                }
-                completion(ResultType.failure(.syncError("No name")))
-            }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
+    func getUomName(for uomid: Int32, completion: @escaping (FirebaseResult<String>) -> Void) {
+        self.refUoms?.child("\(uomid)").makeObjectRequest { (list: UomEntity) in
+            completion(ResultType.success(list.name))
         }
     }
 
-    func getUomList(completion: @escaping (ResultType<[UomEntity]?, FirebaseError>) -> Void) {
+    func getUomList(completion: @escaping (FirebaseResult<[UomEntity]?>) -> Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 let fbUoms = FirebaseParser.parse(from: snapUoms)
@@ -247,7 +233,7 @@ class FirebaseService {
         }
     }
 
-    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity]?, FirebaseError>) -> Void) {
+    func getCategoryList(completion: @escaping (FirebaseResult<[CategoryEntity]?>) -> Void) {
         self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 let fbCategories: [CategoryEntity] = snapCategories.map { (snapCategory) in
@@ -274,7 +260,7 @@ class FirebaseService {
         }
     }
 
-    func getFiltredProductList(with searchedText: String, completion: @escaping (ResultType<[ProductEntity], FirebaseError>) -> Void) {
+    func getFiltredProductList(with searchedText: String, completion: @escaping (FirebaseResult<[ProductEntity]>) -> Void) {
         self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
             if let snapGoods = snapshot.value as? [String: Any] {
                 let goods = snapGoods
@@ -288,22 +274,14 @@ class FirebaseService {
     }
 
     func getLastPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void) {
-        self.refPriceStatistics.child(productId)
-            .observeSingleEvent(of: .value) { (snapshot) in
-            if let snapPrices = snapshot.children.allObjects as? [DataSnapshot] {
-                let itemStatistics = snapPrices
-                    .compactMap { FirebaseParser.parse(from: $0) }
-                    .filter { $0.outletId == outletId }
-                    .sorted { $0.date! > $1.date! }
-
-                guard let stat = itemStatistics.first else {
-                    callback(nil)
-                    return
-                }
-                callback(stat.price)
-            }
+        self.refPriceStatistics.child(productId).makeArrayRequest { (priceList: [PriceItemEntity]) in
+            let lastPrice = priceList
+                .filter { $0.outletId == outletId }
+                .sorted { $0.date! > $1.date! }.first?.price
+            callback(lastPrice)
         }
     }
+
     func getCountry(for productId: String, completion: @escaping (String?) -> Void) {
         var country = "manually inserted"
         guard productId.isContains(type: .digit) else {
@@ -314,7 +292,7 @@ class FirebaseService {
         var isFound = false
         
         
-        self.refBarcodeInfo?.makeSimpleRequest(completion: { (bounds: [BarcodeBounds]) in
+        self.refBarcodeInfo?.makeArrayRequest(completion: { (bounds: [BarcodeBounds]) in
             for bound in bounds {
                 guard let min = Int(bound.lower), let max = Int(bound.upper) else {
                     break
@@ -334,31 +312,38 @@ class FirebaseService {
         })
     }
     func getPricesFor(_ productId: String, callback: @escaping ([PriceItemEntity]) -> Void) {
-        self.refPriceStatistics.child(productId).makeSimpleRequest { (priceList: [PriceItemEntity]) in
+        self.refPriceStatistics.child(productId).makeArrayRequest { (priceList: [PriceItemEntity]) in
             let uniqArray: [PriceItemEntity] = priceList.uniq
             callback(uniqArray)
         }
     }
 }
 
-extension Array where Element: Hashable {
-    var uniq: [Element] {
-        return Array(Set(self))
+func unbox<U: Decodable, DictionaryType>(from object: DictionaryType) -> U? {
+    do {
+        let jsonData = try JSONSerialization.data(withJSONObject: object, options: [])
+        let entity = try JSONDecoder().decode(U.self, from: jsonData)
+        return entity
+    } catch let error {
+        print(error)
+        return nil
     }
 }
 
 extension DatabaseReference {
-    func makeSimpleRequest<U: Decodable>(completion: @escaping (U) -> Void) {
+    func makeArrayRequest<U: Decodable>(completion: @escaping (U) -> Void) {
         self.observeSingleEvent(of: .value, with: { snapshot in
-            guard let object = snapshot.children.allObjects as? [DataSnapshot] else { return }
-            let dict = object.compactMap { $0.value as? [String: Any] }
-            do {
-                let jsonData = try JSONSerialization.data(withJSONObject: dict, options: [])
-                let parsedObjects = try JSONDecoder().decode(U.self, from: jsonData)
-                completion(parsedObjects)
-            } catch let error {
-                print(error)
-            }
+            guard let array = snapshot.children.allObjects as? [DataSnapshot] else { return }
+            let object = array.compactMap { $0.value as? [String: Any] }
+            guard let entityArray: U = unbox(from: object) else { return }
+            completion(entityArray)
+        })
+    }
+    func makeObjectRequest<U: Decodable>(completion: @escaping (U) -> Void) {
+        self.observeSingleEvent(of: .value, with: { snapshot in
+            guard let object = snapshot.value as? [String: Any] else { return }
+            guard let entity: U = unbox(from: object) else { return }
+            completion(entity)
         })
     }
 }

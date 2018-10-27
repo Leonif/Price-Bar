@@ -9,24 +9,34 @@
 import Foundation
 import CoreData
 
-struct UomEntity {
-    var id: Int32
+struct UomEntity: Decodable {
+    var id: Int32?
     var name: String
-    var iterator: Double
-    var koefficients: [Double]
-    var suffixes: [String]
-    var parameters: [ParameterEntity]
+//    var iterator: Double
+    var koefficients: [Double]? // fill later
+    var suffixes: [String]? // fille later
+    var parameters: [ParameterEntity?]
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case name
+//        case iterator
+        case koefficients
+        case suffixes
+        case parameters = "parameters2"
+    }
+    
 
     init(id: Int32 = -1,
          name: String = "No name",
-         iterator: Double = -1,
+//         iterator: Double = -1,
          koefficients: [Double] = [],
          suffixes: [String] = [],
          parameters: [ParameterEntity] = []) {
 
         self.id = id
         self.name = name
-        self.iterator = iterator
+//        self.iterator = iterator
         self.koefficients = koefficients
         self.suffixes = suffixes
         self.parameters = parameters
@@ -34,10 +44,18 @@ struct UomEntity {
 
 }
 
-struct ParameterEntity {
+struct ParameterEntity: Decodable {
     var maxValue: Int
     var step: Double
     var suffix: String
     var viewMultiplicator: Double
-    var divider: Double
+    var divider: Double?
+    
+    enum CodingKeys: String, CodingKey {
+        case divider
+        case viewMultiplicator = "view_multiplicator"
+        case suffix
+        case step
+        case maxValue = "max"
+    }
 }

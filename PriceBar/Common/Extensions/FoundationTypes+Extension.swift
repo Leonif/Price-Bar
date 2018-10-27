@@ -9,12 +9,18 @@
 import Foundation
 import UIKit
 
-extension String {
 
+extension Array where Element: Hashable {
+    var uniq: [Element] {
+        return Array(Set(self))
+    }
+}
+
+
+extension String {
     enum CharacterType {
         case digit, none
     }
-
     func dropFirst(contains: Character) -> String {
         var mutable = self
         for droppedCharacter in self {
@@ -34,7 +40,6 @@ extension String {
 }
 
 extension Date {
-
     func getString(format: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = format

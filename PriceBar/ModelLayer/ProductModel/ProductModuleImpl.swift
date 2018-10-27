@@ -8,6 +8,8 @@
 
 import Foundation
 
+typealias ProductModelResult<T> = ResultType<T, ProductModelError>
+
 class ProductModelImpl: ProductModel {
     func getProductInfoList(for ids: [String], completion: @escaping (([String: ProductEntity]) -> Void)) {
         var productEntities: [String: ProductEntity] = [:]
@@ -29,7 +31,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getProductDetail(productId: String, outletId: String, completion: @escaping (ResultType<ShoplistViewItem, ProductModelError>) -> Void) {
+    func getProductDetail(productId: String, outletId: String, completion: @escaping (ProductModelResult<ShoplistViewItem>) -> Void) {
         let productInfo = DispatchGroup()
         var productEntity: ProductEntity!
         var categoryName: String!
@@ -88,13 +90,13 @@ class ProductModelImpl: ProductModel {
                                            uomId: productEntity.uomId,
                                            productUom: parametredUom.name,
                                            quantity: 1.0,
-                                           parameters: parametredUom.parameters)
+                                           parameters: parametredUom!.parameters as! [ParameterEntity])
             
             completion(ResultType.success(newItem))
         }
     }
     
-    func getQuantityOfProducts(completion: @escaping (ResultType<Int, ProductModelError>) -> Void) {
+    func getQuantityOfProducts(completion: @escaping (ProductModelResult<Int>) -> Void) {
         FirebaseService.data.getProductCount { (result) in
             switch result {
             case let .success(count):
@@ -133,7 +135,7 @@ class ProductModelImpl: ProductModel {
     }
     
     ////////////////////////////// FIXME /////////////////////////////////
-    func getProductList(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ResultType<[ProductEntity], ProductModelError>) -> Void) {
+    func getProductList(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ProductModelResult<[ProductEntity]>) -> Void) {
         FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
             switch result {
             case let .success(products):
@@ -195,7 +197,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func filterItemList(contains text: String, for outletId: String, completion: @escaping (ResultType<[ProductEntity], ProductModelError>) -> Void) {
+    func filterItemList(contains text: String, for outletId: String, completion: @escaping (ProductModelResult<[ProductEntity]>) -> Void) {
         FirebaseService.data.getFiltredProductList(with: text) { (result) in
             switch result {
             case let .success(products):
@@ -207,13 +209,13 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getProductName(for productId: String, completion: @escaping (ResultType<String?, ProductModelError>) -> Void) {
+    func getProductName(for productId: String, completion: @escaping (ProductModelResult<String?>) -> Void) {
         FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
             completion(ResultType.success(fbProductEntity?.fullName))
         }
     }
     
-    func getProductEntity(for productId: String, completion: @escaping (ResultType<ProductEntity, ProductModelError>) -> Void) {
+    func getProductEntity(for productId: String, completion: @escaping (ProductModelResult<ProductEntity>) -> Void) {
         FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
             guard let fbProductEntity = fbProductEntity else {
                 
@@ -231,7 +233,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getCategoryList(completion: @escaping (ResultType<[CategoryEntity], ProductModelError>) -> Void) {
+    func getCategoryList(completion: @escaping (ProductModelResult<[CategoryEntity]>) -> Void) {
         FirebaseService.data.getCategoryList { (result) in
             switch result {
             case let .success(categoryList):
@@ -249,7 +251,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getUomList(completion: @escaping (ResultType<[UomViewItem]?, ProductModelError>) -> Void) {
+    func getUomList(completion: @escaping (ProductModelResult<[UomViewItem]?>) -> Void) {
         FirebaseService.data.getUomList { (result) in
             switch result {
             case let .success(uomList):
@@ -266,7 +268,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getCategoryId(for categoryName: String, completion: @escaping (ResultType<Int?, ProductModelError>) -> Void) {
+    func getCategoryId(for categoryName: String, completion: @escaping (ProductModelResult<Int?>) -> Void) {
         FirebaseService.data.getCategoryId(for: categoryName) { (result) in
             switch result {
             case let .success(categoryId):
@@ -277,7 +279,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getUomId(for uomName: String, completion: @escaping (ResultType<Int?, ProductModelError>) -> Void) {
+    func getUomId(for uomName: String, completion: @escaping (ProductModelResult<Int?>) -> Void) {
         FirebaseService.data.getUomId(for: uomName) { (result) in
             switch result {
             case let .success(uomId):
@@ -288,7 +290,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getUomName(for uomId: Int32, completion: @escaping (ResultType<String, ProductModelError>) -> Void) {
+    func getUomName(for uomId: Int32, completion: @escaping (ProductModelResult<String>) -> Void) {
         FirebaseService.data.getUomName(for: uomId) { (result) in
             switch result {
             case let .success(uomName):
@@ -299,7 +301,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getCategoryName(for categoryId: Int32, completion: @escaping (ResultType<String, ProductModelError>) -> Void) {
+    func getCategoryName(for categoryId: Int32, completion: @escaping (ProductModelResult<String>) -> Void) {
         FirebaseService.data.getCategoryName(for: categoryId) { (result) in
             switch result {
             case let .success(categoryName):

@@ -93,13 +93,13 @@ class QuantityPickerPopup: UIViewController {
     func makeWeightViewItem(parameter: ParameterEntity) -> WeightViewItem {
         let stridedWeightsArray = stride(from: 0, to: Double(parameter.maxValue), by: parameter.step)
 
-        let rawWeightArray: [Double] = stridedWeightsArray.map { $0 / parameter.divider }
+        let rawWeightArray: [Double] = stridedWeightsArray.map { $0 / parameter.divider! }
         let viewWeightsArray: [Int] = stridedWeightsArray.map { Int($0) }
 
         return WeightViewItem(rawWeights: rawWeightArray,
                               viewWeight: viewWeightsArray,
                               suff: parameter.suffix,
-                              divider: parameter.divider)
+                              divider: parameter.divider!)
     }
 
     func transformIntoIndexes(from searchingValue: Double) -> [Int] {

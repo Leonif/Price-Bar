@@ -26,7 +26,8 @@ class FirebaseParser {
                 fatalError("Category os not parsed")
         }
         var fbUom = UomEntity(id: id,
-                               name: uomName, iterator: 0.0,
+                               name: uomName,
+//                               iterator: 0.0,
                                koefficients: [],
                                suffixes: [],
                                parameters: [])
@@ -61,15 +62,15 @@ class FirebaseParser {
         return snapShots.map { parse(from: $0) }
     }
 
-    class func parse(from snapGood: DataSnapshot) -> PriceItemEntity? {
-        guard let priceData = snapGood.value as? Dictionary<String, Any> else {
-            fatalError("Prices is not parsed")
-        }
-
-        guard let price = PriceItemEntity(priceData: priceData) else { return nil }
-
-        return price
-    }
+//    class func parse(from snapGood: DataSnapshot) -> PriceItemEntity? {
+//        guard let priceData = snapGood.value as? Dictionary<String, Any> else {
+//            fatalError("Prices is not parsed")
+//        }
+//
+//        guard let price = PriceItemEntity(priceData: priceData) else { return nil }
+//
+//        return price
+//    }
 
     class func parse(from snapGood: (key: String, value: Any)) -> ProductEntity {
         guard let goodDict = snapGood.value as? Dictionary<String, Any> else {

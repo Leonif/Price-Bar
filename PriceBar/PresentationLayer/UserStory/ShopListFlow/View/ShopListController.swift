@@ -190,7 +190,7 @@ class ShopListController: UIViewController, ShoplistView {
         self.presenter.onOpenItemList()
     }
 
-    @IBAction func cleanShopList(_ sender: GoodButton) {
+    @IBAction func cleanShopList(_ sender: UIButton) {
         self.cleanShoplist()
     }
 

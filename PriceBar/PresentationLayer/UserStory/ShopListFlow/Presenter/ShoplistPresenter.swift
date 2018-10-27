@@ -216,7 +216,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
 
             let otherInfoGroup = DispatchGroup()
             otherInfoGroup.enter()
-            productModel.getCategoryName(for: productEntity.categoryId) { (result) in
+            productModel.getCategoryName(for: productEntity.categoryId!) { (result) in
                 switch result {
                 case let .success(name):
                     categoryName = name
@@ -226,7 +226,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 otherInfoGroup.leave()
             }
             otherInfoGroup.enter()
-            productModel.getParametredUom(for: productEntity.uomId) { (entity) in
+            productModel.getParametredUom(for: productEntity.uomId!) { (entity) in
                 uomEntity = entity
                 otherInfoGroup.leave()
             }
@@ -241,12 +241,12 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 let shopItem = ShoplistViewItem(productId: item.productId,
                                                 country: country,
                                                 productName: productEntity.name,
-                                                brand: productEntity.brand,
-                                                weightPerPiece: productEntity.weightPerPiece,
-                                                categoryId: productEntity.categoryId,
+                                                brand: productEntity.brand!,
+                                                weightPerPiece: productEntity.weightPerPiece!,
+                                                categoryId: productEntity.categoryId!,
                                                 productCategory: categoryName,
                                                 productPrice: price,
-                                                uomId: productEntity.uomId,
+                                                uomId: productEntity.uomId!,
                                                 productUom: uomEntity.name,
                                                 quantity: item.quantity,
                                                 parameters: uomEntity.parameters as! [ParameterEntity])
@@ -312,7 +312,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self.view.hideLoading()
             switch result {
             case let .success(product):
-                self.productModel.getParametredUom(for: product.uomId) { [weak self] (uomEntity) in
+                self.productModel.getParametredUom(for: product.uomId!) { [weak self] (uomEntity) in
                     guard let `self` = self else { return }
 
                     quantityModel.parameters = uomEntity.parameters as! [ParameterEntity]

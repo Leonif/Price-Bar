@@ -8,20 +8,42 @@
 
 import Foundation
 
-struct ProductEntity {
+struct ProductEntity: Decodable {
     var productId: String
     var name: String
-    var brand: String
-    var weightPerPiece: String
-    var categoryId: Int32
-    var uomId: Int32
+    var brand: String?
+    var weightPerPiece: String?
+    var categoryId: Int32?
+    var uomId: Int32?
 
+    
+    enum CodingKeys: String, CodingKey {
+        case productId = "barcode"
+        case name
+        case categoryId = "category_id"
+        case uomId = "uom_id"
+        case brand
+        case weightPerPiece = "weight_per_piece"
+    }
+    
+    
+    
     var fullName: String {
         let pr = "\(name)"
-        let br = brand.isEmpty ? "" : ", \(brand)"
-        let weightToShow = weightPerPiece.isEmpty ? "" : ", \(weightPerPiece)"
+        
+        var brandToShow = ""
+        
+        if let brand = brand {
+            brandToShow = brand
+        }
+        
+        var weightToShow = ""
+        
+        if let weightPerPiece = weightPerPiece {
+            weightToShow = weightPerPiece
+        }
 
-        return "\(pr)\(br)\(weightToShow)"
+        return "\(pr)\(brandToShow)\(weightToShow)"
     }
 
     init(productId: String = "", name: String = "", brand: String = "", weightPerPiece: String = "", categoryId: Int32 = 0, uomId: Int32 = 0) {

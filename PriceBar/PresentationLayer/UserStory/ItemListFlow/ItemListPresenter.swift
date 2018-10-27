@@ -111,15 +111,15 @@ extension ItemListPresenterImpl {
             guard let `self` = self else { return }
             switch result {
             case let .success(product):
-                self.productModel.getCategoryName(for: product.categoryId, completion: { [weak self] (result) in
+                self.productModel.getCategoryName(for: product.categoryId!, completion: { [weak self] (result) in
                     guard let `self` = self else { return }
                     switch result {
                     case let .success(categoryName):
                         self.productModel.getPrice(for: produtId, and: outletId, completion: { (price) in
                             let item = ItemListViewEntity(id: produtId,
                                                           product: product.name,
-                                                          brand: product.brand,
-                                                          weightPerPiece: product.weightPerPiece,
+                                                          brand: product.brand!,
+                                                          weightPerPiece: product.weightPerPiece!,
                                                           currentPrice: price, categoryName: categoryName)
                             completion(item)
                         })

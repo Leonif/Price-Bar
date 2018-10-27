@@ -99,6 +99,8 @@
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
 		7913222C2182C38400779FA0 /* ProductModuleImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222B2182C38400779FA0 /* ProductModuleImpl.swift */; };
 		7913222D2182C38400779FA0 /* ProductModuleImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222B2182C38400779FA0 /* ProductModuleImpl.swift */; };
+		7913223021844F8000779FA0 /* FirebaseTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222F21844F8000779FA0 /* FirebaseTypes+Extensions.swift */; };
+		7913223121844F8000779FA0 /* FirebaseTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222F21844F8000779FA0 /* FirebaseTypes+Extensions.swift */; };
 		791430002072DE9E003293D5 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */; };
 		792102912055778900C83706 /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102902055778900C83706 /* CircleIndicatorView.swift */; };
 		7921029320557D0E00C83706 /* CloudStatisticsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7921029220557D0E00C83706 /* CloudStatisticsVC.swift */; };
@@ -282,6 +284,7 @@
 		790B7DF620835D8D003DD560 /* PriceBar copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBar copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBar copy-Info.plist"; sourceTree = "<absolute>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
 		7913222B2182C38400779FA0 /* ProductModuleImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModuleImpl.swift; sourceTree = "<group>"; };
+		7913222F21844F8000779FA0 /* FirebaseTypes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseTypes+Extensions.swift"; sourceTree = "<group>"; };
 		79142FFF2072DE9E003293D5 /* Robaga Rounded Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Robaga Rounded Bold.otf"; sourceTree = "<group>"; };
 		792102902055778900C83706 /* CircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleIndicatorView.swift; sourceTree = "<group>"; };
 		7921029220557D0E00C83706 /* CloudStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsVC.swift; sourceTree = "<group>"; };
@@ -762,6 +765,7 @@
 				79C4EA5320DD7B52006866F9 /* BaseView.swift */,
 				7975D633207141FB003A6288 /* Styles */,
 				790B7D31207BBC28003DD560 /* WeightPicker */,
+				7913222F21844F8000779FA0 /* FirebaseTypes+Extensions.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1495,6 +1499,7 @@
 				790B7DC420835D8C003DD560 /* GooglePlacesProvider.swift in Sources */,
 				79C4EA6220DF075B006866F9 /* ScannerAdapter.swift in Sources */,
 				790B7DC720835D8C003DD560 /* ProductEntity.swift in Sources */,
+				7913223121844F8000779FA0 /* FirebaseTypes+Extensions.swift in Sources */,
 				790B7DC820835D8C003DD560 /* UpdatePriceAdapter.swift in Sources */,
 				795EED4C21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */,
 				790B7DC920835D8C003DD560 /* QuantityPickerPopup.swift in Sources */,
@@ -1595,6 +1600,7 @@
 				790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */,
 				79C4EA6120DF075B006866F9 /* ScannerAdapter.swift in Sources */,
 				79833B37200D501E005C6CC5 /* ProductEntity.swift in Sources */,
+				7913223021844F8000779FA0 /* FirebaseTypes+Extensions.swift in Sources */,
 				790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */,
 				795EED4B21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */,
 				790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */,

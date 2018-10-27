@@ -261,15 +261,14 @@ class FirebaseService {
     }
 
     func getFiltredProductList(with searchedText: String, completion: @escaping (FirebaseResult<[ProductEntity]>) -> Void) {
-        self.refGoods.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapGoods = snapshot.value as? [String: Any] {
-                let goods = snapGoods
-                    .map { FirebaseParser.parse(from: $0) }
-                    .filter { $0.fullName.lowercased().range(of: searchedText.lowercased()) != nil }
-                completion(ResultType.success(goods))
+        
+        self.refGoods.makeArrayRequest { (list: [ProductEntity]) in
+            let goods = list
+                .filter {
+                    $0.fullName.lowercased()
+                        .range(of: searchedText.lowercased()) != nil
             }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
+            completion(ResultType.success(goods))
         }
     }
 
@@ -291,7 +290,6 @@ class FirebaseService {
         let mutableProductId = productId.dropFirst(contains: "0")
         var isFound = false
         
-        
         self.refBarcodeInfo?.makeArrayRequest(completion: { (bounds: [BarcodeBounds]) in
             for bound in bounds {
                 guard let min = Int(bound.lower), let max = Int(bound.upper) else {
@@ -300,7 +298,6 @@ class FirebaseService {
                 guard let codeAdjusted = Int(mutableProductId.prefix(bound.lower.count)) else {
                     break
                 }
-                
                 if min <= codeAdjusted && codeAdjusted <= max {
                     isFound = true
                     country = bound.country
@@ -316,34 +313,5 @@ class FirebaseService {
             let uniqArray: [PriceItemEntity] = priceList.uniq
             callback(uniqArray)
         }
-    }
-}
-
-func unbox<U: Decodable, DictionaryType>(from object: DictionaryType) -> U? {
-    do {
-        let jsonData = try JSONSerialization.data(withJSONObject: object, options: [])
-        let entity = try JSONDecoder().decode(U.self, from: jsonData)
-        return entity
-    } catch let error {
-        print(error)
-        return nil
-    }
-}
-
-extension DatabaseReference {
-    func makeArrayRequest<U: Decodable>(completion: @escaping (U) -> Void) {
-        self.observeSingleEvent(of: .value, with: { snapshot in
-            guard let array = snapshot.children.allObjects as? [DataSnapshot] else { return }
-            let object = array.compactMap { $0.value as? [String: Any] }
-            guard let entityArray: U = unbox(from: object) else { return }
-            completion(entityArray)
-        })
-    }
-    func makeObjectRequest<U: Decodable>(completion: @escaping (U) -> Void) {
-        self.observeSingleEvent(of: .value, with: { snapshot in
-            guard let object = snapshot.value as? [String: Any] else { return }
-            guard let entity: U = unbox(from: object) else { return }
-            completion(entity)
-        })
     }
 }

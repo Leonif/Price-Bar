@@ -47,7 +47,7 @@ class ProductModelImpl: ProductModel {
             guard let entity = entity else { fatalError() }
             
             otherProductInfoGroup.enter()
-            self.getCategoryName(for: entity.categoryId) { (result) in
+            self.getCategoryName(for: entity.categoryId!) { (result) in
                 switch result {
                 case let .success(name):
                     categoryName = name
@@ -58,7 +58,7 @@ class ProductModelImpl: ProductModel {
             }
             
             otherProductInfoGroup.enter()
-            self.getParametredUom(for: entity.uomId) { (entity) in
+            self.getParametredUom(for: entity.uomId!) { (entity) in
                 parametredUom = entity
                 otherProductInfoGroup.leave()
             }
@@ -82,12 +82,12 @@ class ProductModelImpl: ProductModel {
         productInfo.notify(queue: .main) {
             let newItem = ShoplistViewItem(productId: productEntity.productId, country: country,
                                            productName: productEntity.name,
-                                           brand: productEntity.brand,
-                                           weightPerPiece: productEntity.weightPerPiece,
-                                           categoryId: productEntity.categoryId,
+                                           brand: productEntity.brand!,
+                                           weightPerPiece: productEntity.weightPerPiece!,
+                                           categoryId: productEntity.categoryId!,
                                            productCategory: categoryName,
                                            productPrice: price,
-                                           uomId: productEntity.uomId,
+                                           uomId: productEntity.uomId!,
                                            productUom: parametredUom.name,
                                            quantity: 1.0,
                                            parameters: parametredUom!.parameters as! [ParameterEntity])
@@ -117,20 +117,20 @@ class ProductModelImpl: ProductModel {
     func save(new product: ProductEntity) {
         let entity = ProductEntity(productId: product.productId,
                                    name: product.name,
-                                   brand: product.brand,
-                                   weightPerPiece: product.weightPerPiece,
-                                   categoryId: product.categoryId,
-                                   uomId: product.uomId)
+                                   brand: product.brand!,
+                                   weightPerPiece: product.weightPerPiece!,
+                                   categoryId: product.categoryId!,
+                                   uomId: product.uomId!)
         FirebaseService.data.saveOrUpdate(entity)
     }
     
     func update(_ product: ProductEntity) {
         let entity = ProductEntity(productId: product.productId,
                                    name: product.name,
-                                   brand: product.brand,
-                                   weightPerPiece: product.weightPerPiece,
-                                   categoryId: product.categoryId,
-                                   uomId: product.uomId)
+                                   brand: product.brand!,
+                                   weightPerPiece: product.weightPerPiece!,
+                                   categoryId: product.categoryId!,
+                                   uomId: product.uomId!)
         FirebaseService.data.saveOrUpdate(entity)
     }
     
@@ -139,8 +139,8 @@ class ProductModelImpl: ProductModel {
         FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
             switch result {
             case let .success(products):
-                let dpProducts = products.map { ProductMapper.transform(input: $0) }
-                completion(ResultType.success(dpProducts))
+//                let dpProducts = products.map { ProductMapper.transform(input: $0) }
+                completion(ResultType.success(products))
             case let .failure(error):
                 completion(ResultType.failure(ProductModelError.other(error.localizedDescription)))
             }
@@ -201,8 +201,8 @@ class ProductModelImpl: ProductModel {
         FirebaseService.data.getFiltredProductList(with: text) { (result) in
             switch result {
             case let .success(products):
-                let dpProducts = products.map { ProductMapper.transform(input: $0) }
-                completion(ResultType.success(dpProducts))
+//                let dpProducts = products.map { ProductMapper.transform(input: $0) }
+                completion(ResultType.success(products))
             case let .failure(error):
                 completion(ResultType.failure(ProductModelError.other(error.localizedDescription)))
             }
@@ -226,10 +226,10 @@ class ProductModelImpl: ProductModel {
             }
             completion(ResultType.success(ProductEntity(productId: productId,
                                                         name: fbProductEntity.name,
-                                                        brand: fbProductEntity.brand,
-                                                        weightPerPiece: fbProductEntity.weightPerPiece,
-                                                        categoryId: fbProductEntity.categoryId,
-                                                        uomId: fbProductEntity.uomId)))
+                                                        brand: fbProductEntity.brand!,
+                                                        weightPerPiece: fbProductEntity.weightPerPiece!,
+                                                        categoryId: fbProductEntity.categoryId!,
+                                                        uomId: fbProductEntity.uomId!)))
         }
     }
     
@@ -333,10 +333,10 @@ class ProductModelImpl: ProductModel {
             }
             let result = ProductEntity(productId: item.productId,
                                        name: item.name,
-                                       brand: item.brand,
-                                       weightPerPiece: item.weightPerPiece,
-                                       categoryId: item.categoryId,
-                                       uomId: item.uomId)
+                                       brand: item.brand!,
+                                       weightPerPiece: item.weightPerPiece!,
+                                       categoryId: item.categoryId!,
+                                       uomId: item.uomId!)
             callback(result)
         }
     }

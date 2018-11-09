@@ -12,7 +12,11 @@ typealias ProductModelResult<T> = ResultType<T, ProductModelError>
 
 class ProductModelImpl: ProductModel {
     
-    var provider: BackEndInterface!
+    private var provider: BackEndInterface!
+    
+    init(provider: BackEndInterface) {
+        self.provider = provider
+    }
     
     func getProductInfoList(for ids: [String], completion: @escaping (([String: ProductEntity]) -> Void)) {
         var productEntities: [String: ProductEntity] = [:]

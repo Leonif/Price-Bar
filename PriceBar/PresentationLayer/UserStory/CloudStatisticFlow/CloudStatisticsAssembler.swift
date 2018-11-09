@@ -14,7 +14,8 @@ class CloudStatisticsAssembler {
         let view = CloudStatisticsVC()
         view.modalPresentationStyle = .overCurrentContext
 
-        let productModel = ProductModelImpl()
+        let provider = FirebaseService()
+        let productModel = ProductModelImpl(provider: provider)
         let presenter = CloudStatisticsPresenterImpl()
         presenter.productModel = productModel
 

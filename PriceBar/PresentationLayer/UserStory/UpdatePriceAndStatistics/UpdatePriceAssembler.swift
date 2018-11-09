@@ -12,7 +12,8 @@ import UIKit
 class UpdatePriceAssembler {
 
     func assemble(productId: String, outletId: String, updatePriceOutput: UpdatePriceOutput) -> BaseView {
-        let productModel = ProductModelImpl()
+        let provider = FirebaseService()
+        let productModel = ProductModelImpl(provider: provider)
 
         let presenter = UpdatePricePresenterImpl()
         presenter.productModel = productModel

@@ -11,7 +11,8 @@ import Foundation
 class ItemCardAssembler {
     func assemble(itemCardDelegate: ItemCardDelegate, for productId: String, outletId: String) -> BaseView {
 
-        let productModel = ProductModelImpl()
+        let provider = FirebaseService()
+        let productModel = ProductModelImpl(provider: provider)
         let presenter = ItemCardPresenterImpl()
         let router = ItemCardRouterImpl()
 

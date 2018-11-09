@@ -18,7 +18,10 @@ class ShopListAssembler {
         view.adapter = adapter
 
         let presenter = ShoplistPresenterImpl()
-        let productModel = ProductModelImpl()
+        
+        let provider = FirebaseService()
+        
+        let productModel = ProductModelImpl(provider: provider)
         let localStoreService = CoreDataServiceImpl()
         let shoplistModel = ShoplistModelImpl(localStoreService: localStoreService)
         let mapper = ShoplistMapper()

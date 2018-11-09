@@ -20,7 +20,9 @@ class LoginAssembler {
         let interactor = LoginInteractorImpl()
         interactor.provider = provider
         
+        let router = LoginRouterImpl(vc: view)
         presenter.interactor = interactor
+        presenter.router = router
         
         return view
     }

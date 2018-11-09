@@ -12,7 +12,8 @@ class ItemListAssembler {
 
     func assemble(for outletId: String, itemListOutput: ItemListOutput) -> BaseView {
 
-        let productModel = ProductModelImpl()
+        let provider = FirebaseService()
+        let productModel = ProductModelImpl(provider: provider)
 
         let presenter = ItemListPresenterImpl()
         presenter.itemListOutput = itemListOutput

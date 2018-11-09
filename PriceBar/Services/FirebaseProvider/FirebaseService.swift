@@ -20,7 +20,7 @@ enum BackendError: Error {
 
 
 protocol BackEndInterface {
-    func login(completion: @escaping (BackendResult<Bool>) -> Void)
+    func login(completion: @escaping (BackendResult<Void>) -> Void)
     func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (BackendResult<[ProductEntity]>) -> Void)
     func getProductCount(completion: @escaping (BackendResult<Int>) -> Void)
     func getParametredUom(for uomId: Int32, completion: @escaping (BackendResult<UomEntity>) -> Void)
@@ -82,7 +82,7 @@ class FirebaseService: BackEndInterface {
         pwd = "123456"
     }
 
-    func login(completion: @escaping (BackendResult<Bool>) -> Void) {
+    func login(completion: @escaping (BackendResult<Void>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
             if error != nil {
                 print("error of Email authorization!")
@@ -98,7 +98,7 @@ class FirebaseService: BackEndInterface {
                                         return
                 })
             }
-            completion(ResultType.success(true))
+            completion(ResultType.success(()))
             print("Email authorization is successful!")
         })
     }

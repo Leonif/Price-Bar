@@ -13,7 +13,14 @@ class LoginAssembler {
     func assemble() -> UIViewController {
         
         let view = R.storyboard.main.loginVC()!
+        let presenter = LoginPresenterImpl()
+        view.presenter = presenter
         
+        let provider = FirebaseService()
+        let interactor = LoginInteractorImpl()
+        interactor.provider = provider
+        
+        presenter.interactor = interactor
         
         return view
     }

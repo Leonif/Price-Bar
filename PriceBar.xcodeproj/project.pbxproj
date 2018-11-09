@@ -150,6 +150,10 @@
 		7963044A219640F40046FCB8 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79630448219640F40046FCB8 /* R.generated.swift */; };
 		7963044C219641290046FCB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7963044B219641290046FCB8 /* Assets.xcassets */; };
 		7963044D219641290046FCB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7963044B219641290046FCB8 /* Assets.xcassets */; };
+		7963044F219646890046FCB8 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7963044E219646890046FCB8 /* LoginRouter.swift */; };
+		79630450219646890046FCB8 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7963044E219646890046FCB8 /* LoginRouter.swift */; };
+		79630452219648E50046FCB8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79630451219648E50046FCB8 /* GoogleService-Info.plist */; };
+		79630453219648E50046FCB8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79630451219648E50046FCB8 /* GoogleService-Info.plist */; };
 		796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
 		796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		796D7B1B201905800098D324 /* UomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1A201905800098D324 /* UomEntity.swift */; };
@@ -338,6 +342,8 @@
 		79630431219640D90046FCB8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79630448219640F40046FCB8 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
 		7963044B219641290046FCB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PriceBar/Assets.xcassets; sourceTree = "<group>"; };
+		7963044E219646890046FCB8 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
+		79630451219648E50046FCB8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		796C73A01F727F4A00F26C90 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		796C73A11F727F4A00F26C90 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		796D7B1A201905800098D324 /* UomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UomEntity.swift; sourceTree = "<group>"; };
@@ -640,6 +646,7 @@
 			isa = PBXGroup;
 			children = (
 				7963044B219641290046FCB8 /* Assets.xcassets */,
+				79630451219648E50046FCB8 /* GoogleService-Info.plist */,
 				792EE7821EE48CD500470669 /* PriceBar */,
 				79388B211F532176008FD415 /* PriceBarTests */,
 				792EE7811EE48CD500470669 /* Products */,
@@ -983,6 +990,7 @@
 		79CCCE0F219634E900DE4A3E /* LoginFlow */ = {
 			isa = PBXGroup;
 			children = (
+				7963044E219646890046FCB8 /* LoginRouter.swift */,
 				79CCCE102196354B00DE4A3E /* LoginVC.swift */,
 				79CCCE132196359700DE4A3E /* LoginPresenter.swift */,
 				79CCCE192196371D00DE4A3E /* LoginAssembler.swift */,
@@ -1220,6 +1228,7 @@
 				7963043D219640DA0046FCB8 /* Robaga Rounded Bold.otf in Resources */,
 				79630437219640DA0046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf in Resources */,
 				79630441219640DA0046FCB8 /* robaga-rounded.regular.otf in Resources */,
+				79630453219648E50046FCB8 /* GoogleService-Info.plist in Resources */,
 				79486D9D2182558F0036ADDC /* HeaderView.xib in Resources */,
 				799029802094B24D00085F72 /* ItemListCell.xib in Resources */,
 			);
@@ -1248,6 +1257,7 @@
 				7963043C219640DA0046FCB8 /* Robaga Rounded Bold.otf in Resources */,
 				79630436219640DA0046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf in Resources */,
 				79630440219640DA0046FCB8 /* robaga-rounded.regular.otf in Resources */,
+				79630452219648E50046FCB8 /* GoogleService-Info.plist in Resources */,
 				79486D9C2182558F0036ADDC /* HeaderView.xib in Resources */,
 				7990297F2094B24D00085F72 /* ItemListCell.xib in Resources */,
 			);
@@ -1543,6 +1553,7 @@
 				7913222D2182C38400779FA0 /* ProductModuleImpl.swift in Sources */,
 				790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */,
 				790B7DC420835D8C003DD560 /* GooglePlacesProvider.swift in Sources */,
+				79630450219646890046FCB8 /* LoginRouter.swift in Sources */,
 				79C4EA6220DF075B006866F9 /* ScannerAdapter.swift in Sources */,
 				790B7DC720835D8C003DD560 /* ProductEntity.swift in Sources */,
 				7913223121844F8000779FA0 /* FirebaseTypes+Extensions.swift in Sources */,
@@ -1649,6 +1660,7 @@
 				7913222C2182C38400779FA0 /* ProductModuleImpl.swift in Sources */,
 				79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */,
 				790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */,
+				7963044F219646890046FCB8 /* LoginRouter.swift in Sources */,
 				79C4EA6120DF075B006866F9 /* ScannerAdapter.swift in Sources */,
 				79833B37200D501E005C6CC5 /* ProductEntity.swift in Sources */,
 				7913223021844F8000779FA0 /* FirebaseTypes+Extensions.swift in Sources */,

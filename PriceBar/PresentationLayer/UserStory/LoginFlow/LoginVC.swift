@@ -8,15 +8,16 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+protocol LoginView: BaseView {
+}
 
-    
-    
+class LoginVC: UIViewController, LoginView {
+    var presenter: LoginPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+        presenter.login()
     }
+    func close() { }
 
 }

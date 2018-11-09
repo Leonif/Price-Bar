@@ -10,14 +10,22 @@ import Foundation
 
 
 protocol LoginPresenter {
-    func login(completion: () -> Void)
+    func login()
 }
 
 class LoginPresenterImpl: LoginPresenter {
+    var interactor: LoginInteractor!
+    var view: LoginVC!
+    var router: LoginRouter!
     
-    var loginInteractor: LoginInteractor!
-    
-    func login(completion: () -> Void) {
-        loginInteractor.login(completion: completion)
+    func login() {
+        interactor.login { [weak self] (result) in
+            switch result {
+            case .success:
+                self?.router.showShopList()
+            case let .failure(error):
+                self?.view.onError(with: error.localizedDescription)
+            }
+        }
     }
 }

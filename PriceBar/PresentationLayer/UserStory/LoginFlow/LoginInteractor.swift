@@ -9,5 +9,20 @@
 import Foundation
 
 protocol LoginInteractor {
-    func login(completion: () -> Void)
+    func login(completion: @escaping (BackendResult<Void>) -> Void)
+}
+
+class LoginInteractorImpl: LoginInteractor {
+    
+    var provider: BackEndInterface!
+    
+    func login(completion: @escaping (BackendResult<Void>) -> Void) {
+        provider.login { (result) in
+            completion(result)
+        }
+    }
+    
+    
+    
+    
 }

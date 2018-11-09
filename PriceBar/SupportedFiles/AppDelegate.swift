@@ -30,8 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.appStart()
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        let module = ShopListAssembler().assemble()
-        self.window?.rootViewController = UINavigationController(rootViewController: module)
+        let module = LoginAssembler().assemble()
+        self.window?.rootViewController = module
         self.window?.makeKeyAndVisible()
 
         return true

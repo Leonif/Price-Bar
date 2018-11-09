@@ -124,6 +124,32 @@
 		795EED4C21202BC30052B4A5 /* FoursqareOutletModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EED4A21202BC30052B4A5 /* FoursqareOutletModelImpl.swift */; };
 		795EED4E21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */; };
 		795EED4F21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */; };
+		79630432219640D90046FCB8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79630423219640D90046FCB8 /* Localizable.strings */; };
+		79630433219640DA0046FCB8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79630423219640D90046FCB8 /* Localizable.strings */; };
+		79630434219640DA0046FCB8 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79630428219640D90046FCB8 /* PT_Sans-Narrow-Web-Regular.ttf */; };
+		79630435219640DA0046FCB8 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79630428219640D90046FCB8 /* PT_Sans-Narrow-Web-Regular.ttf */; };
+		79630436219640DA0046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79630429219640D90046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf */; };
+		79630437219640DA0046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79630429219640D90046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf */; };
+		79630438219640DA0046FCB8 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042A219640D90046FCB8 /* PT_Sans-Narrow-Web-Bold.ttf */; };
+		79630439219640DA0046FCB8 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042A219640D90046FCB8 /* PT_Sans-Narrow-Web-Bold.ttf */; };
+		7963043A219640DA0046FCB8 /* kobarapi.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042B219640D90046FCB8 /* kobarapi.regular.ttf */; };
+		7963043B219640DA0046FCB8 /* kobarapi.regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042B219640D90046FCB8 /* kobarapi.regular.ttf */; };
+		7963043C219640DA0046FCB8 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042C219640D90046FCB8 /* Robaga Rounded Bold.otf */; };
+		7963043D219640DA0046FCB8 /* Robaga Rounded Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042C219640D90046FCB8 /* Robaga Rounded Bold.otf */; };
+		7963043E219640DA0046FCB8 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042D219640D90046FCB8 /* YanoneKaffeesatz-Bold.ttf */; };
+		7963043F219640DA0046FCB8 /* YanoneKaffeesatz-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042D219640D90046FCB8 /* YanoneKaffeesatz-Bold.ttf */; };
+		79630440219640DA0046FCB8 /* robaga-rounded.regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042E219640D90046FCB8 /* robaga-rounded.regular.otf */; };
+		79630441219640DA0046FCB8 /* robaga-rounded.regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042E219640D90046FCB8 /* robaga-rounded.regular.otf */; };
+		79630442219640DA0046FCB8 /* YanoneKaffeesatz-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042F219640D90046FCB8 /* YanoneKaffeesatz-Light.ttf */; };
+		79630443219640DA0046FCB8 /* YanoneKaffeesatz-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7963042F219640D90046FCB8 /* YanoneKaffeesatz-Light.ttf */; };
+		79630444219640DA0046FCB8 /* YanoneKaffeesatz-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79630430219640D90046FCB8 /* YanoneKaffeesatz-Regular.ttf */; };
+		79630445219640DA0046FCB8 /* YanoneKaffeesatz-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 79630430219640D90046FCB8 /* YanoneKaffeesatz-Regular.ttf */; };
+		79630446219640DA0046FCB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79630431219640D90046FCB8 /* AppDelegate.swift */; };
+		79630447219640DA0046FCB8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79630431219640D90046FCB8 /* AppDelegate.swift */; };
+		79630449219640F40046FCB8 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79630448219640F40046FCB8 /* R.generated.swift */; };
+		7963044A219640F40046FCB8 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79630448219640F40046FCB8 /* R.generated.swift */; };
+		7963044C219641290046FCB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7963044B219641290046FCB8 /* Assets.xcassets */; };
+		7963044D219641290046FCB8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7963044B219641290046FCB8 /* Assets.xcassets */; };
 		796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
 		796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		796D7B1B201905800098D324 /* UomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1A201905800098D324 /* UomEntity.swift */; };
@@ -298,6 +324,20 @@
 		795EA8D21F102AAB00752A68 /* FirebaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FirebaseService.swift; path = PriceBar/Services/FirebaseProvider/FirebaseService.swift; sourceTree = SOURCE_ROOT; };
 		795EED4A21202BC30052B4A5 /* FoursqareOutletModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursqareOutletModelImpl.swift; sourceTree = "<group>"; };
 		795EED4D21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesOutletModelImpl.swift; sourceTree = "<group>"; };
+		79630424219640D90046FCB8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		79630425219640D90046FCB8 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		79630428219640D90046FCB8 /* PT_Sans-Narrow-Web-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Narrow-Web-Regular.ttf"; sourceTree = "<group>"; };
+		79630429219640D90046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-ExtraLight.ttf"; sourceTree = "<group>"; };
+		7963042A219640D90046FCB8 /* PT_Sans-Narrow-Web-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "PT_Sans-Narrow-Web-Bold.ttf"; sourceTree = "<group>"; };
+		7963042B219640D90046FCB8 /* kobarapi.regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = kobarapi.regular.ttf; sourceTree = "<group>"; };
+		7963042C219640D90046FCB8 /* Robaga Rounded Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Robaga Rounded Bold.otf"; sourceTree = "<group>"; };
+		7963042D219640D90046FCB8 /* YanoneKaffeesatz-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-Bold.ttf"; sourceTree = "<group>"; };
+		7963042E219640D90046FCB8 /* robaga-rounded.regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "robaga-rounded.regular.otf"; sourceTree = "<group>"; };
+		7963042F219640D90046FCB8 /* YanoneKaffeesatz-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-Light.ttf"; sourceTree = "<group>"; };
+		79630430219640D90046FCB8 /* YanoneKaffeesatz-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YanoneKaffeesatz-Regular.ttf"; sourceTree = "<group>"; };
+		79630431219640D90046FCB8 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		79630448219640F40046FCB8 /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		7963044B219641290046FCB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PriceBar/Assets.xcassets; sourceTree = "<group>"; };
 		796C73A01F727F4A00F26C90 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		796C73A11F727F4A00F26C90 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		796D7B1A201905800098D324 /* UomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UomEntity.swift; sourceTree = "<group>"; };
@@ -599,9 +639,11 @@
 		792EE7771EE48CD500470669 = {
 			isa = PBXGroup;
 			children = (
+				7963044B219641290046FCB8 /* Assets.xcassets */,
 				792EE7821EE48CD500470669 /* PriceBar */,
 				79388B211F532176008FD415 /* PriceBarTests */,
 				792EE7811EE48CD500470669 /* Products */,
+				79630421219640D90046FCB8 /* SupportedFiles */,
 				EFCFC6F2C247C1D3BDF643A8 /* Pods */,
 				1E9FDC8744A798E17F4DC63F /* Frameworks */,
 				799A8A231F7423E20027EB59 /* PriceBarTests copy-Info.plist */,
@@ -695,6 +737,50 @@
 				7976A6F920219AD20031CC79 /* FirebaseParser.swift */,
 			);
 			path = FirebaseProvider;
+			sourceTree = "<group>";
+		};
+		79630421219640D90046FCB8 /* SupportedFiles */ = {
+			isa = PBXGroup;
+			children = (
+				79630448219640F40046FCB8 /* R.generated.swift */,
+				79630422219640D90046FCB8 /* Localizing */,
+				79630426219640D90046FCB8 /* Sources */,
+				79630431219640D90046FCB8 /* AppDelegate.swift */,
+			);
+			name = SupportedFiles;
+			path = PriceBar/SupportedFiles;
+			sourceTree = "<group>";
+		};
+		79630422219640D90046FCB8 /* Localizing */ = {
+			isa = PBXGroup;
+			children = (
+				79630423219640D90046FCB8 /* Localizable.strings */,
+			);
+			path = Localizing;
+			sourceTree = "<group>";
+		};
+		79630426219640D90046FCB8 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				79630427219640D90046FCB8 /* Fonts */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		79630427219640D90046FCB8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				79630428219640D90046FCB8 /* PT_Sans-Narrow-Web-Regular.ttf */,
+				79630429219640D90046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf */,
+				7963042A219640D90046FCB8 /* PT_Sans-Narrow-Web-Bold.ttf */,
+				7963042B219640D90046FCB8 /* kobarapi.regular.ttf */,
+				7963042C219640D90046FCB8 /* Robaga Rounded Bold.otf */,
+				7963042D219640D90046FCB8 /* YanoneKaffeesatz-Bold.ttf */,
+				7963042E219640D90046FCB8 /* robaga-rounded.regular.otf */,
+				7963042F219640D90046FCB8 /* YanoneKaffeesatz-Light.ttf */,
+				79630430219640D90046FCB8 /* YanoneKaffeesatz-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		796D7B1E201A485E0098D324 /* Mappers */ = {
@@ -1096,6 +1182,7 @@
 			knownRegions = (
 				Base,
 				ru,
+				en,
 			);
 			mainGroup = 792EE7771EE48CD500470669;
 			productRefGroup = 792EE7811EE48CD500470669 /* Products */;
@@ -1114,14 +1201,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7963043F219640DA0046FCB8 /* YanoneKaffeesatz-Bold.ttf in Resources */,
+				79630445219640DA0046FCB8 /* YanoneKaffeesatz-Regular.ttf in Resources */,
+				79630443219640DA0046FCB8 /* YanoneKaffeesatz-Light.ttf in Resources */,
 				790B7DE320835D8C003DD560 /* LaunchScreen.storyboard in Resources */,
+				7963044D219641290046FCB8 /* Assets.xcassets in Resources */,
 				79BF1C2021767040002B0CBD /* Main.storyboard in Resources */,
+				79630433219640DA0046FCB8 /* Localizable.strings in Resources */,
 				79D8E5EA209854BD00C182DA /* IssueVC.xib in Resources */,
 				790B7DE620835D8C003DD560 /* ShopItemCell.xib in Resources */,
 				790B7DE820835D8C003DD560 /* navigationView.xib in Resources */,
+				79630439219640DA0046FCB8 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */,
+				79630435219640DA0046FCB8 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */,
 				790B7DE920835D8C003DD560 /* OutletCell.xib in Resources */,
+				7963043B219640DA0046FCB8 /* kobarapi.regular.ttf in Resources */,
 				790B7DEB20835D8C003DD560 /* AddCell.xib in Resources */,
 				79BF1C42217C6CE7002B0CBD /* PriceStatisticCell.xib in Resources */,
+				7963043D219640DA0046FCB8 /* Robaga Rounded Bold.otf in Resources */,
+				79630437219640DA0046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf in Resources */,
+				79630441219640DA0046FCB8 /* robaga-rounded.regular.otf in Resources */,
 				79486D9D2182558F0036ADDC /* HeaderView.xib in Resources */,
 				799029802094B24D00085F72 /* ItemListCell.xib in Resources */,
 			);
@@ -1131,14 +1229,25 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7963043E219640DA0046FCB8 /* YanoneKaffeesatz-Bold.ttf in Resources */,
+				79630444219640DA0046FCB8 /* YanoneKaffeesatz-Regular.ttf in Resources */,
+				79630442219640DA0046FCB8 /* YanoneKaffeesatz-Light.ttf in Resources */,
 				792EE7B41EE707E700470669 /* LaunchScreen.storyboard in Resources */,
+				7963044C219641290046FCB8 /* Assets.xcassets in Resources */,
 				79BF1C1F21767040002B0CBD /* Main.storyboard in Resources */,
+				79630432219640D90046FCB8 /* Localizable.strings in Resources */,
 				79D8E5E9209854BD00C182DA /* IssueVC.xib in Resources */,
 				79F68452206801D200257F00 /* ShopItemCell.xib in Resources */,
 				790B7D07207901F8003DD560 /* navigationView.xib in Resources */,
+				79630438219640DA0046FCB8 /* PT_Sans-Narrow-Web-Bold.ttf in Resources */,
+				79630434219640DA0046FCB8 /* PT_Sans-Narrow-Web-Regular.ttf in Resources */,
 				79E9B87E206ED8ED00D80EA5 /* OutletCell.xib in Resources */,
+				7963043A219640DA0046FCB8 /* kobarapi.regular.ttf in Resources */,
 				796D7B28201BE4B10098D324 /* AddCell.xib in Resources */,
 				79BF1C41217C6CE7002B0CBD /* PriceStatisticCell.xib in Resources */,
+				7963043C219640DA0046FCB8 /* Robaga Rounded Bold.otf in Resources */,
+				79630436219640DA0046FCB8 /* YanoneKaffeesatz-ExtraLight.ttf in Resources */,
+				79630440219640DA0046FCB8 /* robaga-rounded.regular.otf in Resources */,
 				79486D9C2182558F0036ADDC /* HeaderView.xib in Resources */,
 				7990297F2094B24D00085F72 /* ItemListCell.xib in Resources */,
 			);
@@ -1376,6 +1485,7 @@
 				790B7D8F20835D8C003DD560 /* FirebaseParser.swift in Sources */,
 				790B7D9020835D8C003DD560 /* Target.swift in Sources */,
 				790B7D9220835D8C003DD560 /* ProductModel.swift in Sources */,
+				7963044A219640F40046FCB8 /* R.generated.swift in Sources */,
 				79795CC520DF6E4D0063319B /* ItemListAssembler.swift in Sources */,
 				79C4EA6520DF0B0B006866F9 /* ScannerAssembler.swift in Sources */,
 				79D8E5E8209854BD00C182DA /* IssueVC.swift in Sources */,
@@ -1416,6 +1526,7 @@
 				79C4EA5020DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */,
 				79BF1C132171495B002B0CBD /* CoreDataStack.swift in Sources */,
 				790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */,
+				79630447219640DA0046FCB8 /* AppDelegate.swift in Sources */,
 				790B7DB620835D8C003DD560 /* OutletModel.swift in Sources */,
 				790B7DB720835D8C003DD560 /* PriceItemEntity.swift in Sources */,
 				790B7DB820835D8C003DD560 /* UomViewItem.swift in Sources */,
@@ -1480,6 +1591,7 @@
 				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
 				79E9B883206FC26200D80EA5 /* Target.swift in Sources */,
 				792EE7B91EE7080400470669 /* ProductModel.swift in Sources */,
+				79630449219640F40046FCB8 /* R.generated.swift in Sources */,
 				79795CC420DF6E4D0063319B /* ItemListAssembler.swift in Sources */,
 				79C4EA6420DF0B0B006866F9 /* ScannerAssembler.swift in Sources */,
 				79D8E5E7209854BD00C182DA /* IssueVC.swift in Sources */,
@@ -1520,6 +1632,7 @@
 				79C4EA4F20DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */,
 				79BF1C122171495B002B0CBD /* CoreDataStack.swift in Sources */,
 				79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */,
+				79630446219640DA0046FCB8 /* AppDelegate.swift in Sources */,
 				7973DD871EF1AC7F0010A64F /* OutletModel.swift in Sources */,
 				79883BCB20147E2D009CBEF0 /* PriceItemEntity.swift in Sources */,
 				79833B4B20130F71005C6CC5 /* UomViewItem.swift in Sources */,
@@ -1592,6 +1705,15 @@
 				79BF1C46217C7133002B0CBD /* ru */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		79630423219640D90046FCB8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79630424219640D90046FCB8 /* en */,
+				79630425219640D90046FCB8 /* ru */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		79BF1C1D21767040002B0CBD /* Main.storyboard */ = {

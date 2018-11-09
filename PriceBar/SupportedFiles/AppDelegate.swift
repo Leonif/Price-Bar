@@ -22,15 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         Fabric.with([Crashlytics.self])
         GMSPlacesClient.provideAPIKey("AIzaSyANoPgVD9zYXXOYrtjFPSfIltAdRNgtYs4")
-
-        FirebaseService.data.loginToFirebase(completion: { result in
-            switch result {
-            case .success:
-                debugPrint("Firebase login success")
-            case let .failure(error):
-                debugPrint("Firebase is loging with error \(error.localizedDescription)")
-            }
-        })
     }
 
     func application(_ application: UIApplication,

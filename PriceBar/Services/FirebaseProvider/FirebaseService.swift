@@ -10,17 +10,42 @@ import Foundation
 import Firebase
 
 
-typealias FirebaseResult<T> = ResultType<T, FirebaseError>
+typealias BackendResult<T> = ResultType<T, BackendError>
 
-
-enum FirebaseError: Error {
+enum BackendError: Error {
     case loginError(String)
     case syncError(String)
     case dataIsNotFound(String)
 }
 
-class FirebaseService {
-    static let data = FirebaseService()
+
+protocol BackEndInterface {
+    func login(completion: @escaping (BackendResult<Bool>) -> Void)
+    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (BackendResult<[ProductEntity]>) -> Void)
+    func getProductCount(completion: @escaping (BackendResult<Int>) -> Void)
+    func getParametredUom(for uomId: Int32, completion: @escaping (BackendResult<UomEntity>) -> Void)
+    
+    func savePrice(for productId: String, statistic: PriceItemEntity)
+    func saveOrUpdate(_ item: ProductEntity)
+    
+    func getCategoryId(for categoryName: String, completion: @escaping (BackendResult<Int?>) -> Void)
+    func getCategoryName(for categoryId: Int32, completion: @escaping (BackendResult<String>) -> Void)
+    
+    func getUomId(for uomName: String, completion: @escaping (BackendResult<Int?>) -> Void)
+    func getUomName(for uomid: Int32, completion: @escaping (BackendResult<String>) -> Void)
+ 
+    func getUomList(completion: @escaping (BackendResult<[UomEntity]?>) -> Void)
+    func getCategoryList(completion: @escaping (BackendResult<[CategoryEntity]?>) -> Void)
+    func getProduct(with productId: String, callback: @escaping (ProductEntity?) -> Void)
+    func getFiltredProductList(with searchedText: String, completion: @escaping (BackendResult<[ProductEntity]>) -> Void)
+    func getLastPrice(with productId: String, outletId: String, callback: @escaping (Double?) -> Void)
+    func getCountry(for productId: String, completion: @escaping (String?) -> Void)
+    func getPricesFor(_ productId: String, callback: @escaping ([PriceItemEntity]) -> Void)
+}
+
+
+class FirebaseService: BackEndInterface {
+//    static let data = FirebaseService()
     private var refGoods = Database.database().reference().child("goods")
 
     private var refPriceStatistics: DatabaseReference
@@ -57,7 +82,7 @@ class FirebaseService {
         pwd = "123456"
     }
 
-    func loginToFirebase(completion: @escaping (FirebaseResult<Bool>) -> Void) {
+    func login(completion: @escaping (BackendResult<Bool>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: pwd, completion: { (user, error) in
             if error != nil {
                 print("error of Email authorization!")
@@ -79,7 +104,7 @@ class FirebaseService {
     }
 
     // FIXME: PAGINATION: WORKS WRONG !!!! ===========================================
-    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (FirebaseResult<[ProductEntity]>) -> Void) {
+    func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (BackendResult<[ProductEntity]>) -> Void) {
         if pageOffset == 0 {
             self.refGoods.queryOrderedByKey().queryLimited(toLast: UInt(limit)).observeSingleEvent(of: .value, with: { snapshot in
                 if let snapGoods = snapshot.value as? [String: Any] {
@@ -108,58 +133,51 @@ class FirebaseService {
         }
     }
     // ===============================================================================================
-    func getProductCount(completion: @escaping (FirebaseResult<Int>) -> Void) {
+    func getProductCount(completion: @escaping (BackendResult<Int>) -> Void) {
         self.refGoods
             .observeSingleEvent(of: .value,
                                 with: { snapshot in
                                     completion(ResultType.success(Int(snapshot.childrenCount))) },
-                               
                                 withCancel: { error in
-                                    let result: FirebaseResult<Int> = ResultType.failure(.syncError(error.localizedDescription))
+                                    let result: BackendResult<Int> = ResultType.failure(.syncError(error.localizedDescription))
                                     completion(result)})
     }
 
-    func getParametredUom(for uomId: Int32, completion: @escaping (FirebaseResult<UomEntity>) -> Void) {
-        self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
-            if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
-                let uoms = FirebaseParser.parse(from: snapUoms).filter { $0.id == uomId }
-                guard let uom = uoms.first else { fatalError() }
-                completion(ResultType.success(uom))
-            }
-        }) { error in
-            completion(ResultType.failure(.syncError(error.localizedDescription)))
+    func getParametredUom(for uomId: Int32, completion: @escaping (BackendResult<UomEntity>) -> Void) {
+        self.refUoms?.child("\(uomId)").makeObjectRequest { (entity: UomEntity) in
+            completion(ResultType.success(entity))
         }
     }
 
     func saveOrUpdate(_ item: ProductEntity) {
-        let good = [
+        let good: [String: Any] = [
             "barcode": item.productId,
             "name": item.name,
-            "brand": item.brand,
-            "weight_per_piece": item.weightPerPiece,
-            "category_id": item.categoryId,
-            "uom_id": item.uomId
-        ] as [String: Any]
+            "brand": item.brand!,
+            "weight_per_piece": item.weightPerPiece!,
+            "category_id": item.categoryId ?? 1,
+            "uom_id": item.uomId ?? 1
+        ]
         refGoods.child(item.productId).setValue(good)
 
     }
 
     func savePrice(for productId: String, statistic: PriceItemEntity) {
-        let priceStat = [
+        let priceStat: [String: Any] = [
             "date": statistic.date!.getString(format: "dd.MM.yyyy hh:mm:ss"),
             "outlet_id": statistic.outletId,
             "price": statistic.price
-            ] as [String: Any]
+            ]
 
         refPriceStatistics.child(productId).childByAutoId().setValue(priceStat)
     }
 
-    func getCategoryId(for categoryName: String, completion: @escaping (FirebaseResult<Int?>) -> Void) {
+    func getCategoryId(for categoryName: String, completion: @escaping (BackendResult<Int?>) -> Void) {
         self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 for snapCategory in snapCategories {
                     if let categoryId = Int32(snapCategory.key),
-                        let categoryDict = snapCategory.value as? Dictionary<String, Any> {
+                        let categoryDict = snapCategory.value as? [String: Any] {
                         guard let name = categoryDict["name"] as? String else { return }
 
                         if name == categoryName {
@@ -175,7 +193,7 @@ class FirebaseService {
         }
     }
 
-    func getCategoryName(for categoryId: Int32, completion: @escaping (FirebaseResult<String>) -> Void) {
+    func getCategoryName(for categoryId: Int32, completion: @escaping (BackendResult<String>) -> Void) {
         self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 for snapCategory in snapCategories {
@@ -195,7 +213,7 @@ class FirebaseService {
         }
     }
 
-    func getUomId(for uomName: String, completion: @escaping (FirebaseResult<Int?>) -> Void) {
+    func getUomId(for uomName: String, completion: @escaping (BackendResult<Int?>) -> Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 for snapUom in snapUoms {
@@ -216,13 +234,13 @@ class FirebaseService {
         }
     }
 
-    func getUomName(for uomid: Int32, completion: @escaping (FirebaseResult<String>) -> Void) {
+    func getUomName(for uomid: Int32, completion: @escaping (BackendResult<String>) -> Void) {
         self.refUoms?.child("\(uomid)").makeObjectRequest { (list: UomEntity) in
             completion(ResultType.success(list.name))
         }
     }
 
-    func getUomList(completion: @escaping (FirebaseResult<[UomEntity]?>) -> Void) {
+    func getUomList(completion: @escaping (BackendResult<[UomEntity]?>) -> Void) {
         self.refUoms?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapUoms = snapshot.children.allObjects as? [DataSnapshot] {
                 let fbUoms = FirebaseParser.parse(from: snapUoms)
@@ -233,7 +251,7 @@ class FirebaseService {
         }
     }
 
-    func getCategoryList(completion: @escaping (FirebaseResult<[CategoryEntity]?>) -> Void) {
+    func getCategoryList(completion: @escaping (BackendResult<[CategoryEntity]?>) -> Void) {
         self.refCategories?.observeSingleEvent(of: .value, with: { snapshot in
             if let snapCategories = snapshot.children.allObjects as? [DataSnapshot] {
                 let fbCategories: [CategoryEntity] = snapCategories.map { (snapCategory) in
@@ -250,23 +268,9 @@ class FirebaseService {
         self.refGoods.child(productId).makeObjectRequest { (product: ProductEntity ) in
             callback(product)
         }
-//        
-//        
-//        self.refGoods.observeSingleEvent(of: .value) { (snapshot) in
-//            guard let snap = snapshot.value as? [String: Any] else { fatalError() }
-//
-//            let goods = snap.map { FirebaseParser.parse(from: $0) }.filter { $0.productId == productId }
-//
-//            guard !goods.isEmpty else {
-//                callback(nil)
-//                return
-//            }
-//            callback(goods.first)
-//        }
     }
 
-    func getFiltredProductList(with searchedText: String, completion: @escaping (FirebaseResult<[ProductEntity]>) -> Void) {
-        
+    func getFiltredProductList(with searchedText: String, completion: @escaping (BackendResult<[ProductEntity]>) -> Void) {
         self.refGoods.makeArrayRequest { (list: [ProductEntity]) in
             let goods = list
                 .filter {

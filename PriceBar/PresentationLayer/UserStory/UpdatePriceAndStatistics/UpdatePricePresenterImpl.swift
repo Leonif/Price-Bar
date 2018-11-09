@@ -33,7 +33,7 @@ public final class UpdatePricePresenterImpl: UpdatePricePresenter {
                 return
             }
             self.productModel.getPrice(for: productId, and: outletId, completion: { (price) in
-                self.productModel.getUomName(for: dpProductEntity.uomId!, completion: { (result) in
+                self.productModel.getUomName(for: dpProductEntity.uomId ?? 1, completion: { (result) in
                     self.view.hideLoading()
 
                     switch result {

@@ -44,7 +44,7 @@ class OutletsVC: UIViewController, OutletListView, UIGestureRecognizerDelegate {
         tableView.register(OutletCell.self)
 
         self.adapter.onDidSelect = { [weak self] outlet in
-            self?.presenter.onChoosen(outlet: outlet)
+            self?.presenter.onChosen(outlet: outlet)
             self?.close()
         }
 

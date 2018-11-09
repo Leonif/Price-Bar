@@ -15,7 +15,6 @@ protocol BaseView: class {
     func onError(with message: String)
     func onError(with message: String, completion: @escaping () -> Void)
     func close()
-
 }
 
 extension BaseView where Self: UIViewController {
@@ -38,5 +37,4 @@ extension BaseView where Self: UIViewController {
             completion()
         })
     }
-
 }

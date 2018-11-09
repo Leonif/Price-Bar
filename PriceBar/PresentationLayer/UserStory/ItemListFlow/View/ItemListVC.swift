@@ -28,12 +28,12 @@ class ItemListVC: UIViewController, UIGestureRecognizerDelegate, ItemListView {
     }()
 
     let backButton: UIButton = {
-        let b = UIButton(frame: CGRect.zero)
+        let btn = UIButton(frame: CGRect.zero)
         let icon = R.image.backButton()
-        b.setImage(icon, for: .normal)
-        b.imageView?.contentMode = .scaleAspectFit
+        btn.setImage(icon, for: .normal)
+        btn.imageView?.contentMode = .scaleAspectFit
 
-        return b
+        return btn
     }()
 
     override func viewDidLoad() {

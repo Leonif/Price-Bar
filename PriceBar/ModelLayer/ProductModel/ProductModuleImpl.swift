@@ -11,6 +11,9 @@ import Foundation
 typealias ProductModelResult<T> = ResultType<T, ProductModelError>
 
 class ProductModelImpl: ProductModel {
+    
+    var provider: BackEndInterface!
+    
     func getProductInfoList(for ids: [String], completion: @escaping (([String: ProductEntity]) -> Void)) {
         var productEntities: [String: ProductEntity] = [:]
         let entityGroup = DispatchGroup()
@@ -45,7 +48,6 @@ class ProductModelImpl: ProductModel {
             let otherProductInfoGroup = DispatchGroup()
             
             guard let entity = entity else { fatalError() }
-            
             otherProductInfoGroup.enter()
             self.getCategoryName(for: entity.categoryId!) { (result) in
                 switch result {
@@ -90,14 +92,14 @@ class ProductModelImpl: ProductModel {
                                            uomId: productEntity.uomId ?? 1,
                                            productUom: parametredUom.name,
                                            quantity: 1.0,
-                                           parameters: parametredUom!.parameters as! [ParameterEntity])
+                                           parameters: parametredUom!.params)
             
             completion(ResultType.success(newItem))
         }
     }
     
     func getQuantityOfProducts(completion: @escaping (ProductModelResult<Int>) -> Void) {
-        FirebaseService.data.getProductCount { (result) in
+        provider.getProductCount { (result) in
             switch result {
             case let .success(count):
                 completion(ResultType.success(count))
@@ -111,7 +113,7 @@ class ProductModelImpl: ProductModel {
         let entity = PriceItemEntity(productId: statistic.productId,
                                      price: statistic.newPrice,
                                      outletId: statistic.outletId)
-        FirebaseService.data.savePrice(for: productId, statistic: entity)
+        provider.savePrice(for: productId, statistic: entity)
     }
     
     func save(new product: ProductEntity) {
@@ -121,7 +123,7 @@ class ProductModelImpl: ProductModel {
                                    weightPerPiece: product.weightPerPiece!,
                                    categoryId: product.categoryId!,
                                    uomId: product.uomId!)
-        FirebaseService.data.saveOrUpdate(entity)
+        provider.saveOrUpdate(entity)
     }
     
     func update(_ product: ProductEntity) {
@@ -131,15 +133,13 @@ class ProductModelImpl: ProductModel {
                                    weightPerPiece: product.weightPerPiece!,
                                    categoryId: product.categoryId!,
                                    uomId: product.uomId!)
-        FirebaseService.data.saveOrUpdate(entity)
+        provider.saveOrUpdate(entity)
     }
     
-    ////////////////////////////// FIXME /////////////////////////////////
     func getProductList(with pageOffset: Int, limit: Int, for outletId: String, completion: @escaping (ProductModelResult<[ProductEntity]>) -> Void) {
-        FirebaseService.data.getProductList(with: pageOffset, limit: limit) { (result) in
+        provider.getProductList(with: pageOffset, limit: limit) { (result) in
             switch result {
             case let .success(products):
-//                let dpProducts = products.map { ProductMapper.transform(input: $0) }
                 completion(ResultType.success(products))
             case let .failure(error):
                 completion(ResultType.failure(ProductModelError.other(error.localizedDescription)))
@@ -148,7 +148,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func getPricesFor(productId: String, completion: @escaping ([ProductPrice]) -> Void) {
-        FirebaseService.data.getPricesFor(productId) { (statistics) in
+        provider.getPricesFor(productId) { (statistics) in
             let prices = statistics.map {
                 return ProductPrice(productId: productId, productName: "",
                                     currentPrice: $0.price,
@@ -186,22 +186,21 @@ class ProductModelImpl: ProductModel {
     }
     
     func getCountry(for productId: String, completion: @escaping (String?) -> Void) {
-        FirebaseService.data.getCountry(for: productId) { (country) in
+        provider.getCountry(for: productId) { (country) in
             completion(country)
         }
     }
     
     private func getPriceFromCloud(for productId: String, and outletId: String, completion: @escaping (Double?) -> Void) {
-        FirebaseService.data.getLastPrice(with: productId, outletId: outletId) { (price) in
+        provider.getLastPrice(with: productId, outletId: outletId) { (price) in
             completion(price)
         }
     }
     
     func filterItemList(contains text: String, for outletId: String, completion: @escaping (ProductModelResult<[ProductEntity]>) -> Void) {
-        FirebaseService.data.getFiltredProductList(with: text) { (result) in
+        provider.getFiltredProductList(with: text) { (result) in
             switch result {
             case let .success(products):
-//                let dpProducts = products.map { ProductMapper.transform(input: $0) }
                 completion(ResultType.success(products))
             case let .failure(error):
                 completion(ResultType.failure(ProductModelError.other(error.localizedDescription)))
@@ -210,13 +209,13 @@ class ProductModelImpl: ProductModel {
     }
     
     func getProductName(for productId: String, completion: @escaping (ProductModelResult<String?>) -> Void) {
-        FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
+        provider.getProduct(with: productId) { (fbProductEntity) in
             completion(ResultType.success(fbProductEntity?.fullName))
         }
     }
     
     func getProductEntity(for productId: String, completion: @escaping (ProductModelResult<ProductEntity>) -> Void) {
-        FirebaseService.data.getProduct(with: productId) { (fbProductEntity) in
+        provider.getProduct(with: productId) { (fbProductEntity) in
             guard let fbProductEntity = fbProductEntity else {
                 let message = R.string.localizable.error_something_went_wrong()
                 completion(ResultType.failure(ProductModelError.other(message)))
@@ -227,7 +226,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func getCategoryList(completion: @escaping (ProductModelResult<[CategoryEntity]>) -> Void) {
-        FirebaseService.data.getCategoryList { (result) in
+        provider.getCategoryList { (result) in
             switch result {
             case let .success(categoryList):
                 guard let categoryList = categoryList else {
@@ -245,7 +244,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func getUomList(completion: @escaping (ProductModelResult<[UomViewItem]?>) -> Void) {
-        FirebaseService.data.getUomList { (result) in
+        provider.getUomList { (result) in
             switch result {
             case let .success(uomList):
                 guard let uomList = uomList else {
@@ -262,7 +261,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func getCategoryId(for categoryName: String, completion: @escaping (ProductModelResult<Int?>) -> Void) {
-        FirebaseService.data.getCategoryId(for: categoryName) { (result) in
+        provider.getCategoryId(for: categoryName) { (result) in
             switch result {
             case let .success(categoryId):
                 completion(ResultType.success(categoryId))
@@ -273,7 +272,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func getUomId(for uomName: String, completion: @escaping (ProductModelResult<Int?>) -> Void) {
-        FirebaseService.data.getUomId(for: uomName) { (result) in
+        provider.getUomId(for: uomName) { (result) in
             switch result {
             case let .success(uomId):
                 completion(ResultType.success(uomId))
@@ -284,7 +283,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func getUomName(for uomId: Int32, completion: @escaping (ProductModelResult<String>) -> Void) {
-        FirebaseService.data.getUomName(for: uomId) { (result) in
+        provider.getUomName(for: uomId) { (result) in
             switch result {
             case let .success(uomName):
                 completion(ResultType.success(uomName))
@@ -295,7 +294,7 @@ class ProductModelImpl: ProductModel {
     }
     
     func getCategoryName(for categoryId: Int32, completion: @escaping (ProductModelResult<String>) -> Void) {
-        FirebaseService.data.getCategoryName(for: categoryId) { (result) in
+        provider.getCategoryName(for: categoryId) { (result) in
             switch result {
             case let .success(categoryName):
                 completion(ResultType.success(categoryName))
@@ -306,12 +305,10 @@ class ProductModelImpl: ProductModel {
     }
     
     func getParametredUom(for uomId: Int32, completion: @escaping (UomEntity) -> Void) {
-        FirebaseService.data.getParametredUom(for: uomId, completion: { (result) in
+        provider.getParametredUom(for: uomId, completion: { (result) in
             switch result {
             case let .success(parametredUom):
-                
                 completion(parametredUom)
-                
             case let .failure(error):
                 fatalError(error.localizedDescription)
             }
@@ -320,22 +317,12 @@ class ProductModelImpl: ProductModel {
     
     func getItem(with barcode: String, callback: @escaping (ProductEntity?) -> Void) {
         self.getProductFromCloud(with: barcode) { (item) in
-//            guard let item = item else {
-//                callback(nil)
-//                return
-//            }
-//            let result = ProductEntity(productId: item.productId,
-//                                       name: item.name,
-//                                       brand: item.brand ?? "",
-//                                       weightPerPiece: item.weightPerPiece ?? "",
-//                                       categoryId: item.categoryId ?? 1,
-//                                       uomId: item.uomId ?? 1)
             callback(item)
         }
     }
     
     private func getProductFromCloud(with productId: String, callback: @escaping (ProductEntity?) -> Void) {
-        FirebaseService.data.getProduct(with: productId) { (item) in
+        provider.getProduct(with: productId) { (item) in
             callback(item)
         }
     }

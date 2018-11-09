@@ -248,6 +248,8 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                 let weightPerPiece = productEntity.weightPerPiece ?? ""
                 let categoryId = productEntity.categoryId ?? 1
                 let uomId = productEntity.uomId ?? 1
+                let parameters = uomEntity.parameters.compactMap { $0 }
+                
                 
                 let shopItem = ShoplistViewItem(productId: item.productId,
                                                 country: country,
@@ -260,7 +262,7 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
                                                 uomId: uomId,
                                                 productUom: uomEntity.name,
                                                 quantity: item.quantity,
-                                                parameters: uomEntity.parameters as! [ParameterEntity])
+                                                parameters: parameters)
 
                 shopItems.append(shopItem)
                 shoplistItemsGroup.leave()
@@ -323,10 +325,10 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
             self.view.hideLoading()
             switch result {
             case let .success(product):
-                self.productModel.getParametredUom(for: product.uomId!) { [weak self] (uomEntity) in
+                self.productModel.getParametredUom(for: product.uomId ?? 1) { [weak self] (uomEntity) in
                     guard let `self` = self else { return }
 
-                    quantityModel.parameters = uomEntity.parameters as! [ParameterEntity]
+                    quantityModel.parameters = uomEntity.params
                     self.router.openQuantityController(presenter: self, quantityEntity: quantityModel)
                 }
 
@@ -354,8 +356,8 @@ public final class ShoplistPresenterImpl: ShoplistPresenter {
         self.addToShoplist(with: productId)
     }
 
-    // MARK: delagates hadnling
-    func choosen(outlet: OutletViewItem) {
+    // MARK: delegates handling
+    func chosen(outlet: OutletViewItem) {
         self.userOutlet = outlet
         self.view.onCurrentOutletUpdated(outlet: outlet)
         self.onReloadShoplist()
@@ -386,7 +388,7 @@ extension ShoplistPresenterImpl: ItemCardDelegate {
 }
 
 extension ShoplistPresenterImpl: QuantityPickerPopupDelegate {
-    func choosen(weight: Double, answer: [String: Any]) {
+    func chosen(weight: Double, answer: [String: Any]) {
         guard let productId = answer["productId"] as? String else {
             return
         }

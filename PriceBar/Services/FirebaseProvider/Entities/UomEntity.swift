@@ -16,11 +16,13 @@ struct UomEntity: Decodable {
     var koefficients: [Double]? // fill later
     var suffixes: [String]? // fille later
     var parameters: [ParameterEntity?]
+    var params: [ParameterEntity] {
+        return parameters.compactMap { $0 }
+    }
     
     enum CodingKeys: String, CodingKey {
         case id
         case name
-//        case iterator
         case koefficients
         case suffixes
         case parameters = "parameters2"
@@ -29,14 +31,12 @@ struct UomEntity: Decodable {
 
     init(id: Int32 = -1,
          name: String = "No name",
-//         iterator: Double = -1,
          koefficients: [Double] = [],
          suffixes: [String] = [],
          parameters: [ParameterEntity] = []) {
 
         self.id = id
         self.name = name
-//        self.iterator = iterator
         self.koefficients = koefficients
         self.suffixes = suffixes
         self.parameters = parameters
@@ -48,12 +48,12 @@ struct ParameterEntity: Decodable {
     var maxValue: Int
     var step: Double
     var suffix: String
-    var viewMultiplicator: Double
+//    var viewMultiplicator: Double
     var divider: Double?
     
     enum CodingKeys: String, CodingKey {
         case divider
-        case viewMultiplicator = "view_multiplicator"
+//        case viewMultiplicator = "view_multiplicator"
         case suffix
         case step
         case maxValue = "max"

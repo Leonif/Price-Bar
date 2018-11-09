@@ -72,7 +72,9 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                 return
             }
 
-            self.combineGetForCategoryNamendUomName(categoryId: dpProduct.categoryId!, uomId: dpProduct.uomId!, completion: { (categoryName, uomName, error) in
+            self.combineGetForCategoryNamendUomName(categoryId: dpProduct.categoryId ?? 1,
+                                                    uomId: dpProduct.uomId ?? 1,
+                                                    completion: { (categoryName, uomName, error) in
                 if let error = error {
                     self.view.hideLoading()
                     self.view.onError(with: error.localizedDescription)
@@ -91,8 +93,8 @@ class ItemCardPresenterImpl: ItemCardPresenter {
                     self.view.hideLoading()
                     let product = ProductCardEntity(productId: dpProduct.productId,
                                                         productName: dpProduct.name,
-                                                        brand: dpProduct.brand!,
-                                                        weightPerPiece: dpProduct.weightPerPiece!,
+                                                        brand: dpProduct.brand ?? "",
+                                                        weightPerPiece: dpProduct.weightPerPiece ?? "",
                                                         categoryName: categoryName,
                                                         newPrice: "\(price)",
                         oldPrice: "\(price)",
@@ -144,8 +146,6 @@ class ItemCardPresenterImpl: ItemCardPresenter {
             }
         }
     }
-
-
 
     func onUpdateOrCreateProduct(productCard: ProductCardEntity, for outletId: String) {
         guard !productCard.productName.isEmpty else {
@@ -213,7 +213,6 @@ class ItemCardPresenterImpl: ItemCardPresenter {
 
         }
     }
-
 
     private func saveProduct(product: ProductEntity) {
         self.productModel.save(new: product)

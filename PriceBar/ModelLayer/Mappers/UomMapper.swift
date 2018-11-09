@@ -10,8 +10,9 @@ import Foundation
 
 class UomMapper {
     class func transform(input: UomEntity) -> UomViewItem {
-        return UomViewItem(id: input.id!,
+
+        return UomViewItem(id: input.id ?? 1,
                           name: input.name,
-                          parameters: input.parameters as! [ParameterEntity])
+                          parameters: input.parameters.compactMap{ $0 })
     }
 }

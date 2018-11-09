@@ -1,5 +1,5 @@
 //
-//  QuantityPickerPopup2.swift
+//  QuantityPickerPopup.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 2/1/18.
@@ -9,8 +9,8 @@
 import Foundation
 import UIKit
 
-protocol QuantityPickerPopupDelegate {
-    func choosen(weight: Double, answer: [String: Any])
+protocol QuantityPickerPopupDelegate: class {
+    func chosen(weight: Double, answer: [String: Any])
 }
 
 struct WeightViewItem {
@@ -23,7 +23,7 @@ struct WeightViewItem {
 class QuantityPickerPopup: UIViewController {
     var weightViewItems: [WeightViewItem] = []
     var indexPath: IndexPath?
-    var delegate: QuantityPickerPopupDelegate?
+    weak var delegate: QuantityPickerPopupDelegate?
     var quantityEntity: QuantityEntity!
 
     let weightPicker: UIPickerView = {
@@ -70,7 +70,7 @@ class QuantityPickerPopup: UIViewController {
             let weightIndex = weightPicker.selectedRow(inComponent:component)
             value += weightViewItems[component].rawWeights[weightIndex]
         }
-        delegate?.choosen(weight: value, answer: self.quantityEntity.answerDict)
+        delegate?.chosen(weight: value * quantityEntity.parameters[0].divider!, answer: self.quantityEntity.answerDict)
         self.view.antiObscure {
             self.dismiss(animated: true, completion: nil)
         }
@@ -82,7 +82,7 @@ class QuantityPickerPopup: UIViewController {
         }
     }
 
-    func configurePopup() {
+    private func configurePopup() {
         weightPicker.delegate = self
         for par in quantityEntity.parameters {
             let weightViewItem = makeWeightViewItem(parameter: par)
@@ -90,7 +90,11 @@ class QuantityPickerPopup: UIViewController {
         }
     }
 
-    func makeWeightViewItem(parameter: ParameterEntity) -> WeightViewItem {
+    /// Method for transformation from model ParameterEntity to PickerDataEntity
+    ///
+    /// - Parameter parameter: list addtional oprions for uom entity
+    /// - Returns: model with raw values for picker and view values
+    private func makeWeightViewItem(parameter: ParameterEntity) -> WeightViewItem {
         let stridedWeightsArray = stride(from: 0, to: Double(parameter.maxValue), by: parameter.step)
 
         let rawWeightArray: [Double] = stridedWeightsArray.map { $0 / parameter.divider! }
@@ -102,6 +106,7 @@ class QuantityPickerPopup: UIViewController {
                               divider: parameter.divider!)
     }
 
+    
     func transformIntoIndexes(from searchingValue: Double) -> [Int] {
         var searchingIndexes: [Int] = []
         var str = String(format: "%.\(self.weightViewItems.count - 1)f", searchingValue)
@@ -109,9 +114,9 @@ class QuantityPickerPopup: UIViewController {
         var maxDivider = 1
         for (index, character) in str.enumerated().reversed() {
             let extractedFigure = (Int(String(character)) ?? 0) * (index == 0 ? 1 : Int(maxDivider))
-            for (index, value) in weightViewItems[index].viewWeight.enumerated().reversed() {
+            for (index2, value) in weightViewItems[index].viewWeight.enumerated().reversed() {
                 if extractedFigure == value {
-                    searchingIndexes.append(index)
+                    searchingIndexes.append(index2)
                     maxDivider *= 10
                     break
                 }

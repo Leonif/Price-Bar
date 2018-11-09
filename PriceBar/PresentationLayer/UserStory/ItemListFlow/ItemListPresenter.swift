@@ -111,7 +111,7 @@ extension ItemListPresenterImpl {
             guard let `self` = self else { return }
             switch result {
             case let .success(product):
-                self.productModel.getCategoryName(for: product.categoryId!, completion: { [weak self] (result) in
+                self.productModel.getCategoryName(for: product.categoryId ?? 1, completion: { [weak self] (result) in
                     guard let `self` = self else { return }
                     switch result {
                     case let .success(categoryName):

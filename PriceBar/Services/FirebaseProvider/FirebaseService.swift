@@ -18,7 +18,6 @@ enum BackendError: Error {
     case dataIsNotFound(String)
 }
 
-
 protocol BackEndInterface {
     func login(completion: @escaping (BackendResult<Void>) -> Void)
     func getProductList(with pageOffset: Int, limit: Int, completion: @escaping (BackendResult<[ProductEntity]>) -> Void)
@@ -45,7 +44,6 @@ protocol BackEndInterface {
 
 
 class FirebaseService: BackEndInterface {
-//    static let data = FirebaseService()
     private var refGoods = Database.database().reference().child("goods")
 
     private var refPriceStatistics: DatabaseReference
@@ -67,8 +65,6 @@ class FirebaseService: BackEndInterface {
         let statistics = "price_statistics_dev"
         #else
         let statistics = "price_statistics_fq"
-        //        let statistics = "price_statistics_gp"
-
         #endif
 
         refPriceStatistics = Database.database().reference().child(statistics)
@@ -153,8 +149,8 @@ class FirebaseService: BackEndInterface {
         let good: [String: Any] = [
             "barcode": item.productId,
             "name": item.name,
-            "brand": item.brand!,
-            "weight_per_piece": item.weightPerPiece!,
+            "brand": item.brand ?? "",
+            "weight_per_piece": item.weightPerPiece ?? "",
             "category_id": item.categoryId ?? 1,
             "uom_id": item.uomId ?? 1
         ]

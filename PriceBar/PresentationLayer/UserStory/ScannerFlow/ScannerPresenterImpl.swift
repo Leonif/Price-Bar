@@ -37,5 +37,4 @@ class ScannerPresenterImpl: ScannerPresenter {
     func onSendCodeOutside(code: String) {
         self.scannerOutput.scanned(barcode: code)
     }
-
 }

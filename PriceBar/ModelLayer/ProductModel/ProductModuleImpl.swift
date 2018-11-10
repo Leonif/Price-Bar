@@ -53,7 +53,7 @@ class ProductModelImpl: ProductModel {
             
             guard let entity = entity else { fatalError() }
             otherProductInfoGroup.enter()
-            self.getCategoryName(for: entity.categoryId!) { (result) in
+            self.getCategoryName(for: entity.categoryId ?? 1) { (result) in
                 switch result {
                 case let .success(name):
                     categoryName = name
@@ -64,7 +64,7 @@ class ProductModelImpl: ProductModel {
             }
             
             otherProductInfoGroup.enter()
-            self.getParametredUom(for: entity.uomId!) { (entity) in
+            self.getParametredUom(for: entity.uomId ?? 1) { (entity) in
                 parametredUom = entity
                 otherProductInfoGroup.leave()
             }
@@ -96,8 +96,7 @@ class ProductModelImpl: ProductModel {
                                            uomId: productEntity.uomId ?? 1,
                                            productUom: parametredUom.name,
                                            quantity: 1.0,
-                                           parameters: parametredUom!.params)
-            
+                                           parameters: parametredUom?.params ?? [])
             completion(ResultType.success(newItem))
         }
     }
@@ -123,20 +122,20 @@ class ProductModelImpl: ProductModel {
     func save(new product: ProductEntity) {
         let entity = ProductEntity(productId: product.productId,
                                    name: product.name,
-                                   brand: product.brand!,
-                                   weightPerPiece: product.weightPerPiece!,
-                                   categoryId: product.categoryId!,
-                                   uomId: product.uomId!)
+                                   brand: product.brand ?? "",
+                                   weightPerPiece: product.weightPerPiece ?? "",
+                                   categoryId: product.categoryId ?? 1,
+                                   uomId: product.uomId ?? 1)
         provider.saveOrUpdate(entity)
     }
     
     func update(_ product: ProductEntity) {
         let entity = ProductEntity(productId: product.productId,
                                    name: product.name,
-                                   brand: product.brand!,
-                                   weightPerPiece: product.weightPerPiece!,
-                                   categoryId: product.categoryId!,
-                                   uomId: product.uomId!)
+                                   brand: product.brand ?? "",
+                                   weightPerPiece: product.weightPerPiece ?? "",
+                                   categoryId: product.categoryId ?? 1,
+                                   uomId: product.uomId ?? 1)
         provider.saveOrUpdate(entity)
     }
     
@@ -157,7 +156,7 @@ class ProductModelImpl: ProductModel {
                 return ProductPrice(productId: productId, productName: "",
                                     currentPrice: $0.price,
                                     outletId: $0.outletId,
-                                    date: $0.date!)
+                                    date: $0.date ?? Date())
             }
             completion(prices)
         }

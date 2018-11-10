@@ -8,16 +8,16 @@
 
 import Foundation
 
-protocol ShoplistModel {
+protocol ShopListModel {
     func clearShoplist()
     func getProductQuantity(productId: String) -> Double
     func remove(itemId: String)
     func changeShoplistItem( _ quantity: Double, for productId: String)
-    func saveToShopList(new item: ShoplistViewItem, completion: @escaping (ResultType<Bool, ProductModelError>) -> Void)
+    func saveToShopList(new item: ShopListViewItem, completion: @escaping (ResultType<Bool, ProductModelError>) -> Void)
     func loadShopList(completion: ([ShoplistItemEntity]) -> Void)
 }
 
-class ShoplistModelImpl: ShoplistModel {
+class ShoplistModelImpl: ShopListModel {
 
     private var localStoreService: LocalStoreService!
 
@@ -38,7 +38,7 @@ class ShoplistModelImpl: ShoplistModel {
         localStoreService.changeShoplistItem(quantity, for: productId)
     }
 
-    func saveToShopList(new item: ShoplistViewItem,
+    func saveToShopList(new item: ShopListViewItem,
                         completion: @escaping (ResultType<Bool, ProductModelError>) -> Void) {
         guard let shoplist = self.localStoreService.loadShopList() else { fatalError() }
 

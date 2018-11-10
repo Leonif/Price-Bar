@@ -17,14 +17,14 @@ class ShopListAssembler {
         adapter.dataSourceManager = ShoplistDatasourceManager()
         view.adapter = adapter
 
-        let presenter = ShoplistPresenterImpl()
+        let presenter = ShopListPresenterImpl()
         
         let provider = FirebaseService()
         
         let productModel = ProductModelImpl(provider: provider)
         let localStoreService = CoreDataServiceImpl()
         let shoplistModel = ShoplistModelImpl(localStoreService: localStoreService)
-        let mapper = ShoplistMapper()
+        let mapper = ShopListMapper()
 
         presenter.productModel = productModel
         presenter.shoplistModel = shoplistModel

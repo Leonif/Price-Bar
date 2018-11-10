@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 enum ShopListAdapterEvent {
-  case onCellDidSelected(ShoplistViewItem)
-  case onCompareDidSelected(ShoplistViewItem)
+  case onCellDidSelected(ShopListViewItem)
+  case onCompareDidSelected(ShopListViewItem)
   case onRemoveItem(String)
   case onQuantityChange(String)
 }
@@ -26,7 +26,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
     private var onWeightDemand: ((ShopItemCell) -> Void)?
 
     func remove(indexPath: IndexPath) {
-        guard let item: ShoplistViewItem = dataSourceManager.getItem(for: indexPath) else {
+        guard let item: ShopListViewItem = dataSourceManager.getItem(for: indexPath) else {
             return
         }
         self.eventHandler?(.onRemoveItem(item.productId))
@@ -44,7 +44,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: ShopItemCell = tableView.dequeueReusableCell(for: indexPath)
-        guard let shp: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath) else {
+        guard let shp: ShopListViewItem = self.dataSourceManager.getItem(for: indexPath) else {
             fatalError("item is not found")
         }
 
@@ -80,7 +80,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 
         cell.onWeightDemand = { [weak self] cell in
             guard let `self` = self else { return }
-            guard let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath) else {
+            guard let item: ShopListViewItem = self.dataSourceManager.getItem(for: indexPath) else {
                 debugPrint("item for \(indexPath) is not found")
                 return
             }
@@ -88,7 +88,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
         }
         cell.onCompareDemand = { [weak self] cell in
             guard let `self` = self else { return }
-            guard let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath) else {
+            guard let item: ShopListViewItem = self.dataSourceManager.getItem(for: indexPath) else {
                 debugPrint("item for \(indexPath) is not found")
                 return
             }
@@ -112,7 +112,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 // MARK: - Delegate
 extension ShopListAdapter: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let item: ShoplistViewItem = self.dataSourceManager.getItem(for: indexPath) else {
+        guard let item: ShopListViewItem = self.dataSourceManager.getItem(for: indexPath) else {
             debugPrint("item for \(indexPath) is not found")
             return
         }

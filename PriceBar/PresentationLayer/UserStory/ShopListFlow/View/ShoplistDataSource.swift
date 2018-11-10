@@ -61,7 +61,7 @@ class ShoplistDatasourceManager {
 }
 
 enum ShoplistDataSource {
-    case products(title: String, elements: [ShoplistViewItem])
+    case products(title: String, elements: [ShopListViewItem])
     case notes(title: String, elements: [Int])
 
     func getItem<T>(for index: Int) -> T? {

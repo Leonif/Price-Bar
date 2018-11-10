@@ -38,7 +38,7 @@ class ProductModelImpl: ProductModel {
         }
     }
     
-    func getProductDetail(productId: String, outletId: String, completion: @escaping (ProductModelResult<ShoplistViewItem>) -> Void) {
+    func getProductDetail(productId: String, outletId: String, completion: @escaping (ProductModelResult<ShopListViewItem>) -> Void) {
         let productInfo = DispatchGroup()
         var productEntity: ProductEntity!
         var categoryName: String!
@@ -86,7 +86,7 @@ class ProductModelImpl: ProductModel {
         }
         
         productInfo.notify(queue: .main) {
-            let newItem = ShoplistViewItem(productId: productEntity.productId, country: country,
+            let newItem = ShopListViewItem(productId: productEntity.productId, country: country,
                                            productName: productEntity.name,
                                            brand: productEntity.brand ?? "",
                                            weightPerPiece: productEntity.weightPerPiece ?? "",

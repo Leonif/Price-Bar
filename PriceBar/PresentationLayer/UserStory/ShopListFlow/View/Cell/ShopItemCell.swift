@@ -50,7 +50,7 @@ class ShopItemCell: UITableViewCell, NibLoadableReusable {
         self.rightView.isHidden = false
     }
 
-    func configure(_ item: ShoplistViewItem) {
+    func configure(_ item: ShopListViewItem) {
         selectionStyle = .none
         backgroundColor = .clear
         cellView.layer.cornerRadius = 8.0

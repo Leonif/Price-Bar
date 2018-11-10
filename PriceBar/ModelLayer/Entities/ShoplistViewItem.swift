@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct ShoplistViewItem: Equatable {
+struct ShopListViewItem: Equatable {
     var productId: String
     var country: String
     var productName: String
@@ -50,6 +50,6 @@ struct ShoplistViewItem: Equatable {
     }
 }
 
-func == (lhs: ShoplistViewItem, rhs: ShoplistViewItem) -> Bool {
+func == (lhs: ShopListViewItem, rhs: ShopListViewItem) -> Bool {
     return lhs.productId == rhs.productId
 }

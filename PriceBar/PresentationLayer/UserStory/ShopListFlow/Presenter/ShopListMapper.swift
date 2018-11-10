@@ -1,5 +1,5 @@
 //
-//  ShoplistMapper.swift
+//  ShopListMapper.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 9/17/18.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-class ShoplistMapper {
+class ShopListMapper {
 
-    func transform(input: [ShoplistViewItem], categoryList: [String]) -> [ShoplistDataSource] {
+    func transform(input: [ShopListViewItem], categoryList: [String]) -> [ShoplistDataSource] {
         var output: [ShoplistDataSource] = []
         for category in categoryList {
             let items = input.filter { $0.productCategory == category }

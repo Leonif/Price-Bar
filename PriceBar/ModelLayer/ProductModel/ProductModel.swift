@@ -11,7 +11,7 @@ import UIKit
 
 protocol ProductModel {
     func getProductDetail(productId: String, outletId: String,
-                          completion: @escaping (ResultType<ShoplistViewItem, ProductModelError>) -> Void)
+                          completion: @escaping (ResultType<ShopListViewItem, ProductModelError>) -> Void)
     func getCountry(for productId: String, completion: @escaping (String?) -> Void)
 
     func getProductInfoList(for ids: [String], completion: @escaping (([String: ProductEntity]) -> Void))

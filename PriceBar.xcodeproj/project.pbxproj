@@ -17,16 +17,16 @@
 		790B7D36207FDA09003DD560 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */; };
 		790B7D38207FDDA9003DD560 /* UpdatePriceAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */; };
 		790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D3B207FEAE5003DD560 /* String+Extension.swift */; };
-		790B7D512081C24B003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
+		790B7D512081C24B003DD560 /* ShopListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShopListRouter.swift */; };
 		790B7D532081CB04003DD560 /* UpdatePricePresenterImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D522081CB04003DD560 /* UpdatePricePresenterImpl.swift */; };
 		790B7D562081E56B003DD560 /* CloudStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */; };
 		790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */; };
 		790B7D79208327E1003DD560 /* ItemCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D77208327E1003DD560 /* ItemCardVC.swift */; };
-		790B7D7F20835D8C003DD560 /* ShoplistRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShoplistRouter.swift */; };
+		790B7D7F20835D8C003DD560 /* ShopListRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D502081C24B003DD560 /* ShopListRouter.swift */; };
 		790B7D8020835D8C003DD560 /* OutletViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793368661FFEAB3200E8E81A /* OutletViewItem.swift */; };
 		790B7D8120835D8C003DD560 /* ItemListViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B23201BDE3C0098D324 /* ItemListViewEntity.swift */; };
 		790B7D8220835D8C003DD560 /* PriceBar.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79AA0FCD1EF5936E00903133 /* PriceBar.xcdatamodeld */; };
-		790B7D8320835D8C003DD560 /* ShoplistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */; };
+		790B7D8320835D8C003DD560 /* ShopListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShopListPresenter.swift */; };
 		790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973DD881EF1AF430010A64F /* OutletsVC.swift */; };
 		790B7D8620835D8C003DD560 /* PickerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B3C200E812D005C6CC5 /* PickerControl.swift */; };
 		790B7D8720835D8C003DD560 /* CloudStatisticsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */; };
@@ -154,6 +154,8 @@
 		79630450219646890046FCB8 /* LoginRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7963044E219646890046FCB8 /* LoginRouter.swift */; };
 		79630452219648E50046FCB8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79630451219648E50046FCB8 /* GoogleService-Info.plist */; };
 		79630453219648E50046FCB8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79630451219648E50046FCB8 /* GoogleService-Info.plist */; };
+		79630455219752F60046FCB8 /* ShopListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79630454219752F60046FCB8 /* ShopListInteractor.swift */; };
+		79630456219752F60046FCB8 /* ShopListInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79630454219752F60046FCB8 /* ShopListInteractor.swift */; };
 		796C73A21F727F4A00F26C90 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A01F727F4A00F26C90 /* Fabric.framework */; };
 		796C73A31F727F4A00F26C90 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C73A11F727F4A00F26C90 /* Crashlytics.framework */; };
 		796D7B1B201905800098D324 /* UomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796D7B1A201905800098D324 /* UomEntity.swift */; };
@@ -179,8 +181,8 @@
 		79795CD520E51FF80063319B /* ShopList+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CD220E51FF80063319B /* ShopList+CoreDataClass.swift */; };
 		79795CD620E51FF80063319B /* ShopList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CD320E51FF80063319B /* ShopList+CoreDataProperties.swift */; };
 		79795CD720E51FF80063319B /* ShopList+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79795CD320E51FF80063319B /* ShopList+CoreDataProperties.swift */; };
-		7983252721501BA500D57CC7 /* ShoplistMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983252621501BA500D57CC7 /* ShoplistMapper.swift */; };
-		7983252821501BA500D57CC7 /* ShoplistMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983252621501BA500D57CC7 /* ShoplistMapper.swift */; };
+		7983252721501BA500D57CC7 /* ShopListMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983252621501BA500D57CC7 /* ShopListMapper.swift */; };
+		7983252821501BA500D57CC7 /* ShopListMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7983252621501BA500D57CC7 /* ShopListMapper.swift */; };
 		7983252A2150239200D57CC7 /* ShoplistDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798325292150239200D57CC7 /* ShoplistDataSource.swift */; };
 		7983252B2150239200D57CC7 /* ShoplistDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798325292150239200D57CC7 /* ShoplistDataSource.swift */; };
 		79833B35200D5002005C6CC5 /* ProductCardEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79833B34200D5002005C6CC5 /* ProductCardEntity.swift */; };
@@ -247,7 +249,7 @@
 		79D8E5E8209854BD00C182DA /* IssueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D8E5E5209854BD00C182DA /* IssueVC.swift */; };
 		79D8E5E9209854BD00C182DA /* IssueVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D8E5E6209854BD00C182DA /* IssueVC.xib */; };
 		79D8E5EA209854BD00C182DA /* IssueVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D8E5E6209854BD00C182DA /* IssueVC.xib */; };
-		79DC99F02044B3F600D35D1C /* ShoplistPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */; };
+		79DC99F02044B3F600D35D1C /* ShopListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79DC99EF2044B3F600D35D1C /* ShopListPresenter.swift */; };
 		79E9B873206C18C700D80EA5 /* PriceStatisticCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */; };
 		79E9B875206C228700D80EA5 /* PriceStatisticViewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B874206C228700D80EA5 /* PriceStatisticViewItem.swift */; };
 		79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */; };
@@ -291,7 +293,7 @@
 		790B7D35207FDA09003DD560 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 		790B7D37207FDDA9003DD560 /* UpdatePriceAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UpdatePriceAdapter.swift; path = PresentationLayer/UserStory/UpdatePriceAndStatistics/View/adapter/UpdatePriceAdapter.swift; sourceTree = "<group>"; };
 		790B7D3B207FEAE5003DD560 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		790B7D502081C24B003DD560 /* ShoplistRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistRouter.swift; sourceTree = "<group>"; };
+		790B7D502081C24B003DD560 /* ShopListRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListRouter.swift; sourceTree = "<group>"; };
 		790B7D522081CB04003DD560 /* UpdatePricePresenterImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UpdatePricePresenterImpl.swift; path = PresentationLayer/UserStory/UpdatePriceAndStatistics/UpdatePricePresenterImpl.swift; sourceTree = "<group>"; };
 		790B7D552081E56B003DD560 /* CloudStatisticsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsPresenter.swift; sourceTree = "<group>"; };
 		790B7D752082A1CD003DD560 /* GooglePlacesProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GooglePlacesProvider.swift; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 		7963044B219641290046FCB8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = PriceBar/Assets.xcassets; sourceTree = "<group>"; };
 		7963044E219646890046FCB8 /* LoginRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRouter.swift; sourceTree = "<group>"; };
 		79630451219648E50046FCB8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		79630454219752F60046FCB8 /* ShopListInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListInteractor.swift; sourceTree = "<group>"; };
 		796C73A01F727F4A00F26C90 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		796C73A11F727F4A00F26C90 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		796D7B1A201905800098D324 /* UomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UomEntity.swift; sourceTree = "<group>"; };
@@ -363,7 +366,7 @@
 		79795CCF20E2A41F0063319B /* ItemCardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCardRouter.swift; sourceTree = "<group>"; };
 		79795CD220E51FF80063319B /* ShopList+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataClass.swift"; sourceTree = "<group>"; };
 		79795CD320E51FF80063319B /* ShopList+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShopList+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		7983252621501BA500D57CC7 /* ShoplistMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistMapper.swift; sourceTree = "<group>"; };
+		7983252621501BA500D57CC7 /* ShopListMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListMapper.swift; sourceTree = "<group>"; };
 		798325292150239200D57CC7 /* ShoplistDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistDataSource.swift; sourceTree = "<group>"; };
 		79833B34200D5002005C6CC5 /* ProductCardEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductCardEntity.swift; sourceTree = "<group>"; };
 		79833B36200D501E005C6CC5 /* ProductEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductEntity.swift; sourceTree = "<group>"; };
@@ -410,7 +413,7 @@
 		79D5F3582155226E00D746C5 /* FlexibleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlexibleStyle.swift; sourceTree = "<group>"; };
 		79D8E5E5209854BD00C182DA /* IssueVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueVC.swift; sourceTree = "<group>"; };
 		79D8E5E6209854BD00C182DA /* IssueVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueVC.xib; sourceTree = "<group>"; };
-		79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoplistPresenter.swift; sourceTree = "<group>"; };
+		79DC99EF2044B3F600D35D1C /* ShopListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopListPresenter.swift; sourceTree = "<group>"; };
 		79E9B872206C18C700D80EA5 /* PriceStatisticCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PriceStatisticCell.swift; path = PresentationLayer/UserStory/UpdatePriceAndStatistics/View/PriceStatisticCell/PriceStatisticCell.swift; sourceTree = "<group>"; };
 		79E9B874206C228700D80EA5 /* PriceStatisticViewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceStatisticViewItem.swift; sourceTree = "<group>"; };
 		79E9B87B206ED86C00D80EA5 /* OutetListAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutetListAdapter.swift; sourceTree = "<group>"; };
@@ -547,7 +550,8 @@
 			isa = PBXGroup;
 			children = (
 				79449A9A20D3F73400E28C68 /* ShopListAssembler.swift */,
-				790B7D502081C24B003DD560 /* ShoplistRouter.swift */,
+				790B7D502081C24B003DD560 /* ShopListRouter.swift */,
+				79630454219752F60046FCB8 /* ShopListInteractor.swift */,
 				79DC99F12044B40000D35D1C /* Presenter */,
 				790BC9EF1F88342100CA9519 /* Entities */,
 				790BC9EE1F88341200CA9519 /* View */,
@@ -1030,8 +1034,8 @@
 		79DC99F12044B40000D35D1C /* Presenter */ = {
 			isa = PBXGroup;
 			children = (
-				79DC99EF2044B3F600D35D1C /* ShoplistPresenter.swift */,
-				7983252621501BA500D57CC7 /* ShoplistMapper.swift */,
+				79DC99EF2044B3F600D35D1C /* ShopListPresenter.swift */,
+				7983252621501BA500D57CC7 /* ShopListMapper.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -1476,12 +1480,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				79CCCE152196359700DE4A3E /* LoginPresenter.swift in Sources */,
-				790B7D7F20835D8C003DD560 /* ShoplistRouter.swift in Sources */,
+				790B7D7F20835D8C003DD560 /* ShopListRouter.swift in Sources */,
 				790B7D8020835D8C003DD560 /* OutletViewItem.swift in Sources */,
 				790B7D8120835D8C003DD560 /* ItemListViewEntity.swift in Sources */,
 				79C4EA5920DE09D6006866F9 /* OutletListAssembler.swift in Sources */,
 				790B7D8220835D8C003DD560 /* PriceBar.xcdatamodeld in Sources */,
-				790B7D8320835D8C003DD560 /* ShoplistPresenter.swift in Sources */,
+				790B7D8320835D8C003DD560 /* ShopListPresenter.swift in Sources */,
 				799029832094BDEC00085F72 /* AddCell.swift in Sources */,
 				790B7D8520835D8C003DD560 /* OutletsVC.swift in Sources */,
 				79A8B0C420DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift in Sources */,
@@ -1489,7 +1493,7 @@
 				790B7D8720835D8C003DD560 /* CloudStatisticsPresenter.swift in Sources */,
 				790B7D8820835D8C003DD560 /* ScannerController.swift in Sources */,
 				790B7D8D20835D8C003DD560 /* CountingLabel.swift in Sources */,
-				7983252821501BA500D57CC7 /* ShoplistMapper.swift in Sources */,
+				7983252821501BA500D57CC7 /* ShopListMapper.swift in Sources */,
 				790B7D8E20835D8C003DD560 /* ItemCardVC.swift in Sources */,
 				79795CCB20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */,
 				790B7D8F20835D8C003DD560 /* FirebaseParser.swift in Sources */,
@@ -1510,6 +1514,7 @@
 				790B7D9F20835D8C003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
 				790B7DA020835D8C003DD560 /* UpdatePriceVC.swift in Sources */,
 				795EED4F21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift in Sources */,
+				79630456219752F60046FCB8 /* ShopListInteractor.swift in Sources */,
 				790B7DA220835D8C003DD560 /* String+Extension.swift in Sources */,
 				79C4EA4D20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
 				79795CD720E51FF80063319B /* ShopList+CoreDataProperties.swift in Sources */,
@@ -1583,12 +1588,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				79CCCE142196359700DE4A3E /* LoginPresenter.swift in Sources */,
-				790B7D512081C24B003DD560 /* ShoplistRouter.swift in Sources */,
+				790B7D512081C24B003DD560 /* ShopListRouter.swift in Sources */,
 				793368671FFEAB3200E8E81A /* OutletViewItem.swift in Sources */,
 				796D7B24201BDE3C0098D324 /* ItemListViewEntity.swift in Sources */,
 				79C4EA5820DE09D6006866F9 /* OutletListAssembler.swift in Sources */,
 				79AA0FCE1EF5936E00903133 /* PriceBar.xcdatamodeld in Sources */,
-				79DC99F02044B3F600D35D1C /* ShoplistPresenter.swift in Sources */,
+				79DC99F02044B3F600D35D1C /* ShopListPresenter.swift in Sources */,
 				799029822094BDEC00085F72 /* AddCell.swift in Sources */,
 				7973DD891EF1AF430010A64F /* OutletsVC.swift in Sources */,
 				79A8B0C320DB6CFD00CD9F02 /* CloudStatisticsAssembler.swift in Sources */,
@@ -1596,7 +1601,7 @@
 				790B7D562081E56B003DD560 /* CloudStatisticsPresenter.swift in Sources */,
 				79C56B041EF2F10300FAA91C /* ScannerController.swift in Sources */,
 				792102952055A02000C83706 /* CountingLabel.swift in Sources */,
-				7983252721501BA500D57CC7 /* ShoplistMapper.swift in Sources */,
+				7983252721501BA500D57CC7 /* ShopListMapper.swift in Sources */,
 				790B7D79208327E1003DD560 /* ItemCardVC.swift in Sources */,
 				79795CCA20DFDB790063319B /* ItemCardPresenterImpl.swift in Sources */,
 				7976A6FA20219AD20031CC79 /* FirebaseParser.swift in Sources */,
@@ -1617,6 +1622,7 @@
 				790B7D532081CB04003DD560 /* UpdatePricePresenterImpl.swift in Sources */,
 				790B7D2F207AA590003DD560 /* UpdatePriceVC.swift in Sources */,
 				795EED4E21202C0B0052B4A5 /* GooglePlacesOutletModelImpl.swift in Sources */,
+				79630455219752F60046FCB8 /* ShopListInteractor.swift in Sources */,
 				790B7D3C207FEAE5003DD560 /* String+Extension.swift in Sources */,
 				79C4EA4C20DD0A2C006866F9 /* BaseRouter.swift in Sources */,
 				79795CD620E51FF80063319B /* ShopList+CoreDataProperties.swift in Sources */,

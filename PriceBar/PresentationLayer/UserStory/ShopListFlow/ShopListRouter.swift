@@ -1,5 +1,5 @@
 //
-//  ShoplistRouter.swift
+//  ShopListRouter.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 4/14/18.
@@ -11,12 +11,12 @@ import UIKit
 
 protocol ShoplistRouter: BaseRouter {
     func openStatistics()
-    func openUpdatePrice(presenter: ShoplistPresenter, for productId: String, currentPrice: Double, outletId: String)
+    func openUpdatePrice(presenter: ShopListPresenter, for productId: String, currentPrice: Double, outletId: String)
     func openIssue(with issue: String)
     func openItemCard(presenter: ItemCardDelegate, for productId: String, outletId: String)
-    func openScanner(presenter: ShoplistPresenter)
-    func openItemList(for outletId: String, presenter: ShoplistPresenter)
-    func openOutletList(presenter: ShoplistPresenter)
+    func openScanner(presenter: ShopListPresenter)
+    func openItemList(for outletId: String, presenter: ShopListPresenter)
+    func openOutletList(presenter: ShopListPresenter)
     func openQuantityController(presenter: QuantityPickerPopupDelegate, quantityEntity: QuantityEntity)
 }
 
@@ -28,7 +28,7 @@ class ShoplistRouterImpl: ShoplistRouter {
         self.presentModule(fromModule: fromVC, toModule: module)
     }
 
-    func openUpdatePrice(presenter: ShoplistPresenter, for productId: String, currentPrice: Double, outletId: String) {
+    func openUpdatePrice(presenter: ShopListPresenter, for productId: String, currentPrice: Double, outletId: String) {
         let module = UpdatePriceAssembler().assemble(productId: productId, outletId: outletId, updatePriceOutput: presenter)
         self.presentModule(fromModule: fromVC, toModule: module)
     }
@@ -44,17 +44,17 @@ class ShoplistRouterImpl: ShoplistRouter {
         self.presentModule(fromModule: fromVC, toModule: module)
     }
 
-    func openScanner(presenter: ShoplistPresenter) {
+    func openScanner(presenter: ShopListPresenter) {
         let module = ScannerAssembler().assemble(scannerOutput: presenter)
         self.pushModule(fromModule: fromVC, toModule: module)
     }
 
-    func openItemList(for outletId: String, presenter: ShoplistPresenter) {
+    func openItemList(for outletId: String, presenter: ShopListPresenter) {
         let module = ItemListAssembler().assemble(for: outletId, itemListOutput: presenter)
         self.pushModule(fromModule: fromVC, toModule: module)
     }
 
-    func openOutletList(presenter: ShoplistPresenter) {
+    func openOutletList(presenter: ShopListPresenter) {
         let module = OutletListAssembler().assemble(outletListOutput: presenter)
         self.pushModule(fromModule: fromVC, toModule: module)
     }

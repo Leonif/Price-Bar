@@ -32,7 +32,7 @@ class ShopListController: UIViewController, ShoplistView {
 
     var navigationView: NavigationView!
 
-    var presenter: ShoplistPresenter!
+    var presenter: ShopListPresenter!
     var adapter: ShopListAdapter!
 
     private var buttonsHided: Bool = false

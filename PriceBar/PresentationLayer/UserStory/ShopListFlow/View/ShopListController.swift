@@ -12,7 +12,7 @@ protocol ShoplistView: BaseView {
     func onCurrentOutletUpdated(outlet: OutletViewItem)
     func onIssue(error: String)
     func onUpdatedTotal(_ total: Double)
-    func onUpdatedShoplist(_ dataSource: [ShoplistDataSource])
+    func onUpdatedShoplist(_ dataSource: [ShopListDataSource])
     func startIsCompleted()
 }
 
@@ -80,7 +80,7 @@ class ShopListController: UIViewController, ShoplistView {
             self?.totalLabel.text = "\(R.string.localizable.common_total()) \(String(format: "%.2f", total))"
         }
     }
-    func onUpdatedShoplist(_ dataSource: [ShoplistDataSource]) {
+    func onUpdatedShoplist(_ dataSource: [ShopListDataSource]) {
         self.adapter.dataSourceManager.update(dataSource: dataSource)
         DispatchQueue.main.async { [weak self] in
             self?.shopTableView.reloadData()
@@ -131,7 +131,7 @@ class ShopListController: UIViewController, ShoplistView {
         case let .onCellDidSelected(item):
           self.presenter.onOpenItemCard(for: item)
         case let .onCompareDidSelected(item):
-          self.presenter.onOpenUpdatePrice(for: item.productId)
+            self.presenter.onOpenUpdatePrice(for: item.productId)
         case let.onRemoveItem(itemId):
           self.presenter.onRemoveItem(productId: itemId)
         case let .onQuantityChange(productId):

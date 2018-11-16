@@ -10,8 +10,8 @@ import Foundation
 
 class ShopListMapper {
 
-    func transform(input: [ShopListViewItem], categoryList: [String]) -> [ShoplistDataSource] {
-        var output: [ShoplistDataSource] = []
+    func transform(input: [ShopListViewItem], categoryList: [String]) -> [ShopListDataSource] {
+        var output: [ShopListDataSource] = []
         for category in categoryList {
             let items = input.filter { $0.productCategory == category }
 

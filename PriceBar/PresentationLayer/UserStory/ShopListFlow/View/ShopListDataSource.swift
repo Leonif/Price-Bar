@@ -8,15 +8,15 @@
 
 import Foundation
 
-class ShoplistDatasourceManager {
+class ShopListDatasourceManager {
 
-    var dataSource: [ShoplistDataSource] = []
+    var dataSource: [ShopListDataSource] = []
 
     var isEmpty: Bool {
         return dataSource.isEmpty
     }
 
-    func update(dataSource: [ShoplistDataSource]) {
+    func update(dataSource: [ShopListDataSource]) {
         self.dataSource = dataSource
     }
 
@@ -24,7 +24,7 @@ class ShoplistDatasourceManager {
         return self.dataSource.count
     }
 
-    func appendCategories(with categoryLists: [ShoplistDataSource]) {
+    func appendCategories(with categoryLists: [ShopListDataSource]) {
         self.dataSource = categoryLists
     }
 
@@ -60,7 +60,7 @@ class ShoplistDatasourceManager {
     }
 }
 
-enum ShoplistDataSource {
+enum ShopListDataSource {
     case products(title: String, elements: [ShopListViewItem])
     case notes(title: String, elements: [Int])
 

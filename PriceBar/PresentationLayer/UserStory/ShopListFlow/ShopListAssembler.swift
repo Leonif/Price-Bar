@@ -14,7 +14,7 @@ class ShopListAssembler {
         let view = R.storyboard.main.shopListController()!
 
         let adapter = ShopListAdapter()
-        adapter.dataSourceManager = ShoplistDatasourceManager()
+        adapter.dataSourceManager = ShopListDatasourceManager()
         view.adapter = adapter
 
         let presenter = ShopListPresenterImpl()
@@ -24,12 +24,23 @@ class ShopListAssembler {
         let productModel = ProductModelImpl(provider: provider)
         let localStoreService = CoreDataServiceImpl()
         let shoplistModel = ShoplistModelImpl(localStoreService: localStoreService)
+        
+        let locationService = LocationServiceImpl()
+        let foursquareProvider = FoursquareProvider()
+        let outletModel = FoursqareOutletModelImpl(foursquareProvider)
+        
+        let interactor = ShopListInteractorImpl()
+        interactor.productModel = productModel
+        interactor.shopListModel = shoplistModel
+        interactor.outletModel = outletModel
+        interactor.locationService = locationService
+        
         let mapper = ShopListMapper()
-
-        presenter.productModel = productModel
-        presenter.shoplistModel = shoplistModel
+        let storage = ShopListStorage()
         presenter.view = view
         presenter.mapper = mapper
+        presenter.storage = storage
+        presenter.interactor = interactor
 
         view.presenter = presenter
 
@@ -37,11 +48,6 @@ class ShopListAssembler {
         router.fromVC = view
 
         presenter.router = router
-        let locationService = LocationServiceImpl()
-        presenter.locationService = locationService
-        let foursquareProvider = FoursquareProvider()
-        let outletModel = FoursqareOutletModelImpl(foursquareProvider)
-        presenter.outletModel = outletModel
 
         return view
     }

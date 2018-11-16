@@ -21,7 +21,7 @@ class ShopListAdapter: NSObject, UITableViewDataSource {
 
     var eventHandler: EventHandler<ShopListAdapterEvent>?
 
-    var dataSourceManager: ShoplistDatasourceManager!
+    var dataSourceManager: ShopListDatasourceManager!
 
     private var onWeightDemand: ((ShopItemCell) -> Void)?
 

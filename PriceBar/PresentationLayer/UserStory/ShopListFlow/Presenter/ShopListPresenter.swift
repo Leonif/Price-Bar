@@ -87,7 +87,6 @@ public final class ShopListPresenterImpl: ShopListPresenter {
 
     func addToShopList(with productId: String) {
         guard let outlet = self.storage.currentUserOutlet else { return }
-        self.view.showLoading(with: R.string.localizable.getting_actual_price())
         self.interactor.addItemToShopList(with: productId, outletId: outlet.outletId)
     }
 

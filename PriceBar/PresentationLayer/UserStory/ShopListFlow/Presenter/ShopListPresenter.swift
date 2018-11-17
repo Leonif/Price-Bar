@@ -10,11 +10,12 @@ import Foundation
 import GooglePlaces
 
 protocol ShopListPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, ItemListOutput {
-    func addToShopList(with productId: String) //+
-    func onReloadShopList() // +
-    func onCleanShopList()//+
-    func onRemoveItem(productId: String) //+
-    func onQuantityChanged(productId: String) //+
+    func addToShopList(with productId: String)
+    func onReloadShopList()
+    func onCleanShopList()
+    func onRemoveItem(productId: String)
+    func onQuantityChanged(productId: String)
+    
     func onOpenStatistics()
     func onOpenUpdatePrice(for barcode: String)
     func openIssueVC(with issue: String)
@@ -23,27 +24,17 @@ protocol ShopListPresenter: OutletListOutput, UpdatePriceOutput, ScannerOutput, 
     func onOpenScanner()
     func onOpenItemList()
     func onOpenOutletList()
+    
     func viewDidLoadTrigger()
 }
 
-public final class ShopListPresenterImpl: ShopListPresenter {
+public final class ShopListPresenterImpl {
     weak var view: ShoplistView!
     var router: ShoplistRouter!
     var mapper: ShopListMapper!
     var interactor: ShopListInteractor!
     var storage: ShopListStorage!
     var isStatisticShown: Bool = false
-
-    func viewDidLoadTrigger() {
-        interactor.fetchCurrentOutlet { [weak self] entity in
-            guard let `self` = self else { return }
-            let userOutlet = OutletMapper.mapper(from: entity)
-            self.storage.setCurrent(outlet: userOutlet)
-            self.view.onCurrentOutletUpdated(outlet: userOutlet)
-            self.onReloadShopList()
-         }
-        bindInteractorEvents()
-    }
 
     private func bindInteractorEvents() {
         interactor.eventHandler = { [weak self] event in
@@ -80,16 +71,34 @@ public final class ShopListPresenterImpl: ShopListPresenter {
          }
     }
 
+    private func onAddedItemToShoplist(productId: String) {
+        guard let outlet = self.storage.currentUserOutlet else { return }
+        self.interactor.isProductHasPrice(for: productId, outletId: outlet.outletId)
+        self.addToShopList(with: productId)
+    }
+}
+
+extension ShopListPresenterImpl: ShopListPresenter {
+    func viewDidLoadTrigger() {
+        interactor.fetchCurrentOutlet { [weak self] entity in
+            guard let `self` = self else { return }
+            let userOutlet = OutletMapper.mapper(from: entity)
+            self.storage.setCurrent(outlet: userOutlet)
+            self.view.onCurrentOutletUpdated(outlet: userOutlet)
+            self.onReloadShopList()
+        }
+        bindInteractorEvents()
+    }
     func addNewItemProduct(with name: String) {
         let productId = UUID().uuidString
         self.addToShopList(with: productId)
     }
-
+    
     func addToShopList(with productId: String) {
         guard let outlet = self.storage.currentUserOutlet else { return }
         self.interactor.addItemToShopList(with: productId, outletId: outlet.outletId)
     }
-
+    
     func onReloadShopList() {
         guard let outlet = self.storage.currentUserOutlet else { return }
         interactor.loadShopList(for: outlet.outletId) { items in
@@ -100,42 +109,42 @@ public final class ShopListPresenterImpl: ShopListPresenter {
             }
         }
     }
-
+    
     func onOpenStatistics() {
         self.router.openStatistics()
     }
-
+    
     func openIssueVC(with issue: String) {
         self.router.openIssue(with: issue)
     }
-
+    
     func onOpenItemCard(for item: ShopListViewItem) {
         guard let outlet = storage.currentUserOutlet else { return }
         self.router.openItemCard(presenter: self, for: item.productId, outletId: outlet.outletId)
     }
-
+    
     func onOpenScanner() {
         self.router.openScanner(presenter: self)
     }
-
+    
     func onOpenItemList() {
         guard let outlet = storage.currentUserOutlet else { return }
         self.router.openItemList(for: outlet.outletId, presenter: self)
     }
-
+    
     func onOpenOutletList() {
         self.router.openOutletList(presenter: self)
     }
-
+    
     func onOpenNewItemCard(for productId: String) {
         guard let outlet = self.storage.currentUserOutlet else { return }
         self.router.openItemCard(presenter: self, for: productId, outletId: outlet.outletId)
     }
-
+    
     func onCleanShopList() {
         self.interactor.clearShopList()
     }
-
+    
     // TODO: refactoring .....
     func onQuantityChanged(productId: String) {
         view.showLoading(with: R.string.localizable.common_loading())
@@ -145,49 +154,45 @@ public final class ShopListPresenterImpl: ShopListPresenter {
             self.router.openQuantityController(presenter: self, quantityEntity: quantityModel)
         }
     }
-
+    
     func onRemoveItem(productId: String) {
         interactor.removeItem(with: productId)
     }
-
+    
     func onOpenUpdatePrice(for barcode: String) {
-        
         guard let outlet = self.storage.currentUserOutlet else { return }
         
         interactor.getPrice(for: barcode, outletId: outlet.outletId) { [weak self] price in
             guard let `self` = self else { return }
             self.router.openUpdatePrice(presenter: self,
-                for: barcode,
-                currentPrice: price,
-                outletId: outlet.outletId)
-         }
+                                        for: barcode,
+                                        currentPrice: price,
+                                        outletId: outlet.outletId)
+        }
     }
+}
 
-    private func onAddedItemToShoplist(productId: String) {
-//        self.isProductHasPrice(for: productId)
-        self.addToShopList(with: productId)
-    }
-
-    // MARK: delegates handling
+// MARK: delegates handling
+extension ShopListPresenterImpl {
     func chosen(outlet: OutletViewItem) {
         storage.currentUserOutlet = outlet
         guard let outlet = self.storage.currentUserOutlet else { return }
         self.view.onCurrentOutletUpdated(outlet: outlet)
         self.onReloadShopList()
     }
-
+    
     func saved() {
         self.onReloadShopList()
     }
-
+    
     func scanned(barcode: String) {
         self.onAddedItemToShoplist(productId: barcode)
     }
-
+    
     func itemChoosen(productId: String) {
         self.onAddedItemToShoplist(productId: productId)
     }
-
+    
     func addNewItem(suggestedName: String) {
         self.addNewItemProduct(with: suggestedName)
     }

@@ -23,6 +23,7 @@ enum ShopListInteractorEvent {
 protocol ShopListInteractor {
     var eventHandler: EventHandler<ShopListInteractorEvent>? { get set }
     
+    func isProductHasPrice(for productId: String, outletId: String)
     func fetchCurrentOutlet(completion: @escaping (OutletEntity) -> Void)
     func fetchCategoryList(completion: @escaping ([CategoryEntity]) -> Void)
 //    func fetchItem(with id: String, completion: @escaping (ProductEntity) -> Void)

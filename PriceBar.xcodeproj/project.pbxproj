@@ -91,8 +91,8 @@
 		790B7DE920835D8C003DD560 /* OutletCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79E9B87D206ED8ED00D80EA5 /* OutletCell.xib */; };
 		790B7DEB20835D8C003DD560 /* AddCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 796D7B27201BE4B10098D324 /* AddCell.xib */; };
 		790F100B2023B73E0060E285 /* QuantityPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */; };
-		7913222C2182C38400779FA0 /* ProductModuleImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222B2182C38400779FA0 /* ProductModuleImpl.swift */; };
-		7913222D2182C38400779FA0 /* ProductModuleImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222B2182C38400779FA0 /* ProductModuleImpl.swift */; };
+		7913222C2182C38400779FA0 /* ProductModeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222B2182C38400779FA0 /* ProductModeImpl.swift */; };
+		7913222D2182C38400779FA0 /* ProductModeImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222B2182C38400779FA0 /* ProductModeImpl.swift */; };
 		7913223021844F8000779FA0 /* FirebaseTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222F21844F8000779FA0 /* FirebaseTypes+Extensions.swift */; };
 		7913223121844F8000779FA0 /* FirebaseTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7913222F21844F8000779FA0 /* FirebaseTypes+Extensions.swift */; };
 		792102912055778900C83706 /* CircleIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792102902055778900C83706 /* CircleIndicatorView.swift */; };
@@ -305,7 +305,7 @@
 		790B7DF520835D8C003DD560 /* PriceBar Dev.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PriceBar Dev.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		790B7DF620835D8D003DD560 /* PriceBar copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "PriceBar copy-Info.plist"; path = "/Users/leonif1/Developer/PriceBar/PriceBar copy-Info.plist"; sourceTree = "<absolute>"; };
 		790F100A2023B73E0060E285 /* QuantityPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuantityPickerPopup.swift; sourceTree = "<group>"; };
-		7913222B2182C38400779FA0 /* ProductModuleImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModuleImpl.swift; sourceTree = "<group>"; };
+		7913222B2182C38400779FA0 /* ProductModeImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductModeImpl.swift; sourceTree = "<group>"; };
 		7913222F21844F8000779FA0 /* FirebaseTypes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FirebaseTypes+Extensions.swift"; sourceTree = "<group>"; };
 		792102902055778900C83706 /* CircleIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleIndicatorView.swift; sourceTree = "<group>"; };
 		7921029220557D0E00C83706 /* CloudStatisticsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudStatisticsVC.swift; sourceTree = "<group>"; };
@@ -1079,7 +1079,7 @@
 			children = (
 				79EC96412131530400F8EC69 /* ProductModelError.swift */,
 				792EE7B81EE7080400470669 /* ProductModel.swift */,
-				7913222B2182C38400779FA0 /* ProductModuleImpl.swift */,
+				7913222B2182C38400779FA0 /* ProductModeImpl.swift */,
 			);
 			path = ProductModel;
 			sourceTree = "<group>";
@@ -1560,7 +1560,7 @@
 				792132FA212F5C290044908C /* CategoryEntity.swift in Sources */,
 				790B7DBE20835D8C003DD560 /* ProductMapper.swift in Sources */,
 				790B7DBF20835D8C003DD560 /* FoursqareProviderError.swift in Sources */,
-				7913222D2182C38400779FA0 /* ProductModuleImpl.swift in Sources */,
+				7913222D2182C38400779FA0 /* ProductModeImpl.swift in Sources */,
 				790B7DC320835D8C003DD560 /* OutetListAdapter.swift in Sources */,
 				790B7DC420835D8C003DD560 /* GooglePlacesProvider.swift in Sources */,
 				79630450219646890046FCB8 /* LoginRouter.swift in Sources */,
@@ -1669,7 +1669,7 @@
 				792132F9212F5C290044908C /* CategoryEntity.swift in Sources */,
 				796D7B20201A492E0098D324 /* ProductMapper.swift in Sources */,
 				79E9B885206FC58600D80EA5 /* FoursqareProviderError.swift in Sources */,
-				7913222C2182C38400779FA0 /* ProductModuleImpl.swift in Sources */,
+				7913222C2182C38400779FA0 /* ProductModeImpl.swift in Sources */,
 				79E9B87C206ED86C00D80EA5 /* OutetListAdapter.swift in Sources */,
 				790B7D762082A1CD003DD560 /* GooglePlacesProvider.swift in Sources */,
 				7963044F219646890046FCB8 /* LoginRouter.swift in Sources */,

@@ -30,10 +30,14 @@ extension DatabaseReference {
             completion(entityArray)
         })
     }
-    func makeObjectRequest<U: Decodable>(completion: @escaping (U) -> Void) {
+    func makeObjectRequest<U: Decodable>(completion: @escaping (U?) -> Void) {
         self.observeSingleEvent(of: .value, with: { snapshot in
-            guard let object = snapshot.value as? [String: Any] else { return }
-            guard let entity: U = unbox(from: object) else { return }
+            guard let object = snapshot.value as? [String: Any] else {
+                completion(nil); return
+            }
+            guard let entity: U = unbox(from: object) else {
+                completion(nil); return
+            }
             completion(entity)
         })
     }

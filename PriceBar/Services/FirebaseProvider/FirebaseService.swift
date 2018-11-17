@@ -31,7 +31,7 @@ protocol BackEndInterface {
     func getCategoryName(for categoryId: Int32, completion: @escaping (BackendResult<String>) -> Void)
     
     func getUomId(for uomName: String, completion: @escaping (BackendResult<Int?>) -> Void)
-    func getUomName(for uomid: Int32, completion: @escaping (BackendResult<String>) -> Void)
+    func getUomName(for uomid: Int32, completion: @escaping (BackendResult<String?>) -> Void)
  
     func getUomList(completion: @escaping (BackendResult<[UomEntity]?>) -> Void)
     func getCategoryList(completion: @escaping (BackendResult<[CategoryEntity]?>) -> Void)
@@ -140,7 +140,11 @@ class FirebaseService: BackEndInterface {
     }
 
     func getParametredUom(for uomId: Int32, completion: @escaping (BackendResult<UomEntity>) -> Void) {
-        self.refUoms?.child("\(uomId)").makeObjectRequest { (entity: UomEntity) in
+        self.refUoms?.child("\(uomId)").makeObjectRequest { (entity: UomEntity?) in
+            guard let entity = entity else {
+                completion(ResultType.failure(.dataIsNotFound("Uom is not found")))
+                return
+            }
             completion(ResultType.success(entity))
         }
     }
@@ -230,9 +234,9 @@ class FirebaseService: BackEndInterface {
         }
     }
 
-    func getUomName(for uomid: Int32, completion: @escaping (BackendResult<String>) -> Void) {
-        self.refUoms?.child("\(uomid)").makeObjectRequest { (list: UomEntity) in
-            completion(ResultType.success(list.name))
+    func getUomName(for uomid: Int32, completion: @escaping (BackendResult<String?>) -> Void) {
+        self.refUoms?.child("\(uomid)").makeObjectRequest { (entity: UomEntity?) in
+            completion(ResultType.success(entity?.name))
         }
     }
 
@@ -261,7 +265,7 @@ class FirebaseService: BackEndInterface {
     }
 
     func getProduct(with productId: String, callback: @escaping (ProductEntity?) -> Void) {
-        self.refGoods.child(productId).makeObjectRequest { (product: ProductEntity ) in
+        self.refGoods.child(productId).makeObjectRequest { (product: ProductEntity? ) in
             callback(product)
         }
     }

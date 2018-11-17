@@ -1,5 +1,5 @@
 //
-//  ProductModuleImpl.swift
+//  ProductModelImpl.swift
 //  PriceBar
 //
 //  Created by Leonid Nifantyev on 10/26/18.
@@ -289,7 +289,11 @@ class ProductModelImpl: ProductModel {
         provider.getUomName(for: uomId) { (result) in
             switch result {
             case let .success(uomName):
-                completion(ResultType.success(uomName))
+                guard let name = uomName else {
+                    completion(ResultType.failure(.dataIsNotFound("Uom is not found")))
+                    return
+                }
+                completion(ResultType.success(name))
             case let .failure(error):
                 completion(ResultType.failure(.other(error.localizedDescription)))
             }

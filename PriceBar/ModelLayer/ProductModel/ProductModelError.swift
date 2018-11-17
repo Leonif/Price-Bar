@@ -11,7 +11,7 @@ import Foundation
 enum ProductModelError: Error {
     case syncError(String)
     case alreadyAdded(String)
-    case productIsNotFound(String)
+    case dataIsNotFound(String)
     case statisticError(String)
     case other(String)
 
@@ -21,8 +21,8 @@ enum ProductModelError: Error {
             return R.string.localizable.error_sync_stopped()
         case .alreadyAdded:
             return R.string.localizable.common_already_in_list()
-        case .productIsNotFound:
-            return R.string.localizable.error_product_is_not_found()
+        case let .dataIsNotFound(message):
+            return message
         case .other:
             return R.string.localizable.error_something_went_wrong()
         case .statisticError:

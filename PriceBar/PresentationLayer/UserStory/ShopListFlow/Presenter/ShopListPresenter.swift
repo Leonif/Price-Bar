@@ -54,11 +54,12 @@ public final class ShopListPresenterImpl: ShopListPresenter {
             case let .onError(.unknown(description)):
                 self.view.onError(with: description)
             case let .onItemNotFound(productId):
+                self.view.hideLoading()
                 self.onOpenNewItemCard(for: productId)
             case let .onProductHasNoPrice(productId):
                 self.onOpenUpdatePrice(for: productId)
             case .onReload:
-                
+                self.view.hideLoading()
                 self.onReloadShopList()
             }
         }
@@ -84,11 +85,8 @@ public final class ShopListPresenterImpl: ShopListPresenter {
         self.addToShopList(with: productId)
     }
 
-
     func addToShopList(with productId: String) {
-        
         guard let outlet = self.storage.currentUserOutlet else { return }
-        
         self.view.showLoading(with: R.string.localizable.getting_actual_price())
         self.interactor.addItemToShopList(with: productId, outletId: outlet.outletId)
     }
@@ -103,8 +101,6 @@ public final class ShopListPresenterImpl: ShopListPresenter {
             }
         }
     }
-
-
 
     func onOpenStatistics() {
         self.router.openStatistics()
@@ -144,7 +140,9 @@ public final class ShopListPresenterImpl: ShopListPresenter {
     // TODO: refactoring .....
     func onQuantityChanged(productId: String) {
         view.showLoading(with: R.string.localizable.common_loading())
-        interactor.fetchCurrentQuantity(for: productId) { quantityModel in
+        interactor.fetchCurrentQuantity(for: productId) { [weak self] quantityModel in
+            guard let `self` = self else { return }
+            self.view.hideLoading()
             self.router.openQuantityController(presenter: self, quantityEntity: quantityModel)
         }
     }

@@ -470,12 +470,12 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="teD-oh-0KA" secondAttribute="trailing" constant="8" id="CKZ-ys-EfI"/>
                             <constraint firstAttribute="bottom" secondItem="ZHg-hU-nMH" secondAttribute="bottom" id="JhA-EK-Qm9"/>
+                            <constraint firstItem="7ol-nf-4Rs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NQm-2E-NlU"/>
                             <constraint firstItem="ZHg-hU-nMH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="OwZ-jz-sh3"/>
                             <constraint firstItem="DSE-ET-7ip" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="44" id="TGz-sq-y4v"/>
                             <constraint firstItem="DSE-ET-7ip" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZYV-WJ-32I"/>
                             <constraint firstAttribute="trailing" secondItem="DSE-ET-7ip" secondAttribute="trailing" id="bDf-0r-GJg"/>
                             <constraint firstAttribute="bottom" secondItem="teD-oh-0KA" secondAttribute="bottom" id="hxF-qp-Nzl"/>
-                            <constraint firstItem="7ol-nf-4Rs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="idk-nW-Ovk"/>
                             <constraint firstAttribute="trailing" secondItem="61o-de-Tit" secondAttribute="trailing" constant="-16" id="ltQ-ly-3bW"/>
                             <constraint firstAttribute="trailing" secondItem="ZHg-hU-nMH" secondAttribute="trailing" id="mcN-Fv-ic4"/>
                             <constraint firstItem="teD-oh-0KA" firstAttribute="top" secondItem="DSE-ET-7ip" secondAttribute="bottom" constant="4" id="mkE-rx-NQg"/>
@@ -489,6 +489,7 @@
                     <connections>
                         <outlet property="buttonsView" destination="61o-de-Tit" id="hHW-YS-ZI2"/>
                         <outlet property="itemListButton" destination="bBr-mn-h0O" id="iDV-wN-Ve3"/>
+                        <outlet property="leftTotalConstrait" destination="NQm-2E-NlU" id="h5b-ob-2Vy"/>
                         <outlet property="rightButtonConstrait" destination="ltQ-ly-3bW" id="caQ-st-w3f"/>
                         <outlet property="rightButtonViewArea" destination="61o-de-Tit" id="a7Y-8K-Prg"/>
                         <outlet property="scanButton" destination="S1v-Mz-DlY" id="rup-3O-csY"/>

@@ -241,6 +241,8 @@
 		79CCCE1B2196371D00DE4A3E /* LoginAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CCCE192196371D00DE4A3E /* LoginAssembler.swift */; };
 		79CCCE2321963C5200DE4A3E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CCCE2221963C5200DE4A3E /* R.generated.swift */; };
 		79CCCE2421963C5200DE4A3E /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CCCE2221963C5200DE4A3E /* R.generated.swift */; };
+		79CF505E21A1D1550039096D /* SwipeAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF505D21A1D1550039096D /* SwipeAnimator.swift */; };
+		79CF505F21A1D1550039096D /* SwipeAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CF505D21A1D1550039096D /* SwipeAnimator.swift */; };
 		79D12F2B2016823F00302AF9 /* FoursquareProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2A2016823F00302AF9 /* FoursquareProvider.swift */; };
 		79D12F2D201683F600302AF9 /* FQOutletModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F2C201683F600302AF9 /* FQOutletModel.swift */; };
 		79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D12F322016ED2A00302AF9 /* OutletMapper.swift */; };
@@ -409,6 +411,7 @@
 		79CCCE162196368100DE4A3E /* LoginInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInteractor.swift; sourceTree = "<group>"; };
 		79CCCE192196371D00DE4A3E /* LoginAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginAssembler.swift; sourceTree = "<group>"; };
 		79CCCE2221963C5200DE4A3E /* R.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = R.generated.swift; sourceTree = SOURCE_ROOT; };
+		79CF505D21A1D1550039096D /* SwipeAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeAnimator.swift; sourceTree = "<group>"; };
 		79D12F2A2016823F00302AF9 /* FoursquareProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoursquareProvider.swift; sourceTree = "<group>"; };
 		79D12F2C201683F600302AF9 /* FQOutletModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FQOutletModel.swift; sourceTree = "<group>"; };
 		79D12F322016ED2A00302AF9 /* OutletMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OutletMapper.swift; sourceTree = "<group>"; };
@@ -605,6 +608,7 @@
 				793368681FFF6F5600E8E81A /* ShopListAdapter.swift */,
 				798325292150239200D57CC7 /* ShopListDataSource.swift */,
 				792EE7C31EE7085500470669 /* ShopListController.swift */,
+				79CF505D21A1D1550039096D /* SwipeAnimator.swift */,
 				790B7D0A207902F5003DD560 /* NavigationBarView */,
 				790B7D0B20790310003DD560 /* Cell */,
 				790B7D0C20790319003DD560 /* Header */,
@@ -1544,6 +1548,7 @@
 				790B7DB320835D8C003DD560 /* CircleIndicatorView.swift in Sources */,
 				790B7DB420835D8C003DD560 /* UITableView+Extensions.swift in Sources */,
 				79C4EA5020DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */,
+				79CF505F21A1D1550039096D /* SwipeAnimator.swift in Sources */,
 				79BF1C132171495B002B0CBD /* CoreDataStack.swift in Sources */,
 				790B7DB520835D8C003DD560 /* OutletMapper.swift in Sources */,
 				79630447219640DA0046FCB8 /* AppDelegate.swift in Sources */,
@@ -1653,6 +1658,7 @@
 				792102912055778900C83706 /* CircleIndicatorView.swift in Sources */,
 				790B7D36207FDA09003DD560 /* UITableView+Extensions.swift in Sources */,
 				79C4EA4F20DD0B73006866F9 /* UpdatePriceAssembler.swift in Sources */,
+				79CF505E21A1D1550039096D /* SwipeAnimator.swift in Sources */,
 				79BF1C122171495B002B0CBD /* CoreDataStack.swift in Sources */,
 				79D12F332016ED2A00302AF9 /* OutletMapper.swift in Sources */,
 				79630446219640DA0046FCB8 /* AppDelegate.swift in Sources */,

@@ -40,7 +40,7 @@ public final class ShopListPresenterImpl {
         interactor.eventHandler = { [weak self] event in
             guard let `self` = self else { return }
             switch event {
-            case .noGPSAccess:
+            case .onError(.noGPSAccess):
                 self.view.onIssue(error: R.string.localizable.no_gps_access())
             case let .onError(.unknown(description)):
                 self.view.onError(with: description)

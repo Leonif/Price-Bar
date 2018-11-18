@@ -469,10 +469,10 @@
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="teD-oh-0KA" secondAttribute="trailing" constant="8" id="CKZ-ys-EfI"/>
+                            <constraint firstItem="DSE-ET-7ip" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="CZZ-ka-kf5"/>
                             <constraint firstAttribute="bottom" secondItem="ZHg-hU-nMH" secondAttribute="bottom" id="JhA-EK-Qm9"/>
                             <constraint firstItem="7ol-nf-4Rs" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="NQm-2E-NlU"/>
                             <constraint firstItem="ZHg-hU-nMH" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="OwZ-jz-sh3"/>
-                            <constraint firstItem="DSE-ET-7ip" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="44" id="TGz-sq-y4v"/>
                             <constraint firstItem="DSE-ET-7ip" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ZYV-WJ-32I"/>
                             <constraint firstAttribute="trailing" secondItem="DSE-ET-7ip" secondAttribute="trailing" id="bDf-0r-GJg"/>
                             <constraint firstAttribute="bottom" secondItem="teD-oh-0KA" secondAttribute="bottom" id="hxF-qp-Nzl"/>

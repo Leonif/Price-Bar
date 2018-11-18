@@ -10,10 +10,10 @@ import Foundation
 
 enum ShopListInteractorError: Error {
     case unknown(String)
+    case noGPSAccess
 }
 
 enum ShopListInteractorEvent {
-    case noGPSAccess
     case onItemNotFound(productId: String)
     case onProductHasNoPrice(productId: String)
     case onError(ShopListInteractorError)
@@ -26,7 +26,6 @@ protocol ShopListInteractor {
     func isProductHasPrice(for productId: String, outletId: String)
     func fetchCurrentOutlet(completion: @escaping (OutletEntity) -> Void)
     func fetchCategoryList(completion: @escaping ([CategoryEntity]) -> Void)
-//    func fetchItem(with id: String, completion: @escaping (ProductEntity) -> Void)
     func addItemToShopList(with productId: String, outletId: String)
     func getPrice(for barcode: String, outletId: String, completion: @escaping (Double) -> Void)
     func loadShopList(for outletId: String, completion: @escaping ([ShopListViewItem]) -> Void)
@@ -41,7 +40,6 @@ class ShopListInteractorImpl: ShopListInteractor {
     var shopListModel: ShopListModel!
     var productModel: ProductModel!
     var outletModel: OutletModel!
-    var coordinates: (lat: Double, lon: Double)?
     var eventHandler: EventHandler<ShopListInteractorEvent>? = nil
 
     func change(weight: Double, productId: String) {
@@ -52,14 +50,13 @@ class ShopListInteractorImpl: ShopListInteractor {
         locationService.getCoords()
         locationService.onStatusChanged = { [weak self] isAvailable in
             if !isAvailable {
-                self?.eventHandler?(.noGPSAccess)
+                self?.eventHandler?(.onError(.noGPSAccess))
             } else {
                 self?.locationService.getCoords()
             }
         }
         locationService.onCoordinatesUpdated = { [weak self] coordinates in
-            self?.coordinates = coordinates
-            self?.updateCurrentOutlet(completion: completion)
+            self?.updateCurrentOutlet(coordinates: coordinates, completion: completion)
         }
     }
 
@@ -90,6 +87,7 @@ class ShopListInteractorImpl: ShopListInteractor {
 
     func clearShopList() {
         self.shopListModel.clearShoplist()
+        self.eventHandler?(.onReload)
     }
 
     func getPrice(for barcode: String, outletId: String, completion: @escaping (Double) -> Void) {
@@ -264,10 +262,7 @@ class ShopListInteractorImpl: ShopListInteractor {
     }
 
 
-    func updateCurrentOutlet(completion: @escaping (OutletEntity) -> Void) {
-        guard let coordinates = self.coordinates else {
-            return
-        }
+    func updateCurrentOutlet(coordinates: (lat: Double, lon: Double), completion: @escaping (OutletEntity) -> Void) {
         self.outletModel.nearestOutletNearBy(coordinates: coordinates) { [weak self] result in
             guard let `self` = self else {
                 return
@@ -293,7 +288,6 @@ class ShopListInteractorImpl: ShopListInteractor {
     }
 }
 
-
 // MARK: ShopListInteractor
 extension ShopListInteractorImpl {
     func fetchCategoryList(completion: @escaping ([CategoryEntity]) -> Void) {
@@ -307,17 +301,4 @@ extension ShopListInteractorImpl {
             }
         }
     }
-
-//    func fetchItem(with id: String, completion: @escaping (ProductEntity) -> Void) {
-//        productModel.getItem(with: productId) { [weak self] (product) in
-//            self?.view.hideLoading()
-//            guard let product = product else {
-//                self?.eventHandler?(.onItemNotFound(productId))
-//                return
-//            }
-//            completion(product)
-////            eventHandler(ShopListInteractorEvent.onItemFetched(product))
-//        }
-//
-//    }
 }

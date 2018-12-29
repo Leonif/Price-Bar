@@ -11,15 +11,9 @@ def project_pods
     pod 'SwiftLint'
 end
 
-target 'PriceBar Prod' do
+target 'PriceBar' do
   project_pods
 end
-
-
-target 'PriceBar Dev' do
-    project_pods
-end
-
 
 
 target 'PriceBarTests' do

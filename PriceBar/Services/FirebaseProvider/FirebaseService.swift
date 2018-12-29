@@ -62,11 +62,11 @@ class FirebaseService: BackEndInterface {
         refGoods = Database.database().reference().child("goods")
 
         #if DEVELOPMENT
-        let statistics = "price_statistics_dev"
+            let statistics = "price_statistics_dev"
         #else
-        let statistics = "price_statistics_fq"
+            let statistics = "price_statistics_fq"
         #endif
-
+        debugPrint(statistics)
         refPriceStatistics = Database.database().reference().child(statistics)
 
         refCategories = Database.database().reference().child("categories")

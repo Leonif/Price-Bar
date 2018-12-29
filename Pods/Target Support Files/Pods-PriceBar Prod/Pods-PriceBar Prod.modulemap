@@ -1,6 +1,0 @@
-module Pods_PriceBar_Prod {
-  umbrella header "Pods-PriceBar Prod-umbrella.h"
-
-  export *
-  module * { export * }
-}
